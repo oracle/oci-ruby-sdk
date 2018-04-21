@@ -1,0 +1,2182 @@
+# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+require 'uri'
+require 'logger'
+
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
+module OCI
+  # API for the Load Balancing Service
+  class LoadBalancer::LoadBalancerClient
+    # Client used to make HTTP requests.
+    # @return [OCI::ApiClient]
+    attr_reader :api_client
+
+    # Fully qualified endpoint URL
+    # @return [String]
+    attr_reader :endpoint
+
+    # The region, which will usually correspond to a value in {OCI::Regions::REGION_ENUM}.
+    # @return [String]
+    attr_reader :region
+
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines
+
+
+    # Creates a new LoadBalancerClient.
+    # If a config is not specified, then the global OCI.config will be used.
+    #
+    # A region must be specified in either the config or the region parameter. If specified
+    # in both, then the region parameter will be used.
+    #
+    # @param [Config] config A Config object.
+    # @param [String] region A region used to determine the service endpoint. This will usually
+    #   correspond to a value in {OCI::Regions::REGION_ENUM}, but may be an arbitrary string.
+    # @param [OCI::BaseSigner] signer A signer implementation which can be used by this client. If this is not provided then
+    #   a signer will be constructed via the provided config. One use case of this parameter is instance principals authentication,
+    #   so that the instance principals signer can be provided to the client
+    # @param [OCI::ApiClientProxySettings] proxy_settings If your environment requires you to use a proxy server for outgoing HTTP requests
+    #   the details for the proxy can be provided in this parameter
+    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
+      # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
+      # pass it to this constructor.
+      #
+      # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
+      # so try and load the config from the default file.
+      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+
+      if signer.nil?
+        signer = OCI::Signer.new(
+          config.user,
+          config.fingerprint,
+          config.tenancy,
+          config.key_file,
+          pass_phrase: config.pass_phrase,
+          private_key_content: config.key_content
+        )
+      end
+
+      @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
+
+      region ||= config.region
+      region ||= signer.region if signer.respond_to?(:region)
+      self.region = region
+    end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines
+
+    # Set the region that will be used to determine the service endpoint.
+    # This will usually correspond to a value in {OCI::Regions::REGION_ENUM},
+    # but may be an arbitrary string.
+    def region=(new_region)
+      @region = new_region
+
+      raise 'A region must be specified.' unless @region
+
+      @endpoint = OCI::Regions.get_service_endpoint(@region, :LoadBalancerClient) + '/20170115'
+      logger.info "LoadBalancerClient endpoint set to '#{endpoint}'." if logger
+    end
+
+    # @return [Logger] The logger for this client. May be nil.
+    def logger
+      @api_client.config.logger
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Adds a backend server to a backend set.
+    # @param [OCI::LoadBalancer::Models::CreateBackendDetails] create_backend_details The details to add a backend server to a backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and servers.
+    # @param [String] backend_set_name The name of the backend set to add the backend server to.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def create_backend(create_backend_details, load_balancer_id, backend_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#create_backend.' if logger
+
+      raise "Missing the required parameter 'create_backend_details' when calling create_backend." if create_backend_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling create_backend." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling create_backend." if backend_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}/backends'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(create_backend_details)
+
+      @api_client.call_api(
+        :POST,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Adds a backend set to a load balancer.
+    # @param [OCI::LoadBalancer::Models::CreateBackendSetDetails] create_backend_set_details The details for adding a backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add a backend set.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def create_backend_set(create_backend_set_details, load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#create_backend_set.' if logger
+
+      raise "Missing the required parameter 'create_backend_set_details' when calling create_backend_set." if create_backend_set_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling create_backend_set." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(create_backend_set_details)
+
+      @api_client.call_api(
+        :POST,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates an asynchronous request to add an SSL certificate.
+    # @param [OCI::LoadBalancer::Models::CreateCertificateDetails] create_certificate_details The details of the certificate to add.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add the certificate.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def create_certificate(create_certificate_details, load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#create_certificate.' if logger
+
+      raise "Missing the required parameter 'create_certificate_details' when calling create_certificate." if create_certificate_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling create_certificate." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/certificates'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(create_certificate_details)
+
+      @api_client.call_api(
+        :POST,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Adds a listener to a load balancer.
+    # @param [OCI::LoadBalancer::Models::CreateListenerDetails] create_listener_details Details to add a listener.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add a listener.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def create_listener(create_listener_details, load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#create_listener.' if logger
+
+      raise "Missing the required parameter 'create_listener_details' when calling create_listener." if create_listener_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling create_listener." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/listeners'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(create_listener_details)
+
+      @api_client.call_api(
+        :POST,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new load balancer in the specified compartment. For general information about load balancers,
+    # see [Overview of the Load Balancing Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Concepts/balanceoverview.htm).
+    #
+    # For the purposes of access control, you must provide the OCID of the compartment where you want
+    # the load balancer to reside. Notice that the load balancer doesn't have to be in the same compartment as the VCN
+    # or backend set. If you're not sure which compartment to use, put the load balancer in the same compartment as the VCN.
+    # For information about access control and compartments, see
+    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    #
+    # You must specify a display name for the load balancer. It does not have to be unique, and you can change it.
+    #
+    # For information about Availability Domains, see
+    # [Regions and Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
+    # To get a list of Availability Domains, use the `ListAvailabilityDomains` operation
+    # in the Identity and Access Management Service API.
+    #
+    # All Oracle Cloud Infrastructure resources, including load balancers, get an Oracle-assigned,
+    # unique ID called an Oracle Cloud Identifier (OCID). When you create a resource, you can find its OCID
+    # in the response. You can also retrieve a resource's OCID by using a List API operation on that resource type,
+    # or by viewing the resource in the Console. Fore more information, see
+    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    #
+    # After you send your request, the new object's state will temporarily be PROVISIONING. Before using the
+    # object, first make sure its state has changed to RUNNING.
+    #
+    # When you create a load balancer, the system assigns an IP address.
+    # To get the IP address, use the {#get_load_balancer get_load_balancer} operation.
+    #
+    # @param [OCI::LoadBalancer::Models::CreateLoadBalancerDetails] create_load_balancer_details The configuration details for creating a load balancer.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def create_load_balancer(create_load_balancer_details, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#create_load_balancer.' if logger
+
+      raise "Missing the required parameter 'create_load_balancer_details' when calling create_load_balancer." if create_load_balancer_details.nil?
+
+      path = '/loadBalancers'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(create_load_balancer_details)
+
+      @api_client.call_api(
+        :POST,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Adds a path route set to a load balancer. For more information, see
+    # [Managing Request Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingrequest.htm).
+    #
+    # @param [OCI::LoadBalancer::Models::CreatePathRouteSetDetails] create_path_route_set_details The details of the path route set to add.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to add the path route set to.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def create_path_route_set(create_path_route_set_details, load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#create_path_route_set.' if logger
+
+      raise "Missing the required parameter 'create_path_route_set_details' when calling create_path_route_set." if create_path_route_set_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling create_path_route_set." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/pathRouteSets'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(create_path_route_set_details)
+
+      @api_client.call_api(
+        :POST,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Removes a backend server from a given load balancer and backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
+    # @param [String] backend_set_name The name of the backend set associated with the backend server.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [String] backend_name The IP address and port of the backend server to remove.
+    #
+    #   Example: `1.1.1.7:42`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type nil
+    def delete_backend(load_balancer_id, backend_set_name, backend_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#delete_backend.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling delete_backend." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling delete_backend." if backend_set_name.nil?
+      raise "Missing the required parameter 'backend_name' when calling delete_backend." if backend_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+      raise "Parameter value for 'backend_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}/backends/{backendName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s).sub('{backendName}', backend_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :DELETE,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified backend set. Note that deleting a backend set removes its backend servers from the load balancer.
+    #
+    # Before you can delete a backend set, you must remove it from any active listeners.
+    #
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set.
+    # @param [String] backend_set_name The name of the backend set to delete.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type nil
+    def delete_backend_set(load_balancer_id, backend_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#delete_backend_set.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling delete_backend_set." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling delete_backend_set." if backend_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :DELETE,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes an SSL certificate from a load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the certificate to be deleted.
+    # @param [String] certificate_name The name of the certificate to delete.
+    #
+    #   Example: `My_certificate_bundle`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type nil
+    def delete_certificate(load_balancer_id, certificate_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#delete_certificate.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling delete_certificate." if load_balancer_id.nil?
+      raise "Missing the required parameter 'certificate_name' when calling delete_certificate." if certificate_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'certificate_name' must not be blank" if OCI::Internal::Util.blank_string?(certificate_name)
+
+      path = '/loadBalancers/{loadBalancerId}/certificates/{certificateName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{certificateName}', certificate_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :DELETE,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a listener from a load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the listener to delete.
+    # @param [String] listener_name The name of the listener to delete.
+    #
+    #   Example: `My listener`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type nil
+    def delete_listener(load_balancer_id, listener_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#delete_listener.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling delete_listener." if load_balancer_id.nil?
+      raise "Missing the required parameter 'listener_name' when calling delete_listener." if listener_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'listener_name' must not be blank" if OCI::Internal::Util.blank_string?(listener_name)
+
+      path = '/loadBalancers/{loadBalancerId}/listeners/{listenerName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{listenerName}', listener_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :DELETE,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Stops a load balancer and removes it from service.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to delete.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type nil
+    def delete_load_balancer(load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#delete_load_balancer.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling delete_load_balancer." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :DELETE,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a path route set from the specified load balancer.
+    #
+    # To delete a path route rule from a path route set, use the
+    # {#update_path_route_set update_path_route_set} operation.
+    #
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the path route set to delete.
+    # @param [String] path_route_set_name The name of the path route set to delete.
+    #
+    #   Example: `path-route-set-001`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type nil
+    def delete_path_route_set(load_balancer_id, path_route_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#delete_path_route_set.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling delete_path_route_set." if load_balancer_id.nil?
+      raise "Missing the required parameter 'path_route_set_name' when calling delete_path_route_set." if path_route_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'path_route_set_name' must not be blank" if OCI::Internal::Util.blank_string?(path_route_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/pathRouteSets/{pathRouteSetName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{pathRouteSetName}', path_route_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :DELETE,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the specified backend server's configuration information.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
+    # @param [String] backend_set_name The name of the backend set that includes the backend server.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [String] backend_name The IP address and port of the backend server to retrieve.
+    #
+    #   Example: `1.1.1.7:42`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::Backend Backend}
+    def get_backend(load_balancer_id, backend_set_name, backend_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_backend.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_backend." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling get_backend." if backend_set_name.nil?
+      raise "Missing the required parameter 'backend_name' when calling get_backend." if backend_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+      raise "Parameter value for 'backend_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}/backends/{backendName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s).sub('{backendName}', backend_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'OCI::LoadBalancer::Models::Backend'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the current health status of the specified backend server.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend server health status to be retrieved.
+    # @param [String] backend_set_name The name of the backend set associated with the backend server to retrieve the health status for.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [String] backend_name The IP address and port of the backend server to retrieve the health status for.
+    #
+    #   Example: `1.1.1.7:42`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::BackendHealth BackendHealth}
+    def get_backend_health(load_balancer_id, backend_set_name, backend_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_backend_health.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_backend_health." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling get_backend_health." if backend_set_name.nil?
+      raise "Missing the required parameter 'backend_name' when calling get_backend_health." if backend_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+      raise "Parameter value for 'backend_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}/backends/{backendName}/health'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s).sub('{backendName}', backend_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'OCI::LoadBalancer::Models::BackendHealth'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the specified backend set's configuration information.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
+    # @param [String] backend_set_name The name of the backend set to retrieve.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::BackendSet BackendSet}
+    def get_backend_set(load_balancer_id, backend_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_backend_set.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_backend_set." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling get_backend_set." if backend_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'OCI::LoadBalancer::Models::BackendSet'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the health status for the specified backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set health status to be retrieved.
+    # @param [String] backend_set_name The name of the backend set to retrieve the health status for.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::BackendSetHealth BackendSetHealth}
+    def get_backend_set_health(load_balancer_id, backend_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_backend_set_health.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_backend_set_health." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling get_backend_set_health." if backend_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}/health'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'OCI::LoadBalancer::Models::BackendSetHealth'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the health check policy information for a given load balancer and backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the health check policy to be retrieved.
+    # @param [String] backend_set_name The name of the backend set associated with the health check policy to be retrieved.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::HealthChecker HealthChecker}
+    def get_health_checker(load_balancer_id, backend_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_health_checker.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_health_checker." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling get_health_checker." if backend_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}/healthChecker'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'OCI::LoadBalancer::Models::HealthChecker'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the specified load balancer's configuration information.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to retrieve.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::LoadBalancer LoadBalancer}
+    def get_load_balancer(load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_load_balancer.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_load_balancer." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'OCI::LoadBalancer::Models::LoadBalancer'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the health status for the specified load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to return health status for.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::LoadBalancerHealth LoadBalancerHealth}
+    def get_load_balancer_health(load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_load_balancer_health.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_load_balancer_health." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/health'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'OCI::LoadBalancer::Models::LoadBalancerHealth'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the specified path route set's configuration information.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
+    # @param [String] path_route_set_name The name of the path route set to retrieve.
+    #
+    #   Example: `path-route-set-001`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::PathRouteSet PathRouteSet}
+    def get_path_route_set(load_balancer_id, path_route_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_path_route_set.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_path_route_set." if load_balancer_id.nil?
+      raise "Missing the required parameter 'path_route_set_name' when calling get_path_route_set." if path_route_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'path_route_set_name' must not be blank" if OCI::Internal::Util.blank_string?(path_route_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/pathRouteSets/{pathRouteSetName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{pathRouteSetName}', path_route_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'OCI::LoadBalancer::Models::PathRouteSet'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the details of a work request.
+    # @param [String] work_request_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the work request to retrieve.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::WorkRequest WorkRequest}
+    def get_work_request(work_request_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_work_request.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling get_work_request." if work_request_id.nil?
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/loadBalancerWorkRequests/{workRequestId}'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'OCI::LoadBalancer::Models::WorkRequest'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists all backend sets associated with a given load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend sets to retrieve.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::BackendSet BackendSet}>
+    def list_backend_sets(load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_backend_sets.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling list_backend_sets." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::BackendSet>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the backend servers for a given load balancer and backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and servers.
+    # @param [String] backend_set_name The name of the backend set associated with the backend servers.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::Backend Backend}>
+    def list_backends(load_balancer_id, backend_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_backends.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling list_backends." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling list_backends." if backend_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}/backends'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::Backend>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists all SSL certificates associated with a given load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the certificates to be listed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::Certificate Certificate}>
+    def list_certificates(load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_certificates.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling list_certificates." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/certificates'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::Certificate>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the summary health statuses for all load balancers in the specified compartment.
+    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment containing the load balancers to return health status information for.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    #   Example: `500`
+    #    (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    #   Example: `3`
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancerHealthSummary LoadBalancerHealthSummary}>
+    def list_load_balancer_healths(compartment_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_load_balancer_healths.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_load_balancer_healths." if compartment_id.nil?
+
+      path = '/loadBalancerHealths'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::LoadBalancerHealthSummary>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists all load balancers in the specified compartment.
+    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment containing the load balancers to list.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    #   Example: `500`
+    #    (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    #   Example: `3`
+    #
+    # @option opts [String] :detail The level of detail to return for each result. Can be `full` or `simple`.
+    #
+    #   Example: `full`
+    #    (default to full)
+    # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`). Default order for TIMECREATED is descending.
+    #   Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancer LoadBalancer}>
+    def list_load_balancers(compartment_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_load_balancers.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_load_balancers." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::LoadBalancer::Models::LoadBalancer::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::LoadBalancer::Models::LoadBalancer::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/loadBalancers'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:detail] = opts[:detail] if opts[:detail]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::LoadBalancer>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists all path route sets associated with the specified load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the path route sets
+    #   to retrieve.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::PathRouteSet PathRouteSet}>
+    def list_path_route_sets(load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_path_route_sets.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling list_path_route_sets." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/pathRouteSets'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::PathRouteSet>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the available load balancer policies.
+    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment containing the load balancer policies to list.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    #   Example: `500`
+    #    (default to 16)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    #   Example: `3`
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancerPolicy LoadBalancerPolicy}>
+    def list_policies(compartment_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_policies.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_policies." if compartment_id.nil?
+
+      path = '/loadBalancerPolicies'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::LoadBalancerPolicy>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists all supported traffic protocols.
+    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment containing the load balancer protocols to list.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    #   Example: `500`
+    #    (default to 16)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    #   Example: `3`
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancerProtocol LoadBalancerProtocol}>
+    def list_protocols(compartment_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_protocols.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_protocols." if compartment_id.nil?
+
+      path = '/loadBalancerProtocols'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::LoadBalancerProtocol>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the valid load balancer shapes.
+    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment containing the load balancer shapes to list.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    #   Example: `500`
+    #    (default to 16)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    #   Example: `3`
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancerShape LoadBalancerShape}>
+    def list_shapes(compartment_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_shapes.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_shapes." if compartment_id.nil?
+
+      path = '/loadBalancerShapes'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::LoadBalancerShape>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the work requests for a given load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the work requests to retrieve.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    #   Example: `500`
+    #    (default to 100)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    #   Example: `3`
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::WorkRequest WorkRequest}>
+    def list_work_requests(load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_work_requests.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling list_work_requests." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/workRequests'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+
+      post_body = nil
+
+      @api_client.call_api(
+        :GET,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body,
+        return_type: 'Array<OCI::LoadBalancer::Models::WorkRequest>'
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the configuration of a backend server within the specified backend set.
+    # @param [OCI::LoadBalancer::Models::UpdateBackendDetails] update_backend_details Details for updating a backend server.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
+    # @param [String] backend_set_name The name of the backend set associated with the backend server.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [String] backend_name The IP address and port of the backend server to update.
+    #
+    #   Example: `1.1.1.7:42`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_backend(update_backend_details, load_balancer_id, backend_set_name, backend_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#update_backend.' if logger
+
+      raise "Missing the required parameter 'update_backend_details' when calling update_backend." if update_backend_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling update_backend." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling update_backend." if backend_set_name.nil?
+      raise "Missing the required parameter 'backend_name' when calling update_backend." if backend_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+      raise "Parameter value for 'backend_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}/backends/{backendName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s).sub('{backendName}', backend_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(update_backend_details)
+
+      @api_client.call_api(
+        :PUT,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a backend set.
+    # @param [OCI::LoadBalancer::Models::UpdateBackendSetDetails] update_backend_set_details The details to update a backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set.
+    # @param [String] backend_set_name The name of the backend set to update.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_backend_set(update_backend_set_details, load_balancer_id, backend_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#update_backend_set.' if logger
+
+      raise "Missing the required parameter 'update_backend_set_details' when calling update_backend_set." if update_backend_set_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling update_backend_set." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling update_backend_set." if backend_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(update_backend_set_details)
+
+      @api_client.call_api(
+        :PUT,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the health check policy for a given load balancer and backend set.
+    # @param [OCI::LoadBalancer::Models::UpdateHealthCheckerDetails] health_checker The health check policy configuration details.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the health check policy to be updated.
+    # @param [String] backend_set_name The name of the backend set associated with the health check policy to be retrieved.
+    #
+    #   Example: `My_backend_set`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_health_checker(health_checker, load_balancer_id, backend_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#update_health_checker.' if logger
+
+      raise "Missing the required parameter 'health_checker' when calling update_health_checker." if health_checker.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling update_health_checker." if load_balancer_id.nil?
+      raise "Missing the required parameter 'backend_set_name' when calling update_health_checker." if backend_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/backendSets/{backendSetName}/healthChecker'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{backendSetName}', backend_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(health_checker)
+
+      @api_client.call_api(
+        :PUT,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a listener for a given load balancer.
+    # @param [OCI::LoadBalancer::Models::UpdateListenerDetails] update_listener_details Details to update a listener.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the listener to update.
+    # @param [String] listener_name The name of the listener to update.
+    #
+    #   Example: `My listener`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_listener(update_listener_details, load_balancer_id, listener_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#update_listener.' if logger
+
+      raise "Missing the required parameter 'update_listener_details' when calling update_listener." if update_listener_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling update_listener." if load_balancer_id.nil?
+      raise "Missing the required parameter 'listener_name' when calling update_listener." if listener_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'listener_name' must not be blank" if OCI::Internal::Util.blank_string?(listener_name)
+
+      path = '/loadBalancers/{loadBalancerId}/listeners/{listenerName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{listenerName}', listener_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(update_listener_details)
+
+      @api_client.call_api(
+        :PUT,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a load balancer's configuration.
+    # @param [OCI::LoadBalancer::Models::UpdateLoadBalancerDetails] update_load_balancer_details The details for updating a load balancer's configuration.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to update.
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_load_balancer(update_load_balancer_details, load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#update_load_balancer.' if logger
+
+      raise "Missing the required parameter 'update_load_balancer_details' when calling update_load_balancer." if update_load_balancer_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling update_load_balancer." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(update_load_balancer_details)
+
+      @api_client.call_api(
+        :PUT,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Overwrites an existing path route set on the specified load balancer. Use this operation to add, delete, or alter
+    # path route rules in a path route set.
+    #
+    # To add a new path route rule to a path route set, the `pathRoutes` in the
+    # {#update_path_route_set_details update_path_route_set_details} object must include
+    # both the new path route rule to add and the existing path route rules to retain.
+    #
+    # @param [OCI::LoadBalancer::Models::UpdatePathRouteSetDetails] update_path_route_set_details The configuration details to update a path route set.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the path route set to update.
+    # @param [String] path_route_set_name The name of the path route set to update.
+    #
+    #   Example: `path-route-set-001`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_path_route_set(update_path_route_set_details, load_balancer_id, path_route_set_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#update_path_route_set.' if logger
+
+      raise "Missing the required parameter 'update_path_route_set_details' when calling update_path_route_set." if update_path_route_set_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling update_path_route_set." if load_balancer_id.nil?
+      raise "Missing the required parameter 'path_route_set_name' when calling update_path_route_set." if path_route_set_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'path_route_set_name' must not be blank" if OCI::Internal::Util.blank_string?(path_route_set_name)
+
+      path = '/loadBalancers/{loadBalancerId}/pathRouteSets/{pathRouteSetName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{pathRouteSetName}', path_route_set_name.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+
+      post_body = @api_client.object_to_http_body(update_path_route_set_details)
+
+      @api_client.call_api(
+        :PUT,
+        path,
+        endpoint,
+        header_params: header_params,
+        query_params: query_params,
+        operation_signing_strategy: operation_signing_strategy,
+        body: post_body
+      )
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+  end
+end
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

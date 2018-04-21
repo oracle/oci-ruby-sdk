@@ -1,0 +1,118 @@
+# Catalog of cops: https://rubocop.readthedocs.io/en/latest/cops/
+AllCops:
+  TargetRubyVersion: 2.2
+  Exclude:
+    - "oci.gemspec"
+    - "lib/oci/auth/federation_client.rb"
+
+Metrics/AbcSize:
+  Exclude:
+    - "examples-oci/*"
+    # initialize method in InstancePrincipalsSecurityTokenSigner has too many parameters, which bumps up the Abc metric
+    - "lib/oci/auth/signers/instance_principals_security_token_signer.rb"
+    # initialize method in UrlBasedCertificateRetriever
+    - "lib/oci/auth/url_based_certificate_retriever.rb"
+    - "lib/oci/config_file_loader.rb"
+    - "lib/oci/internal/util.rb"
+    - "lib/oci/load_balancer/util.rb"
+    - "lib/oci/waiter.rb"
+    - "lib/oci/config.rb"
+    - "lib/oci/base_signer.rb"
+    - "lib/oci/object_storage/transfer/multipart/multipart_object_assembler.rb"
+    - "lib/oci/object_storage/transfer/upload_manager.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "lib/oci/waiter.rb"
+
+Metrics/ClassLength:
+  Exclude:
+    - "lib/oci/*/models/*" # Models only have simple getters/setters but if there are many attribtues we'll blow out the line length
+    - "lib/oci/*/*client.rb" # Service client classes will be long depending on how many operations they have
+    - "lib/oci/*/*_composite_operations.rb" # These will be long depending on how many operations they have
+    - "lib/oci/base_signer.rb"
+    - "lib/oci/api_client.rb"
+    - "lib/oci/object_storage/transfer/multipart/multipart_object_assembler.rb"
+    - "lib/oci/object_storage/transfer/upload_manager.rb"
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - "lib/oci/internal/util.rb"
+    - "lib/oci/load_balancer/util.rb"
+    - "lib/oci/waiter.rb"
+    - "lib/oci/config.rb"
+    - "lib/oci/base_signer.rb"
+    - "lib/oci/object_storage/transfer/multipart/internal/file_part_io_wrapper.rb"
+    - "lib/oci/object_storage/transfer/multipart/multipart_object_assembler.rb"
+    - "lib/oci/object_storage/transfer/upload_manager.rb"
+
+# Lines can be 125 characters long, and we ignore lines:
+#    - Where they contain an OCID (e.g. comments) so that those lines can breach the limit
+#    - Which start with a comment or have a comment as the first non-whitespace character
+Metrics/LineLength:
+  Max: 125
+  IgnoredPatterns: ["ocid", \A\s*#, \A#]
+
+Metrics/MethodLength:
+  Max: 100
+  Exclude:
+    - "examples-oci/*"
+    - "lib/oci/config.rb"
+    - "lib/oci/config_file_loader.rb"
+    - "lib/oci/internal/util.rb"
+    - "lib/oci/load_balancer/util.rb"
+    - "lib/oci/waiter.rb"
+
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+  Exclude:
+    - "examples-oci/*"
+    # The resume method in UploadManager has 5 parameters (the default Rubocop limit is 4)
+    - "lib/oci/object_storage/transfer/upload_manager.rb"
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - "lib/oci/config_file_loader.rb"
+    - "lib/oci/internal/util.rb"
+    - "lib/oci/load_balancer/util.rb"
+    - "lib/oci/waiter.rb"
+    - "lib/oci/base_signer.rb"
+    - "lib/oci/object_storage/transfer/multipart/internal/file_part_io_wrapper.rb"
+    - "lib/oci/object_storage/transfer/multipart/multipart_object_assembler.rb"
+    - "lib/oci/object_storage/transfer/upload_manager.rb"
+
+Naming/PredicateName:
+  Exclude:
+    # This is for has_next_page? vs. next_page? (though we could re-name it as a breaking change)
+    - "lib/oci/response.rb"
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - "lib/oci/*/models/*" # We favour the Compact::Definition::Style for models
+    - "lib/oci/*/*client.rb" # We favour the Compact::Definition::Style for service clients
+    - "lib/oci/*/*_composite_operations.rb"
+
+Style/ConditionalAssignment:
+  Exclude:
+    # This is for the " if config_file_location == DEFAULT_CONFIG_FILE" lines and onwards in config_file_loader.
+    # The proposed use of conditional returns by Rubocop may look worse.
+    - "lib/oci/config_file_loader.rb"
+
+Style/DateTime:
+  Exclude:
+    # The rubocop suggestion here would change what type we parse to (Date or Time vs. DateTime) so don't take this change
+    - "lib/oci/internal/util.rb"
+
+Style/RegexpLiteral:
+  EnforcedStyle: slashes
+  AllowInnerSlashes: true
+
+Style/RescueStandardError:
+  Exclude:
+    - "examples-oci/upload_manager_stdin_example.rb"
+    # This is for the upload method. Here we want to catch exceptions broadly
+    - "lib/oci/object_storage/transfer/multipart/multipart_object_assembler.rb"
+
+Layout/TrailingBlankLines:
+  Exclude:
+    - "lib/oci/*/util.rb"
