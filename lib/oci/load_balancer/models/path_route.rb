@@ -11,7 +11,7 @@ module OCI
   class LoadBalancer::Models::PathRoute # rubocop:disable Metrics/LineLength
     # **[Required]** The name of the target backend set for requests where the incoming URI matches the specified path.
     #
-    # Example: `My_backend_set`
+    # Example: `example_backend_set`
     #
     # @return [String]
     attr_accessor :backend_set_name

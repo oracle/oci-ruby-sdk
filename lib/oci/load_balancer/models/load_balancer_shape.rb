@@ -12,6 +12,9 @@ module OCI
   #
   class LoadBalancer::Models::LoadBalancerShape # rubocop:disable Metrics/LineLength
     # **[Required]** The name of the shape.
+    #
+    # Example: `100Mbps`
+    #
     # @return [String]
     attr_accessor :name
 

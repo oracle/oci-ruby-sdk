@@ -15,6 +15,12 @@ module OCI
     # @return [String]
     attr_reader :endpoint
 
+    # The default retry configuration to apply to all operations in this service client. This can be overridden
+    # on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    # will not perform any retries
+    # @return [OCI::Retry::RetryConfig]
+    attr_reader :retry_config
+
     # The region, which will usually correspond to a value in {OCI::Regions::REGION_ENUM}.
     # @return [String]
     attr_reader :region
@@ -36,7 +42,10 @@ module OCI
     #   so that the instance principals signer can be provided to the client
     # @param [OCI::ApiClientProxySettings] proxy_settings If your environment requires you to use a proxy server for outgoing HTTP requests
     #   the details for the proxy can be provided in this parameter
-    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil)
+    # @param [OCI::Retry::RetryConfig] retry_config The retry configuration for this service client. This represents the default retry configuration to
+    #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    #   will not perform any retries
+    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil, retry_config: nil)
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
@@ -60,6 +69,7 @@ module OCI
       end
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
+      @retry_config = retry_config
 
       region ||= config.region
       region ||= signer.region if signer.respond_to?(:region)
@@ -100,6 +110,8 @@ module OCI
     #
     # @param [String] upload_id The upload ID for a multipart upload.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
     def abort_multipart_upload(namespace_name, bucket_name, object_name, upload_id, opts = {})
@@ -128,15 +140,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#abort_multipart_upload') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -159,6 +175,8 @@ module OCI
     # @param [String] upload_id The upload ID for a multipart upload.
     # @param [OCI::ObjectStorage::Models::CommitMultipartUploadDetails] commit_multipart_upload_details The part numbers and ETags for the parts you want to commit.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -196,15 +214,19 @@ module OCI
 
       post_body = @api_client.object_to_http_body(commit_multipart_upload_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#commit_multipart_upload') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -220,6 +242,8 @@ module OCI
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [OCI::ObjectStorage::Models::CreateBucketDetails] create_bucket_details Request object for creating a bucket.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::Bucket Bucket}
     def create_bucket(namespace_name, create_bucket_details, opts = {})
@@ -243,16 +267,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(create_bucket_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::ObjectStorage::Models::Bucket'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#create_bucket') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::Bucket'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -271,6 +299,8 @@ module OCI
     #
     # @param [OCI::ObjectStorage::Models::CreateMultipartUploadDetails] create_multipart_upload_details Request object for creating a multi-part upload.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -304,16 +334,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(create_multipart_upload_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::ObjectStorage::Models::MultipartUpload'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#create_multipart_upload') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::MultipartUpload'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -332,6 +366,8 @@ module OCI
     #
     # @param [OCI::ObjectStorage::Models::CreatePreauthenticatedRequestDetails] create_preauthenticated_request_details Information needed to create the pre-authenticated request.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::PreauthenticatedRequest PreauthenticatedRequest}
     def create_preauthenticated_request(namespace_name, bucket_name, create_preauthenticated_request_details, opts = {})
@@ -357,16 +393,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(create_preauthenticated_request_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::ObjectStorage::Models::PreauthenticatedRequest'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#create_preauthenticated_request') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::PreauthenticatedRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -384,6 +424,8 @@ module OCI
     #   Example: `my-new-bucket1`
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -412,15 +454,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#delete_bucket') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -441,6 +487,8 @@ module OCI
     #   Example: `test/object1.log`
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -471,15 +519,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#delete_object') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -499,6 +551,8 @@ module OCI
     #   the pre-authenticated request, such as GET or DELETE.
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
     def delete_preauthenticated_request(namespace_name, bucket_name, par_id, opts = {})
@@ -525,15 +579,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#delete_preauthenticated_request') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -551,6 +609,8 @@ module OCI
     #   Example: `my-new-bucket1`
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -583,16 +643,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::ObjectStorage::Models::Bucket'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#get_bucket') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::Bucket'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -607,6 +671,8 @@ module OCI
     # account creation. You cannot edit a namespace.
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type String
     def get_namespace(opts = {})
@@ -627,16 +693,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'String'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#get_namespace') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'String'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -654,6 +724,8 @@ module OCI
     #
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::NamespaceMetadata NamespaceMetadata}
     def get_namespace_metadata(namespace_name, opts = {})
@@ -676,16 +748,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::ObjectStorage::Models::NamespaceMetadata'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#get_namespace_metadata') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::NamespaceMetadata'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -706,6 +782,8 @@ module OCI
     #   Example: `test/object1.log`
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -746,20 +824,9 @@ module OCI
 
       post_body = nil
 
-      if !block.nil?
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'Stream',
-          &block
-        )
-      elsif opts[:response_target]
-        if opts[:response_target].respond_to? :write
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#get_object') do
+        if !block.nil?
           @api_client.call_api(
             :GET,
             path,
@@ -769,11 +836,11 @@ module OCI
             operation_signing_strategy: operation_signing_strategy,
             body: post_body,
             return_type: 'Stream',
-            &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            &block
           )
-        elsif opts[:response_target].is_a?(String)
-          File.open(opts[:response_target], 'wb') do |output|
-            return @api_client.call_api(
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
               :GET,
               path,
               endpoint,
@@ -782,22 +849,37 @@ module OCI
               operation_signing_strategy: operation_signing_strategy,
               body: post_body,
               return_type: 'Stream',
-              &proc { |chunk, _response| output.write(chunk) }
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
             )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
           end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
         end
-      else
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'String'
-        )
       end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -817,6 +899,8 @@ module OCI
     #   the pre-authenticated request, such as GET or DELETE.
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::PreauthenticatedRequestSummary PreauthenticatedRequestSummary}
     def get_preauthenticated_request(namespace_name, bucket_name, par_id, opts = {})
@@ -843,16 +927,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::ObjectStorage::Models::PreauthenticatedRequestSummary'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#get_preauthenticated_request') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::PreauthenticatedRequestSummary'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -870,6 +958,8 @@ module OCI
     #   Example: `my-new-bucket1`
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -902,15 +992,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :HEAD,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#head_bucket') do
+        @api_client.call_api(
+          :HEAD,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -931,6 +1025,8 @@ module OCI
     #   Example: `test/object1.log`
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -965,15 +1061,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :HEAD,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#head_object') do
+        @api_client.call_api(
+          :HEAD,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -994,6 +1094,8 @@ module OCI
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [String] compartment_id The ID of the compartment in which to list buckets.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Array<String>] :fields Bucket summary in list of buckets includes the 'namespace', 'name', 'compartmentId', 'createdBy', 'timeCreated',
@@ -1038,16 +1140,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::ObjectStorage::Models::BucketSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#list_buckets') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::ObjectStorage::Models::BucketSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1069,6 +1175,8 @@ module OCI
     #
     # @param [String] upload_id The upload ID for a multipart upload.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
@@ -1101,16 +1209,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::ObjectStorage::Models::MultipartUploadPartSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#list_multipart_upload_parts') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::ObjectStorage::Models::MultipartUploadPartSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1128,6 +1240,8 @@ module OCI
     #   Example: `my-new-bucket1`
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
@@ -1156,16 +1270,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::ObjectStorage::Models::MultipartUpload>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#list_multipart_uploads') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::ObjectStorage::Models::MultipartUpload>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1187,6 +1305,8 @@ module OCI
     #   Example: `my-new-bucket1`
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :prefix The string to use for matching against the start of object names in a list query.
     # @option opts [String] :start Object names returned by a list query must be greater or equal to this parameter.
     # @option opts [String] :_end Object names returned by a list query must be strictly less than this parameter.
@@ -1232,16 +1352,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::ObjectStorage::Models::ListObjects'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#list_objects') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::ListObjects'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1259,6 +1383,8 @@ module OCI
     #   Example: `my-new-bucket1`
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :object_name_prefix User-specified object name prefixes can be used to query and return a list of pre-authenticated requests.
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page at which to start retrieving results.
@@ -1289,16 +1415,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::ObjectStorage::Models::PreauthenticatedRequestSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#list_preauthenticated_requests') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::ObjectStorage::Models::PreauthenticatedRequestSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1320,6 +1450,8 @@ module OCI
     #
     # @param [String, IO] put_object_body The object to upload to the object store.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :content_length The content length of the body.
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
@@ -1375,15 +1507,19 @@ module OCI
 
       post_body = @api_client.object_to_http_body(put_object_body)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#put_object') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1402,6 +1538,8 @@ module OCI
     #
     # @param [OCI::ObjectStorage::Models::RenameObjectDetails] rename_object_details The sourceName and newName of rename operation.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
     def rename_object(namespace_name, bucket_name, rename_object_details, opts = {})
@@ -1427,15 +1565,19 @@ module OCI
 
       post_body = @api_client.object_to_http_body(rename_object_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#rename_object') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1455,6 +1597,8 @@ module OCI
     #
     # @param [OCI::ObjectStorage::Models::RestoreObjectsDetails] restore_objects_details Request to restore objects.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
     def restore_objects(namespace_name, bucket_name, restore_objects_details, opts = {})
@@ -1480,15 +1624,19 @@ module OCI
 
       post_body = @api_client.object_to_http_body(restore_objects_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#restore_objects') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1507,6 +1655,8 @@ module OCI
     #
     # @param [OCI::ObjectStorage::Models::UpdateBucketDetails] update_bucket_details Request object for updating a bucket.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -1536,16 +1686,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_bucket_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::ObjectStorage::Models::Bucket'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#update_bucket') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::Bucket'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1564,6 +1718,8 @@ module OCI
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [OCI::ObjectStorage::Models::UpdateNamespaceMetadataDetails] update_namespace_metadata_details Request object for update NamespaceMetadata.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::NamespaceMetadata NamespaceMetadata}
     def update_namespace_metadata(namespace_name, update_namespace_metadata_details, opts = {})
@@ -1587,16 +1743,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_namespace_metadata_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::ObjectStorage::Models::NamespaceMetadata'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#update_namespace_metadata') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::NamespaceMetadata'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1620,6 +1780,8 @@ module OCI
     # @param [Integer] upload_part_num The part number that identifies the object part currently being uploaded.
     # @param [String, IO] upload_part_body The part being uploaded to the Object Storage Service.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :content_length The content length of the body.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
@@ -1665,19 +1827,30 @@ module OCI
 
       post_body = @api_client.object_to_http_body(upload_part_body)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#upload_part') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    private
+
+    def applicable_retry_config(opts = {})
+      return @retry_config unless opts.key?(:retry_config)
+      opts[:retry_config]
+    end
   end
 end
 # rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

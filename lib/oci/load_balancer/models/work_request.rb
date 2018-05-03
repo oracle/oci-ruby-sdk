@@ -66,6 +66,8 @@ module OCI
 
     # **[Required]** The type of action the work request represents.
     #
+    # Example: `CreateListener`
+    #
     # @return [String]
     attr_accessor :type
 

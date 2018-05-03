@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # The listener's configuration.
   # For more information on backend set configuration, see
-  # [Managing Load Balancer Listeners](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/tasks/managinglisteners.htm).
+  # [Managing Load Balancer Listeners](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managinglisteners.htm).
   #
   class LoadBalancer::Models::Listener # rubocop:disable Metrics/LineLength
     # @return [OCI::LoadBalancer::Models::ConnectionConfiguration]
@@ -14,14 +14,18 @@ module OCI
 
     # **[Required]** The name of the associated backend set.
     #
-    # Example: `My_backend_set`
+    # Example: `example_backend_set`
     #
     # @return [String]
     attr_accessor :default_backend_set_name
 
+    # An array of hostname resource names.
+    # @return [Array<String>]
+    attr_accessor :hostname_names
+
     # **[Required]** A friendly name for the listener. It must be unique and it cannot be changed.
     #
-    # Example: `My listener`
+    # Example: `example_listener`
     #
     # @return [String]
     attr_accessor :name
@@ -29,7 +33,7 @@ module OCI
     # The name of the set of path-based routing rules, {PathRouteSet},
     # applied to this listener's traffic.
     #
-    # Example: `path-route-set-001`
+    # Example: `example_path_route_set`
     #
     # @return [String]
     attr_accessor :path_route_set_name
@@ -59,6 +63,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'connection_configuration': :'connectionConfiguration',
         'default_backend_set_name': :'defaultBackendSetName',
+        'hostname_names': :'hostnameNames',
         'name': :'name',
         'path_route_set_name': :'pathRouteSetName',
         'port': :'port',
@@ -74,6 +79,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'connection_configuration': :'OCI::LoadBalancer::Models::ConnectionConfiguration',
         'default_backend_set_name': :'String',
+        'hostname_names': :'Array<String>',
         'name': :'String',
         'path_route_set_name': :'String',
         'port': :'Integer',
@@ -91,6 +97,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::LoadBalancer::Models::ConnectionConfiguration] :connection_configuration The value to assign to the {#connection_configuration} property
     # @option attributes [String] :default_backend_set_name The value to assign to the {#default_backend_set_name} property
+    # @option attributes [Array<String>] :hostname_names The value to assign to the {#hostname_names} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :path_route_set_name The value to assign to the {#path_route_set_name} property
     # @option attributes [Integer] :port The value to assign to the {#port} property
@@ -113,6 +120,12 @@ module OCI
       raise 'You cannot provide both :defaultBackendSetName and :default_backend_set_name' if attributes.key?(:'defaultBackendSetName') && attributes.key?(:'default_backend_set_name')
 
       self.default_backend_set_name = attributes[:'default_backend_set_name'] if attributes[:'default_backend_set_name']
+
+      self.hostname_names = attributes[:'hostnameNames'] if attributes[:'hostnameNames']
+
+      raise 'You cannot provide both :hostnameNames and :hostname_names' if attributes.key?(:'hostnameNames') && attributes.key?(:'hostname_names')
+
+      self.hostname_names = attributes[:'hostname_names'] if attributes[:'hostname_names']
 
       self.name = attributes[:'name'] if attributes[:'name']
 
@@ -145,6 +158,7 @@ module OCI
       self.class == other.class &&
         connection_configuration == other.connection_configuration &&
         default_backend_set_name == other.default_backend_set_name &&
+        hostname_names == other.hostname_names &&
         name == other.name &&
         path_route_set_name == other.path_route_set_name &&
         port == other.port &&
@@ -165,7 +179,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [connection_configuration, default_backend_set_name, name, path_route_set_name, port, protocol, ssl_configuration].hash
+      [connection_configuration, default_backend_set_name, hostname_names, name, path_route_set_name, port, protocol, ssl_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

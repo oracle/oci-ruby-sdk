@@ -8,7 +8,7 @@ module OCI
   class LoadBalancer::Models::IpAddress # rubocop:disable Metrics/LineLength
     # **[Required]** An IP address.
     #
-    # Example: `128.148.10.20`
+    # Example: `192.168.0.3`
     #
     # @return [String]
     attr_accessor :ip_address

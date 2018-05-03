@@ -1,14 +1,18 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 # Creates all of the resources necessary to launch an instance, launches an instance, and ensures that it reaches
-# a running state. This will use credentials and settings from the DEFAULT profile at ~/.oci/config (on windows
+# a running state. This example also demonstrates providing user_data when launching an instance (see the metadata entry
+# at https://docs.us-phoenix-1.oraclecloud.com/api/#/en/iaas/20160918/datatypes/LaunchInstanceDetails for
+# more information).
+#
+# This example will use credentials and settings from the DEFAULT profile at ~/.oci/config (on windows
 # "C:\Users\{user}\.oci\config"), however if that file does not exist we will automatically fall back to using
 # ~/.oraclebmc/config (on windows "C:\Users\{user}\.oraclebmc\config")
 #
-# Format: launch_instance.rb <instance name> <compartment OCID> <availability domain ID> <CIDR block> <full path to a public key file>
+# Format: launch_instance.rb <instance name> <compartment OCID> <availability domain ID> <CIDR block> <full path to a public key file> <full path to a user_data file>
 #
 # Example run:
-#   ruby examples/launch_instance.rb 'my_instance5' 'ocid1.compartment.oc1..aaaaaaaac4xqx43texeuonfionxsx4okzfsya5evr2goe2t7v5wntztaymab' 'kIdk:PHX-AD-1' '10.0.0.0/16' '~/.ssh/id_rsa.pub'
+#   ruby examples/launch_instance.rb 'my_instance5' 'ocid1.compartment.oc1..aaaaaaaac4xqx43texeuonfionxsx4okzfsya5evr2goe2t7v5wntztaymab' 'kIdk:PHX-AD-1' '10.0.0.0/16' '~/.ssh/id_rsa.pub' 'examples/launch-instance/user_data.sh'
 
 require 'oci'
 
@@ -17,10 +21,15 @@ compartment_id = ARGV[1] # Example: 'ocid1.compartment.oc1..aaaaaaaac4xqx43texeu
 availability_domain = ARGV[2] # Example: 'kIdk:PHX-AD-1'
 cidr_block = ARGV[3] # Example: '10.0.0.0/16'
 ssh_key_file = ARGV[4] # Example: ~/.ssh/id_rsa.pub
+user_data_file = ARGV[5] # Example: examples/launch-instance/user_data.sh. An sample file is provided under examples/
+
+# user_data needs to be provided as a Base64-encoded string. Instead of having to do this encoding manually, you
+# can use a convenience method in the SDK for this purpose
+user_data = OCI::Core::Util.file_content_as_launch_instance_user_data(user_data_file)
 
 ssh_key = File.open(File.expand_path(ssh_key_file), 'rb').read
 image_id = 'ocid1.image.oc1.phx.aaaaaaaa4wdx32cwjdjdasqyzatmvlxbef4673rs5y7cowvc3g3o7iwhmhfa' # ol7.1-base-0.0.1
-shape = 'x5-2.36.256'
+shape = 'VM.Standard1.1'
 
 compute_client = OCI::Core::ComputeClient.new
 vcn_client = OCI::Core::VirtualNetworkClient.new
@@ -104,7 +113,8 @@ def launch_instance(compute_client,
                     compartment_id,
                     image_id,
                     shape,
-                    ssh_key)
+                    ssh_key,
+                    user_data)
   puts 'Launching instance...'
   request = OCI::Core::Models::LaunchInstanceDetails.new
   request.availability_domain = availability_domain
@@ -113,7 +123,7 @@ def launch_instance(compute_client,
   request.image_id = image_id
   request.shape = shape
   request.subnet_id = subnet.id
-  request.metadata = { 'ssh_authorized_keys' => ssh_key }
+  request.metadata = { 'ssh_authorized_keys' => ssh_key, 'user_data' => user_data }
   launch_instance_response = compute_client.launch_instance(request)
   instance = launch_instance_response.data
 
@@ -155,4 +165,5 @@ launch_instance(compute_client,
                 compartment_id,
                 image_id,
                 shape,
-                ssh_key)
+                ssh_key,
+                user_data)

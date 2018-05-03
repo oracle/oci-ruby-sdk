@@ -28,14 +28,12 @@ module OCI
     # Valid certificate bundle names include only alphanumeric characters, dashes, and underscores.
     # Certificate bundle names cannot contain spaces. Avoid entering confidential information.
     #
-    # Example: `My_certificate_bundle`
+    # Example: `example_certificate_bundle`
     #
     # @return [String]
     attr_accessor :certificate_name
 
     # A passphrase for encrypted private keys. This is needed only if you created your certificate with a passphrase.
-    #
-    # Example: `Mysecretunlockingcode42!1!`
     #
     # @return [String]
     attr_accessor :passphrase
@@ -60,10 +58,10 @@ module OCI
     # Example:
     #
     #     -----BEGIN CERTIFICATE-----
-    #     MIIC2jCCAkMCAg38MA0GCSqGSIb3DQEBBQUAMIGbMQswCQYDVQQGEwJKUDEOMAwG
-    #     A1UECBMFVG9reW8xEDAOBgNVBAcTB0NodW8ta3UxETAPBgNVBAoTCEZyYW5rNERE
-    #     MRgwFgYDVQQLEw9XZWJDZXJ0IFN1cHBvcnQxGDAWBgNVBAMTD0ZyYW5rNEREIFdl
-    #     YiBDQTEjMCEGCSqGSIb3DQEJARYUc3VwcG9ydEBmcmFuazRkZC5jb20wHhcNMTIw
+    #     MIIC2jCCAkMCAg38MA0GCSqGSIb3DQEBBQUAMIGbM..QswCQYDVQQGEwJKU
+    #     A1UECBMFVG9reW8xEDAOBgNVBAcTB0NodW8ta3UxE..TAPBgNVBAoTCEZyY
+    #     MRgwFgYDVQQLEw9XZWJDZXJ0IFN1cHBvcnQxGDAWB..gNVBAMTD0ZyYW5rN
+    #     YiBDQTEjMCEGCSqGSIb3DQEJARYUc3VwcG9ydEBmc..mFuazRkZC5jb20wH
     #     ...
     #     -----END CERTIFICATE-----
     #

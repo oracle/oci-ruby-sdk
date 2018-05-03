@@ -22,7 +22,7 @@ module OCI
     # **[Required]** A list of backend sets that are currently in the `CRITICAL` health state. The list identifies each backend set by the
     # friendly name you assigned when you created it.
     #
-    # Example: `My_backend_set`
+    # Example: `example_backend_set`
     #
     # @return [Array<String>]
     attr_accessor :critical_state_backend_set_names
@@ -60,7 +60,7 @@ module OCI
     # **[Required]** A list of backend sets that are currently in the `UNKNOWN` health state. The list identifies each backend set by the
     # friendly name you assigned when you created it.
     #
-    # Example: `Backend_set2`
+    # Example: `example_backend_set2`
     #
     # @return [Array<String>]
     attr_accessor :unknown_state_backend_set_names
@@ -68,7 +68,7 @@ module OCI
     # **[Required]** A list of backend sets that are currently in the `WARNING` health state. The list identifies each backend set by the
     # friendly name you assigned when you created it.
     #
-    # Example: `Backend_set3`
+    # Example: `example_backend_set3`
     #
     # @return [Array<String>]
     attr_accessor :warning_state_backend_set_names

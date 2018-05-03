@@ -9,7 +9,10 @@ module OCI
   # [How Load Balancing Policies Work](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Reference/lbpolicies.htm).
   #
   class LoadBalancer::Models::LoadBalancerPolicy # rubocop:disable Metrics/LineLength
-    # **[Required]** The name of the load balancing policy.
+    # **[Required]** The name of a load balancing policy.
+    #
+    # Example: 'LEAST_CONNECTIONS'
+    #
     # @return [String]
     attr_accessor :name
 

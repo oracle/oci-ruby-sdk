@@ -13,7 +13,7 @@ module OCI
     # Valid certificate bundle names include only alphanumeric characters, dashes, and underscores.
     # Certificate bundle names cannot contain spaces. Avoid entering confidential information.
     #
-    # Example: `My_certificate_bundle`
+    # Example: `example_certificate_bundle`
     #
     # @return [String]
     attr_accessor :certificate_name

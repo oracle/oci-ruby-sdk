@@ -14,6 +14,7 @@ require 'oci/base_signer'
 require 'oci/signer'
 require 'oci/version'
 require 'oci/waiter'
+require 'oci/retry/retry'
 
 require 'oci/auth/auth'
 require 'oci/audit/audit'
