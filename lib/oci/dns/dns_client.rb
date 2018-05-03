@@ -15,6 +15,12 @@ module OCI
     # @return [String]
     attr_reader :endpoint
 
+    # The default retry configuration to apply to all operations in this service client. This can be overridden
+    # on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    # will not perform any retries
+    # @return [OCI::Retry::RetryConfig]
+    attr_reader :retry_config
+
     # The region, which will usually correspond to a value in {OCI::Regions::REGION_ENUM}.
     # @return [String]
     attr_reader :region
@@ -36,7 +42,10 @@ module OCI
     #   so that the instance principals signer can be provided to the client
     # @param [OCI::ApiClientProxySettings] proxy_settings If your environment requires you to use a proxy server for outgoing HTTP requests
     #   the details for the proxy can be provided in this parameter
-    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil)
+    # @param [OCI::Retry::RetryConfig] retry_config The retry configuration for this service client. This represents the default retry configuration to
+    #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    #   will not perform any retries
+    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil, retry_config: nil)
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
@@ -60,6 +69,7 @@ module OCI
       end
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
+      @retry_config = retry_config
 
       region ||= config.region
       region ||= signer.region if signer.respond_to?(:region)
@@ -95,6 +105,8 @@ module OCI
     #
     # @param [OCI::Dns::Models::CreateZoneDetails] create_zone_details Details for creating a new zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def create_zone(create_zone_details, opts = {})
@@ -116,16 +128,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(create_zone_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::Zone'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#create_zone') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::Zone'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -140,6 +156,8 @@ module OCI
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -178,15 +196,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#delete_domain_records') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -203,6 +225,8 @@ module OCI
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [String] rtype The type of the target RRSet within the target zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -243,15 +267,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#delete_rr_set') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -267,6 +295,8 @@ module OCI
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -303,15 +333,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#delete_zone') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -329,6 +363,8 @@ module OCI
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
@@ -392,16 +428,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::RecordCollection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#get_domain_records') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::RecordCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -419,6 +459,8 @@ module OCI
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [String] rtype The type of the target RRSet within the target zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
@@ -466,16 +508,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::RRSet'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#get_rr_set') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::RRSet'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -491,6 +537,8 @@ module OCI
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
@@ -525,16 +573,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::Zone'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#get_zone') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::Zone'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -551,6 +603,8 @@ module OCI
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
@@ -620,16 +674,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::RecordCollection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#get_zone_records') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::RecordCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -645,6 +703,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the compartment the resource belongs to.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
@@ -717,16 +777,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Dns::Models::ZoneSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#list_zones') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Dns::Models::ZoneSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -742,6 +806,8 @@ module OCI
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [OCI::Dns::Models::PatchDomainRecordsDetails] patch_domain_records_details Operations describing how to modify the collection of records.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -781,16 +847,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(patch_domain_records_details)
 
-      @api_client.call_api(
-        :PATCH,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::RecordCollection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#patch_domain_records') do
+        @api_client.call_api(
+          :PATCH,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::RecordCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -807,6 +877,8 @@ module OCI
     # @param [String] rtype The type of the target RRSet within the target zone.
     # @param [OCI::Dns::Models::PatchRRSetDetails] patch_rr_set_details Operations describing how to modify the collection of records.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -848,16 +920,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(patch_rr_set_details)
 
-      @api_client.call_api(
-        :PATCH,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::RecordCollection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#patch_rr_set') do
+        @api_client.call_api(
+          :PATCH,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::RecordCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -877,6 +953,8 @@ module OCI
     # @param [OCI::Dns::Models::PatchZoneRecordsDetails] patch_zone_records_details The operations describing how to modify the collection of records.
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -914,16 +992,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(patch_zone_records_details)
 
-      @api_client.call_api(
-        :PATCH,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::RecordCollection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#patch_zone_records') do
+        @api_client.call_api(
+          :PATCH,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::RecordCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -945,6 +1027,8 @@ module OCI
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [OCI::Dns::Models::UpdateDomainRecordsDetails] update_domain_records_details A full list of records for the domain.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -984,16 +1068,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_domain_records_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::RecordCollection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#update_domain_records') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::RecordCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1010,6 +1098,8 @@ module OCI
     # @param [String] rtype The type of the target RRSet within the target zone.
     # @param [OCI::Dns::Models::UpdateRRSetDetails] update_rr_set_details A full list of records for the RRSet.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -1051,16 +1141,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_rr_set_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::RecordCollection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#update_rr_set') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::RecordCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1078,6 +1172,8 @@ module OCI
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [OCI::Dns::Models::UpdateZoneDetails] update_zone_details New data for the zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -1115,16 +1211,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_zone_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::Zone'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#update_zone') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::Zone'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1144,6 +1244,8 @@ module OCI
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [OCI::Dns::Models::UpdateZoneRecordsDetails] update_zone_records_details A full list of records for the zone.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -1181,20 +1283,31 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_zone_records_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Dns::Models::RecordCollection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#update_zone_records') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::RecordCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    private
+
+    def applicable_retry_config(opts = {})
+      return @retry_config unless opts.key?(:retry_config)
+      opts[:retry_config]
+    end
   end
 end
 # rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

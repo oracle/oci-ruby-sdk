@@ -28,12 +28,12 @@ module OCI
     # **[Required]** The IP address of the health check status report provider. This identifier helps you differentiate same-subnet
     # (private) load balancers that report health check status.
     #
-    # Example: `10.2.0.1`
+    # Example: `10.0.0.7`
     #
     # @return [String]
     attr_accessor :source_ip_address
 
-    # **[Required]** The OCID of the subnet hosting the load balancer that reported this health check status.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the subnet hosting the load balancer that reported this health check status.
     #
     # @return [String]
     attr_accessor :subnet_id

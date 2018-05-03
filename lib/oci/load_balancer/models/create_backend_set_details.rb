@@ -21,7 +21,7 @@ module OCI
     # Valid backend set names include only alphanumeric characters, dashes, and underscores. Backend set names cannot
     # contain spaces. Avoid entering confidential information.
     #
-    # Example: `My_backend_set`
+    # Example: `example_backend_set`
     #
     # @return [String]
     attr_accessor :name

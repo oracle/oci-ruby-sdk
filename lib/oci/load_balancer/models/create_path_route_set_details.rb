@@ -9,7 +9,7 @@ module OCI
     # **[Required]** The name for this set of path route rules. It must be unique and it cannot be changed. Avoid entering
     # confidential information.
     #
-    # Example: `path-route-set-001`
+    # Example: `example_path_route_set`
     #
     # @return [String]
     attr_accessor :name

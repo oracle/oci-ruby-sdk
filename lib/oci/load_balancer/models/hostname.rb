@@ -4,36 +4,30 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateDbHomeWithDbSystemIdBase model.
-  # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
-  class Database::Models::CreateDbHomeWithDbSystemIdBase # rubocop:disable Metrics/LineLength
-    SOURCE_ENUM = [
-      SOURCE_NONE = 'NONE'.freeze,
-      SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze
-    ].freeze
-
-    # **[Required]** The OCID of the DB System.
-    # @return [String]
-    attr_accessor :db_system_id
-
-    # The user-provided name of the database home.
-    # @return [String]
-    attr_accessor :display_name
-
-    # Source of database:
-    #   NONE for creating a new database
-    #   DB_BACKUP for creating a new database by restoring a backup
+  # A hostname resource associated with a load balancer for use by one or more listeners.
+  class LoadBalancer::Models::Hostname # rubocop:disable Metrics/LineLength
+    # **[Required]** A virtual hostname. For more information about virtual hostname string construction, see
+    # [Managing Request Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingrequest.htm#routing).
+    #
+    # Example: `app.example.com`
     #
     # @return [String]
-    attr_reader :source
+    attr_accessor :hostname
+
+    # **[Required]** A friendly name for the hostname resource. It must be unique and it cannot be changed. Avoid entering confidential
+    # information.
+    #
+    # Example: `example_hostname_001`
+    #
+    # @return [String]
+    attr_accessor :name
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'db_system_id': :'dbSystemId',
-        'display_name': :'displayName',
-        'source': :'source'
+        'hostname': :'hostname',
+        'name': :'name'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,28 +36,11 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'db_system_id': :'String',
-        'display_name': :'String',
-        'source': :'String'
+        'hostname': :'String',
+        'name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
-
-
-    # Given the hash representation of a subtype of this class,
-    # use the info in the hash to return the class of the subtype.
-    def self.get_subtype(object_hash)
-      type = object_hash[:'source'] # rubocop:disable Style/SymbolLiteral
-
-      return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdFromBackupDetails' if type == 'DB_BACKUP'
-      return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdDetails' if type == 'NONE'
-
-      # TODO: Log a warning when the subtype is not found.
-      'OCI::Database::Models::CreateDbHomeWithDbSystemIdBase'
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -71,41 +48,20 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [String] :source The value to assign to the {#source} property
+    # @option attributes [String] :hostname The value to assign to the {#hostname} property
+    # @option attributes [String] :name The value to assign to the {#name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.db_system_id = attributes[:'dbSystemId'] if attributes[:'dbSystemId']
+      self.hostname = attributes[:'hostname'] if attributes[:'hostname']
 
-      raise 'You cannot provide both :dbSystemId and :db_system_id' if attributes.key?(:'dbSystemId') && attributes.key?(:'db_system_id')
-
-      self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
-
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
-
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
-
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
-
-      self.source = attributes[:'source'] if attributes[:'source']
-      self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
+      self.name = attributes[:'name'] if attributes[:'name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] source Object to be assigned
-    def source=(source)
-      # rubocop: disable Metrics/LineLength
-      raise "Invalid value for 'source': this must be one of the values in SOURCE_ENUM." if source && !SOURCE_ENUM.include?(source)
-      # rubocop: enable Metrics/LineLength
-      @source = source
-    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -115,9 +71,8 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        db_system_id == other.db_system_id &&
-        display_name == other.display_name &&
-        source == other.source
+        hostname == other.hostname &&
+        name == other.name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -133,7 +88,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_system_id, display_name, source].hash
+      [hostname, name].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.1.2 - 2018-05-03
+### Added
+- Support for returning names for events in the Audit service 
+- Support for multiple hostnames per listener in the Load Balancing service
+- Support for specifying a retry strategy when calling OCI services. An example of specifying a client retry strategy may be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+
 ## 2.1.1 - 2018-04-19
 
 ### Added

@@ -98,6 +98,9 @@ module OCI
       }
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+
+
     # Given the hash representation of a subtype of this class,
     # use the info in the hash to return the class of the subtype.
     def self.get_subtype(object_hash)
@@ -108,6 +111,7 @@ module OCI
       # TODO: Log a warning when the subtype is not found.
       'OCI::Database::Models::CreateDataGuardAssociationDetails'
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral

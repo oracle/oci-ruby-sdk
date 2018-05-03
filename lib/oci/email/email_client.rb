@@ -15,6 +15,12 @@ module OCI
     # @return [String]
     attr_reader :endpoint
 
+    # The default retry configuration to apply to all operations in this service client. This can be overridden
+    # on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    # will not perform any retries
+    # @return [OCI::Retry::RetryConfig]
+    attr_reader :retry_config
+
     # The region, which will usually correspond to a value in {OCI::Regions::REGION_ENUM}.
     # @return [String]
     attr_reader :region
@@ -36,7 +42,10 @@ module OCI
     #   so that the instance principals signer can be provided to the client
     # @param [OCI::ApiClientProxySettings] proxy_settings If your environment requires you to use a proxy server for outgoing HTTP requests
     #   the details for the proxy can be provided in this parameter
-    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil)
+    # @param [OCI::Retry::RetryConfig] retry_config The retry configuration for this service client. This represents the default retry configuration to
+    #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    #   will not perform any retries
+    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil, retry_config: nil)
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
@@ -60,6 +69,7 @@ module OCI
       end
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
+      @retry_config = retry_config
 
       region ||= config.region
       region ||= signer.region if signer.respond_to?(:region)
@@ -93,6 +103,8 @@ module OCI
     # Creates a sender for a tenancy in a given compartment.
     # @param [OCI::Email::Models::CreateSenderDetails] create_sender_details Create a sender.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
     def create_sender(create_sender_details, opts = {})
       logger.debug 'Calling operation EmailClient#create_sender.' if logger
@@ -112,16 +124,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(create_sender_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Email::Models::Sender'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#create_sender') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Email::Models::Sender'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -139,6 +155,8 @@ module OCI
     # @param [OCI::Email::Models::CreateSuppressionDetails] create_suppression_details Adds a single email address to the suppression list for a compartment's tenancy.
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Email::Models::Suppression Suppression}
     def create_suppression(create_suppression_details, opts = {})
       logger.debug 'Calling operation EmailClient#create_suppression.' if logger
@@ -158,16 +176,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(create_suppression_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Email::Models::Suppression'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#create_suppression') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Email::Models::Suppression'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -185,6 +207,8 @@ module OCI
     #
     # @param [String] sender_id The unique OCID of the sender.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type nil
     def delete_sender(sender_id, opts = {})
       logger.debug 'Calling operation EmailClient#delete_sender.' if logger
@@ -205,15 +229,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#delete_sender') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -231,6 +259,8 @@ module OCI
     #
     # @param [String] suppression_id The unique OCID of the suppression.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type nil
     def delete_suppression(suppression_id, opts = {})
       logger.debug 'Calling operation EmailClient#delete_suppression.' if logger
@@ -251,15 +281,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#delete_suppression') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -275,6 +309,8 @@ module OCI
     # Gets an approved sender for a given `senderId`.
     # @param [String] sender_id The unique OCID of the sender.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
     def get_sender(sender_id, opts = {})
       logger.debug 'Calling operation EmailClient#get_sender.' if logger
@@ -295,16 +331,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Email::Models::Sender'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#get_sender') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Email::Models::Sender'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -322,6 +362,8 @@ module OCI
     #
     # @param [String] suppression_id The unique OCID of the suppression.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Email::Models::Suppression Suppression}
     def get_suppression(suppression_id, opts = {})
       logger.debug 'Calling operation EmailClient#get_suppression.' if logger
@@ -342,16 +384,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Email::Models::Suppression'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#get_suppression') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Email::Models::Suppression'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -367,6 +413,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID for the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :lifecycle_state The current state of a sender.
     # @option opts [String] :email_address The email address of the approved sender.
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous
@@ -421,16 +469,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Email::Models::SenderSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#list_senders') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Email::Models::SenderSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -447,6 +499,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID for the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :email_address The email address of the suppression.
     # @option opts [DateTime] :time_created_greater_than_or_equal_to Search for suppressions that were created within a specific date range,
     #   using this parameter to specify the earliest creation date for the
@@ -515,20 +569,31 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Email::Models::SuppressionSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#list_suppressions') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Email::Models::SuppressionSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    private
+
+    def applicable_retry_config(opts = {})
+      return @retry_config unless opts.key?(:retry_config)
+      opts[:retry_config]
+    end
   end
 end
 # rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

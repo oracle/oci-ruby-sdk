@@ -31,7 +31,7 @@ module OCI
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and servers.
     # @param [String] backend_set_name The name of the backend set to add the backend server to.
     #
-    #   Example: `My_backend_set`
+    #   Example: `example_backend_set`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#create_backend}
@@ -111,8 +111,8 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#create_certificate} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::LoadBalancer::Models::CreateCertificateDetails] create_certificate_details The details of the certificate to add.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add the certificate.
+    # @param [OCI::LoadBalancer::Models::CreateCertificateDetails] create_certificate_details The details of the certificate bundle to add.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add the certificate bundle.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#create_certificate}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -122,6 +122,46 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def create_certificate_and_wait_for_state(create_certificate_details, load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_certificate(create_certificate_details, load_balancer_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::LoadBalancer::LoadBalancerClient#create_hostname} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::LoadBalancer::Models::CreateHostnameDetails] create_hostname_details The details of the hostname resource to add to the specified load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to add the hostname to.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#create_hostname}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
+    def create_hostname_and_wait_for_state(create_hostname_details, load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_hostname(create_hostname_details, load_balancer_id, base_operation_opts)
 
       return operation_result if wait_for_states.empty?
 
@@ -273,11 +313,11 @@ module OCI
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
     # @param [String] backend_set_name The name of the backend set associated with the backend server.
     #
-    #   Example: `My_backend_set`
+    #   Example: `example_backend_set`
     #
     # @param [String] backend_name The IP address and port of the backend server to remove.
     #
-    #   Example: `1.1.1.7:42`
+    #   Example: `10.0.0.3:8080`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#delete_backend}
@@ -321,7 +361,7 @@ module OCI
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set.
     # @param [String] backend_set_name The name of the backend set to delete.
     #
-    #   Example: `My_backend_set`
+    #   Example: `example_backend_set`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#delete_backend_set}
@@ -362,10 +402,12 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_certificate} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the certificate to be deleted.
-    # @param [String] certificate_name The name of the certificate to delete.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the certificate bundle
+    #   to be deleted.
     #
-    #   Example: `My_certificate_bundle`
+    # @param [String] certificate_name The name of the certificate bundle to delete.
+    #
+    #   Example: `example_certificate_bundle`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#delete_certificate}
@@ -403,13 +445,57 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_hostname} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the hostname to delete.
+    # @param [String] name The name of the hostname resource to delete.
+    #
+    #   Example: `example_hostname_001`
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#delete_hostname}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
+    def delete_hostname_and_wait_for_state(load_balancer_id, name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.delete_hostname(load_balancer_id, name, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_listener} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the listener to delete.
     # @param [String] listener_name The name of the listener to delete.
     #
-    #   Example: `My listener`
+    #   Example: `example_listener`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#delete_listener}
@@ -493,7 +579,7 @@ module OCI
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the path route set to delete.
     # @param [String] path_route_set_name The name of the path route set to delete.
     #
-    #   Example: `path-route-set-001`
+    #   Example: `example_path_route_set`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#delete_path_route_set}
@@ -538,11 +624,11 @@ module OCI
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
     # @param [String] backend_set_name The name of the backend set associated with the backend server.
     #
-    #   Example: `My_backend_set`
+    #   Example: `example_backend_set`
     #
     # @param [String] backend_name The IP address and port of the backend server to update.
     #
-    #   Example: `1.1.1.7:42`
+    #   Example: `10.0.0.3:8080`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#update_backend}
@@ -586,7 +672,7 @@ module OCI
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set.
     # @param [String] backend_set_name The name of the backend set to update.
     #
-    #   Example: `My_backend_set`
+    #   Example: `example_backend_set`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#update_backend_set}
@@ -630,7 +716,7 @@ module OCI
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the health check policy to be updated.
     # @param [String] backend_set_name The name of the backend set associated with the health check policy to be retrieved.
     #
-    #   Example: `My_backend_set`
+    #   Example: `example_backend_set`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#update_health_checker}
@@ -667,6 +753,52 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::LoadBalancer::LoadBalancerClient#update_hostname} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::LoadBalancer::Models::UpdateHostnameDetails] update_hostname_details The configuration details to update a virtual hostname.
+    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the virtual hostname
+    #   to update.
+    #
+    # @param [String] name The name of the hostname resource to update.
+    #
+    #   Example: `example_hostname_001`
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#update_hostname}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
+    def update_hostname_and_wait_for_state(update_hostname_details, load_balancer_id, name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_hostname(update_hostname_details, load_balancer_id, name, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::LoadBalancer::LoadBalancerClient#update_listener} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -674,7 +806,7 @@ module OCI
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the listener to update.
     # @param [String] listener_name The name of the listener to update.
     #
-    #   Example: `My listener`
+    #   Example: `example_listener`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#update_listener}
@@ -758,7 +890,7 @@ module OCI
     # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the path route set to update.
     # @param [String] path_route_set_name The name of the path route set to update.
     #
-    #   Example: `path-route-set-001`
+    #   Example: `example_path_route_set`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#update_path_route_set}

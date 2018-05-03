@@ -15,6 +15,12 @@ module OCI
     # @return [String]
     attr_reader :endpoint
 
+    # The default retry configuration to apply to all operations in this service client. This can be overridden
+    # on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    # will not perform any retries
+    # @return [OCI::Retry::RetryConfig]
+    attr_reader :retry_config
+
     # The region, which will usually correspond to a value in {OCI::Regions::REGION_ENUM}.
     # @return [String]
     attr_reader :region
@@ -36,7 +42,10 @@ module OCI
     #   so that the instance principals signer can be provided to the client
     # @param [OCI::ApiClientProxySettings] proxy_settings If your environment requires you to use a proxy server for outgoing HTTP requests
     #   the details for the proxy can be provided in this parameter
-    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil)
+    # @param [OCI::Retry::RetryConfig] retry_config The retry configuration for this service client. This represents the default retry configuration to
+    #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    #   will not perform any retries
+    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil, retry_config: nil)
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
@@ -60,6 +69,7 @@ module OCI
       end
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
+      @retry_config = retry_config
 
       region ||= config.region
       region ||= signer.region if signer.respond_to?(:region)
@@ -93,6 +103,8 @@ module OCI
     #
     # @param [OCI::Database::Models::CreateBackupDetails] create_backup_details Request to create a new database backup.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -116,19 +128,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_backup_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::Backup'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_backup') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::Backup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -151,6 +168,8 @@ module OCI
     # @param [String] database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::CreateDataGuardAssociationDetails] create_data_guard_association_details A request to create a Data Guard association.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -176,19 +195,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_data_guard_association_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DataGuardAssociation'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_data_guard_association') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DataGuardAssociation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -203,6 +227,8 @@ module OCI
     #
     # @param [OCI::Database::Models::CreateDbHomeWithDbSystemIdBase] create_db_home_with_db_system_id_details Request to create a new DB Home.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -226,19 +252,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_db_home_with_db_system_id_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DbHome'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_db_home') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbHome'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -269,6 +300,8 @@ module OCI
     # @param [String] action The action to perform on the DB Node.
     #   Allowed values are: STOP, START, SOFTRESET, RESET
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -303,19 +336,24 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DbNode'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#db_node_action') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbNode'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -329,6 +367,8 @@ module OCI
     # Deletes a full backup. You cannot delete automatic backups using this API.
     # @param [String] backup_id The backup OCID.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -354,15 +394,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#delete_backup') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -377,6 +421,8 @@ module OCI
     #
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -404,15 +450,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#delete_db_home') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -433,6 +483,8 @@ module OCI
     # @param [String] data_guard_association_id The Data Guard association's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::FailoverDataGuardAssociationDetails] failover_data_guard_association_details A request to perform a failover, transitioning a standby database into a primary database.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -461,16 +513,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(failover_data_guard_association_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DataGuardAssociation'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#failover_data_guard_association') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DataGuardAssociation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -485,6 +541,8 @@ module OCI
     # Gets information about the specified backup.
     # @param [String] backup_id The backup OCID.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Backup Backup}
     def get_backup(backup_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_backup.' if logger
@@ -505,16 +563,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::Backup'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_backup') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::Backup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -532,6 +594,8 @@ module OCI
     # @param [String] database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] data_guard_association_id The Data Guard association's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DataGuardAssociation DataGuardAssociation}
     def get_data_guard_association(database_id, data_guard_association_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_data_guard_association.' if logger
@@ -554,16 +618,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DataGuardAssociation'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_data_guard_association') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DataGuardAssociation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -579,6 +647,8 @@ module OCI
     # Gets information about a specific database.
     # @param [String] database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Database Database}
     def get_database(database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_database.' if logger
@@ -599,16 +669,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::Database'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_database') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::Database'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -624,6 +698,8 @@ module OCI
     # Gets information about the specified database home.
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbHome DbHome}
     def get_db_home(db_home_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_home.' if logger
@@ -644,16 +720,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DbHome'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_db_home') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbHome'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -671,6 +751,8 @@ module OCI
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] patch_id The OCID of the patch.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Patch Patch}
     def get_db_home_patch(db_home_id, patch_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_home_patch.' if logger
@@ -693,16 +775,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::Patch'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_db_home_patch') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::Patch'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -720,6 +806,8 @@ module OCI
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] patch_history_entry_id The OCID of the patch history entry.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::PatchHistoryEntry PatchHistoryEntry}
     def get_db_home_patch_history_entry(db_home_id, patch_history_entry_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_home_patch_history_entry.' if logger
@@ -742,16 +830,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::PatchHistoryEntry'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_db_home_patch_history_entry') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::PatchHistoryEntry'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -767,6 +859,8 @@ module OCI
     # Gets information about the specified database node.
     # @param [String] db_node_id The database node [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbNode DbNode}
     def get_db_node(db_node_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_node.' if logger
@@ -787,16 +881,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DbNode'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_db_node') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbNode'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -812,6 +910,8 @@ module OCI
     # Gets information about the specified DB System.
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbSystem DbSystem}
     def get_db_system(db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_system.' if logger
@@ -832,16 +932,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DbSystem'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_db_system') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbSystem'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -859,6 +963,8 @@ module OCI
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] patch_id The OCID of the patch.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Patch Patch}
     def get_db_system_patch(db_system_id, patch_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_system_patch.' if logger
@@ -881,16 +987,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::Patch'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_db_system_patch') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::Patch'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -908,6 +1018,8 @@ module OCI
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] patch_history_entry_id The OCID of the patch history entry.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::PatchHistoryEntry PatchHistoryEntry}
     def get_db_system_patch_history_entry(db_system_id, patch_history_entry_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_system_patch_history_entry.' if logger
@@ -930,16 +1042,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::PatchHistoryEntry'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_db_system_patch_history_entry') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::PatchHistoryEntry'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -964,6 +1080,8 @@ module OCI
     #
     # @param [OCI::Database::Models::LaunchDbSystemDetails] launch_db_system_details Request to launch a DB System.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -987,19 +1105,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(launch_db_system_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DbSystem'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#launch_db_system') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbSystem'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1013,6 +1136,8 @@ module OCI
     # Gets a list of backups based on the databaseId or compartmentId specified. Either one of the query parameters must be provided.
     #
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :database_id The OCID of the database.
     # @option opts [String] :compartment_id The compartment OCID.
     # @option opts [Integer] :limit The maximum number of items to return.
@@ -1039,16 +1164,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::BackupSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_backups') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::BackupSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1063,6 +1192,8 @@ module OCI
     #
     # @param [String] database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DataGuardAssociationSummary DataGuardAssociationSummary}>
@@ -1087,16 +1218,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::DataGuardAssociationSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_data_guard_associations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DataGuardAssociationSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1112,6 +1247,8 @@ module OCI
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] db_home_id A database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DatabaseSummary DatabaseSummary}>
@@ -1138,16 +1275,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::DatabaseSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_databases') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DatabaseSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1162,6 +1303,8 @@ module OCI
     #
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
@@ -1186,16 +1329,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::PatchHistoryEntrySummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_home_patch_history_entries') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::PatchHistoryEntrySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1210,6 +1357,8 @@ module OCI
     #
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
@@ -1234,16 +1383,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::PatchSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_home_patches') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::PatchSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1259,6 +1412,8 @@ module OCI
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] db_system_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB System.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbHomeSummary DbHomeSummary}>
@@ -1285,16 +1440,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::DbHomeSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_homes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DbHomeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1310,6 +1469,8 @@ module OCI
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] db_system_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB System.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbNodeSummary DbNodeSummary}>
@@ -1336,16 +1497,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::DbNodeSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_nodes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DbNodeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1360,6 +1525,8 @@ module OCI
     #
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
@@ -1384,16 +1551,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::PatchHistoryEntrySummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_system_patch_history_entries') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::PatchHistoryEntrySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1408,6 +1579,8 @@ module OCI
     #
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
@@ -1432,16 +1605,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::PatchSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_system_patches') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::PatchSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1456,6 +1633,8 @@ module OCI
     # @param [String] availability_domain The name of the Availability Domain.
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemShapeSummary DbSystemShapeSummary}>
@@ -1482,16 +1661,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::DbSystemShapeSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_system_shapes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DbSystemShapeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1507,6 +1690,8 @@ module OCI
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :backup_id The OCID of the backup. Specify a backupId to list only the DB Systems that support creating a database using this backup in this compartment.
@@ -1533,16 +1718,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::DbSystemSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_systems') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DbSystemSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1556,6 +1745,8 @@ module OCI
     # Gets a list of supported Oracle database versions.
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :db_system_shape If provided, filters the results to the set of database versions which are supported for the given shape.
@@ -1584,16 +1775,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Database::Models::DbVersionSummary>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_versions') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DbVersionSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1610,6 +1805,8 @@ module OCI
     # @param [String] data_guard_association_id The Data Guard association's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::ReinstateDataGuardAssociationDetails] reinstate_data_guard_association_details A request to reinstate a database in a standby role.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1638,16 +1835,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(reinstate_data_guard_association_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DataGuardAssociation'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#reinstate_data_guard_association') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DataGuardAssociation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1663,6 +1864,8 @@ module OCI
     # @param [String] database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::RestoreDatabaseDetails] restore_database_details Request to perform database restore.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1689,16 +1892,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(restore_database_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::Database'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#restore_database') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::Database'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1718,6 +1925,8 @@ module OCI
     # @param [String] data_guard_association_id The Data Guard association's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::SwitchoverDataGuardAssociationDetails] switchover_data_guard_association_details Request to swtichover a primary to a standby.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1746,16 +1955,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(switchover_data_guard_association_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DataGuardAssociation'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#switchover_data_guard_association') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DataGuardAssociation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1769,6 +1982,8 @@ module OCI
     # Terminates a DB System and permanently deletes it and any databases running on it, and any storage volumes attached to it. The database data is local to the DB System and will be lost when the system is terminated. Oracle recommends that you back up any data in the DB System prior to terminating it.
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1794,15 +2009,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#terminate_db_system') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1818,6 +2037,8 @@ module OCI
     # @param [String] database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::UpdateDatabaseDetails] update_database_details Request to perform database update.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1844,16 +2065,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_database_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::Database'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#update_database') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::Database'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1868,6 +2093,8 @@ module OCI
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::UpdateDbHomeDetails] update_db_home_details Request to update the properties of a DB Home.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1894,16 +2121,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_db_home_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DbHome'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#update_db_home') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbHome'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1918,6 +2149,8 @@ module OCI
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::UpdateDbSystemDetails] update_db_system_details Request to update the properties of a DB System.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1944,20 +2177,31 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_db_system_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Database::Models::DbSystem'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#update_db_system') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbSystem'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    private
+
+    def applicable_retry_config(opts = {})
+      return @retry_config unless opts.key?(:retry_config)
+      opts[:retry_config]
+    end
   end
 end
 # rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

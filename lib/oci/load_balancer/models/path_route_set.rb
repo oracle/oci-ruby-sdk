@@ -10,7 +10,7 @@ module OCI
   class LoadBalancer::Models::PathRouteSet # rubocop:disable Metrics/LineLength
     # **[Required]** The unique name for this set of path route rules. Avoid entering confidential information.
     #
-    # Example: `path-route-set-001`
+    # Example: `example_path_route_set`
     #
     # @return [String]
     attr_accessor :name

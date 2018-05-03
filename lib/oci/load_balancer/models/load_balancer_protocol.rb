@@ -4,9 +4,12 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # The protocol that defines the type of traffic accepted by a listener.
+  # A protocol that defines the type of traffic accepted by a listener.
   class LoadBalancer::Models::LoadBalancerProtocol # rubocop:disable Metrics/LineLength
-    # **[Required]** The name of the protocol.
+    # **[Required]** The name of a protocol.
+    #
+    # Example: 'HTTP'
+    #
     # @return [String]
     attr_accessor :name
 

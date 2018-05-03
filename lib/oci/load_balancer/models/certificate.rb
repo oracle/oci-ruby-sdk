@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # The configuration details of a listener certificate bundle.
+  # The configuration details of a certificate bundle.
   # For more information on SSL certficate configuration, see
   # [Managing SSL Certificates](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingcertificates.htm).
   #
@@ -28,7 +28,7 @@ module OCI
     # Valid certificate bundle names include only alphanumeric characters, dashes, and underscores.
     # Certificate bundle names cannot contain spaces. Avoid entering confidential information.
     #
-    # Example: `My_certificate_bundle`
+    # Example: `example_certificate_bundle`
     #
     # @return [String]
     attr_accessor :certificate_name

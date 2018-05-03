@@ -18,6 +18,12 @@ module OCI
     # @return [String]
     attr_accessor :event_id
 
+    # The name of the event.
+    # Example: `LaunchInstance`
+    #
+    # @return [String]
+    attr_accessor :event_name
+
     # The source of the event.
     # @return [String]
     attr_accessor :event_source
@@ -89,6 +95,7 @@ module OCI
         'tenant_id': :'tenantId',
         'compartment_id': :'compartmentId',
         'event_id': :'eventId',
+        'event_name': :'eventName',
         'event_source': :'eventSource',
         'event_type': :'eventType',
         'event_time': :'eventTime',
@@ -116,6 +123,7 @@ module OCI
         'tenant_id': :'String',
         'compartment_id': :'String',
         'event_id': :'String',
+        'event_name': :'String',
         'event_source': :'String',
         'event_type': :'String',
         'event_time': :'DateTime',
@@ -145,6 +153,7 @@ module OCI
     # @option attributes [String] :tenant_id The value to assign to the {#tenant_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :event_id The value to assign to the {#event_id} property
+    # @option attributes [String] :event_name The value to assign to the {#event_name} property
     # @option attributes [String] :event_source The value to assign to the {#event_source} property
     # @option attributes [String] :event_type The value to assign to the {#event_type} property
     # @option attributes [DateTime] :event_time The value to assign to the {#event_time} property
@@ -184,6 +193,12 @@ module OCI
       raise 'You cannot provide both :eventId and :event_id' if attributes.key?(:'eventId') && attributes.key?(:'event_id')
 
       self.event_id = attributes[:'event_id'] if attributes[:'event_id']
+
+      self.event_name = attributes[:'eventName'] if attributes[:'eventName']
+
+      raise 'You cannot provide both :eventName and :event_name' if attributes.key?(:'eventName') && attributes.key?(:'event_name')
+
+      self.event_name = attributes[:'event_name'] if attributes[:'event_name']
 
       self.event_source = attributes[:'eventSource'] if attributes[:'eventSource']
 
@@ -295,6 +310,7 @@ module OCI
         tenant_id == other.tenant_id &&
         compartment_id == other.compartment_id &&
         event_id == other.event_id &&
+        event_name == other.event_name &&
         event_source == other.event_source &&
         event_type == other.event_type &&
         event_time == other.event_time &&
@@ -326,7 +342,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [tenant_id, compartment_id, event_id, event_source, event_type, event_time, principal_id, credential_id, request_action, request_id, request_agent, request_headers, request_origin, request_parameters, request_resource, response_headers, response_status, response_time, response_payload].hash
+      [tenant_id, compartment_id, event_id, event_name, event_source, event_type, event_time, principal_id, credential_id, request_action, request_id, request_agent, request_headers, request_origin, request_parameters, request_resource, response_headers, response_status, response_time, response_payload].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

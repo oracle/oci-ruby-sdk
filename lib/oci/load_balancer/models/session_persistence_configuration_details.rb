@@ -18,7 +18,7 @@ module OCI
     # **[Required]** The name of the cookie used to detect a session initiated by the backend server. Use '*' to specify
     # that any cookie set by the backend causes the session to persist.
     #
-    # Example: `myCookieName`
+    # Example: `example_cookie`
     #
     # @return [String]
     attr_accessor :cookie_name
@@ -26,7 +26,7 @@ module OCI
     # Whether the load balancer is prevented from directing traffic from a persistent session client to
     # a different backend server if the original server is unavailable. Defaults to false.
     #
-    # Example: `true`
+    # Example: `false`
     #
     # @return [BOOLEAN]
     attr_accessor :disable_fallback

@@ -19,10 +19,13 @@ module OCI
     # **[Required]** A user-friendly name. It does not have to be unique, and it is changeable.
     # Avoid entering confidential information.
     #
-    # Example: `My load balancer`
+    # Example: `example_load_balancer`
     #
     # @return [String]
     attr_accessor :display_name
+
+    # @return [Hash<String, OCI::LoadBalancer::Models::HostnameDetails>]
+    attr_accessor :hostnames
 
     # Whether the load balancer has a VCN-local (private) IP address.
     #
@@ -38,7 +41,7 @@ module OCI
     # hosts the secondary (standby) load balancer. A public load balancer is accessible from the internet, depending on your
     # VCN's [security list rules](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/securitylists.htm).
     #
-    # Example: `false`
+    # Example: `true`
     #
     # @return [BOOLEAN]
     attr_accessor :is_private
@@ -70,6 +73,7 @@ module OCI
         'certificates': :'certificates',
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
+        'hostnames': :'hostnames',
         'is_private': :'isPrivate',
         'listeners': :'listeners',
         'path_route_sets': :'pathRouteSets',
@@ -87,6 +91,7 @@ module OCI
         'certificates': :'Hash<String, OCI::LoadBalancer::Models::CertificateDetails>',
         'compartment_id': :'String',
         'display_name': :'String',
+        'hostnames': :'Hash<String, OCI::LoadBalancer::Models::HostnameDetails>',
         'is_private': :'BOOLEAN',
         'listeners': :'Hash<String, OCI::LoadBalancer::Models::ListenerDetails>',
         'path_route_sets': :'Hash<String, OCI::LoadBalancer::Models::PathRouteSetDetails>',
@@ -106,6 +111,7 @@ module OCI
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::CertificateDetails>] :certificates The value to assign to the {#certificates} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::HostnameDetails>] :hostnames The value to assign to the {#hostnames} property
     # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::ListenerDetails>] :listeners The value to assign to the {#listeners} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::PathRouteSetDetails>] :path_route_sets The value to assign to the {#path_route_sets} property
@@ -136,6 +142,8 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.hostnames = attributes[:'hostnames'] if attributes[:'hostnames']
 
       self.is_private = attributes[:'isPrivate'] unless attributes[:'isPrivate'].nil?
       self.is_private = false if is_private.nil? && !attributes.key?(:'isPrivate') # rubocop:disable Style/StringLiterals
@@ -180,6 +188,7 @@ module OCI
         certificates == other.certificates &&
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
+        hostnames == other.hostnames &&
         is_private == other.is_private &&
         listeners == other.listeners &&
         path_route_sets == other.path_route_sets &&
@@ -200,7 +209,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backend_sets, certificates, compartment_id, display_name, is_private, listeners, path_route_sets, shape_name, subnet_ids].hash
+      [backend_sets, certificates, compartment_id, display_name, hostnames, is_private, listeners, path_route_sets, shape_name, subnet_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.1.1**
+**Version 2.1.2**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -103,6 +103,12 @@ The following table provides details about some of the attributes of the SDK.
             </p>
         </td>
 	</tr>
+    <tr>
+        <td>Retries</td>
+        <td>
+            By default the Ruby SDK will not retry failed service calls, however the SDK supports specifying per client and per operation retry configurations. An example of using retries can be found in the examples folder of the Ruby SDK <a href="https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip">download</a>
+        </td>
+    </tr>
 </tbody>
 </table>
 
@@ -520,6 +526,17 @@ The {OCI::Signer} can be used to sign arbitrary requests to the Oracle Cloud Inf
 
     puts result.body
 
+
+## Documentation
+
+Full documentation, including prerequisites and installation and configuration instructions, can be found [here](https://docs.us-phoenix-1.oraclecloud.com/Content/API/SDKDocs/rubysdk.htm).
+
+API reference can be found [here](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/frames.html).
+
+## Changes
+
+See [CHANGELOG](CHANGELOG.md).
+
 ## Notifications
 To be notified when a new version of the Ruby SDK is released, subscribe to the [Atom feed](https://rubygems.org/gems/oci/versions.atom).
 
@@ -529,3 +546,11 @@ Ways to get in touch:
 * [Stack Overflow](https://stackoverflow.com/): Please use the [oracle-cloud-infrastructure](https://stackoverflow.com/questions/tagged/oracle-cloud-infrastructure) and [oci-ruby-sdk](https://stackoverflow.com/questions/tagged/oci-ruby-sdk) tags in your post
 * [Developer Tools section](https://community.oracle.com/community/cloud_computing/bare-metal/content?filterID=contentstatus%5Bpublished%5D~category%5Bdeveloper-tools%5D&filterID=contentstatus%5Bpublished%5D~objecttype~objecttype%5Bthread%5D) of the Oracle Cloud forums
 * [My Oracle Support](https://support.oracle.com)
+
+## License
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+This SDK and sample is dual licensed under the Universal Permissive License 1.0 and the Apache License 2.0.
+
+See [LICENSE](LICENSE.txt) for more details.

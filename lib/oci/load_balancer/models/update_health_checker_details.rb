@@ -8,7 +8,7 @@ module OCI
   class LoadBalancer::Models::UpdateHealthCheckerDetails # rubocop:disable Metrics/LineLength
     # **[Required]** The interval between health checks, in milliseconds.
     #
-    # Example: `30000`
+    # Example: `10000`
     #
     # @return [Integer]
     attr_accessor :interval_in_millis
@@ -29,7 +29,7 @@ module OCI
 
     # **[Required]** A regular expression for parsing the response body from the backend server.
     #
-    # Example: `^(500|40[1348])$`
+    # Example: `^((?!false).|\\s)*$`
     #
     # @return [String]
     attr_accessor :response_body_regex
@@ -51,7 +51,7 @@ module OCI
     # **[Required]** The maximum time, in milliseconds, to wait for a reply to a health check. A health check is successful only if a reply
     # returns within this timeout period.
     #
-    # Example: `6000`
+    # Example: `3000`
     #
     # @return [Integer]
     attr_accessor :timeout_in_millis

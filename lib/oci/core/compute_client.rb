@@ -15,6 +15,12 @@ module OCI
     # @return [String]
     attr_reader :endpoint
 
+    # The default retry configuration to apply to all operations in this service client. This can be overridden
+    # on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    # will not perform any retries
+    # @return [OCI::Retry::RetryConfig]
+    attr_reader :retry_config
+
     # The region, which will usually correspond to a value in {OCI::Regions::REGION_ENUM}.
     # @return [String]
     attr_reader :region
@@ -36,7 +42,10 @@ module OCI
     #   so that the instance principals signer can be provided to the client
     # @param [OCI::ApiClientProxySettings] proxy_settings If your environment requires you to use a proxy server for outgoing HTTP requests
     #   the details for the proxy can be provided in this parameter
-    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil)
+    # @param [OCI::Retry::RetryConfig] retry_config The retry configuration for this service client. This represents the default retry configuration to
+    #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    #   will not perform any retries
+    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil, retry_config: nil)
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
@@ -60,6 +69,7 @@ module OCI
       end
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
+      @retry_config = retry_config
 
       region ||= config.region
       region ||= signer.region if signer.respond_to?(:region)
@@ -93,6 +103,8 @@ module OCI
     #
     # @param [OCI::Core::Models::AttachBootVolumeDetails] attach_boot_volume_details Attach boot volume request
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -116,19 +128,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(attach_boot_volume_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::BootVolumeAttachment'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#attach_boot_volume') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::BootVolumeAttachment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -145,6 +162,8 @@ module OCI
     #
     # @param [OCI::Core::Models::AttachVnicDetails] attach_vnic_details Attach VNIC details.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -168,19 +187,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(attach_vnic_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::VnicAttachment'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#attach_vnic') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VnicAttachment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -195,6 +219,8 @@ module OCI
     #
     # @param [OCI::Core::Models::AttachVolumeDetails] attach_volume_details Attach volume request
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -218,19 +244,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(attach_volume_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::VolumeAttachment'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#attach_volume') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeAttachment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -261,6 +292,8 @@ module OCI
     #
     # @param [OCI::Core::Models::CaptureConsoleHistoryDetails] capture_console_history_details Console history details
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -284,19 +317,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(capture_console_history_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::ConsoleHistory'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#capture_console_history') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::ConsoleHistory'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -333,6 +371,8 @@ module OCI
     #
     # @param [OCI::Core::Models::CreateImageDetails] create_image_details Image creation details
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -356,19 +396,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_image_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::Image'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#create_image') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::Image'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -387,6 +432,8 @@ module OCI
     #
     # @param [OCI::Core::Models::CreateInstanceConsoleConnectionDetails] create_instance_console_connection_details Request object for creating an InstanceConsoleConnection
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -410,19 +457,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_instance_console_connection_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::InstanceConsoleConnection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#create_instance_console_connection') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::InstanceConsoleConnection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -436,6 +488,8 @@ module OCI
     # Deletes the specified console history metadata and the console history data.
     # @param [String] instance_console_history_id The OCID of the console history.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -461,15 +515,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#delete_console_history') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -483,6 +541,8 @@ module OCI
     # Deletes an image.
     # @param [String] image_id The OCID of the image.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -508,15 +568,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#delete_image') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -530,6 +594,8 @@ module OCI
     # Deletes the specified instance console connection.
     # @param [String] instance_console_connection_id The OCID of the intance console connection
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -555,15 +621,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#delete_instance_console_connection') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -581,6 +651,8 @@ module OCI
     #
     # @param [String] boot_volume_attachment_id The OCID of the boot volume attachment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -606,15 +678,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#detach_boot_volume') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -638,6 +714,8 @@ module OCI
     #
     # @param [String] vnic_attachment_id The OCID of the VNIC attachment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -663,15 +741,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#detach_vnic') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -689,6 +771,8 @@ module OCI
     #
     # @param [String] volume_attachment_id The OCID of the volume attachment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -714,15 +798,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#detach_volume') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -747,6 +835,8 @@ module OCI
     # @param [String] image_id The OCID of the image.
     # @param [OCI::Core::Models::ExportImageDetails] export_image_details Details for the image export.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -777,19 +867,24 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(export_image_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::Image'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#export_image') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::Image'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -804,6 +899,8 @@ module OCI
     # Gets information about the specified boot volume attachment.
     # @param [String] boot_volume_attachment_id The OCID of the boot volume attachment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeAttachment BootVolumeAttachment}
     def get_boot_volume_attachment(boot_volume_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_boot_volume_attachment.' if logger
@@ -824,16 +921,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::BootVolumeAttachment'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_boot_volume_attachment') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::BootVolumeAttachment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -852,6 +953,8 @@ module OCI
     #
     # @param [String] instance_console_history_id The OCID of the console history.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::ConsoleHistory ConsoleHistory}
     def get_console_history(instance_console_history_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_console_history.' if logger
@@ -872,16 +975,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::ConsoleHistory'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_console_history') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::ConsoleHistory'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -899,6 +1006,8 @@ module OCI
     #
     # @param [String] instance_console_history_id The OCID of the console history.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :offset Offset of the snapshot data to retrieve.
     # @option opts [Integer] :length Length of the snapshot data to retrieve.
     # @return [Response] A Response object with data of type String
@@ -923,16 +1032,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'String'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_console_history_content') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'String'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -947,6 +1060,8 @@ module OCI
     # Gets the specified image.
     # @param [String] image_id The OCID of the image.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Image Image}
     def get_image(image_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_image.' if logger
@@ -967,16 +1082,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::Image'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_image') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::Image'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -992,6 +1111,8 @@ module OCI
     # Gets information about the specified instance.
     # @param [String] instance_id The OCID of the instance.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Instance Instance}
     def get_instance(instance_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_instance.' if logger
@@ -1012,16 +1133,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::Instance'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_instance') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::Instance'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1037,6 +1162,8 @@ module OCI
     # Gets the specified instance console connection's information.
     # @param [String] instance_console_connection_id The OCID of the intance console connection
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceConsoleConnection InstanceConsoleConnection}
     def get_instance_console_connection(instance_console_connection_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_instance_console_connection.' if logger
@@ -1057,16 +1184,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::InstanceConsoleConnection'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_instance_console_connection') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::InstanceConsoleConnection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1083,6 +1214,8 @@ module OCI
     #
     # @param [String] vnic_attachment_id The OCID of the VNIC attachment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VnicAttachment VnicAttachment}
     def get_vnic_attachment(vnic_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_vnic_attachment.' if logger
@@ -1103,16 +1236,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::VnicAttachment'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_vnic_attachment') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VnicAttachment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1128,6 +1265,8 @@ module OCI
     # Gets information about the specified volume attachment.
     # @param [String] volume_attachment_id The OCID of the volume attachment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeAttachment VolumeAttachment}
     def get_volume_attachment(volume_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_volume_attachment.' if logger
@@ -1148,16 +1287,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::VolumeAttachment'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_volume_attachment') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeAttachment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1170,11 +1313,13 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the generated credentials for the instance. Only works for Windows instances. The returned credentials
-    # are only valid for the initial login.
+    # Gets the generated credentials for the instance. Only works for instances that require password to log in (E.g. Windows).
+    # For certain OS'es, users will be forced to change the initial credentials.
     #
     # @param [String] instance_id The OCID of the instance.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceCredentials InstanceCredentials}
     def get_windows_instance_initial_credentials(instance_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_windows_instance_initial_credentials.' if logger
@@ -1195,16 +1340,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::InstanceCredentials'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_windows_instance_initial_credentials') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::InstanceCredentials'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1237,6 +1386,8 @@ module OCI
     # @param [String] action The action to perform on the instance.
     #   Allowed values are: STOP, START, SOFTRESET, RESET
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -1271,19 +1422,24 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::Instance'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#instance_action') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::Instance'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1328,6 +1484,8 @@ module OCI
     #
     # @param [OCI::Core::Models::LaunchInstanceDetails] launch_instance_details Instance details
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -1351,19 +1509,24 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(launch_instance_details)
 
-      @api_client.call_api(
-        :POST,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::Instance'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#launch_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::Instance'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1383,6 +1546,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
     #   Example: `500`
@@ -1417,16 +1582,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Core::Models::BootVolumeAttachment>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_boot_volume_attachments') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::BootVolumeAttachment>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1441,6 +1610,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :availability_domain The name of the Availability Domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1507,16 +1678,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Core::Models::ConsoleHistory>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_console_histories') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::ConsoleHistory>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1535,6 +1710,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
     # @option opts [String] :operating_system The image's operating system.
@@ -1609,16 +1786,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Core::Models::Image>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_images') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::Image>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1631,10 +1812,12 @@ module OCI
 
     # Lists the console connections for the specified compartment or instance.
     #
-    # For more information about console access, see [Accessing the Instance Console](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/References/serialconsole.htm).
+    # For more information about console access, see [Accessing the Console](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/References/serialconsole.htm).
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :instance_id The OCID of the instance.
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
@@ -1665,16 +1848,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Core::Models::InstanceConsoleConnection>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_instance_console_connections') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::InstanceConsoleConnection>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1691,6 +1878,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :availability_domain The name of the Availability Domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1758,16 +1947,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Core::Models::Instance>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_instances') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::Instance>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1783,6 +1976,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :availability_domain The name of the Availability Domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1818,16 +2013,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Core::Models::Shape>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_shapes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::Shape>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1844,6 +2043,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :availability_domain The name of the Availability Domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1881,16 +2082,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Core::Models::VnicAttachment>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_vnic_attachments') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::VnicAttachment>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1909,6 +2114,8 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :availability_domain The name of the Availability Domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1946,16 +2153,20 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :GET,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'Array<OCI::Core::Models::VolumeAttachment>'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_volume_attachments') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::VolumeAttachment>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1977,6 +2188,8 @@ module OCI
     #
     # @param [String] instance_id The OCID of the instance.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -2006,15 +2219,19 @@ module OCI
 
       post_body = nil
 
-      @api_client.call_api(
-        :DELETE,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#terminate_instance') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -2029,6 +2246,8 @@ module OCI
     # @param [String] instance_console_history_id The OCID of the console history.
     # @param [OCI::Core::Models::UpdateConsoleHistoryDetails] update_console_history_details Update instance fields
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -2055,16 +2274,20 @@ module OCI
 
       post_body = @api_client.object_to_http_body(update_console_history_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::ConsoleHistory'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#update_console_history') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::ConsoleHistory'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -2079,6 +2302,8 @@ module OCI
     # @param [String] image_id The OCID of the image.
     # @param [OCI::Core::Models::UpdateImageDetails] update_image_details Updates the image display name field. Avoid entering confidential information.
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -2109,19 +2334,24 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(update_image_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::Image'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#update_image') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::Image'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -2138,6 +2368,8 @@ module OCI
     # @param [String] instance_id The OCID of the instance.
     # @param [OCI::Core::Models::UpdateInstanceDetails] update_instance_details Update instance fields
     # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -2168,23 +2400,35 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(update_instance_details)
 
-      @api_client.call_api(
-        :PUT,
-        path,
-        endpoint,
-        header_params: header_params,
-        query_params: query_params,
-        operation_signing_strategy: operation_signing_strategy,
-        body: post_body,
-        return_type: 'OCI::Core::Models::Instance'
-      )
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#update_instance') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::Instance'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    private
+
+    def applicable_retry_config(opts = {})
+      return @retry_config unless opts.key?(:retry_config)
+      opts[:retry_config]
+    end
   end
 end
 # rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength
