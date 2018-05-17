@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.1.2**
+**Version 2.2.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -73,8 +73,7 @@ The following table provides details about some of the attributes of the SDK.
             <p>
                 In addition to using waiters, you can use the CompositeOperation classes in the SDK (e.g. {OCI::Core::ComputeClientCompositeOperations}) to perform
                 an action on a resource and wait for it to enter a particular state (or states). The CompositeOperation classes provide convenience methods so that
-                you yourself do not have to invoke an operation and then separately invoke a waiter. An example of using the CompositeOperations classes can be found
-                in the examples folder of the Ruby SDK <a href="https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip">download</a>
+                you yourself do not have to invoke an operation and then separately invoke a waiter. An example of using the CompositeOperations classes: <a href="https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/composite_operations_example.rb">composite_operations_example.rb</a>
             </p>
         </td>
 	</tr>
@@ -85,7 +84,7 @@ The following table provides details about some of the attributes of the SDK.
     <tr>
 		<td>Instance Principals Authentication</td>
 		<td>
-            The Ruby SDK supports <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/callingservicesfrominstances.htm">Instance Principals</a> authentication via the use of the {OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner} class. An example of using Instance Principals authentication can be found in the examples folder of the Ruby SDK <a href="https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip">download</a>
+            The Ruby SDK supports <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/callingservicesfrominstances.htm">Instance Principals</a> authentication via the use of the {OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner} class. An example of using Instance Principals authentication: <a href="https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/instance_principals_example.rb">instance_principals_example.rb</a>
         </td>
 	</tr>
     <tr>
@@ -93,20 +92,22 @@ The following table provides details about some of the attributes of the SDK.
 		<td>
             The Object Storage service supports multipart uploads to make large object uploads easier by splitting the large object into parts. The Ruby SDK supports raw multipart upload operations for advanced use cases, as well as a higher-level upload class that uses the multipart upload APIs.
             <p>
-                <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Object/Tasks/managingmultipartuploads.htm">Managing Multipart Uploads</a> provides links to the APIs used for raw multipart upload operations. Higher-level uploads can be performed using the {OCI::ObjectStorage::Transfer::UploadManager}.
+                <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Object/Tasks/usingmultipartuploads.htm">Managing Multipart Uploads</a> provides links to the APIs used for raw multipart upload operations. Higher-level uploads can be performed using the {OCI::ObjectStorage::Transfer::UploadManager}.
             </p>
             <p>
                 The UploadManager simplifies interaction with the Object Storage service by abstracting away the method used to upload objects and can handle uploading an entire object at once, or in multiple parts if it is of sufficient size (which is configurable via a {OCI::ObjectStorage::Transfer::UploadManagerConfig} object). In the latter case, the UploadManager will split a large object into parts for you, upload the parts in parallel, and then recombine and commit the parts as a single object in Object Storage.
             </p>
             <p>
-                Examples of using the Upload Manager can be found in the examples folder of the Ruby SDK <a href="https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip">download</a>
+                Example of using the Upload Manager: <a href="https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/upload_manager.rb">upload_manager.rb</a>
+                <br>
+                Example of using the Upload Manager from <code>stdin</code>: <a href="https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/upload_manager_stdin_example.rb">upload_manager_stdin_example.rb</a>
             </p>
         </td>
 	</tr>
     <tr>
         <td>Retries</td>
         <td>
-            By default the Ruby SDK will not retry failed service calls, however the SDK supports specifying per client and per operation retry configurations. An example of using retries can be found in the examples folder of the Ruby SDK <a href="https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip">download</a>
+            By default the Ruby SDK will not retry failed service calls, however the SDK supports specifying per client and per operation retry configurations. An example of using retries: <a href="https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/retry_example.rb">retry_example.rb</a>
         </td>
     </tr>
 </tbody>
@@ -118,7 +119,7 @@ The following table provides details about some of the attributes of the SDK.
 To use the Ruby SDK, you must have:
 
 * An Oracle Cloud Infrastructure account.
-* A user created in that account, in a group with a policy that grants the desired permissions. This can be a user for yourself, or another person/system that needs to call the API. For an example of how to set up a new user, group, compartment, and policy, see [Adding Users]({{DOC_SERVER_URL}}/Content/GSG/Tasks/addingusers.htm) in the Getting Started Guide. For a list of typical policies you may want to use, see [Common Policies]({{DOC_SERVER_URL}}/Content/Identity/Concepts/commonpolicies.htm) in the User Guide.
+* A user created in that account, in a group with a policy that grants the desired permissions. This can be a user for yourself, or another person/system that needs to call the API. For an example of how to set up a new user, group, compartment, and policy, see [Adding Users](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/addingusers.htm) in the Getting Started Guide. For a list of typical policies you may want to use, see [Common Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/commonpolicies.htm) in the User Guide.
 * A keypair used for signing API requests, with the public key uploaded to Oracle. Only the user calling the API should be in possession of the private key. See the configuration information below.
 * Ruby version 2.2 or later running on Mac, Linux or Windows.
 
@@ -130,7 +131,7 @@ To use the Ruby SDK, you must have:
 
  `gem install oci`
 
-You can also [download the SDK](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) as a zip file containing the gem file, examples, and documentation.
+You can also [download the SDK](https://github.com/oracle/oci-ruby-sdk/releases) as a zip file containing the gem file, examples, and documentation.
 
  Install the gem with the following command:
 
@@ -151,7 +152,7 @@ Using `OCI` as the top level module name is preferred and it is also used in the
 
 To use any of the APIs, you must supply a {OCI::Config Config} object. You can create the object directly in code, or you can create one in a config file. The configuration includes:
 
-* Required credentials and settings: See [SDK and Tool Configuration]({{DOC_SERVER_URL}}/Content/API/Concepts/sdkconfig.htm) in the User Guide.
+* Required credentials and settings: See [SDK and Tool Configuration](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/sdkconfig.htm) in the User Guide.
 * Optional SDK-specific settings: See the {OCI::Config Config} object for the full list of config options.
 
 ## Forward Compatibility
@@ -345,7 +346,7 @@ The other errors you may encounter while using the SDK are:
 * {OCI::Errors::MultipartUploadError MultipartUploadError} when using {OCI::ObjectStorage::Transfer::UploadManager UploadManager}. The {OCI::Errors::MultipartUploadError#errors errors} attribute can be inspected to see what errors occurred during the upload, and the {OCI::Errors::MultipartUploadError#upload_id upload_id} can be used if you wish to try and resume the upload via the UploadManager's {OCI::ObjectStorage::Transfer::UploadManager#resume resume} method
 
 ## Examples
-The example code in this section shows how various parts of the Ruby SDK work. More examples can be found in the SDK download.
+The example code in this section shows how various parts of the Ruby SDK work. More examples can be found from the [Ruby SDK on GitHub](https://github.com/oracle/oci-ruby-sdk/tree/master/examples-oci).
 
 ### Management Operations on a User
 The following example runs create, read, update, and delete (CRUD) operations on users.
@@ -529,19 +530,31 @@ The {OCI::Signer} can be used to sign arbitrary requests to the Oracle Cloud Inf
 
 ## Documentation
 
-Full documentation, including prerequisites and installation and configuration instructions, can be found [here](https://docs.us-phoenix-1.oraclecloud.com/Content/API/SDKDocs/rubysdk.htm).
+Full documentation, including prerequisites, installation, and configuration instructions can be found [here](https://docs.us-phoenix-1.oraclecloud.com/Content/API/SDKDocs/rubysdk.htm).
 
 API reference can be found [here](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/frames.html).
 
 ## Changes
 
-See [CHANGELOG](CHANGELOG.md).
+See [CHANGELOG](https://github.com/oracle/oci-ruby-sdk/blob/master/CHANGELOG.md).
+
+## Contributing
+
+oci-ruby-sdk is an open source project. See [CONTRIBUTING](https://github.com/oracle/oci-ruby-sdk/blob/master/CONTRIBUTING.md) for details.
+
+Oracle gratefully acknowledges the contributions to oci-ruby-sdk that have been made by the community.
 
 ## Notifications
 To be notified when a new version of the Ruby SDK is released, subscribe to the [Atom feed](https://rubygems.org/gems/oci/versions.atom).
 
+## Known Issues
+
+You can find information on any known issues with the SDK [here](https://docs.us-phoenix-1.oraclecloud.com/Content/knownissues.htm) and under the [Issues](https://github.com/oracle/oci-ruby-sdk/issues) tab of this project's [GitHub repository](https://github.com/oracle/oci-ruby-sdk).
+
 ## Questions or Feedback?
-Ways to get in touch:
+You can post an issue on the [Issues](https://github.com/oracle/oci-ruby-sdk/issues) tab of this project's [GitHub repository](https://github.com/oracle/oci-ruby-sdk).
+
+Addtional ways to get in touch:
 
 * [Stack Overflow](https://stackoverflow.com/): Please use the [oracle-cloud-infrastructure](https://stackoverflow.com/questions/tagged/oracle-cloud-infrastructure) and [oci-ruby-sdk](https://stackoverflow.com/questions/tagged/oci-ruby-sdk) tags in your post
 * [Developer Tools section](https://community.oracle.com/community/cloud_computing/bare-metal/content?filterID=contentstatus%5Bpublished%5D~category%5Bdeveloper-tools%5D&filterID=contentstatus%5Bpublished%5D~objecttype~objecttype%5Bthread%5D) of the Oracle Cloud forums
@@ -553,4 +566,4 @@ Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 This SDK and sample is dual licensed under the Universal Permissive License 1.0 and the Apache License 2.0.
 
-See [LICENSE](LICENSE.txt) for more details.
+See [LICENSE](https://github.com/oracle/oci-ruby-sdk/blob/master/LICENSE.txt) for more details.

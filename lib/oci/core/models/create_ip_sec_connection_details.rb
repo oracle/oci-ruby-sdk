@@ -14,6 +14,14 @@ module OCI
     # @return [String]
     attr_accessor :cpe_id
 
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
@@ -21,6 +29,15 @@ module OCI
     # **[Required]** The OCID of the DRG.
     # @return [String]
     attr_accessor :drg_id
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see
+    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
 
     # **[Required]** Static routes to the CPE. At least one route must be included. The CIDR must not be a
     # multicast address or class E address.
@@ -36,8 +53,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
         'cpe_id': :'cpeId',
+        'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'drg_id': :'drgId',
+        'freeform_tags': :'freeformTags',
         'static_routes': :'staticRoutes'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -49,8 +68,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
         'cpe_id': :'String',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'drg_id': :'String',
+        'freeform_tags': :'Hash<String, String>',
         'static_routes': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -64,8 +85,10 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :cpe_id The value to assign to the {#cpe_id} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :drg_id The value to assign to the {#drg_id} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Array<String>] :static_routes The value to assign to the {#static_routes} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -85,6 +108,12 @@ module OCI
 
       self.cpe_id = attributes[:'cpe_id'] if attributes[:'cpe_id']
 
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
@@ -96,6 +125,12 @@ module OCI
       raise 'You cannot provide both :drgId and :drg_id' if attributes.key?(:'drgId') && attributes.key?(:'drg_id')
 
       self.drg_id = attributes[:'drg_id'] if attributes[:'drg_id']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.static_routes = attributes[:'staticRoutes'] if attributes[:'staticRoutes']
 
@@ -116,8 +151,10 @@ module OCI
       self.class == other.class &&
         compartment_id == other.compartment_id &&
         cpe_id == other.cpe_id &&
+        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         drg_id == other.drg_id &&
+        freeform_tags == other.freeform_tags &&
         static_routes == other.static_routes
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -134,7 +171,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cpe_id, display_name, drg_id, static_routes].hash
+      [compartment_id, cpe_id, defined_tags, display_name, drg_id, freeform_tags, static_routes].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

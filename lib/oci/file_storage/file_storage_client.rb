@@ -6,8 +6,6 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The API for the File Storage Service.
-  #
-  # You can use the table of contents or the version selector and search tool to explore the File Storage Service API.
   class FileStorage::FileStorageClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -253,6 +251,9 @@ module OCI
     # client mount commands. These private IP addresses are listed
     # in the privateIpIds property of the mount target and are highly available. Mount
     # targets also consume additional IP addresses in their subnet.
+    # Do not use /30 or smaller subnets for mount target creation because they
+    # do not have sufficient available IP addresses.
+    # Allow at least three IP addresses for each mount target.
     #
     # For information about access control and compartments, see
     # [Overview of the IAM
@@ -968,13 +969,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the export resources in the specified compartment. You must
-    # also specify an export set, a file system, or both.
+    # Lists export resources by compartment, file system, or export
+    # set. You must specify an export set ID, a file system ID, and
+    # / or a compartment ID.
     #
-    # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @option opts [String] :compartment_id The OCID of the compartment.
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
     #   Example: `500`
@@ -1001,10 +1003,9 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::ExportSummary ExportSummary}>
-    def list_exports(compartment_id, opts = {})
+    def list_exports(opts = {})
       logger.debug 'Calling operation FileStorageClient#list_exports.' if logger
 
-      raise "Missing the required parameter 'compartment_id' when calling list_exports." if compartment_id.nil?
 
       if opts[:lifecycle_state] && !%w[CREATING ACTIVE DELETING DELETED FAILED].include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of CREATING, ACTIVE, DELETING, DELETED, FAILED.'
@@ -1023,7 +1024,7 @@ module OCI
 
       # Query Params
       query_params = {}
-      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:exportSetId] = opts[:export_set_id] if opts[:export_set_id]

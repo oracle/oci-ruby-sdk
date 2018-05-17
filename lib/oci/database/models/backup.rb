@@ -33,9 +33,19 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # The Oracle Database Edition of the DbSystem on which the backup was taken.
+    #
+    # @return [String]
+    attr_accessor :database_edition
+
     # The OCID of the database.
     # @return [String]
     attr_accessor :database_id
+
+    # Size of the database in mega-bytes at the time the backup was taken.
+    #
+    # @return [Integer]
+    attr_accessor :db_data_size_in_mbs
 
     # The user-friendly name for the backup. It does not have to be unique.
     # @return [String]
@@ -71,7 +81,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
         'compartment_id': :'compartmentId',
+        'database_edition': :'databaseEdition',
         'database_id': :'databaseId',
+        'db_data_size_in_mbs': :'dbDataSizeInMBs',
         'display_name': :'displayName',
         'id': :'id',
         'lifecycle_details': :'lifecycleDetails',
@@ -89,7 +101,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
         'compartment_id': :'String',
+        'database_edition': :'String',
         'database_id': :'String',
+        'db_data_size_in_mbs': :'Integer',
         'display_name': :'String',
         'id': :'String',
         'lifecycle_details': :'String',
@@ -109,7 +123,9 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
+    # @option attributes [Integer] :db_data_size_in_mbs The value to assign to the {#db_data_size_in_mbs} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -135,11 +151,23 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
+      self.database_edition = attributes[:'databaseEdition'] if attributes[:'databaseEdition']
+
+      raise 'You cannot provide both :databaseEdition and :database_edition' if attributes.key?(:'databaseEdition') && attributes.key?(:'database_edition')
+
+      self.database_edition = attributes[:'database_edition'] if attributes[:'database_edition']
+
       self.database_id = attributes[:'databaseId'] if attributes[:'databaseId']
 
       raise 'You cannot provide both :databaseId and :database_id' if attributes.key?(:'databaseId') && attributes.key?(:'database_id')
 
       self.database_id = attributes[:'database_id'] if attributes[:'database_id']
+
+      self.db_data_size_in_mbs = attributes[:'dbDataSizeInMBs'] if attributes[:'dbDataSizeInMBs']
+
+      raise 'You cannot provide both :dbDataSizeInMBs and :db_data_size_in_mbs' if attributes.key?(:'dbDataSizeInMBs') && attributes.key?(:'db_data_size_in_mbs')
+
+      self.db_data_size_in_mbs = attributes[:'db_data_size_in_mbs'] if attributes[:'db_data_size_in_mbs']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -218,7 +246,9 @@ module OCI
       self.class == other.class &&
         availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
+        database_edition == other.database_edition &&
         database_id == other.database_id &&
+        db_data_size_in_mbs == other.db_data_size_in_mbs &&
         display_name == other.display_name &&
         id == other.id &&
         lifecycle_details == other.lifecycle_details &&
@@ -241,7 +271,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, database_id, display_name, id, lifecycle_details, lifecycle_state, time_ended, time_started, type].hash
+      [availability_domain, compartment_id, database_edition, database_id, db_data_size_in_mbs, display_name, id, lifecycle_details, lifecycle_state, time_ended, time_started, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

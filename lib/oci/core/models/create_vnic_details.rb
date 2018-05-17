@@ -34,11 +34,28 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :assign_public_ip
 
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # A user-friendly name for the VNIC. Does not have to be unique.
     # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see
+    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
 
     # The hostname for the VNIC's primary private IP. Used for DNS. The value is the hostname
     # portion of the primary private IP's fully qualified domain name (FQDN)
@@ -101,7 +118,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'assign_public_ip': :'assignPublicIp',
+        'defined_tags': :'definedTags',
         'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
         'hostname_label': :'hostnameLabel',
         'private_ip': :'privateIp',
         'skip_source_dest_check': :'skipSourceDestCheck',
@@ -115,7 +134,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'assign_public_ip': :'BOOLEAN',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
         'hostname_label': :'String',
         'private_ip': :'String',
         'skip_source_dest_check': :'BOOLEAN',
@@ -131,7 +152,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :assign_public_ip The value to assign to the {#assign_public_ip} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :hostname_label The value to assign to the {#hostname_label} property
     # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     # @option attributes [BOOLEAN] :skip_source_dest_check The value to assign to the {#skip_source_dest_check} property
@@ -148,11 +171,23 @@ module OCI
 
       self.assign_public_ip = attributes[:'assign_public_ip'] unless attributes[:'assign_public_ip'].nil?
 
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.hostname_label = attributes[:'hostnameLabel'] if attributes[:'hostnameLabel']
 
@@ -190,7 +225,9 @@ module OCI
       return true if equal?(other)
       self.class == other.class &&
         assign_public_ip == other.assign_public_ip &&
+        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
         hostname_label == other.hostname_label &&
         private_ip == other.private_ip &&
         skip_source_dest_check == other.skip_source_dest_check &&
@@ -210,7 +247,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [assign_public_ip, display_name, hostname_label, private_ip, skip_source_dest_check, subnet_id].hash
+      [assign_public_ip, defined_tags, display_name, freeform_tags, hostname_label, private_ip, skip_source_dest_check, subnet_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

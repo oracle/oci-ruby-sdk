@@ -1078,7 +1078,7 @@ module OCI
     # manage existing databases. For more information, see the
     # [Oracle Database CLI Reference](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/References/odacli.htm#Oracle_Database_CLI_Reference).
     #
-    # @param [OCI::Database::Models::LaunchDbSystemDetails] launch_db_system_details Request to launch a DB System.
+    # @param [OCI::Database::Models::LaunchDbSystemBase] launch_db_system_details Request to launch a DB System.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry

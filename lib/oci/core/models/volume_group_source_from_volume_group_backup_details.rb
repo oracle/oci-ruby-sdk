@@ -1,41 +1,22 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
+require_relative 'volume_group_source_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateLocalPeeringGatewayDetails model.
-  class Core::Models::UpdateLocalPeeringGatewayDetails # rubocop:disable Metrics/LineLength
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
-
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
-    #
+  # Specifies the volume group backup to restore from.
+  class Core::Models::VolumeGroupSourceFromVolumeGroupBackupDetails < Core::Models::VolumeGroupSourceDetails # rubocop:disable Metrics/LineLength
+    # **[Required]** The OCID of the volume group backup to restore from.
     # @return [String]
-    attr_accessor :display_name
-
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
+    attr_accessor :volume_group_backup_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'definedTags',
-        'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'type': :'type',
+        'volume_group_backup_id': :'volumeGroupBackupId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,9 +25,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'type': :'String',
+        'volume_group_backup_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,32 +37,22 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :volume_group_backup_id The value to assign to the {#volume_group_backup_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
+
+      attributes['type'] = 'volumeGroupBackupId'
+
+      super(attributes)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      self.volume_group_backup_id = attributes[:'volumeGroupBackupId'] if attributes[:'volumeGroupBackupId']
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      raise 'You cannot provide both :volumeGroupBackupId and :volume_group_backup_id' if attributes.key?(:'volumeGroupBackupId') && attributes.key?(:'volume_group_backup_id')
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
-
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
-
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
-
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
-
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
-
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
-
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+      self.volume_group_backup_id = attributes[:'volume_group_backup_id'] if attributes[:'volume_group_backup_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -95,9 +65,8 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        defined_tags == other.defined_tags &&
-        display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        type == other.type &&
+        volume_group_backup_id == other.volume_group_backup_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -113,7 +82,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [type, volume_group_backup_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

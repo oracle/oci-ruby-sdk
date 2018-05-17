@@ -13,6 +13,7 @@ module OCI
       BOOT_VOLUME_TYPE_SCSI = 'SCSI'.freeze,
       BOOT_VOLUME_TYPE_IDE = 'IDE'.freeze,
       BOOT_VOLUME_TYPE_VFIO = 'VFIO'.freeze,
+      BOOT_VOLUME_TYPE_PARAVIRTUALIZED = 'PARAVIRTUALIZED'.freeze,
       BOOT_VOLUME_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -33,6 +34,7 @@ module OCI
       REMOTE_DATA_VOLUME_TYPE_SCSI = 'SCSI'.freeze,
       REMOTE_DATA_VOLUME_TYPE_IDE = 'IDE'.freeze,
       REMOTE_DATA_VOLUME_TYPE_VFIO = 'VFIO'.freeze,
+      REMOTE_DATA_VOLUME_TYPE_PARAVIRTUALIZED = 'PARAVIRTUALIZED'.freeze,
       REMOTE_DATA_VOLUME_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -43,6 +45,7 @@ module OCI
     # * `IDE` - Emulated IDE disk.
     # * `VFIO` - Direct attached Virtual Function storage.  This is the default option for Local data
     # volumes on Oracle provided images.
+    # * `PARAVIRTUALIZED` - Paravirtualized disk.
     #
     # @return [String]
     attr_reader :boot_volume_type
@@ -70,6 +73,7 @@ module OCI
     # * `IDE` - Emulated IDE disk.
     # * `VFIO` - Direct attached Virtual Function storage.  This is the default option for Local data
     # volumes on Oracle provided images.
+    # * `PARAVIRTUALIZED` - Paravirtualized disk.
     #
     # @return [String]
     attr_reader :remote_data_volume_type

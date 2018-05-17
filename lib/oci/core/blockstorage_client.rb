@@ -284,6 +284,124 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new volume group in the specified compartment. A volume group can have at most 20 block volumes.
+    # A volume group is a collection of volumes and may be created from a list of volumes, cloning an existing
+    # volume group or by restoring a volume group backup.
+    # You may optionally specify a *display name* for the volume group, which is simply a friendly name or
+    # description. It does not have to be unique, and you can change it. Avoid entering confidential information.
+    #
+    # @param [OCI::Core::Models::CreateVolumeGroupDetails] create_volume_group_details Request to create a new volume group.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroup VolumeGroup}
+    def create_volume_group(create_volume_group_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#create_volume_group.' if logger
+
+      raise "Missing the required parameter 'create_volume_group_details' when calling create_volume_group." if create_volume_group_details.nil?
+
+      path = '/volumeGroups'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_volume_group_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#create_volume_group') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new group backup of the specified volume group.
+    #
+    # @param [OCI::Core::Models::CreateVolumeGroupBackupDetails] create_volume_group_backup_details Request to create a new backup group of given volume group.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}
+    def create_volume_group_backup(create_volume_group_backup_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#create_volume_group_backup.' if logger
+
+      raise "Missing the required parameter 'create_volume_group_backup_details' when calling create_volume_group_backup." if create_volume_group_backup_details.nil?
+
+      path = '/volumeGroupBackups'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_volume_group_backup_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#create_volume_group_backup') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeGroupBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified boot volume. The volume cannot have an active connection to an instance.
     # To disconnect the boot volume from a connected instance, see
     # [Disconnecting From a Boot Volume](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Tasks/deletingbootvolume.htm).
@@ -483,6 +601,113 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#delete_volume_backup_policy_assignment') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified volume group. This will NOT delete data volumes.
+    #
+    # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_volume_group(volume_group_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#delete_volume_group.' if logger
+
+      raise "Missing the required parameter 'volume_group_id' when calling delete_volume_group." if volume_group_id.nil?
+      raise "Parameter value for 'volume_group_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_id)
+
+      path = '/volumeGroups/{volumeGroupId}'.sub('{volumeGroupId}', volume_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#delete_volume_group') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a volume group backup. This will NOT delete backups within the volume group backup.
+    # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_volume_group_backup(volume_group_backup_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#delete_volume_group_backup.' if logger
+
+      raise "Missing the required parameter 'volume_group_backup_id' when calling delete_volume_group_backup." if volume_group_backup_id.nil?
+      raise "Parameter value for 'volume_group_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_backup_id)
+
+      path = '/volumeGroupBackups/{volumeGroupBackupId}'.sub('{volumeGroupBackupId}', volume_group_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#delete_volume_group_backup') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -817,6 +1042,108 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets information for the specified volume group.
+    # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroup VolumeGroup}
+    def get_volume_group(volume_group_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#get_volume_group.' if logger
+
+      raise "Missing the required parameter 'volume_group_id' when calling get_volume_group." if volume_group_id.nil?
+      raise "Parameter value for 'volume_group_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_id)
+
+      path = '/volumeGroups/{volumeGroupId}'.sub('{volumeGroupId}', volume_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#get_volume_group') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets information for the specified volume group backup.
+    # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}
+    def get_volume_group_backup(volume_group_backup_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#get_volume_group_backup.' if logger
+
+      raise "Missing the required parameter 'volume_group_backup_id' when calling get_volume_group_backup." if volume_group_backup_id.nil?
+      raise "Parameter value for 'volume_group_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_backup_id)
+
+      path = '/volumeGroupBackups/{volumeGroupBackupId}'.sub('{volumeGroupBackupId}', volume_group_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#get_volume_group_backup') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeGroupBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
     # Lists the boot volumes in the specified compartment and Availability Domain.
@@ -835,6 +1162,7 @@ module OCI
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
+    # @option opts [String] :volume_group_id The OCID of the volume group.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::BootVolume BootVolume}>
     def list_boot_volumes(availability_domain, compartment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#list_boot_volumes.' if logger
@@ -851,6 +1179,7 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:volumeGroupId] = opts[:volume_group_id] if opts[:volume_group_id]
 
       # Header Params
       header_params = {}
@@ -1031,7 +1360,94 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the volumes in the specified compartment and Availability Domain.
+    # Lists the backups for volume groups in the specified compartment. You can filter the results by volume group.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @option opts [String] :volume_group_id The OCID of the volume group.
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    #   Example: `500`
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}>
+    def list_volume_group_backups(compartment_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#list_volume_group_backups.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_volume_group_backups." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      path = '/volumeGroupBackups'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:volumeGroupId] = opts[:volume_group_id] if opts[:volume_group_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#list_volume_group_backups') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::VolumeGroupBackup>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the volume groups in the specified compartment and Availability Domain.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -1064,6 +1480,103 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeGroup VolumeGroup}>
+    def list_volume_groups(compartment_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#list_volume_groups.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_volume_groups." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Core::Models::VolumeGroup::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Core::Models::VolumeGroup::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/volumeGroups'
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#list_volume_groups') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::VolumeGroup>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the volumes in the specified compartment and Availability Domain.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @option opts [String] :availability_domain The name of the Availability Domain.
+    #
+    #   Example: `Uocm:PHX-AD-1`
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    #   Example: `500`
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :volume_group_id The OCID of the volume group.
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Volume Volume}>
     def list_volumes(compartment_id, opts = {})
@@ -1095,6 +1608,7 @@ module OCI
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:volumeGroupId] = opts[:volume_group_id] if opts[:volume_group_id]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
@@ -1287,6 +1801,121 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::VolumeBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the set of volumes in a volume group along with (optionally) it's display name. This call can be used
+    # to add or remove volumes in a volume group. The entire list of volume ids must be specified.
+    # Avoid entering confidential information.
+    #
+    # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
+    # @param [OCI::Core::Models::UpdateVolumeGroupDetails] update_volume_group_details Update volume group's set of volumes and/or display name
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroup VolumeGroup}
+    def update_volume_group(volume_group_id, update_volume_group_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#update_volume_group.' if logger
+
+      raise "Missing the required parameter 'volume_group_id' when calling update_volume_group." if volume_group_id.nil?
+      raise "Missing the required parameter 'update_volume_group_details' when calling update_volume_group." if update_volume_group_details.nil?
+      raise "Parameter value for 'volume_group_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_id)
+
+      path = '/volumeGroups/{volumeGroupId}'.sub('{volumeGroupId}', volume_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+
+      post_body = @api_client.object_to_http_body(update_volume_group_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#update_volume_group') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the display name for the specified volume group backup.
+    # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
+    # @param [OCI::Core::Models::UpdateVolumeGroupBackupDetails] update_volume_group_backup_details Update volume group backup fields
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}
+    def update_volume_group_backup(volume_group_backup_id, update_volume_group_backup_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#update_volume_group_backup.' if logger
+
+      raise "Missing the required parameter 'volume_group_backup_id' when calling update_volume_group_backup." if volume_group_backup_id.nil?
+      raise "Missing the required parameter 'update_volume_group_backup_details' when calling update_volume_group_backup." if update_volume_group_backup_details.nil?
+      raise "Parameter value for 'volume_group_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_backup_id)
+
+      path = '/volumeGroupBackups/{volumeGroupBackupId}'.sub('{volumeGroupBackupId}', volume_group_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+
+      post_body = @api_client.object_to_http_body(update_volume_group_backup_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#update_volume_group_backup') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeGroupBackup'
         )
       end
       # rubocop:enable Metrics/BlockLength

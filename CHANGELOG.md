@@ -3,18 +3,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.2.0 - 2018-05-17
+### Breaking Changes
+- *Italic text* indicates breaking changes that may impact users, but most likely will not
+
+
+### Added
+- Support for launching a database system from a backup in the Database service
+- Support for backup or clone of multiple volumes at once using volume groups in the Block Storage service
+- Support for the ability to optionally specify a compartment filter when listing exports in the File Storage service
+- Support for tagging virtual cloud network resources in the Networking service. An example of using tagging: [tagging.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/tagging.rb)
+- Support for specifying `PARAVIRTUALIZED` remote volume type when creating a virtual image or launching a new instance in the Compute service
+
+### Changed
+- *`compartment_id` has changed from a positional to a keyword argument when calling the `ListExports` operation for the File Storage service*
+
+
 ## 2.1.2 - 2018-05-03
 ### Added
 - Support for returning names for events in the Audit service 
 - Support for multiple hostnames per listener in the Load Balancing service
-- Support for specifying a retry strategy when calling OCI services. An example of specifying a client retry strategy may be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+- Support for specifying a retry strategy when calling OCI services. An example of specifying a client retry strategy: [retry\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/retry_example.rb)
 
 ## 2.1.1 - 2018-04-19
 
 ### Added
-- Support for tagging `DbSystem` and `Database` resources in the Database Service. An example of using tagging can be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+- Support for tagging `DbSystem` and `Database` resources in the Database Service. An example of using tagging: [tagging.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/tagging.rb)
 - Support for filtering by `DbSystemId` in `ListDbVersions` operation in Database Service
-- Support for composite operations that provide convenience methods for operations that are often chained together.  An example on how to use this can be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+- Support for composite operations that provide convenience methods for operations that are often chained together.  An example on how to use this: [composite\_operations\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/composite_operations_example.rb)
 - Support for logging enum values when mapped to unknown value.  To enable this logging, define a logger for `OCI.logger`
 
 ## 2.1.0 - 2018-03-27
@@ -23,7 +39,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - *Italic text* indicates breaking changes that may impact users, but most likely will not
 
 ### Added
-- Support for remote VCN peering across regions. An example on how to use this can be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+- Support for remote VCN peering across regions. An example on how to use this: [remote\_peering\_connection\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/remote_peering_connection_example.rb)
 - Support for calling Oracle Cloud Infrastructure services in the uk-london-1 (LHR) region
 - Support for username and password protected proxies
 
@@ -33,23 +49,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ## 2.0.9 - 2018-03-08
 
 ### Added
-- Support for the Email Service. An example on how to call this service can be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
-- Support for SMTP credentials in the Identity Service. See the Email Service sample in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
-- Support for paravirtualized volume attachments in Core Services.  An example on how to use this can be found in `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+- Support for the Email Service. An example on how to call this: [email\_service\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/email_service_example.rb)
+- Support for SMTP credentials in the Identity Service. See the Email Service sample: [email\_service\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/email_service_example.rb)
+- Support for paravirtualized volume attachments in Core Services.  An example on how to use this: [volume\_attachment\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/volume_attachment_example.rb)
 - Support for variable size boot volumes in Core Services
 
 ## 2.0.8 - 2018-02-22
 
 ### Added
-- Support for the File Storage Service. An example on how to call this service can be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
-- Support for tagging Bucket resources in the Object Storage Service. An example can be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+- Support for the File Storage Service. An example on how to call this: [file\_storage\_service\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/file_storage_service_example.rb)
+- Support for tagging Bucket resources in the Object Storage Service. An example of using tagging: [tagging.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/tagging.rb)
 - Support for specifying a restore period for archived objects in the `RestoreObjects` operation of the Object Storage service.
 
 ## 2.0.7 - 2018-02-08
 
 ### Added
 
-- Support for Domain Name System Service. An example of calling this service can be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+- Support for Domain Name System Service. An example of calling this service: [dns\_service\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/dns_service_example.rb)
 - Support for reserved public IPs in Virtual Networking Service
 - Support for path route sets in Load Balancing Service
 - Support for automated and policy-based backups, read-only volume attachments, and incremental backups in Block Storage Service
@@ -60,7 +76,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Added
 - Support for using the `ObjectReadWithoutList` public access type when creating and updating buckets
 - Support for dynamic groups in Identity Service
-- Support for instance principals authentication when calling OCI services. An example of how to use instance principals authentication can be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+- Support for instance principals authentication when calling OCI services. An example of how to use instance principals authentication: [instance\_principals\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/instance_principals_example.rb)
 - Support for configuring idle timeout for listeners in Load Balancer Service 
 - Support for VNC console connections in Compute Service
 
@@ -73,7 +89,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Support for tagging:
   - Support for creating, updating, retrieving and listing tags and tag namespaces (these operations can be found in Identity Service)
   - Support for adding freeform and defined tags to resources in Core Services (Networking, Compute, and Block Volume) and Identity Service
-  - An example of using tagging can be found in the `examples/` folder of the [ruby-sdk.zip](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/download/oci-ruby-sdk.zip) download
+  - An example of using tagging: [tagging.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/tagging.rb)
 - Support for bringing your own custom image for emulation mode virtual machines in Compute Service
 
 ## 2.0.4 - 2017-12-11
@@ -142,9 +158,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Changed
 - Renamed the namespace OracleBMC to OCI (Oracle Cloud Infrastructure). The namespace OracleBMC still works, but is deprecated and won't show up in any documentation.
-- Changed the default location of configuration file to "~/.oci/config" (on windows "C:\Users\\{user}\\.oci\config"). The old location is deprecated, but still works, if file at new location does not exist.
-- *Switched http stack from Typhoeus to Ruby built-in Net::HTTP. Net::HTTP has a known issue for setting no_proxy with Ruby 2.4, details at https://github.com/ruby/ruby/pull/1513. The workaround is to use hostname instead of IP address.*
-- **OCI::ApiClient#request_option_overrides was designed to override the options to Typhoeus, now it is used to override the options to Net::HTTP. See http://ruby-doc.org/stdlib-2.4.1/libdoc/net/http/rdoc/Net/HTTP.html#method-c-start for some of the available options.**
+- Changed the default location of configuration file to "~/.oci/config" (on windows "C:\\Users\\{user}\\.oci\config"). The old location is deprecated, but still works, if file at new location does not exist.
+- *Switched http stack from Typhoeus to Ruby built-in Net::HTTP. Net::HTTP has a known issue for setting no_proxy with Ruby 2.4, details at [https://github.com/ruby/ruby/pull/1513](https://github.com/ruby/ruby/pull/1513). The workaround is to use hostname instead of IP address.*
+- **OCI::ApiClient#request\_option\_overrides was designed to override the options to Typhoeus, now it is used to override the options to Net::HTTP. See [http://ruby-doc.org/stdlib-2.4.1/libdoc/net/http/rdoc/Net/HTTP.html#method-c-start](http://ruby-doc.org/stdlib-2.4.1/libdoc/net/http/rdoc/Net/HTTP.html#method-c-start) for some of the available options.**
 - **OCI::Response#headers changed to OCI::ResponseHeaders which is a readonly and case-insensitive wrapper on hash object.**
 - **OCI::Errors::NetworkError#code was mapping to Typhoeus's error message/code but now maps to Net::HTTPResponse's message or exception's message.**
 - Support for passing the content of a private key file directly to OCI::Config, using the key_content param. Previously only a path to the private key could be used.
