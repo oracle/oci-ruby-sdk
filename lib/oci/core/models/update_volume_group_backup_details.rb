@@ -4,8 +4,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateLocalPeeringGatewayDetails model.
-  class Core::Models::UpdateLocalPeeringGatewayDetails # rubocop:disable Metrics/LineLength
+  # UpdateVolumeGroupBackupDetails model.
+  class Core::Models::UpdateVolumeGroupBackupDetails # rubocop:disable Metrics/LineLength
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -14,9 +14,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
-    #
+    # A friendly user-specified name for the volume group backup.
     # @return [String]
     attr_accessor :display_name
 

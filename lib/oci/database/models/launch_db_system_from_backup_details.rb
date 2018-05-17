@@ -5,8 +5,8 @@ require_relative 'launch_db_system_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # LaunchDbSystemDetails model.
-  class Database::Models::LaunchDbSystemDetails < Database::Models::LaunchDbSystemBase # rubocop:disable Metrics/LineLength
+  # LaunchDbSystemFromBackupDetails model.
+  class Database::Models::LaunchDbSystemFromBackupDetails < Database::Models::LaunchDbSystemBase # rubocop:disable Metrics/LineLength
     DATABASE_EDITION_ENUM = [
       DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
       DATABASE_EDITION_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
@@ -31,7 +31,7 @@ module OCI
     attr_reader :database_edition
 
     # This attribute is required.
-    # @return [OCI::Database::Models::CreateDbHomeDetails]
+    # @return [OCI::Database::Models::CreateDbHomeFromBackupDetails]
     attr_accessor :db_home
 
     # The type of redundancy configured for the DB System.
@@ -97,7 +97,7 @@ module OCI
         'ssh_public_keys': :'Array<String>',
         'subnet_id': :'String',
         'database_edition': :'String',
-        'db_home': :'OCI::Database::Models::CreateDbHomeDetails',
+        'db_home': :'OCI::Database::Models::CreateDbHomeFromBackupDetails',
         'disk_redundancy': :'String',
         'license_model': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -127,13 +127,13 @@ module OCI
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#ssh_public_keys #ssh_public_keys} proprety
     # @option attributes [String] :subnet_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#subnet_id #subnet_id} proprety
     # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
-    # @option attributes [OCI::Database::Models::CreateDbHomeDetails] :db_home The value to assign to the {#db_home} property
+    # @option attributes [OCI::Database::Models::CreateDbHomeFromBackupDetails] :db_home The value to assign to the {#db_home} property
     # @option attributes [String] :disk_redundancy The value to assign to the {#disk_redundancy} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
-      attributes['source'] = 'NONE'
+      attributes['source'] = 'DB_BACKUP'
 
       super(attributes)
 

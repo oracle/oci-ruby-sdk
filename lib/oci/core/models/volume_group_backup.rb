@@ -5,66 +5,94 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A detachable boot volume device that contains the image used to boot a Compute instance. For more information, see
-  # [Overview of Boot Volumes](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/bootvolumes.htm).
+  # A point-in-time copy of a volume group that can then be used to create a new block volume group
+  # or recover a block volume group.
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
   #
-  class Core::Models::BootVolume # rubocop:disable Metrics/LineLength
+  class Core::Models::VolumeGroupBackup # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
-      LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
-      LIFECYCLE_STATE_RESTORING = 'RESTORING'.freeze,
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_COMMITTED = 'COMMITTED'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
       LIFECYCLE_STATE_TERMINATING = 'TERMINATING'.freeze,
       LIFECYCLE_STATE_TERMINATED = 'TERMINATED'.freeze,
       LIFECYCLE_STATE_FAULTY = 'FAULTY'.freeze,
+      LIFECYCLE_STATE_REQUEST_RECEIVED = 'REQUEST_RECEIVED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The Availability Domain of the boot volume.
-    #
-    # Example: `Uocm:PHX-AD-1`
-    #
-    # @return [String]
-    attr_accessor :availability_domain
+    TYPE_ENUM = [
+      TYPE_FULL = 'FULL'.freeze,
+      TYPE_INCREMENTAL = 'INCREMENTAL'.freeze,
+      TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
 
-    # **[Required]** The OCID of the compartment that contains the boot volume.
+    # **[Required]** The OCID of the compartment that contains the volume group backup.
     # @return [String]
     attr_accessor :compartment_id
 
-    # A user-friendly name. Does not have to be unique, and it's changeable.
-    # Avoid entering confidential information.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # **[Required]** A user-friendly name for the volume group backup. Does not have to be unique and it's changeable.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The boot volume's Oracle ID (OCID).
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see
+    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # **[Required]** The OCID of the volume group backup (unique).
     # @return [String]
     attr_accessor :id
 
-    # The image OCID used to create the boot volume.
-    # @return [String]
-    attr_accessor :image_id
-
-    # **[Required]** The current state of a boot volume.
+    # **[Required]** The current state of a volume group backup.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The size of the boot volume in GBs.
-    # @return [Integer]
-    attr_accessor :size_in_gbs
-
-    # **[Required]** The size of the volume in MBs. The value must be a multiple of 1024.
-    # This field is deprecated. Please use sizeInGBs.
+    # The aggregate size of the volume group backup, in MBs.
     #
     # @return [Integer]
     attr_accessor :size_in_mbs
 
-    # **[Required]** The date and time the boot volume was created. Format defined by RFC3339.
+    # **[Required]** The date and time the volume group backup was created. This is the time the actual point-in-time image
+    # of the volume group data was taken. Format defined by RFC3339.
+    #
     # @return [DateTime]
     attr_accessor :time_created
+
+    # The date and time the request to create the volume group backup was received. Format defined by RFC3339.
+    #
+    # @return [DateTime]
+    attr_accessor :time_request_received
+
+    # **[Required]** The type of backup.
+    # @return [String]
+    attr_reader :type
+
+    # The aggregate size used by the volume group backup, in MBs.
+    # It is typically smaller than sizeInMBs, depending on the space
+    # consumed on the volume group and whether the backup is full or incremental.
+    #
+    # @return [Integer]
+    attr_accessor :unique_size_in_mbs
+
+    # **[Required]** OCIDs for the backups in this volume group backup.
+    # @return [Array<String>]
+    attr_accessor :volume_backup_ids
 
     # The OCID of the source volume group.
     # @return [String]
@@ -74,15 +102,18 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'availability_domain': :'availabilityDomain',
         'compartment_id': :'compartmentId',
+        'defined_tags': :'definedTags',
         'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
         'id': :'id',
-        'image_id': :'imageId',
         'lifecycle_state': :'lifecycleState',
-        'size_in_gbs': :'sizeInGBs',
         'size_in_mbs': :'sizeInMBs',
         'time_created': :'timeCreated',
+        'time_request_received': :'timeRequestReceived',
+        'type': :'type',
+        'unique_size_in_mbs': :'uniqueSizeInMbs',
+        'volume_backup_ids': :'volumeBackupIds',
         'volume_group_id': :'volumeGroupId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -92,15 +123,18 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'availability_domain': :'String',
         'compartment_id': :'String',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
         'id': :'String',
-        'image_id': :'String',
         'lifecycle_state': :'String',
-        'size_in_gbs': :'Integer',
         'size_in_mbs': :'Integer',
         'time_created': :'DateTime',
+        'time_request_received': :'DateTime',
+        'type': :'String',
+        'unique_size_in_mbs': :'Integer',
+        'volume_backup_ids': :'Array<String>',
         'volume_group_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -112,15 +146,18 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [String] :image_id The value to assign to the {#image_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
-    # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_request_received The value to assign to the {#time_request_received} property
+    # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [Integer] :unique_size_in_mbs The value to assign to the {#unique_size_in_mbs} property
+    # @option attributes [Array<String>] :volume_backup_ids The value to assign to the {#volume_backup_ids} property
     # @option attributes [String] :volume_group_id The value to assign to the {#volume_group_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -128,17 +165,17 @@ module OCI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
-
-      raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
-
-      self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
-
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -146,25 +183,19 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
       self.id = attributes[:'id'] if attributes[:'id']
-
-      self.image_id = attributes[:'imageId'] if attributes[:'imageId']
-
-      raise 'You cannot provide both :imageId and :image_id' if attributes.key?(:'imageId') && attributes.key?(:'image_id')
-
-      self.image_id = attributes[:'image_id'] if attributes[:'image_id']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
-
-      self.size_in_gbs = attributes[:'sizeInGBs'] if attributes[:'sizeInGBs']
-
-      raise 'You cannot provide both :sizeInGBs and :size_in_gbs' if attributes.key?(:'sizeInGBs') && attributes.key?(:'size_in_gbs')
-
-      self.size_in_gbs = attributes[:'size_in_gbs'] if attributes[:'size_in_gbs']
 
       self.size_in_mbs = attributes[:'sizeInMBs'] if attributes[:'sizeInMBs']
 
@@ -177,6 +208,26 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_request_received = attributes[:'timeRequestReceived'] if attributes[:'timeRequestReceived']
+
+      raise 'You cannot provide both :timeRequestReceived and :time_request_received' if attributes.key?(:'timeRequestReceived') && attributes.key?(:'time_request_received')
+
+      self.time_request_received = attributes[:'time_request_received'] if attributes[:'time_request_received']
+
+      self.type = attributes[:'type'] if attributes[:'type']
+
+      self.unique_size_in_mbs = attributes[:'uniqueSizeInMbs'] if attributes[:'uniqueSizeInMbs']
+
+      raise 'You cannot provide both :uniqueSizeInMbs and :unique_size_in_mbs' if attributes.key?(:'uniqueSizeInMbs') && attributes.key?(:'unique_size_in_mbs')
+
+      self.unique_size_in_mbs = attributes[:'unique_size_in_mbs'] if attributes[:'unique_size_in_mbs']
+
+      self.volume_backup_ids = attributes[:'volumeBackupIds'] if attributes[:'volumeBackupIds']
+
+      raise 'You cannot provide both :volumeBackupIds and :volume_backup_ids' if attributes.key?(:'volumeBackupIds') && attributes.key?(:'volume_backup_ids')
+
+      self.volume_backup_ids = attributes[:'volume_backup_ids'] if attributes[:'volume_backup_ids']
 
       self.volume_group_id = attributes[:'volumeGroupId'] if attributes[:'volumeGroupId']
 
@@ -202,6 +253,21 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      # rubocop:disable Style/ConditionalAssignment
+      if type && !TYPE_ENUM.include?(type)
+        # rubocop: disable Metrics/LineLength
+        OCI.logger.debug("Unknown value for 'type' [" + type + "]. Mapping to 'TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        # rubocop: enable Metrics/LineLength
+        @type = TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @type = type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -210,15 +276,18 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
+        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
         id == other.id &&
-        image_id == other.image_id &&
         lifecycle_state == other.lifecycle_state &&
-        size_in_gbs == other.size_in_gbs &&
         size_in_mbs == other.size_in_mbs &&
         time_created == other.time_created &&
+        time_request_received == other.time_request_received &&
+        type == other.type &&
+        unique_size_in_mbs == other.unique_size_in_mbs &&
+        volume_backup_ids == other.volume_backup_ids &&
         volume_group_id == other.volume_group_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -235,7 +304,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, display_name, id, image_id, lifecycle_state, size_in_gbs, size_in_mbs, time_created, volume_group_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, size_in_mbs, time_created, time_request_received, type, unique_size_in_mbs, volume_backup_ids, volume_group_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

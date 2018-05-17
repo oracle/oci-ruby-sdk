@@ -4,8 +4,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateLocalPeeringGatewayDetails model.
-  class Core::Models::UpdateLocalPeeringGatewayDetails # rubocop:disable Metrics/LineLength
+  # UpdateVolumeGroupDetails model.
+  class Core::Models::UpdateVolumeGroupDetails # rubocop:disable Metrics/LineLength
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -14,9 +14,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
-    #
+    # A user-friendly name for the volume group.
     # @return [String]
     attr_accessor :display_name
 
@@ -29,13 +27,18 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # OCIDs for the volumes in this volume group.
+    # @return [Array<String>]
+    attr_accessor :volume_ids
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'volume_ids': :'volumeIds'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -46,7 +49,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'volume_ids': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -60,6 +64,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Array<String>] :volume_ids The value to assign to the {#volume_ids} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -83,6 +88,12 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.volume_ids = attributes[:'volumeIds'] if attributes[:'volumeIds']
+
+      raise 'You cannot provide both :volumeIds and :volume_ids' if attributes.key?(:'volumeIds') && attributes.key?(:'volume_ids')
+
+      self.volume_ids = attributes[:'volume_ids'] if attributes[:'volume_ids']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -97,7 +108,8 @@ module OCI
       self.class == other.class &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        volume_ids == other.volume_ids
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -113,7 +125,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [defined_tags, display_name, freeform_tags, volume_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

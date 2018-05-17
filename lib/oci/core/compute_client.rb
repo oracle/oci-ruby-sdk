@@ -1376,11 +1376,7 @@ module OCI
     #
     # **reset** - power off and power on
     #
-    # Note that the **stop** state has no effect on the resources you consume.
-    # Billing continues for instances that you stop, and related resources continue
-    # to apply against any relevant quotas. You must terminate an instance
-    # ({#terminate_instance terminate_instance})
-    # to remove its resources from billing and quotas.
+    # For more information see [Stopping and Starting an Instance](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/restartinginstance.htm).
     #
     # @param [String] instance_id The OCID of the instance.
     # @param [String] action The action to perform on the instance.

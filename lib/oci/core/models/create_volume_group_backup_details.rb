@@ -4,8 +4,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateLocalPeeringGatewayDetails model.
-  class Core::Models::UpdateLocalPeeringGatewayDetails # rubocop:disable Metrics/LineLength
+  # CreateVolumeGroupBackupDetails model.
+  class Core::Models::CreateVolumeGroupBackupDetails # rubocop:disable Metrics/LineLength
+    TYPE_ENUM = [
+      TYPE_FULL = 'FULL'.freeze,
+      TYPE_INCREMENTAL = 'INCREMENTAL'.freeze
+    ].freeze
+
+    # The OCID of the compartment that will contain the volume group backup. This parameter is optional, by default backup will be created in the same compartment and source volume group.
+    # @return [String]
+    attr_accessor :compartment_id
+
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -14,9 +23,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
-    #
+    # A user-friendly name for the volume group backup. Does not have to be unique and it's changeable.
     # @return [String]
     attr_accessor :display_name
 
@@ -29,13 +36,24 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The type of backup to create. If omitted, defaults to incremental.
+    # @return [String]
+    attr_reader :type
+
+    # **[Required]** The OCID of the volume group that needs to be backed up.
+    # @return [String]
+    attr_accessor :volume_group_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'type': :'type',
+        'volume_group_id': :'volumeGroupId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,9 +62,12 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'type': :'String',
+        'volume_group_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,14 +78,23 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [String] :volume_group_id The value to assign to the {#volume_group_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -83,9 +113,26 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.type = attributes[:'type'] if attributes[:'type']
+
+      self.volume_group_id = attributes[:'volumeGroupId'] if attributes[:'volumeGroupId']
+
+      raise 'You cannot provide both :volumeGroupId and :volume_group_id' if attributes.key?(:'volumeGroupId') && attributes.key?(:'volume_group_id')
+
+      self.volume_group_id = attributes[:'volume_group_id'] if attributes[:'volume_group_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'type': this must be one of the values in TYPE_ENUM." if type && !TYPE_ENUM.include?(type)
+      # rubocop: enable Metrics/LineLength
+      @type = type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -95,9 +142,12 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
+        compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        type == other.type &&
+        volume_group_id == other.volume_group_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -113,7 +163,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, type, volume_group_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -6,11 +6,28 @@ require 'date'
 module OCI
   # UpdateInternetGatewayDetails model.
   class Core::Models::UpdateInternetGatewayDetails # rubocop:disable Metrics/LineLength
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see
+    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
 
     # Whether the gateway is enabled.
     # @return [BOOLEAN]
@@ -20,7 +37,9 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'defined_tags': :'definedTags',
         'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
         'is_enabled': :'isEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -30,7 +49,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
         'is_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -42,7 +63,9 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -50,11 +73,23 @@ module OCI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.is_enabled = attributes[:'isEnabled'] unless attributes[:'isEnabled'].nil?
 
@@ -73,7 +108,9 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
+        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
         is_enabled == other.is_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -90,7 +127,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, is_enabled].hash
+      [defined_tags, display_name, freeform_tags, is_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -5640,7 +5640,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified CPE's display name.
+    # Updates the specified CPE's display name or tags.
     # Avoid entering confidential information.
     #
     # @param [String] cpe_id The OCID of the CPE.
@@ -5872,7 +5872,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified DRG's display name. Avoid entering confidential information.
+    # Updates the specified DRG's display name or tags. Avoid entering confidential information.
     #
     # @param [String] drg_id The OCID of the DRG.
     # @param [OCI::Core::Models::UpdateDrgDetails] update_drg_details Details object for updating a DRG.
@@ -5987,8 +5987,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified Internet Gateway. You can disable/enable it, or change its display name.
-    # Avoid entering confidential information.
+    # Updates the specified Internet Gateway. You can disable/enable it, or change its display name
+    # or tags. Avoid entering confidential information.
     #
     # If the gateway is disabled, that means no traffic will flow to/from the internet even if there's
     # a route rule that enables that traffic.
@@ -6048,7 +6048,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the display name for the specified IPSec connection.
+    # Updates the display name or tags for the specified IPSec connection.
     # Avoid entering confidential information.
     #
     # @param [String] ipsc_id The OCID of the IPSec connection.
@@ -6235,7 +6235,7 @@ module OCI
     # * Move a reserved public IP to a different private IP.
     # * Unassign a reserved public IP from a private IP (which returns it to your pool
     # of reserved public IPs).
-    # * Change the display name for a public IP.
+    # * Change the display name or tags for a public IP.
     #
     # Assigning, moving, and unassigning a reserved public IP are asynchronous
     # operations. Poll the public IP's `lifecycleState` to determine if the operation

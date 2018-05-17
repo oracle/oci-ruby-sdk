@@ -266,7 +266,7 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#launch_db_system} and then waits for the {OCI::Database::Models::DbSystem} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Database::Models::LaunchDbSystemDetails] launch_db_system_details Request to launch a DB System.
+    # @param [OCI::Database::Models::LaunchDbSystemBase] launch_db_system_details Request to launch a DB System.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::DbSystem#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#launch_db_system}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

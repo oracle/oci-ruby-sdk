@@ -88,6 +88,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The OCID of the source volume group.
+    # @return [String]
+    attr_accessor :volume_group_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -103,7 +107,8 @@ module OCI
         'size_in_gbs': :'sizeInGBs',
         'size_in_mbs': :'sizeInMBs',
         'source_details': :'sourceDetails',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'volume_group_id': :'volumeGroupId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -123,7 +128,8 @@ module OCI
         'size_in_gbs': :'Integer',
         'size_in_mbs': :'Integer',
         'source_details': :'OCI::Core::Models::VolumeSourceDetails',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'volume_group_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -146,6 +152,7 @@ module OCI
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
     # @option attributes [OCI::Core::Models::VolumeSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :volume_group_id The value to assign to the {#volume_group_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -219,6 +226,12 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.volume_group_id = attributes[:'volumeGroupId'] if attributes[:'volumeGroupId']
+
+      raise 'You cannot provide both :volumeGroupId and :volume_group_id' if attributes.key?(:'volumeGroupId') && attributes.key?(:'volume_group_id')
+
+      self.volume_group_id = attributes[:'volume_group_id'] if attributes[:'volume_group_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -257,7 +270,8 @@ module OCI
         size_in_gbs == other.size_in_gbs &&
         size_in_mbs == other.size_in_mbs &&
         source_details == other.source_details &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        volume_group_id == other.volume_group_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -273,7 +287,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, is_hydrated, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, is_hydrated, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
