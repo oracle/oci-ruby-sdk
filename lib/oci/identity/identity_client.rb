@@ -107,7 +107,7 @@ module OCI
     # @param [OCI::Identity::Models::AddUserToGroupDetails] add_user_to_group_details Request object for adding a user to a group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -123,6 +123,7 @@ module OCI
       path = '/userGroupMemberships/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -131,6 +132,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(add_user_to_group_details)
@@ -146,6 +148,77 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Identity::Models::UserGroupMembership'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new auth token for the specified user. For information about what auth tokens are for, see
+    # [Managing User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm).
+    #
+    # You must specify a *description* for the auth token (although it can be an empty string). It does not
+    # have to be unique, and you can change it anytime with
+    # {#update_auth_token update_auth_token}.
+    #
+    # Every user has permission to create an auth token for *their own user ID*. An administrator in your organization
+    # does not need to write a policy to give users this ability. To compare, administrators who have permission to the
+    # tenancy can use this operation to create an auth token for any user, including themselves.
+    #
+    # @param [OCI::Identity::Models::CreateAuthTokenDetails] create_auth_token_details Request object for creating a new auth token.
+    # @param [String] user_id The OCID of the user.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::AuthToken AuthToken}
+    def create_auth_token(create_auth_token_details, user_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#create_auth_token.' if logger
+
+      raise "Missing the required parameter 'create_auth_token_details' when calling create_auth_token." if create_auth_token_details.nil?
+      raise "Missing the required parameter 'user_id' when calling create_auth_token." if user_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+
+      path = '/users/{userId}/authTokens/'.sub('{userId}', user_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_auth_token_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#create_auth_token') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::AuthToken'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -182,7 +255,7 @@ module OCI
     # @param [OCI::Identity::Models::CreateCompartmentDetails] create_compartment_details Request object for creating a new compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -198,6 +271,7 @@ module OCI
       path = '/compartments/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -206,6 +280,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_compartment_details)
@@ -250,7 +325,7 @@ module OCI
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -268,6 +343,7 @@ module OCI
       path = '/users/{userId}/customerSecretKeys/'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -276,6 +352,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_customer_secret_key_details)
@@ -326,7 +403,7 @@ module OCI
     # @param [OCI::Identity::Models::CreateDynamicGroupDetails] create_dynamic_group_details Request object for creating a new dynamic group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -342,6 +419,7 @@ module OCI
       path = '/dynamicGroups/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -350,6 +428,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_dynamic_group_details)
@@ -403,7 +482,7 @@ module OCI
     # @param [OCI::Identity::Models::CreateGroupDetails] create_group_details Request object for creating a new group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -419,6 +498,7 @@ module OCI
       path = '/groups/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -427,6 +507,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_group_details)
@@ -477,7 +558,7 @@ module OCI
     # @param [OCI::Identity::Models::CreateIdentityProviderDetails] create_identity_provider_details Request object for creating a new SAML2 identity provider.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -493,6 +574,7 @@ module OCI
       path = '/identityProviders/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -501,6 +583,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_identity_provider_details)
@@ -536,7 +619,7 @@ module OCI
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -554,6 +637,7 @@ module OCI
       path = '/identityProviders/{identityProviderId}/groupMappings/'.sub('{identityProviderId}', identity_provider_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -562,6 +646,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_idp_group_mapping_details)
@@ -605,7 +690,7 @@ module OCI
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -622,6 +707,7 @@ module OCI
       path = '/users/{userId}/uiPassword'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -630,6 +716,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
@@ -679,7 +766,7 @@ module OCI
     # @param [OCI::Identity::Models::CreatePolicyDetails] create_policy_details Request object for creating a new policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -695,6 +782,7 @@ module OCI
       path = '/policies/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -703,6 +791,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_policy_details)
@@ -737,7 +826,7 @@ module OCI
     # @param [String] tenancy_id The OCID of the tenancy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -755,6 +844,7 @@ module OCI
       path = '/tenancies/{tenancyId}/regionSubscriptions'.sub('{tenancyId}', tenancy_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -763,6 +853,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_region_subscription_details)
@@ -800,7 +891,7 @@ module OCI
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -818,6 +909,7 @@ module OCI
       path = '/users/{userId}/smtpCredentials/'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -826,6 +918,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_smtp_credential_details)
@@ -854,6 +947,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated. Use {#create_auth_token create_auth_token} instead.**
+    #
     # Creates a new Swift password for the specified user. For information about what Swift passwords are for, see
     # [Managing User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm).
     #
@@ -869,7 +964,7 @@ module OCI
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -887,6 +982,7 @@ module OCI
       path = '/users/{userId}/swiftPasswords/'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -895,6 +991,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_swift_password_details)
@@ -941,7 +1038,7 @@ module OCI
     # @param [OCI::Identity::Models::CreateTagDetails] create_tag_details Request object for creating a new tag in the specified tag namespace.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -959,6 +1056,7 @@ module OCI
       path = '/tagNamespaces/{tagNamespaceId}/tags'.sub('{tagNamespaceId}', tag_namespace_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -967,6 +1065,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_tag_details)
@@ -1016,7 +1115,7 @@ module OCI
     # @param [OCI::Identity::Models::CreateTagNamespaceDetails] create_tag_namespace_details Request object for creating a new tag namespace.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -1032,6 +1131,7 @@ module OCI
       path = '/tagNamespaces'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1040,6 +1140,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_tag_namespace_details)
@@ -1107,7 +1208,7 @@ module OCI
     # @param [OCI::Identity::Models::CreateUserDetails] create_user_details Request object for creating a new user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -1123,6 +1224,7 @@ module OCI
       path = '/users/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1131,6 +1233,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_user_details)
@@ -1170,7 +1273,7 @@ module OCI
     # @param [String] fingerprint The key's fingerprint.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1187,6 +1290,7 @@ module OCI
       path = '/users/{userId}/apiKeys/{fingerprint}'.sub('{userId}', user_id.to_s).sub('{fingerprint}', fingerprint.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1195,11 +1299,71 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_api_key') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified auth token for the specified user.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [String] auth_token_id The OCID of the auth token.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_auth_token(user_id, auth_token_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#delete_auth_token.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling delete_auth_token." if user_id.nil?
+      raise "Missing the required parameter 'auth_token_id' when calling delete_auth_token." if auth_token_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+      raise "Parameter value for 'auth_token_id' must not be blank" if OCI::Internal::Util.blank_string?(auth_token_id)
+
+      path = '/users/{userId}/authTokens/{authTokenId}'.sub('{userId}', user_id.to_s).sub('{authTokenId}', auth_token_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_auth_token') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -1227,7 +1391,7 @@ module OCI
     # @param [String] customer_secret_key_id The OCID of the secret key.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1244,6 +1408,7 @@ module OCI
       path = '/users/{userId}/customerSecretKeys/{customerSecretKeyId}'.sub('{userId}', user_id.to_s).sub('{customerSecretKeyId}', customer_secret_key_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1252,6 +1417,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1283,7 +1449,7 @@ module OCI
     # @param [String] dynamic_group_id The OCID of the dynamic group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1298,6 +1464,7 @@ module OCI
       path = '/dynamicGroups/{dynamicGroupId}'.sub('{dynamicGroupId}', dynamic_group_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1306,6 +1473,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1337,7 +1505,7 @@ module OCI
     # @param [String] group_id The OCID of the group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1352,6 +1520,7 @@ module OCI
       path = '/groups/{groupId}'.sub('{groupId}', group_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1360,6 +1529,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1392,7 +1562,7 @@ module OCI
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1407,6 +1577,7 @@ module OCI
       path = '/identityProviders/{identityProviderId}'.sub('{identityProviderId}', identity_provider_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1415,6 +1586,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1446,7 +1618,7 @@ module OCI
     # @param [String] mapping_id The OCID of the group mapping.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1463,6 +1635,7 @@ module OCI
       path = '/identityProviders/{identityProviderId}/groupMappings/{mappingId}'.sub('{identityProviderId}', identity_provider_id.to_s).sub('{mappingId}', mapping_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1471,6 +1644,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1501,7 +1675,7 @@ module OCI
     # @param [String] policy_id The OCID of the policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1516,6 +1690,7 @@ module OCI
       path = '/policies/{policyId}'.sub('{policyId}', policy_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1524,6 +1699,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1556,7 +1732,7 @@ module OCI
     # @param [String] smtp_credential_id The OCID of the SMTP credential.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1573,6 +1749,7 @@ module OCI
       path = '/users/{userId}/smtpCredentials/{smtpCredentialId}'.sub('{userId}', user_id.to_s).sub('{smtpCredentialId}', smtp_credential_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1581,6 +1758,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1607,13 +1785,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated. Use {#delete_auth_token delete_auth_token} instead.**
+    #
     # Deletes the specified Swift password for the specified user.
     #
     # @param [String] user_id The OCID of the user.
     # @param [String] swift_password_id The OCID of the Swift password.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1630,6 +1810,7 @@ module OCI
       path = '/users/{userId}/swiftPasswords/{swiftPasswordId}'.sub('{userId}', user_id.to_s).sub('{swiftPasswordId}', swift_password_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1638,6 +1819,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1668,7 +1850,7 @@ module OCI
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1683,6 +1865,7 @@ module OCI
       path = '/users/{userId}'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1691,6 +1874,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1730,7 +1914,7 @@ module OCI
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Compartment Compartment}
     def get_compartment(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_compartment.' if logger
@@ -1741,6 +1925,7 @@ module OCI
       path = '/compartments/{compartmentId}'.sub('{compartmentId}', compartment_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1748,6 +1933,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1782,7 +1968,7 @@ module OCI
     # @param [String] dynamic_group_id The OCID of the dynamic group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::DynamicGroup DynamicGroup}
     def get_dynamic_group(dynamic_group_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_dynamic_group.' if logger
@@ -1793,6 +1979,7 @@ module OCI
       path = '/dynamicGroups/{dynamicGroupId}'.sub('{dynamicGroupId}', dynamic_group_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1800,6 +1987,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1838,7 +2026,7 @@ module OCI
     # @param [String] group_id The OCID of the group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Group Group}
     def get_group(group_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_group.' if logger
@@ -1849,6 +2037,7 @@ module OCI
       path = '/groups/{groupId}'.sub('{groupId}', group_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1856,6 +2045,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1889,7 +2079,7 @@ module OCI
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::IdentityProvider IdentityProvider}
     def get_identity_provider(identity_provider_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_identity_provider.' if logger
@@ -1900,6 +2090,7 @@ module OCI
       path = '/identityProviders/{identityProviderId}'.sub('{identityProviderId}', identity_provider_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1907,6 +2098,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1941,7 +2133,7 @@ module OCI
     # @param [String] mapping_id The OCID of the group mapping.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::IdpGroupMapping IdpGroupMapping}
     def get_idp_group_mapping(identity_provider_id, mapping_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_idp_group_mapping.' if logger
@@ -1954,6 +2146,7 @@ module OCI
       path = '/identityProviders/{identityProviderId}/groupMappings/{mappingId}'.sub('{identityProviderId}', identity_provider_id.to_s).sub('{mappingId}', mapping_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1961,6 +2154,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1994,7 +2188,7 @@ module OCI
     # @param [String] policy_id The OCID of the policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Policy Policy}
     def get_policy(policy_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_policy.' if logger
@@ -2005,6 +2199,7 @@ module OCI
       path = '/policies/{policyId}'.sub('{policyId}', policy_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2012,6 +2207,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2048,7 +2244,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Tag Tag}
     def get_tag(tag_namespace_id, tag_name, opts = {})
       logger.debug 'Calling operation IdentityClient#get_tag.' if logger
@@ -2061,6 +2257,7 @@ module OCI
       path = '/tagNamespaces/{tagNamespaceId}/tags/{tagName}'.sub('{tagNamespaceId}', tag_namespace_id.to_s).sub('{tagName}', tag_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2068,6 +2265,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2103,7 +2301,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TagNamespace TagNamespace}
     def get_tag_namespace(tag_namespace_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_tag_namespace.' if logger
@@ -2114,6 +2312,7 @@ module OCI
       path = '/tagNamespaces/{tagNamespaceId}'.sub('{tagNamespaceId}', tag_namespace_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2121,6 +2320,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2154,7 +2354,7 @@ module OCI
     # @param [String] tenancy_id The OCID of the tenancy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Tenancy Tenancy}
     def get_tenancy(tenancy_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_tenancy.' if logger
@@ -2165,6 +2365,7 @@ module OCI
       path = '/tenancies/{tenancyId}'.sub('{tenancyId}', tenancy_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2172,6 +2373,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2205,7 +2407,7 @@ module OCI
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::User User}
     def get_user(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_user.' if logger
@@ -2216,6 +2418,7 @@ module OCI
       path = '/users/{userId}'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2223,6 +2426,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2256,7 +2460,7 @@ module OCI
     # @param [String] user_group_membership_id The OCID of the userGroupMembership.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::UserGroupMembership UserGroupMembership}
     def get_user_group_membership(user_group_membership_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_user_group_membership.' if logger
@@ -2267,6 +2471,7 @@ module OCI
       path = '/userGroupMemberships/{userGroupMembershipId}'.sub('{userGroupMembershipId}', user_group_membership_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2274,6 +2479,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2311,7 +2517,7 @@ module OCI
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::ApiKey ApiKey}>
     def list_api_keys(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_api_keys.' if logger
@@ -2322,6 +2528,7 @@ module OCI
       path = '/users/{userId}/apiKeys/'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2329,6 +2536,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2358,6 +2566,61 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # Lists the auth tokens for the specified user. The returned object contains the token's OCID, but not
+    # the token itself. The actual token is returned only upon creation.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::AuthToken AuthToken}>
+    def list_auth_tokens(user_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_auth_tokens.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling list_auth_tokens." if user_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+
+      path = '/users/{userId}/authTokens/'.sub('{userId}', user_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_auth_tokens') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::AuthToken>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
     # Lists the Availability Domains in your tenancy. Specify the OCID of either the tenancy or another
     # of your compartments as the value for the compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
@@ -2366,7 +2629,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::AvailabilityDomain AvailabilityDomain}>
     def list_availability_domains(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_availability_domains.' if logger
@@ -2376,6 +2639,7 @@ module OCI
       path = '/availabilityDomains/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -2384,6 +2648,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2420,7 +2685,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -2434,6 +2699,7 @@ module OCI
       path = '/compartments/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -2444,6 +2710,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2478,7 +2745,7 @@ module OCI
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::CustomerSecretKeySummary CustomerSecretKeySummary}>
     def list_customer_secret_keys(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_customer_secret_keys.' if logger
@@ -2489,6 +2756,7 @@ module OCI
       path = '/users/{userId}/customerSecretKeys/'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2496,6 +2764,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2532,7 +2801,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -2546,6 +2815,7 @@ module OCI
       path = '/dynamicGroups/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -2556,6 +2826,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2591,7 +2862,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -2605,6 +2876,7 @@ module OCI
       path = '/groups/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -2615,6 +2887,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2653,7 +2926,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -2671,6 +2944,7 @@ module OCI
       path = '/identityProviders/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:protocol] = protocol
@@ -2682,6 +2956,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2714,7 +2989,7 @@ module OCI
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -2729,6 +3004,7 @@ module OCI
       path = '/identityProviders/{identityProviderId}/groupMappings/'.sub('{identityProviderId}', identity_provider_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:page] = opts[:page] if opts[:page]
@@ -2738,6 +3014,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2775,7 +3052,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -2789,6 +3066,7 @@ module OCI
       path = '/policies/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -2799,6 +3077,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2831,7 +3110,7 @@ module OCI
     # @param [String] tenancy_id The OCID of the tenancy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::RegionSubscription RegionSubscription}>
     def list_region_subscriptions(tenancy_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_region_subscriptions.' if logger
@@ -2842,6 +3121,7 @@ module OCI
       path = '/tenancies/{tenancyId}/regionSubscriptions'.sub('{tenancyId}', tenancy_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2849,6 +3129,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2881,7 +3162,7 @@ module OCI
     # Lists all the regions offered by Oracle Cloud Infrastructure.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Region Region}>
     def list_regions(opts = {})
       logger.debug 'Calling operation IdentityClient#list_regions.' if logger
@@ -2890,6 +3171,7 @@ module OCI
       path = '/regions'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2897,6 +3179,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2932,7 +3215,7 @@ module OCI
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::SmtpCredentialSummary SmtpCredentialSummary}>
     def list_smtp_credentials(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_smtp_credentials.' if logger
@@ -2943,6 +3226,7 @@ module OCI
       path = '/users/{userId}/smtpCredentials/'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2950,6 +3234,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2979,13 +3264,15 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # **Deprecated. Use {#list_auth_tokens list_auth_tokens} instead.**
+    #
     # Lists the Swift passwords for the specified user. The returned object contains the password's OCID, but not
     # the password itself. The actual password is returned only upon creation.
     #
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::SwiftPassword SwiftPassword}>
     def list_swift_passwords(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_swift_passwords.' if logger
@@ -2996,6 +3283,7 @@ module OCI
       path = '/users/{userId}/swiftPasswords/'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3003,6 +3291,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -3037,7 +3326,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -3054,17 +3343,19 @@ module OCI
       path = '/tagNamespaces'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
-      query_params[:includeSubcompartments] = opts[:include_subcompartments] if opts[:include_subcompartments]
+      query_params[:includeSubcompartments] = opts[:include_subcompartments] if !opts[:include_subcompartments].nil?
 
       # Header Params
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -3098,7 +3389,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -3113,6 +3404,7 @@ module OCI
       path = '/tagNamespaces/{tagNamespaceId}/tags'.sub('{tagNamespaceId}', tag_namespace_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:page] = opts[:page] if opts[:page]
@@ -3122,6 +3414,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -3164,7 +3457,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :user_id The OCID of the user.
     # @option opts [String] :group_id The OCID of the group.
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
@@ -3180,6 +3473,7 @@ module OCI
       path = '/userGroupMemberships/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -3192,6 +3486,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -3227,7 +3522,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -3241,6 +3536,7 @@ module OCI
       path = '/users/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -3251,6 +3547,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -3282,7 +3579,7 @@ module OCI
     # @param [String] user_group_membership_id The OCID of the userGroupMembership.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3297,6 +3594,7 @@ module OCI
       path = '/userGroupMemberships/{userGroupMembershipId}'.sub('{userGroupMembershipId}', user_group_membership_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3305,6 +3603,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -3331,12 +3630,74 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the specified auth token's description.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [String] auth_token_id The OCID of the auth token.
+    # @param [OCI::Identity::Models::UpdateAuthTokenDetails] update_auth_token_details Request object for updating an auth token.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::AuthToken AuthToken}
+    def update_auth_token(user_id, auth_token_id, update_auth_token_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#update_auth_token.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling update_auth_token." if user_id.nil?
+      raise "Missing the required parameter 'auth_token_id' when calling update_auth_token." if auth_token_id.nil?
+      raise "Missing the required parameter 'update_auth_token_details' when calling update_auth_token." if update_auth_token_details.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+      raise "Parameter value for 'auth_token_id' must not be blank" if OCI::Internal::Util.blank_string?(auth_token_id)
+
+      path = '/users/{userId}/authTokens/{authTokenId}'.sub('{userId}', user_id.to_s).sub('{authTokenId}', auth_token_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_auth_token_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#update_auth_token') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::AuthToken'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the specified compartment's description or name. You can't update the root compartment.
     # @param [String] compartment_id The OCID of the compartment.
     # @param [OCI::Identity::Models::UpdateCompartmentDetails] update_compartment_details Request object for updating a compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3352,6 +3713,7 @@ module OCI
       path = '/compartments/{compartmentId}'.sub('{compartmentId}', compartment_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3360,6 +3722,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_compartment_details)
 
@@ -3394,7 +3757,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateCustomerSecretKeyDetails] update_customer_secret_key_details Request object for updating a secret key.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3412,6 +3775,7 @@ module OCI
       path = '/users/{userId}/customerSecretKeys/{customerSecretKeyId}'.sub('{userId}', user_id.to_s).sub('{customerSecretKeyId}', customer_secret_key_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3420,6 +3784,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_customer_secret_key_details)
 
@@ -3452,7 +3817,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateDynamicGroupDetails] update_dynamic_group_details Request object for updating an dynamic group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3468,6 +3833,7 @@ module OCI
       path = '/dynamicGroups/{dynamicGroupId}'.sub('{dynamicGroupId}', dynamic_group_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3476,6 +3842,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_dynamic_group_details)
 
@@ -3508,7 +3875,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateGroupDetails] update_group_details Request object for updating a group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3524,6 +3891,7 @@ module OCI
       path = '/groups/{groupId}'.sub('{groupId}', group_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3532,6 +3900,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_group_details)
 
@@ -3564,7 +3933,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateIdentityProviderDetails] update_identity_provider_details Request object for updating a identity provider.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3580,6 +3949,7 @@ module OCI
       path = '/identityProviders/{identityProviderId}'.sub('{identityProviderId}', identity_provider_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3588,6 +3958,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_identity_provider_details)
 
@@ -3621,7 +3992,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateIdpGroupMappingDetails] update_idp_group_mapping_details Request object for updating an identity provider group mapping
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3639,6 +4010,7 @@ module OCI
       path = '/identityProviders/{identityProviderId}/groupMappings/{mappingId}'.sub('{identityProviderId}', identity_provider_id.to_s).sub('{mappingId}', mapping_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3647,6 +4019,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_idp_group_mapping_details)
 
@@ -3682,7 +4055,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdatePolicyDetails] update_policy_details Request object for updating a policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3698,6 +4071,7 @@ module OCI
       path = '/policies/{policyId}'.sub('{policyId}', policy_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3706,6 +4080,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_policy_details)
 
@@ -3740,7 +4115,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateSmtpCredentialDetails] update_smtp_credential_details Request object for updating a SMTP credential.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3758,6 +4133,7 @@ module OCI
       path = '/users/{userId}/smtpCredentials/{smtpCredentialId}'.sub('{userId}', user_id.to_s).sub('{smtpCredentialId}', smtp_credential_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3766,6 +4142,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_smtp_credential_details)
 
@@ -3793,6 +4170,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated. Use {#update_auth_token update_auth_token} instead.**
+    #
     # Updates the specified Swift password's description.
     #
     # @param [String] user_id The OCID of the user.
@@ -3800,7 +4179,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateSwiftPasswordDetails] update_swift_password_details Request object for updating a Swift password.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3818,6 +4197,7 @@ module OCI
       path = '/users/{userId}/swiftPasswords/{swiftPasswordId}'.sub('{userId}', user_id.to_s).sub('{swiftPasswordId}', swift_password_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3826,6 +4206,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_swift_password_details)
 
@@ -3863,7 +4244,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateTagDetails] update_tag_details Request object for updating a tag.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Tag Tag}
     def update_tag(tag_namespace_id, tag_name, update_tag_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_tag.' if logger
@@ -3877,6 +4258,7 @@ module OCI
       path = '/tagNamespaces/{tagNamespaceId}/tags/{tagName}'.sub('{tagNamespaceId}', tag_namespace_id.to_s).sub('{tagName}', tag_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3884,6 +4266,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_tag_details)
 
@@ -3928,7 +4311,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateTagNamespaceDetails] update_tag_namespace_details Request object for updating a namespace.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TagNamespace TagNamespace}
     def update_tag_namespace(tag_namespace_id, update_tag_namespace_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_tag_namespace.' if logger
@@ -3940,6 +4323,7 @@ module OCI
       path = '/tagNamespaces/{tagNamespaceId}'.sub('{tagNamespaceId}', tag_namespace_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -3947,6 +4331,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_tag_namespace_details)
 
@@ -3980,7 +4365,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateUserDetails] update_user_details Request object for updating a user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -3996,6 +4381,7 @@ module OCI
       path = '/users/{userId}'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -4004,6 +4390,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_user_details)
 
@@ -4037,7 +4424,7 @@ module OCI
     # @param [OCI::Identity::Models::UpdateStateDetails] update_state_details Request object for updating a user state.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -4053,6 +4440,7 @@ module OCI
       path = '/users/{userId}/state/'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -4061,6 +4449,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_state_details)
 
@@ -4108,7 +4497,7 @@ module OCI
     # @param [OCI::Identity::Models::CreateApiKeyDetails] create_api_key_details Request object for uploading an API key for a user.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
@@ -4126,6 +4515,7 @@ module OCI
       path = '/users/{userId}/apiKeys/'.sub('{userId}', user_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -4134,6 +4524,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_api_key_details)

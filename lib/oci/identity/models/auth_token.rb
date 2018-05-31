@@ -5,25 +5,18 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # An individual employee or system that needs to manage or use your company's Oracle Cloud Infrastructure
-  # resources. Users might need to launch instances, manage remote disks, work with your cloud network, etc. Users
-  # have one or more IAM Service credentials ({ApiKey},
-  # {UIPassword}, {SwiftPassword} and
-  # {AuthToken}).
-  # For more information, see [User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/usercredentials.htm)). End users of your
-  # application are not typically IAM Service users. For conceptual information about users and other IAM Service
-  # components, see [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+  # An `AuthToken` is an Oracle-generated token string that you can use to authenticate with third-party APIs
+  # that do not support Oracle Cloud Infrastructure's signature-based authentication. For example, use an `AuthToken`
+  # to authenticate with a Swift client with the Object Storage Service.
   #
-  # These users are created directly within the Oracle Cloud Infrastructure system, via the IAM service.
-  # They are different from *federated users*, who authenticate themselves to the Oracle Cloud Infrastructure
-  # Console via an identity provider. For more information, see
-  # [Identity Providers and Federation](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/federation.htm).
+  # The auth token is associated with the user's Console login. Auth tokens never expire. A user can have up to two
+  # auth tokens at a time.
   #
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
-  # talk to an administrator. If you're an administrator who needs to write policies to give users access,
-  # see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+  # **Note:** The token is always an Oracle-generated string; you can't change it to a string of your choice.
   #
-  class Identity::Models::User # rubocop:disable Metrics/LineLength
+  # For more information, see [Managing User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm).
+  #
+  class Identity::Models::AuthToken # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
@@ -33,74 +26,61 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the user.
+    # The auth token. The value is available only in the response for `CreateAuthToken`, and not
+    # for `ListAuthTokens` or `UpdateAuthToken`.
+    #
+    # @return [String]
+    attr_accessor :token
+
+    # The OCID of the auth token.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the tenancy containing the user.
+    # The OCID of the user the auth token belongs to.
     # @return [String]
-    attr_accessor :compartment_id
+    attr_accessor :user_id
 
-    # **[Required]** The name you assign to the user during creation. This is the user's login for the Console.
-    # The name must be unique across all users in the tenancy and cannot be changed.
-    #
-    # @return [String]
-    attr_accessor :name
-
-    # **[Required]** The description you assign to the user. Does not have to be unique, and it's changeable.
+    # The description you assign to the auth token. Does not have to be unique, and it's changeable.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Date and time the user was created, in the format defined by RFC3339.
+    # Date and time the `AuthToken` object was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The user's current state. After creating a user, make sure its `lifecycleState` changes from CREATING to
-    # ACTIVE before using it.
+    # Date and time when this auth token will expire, in the format defined by RFC3339.
+    # Null if it never expires.
+    #
+    # Example: `2016-08-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_expires
+
+    # The token's current state. After creating an auth token, make sure its `lifecycleState` changes from
+    # CREATING to ACTIVE before using it.
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Returned only if the user's `lifecycleState` is INACTIVE. A 16-bit value showing the reason why the user
-    # is inactive:
-    #
-    # - bit 0: SUSPENDED (reserved for future use)
-    # - bit 1: DISABLED (reserved for future use)
-    # - bit 2: BLOCKED (the user has exceeded the maximum number of failed login attempts for the Console)
-    #
+    # The detailed status of INACTIVE lifecycleState.
     # @return [Integer]
     attr_accessor :inactive_status
-
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'token': :'token',
         'id': :'id',
-        'compartment_id': :'compartmentId',
-        'name': :'name',
+        'user_id': :'userId',
         'description': :'description',
         'time_created': :'timeCreated',
+        'time_expires': :'timeExpires',
         'lifecycle_state': :'lifecycleState',
-        'inactive_status': :'inactiveStatus',
-        'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'inactive_status': :'inactiveStatus'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -109,15 +89,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'token': :'String',
         'id': :'String',
-        'compartment_id': :'String',
-        'name': :'String',
+        'user_id': :'String',
         'description': :'String',
         'time_created': :'DateTime',
+        'time_expires': :'DateTime',
         'lifecycle_state': :'String',
-        'inactive_status': :'Integer',
-        'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'inactive_status': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -128,30 +107,29 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :token The value to assign to the {#token} property
     # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :user_id The value to assign to the {#user_id} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_expires The value to assign to the {#time_expires} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :inactive_status The value to assign to the {#inactive_status} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
+      self.token = attributes[:'token'] if attributes[:'token']
+
       self.id = attributes[:'id'] if attributes[:'id']
 
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+      self.user_id = attributes[:'userId'] if attributes[:'userId']
 
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+      raise 'You cannot provide both :userId and :user_id' if attributes.key?(:'userId') && attributes.key?(:'user_id')
 
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
-
-      self.name = attributes[:'name'] if attributes[:'name']
+      self.user_id = attributes[:'user_id'] if attributes[:'user_id']
 
       self.description = attributes[:'description'] if attributes[:'description']
 
@@ -160,6 +138,12 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_expires = attributes[:'timeExpires'] if attributes[:'timeExpires']
+
+      raise 'You cannot provide both :timeExpires and :time_expires' if attributes.key?(:'timeExpires') && attributes.key?(:'time_expires')
+
+      self.time_expires = attributes[:'time_expires'] if attributes[:'time_expires']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -172,18 +156,6 @@ module OCI
       raise 'You cannot provide both :inactiveStatus and :inactive_status' if attributes.key?(:'inactiveStatus') && attributes.key?(:'inactive_status')
 
       self.inactive_status = attributes[:'inactive_status'] if attributes[:'inactive_status']
-
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
-
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
-
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
-
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -211,15 +183,14 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
+        token == other.token &&
         id == other.id &&
-        compartment_id == other.compartment_id &&
-        name == other.name &&
+        user_id == other.user_id &&
         description == other.description &&
         time_created == other.time_created &&
+        time_expires == other.time_expires &&
         lifecycle_state == other.lifecycle_state &&
-        inactive_status == other.inactive_status &&
-        freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        inactive_status == other.inactive_status
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -235,7 +206,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags].hash
+      [token, id, user_id, description, time_created, time_expires, lifecycle_state, inactive_status].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

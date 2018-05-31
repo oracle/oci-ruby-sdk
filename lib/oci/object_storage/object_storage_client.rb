@@ -111,7 +111,7 @@ module OCI
     # @param [String] upload_id The upload ID for a multipart upload.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
     def abort_multipart_upload(namespace_name, bucket_name, object_name, upload_id, opts = {})
@@ -128,6 +128,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/u/{objectName}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{objectName}', object_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:uploadId] = upload_id
@@ -137,6 +138,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -176,7 +178,7 @@ module OCI
     # @param [OCI::ObjectStorage::Models::CommitMultipartUploadDetails] commit_multipart_upload_details The part numbers and ETags for the parts you want to commit.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -200,6 +202,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/u/{objectName}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{objectName}', object_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:uploadId] = upload_id
@@ -211,6 +214,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(commit_multipart_upload_details)
 
@@ -243,7 +247,7 @@ module OCI
     # @param [OCI::ObjectStorage::Models::CreateBucketDetails] create_bucket_details Request object for creating a bucket.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::Bucket Bucket}
     def create_bucket(namespace_name, create_bucket_details, opts = {})
@@ -256,6 +260,7 @@ module OCI
       path = '/n/{namespaceName}/b/'.sub('{namespaceName}', namespace_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -264,6 +269,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_bucket_details)
 
@@ -300,7 +306,7 @@ module OCI
     # @param [OCI::ObjectStorage::Models::CreateMultipartUploadDetails] create_multipart_upload_details Request object for creating a multi-part upload.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -321,6 +327,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/u'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -331,6 +338,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_multipart_upload_details)
 
@@ -367,7 +375,7 @@ module OCI
     # @param [OCI::ObjectStorage::Models::CreatePreauthenticatedRequestDetails] create_preauthenticated_request_details Information needed to create the pre-authenticated request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::PreauthenticatedRequest PreauthenticatedRequest}
     def create_preauthenticated_request(namespace_name, bucket_name, create_preauthenticated_request_details, opts = {})
@@ -382,6 +390,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/p/'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -390,6 +399,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_preauthenticated_request_details)
 
@@ -425,7 +435,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -442,6 +452,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -451,6 +462,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -488,7 +500,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -507,6 +519,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/o/{objectName}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{objectName}', object_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -516,6 +529,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -552,7 +566,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
     def delete_preauthenticated_request(namespace_name, bucket_name, par_id, opts = {})
@@ -568,6 +582,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/p/{parId}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{parId}', par_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -576,6 +591,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -610,7 +626,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -630,6 +646,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -640,6 +657,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -672,7 +690,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type String
     def get_namespace(opts = {})
@@ -682,6 +700,7 @@ module OCI
       path = '/n/'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -690,6 +709,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -725,7 +745,7 @@ module OCI
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::NamespaceMetadata NamespaceMetadata}
     def get_namespace_metadata(namespace_name, opts = {})
@@ -737,6 +757,7 @@ module OCI
       path = '/n/{namespaceName}'.sub('{namespaceName}', namespace_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -745,6 +766,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -783,7 +805,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -810,6 +832,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/o/{objectName}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{objectName}', object_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -821,6 +844,7 @@ module OCI
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       header_params[:range] = opts[:range] if opts[:range]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -900,7 +924,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::PreauthenticatedRequestSummary PreauthenticatedRequestSummary}
     def get_preauthenticated_request(namespace_name, bucket_name, par_id, opts = {})
@@ -916,6 +940,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/p/{parId}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{parId}', par_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -924,6 +949,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -959,7 +985,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -979,6 +1005,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -989,6 +1016,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1026,7 +1054,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -1048,6 +1076,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/o/{objectName}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{objectName}', object_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1058,6 +1087,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1095,7 +1125,7 @@ module OCI
     # @param [String] compartment_id The ID of the compartment in which to list buckets.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Array<String>] :fields Bucket summary in list of buckets includes the 'namespace', 'name', 'compartmentId', 'createdBy', 'timeCreated',
@@ -1125,6 +1155,7 @@ module OCI
       path = '/n/{namespaceName}/b/'.sub('{namespaceName}', namespace_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1137,6 +1168,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1176,7 +1208,7 @@ module OCI
     # @param [String] upload_id The upload ID for a multipart upload.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
@@ -1195,6 +1227,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/u/{objectName}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{objectName}', object_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:uploadId] = upload_id
@@ -1206,6 +1239,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1241,7 +1275,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
@@ -1257,6 +1291,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/u'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -1267,6 +1302,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1306,7 +1342,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :prefix The string to use for matching against the start of object names in a list query.
     # @option opts [String] :start Object names returned by a list query must be greater or equal to this parameter.
     # @option opts [String] :_end Object names returned by a list query must be strictly less than this parameter.
@@ -1335,6 +1371,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/o'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:prefix] = opts[:prefix] if opts[:prefix]
@@ -1349,6 +1386,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1384,7 +1422,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :object_name_prefix User-specified object name prefixes can be used to query and return a list of pre-authenticated requests.
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page at which to start retrieving results.
@@ -1401,6 +1439,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/p/'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:objectNamePrefix] = opts[:object_name_prefix] if opts[:object_name_prefix]
@@ -1412,6 +1451,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1451,7 +1491,7 @@ module OCI
     # @param [String, IO] put_object_body The object to upload to the object store.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :content_length The content length of the body.
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
@@ -1482,6 +1522,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/o/{objectName}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{objectName}', object_name.to_s)
       operation_signing_strategy = :exclude_body
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1497,6 +1538,7 @@ module OCI
       header_params[:'content-type'] = opts[:content_type] if opts[:content_type]
       header_params[:'content-language'] = opts[:content_language] if opts[:content_language]
       header_params[:'content-encoding'] = opts[:content_encoding] if opts[:content_encoding]
+      # rubocop:enable Style/NegatedIf
 
       if opts[:opc_meta]
         opts[:opc_meta].each do |key, value|
@@ -1539,7 +1581,7 @@ module OCI
     # @param [OCI::ObjectStorage::Models::RenameObjectDetails] rename_object_details The sourceName and newName of rename operation.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
     def rename_object(namespace_name, bucket_name, rename_object_details, opts = {})
@@ -1554,6 +1596,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/actions/renameObject'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1562,6 +1605,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(rename_object_details)
 
@@ -1598,7 +1642,7 @@ module OCI
     # @param [OCI::ObjectStorage::Models::RestoreObjectsDetails] restore_objects_details Request to restore objects.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
     def restore_objects(namespace_name, bucket_name, restore_objects_details, opts = {})
@@ -1613,6 +1657,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/actions/restoreObjects'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1621,6 +1666,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(restore_objects_details)
 
@@ -1656,7 +1702,7 @@ module OCI
     # @param [OCI::ObjectStorage::Models::UpdateBucketDetails] update_bucket_details Request object for updating a bucket.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -1674,6 +1720,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1683,6 +1730,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_bucket_details)
 
@@ -1719,7 +1767,7 @@ module OCI
     # @param [OCI::ObjectStorage::Models::UpdateNamespaceMetadataDetails] update_namespace_metadata_details Request object for update NamespaceMetadata.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::NamespaceMetadata NamespaceMetadata}
     def update_namespace_metadata(namespace_name, update_namespace_metadata_details, opts = {})
@@ -1732,6 +1780,7 @@ module OCI
       path = '/n/{namespaceName}'.sub('{namespaceName}', namespace_name.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1740,6 +1789,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_namespace_metadata_details)
 
@@ -1781,7 +1831,7 @@ module OCI
     # @param [String, IO] upload_part_body The part being uploaded to the Object Storage Service.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :content_length The content length of the body.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
@@ -1809,6 +1859,7 @@ module OCI
       path = '/n/{namespaceName}/b/{bucketName}/u/{objectName}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{objectName}', object_name.to_s)
       operation_signing_strategy = :exclude_body
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:uploadId] = upload_id
@@ -1823,6 +1874,7 @@ module OCI
       header_params[:expect] = opts[:expect] if opts[:expect]
       header_params[:'content-length'] = opts[:content_length] if opts[:content_length]
       header_params[:'content-md5'] = opts[:content_md5] if opts[:content_md5]
+      # rubocop:enable Style/NegatedIf
       header_params['content-type'] ||= 'application/octet-stream'
 
       post_body = @api_client.object_to_http_body(upload_part_body)

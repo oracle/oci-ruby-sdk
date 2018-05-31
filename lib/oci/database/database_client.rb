@@ -104,7 +104,7 @@ module OCI
     # @param [OCI::Database::Models::CreateBackupDetails] create_backup_details Request to create a new database backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -120,6 +120,7 @@ module OCI
       path = '/backups'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -128,6 +129,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_backup_details)
@@ -169,7 +171,7 @@ module OCI
     # @param [OCI::Database::Models::CreateDataGuardAssociationDetails] create_data_guard_association_details A request to create a Data Guard association.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -187,6 +189,7 @@ module OCI
       path = '/databases/{databaseId}/dataGuardAssociations'.sub('{databaseId}', database_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -195,6 +198,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_data_guard_association_details)
@@ -228,7 +232,7 @@ module OCI
     # @param [OCI::Database::Models::CreateDbHomeWithDbSystemIdBase] create_db_home_with_db_system_id_details Request to create a new DB Home.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -244,6 +248,7 @@ module OCI
       path = '/dbHomes'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -252,6 +257,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_db_home_with_db_system_id_details)
@@ -301,7 +307,7 @@ module OCI
     #   Allowed values are: STOP, START, SOFTRESET, RESET
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -326,6 +332,7 @@ module OCI
       path = '/dbNodes/{dbNodeId}'.sub('{dbNodeId}', db_node_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:action] = action
@@ -336,6 +343,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
@@ -368,7 +376,7 @@ module OCI
     # @param [String] backup_id The backup OCID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -383,6 +391,7 @@ module OCI
       path = '/backups/{backupId}'.sub('{backupId}', backup_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -391,6 +400,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -422,7 +432,7 @@ module OCI
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -438,15 +448,17 @@ module OCI
       path = '/dbHomes/{dbHomeId}'.sub('{dbHomeId}', db_home_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:performFinalBackup] = opts[:perform_final_backup] if opts[:perform_final_backup]
+      query_params[:performFinalBackup] = opts[:perform_final_backup] if !opts[:perform_final_backup].nil?
 
       # Header Params
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -484,7 +496,7 @@ module OCI
     # @param [OCI::Database::Models::FailoverDataGuardAssociationDetails] failover_data_guard_association_details A request to perform a failover, transitioning a standby database into a primary database.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -502,6 +514,7 @@ module OCI
       path = '/databases/{databaseId}/dataGuardAssociations/{dataGuardAssociationId}/actions/failover'.sub('{databaseId}', database_id.to_s).sub('{dataGuardAssociationId}', data_guard_association_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -510,6 +523,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(failover_data_guard_association_details)
 
@@ -542,7 +556,7 @@ module OCI
     # @param [String] backup_id The backup OCID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Backup Backup}
     def get_backup(backup_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_backup.' if logger
@@ -553,6 +567,7 @@ module OCI
       path = '/backups/{backupId}'.sub('{backupId}', backup_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -560,6 +575,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -595,7 +611,7 @@ module OCI
     # @param [String] data_guard_association_id The Data Guard association's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DataGuardAssociation DataGuardAssociation}
     def get_data_guard_association(database_id, data_guard_association_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_data_guard_association.' if logger
@@ -608,6 +624,7 @@ module OCI
       path = '/databases/{databaseId}/dataGuardAssociations/{dataGuardAssociationId}'.sub('{databaseId}', database_id.to_s).sub('{dataGuardAssociationId}', data_guard_association_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -615,6 +632,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -648,7 +666,7 @@ module OCI
     # @param [String] database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Database Database}
     def get_database(database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_database.' if logger
@@ -659,6 +677,7 @@ module OCI
       path = '/databases/{databaseId}'.sub('{databaseId}', database_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -666,6 +685,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -699,7 +719,7 @@ module OCI
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbHome DbHome}
     def get_db_home(db_home_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_home.' if logger
@@ -710,6 +730,7 @@ module OCI
       path = '/dbHomes/{dbHomeId}'.sub('{dbHomeId}', db_home_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -717,6 +738,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -752,7 +774,7 @@ module OCI
     # @param [String] patch_id The OCID of the patch.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Patch Patch}
     def get_db_home_patch(db_home_id, patch_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_home_patch.' if logger
@@ -765,6 +787,7 @@ module OCI
       path = '/dbHomes/{dbHomeId}/patches/{patchId}'.sub('{dbHomeId}', db_home_id.to_s).sub('{patchId}', patch_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -772,6 +795,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -807,7 +831,7 @@ module OCI
     # @param [String] patch_history_entry_id The OCID of the patch history entry.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::PatchHistoryEntry PatchHistoryEntry}
     def get_db_home_patch_history_entry(db_home_id, patch_history_entry_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_home_patch_history_entry.' if logger
@@ -820,6 +844,7 @@ module OCI
       path = '/dbHomes/{dbHomeId}/patchHistoryEntries/{patchHistoryEntryId}'.sub('{dbHomeId}', db_home_id.to_s).sub('{patchHistoryEntryId}', patch_history_entry_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -827,6 +852,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -860,7 +886,7 @@ module OCI
     # @param [String] db_node_id The database node [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbNode DbNode}
     def get_db_node(db_node_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_node.' if logger
@@ -871,6 +897,7 @@ module OCI
       path = '/dbNodes/{dbNodeId}'.sub('{dbNodeId}', db_node_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -878,6 +905,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -911,7 +939,7 @@ module OCI
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbSystem DbSystem}
     def get_db_system(db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_system.' if logger
@@ -922,6 +950,7 @@ module OCI
       path = '/dbSystems/{dbSystemId}'.sub('{dbSystemId}', db_system_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -929,6 +958,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -964,7 +994,7 @@ module OCI
     # @param [String] patch_id The OCID of the patch.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Patch Patch}
     def get_db_system_patch(db_system_id, patch_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_system_patch.' if logger
@@ -977,6 +1007,7 @@ module OCI
       path = '/dbSystems/{dbSystemId}/patches/{patchId}'.sub('{dbSystemId}', db_system_id.to_s).sub('{patchId}', patch_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -984,6 +1015,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1019,7 +1051,7 @@ module OCI
     # @param [String] patch_history_entry_id The OCID of the patch history entry.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::PatchHistoryEntry PatchHistoryEntry}
     def get_db_system_patch_history_entry(db_system_id, patch_history_entry_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_system_patch_history_entry.' if logger
@@ -1032,6 +1064,7 @@ module OCI
       path = '/dbSystems/{dbSystemId}/patchHistoryEntries/{patchHistoryEntryId}'.sub('{dbSystemId}', db_system_id.to_s).sub('{patchHistoryEntryId}', patch_history_entry_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1039,6 +1072,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1081,7 +1115,7 @@ module OCI
     # @param [OCI::Database::Models::LaunchDbSystemBase] launch_db_system_details Request to launch a DB System.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -1097,6 +1131,7 @@ module OCI
       path = '/dbSystems'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1105,6 +1140,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(launch_db_system_details)
@@ -1137,7 +1173,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :database_id The OCID of the database.
     # @option opts [String] :compartment_id The compartment OCID.
     # @option opts [Integer] :limit The maximum number of items to return.
@@ -1150,6 +1186,7 @@ module OCI
       path = '/backups'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:databaseId] = opts[:database_id] if opts[:database_id]
@@ -1161,6 +1198,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1193,7 +1231,7 @@ module OCI
     # @param [String] database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DataGuardAssociationSummary DataGuardAssociationSummary}>
@@ -1206,6 +1244,7 @@ module OCI
       path = '/databases/{databaseId}/dataGuardAssociations'.sub('{databaseId}', database_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -1215,6 +1254,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1248,7 +1288,7 @@ module OCI
     # @param [String] db_home_id A database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DatabaseSummary DatabaseSummary}>
@@ -1261,6 +1301,7 @@ module OCI
       path = '/databases'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1272,6 +1313,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1304,7 +1346,7 @@ module OCI
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
@@ -1317,6 +1359,7 @@ module OCI
       path = '/dbHomes/{dbHomeId}/patchHistoryEntries'.sub('{dbHomeId}', db_home_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -1326,6 +1369,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1358,7 +1402,7 @@ module OCI
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
@@ -1371,6 +1415,7 @@ module OCI
       path = '/dbHomes/{dbHomeId}/patches'.sub('{dbHomeId}', db_home_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -1380,6 +1425,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1413,7 +1459,7 @@ module OCI
     # @param [String] db_system_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB System.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbHomeSummary DbHomeSummary}>
@@ -1426,6 +1472,7 @@ module OCI
       path = '/dbHomes'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1437,6 +1484,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1470,7 +1518,7 @@ module OCI
     # @param [String] db_system_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB System.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbNodeSummary DbNodeSummary}>
@@ -1483,6 +1531,7 @@ module OCI
       path = '/dbNodes'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1494,6 +1543,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1526,7 +1576,7 @@ module OCI
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
@@ -1539,6 +1589,7 @@ module OCI
       path = '/dbSystems/{dbSystemId}/patchHistoryEntries'.sub('{dbSystemId}', db_system_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -1548,6 +1599,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1580,7 +1632,7 @@ module OCI
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
@@ -1593,6 +1645,7 @@ module OCI
       path = '/dbSystems/{dbSystemId}/patches'.sub('{dbSystemId}', db_system_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -1602,6 +1655,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1634,7 +1688,7 @@ module OCI
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemShapeSummary DbSystemShapeSummary}>
@@ -1647,6 +1701,7 @@ module OCI
       path = '/dbSystemShapes'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:availabilityDomain] = availability_domain
@@ -1658,6 +1713,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1691,7 +1747,7 @@ module OCI
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :backup_id The OCID of the backup. Specify a backupId to list only the DB Systems that support creating a database using this backup in this compartment.
@@ -1704,6 +1760,7 @@ module OCI
       path = '/dbSystems'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1715,6 +1772,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1746,7 +1804,7 @@ module OCI
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :db_system_shape If provided, filters the results to the set of database versions which are supported for the given shape.
@@ -1760,6 +1818,7 @@ module OCI
       path = '/dbVersions'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1772,6 +1831,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1806,7 +1866,7 @@ module OCI
     # @param [OCI::Database::Models::ReinstateDataGuardAssociationDetails] reinstate_data_guard_association_details A request to reinstate a database in a standby role.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1824,6 +1884,7 @@ module OCI
       path = '/databases/{databaseId}/dataGuardAssociations/{dataGuardAssociationId}/actions/reinstate'.sub('{databaseId}', database_id.to_s).sub('{dataGuardAssociationId}', data_guard_association_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1832,6 +1893,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(reinstate_data_guard_association_details)
 
@@ -1865,7 +1927,7 @@ module OCI
     # @param [OCI::Database::Models::RestoreDatabaseDetails] restore_database_details Request to perform database restore.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1881,6 +1943,7 @@ module OCI
       path = '/databases/{databaseId}/actions/restore'.sub('{databaseId}', database_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1889,6 +1952,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(restore_database_details)
 
@@ -1926,7 +1990,7 @@ module OCI
     # @param [OCI::Database::Models::SwitchoverDataGuardAssociationDetails] switchover_data_guard_association_details Request to swtichover a primary to a standby.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1944,6 +2008,7 @@ module OCI
       path = '/databases/{databaseId}/dataGuardAssociations/{dataGuardAssociationId}/actions/switchover'.sub('{databaseId}', database_id.to_s).sub('{dataGuardAssociationId}', data_guard_association_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1952,6 +2017,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(switchover_data_guard_association_details)
 
@@ -1983,7 +2049,7 @@ module OCI
     # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1998,6 +2064,7 @@ module OCI
       path = '/dbSystems/{dbSystemId}'.sub('{dbSystemId}', db_system_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2006,6 +2073,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -2038,7 +2106,7 @@ module OCI
     # @param [OCI::Database::Models::UpdateDatabaseDetails] update_database_details Request to perform database update.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -2054,6 +2122,7 @@ module OCI
       path = '/databases/{databaseId}'.sub('{databaseId}', database_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2062,6 +2131,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_database_details)
 
@@ -2094,7 +2164,7 @@ module OCI
     # @param [OCI::Database::Models::UpdateDbHomeDetails] update_db_home_details Request to update the properties of a DB Home.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -2110,6 +2180,7 @@ module OCI
       path = '/dbHomes/{dbHomeId}'.sub('{dbHomeId}', db_home_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2118,6 +2189,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_db_home_details)
 
@@ -2150,7 +2222,7 @@ module OCI
     # @param [OCI::Database::Models::UpdateDbSystemDetails] update_db_system_details Request to update the properties of a DB System.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -2166,6 +2238,7 @@ module OCI
       path = '/dbSystems/{dbSystemId}'.sub('{dbSystemId}', db_system_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -2174,6 +2247,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_db_system_details)
 
