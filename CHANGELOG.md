@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.2.1 - 2018-05-31
+### Added
+- Support for the "soft shutdown" instance action in the Compute service
+- Support for Auth Token management in the Identity service
+
+
 ## 2.2.0 - 2018-05-17
 ### Breaking Changes
 - *Italic text* indicates breaking changes that may impact users, but most likely will not

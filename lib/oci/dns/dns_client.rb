@@ -106,7 +106,7 @@ module OCI
     # @param [OCI::Dns::Models::CreateZoneDetails] create_zone_details Details for creating a new zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def create_zone(create_zone_details, opts = {})
@@ -117,6 +117,7 @@ module OCI
       path = '/zones'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -125,6 +126,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_zone_details)
 
@@ -157,7 +159,7 @@ module OCI
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -183,6 +185,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records/{domain}'.sub('{zoneNameOrId}', zone_name_or_id.to_s).sub('{domain}', domain.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -193,6 +196,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -226,7 +230,7 @@ module OCI
     # @param [String] rtype The type of the target RRSet within the target zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -254,6 +258,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records/{domain}/{rtype}'.sub('{zoneNameOrId}', zone_name_or_id.to_s).sub('{domain}', domain.to_s).sub('{rtype}', rtype.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -264,6 +269,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -296,7 +302,7 @@ module OCI
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -320,6 +326,7 @@ module OCI
       path = '/zones/{zoneNameOrId}'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -330,6 +337,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -364,7 +372,7 @@ module OCI
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
@@ -409,6 +417,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records/{domain}'.sub('{zoneNameOrId}', zone_name_or_id.to_s).sub('{domain}', domain.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -425,6 +434,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -460,7 +470,7 @@ module OCI
     # @param [String] rtype The type of the target RRSet within the target zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
@@ -492,6 +502,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records/{domain}/{rtype}'.sub('{zoneNameOrId}', zone_name_or_id.to_s).sub('{domain}', domain.to_s).sub('{rtype}', rtype.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -505,6 +516,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -538,7 +550,7 @@ module OCI
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
@@ -560,6 +572,7 @@ module OCI
       path = '/zones/{zoneNameOrId}'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -570,6 +583,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -604,7 +618,7 @@ module OCI
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
@@ -653,6 +667,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -671,6 +686,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -704,7 +720,7 @@ module OCI
     # @param [String] compartment_id The OCID of the compartment the resource belongs to.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
@@ -756,6 +772,7 @@ module OCI
       path = '/zones'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -774,6 +791,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -807,7 +825,7 @@ module OCI
     # @param [OCI::Dns::Models::PatchDomainRecordsDetails] patch_domain_records_details Operations describing how to modify the collection of records.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -834,6 +852,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records/{domain}'.sub('{zoneNameOrId}', zone_name_or_id.to_s).sub('{domain}', domain.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -844,6 +863,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(patch_domain_records_details)
 
@@ -878,7 +898,7 @@ module OCI
     # @param [OCI::Dns::Models::PatchRRSetDetails] patch_rr_set_details Operations describing how to modify the collection of records.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -907,6 +927,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records/{domain}/{rtype}'.sub('{zoneNameOrId}', zone_name_or_id.to_s).sub('{domain}', domain.to_s).sub('{rtype}', rtype.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -917,6 +938,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(patch_rr_set_details)
 
@@ -954,7 +976,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -979,6 +1001,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -989,6 +1012,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(patch_zone_records_details)
 
@@ -1028,7 +1052,7 @@ module OCI
     # @param [OCI::Dns::Models::UpdateDomainRecordsDetails] update_domain_records_details A full list of records for the domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -1055,6 +1079,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records/{domain}'.sub('{zoneNameOrId}', zone_name_or_id.to_s).sub('{domain}', domain.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -1065,6 +1090,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_domain_records_details)
 
@@ -1099,7 +1125,7 @@ module OCI
     # @param [OCI::Dns::Models::UpdateRRSetDetails] update_rr_set_details A full list of records for the RRSet.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -1128,6 +1154,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records/{domain}/{rtype}'.sub('{zoneNameOrId}', zone_name_or_id.to_s).sub('{domain}', domain.to_s).sub('{rtype}', rtype.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -1138,6 +1165,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_rr_set_details)
 
@@ -1173,7 +1201,7 @@ module OCI
     # @param [OCI::Dns::Models::UpdateZoneDetails] update_zone_details New data for the zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -1198,6 +1226,7 @@ module OCI
       path = '/zones/{zoneNameOrId}'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -1208,6 +1237,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_zone_details)
 
@@ -1245,7 +1275,7 @@ module OCI
     # @param [OCI::Dns::Models::UpdateZoneRecordsDetails] update_zone_records_details A full list of records for the zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
     #   existence of at least one current representation of the target resource,
     #   when the field-value is `*`, or having a current representation of the
@@ -1270,6 +1300,7 @@ module OCI
       path = '/zones/{zoneNameOrId}/records'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -1280,6 +1311,7 @@ module OCI
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_zone_records_details)
 

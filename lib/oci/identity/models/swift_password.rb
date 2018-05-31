@@ -5,8 +5,10 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
+  # **Deprecated. Use {AuthToken} instead.**
+  #
   # Swift is the OpenStack object storage service. A `SwiftPassword` is an Oracle-provided password for using a
-  # Swift client with the Oracle Cloud Infrastructure Object Storage Service. This password is associated with
+  # Swift client with the Object Storage Service. This password is associated with
   # the user's Console login. Swift passwords never expire. A user can have up to two Swift passwords at a time.
   #
   # **Note:** The password is always an Oracle-generated string; you can't change it to a string of your choice.

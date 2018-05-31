@@ -117,7 +117,7 @@ module OCI
     # @param [OCI::Core::Models::CreateVolumeDetails] create_volume_details Request to create a new volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -133,6 +133,7 @@ module OCI
       path = '/volumes'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -141,6 +142,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_volume_details)
@@ -179,7 +181,7 @@ module OCI
     # @param [OCI::Core::Models::CreateVolumeBackupDetails] create_volume_backup_details Request to create a new backup of given volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -195,6 +197,7 @@ module OCI
       path = '/volumeBackups'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -203,6 +206,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_volume_backup_details)
@@ -239,7 +243,7 @@ module OCI
     # @param [OCI::Core::Models::CreateVolumeBackupPolicyAssignmentDetails] create_volume_backup_policy_assignment_details Request to assign a specified policy to a particular asset.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackupPolicyAssignment VolumeBackupPolicyAssignment}
     def create_volume_backup_policy_assignment(create_volume_backup_policy_assignment_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#create_volume_backup_policy_assignment.' if logger
@@ -249,6 +253,7 @@ module OCI
       path = '/volumeBackupPolicyAssignments'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -256,6 +261,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_volume_backup_policy_assignment_details)
 
@@ -293,7 +299,7 @@ module OCI
     # @param [OCI::Core::Models::CreateVolumeGroupDetails] create_volume_group_details Request to create a new volume group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -309,6 +315,7 @@ module OCI
       path = '/volumeGroups'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -317,6 +324,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_volume_group_details)
@@ -350,7 +358,7 @@ module OCI
     # @param [OCI::Core::Models::CreateVolumeGroupBackupDetails] create_volume_group_backup_details Request to create a new backup group of given volume group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
@@ -366,6 +374,7 @@ module OCI
       path = '/volumeGroupBackups'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -374,6 +383,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_volume_group_backup_details)
@@ -410,7 +420,7 @@ module OCI
     # @param [String] boot_volume_id The OCID of the boot volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -425,6 +435,7 @@ module OCI
       path = '/bootVolumes/{bootVolumeId}'.sub('{bootVolumeId}', boot_volume_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -433,6 +444,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -467,7 +479,7 @@ module OCI
     # @param [String] volume_id The OCID of the volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -482,6 +494,7 @@ module OCI
       path = '/volumes/{volumeId}'.sub('{volumeId}', volume_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -490,6 +503,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -520,7 +534,7 @@ module OCI
     # @param [String] volume_backup_id The OCID of the volume backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -535,6 +549,7 @@ module OCI
       path = '/volumeBackups/{volumeBackupId}'.sub('{volumeBackupId}', volume_backup_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -543,6 +558,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -573,7 +589,7 @@ module OCI
     # @param [String] policy_assignment_id The OCID of the volume backup policy assignment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -588,6 +604,7 @@ module OCI
       path = '/volumeBackupPolicyAssignments/{policyAssignmentId}'.sub('{policyAssignmentId}', policy_assignment_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -596,6 +613,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -627,7 +645,7 @@ module OCI
     # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -642,6 +660,7 @@ module OCI
       path = '/volumeGroups/{volumeGroupId}'.sub('{volumeGroupId}', volume_group_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -650,6 +669,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -680,7 +700,7 @@ module OCI
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -695,6 +715,7 @@ module OCI
       path = '/volumeGroupBackups/{volumeGroupBackupId}'.sub('{volumeGroupBackupId}', volume_group_backup_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -703,6 +724,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -734,7 +756,7 @@ module OCI
     # @param [String] boot_volume_id The OCID of the boot volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolume BootVolume}
     def get_boot_volume(boot_volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_boot_volume.' if logger
@@ -745,6 +767,7 @@ module OCI
       path = '/bootVolumes/{bootVolumeId}'.sub('{bootVolumeId}', boot_volume_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -752,6 +775,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -785,7 +809,7 @@ module OCI
     # @param [String] volume_id The OCID of the volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Volume Volume}
     def get_volume(volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume.' if logger
@@ -796,6 +820,7 @@ module OCI
       path = '/volumes/{volumeId}'.sub('{volumeId}', volume_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -803,6 +828,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -836,7 +862,7 @@ module OCI
     # @param [String] volume_backup_id The OCID of the volume backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackup VolumeBackup}
     def get_volume_backup(volume_backup_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_backup.' if logger
@@ -847,6 +873,7 @@ module OCI
       path = '/volumeBackups/{volumeBackupId}'.sub('{volumeBackupId}', volume_backup_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -854,6 +881,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -887,7 +915,7 @@ module OCI
     # @param [String] policy_id The OCID of the volume backup policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackupPolicy VolumeBackupPolicy}
     def get_volume_backup_policy(policy_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_backup_policy.' if logger
@@ -898,6 +926,7 @@ module OCI
       path = '/volumeBackupPolicies/{policyId}'.sub('{policyId}', policy_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -905,6 +934,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -940,7 +970,7 @@ module OCI
     # @param [String] asset_id The OCID of an asset (e.g. a volume).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
     #   Example: `500`
@@ -956,6 +986,7 @@ module OCI
       path = '/volumeBackupPolicyAssignments'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:assetId] = asset_id
@@ -966,6 +997,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -998,7 +1030,7 @@ module OCI
     # @param [String] policy_assignment_id The OCID of the volume backup policy assignment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackupPolicyAssignment VolumeBackupPolicyAssignment}
     def get_volume_backup_policy_assignment(policy_assignment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_backup_policy_assignment.' if logger
@@ -1009,6 +1041,7 @@ module OCI
       path = '/volumeBackupPolicyAssignments/{policyAssignmentId}'.sub('{policyAssignmentId}', policy_assignment_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1016,6 +1049,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1049,7 +1083,7 @@ module OCI
     # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroup VolumeGroup}
     def get_volume_group(volume_group_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_group.' if logger
@@ -1060,6 +1094,7 @@ module OCI
       path = '/volumeGroups/{volumeGroupId}'.sub('{volumeGroupId}', volume_group_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1067,6 +1102,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1100,7 +1136,7 @@ module OCI
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}
     def get_volume_group_backup(volume_group_backup_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_group_backup.' if logger
@@ -1111,6 +1147,7 @@ module OCI
       path = '/volumeGroupBackups/{volumeGroupBackupId}'.sub('{volumeGroupBackupId}', volume_group_backup_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1118,6 +1155,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1155,7 +1193,7 @@ module OCI
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
     #   Example: `500`
@@ -1173,6 +1211,7 @@ module OCI
       path = '/bootVolumes'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:availabilityDomain] = availability_domain
@@ -1185,6 +1224,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1215,7 +1255,7 @@ module OCI
     # Lists all volume backup policies available to the caller.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
     #   Example: `500`
@@ -1230,6 +1270,7 @@ module OCI
       path = '/volumeBackupPolicies'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -1239,6 +1280,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1271,7 +1313,7 @@ module OCI
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :volume_id The OCID of the volume.
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
@@ -1318,6 +1360,7 @@ module OCI
       path = '/volumeBackups'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1333,6 +1376,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1365,7 +1409,7 @@ module OCI
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :volume_group_id The OCID of the volume group.
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
@@ -1406,6 +1450,7 @@ module OCI
       path = '/volumeGroupBackups'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1420,6 +1465,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1452,7 +1498,7 @@ module OCI
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :availability_domain The name of the Availability Domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1501,6 +1547,7 @@ module OCI
       path = '/volumeGroups'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1516,6 +1563,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1548,7 +1596,7 @@ module OCI
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :availability_domain The name of the Availability Domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1599,6 +1647,7 @@ module OCI
       path = '/volumes'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -1615,6 +1664,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -1647,7 +1697,7 @@ module OCI
     # @param [OCI::Core::Models::UpdateBootVolumeDetails] update_boot_volume_details Update boot volume's display name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1663,6 +1713,7 @@ module OCI
       path = '/bootVolumes/{bootVolumeId}'.sub('{bootVolumeId}', boot_volume_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1671,6 +1722,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_boot_volume_details)
 
@@ -1705,7 +1757,7 @@ module OCI
     # @param [OCI::Core::Models::UpdateVolumeDetails] update_volume_details Update volume's display name. Avoid entering confidential information.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1721,6 +1773,7 @@ module OCI
       path = '/volumes/{volumeId}'.sub('{volumeId}', volume_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1729,6 +1782,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_volume_details)
 
@@ -1763,7 +1817,7 @@ module OCI
     # @param [OCI::Core::Models::UpdateVolumeBackupDetails] update_volume_backup_details Update volume backup fields
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1779,6 +1833,7 @@ module OCI
       path = '/volumeBackups/{volumeBackupId}'.sub('{volumeBackupId}', volume_backup_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1787,6 +1842,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_volume_backup_details)
 
@@ -1822,7 +1878,7 @@ module OCI
     # @param [OCI::Core::Models::UpdateVolumeGroupDetails] update_volume_group_details Update volume group's set of volumes and/or display name
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1838,6 +1894,7 @@ module OCI
       path = '/volumeGroups/{volumeGroupId}'.sub('{volumeGroupId}', volume_group_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1846,6 +1903,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_volume_group_details)
 
@@ -1878,7 +1936,7 @@ module OCI
     # @param [OCI::Core::Models::UpdateVolumeGroupBackupDetails] update_volume_group_backup_details Update volume group backup fields
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -1894,6 +1952,7 @@ module OCI
       path = '/volumeGroupBackups/{volumeGroupBackupId}'.sub('{volumeGroupBackupId}', volume_group_backup_id.to_s)
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
 
@@ -1902,6 +1961,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_volume_group_backup_details)
 
