@@ -104,7 +104,7 @@ module OCI
     # @param [String] compartment_id ID of the root compartment (tenancy)
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Audit::Models::Configuration Configuration}
     def get_configuration(compartment_id, opts = {})
       logger.debug 'Calling operation AuditClient#get_configuration.' if logger
@@ -114,6 +114,7 @@ module OCI
       path = '/configuration'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -122,6 +123,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -162,7 +164,7 @@ module OCI
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous list query.
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
@@ -178,6 +180,7 @@ module OCI
       path = '/auditEvents'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -190,6 +193,7 @@ module OCI
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
@@ -223,7 +227,7 @@ module OCI
     # @param [OCI::Audit::Models::UpdateConfigurationDetails] update_configuration_details The configuration properties
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then then operation will not retry
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
     def update_configuration(compartment_id, update_configuration_details, opts = {})
       logger.debug 'Calling operation AuditClient#update_configuration.' if logger
@@ -234,6 +238,7 @@ module OCI
       path = '/configuration'
       operation_signing_strategy = :standard
 
+      # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
@@ -242,6 +247,7 @@ module OCI
       header_params = {}
       header_params['accept'] = 'application/json'
       header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_configuration_details)
 
