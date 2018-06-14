@@ -15,6 +15,53 @@ module OCI
       # waiter to fail with this exception.
       class WaiterFailedError < RuntimeError; end
     end
+
+    # Work request waiter utility method.
+    module WorkRequest
+      # Wait until the work request succeeds or fails, or max_wait_seconds is reached.
+      # The work request will be polled at an increasing rate, with a maximum of
+      # max_interval_seconds between requests.
+      #
+      # @param [Client] client A client that is able to call get_work_request()
+      # @param [String] work_request_id, the work request identifier
+      # @param [Proc] eval_success_proc the proc to evaluate if a wait condition has succeeded.
+      # @param [Proc] eval_error_proc the proc to evaluate if an error based terminal condition has occurred.
+      # @param [Integer] max_interval_seconds The maximum interval between queries, in seconds.
+      # @param [Integer] max_wait_seconds The maximum total time to wait, in seconds.
+      # @return [OCI::Response] A {OCI::Response} object containing the completed work request
+      def self.wait_for_state(client,
+                              work_request_id,
+                              eval_success_proc = nil,
+                              eval_error_proc = nil,
+                              max_interval_seconds: 30,
+                              max_wait_seconds: 1200)
+        raise 'Work request ID not specified.' unless work_request_id
+        raise 'Evaluation proc for determining success not specified' unless eval_success_proc
+        interval_seconds = 1
+        start_time = Time.now
+
+        loop do
+          response = client.get_work_request(work_request_id)
+          return response if eval_success_proc && eval_success_proc.call(response.data)
+          return response if eval_error_proc && eval_error_proc.call(response.data)
+
+          elapsed_seconds = (Time.now - start_time).to_i
+
+          if elapsed_seconds + interval_seconds > max_wait_seconds
+            raise OCI::Errors::MaximumWaitTimeExceededError, 'Maximum wait time has been exceeded.' \
+              unless max_wait_seconds > elapsed_seconds
+
+            # Make one last request right at the maximum wait time.
+            interval_seconds = max_wait_seconds - elapsed_seconds
+          end
+
+          sleep(interval_seconds)
+
+          interval_seconds *= 2
+          interval_seconds = max_interval_seconds if interval_seconds > max_interval_seconds
+        end
+      end
+    end
   end
 
   # Adds to the Response class in lib/oci/response.rb to define wait behavior

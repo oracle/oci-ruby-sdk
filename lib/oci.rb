@@ -18,6 +18,7 @@ require 'oci/retry/retry'
 
 require 'oci/auth/auth'
 require 'oci/audit/audit'
+require 'oci/container_engine/container_engine'
 require 'oci/core/core'
 require 'oci/database/database'
 require 'oci/dns/dns'

@@ -42,18 +42,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def create_backend_and_wait_for_state(create_backend_details, load_balancer_id, backend_set_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_backend(create_backend_details, load_balancer_id, backend_set_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -82,18 +92,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def create_backend_set_and_wait_for_state(create_backend_set_details, load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_backend_set(create_backend_set_details, load_balancer_id, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -122,18 +142,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def create_certificate_and_wait_for_state(create_certificate_details, load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_certificate(create_certificate_details, load_balancer_id, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -162,18 +192,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def create_hostname_and_wait_for_state(create_hostname_details, load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_hostname(create_hostname_details, load_balancer_id, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -202,18 +242,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def create_listener_and_wait_for_state(create_listener_details, load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_listener(create_listener_details, load_balancer_id, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -241,18 +291,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::LoadBalancer::Models::LoadBalancer}
     def create_load_balancer_and_wait_for_state(create_load_balancer_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_load_balancer(create_load_balancer_details, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = @service_client.get_load_balancer(waiter_result.data.load_balancer_id)
 
         return result_to_return
@@ -281,18 +341,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def create_path_route_set_and_wait_for_state(create_path_route_set_details, load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_path_route_set(create_path_route_set_details, load_balancer_id, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -326,21 +396,30 @@ module OCI
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
-    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def delete_backend_and_wait_for_state(load_balancer_id, backend_set_name, backend_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.delete_backend(load_balancer_id, backend_set_name, backend_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -370,21 +449,30 @@ module OCI
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
-    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def delete_backend_set_and_wait_for_state(load_balancer_id, backend_set_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.delete_backend_set(load_balancer_id, backend_set_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -416,21 +504,30 @@ module OCI
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
-    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def delete_certificate_and_wait_for_state(load_balancer_id, certificate_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.delete_certificate(load_balancer_id, certificate_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -460,21 +557,30 @@ module OCI
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
-    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def delete_hostname_and_wait_for_state(load_balancer_id, name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.delete_hostname(load_balancer_id, name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -504,21 +610,30 @@ module OCI
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
-    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def delete_listener_and_wait_for_state(load_balancer_id, listener_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.delete_listener(load_balancer_id, listener_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -544,21 +659,30 @@ module OCI
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
-    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def delete_load_balancer_and_wait_for_state(load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.delete_load_balancer(load_balancer_id, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -588,21 +712,30 @@ module OCI
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
-    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def delete_path_route_set_and_wait_for_state(load_balancer_id, path_route_set_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.delete_path_route_set(load_balancer_id, path_route_set_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -639,18 +772,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def update_backend_and_wait_for_state(update_backend_details, load_balancer_id, backend_set_name, backend_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_backend(update_backend_details, load_balancer_id, backend_set_name, backend_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -683,18 +826,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def update_backend_set_and_wait_for_state(update_backend_set_details, load_balancer_id, backend_set_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_backend_set(update_backend_set_details, load_balancer_id, backend_set_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -727,18 +880,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def update_health_checker_and_wait_for_state(health_checker, load_balancer_id, backend_set_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_health_checker(health_checker, load_balancer_id, backend_set_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -773,18 +936,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def update_hostname_and_wait_for_state(update_hostname_details, load_balancer_id, name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_hostname(update_hostname_details, load_balancer_id, name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -817,18 +990,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def update_listener_and_wait_for_state(update_listener_details, load_balancer_id, listener_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_listener(update_listener_details, load_balancer_id, listener_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -857,18 +1040,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::LoadBalancer::Models::LoadBalancer}
     def update_load_balancer_and_wait_for_state(update_load_balancer_details, load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_load_balancer(update_load_balancer_details, load_balancer_id, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = @service_client.get_load_balancer(waiter_result.data.load_balancer_id)
 
         return result_to_return
@@ -901,18 +1094,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
     def update_path_route_set_and_wait_for_state(update_path_route_set_details, load_balancer_id, path_route_set_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_path_route_set(update_path_route_set_details, load_balancer_id, path_route_set_name, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return

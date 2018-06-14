@@ -29,7 +29,8 @@ module OCI
       Auth: 'auth',
       DnsClient: 'dns',
       FileStorageClient: 'filestorage',
-      EmailClient: 'email'
+      EmailClient: 'email',
+      ContainerEngineClient: 'containerengine'
     }.freeze
 
     # Returns an endpoint for the given region and service.
