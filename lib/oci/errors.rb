@@ -163,10 +163,29 @@ module OCI
       # The failed work request.
       attr_reader :work_request
 
-      def initialize(work_request)
+      # The status associated with the failed work request.
+      attr_reader :status
+
+      def initialize(work_request, status)
         # TODO: May also want to include error_details.
-        super "Work request failed. ID: #{work_request.id}"
+        super "Work request failed. ID: #{work_request.id}, Status: #{status}"
         @work_request = work_request
+        @status = status
+      end
+    end
+
+    # Raised when a work request returns as canceled while waiting on completion.
+    class WorkRequestCanceledError < StandardError
+      # The failed work request.
+      attr_reader :work_request
+
+      # The status associated with the failed work request.
+      attr_reader :status
+
+      def initialize(work_request, status)
+        super "Work request canceled. ID: #{work_request.id}, Status: #{status}"
+        @work_request = work_request
+        @status = status
       end
     end
 

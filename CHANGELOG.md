@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.3.0 - 2018-06-14
+### Breaking Changes
+- *Italic text* indicates breaking changes that may impact users, but most likely will not
+
+### Added
+- Support for the Container Engine service. An example of showing how to create a cluster: [container\_engine\_cluster\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/container_engine_cluster_example.rb)
+
+### Changed
+- *`OCI::LoadBalancer::Util.wait_on_work_request` now returns a `OCI::Response` that contains a `OCI::LoadBalancer::Models::WorkRequest` when using this utility to wait for a work request to complete*
+
+
 ## 2.2.1 - 2018-05-31
 ### Added
 - Support for the "soft shutdown" instance action in the Compute service

@@ -38,18 +38,28 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Audit::Models::WorkRequest}
     def update_configuration_and_wait_for_state(compartment_id, update_configuration_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_configuration(compartment_id, update_configuration_details, base_operation_opts)
+      use_util = OCI::Audit::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
       wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
+        if use_util
+          waiter_result = OCI::Audit::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
