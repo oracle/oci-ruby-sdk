@@ -1409,18 +1409,17 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Performs one of the power actions (start, stop, softreset, softstop, or reset)
-    # on the specified instance.
+    # Performs one of the following power actions on the specified instance:
     #
-    # **start** - power on
+    # - **START** - Powers on the instance.
     #
-    # **stop** - power off
+    # - **STOP** - Powers off the instance.
     #
-    # **softreset** - ACPI shutdown and power on
+    # - **SOFTRESET** - Gracefully reboots instance by sending a shutdown command to the operating system and then powers the instance back on.
     #
-    # **softstop** - signal the instance operating system to shutdown gracefully
+    # - **SOFTSTOP** - Gracefully shuts down instance by sending a shutdown command to the operating system.
     #
-    # **reset** - power off and power on
+    # - **RESET** - Powers off the instance and then powers it back on.
     #
     # For more information see [Stopping and Starting an Instance](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/restartinginstance.htm).
     #

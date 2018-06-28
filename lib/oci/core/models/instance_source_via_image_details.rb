@@ -8,7 +8,6 @@ module OCI
   # InstanceSourceViaImageDetails model.
   class Core::Models::InstanceSourceViaImageDetails < Core::Models::InstanceSourceDetails # rubocop:disable Metrics/LineLength
     # The size of the boot volume in GBs. Minimum value is 50 GB and maximum value is 16384 GB (16TB).
-    #
     # @return [Integer]
     attr_accessor :boot_volume_size_in_gbs
 

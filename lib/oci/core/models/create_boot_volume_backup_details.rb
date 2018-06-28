@@ -1,22 +1,56 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
-require_relative 'volume_group_source_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Specifies the volumes in a volume group.
-  class Core::Models::VolumeGroupSourceFromVolumesDetails < Core::Models::VolumeGroupSourceDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** OCIDs for the volumes in this volume group.
-    # @return [Array<String>]
-    attr_accessor :volume_ids
+  # CreateBootVolumeBackupDetails model.
+  class Core::Models::CreateBootVolumeBackupDetails # rubocop:disable Metrics/LineLength
+    TYPE_ENUM = [
+      TYPE_FULL = 'FULL'.freeze,
+      TYPE_INCREMENTAL = 'INCREMENTAL'.freeze
+    ].freeze
+
+    # **[Required]** The OCID of the boot volume that needs to be backed up.
+    # @return [String]
+    attr_accessor :boot_volume_id
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # A user-friendly name for the boot volume backup. Does not have to be unique and it's changeable.
+    # Avoid entering confidential information.
+    #
+    # @return [String]
+    attr_accessor :display_name
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see
+    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # The type of backup to create. If omitted, defaults to incremental.
+    # @return [String]
+    attr_reader :type
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'type',
-        'volume_ids': :'volumeIds'
+        'boot_volume_id': :'bootVolumeId',
+        'defined_tags': :'definedTags',
+        'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
+        'type': :'type'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,8 +59,11 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'String',
-        'volume_ids': :'Array<String>'
+        'boot_volume_id': :'String',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,25 +74,54 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Array<String>] :volume_ids The value to assign to the {#volume_ids} property
+    # @option attributes [String] :boot_volume_id The value to assign to the {#boot_volume_id} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :type The value to assign to the {#type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
-
-      attributes['type'] = 'volumeIds'
-
-      super(attributes)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.volume_ids = attributes[:'volumeIds'] if attributes[:'volumeIds']
+      self.boot_volume_id = attributes[:'bootVolumeId'] if attributes[:'bootVolumeId']
 
-      raise 'You cannot provide both :volumeIds and :volume_ids' if attributes.key?(:'volumeIds') && attributes.key?(:'volume_ids')
+      raise 'You cannot provide both :bootVolumeId and :boot_volume_id' if attributes.key?(:'bootVolumeId') && attributes.key?(:'boot_volume_id')
 
-      self.volume_ids = attributes[:'volume_ids'] if attributes[:'volume_ids']
+      self.boot_volume_id = attributes[:'boot_volume_id'] if attributes[:'boot_volume_id']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.type = attributes[:'type'] if attributes[:'type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'type': this must be one of the values in TYPE_ENUM." if type && !TYPE_ENUM.include?(type)
+      # rubocop: enable Metrics/LineLength
+      @type = type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -65,8 +131,11 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        type == other.type &&
-        volume_ids == other.volume_ids
+        boot_volume_id == other.boot_volume_id &&
+        defined_tags == other.defined_tags &&
+        display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
+        type == other.type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -82,7 +151,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, volume_ids].hash
+      [boot_volume_id, defined_tags, display_name, freeform_tags, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
