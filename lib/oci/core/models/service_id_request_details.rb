@@ -1,22 +1,21 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
-require_relative 'volume_group_source_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Specifies the volumes in a volume group.
-  class Core::Models::VolumeGroupSourceFromVolumesDetails < Core::Models::VolumeGroupSourceDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** OCIDs for the volumes in this volume group.
-    # @return [Array<String>]
-    attr_accessor :volume_ids
+  # ServiceIdRequestDetails model.
+  class Core::Models::ServiceIdRequestDetails # rubocop:disable Metrics/LineLength
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the service.
+    #
+    # @return [String]
+    attr_accessor :service_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'type',
-        'volume_ids': :'volumeIds'
+        'service_id': :'serviceId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,8 +24,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'String',
-        'volume_ids': :'Array<String>'
+        'service_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,22 +35,18 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Array<String>] :volume_ids The value to assign to the {#volume_ids} property
+    # @option attributes [String] :service_id The value to assign to the {#service_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
-
-      attributes['type'] = 'volumeIds'
-
-      super(attributes)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.volume_ids = attributes[:'volumeIds'] if attributes[:'volumeIds']
+      self.service_id = attributes[:'serviceId'] if attributes[:'serviceId']
 
-      raise 'You cannot provide both :volumeIds and :volume_ids' if attributes.key?(:'volumeIds') && attributes.key?(:'volume_ids')
+      raise 'You cannot provide both :serviceId and :service_id' if attributes.key?(:'serviceId') && attributes.key?(:'service_id')
 
-      self.volume_ids = attributes[:'volume_ids'] if attributes[:'volume_ids']
+      self.service_id = attributes[:'service_id'] if attributes[:'service_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -65,8 +59,7 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        type == other.type &&
-        volume_ids == other.volume_ids
+        service_id == other.service_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -82,7 +75,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, volume_ids].hash
+      [service_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

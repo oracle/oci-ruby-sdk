@@ -1,16 +1,30 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # A rule for allowing outbound IP packets.
   class Core::Models::EgressSecurityRule # rubocop:disable Metrics/LineLength
-    # **[Required]** The destination CIDR block for the egress rule. This is the range of IP addresses that a
-    # packet originating from the instance can go to.
+    DESTINATION_TYPE_ENUM = [
+      DESTINATION_TYPE_CIDR_BLOCK = 'CIDR_BLOCK'.freeze,
+      DESTINATION_TYPE_SERVICE_CIDR_BLOCK = 'SERVICE_CIDR_BLOCK'.freeze,
+      DESTINATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # **[Required]** The destination service cidrBlock or destination IP address range in CIDR notation for the egress rule.
+    # This is the range of IP addresses that a packet originating from the instance can go to.
     #
     # @return [String]
     attr_accessor :destination
+
+    # Type of destination for EgressSecurityRule. SERVICE_CIDR_BLOCK should be used if destination is a service
+    # cidrBlock. CIDR_BLOCK should be used if destination is IP address range in CIDR notation.
+    # It defaults to CIDR_BLOCK, if not specified.
+    #
+    # @return [String]
+    attr_reader :destination_type
 
     # Optional and valid only for ICMP. Use to specify a particular ICMP type and code
     # as defined in
@@ -58,6 +72,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'destination': :'destination',
+        'destination_type': :'destinationType',
         'icmp_options': :'icmpOptions',
         'is_stateless': :'isStateless',
         'protocol': :'protocol',
@@ -72,6 +87,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'destination': :'String',
+        'destination_type': :'String',
         'icmp_options': :'OCI::Core::Models::IcmpOptions',
         'is_stateless': :'BOOLEAN',
         'protocol': :'String',
@@ -88,6 +104,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :destination The value to assign to the {#destination} property
+    # @option attributes [String] :destination_type The value to assign to the {#destination_type} property
     # @option attributes [OCI::Core::Models::IcmpOptions] :icmp_options The value to assign to the {#icmp_options} property
     # @option attributes [BOOLEAN] :is_stateless The value to assign to the {#is_stateless} property
     # @option attributes [String] :protocol The value to assign to the {#protocol} property
@@ -100,6 +117,14 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.destination = attributes[:'destination'] if attributes[:'destination']
+
+      self.destination_type = attributes[:'destinationType'] if attributes[:'destinationType']
+      self.destination_type = "CIDR_BLOCK" if destination_type.nil? && !attributes.key?(:'destinationType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :destinationType and :destination_type' if attributes.key?(:'destinationType') && attributes.key?(:'destination_type')
+
+      self.destination_type = attributes[:'destination_type'] if attributes[:'destination_type']
+      self.destination_type = "CIDR_BLOCK" if destination_type.nil? && !attributes.key?(:'destinationType') && !attributes.key?(:'destination_type') # rubocop:disable Style/StringLiterals
 
       self.icmp_options = attributes[:'icmpOptions'] if attributes[:'icmpOptions']
 
@@ -130,6 +155,21 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] destination_type Object to be assigned
+    def destination_type=(destination_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if destination_type && !DESTINATION_TYPE_ENUM.include?(destination_type)
+        # rubocop: disable Metrics/LineLength
+        OCI.logger.debug("Unknown value for 'destination_type' [" + destination_type + "]. Mapping to 'DESTINATION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        # rubocop: enable Metrics/LineLength
+        @destination_type = DESTINATION_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @destination_type = destination_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -139,6 +179,7 @@ module OCI
       return true if equal?(other)
       self.class == other.class &&
         destination == other.destination &&
+        destination_type == other.destination_type &&
         icmp_options == other.icmp_options &&
         is_stateless == other.is_stateless &&
         protocol == other.protocol &&
@@ -159,7 +200,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [destination, icmp_options, is_stateless, protocol, tcp_options, udp_options].hash
+      [destination, destination_type, icmp_options, is_stateless, protocol, tcp_options, udp_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

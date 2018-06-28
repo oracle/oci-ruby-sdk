@@ -1,22 +1,40 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
-require_relative 'volume_group_source_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Specifies the volumes in a volume group.
-  class Core::Models::VolumeGroupSourceFromVolumesDetails < Core::Models::VolumeGroupSourceDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** OCIDs for the volumes in this volume group.
-    # @return [Array<String>]
-    attr_accessor :volume_ids
+  # Information about a service that is accessible through a service gateway.
+  #
+  class Core::Models::Service # rubocop:disable Metrics/LineLength
+    # **[Required]** A string that represents the public endpoints for the service. When you set up a route rule
+    # to route traffic to the service gateway, use this value as the destination CIDR block for
+    # the rule. See {RouteTable}.
+    #
+    # @return [String]
+    attr_accessor :cidr_block
+
+    # **[Required]** Description of the service.
+    #
+    # @return [String]
+    attr_accessor :description
+
+    # **[Required]** The service's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @return [String]
+    attr_accessor :id
+
+    # **[Required]** Name of the service.
+    # @return [String]
+    attr_accessor :name
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'type',
-        'volume_ids': :'volumeIds'
+        'cidr_block': :'cidrBlock',
+        'description': :'description',
+        'id': :'id',
+        'name': :'name'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,8 +43,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'String',
-        'volume_ids': :'Array<String>'
+        'cidr_block': :'String',
+        'description': :'String',
+        'id': :'String',
+        'name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,22 +57,27 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Array<String>] :volume_ids The value to assign to the {#volume_ids} property
+    # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
+    # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :name The value to assign to the {#name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
-
-      attributes['type'] = 'volumeIds'
-
-      super(attributes)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.volume_ids = attributes[:'volumeIds'] if attributes[:'volumeIds']
+      self.cidr_block = attributes[:'cidrBlock'] if attributes[:'cidrBlock']
 
-      raise 'You cannot provide both :volumeIds and :volume_ids' if attributes.key?(:'volumeIds') && attributes.key?(:'volume_ids')
+      raise 'You cannot provide both :cidrBlock and :cidr_block' if attributes.key?(:'cidrBlock') && attributes.key?(:'cidr_block')
 
-      self.volume_ids = attributes[:'volume_ids'] if attributes[:'volume_ids']
+      self.cidr_block = attributes[:'cidr_block'] if attributes[:'cidr_block']
+
+      self.description = attributes[:'description'] if attributes[:'description']
+
+      self.id = attributes[:'id'] if attributes[:'id']
+
+      self.name = attributes[:'name'] if attributes[:'name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -65,8 +90,10 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        type == other.type &&
-        volume_ids == other.volume_ids
+        cidr_block == other.cidr_block &&
+        description == other.description &&
+        id == other.id &&
+        name == other.name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -82,7 +109,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, volume_ids].hash
+      [cidr_block, description, id, name].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
