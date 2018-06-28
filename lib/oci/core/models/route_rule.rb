@@ -1,6 +1,7 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
@@ -8,13 +9,36 @@ module OCI
   # packets to (a target).
   #
   class Core::Models::RouteRule # rubocop:disable Metrics/LineLength
-    # **[Required]** A destination IP address range in CIDR notation. Matching packets will
+    DESTINATION_TYPE_ENUM = [
+      DESTINATION_TYPE_CIDR_BLOCK = 'CIDR_BLOCK'.freeze,
+      DESTINATION_TYPE_SERVICE_CIDR_BLOCK = 'SERVICE_CIDR_BLOCK'.freeze,
+      DESTINATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # **[Required]** Deprecated, Destination and DestinationType should be used instead; request including both fields will be rejected.
+    # A destination IP address range in CIDR notation. Matching packets will
     # be routed to the indicated network entity (the target).
     #
     # Example: `0.0.0.0/0`
     #
     # @return [String]
     attr_accessor :cidr_block
+
+    # The destination service cidrBlock or destination IP address range in CIDR notation. Matching packets will
+    # be routed to the indicated network entity (the target).
+    #
+    # Examples: `10.12.0.0/16`
+    #           `oci-phx-objectstorage`
+    #
+    # @return [String]
+    attr_accessor :destination
+
+    # Type of destination for the route rule. SERVICE_CIDR_BLOCK should be used if destination is a service
+    # cidrBlock. CIDR_BLOCK should be used if destination is IP address range in CIDR notation. It must be provided
+    # along with `destination`.
+    #
+    # @return [String]
+    attr_reader :destination_type
 
     # **[Required]** The OCID for the route rule's target. For information about the type of
     # targets you can specify, see
@@ -28,6 +52,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'cidrBlock',
+        'destination': :'destination',
+        'destination_type': :'destinationType',
         'network_entity_id': :'networkEntityId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -38,6 +64,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'String',
+        'destination': :'String',
+        'destination_type': :'String',
         'network_entity_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -50,6 +78,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
+    # @option attributes [String] :destination The value to assign to the {#destination} property
+    # @option attributes [String] :destination_type The value to assign to the {#destination_type} property
     # @option attributes [String] :network_entity_id The value to assign to the {#network_entity_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -63,6 +93,16 @@ module OCI
 
       self.cidr_block = attributes[:'cidr_block'] if attributes[:'cidr_block']
 
+      self.destination = attributes[:'destination'] if attributes[:'destination']
+
+      self.destination_type = attributes[:'destinationType'] if attributes[:'destinationType']
+      self.destination_type = "CIDR_BLOCK" if destination_type.nil? && !attributes.key?(:'destinationType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :destinationType and :destination_type' if attributes.key?(:'destinationType') && attributes.key?(:'destination_type')
+
+      self.destination_type = attributes[:'destination_type'] if attributes[:'destination_type']
+      self.destination_type = "CIDR_BLOCK" if destination_type.nil? && !attributes.key?(:'destinationType') && !attributes.key?(:'destination_type') # rubocop:disable Style/StringLiterals
+
       self.network_entity_id = attributes[:'networkEntityId'] if attributes[:'networkEntityId']
 
       raise 'You cannot provide both :networkEntityId and :network_entity_id' if attributes.key?(:'networkEntityId') && attributes.key?(:'network_entity_id')
@@ -71,6 +111,21 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] destination_type Object to be assigned
+    def destination_type=(destination_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if destination_type && !DESTINATION_TYPE_ENUM.include?(destination_type)
+        # rubocop: disable Metrics/LineLength
+        OCI.logger.debug("Unknown value for 'destination_type' [" + destination_type + "]. Mapping to 'DESTINATION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        # rubocop: enable Metrics/LineLength
+        @destination_type = DESTINATION_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @destination_type = destination_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -81,6 +136,8 @@ module OCI
       return true if equal?(other)
       self.class == other.class &&
         cidr_block == other.cidr_block &&
+        destination == other.destination &&
+        destination_type == other.destination_type &&
         network_entity_id == other.network_entity_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -97,7 +154,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, network_entity_id].hash
+      [cidr_block, destination, destination_type, network_entity_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

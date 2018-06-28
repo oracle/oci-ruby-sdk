@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Specifies a volume group. A volume group is a collection of block volumes.
+  # Specifies a volume group which is a collection of volumes. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
   class Core::Models::VolumeGroup # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
@@ -16,7 +16,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The Availability Domain of the volume group.
+    # **[Required]** The availability domain of the volume group.
     # @return [String]
     attr_accessor :availability_domain
 
@@ -32,7 +32,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # **[Required]** A user-friendly name for the volume group. Does not have to be unique, and it's changeable.
+    # **[Required]** A user-friendly name for the volume group. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
@@ -45,7 +45,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
+    # **[Required]** The OCID for the volume group.
     # @return [String]
     attr_accessor :id
 
@@ -57,8 +57,12 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_mbs
 
-    # The volume group source. The volume source is either another a list of
-    # volume ids in the same Availability Domain, another volume group or a volume group backup.
+    # The aggregate size of the volume group in GBs.
+    # @return [Integer]
+    attr_accessor :size_in_gbs
+
+    # The volume group source. The source is either another a list of
+    # volume IDs in the same availability domain, another volume group, or a volume group backup.
     #
     # @return [OCI::Core::Models::VolumeGroupSourceDetails]
     attr_accessor :source_details
@@ -83,6 +87,7 @@ module OCI
         'id': :'id',
         'lifecycle_state': :'lifecycleState',
         'size_in_mbs': :'sizeInMBs',
+        'size_in_gbs': :'sizeInGBs',
         'source_details': :'sourceDetails',
         'time_created': :'timeCreated',
         'volume_ids': :'volumeIds'
@@ -102,6 +107,7 @@ module OCI
         'id': :'String',
         'lifecycle_state': :'String',
         'size_in_mbs': :'Integer',
+        'size_in_gbs': :'Integer',
         'source_details': :'OCI::Core::Models::VolumeGroupSourceDetails',
         'time_created': :'DateTime',
         'volume_ids': :'Array<String>'
@@ -123,6 +129,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
+    # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [OCI::Core::Models::VolumeGroupSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Array<String>] :volume_ids The value to assign to the {#volume_ids} property
@@ -176,6 +183,12 @@ module OCI
 
       self.size_in_mbs = attributes[:'size_in_mbs'] if attributes[:'size_in_mbs']
 
+      self.size_in_gbs = attributes[:'sizeInGBs'] if attributes[:'sizeInGBs']
+
+      raise 'You cannot provide both :sizeInGBs and :size_in_gbs' if attributes.key?(:'sizeInGBs') && attributes.key?(:'size_in_gbs')
+
+      self.size_in_gbs = attributes[:'size_in_gbs'] if attributes[:'size_in_gbs']
+
       self.source_details = attributes[:'sourceDetails'] if attributes[:'sourceDetails']
 
       raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
@@ -228,6 +241,7 @@ module OCI
         id == other.id &&
         lifecycle_state == other.lifecycle_state &&
         size_in_mbs == other.size_in_mbs &&
+        size_in_gbs == other.size_in_gbs &&
         source_details == other.source_details &&
         time_created == other.time_created &&
         volume_ids == other.volume_ids
@@ -246,7 +260,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, size_in_mbs, source_details, time_created, volume_ids].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, size_in_mbs, size_in_gbs, source_details, time_created, volume_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -34,11 +34,28 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see
+    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
 
     # **[Required]** The boot volume's Oracle ID (OCID).
     # @return [String]
@@ -47,6 +64,10 @@ module OCI
     # The image OCID used to create the boot volume.
     # @return [String]
     attr_accessor :image_id
+
+    # Specifies whether the boot volume's data has finished copying from the source boot volume or boot volume backup.
+    # @return [BOOLEAN]
+    attr_accessor :is_hydrated
 
     # **[Required]** The current state of a boot volume.
     # @return [String]
@@ -62,6 +83,12 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_mbs
 
+    # The boot volume source, either an existing boot volume in the same Availability Domain or a boot volume backup.
+    # If null, this means that the boot volume was created from an image.
+    #
+    # @return [OCI::Core::Models::BootVolumeSourceDetails]
+    attr_accessor :source_details
+
     # **[Required]** The date and time the boot volume was created. Format defined by RFC3339.
     # @return [DateTime]
     attr_accessor :time_created
@@ -76,12 +103,16 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
         'compartment_id': :'compartmentId',
+        'defined_tags': :'definedTags',
         'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
         'id': :'id',
         'image_id': :'imageId',
+        'is_hydrated': :'isHydrated',
         'lifecycle_state': :'lifecycleState',
         'size_in_gbs': :'sizeInGBs',
         'size_in_mbs': :'sizeInMBs',
+        'source_details': :'sourceDetails',
         'time_created': :'timeCreated',
         'volume_group_id': :'volumeGroupId'
         # rubocop:enable Style/SymbolLiteral
@@ -94,12 +125,16 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
         'compartment_id': :'String',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'image_id': :'String',
+        'is_hydrated': :'BOOLEAN',
         'lifecycle_state': :'String',
         'size_in_gbs': :'Integer',
         'size_in_mbs': :'Integer',
+        'source_details': :'OCI::Core::Models::BootVolumeSourceDetails',
         'time_created': :'DateTime',
         'volume_group_id': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -114,12 +149,16 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
+    # @option attributes [BOOLEAN] :is_hydrated The value to assign to the {#is_hydrated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
+    # @option attributes [OCI::Core::Models::BootVolumeSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :volume_group_id The value to assign to the {#volume_group_id} property
     def initialize(attributes = {})
@@ -140,11 +179,23 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.id = attributes[:'id'] if attributes[:'id']
 
@@ -153,6 +204,12 @@ module OCI
       raise 'You cannot provide both :imageId and :image_id' if attributes.key?(:'imageId') && attributes.key?(:'image_id')
 
       self.image_id = attributes[:'image_id'] if attributes[:'image_id']
+
+      self.is_hydrated = attributes[:'isHydrated'] unless attributes[:'isHydrated'].nil?
+
+      raise 'You cannot provide both :isHydrated and :is_hydrated' if attributes.key?(:'isHydrated') && attributes.key?(:'is_hydrated')
+
+      self.is_hydrated = attributes[:'is_hydrated'] unless attributes[:'is_hydrated'].nil?
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -171,6 +228,12 @@ module OCI
       raise 'You cannot provide both :sizeInMBs and :size_in_mbs' if attributes.key?(:'sizeInMBs') && attributes.key?(:'size_in_mbs')
 
       self.size_in_mbs = attributes[:'size_in_mbs'] if attributes[:'size_in_mbs']
+
+      self.source_details = attributes[:'sourceDetails'] if attributes[:'sourceDetails']
+
+      raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
+
+      self.source_details = attributes[:'source_details'] if attributes[:'source_details']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -212,12 +275,16 @@ module OCI
       self.class == other.class &&
         availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
+        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
         id == other.id &&
         image_id == other.image_id &&
+        is_hydrated == other.is_hydrated &&
         lifecycle_state == other.lifecycle_state &&
         size_in_gbs == other.size_in_gbs &&
         size_in_mbs == other.size_in_mbs &&
+        source_details == other.source_details &&
         time_created == other.time_created &&
         volume_group_id == other.volume_group_id
     end
@@ -235,7 +302,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, display_name, id, image_id, lifecycle_state, size_in_gbs, size_in_mbs, time_created, volume_group_id].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, image_id, is_hydrated, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

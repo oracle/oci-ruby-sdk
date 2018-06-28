@@ -1,22 +1,21 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
-require_relative 'volume_group_source_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Specifies the volumes in a volume group.
-  class Core::Models::VolumeGroupSourceFromVolumesDetails < Core::Models::VolumeGroupSourceDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** OCIDs for the volumes in this volume group.
-    # @return [Array<String>]
-    attr_accessor :volume_ids
+  # BootVolumeSourceDetails model.
+  # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
+  class Core::Models::BootVolumeSourceDetails # rubocop:disable Metrics/LineLength
+    # This attribute is required.
+    # @return [String]
+    attr_accessor :type
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'type',
-        'volume_ids': :'volumeIds'
+        'type': :'type'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,11 +24,26 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'String',
-        'volume_ids': :'Array<String>'
+        'type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+
+
+    # Given the hash representation of a subtype of this class,
+    # use the info in the hash to return the class of the subtype.
+    def self.get_subtype(object_hash)
+      type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
+
+      return 'OCI::Core::Models::BootVolumeSourceFromBootVolumeBackupDetails' if type == 'bootVolumeBackup'
+      return 'OCI::Core::Models::BootVolumeSourceFromBootVolumeDetails' if type == 'bootVolume'
+
+      # TODO: Log a warning when the subtype is not found.
+      'OCI::Core::Models::BootVolumeSourceDetails'
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -37,22 +51,14 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Array<String>] :volume_ids The value to assign to the {#volume_ids} property
+    # @option attributes [String] :type The value to assign to the {#type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
-
-      attributes['type'] = 'volumeIds'
-
-      super(attributes)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.volume_ids = attributes[:'volumeIds'] if attributes[:'volumeIds']
-
-      raise 'You cannot provide both :volumeIds and :volume_ids' if attributes.key?(:'volumeIds') && attributes.key?(:'volume_ids')
-
-      self.volume_ids = attributes[:'volume_ids'] if attributes[:'volume_ids']
+      self.type = attributes[:'type'] if attributes[:'type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -65,8 +71,7 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        type == other.type &&
-        volume_ids == other.volume_ids
+        type == other.type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -82,7 +87,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, volume_ids].hash
+      [type].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

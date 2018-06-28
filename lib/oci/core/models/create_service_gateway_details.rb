@@ -4,8 +4,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateBootVolumeDetails model.
-  class Core::Models::UpdateBootVolumeDetails # rubocop:disable Metrics/LineLength
+  # CreateServiceGatewayDetails model.
+  class Core::Models::CreateServiceGatewayDetails # rubocop:disable Metrics/LineLength
+    # **[Required]** The [OCID] (https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm)  of the compartment to contain the Service Gateway.
+    #
+    # @return [String]
+    attr_accessor :compartment_id
+
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -29,13 +34,24 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # **[Required]** List of the Service OCIDs. These are the Services which will be enabled on the Service Gateway. This list can be empty.
+    # @return [Array<OCI::Core::Models::ServiceIdRequestDetails>]
+    attr_accessor :services
+
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @return [String]
+    attr_accessor :vcn_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'services': :'services',
+        'vcn_id': :'vcnId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,9 +60,12 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'services': :'Array<OCI::Core::Models::ServiceIdRequestDetails>',
+        'vcn_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,14 +76,23 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Array<OCI::Core::Models::ServiceIdRequestDetails>] :services The value to assign to the {#services} property
+    # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -83,6 +111,14 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.services = attributes[:'services'] if attributes[:'services']
+
+      self.vcn_id = attributes[:'vcnId'] if attributes[:'vcnId']
+
+      raise 'You cannot provide both :vcnId and :vcn_id' if attributes.key?(:'vcnId') && attributes.key?(:'vcn_id')
+
+      self.vcn_id = attributes[:'vcn_id'] if attributes[:'vcn_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -95,9 +131,12 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
+        compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        services == other.services &&
+        vcn_id == other.vcn_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -113,7 +152,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, services, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

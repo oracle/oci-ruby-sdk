@@ -99,8 +99,134 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new boot volume in the specified compartment from an existing boot volume or a boot volume backup.
+    # For general information about boot volumes, see [Boot Volumes](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/bootvolumes.htm).
+    # You may optionally specify a *display name* for the volume, which is simply a friendly name or
+    # description. It does not have to be unique, and you can change it. Avoid entering confidential information.
+    #
+    # @param [OCI::Core::Models::CreateBootVolumeDetails] create_boot_volume_details Request to create a new boot volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolume BootVolume}
+    def create_boot_volume(create_boot_volume_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#create_boot_volume.' if logger
+
+      raise "Missing the required parameter 'create_boot_volume_details' when calling create_boot_volume." if create_boot_volume_details.nil?
+
+      path = '/bootVolumes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_boot_volume_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#create_boot_volume') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::BootVolume'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new boot volume backup of the specified boot volume. For general information about boot volume backups,
+    # see [Overview of Boot Volume Backups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/bootvolumebackups.htm)
+    #
+    # When the request is received, the backup object is in a REQUEST_RECEIVED state.
+    # When the data is imaged, it goes into a CREATING state.
+    # After the backup is fully uploaded to the cloud, it goes into an AVAILABLE state.
+    #
+    # @param [OCI::Core::Models::CreateBootVolumeBackupDetails] create_boot_volume_backup_details Request to create a new backup of given boot volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeBackup BootVolumeBackup}
+    def create_boot_volume_backup(create_boot_volume_backup_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#create_boot_volume_backup.' if logger
+
+      raise "Missing the required parameter 'create_boot_volume_backup_details' when calling create_boot_volume_backup." if create_boot_volume_backup_details.nil?
+
+      path = '/bootVolumeBackups'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_boot_volume_backup_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#create_boot_volume_backup') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::BootVolumeBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new volume in the specified compartment. Volumes can be created in sizes ranging from
-    # 50 GB (51200 MB) to 16 TB (16777216 MB), in 1 GB (1024 MB) increments. By default, volumes are 1 TB (1048576 MB).
+    # 50 GB (51200 MB) to 32 TB (33554432 MB), in 1 GB (1024 MB) increments. By default, volumes are 1 TB (1048576 MB).
     # For general information about block volumes, see
     # [Overview of Block Volume Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/overview.htm).
     #
@@ -290,11 +416,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new volume group in the specified compartment. A volume group can have at most 20 block volumes.
+    # Creates a new volume group in the specified compartment.
     # A volume group is a collection of volumes and may be created from a list of volumes, cloning an existing
-    # volume group or by restoring a volume group backup.
+    # volume group, or by restoring a volume group backup. A volume group can contain up to 64 volumes.
     # You may optionally specify a *display name* for the volume group, which is simply a friendly name or
     # description. It does not have to be unique, and you can change it. Avoid entering confidential information.
+    #
+    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [OCI::Core::Models::CreateVolumeGroupDetails] create_volume_group_details Request to create a new volume group.
     # @param [Hash] opts the optional parameters
@@ -353,7 +481,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new group backup of the specified volume group.
+    # Creates a new backup volume group of the specified volume group.
+    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [OCI::Core::Models::CreateVolumeGroupBackupDetails] create_volume_group_backup_details Request to create a new backup group of given volume group.
     # @param [Hash] opts the optional parameters
@@ -450,6 +579,61 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#delete_boot_volume') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a boot volume backup.
+    # @param [String] boot_volume_backup_id The OCID of the boot volume backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_boot_volume_backup(boot_volume_backup_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#delete_boot_volume_backup.' if logger
+
+      raise "Missing the required parameter 'boot_volume_backup_id' when calling delete_boot_volume_backup." if boot_volume_backup_id.nil?
+      raise "Parameter value for 'boot_volume_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(boot_volume_backup_id)
+
+      path = '/bootVolumeBackups/{bootVolumeBackupId}'.sub('{bootVolumeBackupId}', boot_volume_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#delete_boot_volume_backup') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -640,7 +824,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified volume group. This will NOT delete data volumes.
+    # Deletes the specified volume group. Individual volumes are not deleted, only the volume group is deleted.
+    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
     # @param [Hash] opts the optional parameters
@@ -696,7 +881,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a volume group backup. This will NOT delete backups within the volume group backup.
+    # Deletes a volume group backup. This operation deletes all the backups in the volume group. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -790,6 +975,59 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::BootVolume'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets information for the specified boot volume backup.
+    # @param [String] boot_volume_backup_id The OCID of the boot volume backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeBackup BootVolumeBackup}
+    def get_boot_volume_backup(boot_volume_backup_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#get_boot_volume_backup.' if logger
+
+      raise "Missing the required parameter 'boot_volume_backup_id' when calling get_boot_volume_backup." if boot_volume_backup_id.nil?
+      raise "Parameter value for 'boot_volume_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(boot_volume_backup_id)
+
+      path = '/bootVolumeBackups/{bootVolumeBackupId}'.sub('{bootVolumeBackupId}', boot_volume_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#get_boot_volume_backup') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::BootVolumeBackup'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1079,7 +1317,7 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets information for the specified volume group.
+    # Gets information for the specified volume group. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1132,7 +1370,7 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets information for the specified volume group backup.
+    # Gets information for the specified volume group backup. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1178,6 +1416,102 @@ module OCI
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the boot volume backups in the specified compartment. You can filter the results by boot volume.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :boot_volume_id The OCID of the boot volume.
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    #   Example: `500`
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::BootVolumeBackup BootVolumeBackup}>
+    def list_boot_volume_backups(compartment_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#list_boot_volume_backups.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_boot_volume_backups." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Core::Models::BootVolumeBackup::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Core::Models::BootVolumeBackup::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/bootVolumeBackups'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:bootVolumeId] = opts[:boot_volume_id] if opts[:boot_volume_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#list_boot_volume_backups') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::BootVolumeBackup>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1404,7 +1738,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the backups for volume groups in the specified compartment. You can filter the results by volume group.
+    # Lists the volume group backups in the specified compartment. You can filter the results by volume group.
+    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -1493,7 +1828,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the volume groups in the specified compartment and Availability Domain.
+    # Lists the volume groups in the specified compartment and availability domain.
+    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -1750,6 +2086,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the display name for the specified boot volume backup.
+    # Avoid entering confidential information.
+    #
+    # @param [String] boot_volume_backup_id The OCID of the boot volume backup.
+    # @param [OCI::Core::Models::UpdateBootVolumeBackupDetails] update_boot_volume_backup_details Update boot volume backup fields
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeBackup BootVolumeBackup}
+    def update_boot_volume_backup(boot_volume_backup_id, update_boot_volume_backup_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#update_boot_volume_backup.' if logger
+
+      raise "Missing the required parameter 'boot_volume_backup_id' when calling update_boot_volume_backup." if boot_volume_backup_id.nil?
+      raise "Missing the required parameter 'update_boot_volume_backup_details' when calling update_boot_volume_backup." if update_boot_volume_backup_details.nil?
+      raise "Parameter value for 'boot_volume_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(boot_volume_backup_id)
+
+      path = '/bootVolumeBackups/{bootVolumeBackupId}'.sub('{bootVolumeBackupId}', boot_volume_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_boot_volume_backup_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#update_boot_volume_backup') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::BootVolumeBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the specified volume's display name.
     # Avoid entering confidential information.
     #
@@ -1870,9 +2266,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the set of volumes in a volume group along with (optionally) it's display name. This call can be used
-    # to add or remove volumes in a volume group. The entire list of volume ids must be specified.
+    # Updates the set of volumes in a volume group along with the display name. Use this operation
+    # to add or remove volumes in a volume group. Specify the full list of volume IDs to include in the
+    # volume group. If the volume ID is not specified in the call, it will be removed from the volume group.
     # Avoid entering confidential information.
+    #
+    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
     # @param [OCI::Core::Models::UpdateVolumeGroupDetails] update_volume_group_details Update volume group's set of volumes and/or display name
@@ -1931,7 +2330,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the display name for the specified volume group backup.
+    # Updates the display name for the specified volume group backup. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     # @param [OCI::Core::Models::UpdateVolumeGroupBackupDetails] update_volume_group_backup_details Update volume group backup fields
     # @param [Hash] opts the optional parameters

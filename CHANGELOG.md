@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.3.1 - 2018-06-28
+### Added
+- Support for service gateway management in the Networking service
+- Support for backup and clone of boot volumes in the Block Storage service
+
+
 ## 2.3.0 - 2018-06-14
 ### Breaking Changes
 - *Italic text* indicates breaking changes that may impact users, but most likely will not
