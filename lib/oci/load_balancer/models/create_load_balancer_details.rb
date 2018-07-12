@@ -16,6 +16,14 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # **[Required]** A user-friendly name. It does not have to be unique, and it is changeable.
     # Avoid entering confidential information.
     #
@@ -23,6 +31,14 @@ module OCI
     #
     # @return [String]
     attr_accessor :display_name
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
 
     # @return [Hash<String, OCI::LoadBalancer::Models::HostnameDetails>]
     attr_accessor :hostnames
@@ -72,7 +88,9 @@ module OCI
         'backend_sets': :'backendSets',
         'certificates': :'certificates',
         'compartment_id': :'compartmentId',
+        'defined_tags': :'definedTags',
         'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
         'hostnames': :'hostnames',
         'is_private': :'isPrivate',
         'listeners': :'listeners',
@@ -90,7 +108,9 @@ module OCI
         'backend_sets': :'Hash<String, OCI::LoadBalancer::Models::BackendSetDetails>',
         'certificates': :'Hash<String, OCI::LoadBalancer::Models::CertificateDetails>',
         'compartment_id': :'String',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
         'hostnames': :'Hash<String, OCI::LoadBalancer::Models::HostnameDetails>',
         'is_private': :'BOOLEAN',
         'listeners': :'Hash<String, OCI::LoadBalancer::Models::ListenerDetails>',
@@ -110,7 +130,9 @@ module OCI
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::BackendSetDetails>] :backend_sets The value to assign to the {#backend_sets} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::CertificateDetails>] :certificates The value to assign to the {#certificates} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::HostnameDetails>] :hostnames The value to assign to the {#hostnames} property
     # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::ListenerDetails>] :listeners The value to assign to the {#listeners} property
@@ -137,11 +159,23 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.hostnames = attributes[:'hostnames'] if attributes[:'hostnames']
 
@@ -187,7 +221,9 @@ module OCI
         backend_sets == other.backend_sets &&
         certificates == other.certificates &&
         compartment_id == other.compartment_id &&
+        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
         hostnames == other.hostnames &&
         is_private == other.is_private &&
         listeners == other.listeners &&
@@ -209,7 +245,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backend_sets, certificates, compartment_id, display_name, hostnames, is_private, listeners, path_route_sets, shape_name, subnet_ids].hash
+      [backend_sets, certificates, compartment_id, defined_tags, display_name, freeform_tags, hostnames, is_private, listeners, path_route_sets, shape_name, subnet_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

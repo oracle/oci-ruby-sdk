@@ -36,6 +36,9 @@ module OCI
   # No two non-'DELETED' export resources in the same export set can
   # reference the same file system.
   #
+  # Use `exportOptions` to control access to an export. For more information, see
+  # [Export Options](https://docs.us-phoenix-1.oraclecloud.com/Content/File/Tasks/exportoptions.htm).
+  #
   class FileStorage::Models::Export # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -44,6 +47,35 @@ module OCI
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
+
+    # **[Required]** Policies that apply to NFS requests made through this
+    # export. `exportOptions` contains a sequential list of
+    # `ClientOptions`. Each `ClientOptions` item defines the
+    # export options that are applied to a specified
+    # set of clients.
+    #
+    # For each NFS request, the first `ClientOptions` option
+    # in the list whose `source` attribute matches the source
+    # IP address of the request is applied.
+    #
+    # If a client source IP address does not match the `source`
+    # property of any `ClientOptions` in the list, then the
+    # export will be invisible to that client. This export will
+    # not be returned by `MOUNTPROC_EXPORT` calls made by the client
+    # and any attempt to mount or access the file system through
+    # this export will result in an error.
+    #
+    # **Exports without defined `ClientOptions` are invisible to all clients.**
+    #
+    # If one export is invisible to a particular client, associated file
+    # systems may still be accessible through other exports on the same
+    # or different mount targets.
+    # To completely deny client access to a file system, be sure that the client
+    # source IP address is not included in any export for any mount target
+    # associated with the file system.
+    #
+    # @return [Array<OCI::FileStorage::Models::ClientOptions>]
+    attr_accessor :export_options
 
     # **[Required]** The OCID of this export's export set.
     # @return [String]
@@ -82,6 +114,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'export_options': :'exportOptions',
         'export_set_id': :'exportSetId',
         'file_system_id': :'fileSystemId',
         'id': :'id',
@@ -96,6 +129,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'export_options': :'Array<OCI::FileStorage::Models::ClientOptions>',
         'export_set_id': :'String',
         'file_system_id': :'String',
         'id': :'String',
@@ -112,6 +146,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Array<OCI::FileStorage::Models::ClientOptions>] :export_options The value to assign to the {#export_options} property
     # @option attributes [String] :export_set_id The value to assign to the {#export_set_id} property
     # @option attributes [String] :file_system_id The value to assign to the {#file_system_id} property
     # @option attributes [String] :id The value to assign to the {#id} property
@@ -123,6 +158,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.export_options = attributes[:'exportOptions'] if attributes[:'exportOptions']
+
+      raise 'You cannot provide both :exportOptions and :export_options' if attributes.key?(:'exportOptions') && attributes.key?(:'export_options')
+
+      self.export_options = attributes[:'export_options'] if attributes[:'export_options']
 
       self.export_set_id = attributes[:'exportSetId'] if attributes[:'exportSetId']
 
@@ -178,6 +219,7 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
+        export_options == other.export_options &&
         export_set_id == other.export_set_id &&
         file_system_id == other.file_system_id &&
         id == other.id &&
@@ -199,7 +241,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [export_set_id, file_system_id, id, lifecycle_state, path, time_created].hash
+      [export_options, export_set_id, file_system_id, id, lifecycle_state, path, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

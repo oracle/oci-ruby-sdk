@@ -6,6 +6,32 @@ require 'date'
 module OCI
   # CreateExportDetails model.
   class FileStorage::Models::CreateExportDetails # rubocop:disable Metrics/LineLength
+    # Export options for the new export. If left unspecified,
+    # defaults to:
+    #
+    #        [
+    #          {
+    #             \"source\" : \"0.0.0.0/0\",
+    #             \"requirePrivilegedSourcePort\" : false,
+    #             \"access\" : \"READ_WRITE\",
+    #             \"identitySquash\" : \"NONE\"
+    #           }
+    #        ]
+    #
+    #   **Note:** Mount targets do not have Internet-routable IP
+    #   addresses.  Therefore they will not be reachable from the
+    #   Internet, even if an associated `ClientOptions` item has
+    #   a source of `0.0.0.0/0`.
+    #
+    #   **If set to the empty array then the export will not be
+    #   visible to any clients.**
+    #
+    #   The export's `exportOptions` can be changed after creation
+    #   using the `UpdateExport` operation.
+    #
+    # @return [Array<OCI::FileStorage::Models::ClientOptions>]
+    attr_accessor :export_options
+
     # **[Required]** The OCID of this export's export set.
     # @return [String]
     attr_accessor :export_set_id
@@ -27,6 +53,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'export_options': :'exportOptions',
         'export_set_id': :'exportSetId',
         'file_system_id': :'fileSystemId',
         'path': :'path'
@@ -38,6 +65,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'export_options': :'Array<OCI::FileStorage::Models::ClientOptions>',
         'export_set_id': :'String',
         'file_system_id': :'String',
         'path': :'String'
@@ -51,6 +79,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Array<OCI::FileStorage::Models::ClientOptions>] :export_options The value to assign to the {#export_options} property
     # @option attributes [String] :export_set_id The value to assign to the {#export_set_id} property
     # @option attributes [String] :file_system_id The value to assign to the {#file_system_id} property
     # @option attributes [String] :path The value to assign to the {#path} property
@@ -59,6 +88,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.export_options = attributes[:'exportOptions'] if attributes[:'exportOptions']
+
+      raise 'You cannot provide both :exportOptions and :export_options' if attributes.key?(:'exportOptions') && attributes.key?(:'export_options')
+
+      self.export_options = attributes[:'export_options'] if attributes[:'export_options']
 
       self.export_set_id = attributes[:'exportSetId'] if attributes[:'exportSetId']
 
@@ -85,6 +120,7 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
+        export_options == other.export_options &&
         export_set_id == other.export_set_id &&
         file_system_id == other.file_system_id &&
         path == other.path
@@ -103,7 +139,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [export_set_id, file_system_id, path].hash
+      [export_options, export_set_id, file_system_id, path].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

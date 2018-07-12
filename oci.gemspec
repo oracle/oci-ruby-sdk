@@ -25,6 +25,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'yard', '~> 0.9', '>= 0.9.12'
   s.add_development_dependency 'os', '~> 1.0'
   s.add_development_dependency 'rubocop', '~> 0', '>= 0.55'
+  s.add_development_dependency 'mocha', '~> 1.5' , '>= 1.5.0'
+  s.add_development_dependency 'nokogiri', '~> 1.8', '>= 1.8.3'
 
   s.executables   = nil
   s.require_paths = ["lib"]

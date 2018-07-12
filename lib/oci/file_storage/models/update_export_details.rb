@@ -4,29 +4,22 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateSnapshotDetails model.
-  class FileStorage::Models::CreateSnapshotDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the file system to take a snapshot of.
-    # @return [String]
-    attr_accessor :file_system_id
-
-    # **[Required]** Name of the snapshot. This value is immutable. It must also be unique with respect
-    # to all other non-DELETED snapshots on the associated file
-    # system.
+  # UpdateExportDetails model.
+  class FileStorage::Models::UpdateExportDetails # rubocop:disable Metrics/LineLength
+    # New export options for the export.
     #
-    # Avoid entering confidential information.
+    # **Setting to the empty array will make the export invisible to all clients.**
     #
-    # Example: `Sunday`
+    # Leaving unset will leave the `exportOptions` unchanged.
     #
-    # @return [String]
-    attr_accessor :name
+    # @return [Array<OCI::FileStorage::Models::ClientOptions>]
+    attr_accessor :export_options
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'file_system_id': :'fileSystemId',
-        'name': :'name'
+        'export_options': :'exportOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -35,8 +28,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'file_system_id': :'String',
-        'name': :'String'
+        'export_options': :'Array<OCI::FileStorage::Models::ClientOptions>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,21 +39,18 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :file_system_id The value to assign to the {#file_system_id} property
-    # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [Array<OCI::FileStorage::Models::ClientOptions>] :export_options The value to assign to the {#export_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.file_system_id = attributes[:'fileSystemId'] if attributes[:'fileSystemId']
+      self.export_options = attributes[:'exportOptions'] if attributes[:'exportOptions']
 
-      raise 'You cannot provide both :fileSystemId and :file_system_id' if attributes.key?(:'fileSystemId') && attributes.key?(:'file_system_id')
+      raise 'You cannot provide both :exportOptions and :export_options' if attributes.key?(:'exportOptions') && attributes.key?(:'export_options')
 
-      self.file_system_id = attributes[:'file_system_id'] if attributes[:'file_system_id']
-
-      self.name = attributes[:'name'] if attributes[:'name']
+      self.export_options = attributes[:'export_options'] if attributes[:'export_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -74,8 +63,7 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        file_system_id == other.file_system_id &&
-        name == other.name
+        export_options == other.export_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -91,7 +79,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [file_system_id, name].hash
+      [export_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

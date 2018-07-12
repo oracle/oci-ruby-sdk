@@ -17,6 +17,7 @@ module OCI
       'lhr': REGION_UK_LONDON_1
     }.freeze
 
+    # --- Start of service prefixes ---
     SERVICE_ENDPOINT_PREFIX_MAPPING = {
       BlockstorageClient: 'iaas',
       ComputeClient: 'iaas',
@@ -32,6 +33,7 @@ module OCI
       EmailClient: 'email',
       ContainerEngineClient: 'containerengine'
     }.freeze
+    # --- End of service prefixes ---
 
     # Returns an endpoint for the given region and service.
     #

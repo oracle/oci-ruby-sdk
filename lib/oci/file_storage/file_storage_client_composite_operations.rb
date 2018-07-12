@@ -340,6 +340,46 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::FileStorage::FileStorageClient#update_export} and then waits for the {OCI::FileStorage::Models::Export} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] export_id The OCID of the export.
+    # @param [OCI::FileStorage::Models::UpdateExportDetails] update_export_details Details object for updating an export.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::Export#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#update_export}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::FileStorage::Models::Export}
+    def update_export_and_wait_for_state(export_id, update_export_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_export(export_id, update_export_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_export(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::FileStorage::FileStorageClient#update_export_set} and then waits for the {OCI::FileStorage::Models::ExportSet} acted upon
     # to enter the given state(s).
     #

@@ -10,6 +10,7 @@ module OCI
 end
 
 # Require models
+require 'oci/file_storage/models/client_options'
 require 'oci/file_storage/models/create_export_details'
 require 'oci/file_storage/models/create_file_system_details'
 require 'oci/file_storage/models/create_mount_target_details'
@@ -24,6 +25,7 @@ require 'oci/file_storage/models/mount_target'
 require 'oci/file_storage/models/mount_target_summary'
 require 'oci/file_storage/models/snapshot'
 require 'oci/file_storage/models/snapshot_summary'
+require 'oci/file_storage/models/update_export_details'
 require 'oci/file_storage/models/update_export_set_details'
 require 'oci/file_storage/models/update_file_system_details'
 require 'oci/file_storage/models/update_mount_target_details'
