@@ -8,20 +8,9 @@ require 'rubocop/rake_task'
 desc 'Run tests'
 task default: :rubocop
 
+files = File.open('.yarddoc-files').readlines.map(&:strip)
 YARD::Rake::YardocTask.new do |t|
-  t.files   = ['lib/oci/audit/audit.rb',
-               'lib/oci/auth/auth.rb',
-               'lib/oci/core/core.rb',
-               'lib/oci/database/database.rb',
-               'lib/oci/dns/dns.rb',
-               'lib/oci/email/email.rb',
-               'lib/oci/file_storage/file_storage.rb',
-               'lib/oci/identity/identity.rb',
-               'lib/oci/load_balancer/load_balancer.rb',
-               'lib/oci/object_storage/object_storage.rb',
-               'lib/',
-               '-',
-               'LICENSE.txt']
+  t.files   = files
   t.options = ['-m', 'markdown']
 end
 

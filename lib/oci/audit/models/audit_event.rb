@@ -14,6 +14,12 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # The name of the compartment. This value is the friendly name associated with compartmentId.
+    # This value can change, but the service logs the value that appeared at the time of the audit event.
+    #
+    # @return [String]
+    attr_accessor :compartment_name
+
     # The GUID of the event.
     # @return [String]
     attr_accessor :event_id
@@ -88,12 +94,17 @@ module OCI
     # @return [Hash<String, Object>]
     attr_accessor :response_payload
 
+    # The name of the user or service. This value is the friendly name associated with principalId.
+    # @return [String]
+    attr_accessor :user_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'tenant_id': :'tenantId',
         'compartment_id': :'compartmentId',
+        'compartment_name': :'compartmentName',
         'event_id': :'eventId',
         'event_name': :'eventName',
         'event_source': :'eventSource',
@@ -111,7 +122,8 @@ module OCI
         'response_headers': :'responseHeaders',
         'response_status': :'responseStatus',
         'response_time': :'responseTime',
-        'response_payload': :'responsePayload'
+        'response_payload': :'responsePayload',
+        'user_name': :'userName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -122,6 +134,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'tenant_id': :'String',
         'compartment_id': :'String',
+        'compartment_name': :'String',
         'event_id': :'String',
         'event_name': :'String',
         'event_source': :'String',
@@ -139,7 +152,8 @@ module OCI
         'response_headers': :'Hash<String, Array<String>>',
         'response_status': :'String',
         'response_time': :'DateTime',
-        'response_payload': :'Hash<String, Object>'
+        'response_payload': :'Hash<String, Object>',
+        'user_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -152,6 +166,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :tenant_id The value to assign to the {#tenant_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :compartment_name The value to assign to the {#compartment_name} property
     # @option attributes [String] :event_id The value to assign to the {#event_id} property
     # @option attributes [String] :event_name The value to assign to the {#event_name} property
     # @option attributes [String] :event_source The value to assign to the {#event_source} property
@@ -170,6 +185,7 @@ module OCI
     # @option attributes [String] :response_status The value to assign to the {#response_status} property
     # @option attributes [DateTime] :response_time The value to assign to the {#response_time} property
     # @option attributes [Hash<String, Object>] :response_payload The value to assign to the {#response_payload} property
+    # @option attributes [String] :user_name The value to assign to the {#user_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -187,6 +203,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.compartment_name = attributes[:'compartmentName'] if attributes[:'compartmentName']
+
+      raise 'You cannot provide both :compartmentName and :compartment_name' if attributes.key?(:'compartmentName') && attributes.key?(:'compartment_name')
+
+      self.compartment_name = attributes[:'compartment_name'] if attributes[:'compartment_name']
 
       self.event_id = attributes[:'eventId'] if attributes[:'eventId']
 
@@ -295,6 +317,12 @@ module OCI
       raise 'You cannot provide both :responsePayload and :response_payload' if attributes.key?(:'responsePayload') && attributes.key?(:'response_payload')
 
       self.response_payload = attributes[:'response_payload'] if attributes[:'response_payload']
+
+      self.user_name = attributes[:'userName'] if attributes[:'userName']
+
+      raise 'You cannot provide both :userName and :user_name' if attributes.key?(:'userName') && attributes.key?(:'user_name')
+
+      self.user_name = attributes[:'user_name'] if attributes[:'user_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -309,6 +337,7 @@ module OCI
       self.class == other.class &&
         tenant_id == other.tenant_id &&
         compartment_id == other.compartment_id &&
+        compartment_name == other.compartment_name &&
         event_id == other.event_id &&
         event_name == other.event_name &&
         event_source == other.event_source &&
@@ -326,7 +355,8 @@ module OCI
         response_headers == other.response_headers &&
         response_status == other.response_status &&
         response_time == other.response_time &&
-        response_payload == other.response_payload
+        response_payload == other.response_payload &&
+        user_name == other.user_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -342,7 +372,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [tenant_id, compartment_id, event_id, event_name, event_source, event_type, event_time, principal_id, credential_id, request_action, request_id, request_agent, request_headers, request_origin, request_parameters, request_resource, response_headers, response_status, response_time, response_payload].hash
+      [tenant_id, compartment_id, compartment_name, event_id, event_name, event_source, event_type, event_time, principal_id, credential_id, request_action, request_id, request_agent, request_headers, request_origin, request_parameters, request_resource, response_headers, response_status, response_time, response_payload, user_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

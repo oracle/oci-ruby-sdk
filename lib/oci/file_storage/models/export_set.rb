@@ -58,7 +58,7 @@ module OCI
     # @return [Integer]
     attr_accessor :max_fs_stat_bytes
 
-    # Controls the maximum `ffiles`, `ffiles`, and `afiles`
+    # Controls the maximum `tfiles`, `ffiles`, and `afiles`
     # values reported by `NFS FSSTAT` calls through any associated
     # mount targets. This is an advanced feature. For most
     # applications, use the default value. The

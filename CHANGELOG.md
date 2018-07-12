@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.3.2 - 2018-07-12
+### Added
+- Support for tagging Load Balancers in the Load Balancing service
+- Support for export options in the File Storage service
+- Support for retrieving compartment name and user name as part of events in the Audit service
+
+
 ## 2.3.1 - 2018-06-28
 ### Added
 - Support for service gateway management in the Networking service
