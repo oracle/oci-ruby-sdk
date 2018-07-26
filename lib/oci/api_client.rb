@@ -521,7 +521,7 @@ module OCI
       return body if (return_type == 'String' && !json_mime?(content_type)) || return_type == 'Stream'
 
       # There are some cases, the error is not returned by services but by like gateway, for example in bug
-      # https://jira.aka.lgl.grungy.us/browse/DEX-564, gateway timeouts and 504 is returned and content is generated
+      # https://jira.oci.oraclecorp.com/browse/DEX-564, gateway timeouts and 504 is returned and content is generated
       # by gateway, so there is no guarantee that the content-type will be application/json.
       if !success?(response) && !response_from_oci_service?(response)
         raise Errors::NetworkError.new(
@@ -625,7 +625,7 @@ module OCI
           return yield
         rescue OCI::Errors::ServiceError => e
           raise if attempt >= (max_attempts - 1) # .times is zero-based
-          raise if e.status != 401
+          raise if e.status_code != 401
 
           @signer.refresh_security_token
           retry

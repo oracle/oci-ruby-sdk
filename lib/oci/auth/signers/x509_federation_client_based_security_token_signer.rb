@@ -50,7 +50,8 @@ module OCI
         # @param [String] uri The URI, such as 'https://iaas.us-phoenix-1.oraclecloud.com/20160918/volumeAttachments/'
         # @param [Hash] headers A hash of headers
         # @param [String] body The request body
-        def sign(method, uri, headers, body)
+        # @param [String] operation_signing_strategy the signing strategy for the operation. Default is :standard
+        def sign(method, uri, headers, body, operation_signing_strategy = :standard)
           reset_signer
           super
         end

@@ -4,70 +4,62 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateBootVolumeDetails model.
-  class Core::Models::CreateBootVolumeDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The Availability Domain of the boot volume.
-    #
-    # Example: `Uocm:PHX-AD-1`
-    #
+  # A resource that exists in the user's cloud network.
+  class ResourceSearch::Models::ResourceSummary # rubocop:disable Metrics/LineLength
+    # **[Required]** The resource type name.
     # @return [String]
-    attr_accessor :availability_domain
+    attr_accessor :resource_type
 
-    # If provided, specifies the ID of the boot volume backup policy to assign to the newly
-    # created boot volume. If omitted, no policy will be assigned.
-    #
+    # **[Required]** The unique identifier for this particular resource, usually an OCID.
     # @return [String]
-    attr_accessor :backup_policy_id
+    attr_accessor :identifier
 
-    # **[Required]** The OCID of the compartment that contains the boot volume.
+    # **[Required]** The OCID of the compartment that contains this resource.
     # @return [String]
     attr_accessor :compartment_id
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+    # The time this resource was created.
+    # @return [DateTime]
+    attr_accessor :time_created
 
-    # A user-friendly name. Does not have to be unique, and it's changeable.
-    # Avoid entering confidential information.
-    #
+    # The display name (or name) of this resource, if one exists.
     # @return [String]
     attr_accessor :display_name
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
+    # The availability domain this resource is located in, if applicable.
+    # @return [String]
+    attr_accessor :availability_domain
+
+    # The lifecycle state of this resource, if applicable.
+    # @return [String]
+    attr_accessor :lifecycle_state
+
+    # The freeform tags associated with this resource, if any.
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The size of the volume in GBs.
-    # @return [Integer]
-    attr_accessor :size_in_gbs
+    # The defined tags associated with this resource, if any.
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
-    # **[Required]** Specifies the boot volume source details for a new boot volume. The volume source is either another boot volume in the same Availability Domain or a boot volume backup.
-    # This is a mandatory field for a boot volume.
-    #
-    # @return [OCI::Core::Models::BootVolumeSourceDetails]
-    attr_accessor :source_details
+    # Contains search context, such as highlighting, for found resources.
+    # @return [OCI::ResourceSearch::Models::SearchContext]
+    attr_accessor :search_context
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'availability_domain': :'availabilityDomain',
-        'backup_policy_id': :'backupPolicyId',
+        'resource_type': :'resourceType',
+        'identifier': :'identifier',
         'compartment_id': :'compartmentId',
-        'defined_tags': :'definedTags',
+        'time_created': :'timeCreated',
         'display_name': :'displayName',
+        'availability_domain': :'availabilityDomain',
+        'lifecycle_state': :'lifecycleState',
         'freeform_tags': :'freeformTags',
-        'size_in_gbs': :'sizeInGBs',
-        'source_details': :'sourceDetails'
+        'defined_tags': :'definedTags',
+        'search_context': :'searchContext'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -76,14 +68,16 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'availability_domain': :'String',
-        'backup_policy_id': :'String',
+        'resource_type': :'String',
+        'identifier': :'String',
         'compartment_id': :'String',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'time_created': :'DateTime',
         'display_name': :'String',
+        'availability_domain': :'String',
+        'lifecycle_state': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'size_in_gbs': :'Integer',
-        'source_details': :'OCI::Core::Models::BootVolumeSourceDetails'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'search_context': :'OCI::ResourceSearch::Models::SearchContext'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -94,31 +88,29 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
-    # @option attributes [String] :backup_policy_id The value to assign to the {#backup_policy_id} property
+    # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
+    # @option attributes [String] :identifier The value to assign to the {#identifier} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
-    # @option attributes [OCI::Core::Models::BootVolumeSourceDetails] :source_details The value to assign to the {#source_details} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [OCI::ResourceSearch::Models::SearchContext] :search_context The value to assign to the {#search_context} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
+      self.resource_type = attributes[:'resourceType'] if attributes[:'resourceType']
 
-      raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
+      raise 'You cannot provide both :resourceType and :resource_type' if attributes.key?(:'resourceType') && attributes.key?(:'resource_type')
 
-      self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
+      self.resource_type = attributes[:'resource_type'] if attributes[:'resource_type']
 
-      self.backup_policy_id = attributes[:'backupPolicyId'] if attributes[:'backupPolicyId']
-
-      raise 'You cannot provide both :backupPolicyId and :backup_policy_id' if attributes.key?(:'backupPolicyId') && attributes.key?(:'backup_policy_id')
-
-      self.backup_policy_id = attributes[:'backup_policy_id'] if attributes[:'backup_policy_id']
+      self.identifier = attributes[:'identifier'] if attributes[:'identifier']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -126,11 +118,11 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -138,23 +130,35 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
+      self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
+
+      raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
+
+      self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
-      self.size_in_gbs = attributes[:'sizeInGBs'] if attributes[:'sizeInGBs']
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
-      raise 'You cannot provide both :sizeInGBs and :size_in_gbs' if attributes.key?(:'sizeInGBs') && attributes.key?(:'size_in_gbs')
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
-      self.size_in_gbs = attributes[:'size_in_gbs'] if attributes[:'size_in_gbs']
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
-      self.source_details = attributes[:'sourceDetails'] if attributes[:'sourceDetails']
+      self.search_context = attributes[:'searchContext'] if attributes[:'searchContext']
 
-      raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
+      raise 'You cannot provide both :searchContext and :search_context' if attributes.key?(:'searchContext') && attributes.key?(:'search_context')
 
-      self.source_details = attributes[:'source_details'] if attributes[:'source_details']
+      self.search_context = attributes[:'search_context'] if attributes[:'search_context']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -167,14 +171,16 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        availability_domain == other.availability_domain &&
-        backup_policy_id == other.backup_policy_id &&
+        resource_type == other.resource_type &&
+        identifier == other.identifier &&
         compartment_id == other.compartment_id &&
-        defined_tags == other.defined_tags &&
+        time_created == other.time_created &&
         display_name == other.display_name &&
+        availability_domain == other.availability_domain &&
+        lifecycle_state == other.lifecycle_state &&
         freeform_tags == other.freeform_tags &&
-        size_in_gbs == other.size_in_gbs &&
-        source_details == other.source_details
+        defined_tags == other.defined_tags &&
+        search_context == other.search_context
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -190,7 +196,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, size_in_gbs, source_details].hash
+      [resource_type, identifier, compartment_id, time_created, display_name, availability_domain, lifecycle_state, freeform_tags, defined_tags, search_context].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
