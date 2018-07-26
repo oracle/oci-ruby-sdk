@@ -97,6 +97,7 @@ module OCI
           request.body = request_payload.to_json
 
           header_params = {}
+          header_params['content-type'] = 'application/json'
           signer.sign(:post, @federation_endpoint, header_params, request.body)
           header_params.each { |key, value| request[key.to_s] = value }
 

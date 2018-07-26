@@ -32,14 +32,8 @@ identity = OCI::Identity::IdentityClient.new(
 )
 puts identity.list_regions.data
 
-# When configuring a signer, you can specify a signing strategy, which can be either OCI::BaseSigner::STANDARD  (the default) or OCI::BaseSigner::OBJECT_STORAGE. When
-# configuring instance principals authentication for use against the Object Storage service you should specify a value of OCI::BaseSigner::OBJECT_STORAGE. Otherwise,
-# you don't need to specify the value of this field and just use the default
-object_storage_instance_principals_signer = OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner.new(
-  signing_strategy: OCI::BaseSigner::OBJECT_STORAGE
-)
 object_storage = OCI::ObjectStorage::ObjectStorageClient.new(
   config: OCI::Config.new,
-  signer: object_storage_instance_principals_signer
+  signer: instance_principals_signer
 )
 puts object_storage.get_namespace.data

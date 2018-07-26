@@ -31,7 +31,8 @@ module OCI
       DnsClient: 'dns',
       FileStorageClient: 'filestorage',
       EmailClient: 'email',
-      ContainerEngineClient: 'containerengine'
+      ContainerEngineClient: 'containerengine',
+      ResourceSearchClient: 'query'
     }.freeze
     # --- End of service prefixes ---
 

@@ -70,7 +70,12 @@ module OCI
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The provisioned data rate of the connection.
+    # The provisioned data rate of the connection.  To get a list of the
+    # available bandwidth levels (that is, shapes), see
+    # {#list_fast_connect_provider_virtual_circuit_bandwidth_shapes list_fast_connect_provider_virtual_circuit_bandwidth_shapes}.
+    #
+    # Example: `10 Gbps`
+    #
     # @return [String]
     attr_accessor :bandwidth_shape_name
 

@@ -65,8 +65,6 @@ module OCI
     #
     # They are distinguished from 'metadata' fields in that these can be nested JSON objects (whereas 'metadata' fields are string/string maps only).
     #
-    # If you don't need nested metadata values, it is strongly advised to avoid using this object and use the Metadata object instead.
-    #
     # @return [Hash<String, Object>]
     attr_accessor :extended_metadata
 

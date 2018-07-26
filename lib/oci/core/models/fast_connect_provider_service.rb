@@ -45,7 +45,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** Private peering BGP management.
+    # **[Required]** Who is responsible for managing the private peering BGP information.
     #
     # @return [String]
     attr_reader :private_peering_bgp_management
@@ -60,7 +60,7 @@ module OCI
     # @return [String]
     attr_accessor :provider_service_name
 
-    # **[Required]** Public peering BGP management.
+    # **[Required]** Who is responsible for managing the public peering BGP information.
     #
     # @return [String]
     attr_reader :public_peering_bgp_management
