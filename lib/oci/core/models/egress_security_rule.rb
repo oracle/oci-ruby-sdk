@@ -13,15 +13,29 @@ module OCI
       DESTINATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The destination service cidrBlock or destination IP address range in CIDR notation for the egress rule.
-    # This is the range of IP addresses that a packet originating from the instance can go to.
+    # **[Required]** Conceptually, this is the range of IP addresses that a packet originating from the instance
+    # can go to.
+    #
+    # Allowed values:
+    #
+    #   * IP address range in CIDR notation. For example: `192.168.1.0/24`
+    #
+    #   * The `cidrBlock` value for a {Service}, if you're
+    #     setting up a security list rule for traffic destined for a particular service through
+    #     a service gateway. For example: `oci-phx-objectstorage`
     #
     # @return [String]
     attr_accessor :destination
 
-    # Type of destination for EgressSecurityRule. SERVICE_CIDR_BLOCK should be used if destination is a service
-    # cidrBlock. CIDR_BLOCK should be used if destination is IP address range in CIDR notation.
-    # It defaults to CIDR_BLOCK, if not specified.
+    # Type of destination for the rule. The default is `CIDR_BLOCK`.
+    #
+    # Allowed values:
+    #
+    #   * `CIDR_BLOCK`: If the rule's `destination` is an IP address range in CIDR notation.
+    #
+    #   * `SERVICE_CIDR_BLOCK`: If the rule's `destination` is the `cidrBlock` value for a
+    #     {Service} (the rule is for traffic destined for a
+    #     particular service through a service gateway).
     #
     # @return [String]
     attr_reader :destination_type

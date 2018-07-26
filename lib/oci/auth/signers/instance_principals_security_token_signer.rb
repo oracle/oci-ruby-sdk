@@ -68,7 +68,7 @@ module OCI
                       raw_region
                     end
 
-          @federation_endpoint = if federation_endpoint
+          @federation_endpoint = if defined?(federation_endpoint)
                                    federation_endpoint
                                  else
                                    "#{OCI::Regions.get_service_endpoint(@region, :Auth)}/v1/x509"

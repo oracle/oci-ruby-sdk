@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.3.3 - 2018-07-26
+### Added
+- Support for OCI Search.  An example on how to call this: [resource\_search\_example.rb](https://github.com/oracle/oci-ruby-sdk/tree/master/examples-oci/resource_search_example.rb)
+- Support for specifying a backup policy when creating a boot volume in the Block Storage service
+
 ## 2.3.2 - 2018-07-12
 ### Added
 - Support for tagging Load Balancers in the Load Balancing service
