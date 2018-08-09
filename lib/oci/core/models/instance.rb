@@ -68,6 +68,17 @@ module OCI
     # @return [Hash<String, Object>]
     attr_accessor :extended_metadata
 
+    # The name of the Fault Domain the instance is running in.
+    #
+    # A Fault Domain is a logical grouping of hardware and infrastructure within an Availability Domain that can become
+    # unavailable in its entirety either due to hardware failure such as Top-of-rack (TOR) switch failure or due to
+    # planned software maintenance such as security updates that reboot your instances.
+    #
+    # Example: `FAULT-DOMAIN-1`
+    #
+    # @return [String]
+    attr_accessor :fault_domain
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see
     # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
@@ -165,6 +176,7 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'extended_metadata': :'extendedMetadata',
+        'fault_domain': :'faultDomain',
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'image_id': :'imageId',
@@ -190,6 +202,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'extended_metadata': :'Hash<String, Object>',
+        'fault_domain': :'String',
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'image_id': :'String',
@@ -217,6 +230,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, Object>] :extended_metadata The value to assign to the {#extended_metadata} property
+    # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
@@ -264,6 +278,12 @@ module OCI
       raise 'You cannot provide both :extendedMetadata and :extended_metadata' if attributes.key?(:'extendedMetadata') && attributes.key?(:'extended_metadata')
 
       self.extended_metadata = attributes[:'extended_metadata'] if attributes[:'extended_metadata']
+
+      self.fault_domain = attributes[:'faultDomain'] if attributes[:'faultDomain']
+
+      raise 'You cannot provide both :faultDomain and :fault_domain' if attributes.key?(:'faultDomain') && attributes.key?(:'fault_domain')
+
+      self.fault_domain = attributes[:'fault_domain'] if attributes[:'fault_domain']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -367,6 +387,7 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         extended_metadata == other.extended_metadata &&
+        fault_domain == other.fault_domain &&
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         image_id == other.image_id &&
@@ -394,7 +415,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, extended_metadata, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, time_created].hash
+      [availability_domain, compartment_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
