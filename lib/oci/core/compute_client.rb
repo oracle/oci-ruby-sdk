@@ -1623,7 +1623,7 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
+      header_params['accept'] = 'application/json, application/x-json-stream'
       header_params['content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
@@ -1998,7 +1998,7 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
+      header_params['accept'] = 'application/json, application/x-json-stream'
       header_params['content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
@@ -2137,7 +2137,7 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
+      header_params['accept'] = 'application/json, application/x-json-stream'
       header_params['content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
@@ -2210,7 +2210,7 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
+      header_params['accept'] = 'application/json, application/x-json-stream'
       header_params['content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 

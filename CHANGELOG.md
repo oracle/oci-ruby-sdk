@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.3.4 - 2018-08-09
+### Added
+- Support for fault domains in the Compute service
+
 ## 2.3.3 - 2018-07-26
 ### Added
 - Support for OCI Search.  An example on how to call this: [resource\_search\_example.rb](https://github.com/oracle/oci-ruby-sdk/tree/master/examples-oci/resource_search_example.rb)
