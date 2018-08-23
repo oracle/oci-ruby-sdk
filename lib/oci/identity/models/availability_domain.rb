@@ -13,6 +13,10 @@ module OCI
     # @return [String]
     attr_accessor :name
 
+    # The OCID of the Availability Domain.
+    # @return [String]
+    attr_accessor :id
+
     # The OCID of the tenancy.
     # @return [String]
     attr_accessor :compartment_id
@@ -22,6 +26,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
+        'id': :'id',
         'compartment_id': :'compartmentId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -32,6 +37,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
+        'id': :'String',
         'compartment_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -44,6 +50,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -52,6 +59,8 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.name = attributes[:'name'] if attributes[:'name']
+
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -71,6 +80,7 @@ module OCI
       return true if equal?(other)
       self.class == other.class &&
         name == other.name &&
+        id == other.id &&
         compartment_id == other.compartment_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -87,7 +97,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, compartment_id].hash
+      [name, id, compartment_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

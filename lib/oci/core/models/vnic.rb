@@ -100,7 +100,7 @@ module OCI
     # @return [String]
     attr_accessor :mac_address
 
-    # **[Required]** The private IP address of the primary `privateIp` object on the VNIC.
+    # The private IP address of the primary `privateIp` object on the VNIC.
     # The address is within the CIDR of the VNIC's subnet.
     #
     # Example: `10.0.3.3`
