@@ -4,19 +4,35 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateVirtualCircuitPublicPrefixDetails model.
-  class Core::Models::CreateVirtualCircuitPublicPrefixDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An individual public IP prefix (CIDR) to add to the public virtual circuit.
-    # Must be /31 or less specific.
-    #
+  # A Fault Domain is a logical grouping of hardware and infrastructure within an Availability Domain that can become
+  # unavailable in its entirety either due to hardware failure such as Top-of-rack (TOR) switch failure or due to
+  # planned software maintenance such as security updates that reboot your instances.
+  #
+  class Identity::Models::FaultDomain # rubocop:disable Metrics/LineLength
+    # The name of the Fault Domain.
     # @return [String]
-    attr_accessor :cidr_block
+    attr_accessor :name
+
+    # The OCID of the Fault Domain.
+    # @return [String]
+    attr_accessor :id
+
+    # The OCID of the compartment. Currently only tenancy (root) compartment can be provided.
+    # @return [String]
+    attr_accessor :compartment_id
+
+    # The name of the availabilityDomain where the Fault Domain belongs.
+    # @return [String]
+    attr_accessor :availability_domain
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'cidr_block': :'cidrBlock'
+        'name': :'name',
+        'id': :'id',
+        'compartment_id': :'compartmentId',
+        'availability_domain': :'availabilityDomain'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +41,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'cidr_block': :'String'
+        'name': :'String',
+        'id': :'String',
+        'compartment_id': :'String',
+        'availability_domain': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,18 +55,31 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
+    # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.cidr_block = attributes[:'cidrBlock'] if attributes[:'cidrBlock']
+      self.name = attributes[:'name'] if attributes[:'name']
 
-      raise 'You cannot provide both :cidrBlock and :cidr_block' if attributes.key?(:'cidrBlock') && attributes.key?(:'cidr_block')
+      self.id = attributes[:'id'] if attributes[:'id']
 
-      self.cidr_block = attributes[:'cidr_block'] if attributes[:'cidr_block']
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
+
+      raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
+
+      self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +92,10 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        cidr_block == other.cidr_block
+        name == other.name &&
+        id == other.id &&
+        compartment_id == other.compartment_id &&
+        availability_domain == other.availability_domain
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +111,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block].hash
+      [name, id, compartment_id, availability_domain].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

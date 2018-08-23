@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.3.5 - 2018-08-23
+### Added
+- Support for fault domains in the Identity service
+- Support for resizing an offline volume in the Block Storage service
+- Support for Autonomous Data Warehouse and Autonomous Transaction Processing in the Database service
+
 ## 2.3.4 - 2018-08-09
 ### Added
 - Support for fault domains in the Compute service

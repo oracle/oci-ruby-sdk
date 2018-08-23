@@ -4,19 +4,23 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateVirtualCircuitPublicPrefixDetails model.
-  class Core::Models::CreateVirtualCircuitPublicPrefixDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An individual public IP prefix (CIDR) to add to the public virtual circuit.
-    # Must be /31 or less specific.
-    #
+  # Details to create an Oracle Autonomous Data Warehouse backup.
+  #
+  class Database::Models::CreateAutonomousDataWarehouseBackupDetails # rubocop:disable Metrics/LineLength
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse backup.
     # @return [String]
-    attr_accessor :cidr_block
+    attr_accessor :autonomous_data_warehouse_id
+
+    # **[Required]** The user-friendly name for the backup. The name does not have to be unique.
+    # @return [String]
+    attr_accessor :display_name
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'cidr_block': :'cidrBlock'
+        'autonomous_data_warehouse_id': :'autonomousDataWarehouseId',
+        'display_name': :'displayName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +29,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'cidr_block': :'String'
+        'autonomous_data_warehouse_id': :'String',
+        'display_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,18 +41,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
+    # @option attributes [String] :autonomous_data_warehouse_id The value to assign to the {#autonomous_data_warehouse_id} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.cidr_block = attributes[:'cidrBlock'] if attributes[:'cidrBlock']
+      self.autonomous_data_warehouse_id = attributes[:'autonomousDataWarehouseId'] if attributes[:'autonomousDataWarehouseId']
 
-      raise 'You cannot provide both :cidrBlock and :cidr_block' if attributes.key?(:'cidrBlock') && attributes.key?(:'cidr_block')
+      raise 'You cannot provide both :autonomousDataWarehouseId and :autonomous_data_warehouse_id' if attributes.key?(:'autonomousDataWarehouseId') && attributes.key?(:'autonomous_data_warehouse_id')
 
-      self.cidr_block = attributes[:'cidr_block'] if attributes[:'cidr_block']
+      self.autonomous_data_warehouse_id = attributes[:'autonomous_data_warehouse_id'] if attributes[:'autonomous_data_warehouse_id']
+
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +72,8 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        cidr_block == other.cidr_block
+        autonomous_data_warehouse_id == other.autonomous_data_warehouse_id &&
+        display_name == other.display_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +89,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block].hash
+      [autonomous_data_warehouse_id, display_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

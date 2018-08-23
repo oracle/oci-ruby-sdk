@@ -136,7 +136,7 @@ module OCI
     # @return [String]
     attr_accessor :last_patch_history_entry_id
 
-    # The Oracle license model that applies to all the databases on the DB System. The default is LICENSE_INCLUDED.
+    # The Oracle license model that applies to all the databases on the DB System. The default is BRING_YOUR_OWN_LICENSE.
     #
     # @return [String]
     attr_reader :license_model
