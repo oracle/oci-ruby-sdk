@@ -2621,9 +2621,11 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Lists the Availability Domains in your tenancy. Specify the OCID of either the tenancy or another
+    # Lists the availability domains in your tenancy. Specify the OCID of either the tenancy or another
     # of your compartments as the value for the compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    # Note that the order of the results returned can change if availability domains are added or removed; therefore, do not
+    # create a dependency on the list order.
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -2848,6 +2850,67 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Lists the Fault Domains in your tenancy. Specify the OCID of either the tenancy or another
+    # of your compartments as the value for the compartment ID (remember that the tenancy is simply the root compartment).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    #
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [String] availability_domain The name of the availibilityDomain.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::FaultDomain FaultDomain}>
+    def list_fault_domains(compartment_id, availability_domain, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_fault_domains.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_fault_domains." if compartment_id.nil?
+      raise "Missing the required parameter 'availability_domain' when calling list_fault_domains." if availability_domain.nil?
+
+      path = '/faultDomains/'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:availabilityDomain] = availability_domain
+
+      # Header Params
+      header_params = {}
+      header_params['accept'] = 'application/json'
+      header_params['content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_fault_domains') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::FaultDomain>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists

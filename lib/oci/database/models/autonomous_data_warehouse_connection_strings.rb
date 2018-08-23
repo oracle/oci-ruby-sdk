@@ -4,19 +4,28 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateVirtualCircuitPublicPrefixDetails model.
-  class Core::Models::CreateVirtualCircuitPublicPrefixDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An individual public IP prefix (CIDR) to add to the public virtual circuit.
-    # Must be /31 or less specific.
-    #
+  # Connection strings to connect to an Oracle Autonomous Data Warehouse.
+  #
+  class Database::Models::AutonomousDataWarehouseConnectionStrings # rubocop:disable Metrics/LineLength
+    # The High database service provides the highest level of resources to each SQL statement resulting in the highest performance, but supports the fewest number of concurrent SQL statements.
     # @return [String]
-    attr_accessor :cidr_block
+    attr_accessor :high
+
+    # The Low database service provides the least level of resources to each SQL statement, but supports the most number of concurrent SQL statements.
+    # @return [String]
+    attr_accessor :low
+
+    # The Medium database service provides a lower level of resources to each SQL statement potentially resulting a lower level of performance, but supports more concurrent SQL statements.
+    # @return [String]
+    attr_accessor :medium
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'cidr_block': :'cidrBlock'
+        'high': :'high',
+        'low': :'low',
+        'medium': :'medium'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +34,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'cidr_block': :'String'
+        'high': :'String',
+        'low': :'String',
+        'medium': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,18 +47,20 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
+    # @option attributes [String] :high The value to assign to the {#high} property
+    # @option attributes [String] :low The value to assign to the {#low} property
+    # @option attributes [String] :medium The value to assign to the {#medium} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.cidr_block = attributes[:'cidrBlock'] if attributes[:'cidrBlock']
+      self.high = attributes[:'high'] if attributes[:'high']
 
-      raise 'You cannot provide both :cidrBlock and :cidr_block' if attributes.key?(:'cidrBlock') && attributes.key?(:'cidr_block')
+      self.low = attributes[:'low'] if attributes[:'low']
 
-      self.cidr_block = attributes[:'cidr_block'] if attributes[:'cidr_block']
+      self.medium = attributes[:'medium'] if attributes[:'medium']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +73,9 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        cidr_block == other.cidr_block
+        high == other.high &&
+        low == other.low &&
+        medium == other.medium
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +91,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block].hash
+      [high, low, medium].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

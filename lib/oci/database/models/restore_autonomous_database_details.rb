@@ -4,19 +4,18 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateVirtualCircuitPublicPrefixDetails model.
-  class Core::Models::CreateVirtualCircuitPublicPrefixDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An individual public IP prefix (CIDR) to add to the public virtual circuit.
-    # Must be /31 or less specific.
-    #
-    # @return [String]
-    attr_accessor :cidr_block
+  # Details to restore an Oracle Autonomous Database.
+  #
+  class Database::Models::RestoreAutonomousDatabaseDetails # rubocop:disable Metrics/LineLength
+    # **[Required]** The time to restore the database to.
+    # @return [DateTime]
+    attr_accessor :timestamp
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'cidr_block': :'cidrBlock'
+        'timestamp': :'timestamp'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +24,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'cidr_block': :'String'
+        'timestamp': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,18 +35,14 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
+    # @option attributes [DateTime] :timestamp The value to assign to the {#timestamp} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.cidr_block = attributes[:'cidrBlock'] if attributes[:'cidrBlock']
-
-      raise 'You cannot provide both :cidrBlock and :cidr_block' if attributes.key?(:'cidrBlock') && attributes.key?(:'cidr_block')
-
-      self.cidr_block = attributes[:'cidr_block'] if attributes[:'cidr_block']
+      self.timestamp = attributes[:'timestamp'] if attributes[:'timestamp']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +55,7 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        cidr_block == other.cidr_block
+        timestamp == other.timestamp
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +71,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block].hash
+      [timestamp].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -4,8 +4,35 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateVolumeDetails model.
-  class Core::Models::UpdateVolumeDetails # rubocop:disable Metrics/LineLength
+  # Details to create an Oracle Autonomous Data Warehouse.
+  #
+  class Database::Models::CreateAutonomousDataWarehouseDetails # rubocop:disable Metrics/LineLength
+    LICENSE_MODEL_ENUM = [
+      LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
+      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
+    ].freeze
+
+    # **[Required]** A strong password for Admin. The password must be between 12 and 60 characters long, and must contain at least 1 uppercase, 1 lowercase and 2 numeric characters. It cannot contain the double quote symbol (\"). It must be different than the last 4 passwords.
+    # @return [String]
+    attr_accessor :admin_password
+
+    # **[Required]** The Oracle Cloud ID (OCID) of the compartment of the DB system.
+    # @return [String]
+    attr_accessor :compartment_id
+
+    # **[Required]** The number of CPU Cores to be made available to the database.
+    # @return [Integer]
+    attr_accessor :cpu_core_count
+
+    # **[Required]** Size, in terabytes, of the data volume that will be created and attached to the database. This storage can later be scaled up if needed.
+    #
+    # @return [Integer]
+    attr_accessor :data_storage_size_in_tbs
+
+    # **[Required]** The database name. The name must begin with an alphabetic character and can contain a maximum of 14 alphanumeric characters. Special characters are not permitted. The database name must be unique in the tenancy.
+    # @return [String]
+    attr_accessor :db_name
+
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -14,33 +41,36 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name. Does not have to be unique, and it's changeable.
-    # Avoid entering confidential information.
-    #
+    # The user-friendly name for the Autonomous Data Warehouse. The name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The size to resize the volume to in GBs. Has to be larger than the current size.
-    # @return [Integer]
-    attr_accessor :size_in_gbs
+    # The Oracle license model that applies to the Oracle Autonomous Data Warehouse. The default is BRING_YOUR_OWN_LICENSE.
+    #
+    # @return [String]
+    attr_reader :license_model
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'admin_password': :'adminPassword',
+        'compartment_id': :'compartmentId',
+        'cpu_core_count': :'cpuCoreCount',
+        'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'db_name': :'dbName',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
-        'size_in_gbs': :'sizeInGBs'
+        'license_model': :'licenseModel'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,10 +79,15 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'admin_password': :'String',
+        'compartment_id': :'String',
+        'cpu_core_count': :'Integer',
+        'data_storage_size_in_tbs': :'Integer',
+        'db_name': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'size_in_gbs': :'Integer'
+        'license_model': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -63,15 +98,50 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
+    # @option attributes [String] :license_model The value to assign to the {#license_model} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
+
+      raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
+
+      self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
+
+      raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
+
+      self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
+
+      self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
+
+      raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
+
+      self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
+
+      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
+
+      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -91,14 +161,23 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
-      self.size_in_gbs = attributes[:'sizeInGBs'] if attributes[:'sizeInGBs']
+      self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
-      raise 'You cannot provide both :sizeInGBs and :size_in_gbs' if attributes.key?(:'sizeInGBs') && attributes.key?(:'size_in_gbs')
+      raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
 
-      self.size_in_gbs = attributes[:'size_in_gbs'] if attributes[:'size_in_gbs']
+      self.license_model = attributes[:'license_model'] if attributes[:'license_model']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license_model Object to be assigned
+    def license_model=(license_model)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
+      # rubocop: enable Metrics/LineLength
+      @license_model = license_model
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -108,10 +187,15 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
+        admin_password == other.admin_password &&
+        compartment_id == other.compartment_id &&
+        cpu_core_count == other.cpu_core_count &&
+        data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        db_name == other.db_name &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
-        size_in_gbs == other.size_in_gbs
+        license_model == other.license_model
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -127,7 +211,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, size_in_gbs].hash
+      [admin_password, compartment_id, cpu_core_count, data_storage_size_in_tbs, db_name, defined_tags, display_name, freeform_tags, license_model].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
