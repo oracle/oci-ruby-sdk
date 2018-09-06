@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # CreateInternetGatewayDetails model.
   class Core::Models::CreateInternetGatewayDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the compartment to contain the Internet Gateway.
+    # **[Required]** The OCID of the compartment to contain the internet gateway.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -35,7 +35,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # **[Required]** The OCID of the VCN the Internet Gateway is attached to.
+    # **[Required]** The OCID of the VCN the internet gateway is attached to.
     # @return [String]
     attr_accessor :vcn_id
 

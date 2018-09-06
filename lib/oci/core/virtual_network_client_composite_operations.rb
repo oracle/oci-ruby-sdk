@@ -222,7 +222,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#create_internet_gateway} and then waits for the {OCI::Core::Models::InternetGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Core::Models::CreateInternetGatewayDetails] create_internet_gateway_details Details for creating a new Internet Gateway.
+    # @param [OCI::Core::Models::CreateInternetGatewayDetails] create_internet_gateway_details Details for creating a new internet gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InternetGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#create_internet_gateway}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -851,7 +851,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_internet_gateway} and then waits for the {OCI::Core::Models::InternetGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] ig_id The OCID of the Internet Gateway.
+    # @param [String] ig_id The OCID of the internet gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InternetGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_internet_gateway}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1491,8 +1491,8 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_internet_gateway} and then waits for the {OCI::Core::Models::InternetGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] ig_id The OCID of the Internet Gateway.
-    # @param [OCI::Core::Models::UpdateInternetGatewayDetails] update_internet_gateway_details Details for updating the Internet Gateway.
+    # @param [String] ig_id The OCID of the internet gateway.
+    # @param [OCI::Core::Models::UpdateInternetGatewayDetails] update_internet_gateway_details Details for updating the internet gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InternetGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_internet_gateway}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

@@ -18,16 +18,16 @@ module OCI
       SERVER_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # If you set `serverType` to `CustomDnsServer`, specify the IP address
-    # of at least one DNS server of your choice (three maximum).
+    # If you set `serverType` to `CustomDnsServer`, specify the
+    # IP address of at least one DNS server of your choice (three maximum). gd
     #
     # @return [Array<String>]
     attr_accessor :custom_dns_servers
 
-    # **[Required]** - **VcnLocal:** Reserved for future use.
+    # **[Required]** * **VcnLocal:** Reserved for future use.
     #
-    # - **VcnLocalPlusInternet:** Also referred to as \"Internet and VCN Resolver\".
-    # Instances can resolve internet hostnames (no Internet Gateway is required),
+    # * **VcnLocalPlusInternet:** Also referred to as \"Internet and VCN Resolver\".
+    # Instances can resolve internet hostnames (no internet gateway is required),
     # and can resolve hostnames of instances in the VCN. This is the default
     # value in the default set of DHCP options in the VCN. For the Internet and
     # VCN Resolver to work across the VCN, there must also be a DNS label set for
@@ -37,7 +37,8 @@ module OCI
     # information, see
     # [DNS in Your Virtual Cloud Network](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/dns.htm).
     #
-    # - **CustomDnsServer:** Instances use a DNS server of your choice (three maximum).
+    # * **CustomDnsServer:** Instances use a DNS server of your choice (three
+    # maximum).
     #
     # @return [String]
     attr_reader :server_type

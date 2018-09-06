@@ -4,7 +4,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateDbHomeFromBackupDetails model.
+  # Details for creating a database home if you are creating a database by restoring from a database backup.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class Database::Models::CreateDbHomeFromBackupDetails # rubocop:disable Metrics/LineLength
     # This attribute is required.
     # @return [OCI::Database::Models::CreateDatabaseFromBackupDetails]

@@ -99,7 +99,7 @@ module OCI
     # @return [String]
     attr_accessor :peer_db_home_id
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB System containing the associated
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system containing the associated
     # peer database.
     #
     # @return [String]

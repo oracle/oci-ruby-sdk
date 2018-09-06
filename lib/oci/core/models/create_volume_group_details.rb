@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # CreateVolumeGroupDetails model.
   class Core::Models::CreateVolumeGroupDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The Availability Domain of the volume group.
+    # **[Required]** The availability domain of the volume group.
     # @return [String]
     attr_accessor :availability_domain
 
@@ -36,7 +36,7 @@ module OCI
     attr_accessor :freeform_tags
 
     # **[Required]** Specifies the volume group source details for a new volume group. The volume source is either another a list of
-    # volume ids in the same Availability Domain, another volume group or a volume group backup.
+    # volume ids in the same availability domain, another volume group or a volume group backup.
     #
     # @return [OCI::Core::Models::VolumeGroupSourceDetails]
     attr_accessor :source_details

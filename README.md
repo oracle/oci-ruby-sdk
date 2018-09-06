@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.3.5**
+**Version 2.3.6**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 

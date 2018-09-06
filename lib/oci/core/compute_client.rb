@@ -1493,16 +1493,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new instance in the specified compartment and the specified Availability Domain.
+    # Creates a new instance in the specified compartment and the specified availability domain.
     # For general information about instances, see
     # [Overview of the Compute Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Concepts/computeoverview.htm).
     #
     # For information about access control and compartments, see
     # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
     #
-    # For information about Availability Domains, see
+    # For information about availability domains, see
     # [Regions and Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
-    # To get a list of Availability Domains, use the `ListAvailabilityDomains` operation
+    # To get a list of availability domains, use the `ListAvailabilityDomains` operation
     # in the Identity and Access Management Service API.
     #
     # All Oracle Cloud Infrastructure resources, including instances, get an Oracle-assigned,
@@ -1585,7 +1585,7 @@ module OCI
     # Lists the boot volume attachments in the specified compartment. You can filter the
     # list by specifying an instance OCID, boot volume OCID, or both.
     #
-    # @param [String] availability_domain The name of the Availability Domain.
+    # @param [String] availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -1659,7 +1659,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :availability_domain The name of the Availability Domain.
+    # @option opts [String] :availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -1675,9 +1675,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -1785,9 +1785,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -1927,7 +1927,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the instances in the specified compartment and the specified Availability Domain.
+    # Lists the instances in the specified compartment and the specified availability domain.
     # You can filter the results by specifying an instance name (the list will include all the identically-named
     # instances in the compartment).
     #
@@ -1935,7 +1935,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :availability_domain The name of the Availability Domain.
+    # @option opts [String] :availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -1952,9 +1952,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -2035,7 +2035,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :availability_domain The name of the Availability Domain.
+    # @option opts [String] :availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -2098,13 +2098,13 @@ module OCI
 
     # Lists the VNIC attachments in the specified compartment. A VNIC attachment
     # resides in the same compartment as the attached instance. The list can be
-    # filtered by instance, VNIC, or Availability Domain.
+    # filtered by instance, VNIC, or availability domain.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :availability_domain The name of the Availability Domain.
+    # @option opts [String] :availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -2177,7 +2177,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :availability_domain The name of the Availability Domain.
+    # @option opts [String] :availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -2431,7 +2431,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the display name of the specified instance. Avoid entering confidential information.
+    # Updates certain fields on the specified instance. Fields that are not provided in the
+    # request will not be updated. Avoid entering confidential information.
+    #
+    # Changes to metadata fields will be reflected in the instance metadata service (this may take
+    # up to a minute).
+    #
     # The OCID of the instance remains the same.
     #
     # @param [String] instance_id The OCID of the instance.

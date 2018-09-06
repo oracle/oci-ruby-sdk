@@ -4,13 +4,16 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateDbHomeDetails model.
+  # Details for creating a database home.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class Database::Models::CreateDbHomeDetails # rubocop:disable Metrics/LineLength
     # This attribute is required.
     # @return [OCI::Database::Models::CreateDatabaseDetails]
     attr_accessor :database
 
-    # **[Required]** A valid Oracle database version. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
+    # **[Required]** A valid Oracle Database version. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
     # @return [String]
     attr_accessor :db_version
 

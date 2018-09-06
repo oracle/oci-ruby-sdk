@@ -5,28 +5,30 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # The Database Service supports several types of DB Systems, ranging in size, price, and performance. For details about each type of system, see:
+  # The Database Service supports several types of DB systems, ranging in size, price, and performance. For details about each type of system, see:
   #
   # - [Exadata DB Systems](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Concepts/exaoverview.htm)
   # - [Bare Metal and Virtual Machine DB Systems](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Concepts/overview.htm)
   #
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+  # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized, talk to an administrator. If you are an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   # For information about access control and compartments, see
   # [Overview of the Identity Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
   #
-  # For information about Availability Domains, see
+  # For information about availability domains, see
   # [Regions and Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
   #
-  # To get a list of Availability Domains, use the `ListAvailabilityDomains` operation
+  # To get a list of availability domains, use the `ListAvailabilityDomains` operation
   # in the Identity Service API.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::DbSystemSummary # rubocop:disable Metrics/LineLength
     DATABASE_EDITION_ENUM = [
       DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
       DATABASE_EDITION_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
-      DATABASE_EDITION_ENTERPRISE_EDITION_EXTREME_PERFORMANCE = 'ENTERPRISE_EDITION_EXTREME_PERFORMANCE'.freeze,
       DATABASE_EDITION_ENTERPRISE_EDITION_HIGH_PERFORMANCE = 'ENTERPRISE_EDITION_HIGH_PERFORMANCE'.freeze,
+      DATABASE_EDITION_ENTERPRISE_EDITION_EXTREME_PERFORMANCE = 'ENTERPRISE_EDITION_EXTREME_PERFORMANCE'.freeze,
       DATABASE_EDITION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -52,43 +54,42 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The name of the Availability Domain that the DB System is located in.
+    # **[Required]** The name of the availability domain that the DB system is located in.
     # @return [String]
     attr_accessor :availability_domain
 
-    # The OCID of the backup network subnet the DB System is associated with. Applicable only to Exadata.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup network subnet the DB system is associated with. Applicable only to Exadata DB systems.
     #
-    # **Subnet Restriction:** See above subnetId's 'Subnet Restriction'.
-    # to malfunction.
+    # **Subnet Restriction:** See the subnet restrictions information for **subnetId**.
     #
     # @return [String]
     attr_accessor :backup_subnet_id
 
-    # Cluster name for Exadata and 2-node RAC DB Systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
+    # The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
     #
     # @return [String]
     attr_accessor :cluster_name
 
-    # **[Required]** The OCID of the compartment.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The number of CPU cores enabled on the DB System.
+    # **[Required]** The number of CPU cores enabled on the DB system.
     # @return [Integer]
     attr_accessor :cpu_core_count
 
     # The percentage assigned to DATA storage (user data and database files).
-    # The remaining percentage is assigned to RECO storage (database redo logs, archive logs, and recovery manager backups). Accepted values are 40 and 80.
+    # The remaining percentage is assigned to RECO storage (database redo logs, archive logs, and recovery manager backups). Accepted values are 40 and 80. The default is 80 percent assigned to DATA storage. Not applicable for virtual machine DB systems.
     #
     # @return [Integer]
     attr_accessor :data_storage_percentage
 
-    # Data storage size, in GBs, that is currently available to the DB system. This is applicable only for VM-based DBs.
+    # The data storage size, in gigabytes, that is currently available to the DB system. Applies only for virtual machine DB systems.
     #
     # @return [Integer]
     attr_accessor :data_storage_size_in_gbs
 
-    # **[Required]** The Oracle Database Edition that applies to all the databases on the DB System.
+    # **[Required]** The Oracle Database edition that applies to all the databases on the DB system.
     #
     # @return [String]
     attr_reader :database_edition
@@ -101,18 +102,18 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The type of redundancy configured for the DB System.
-    # Normal is 2-way redundancy.
-    # High is 3-way redundancy.
+    # The type of redundancy configured for the DB system.
+    # NORMAL is 2-way redundancy.
+    # HIGH is 3-way redundancy.
     #
     # @return [String]
     attr_reader :disk_redundancy
 
-    # **[Required]** The user-friendly name for the DB System. It does not have to be unique.
+    # **[Required]** The user-friendly name for the DB system. The name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The domain name for the DB System.
+    # **[Required]** The domain name for the DB system.
     # @return [String]
     attr_accessor :domain
 
@@ -124,19 +125,19 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The host name for the DB Node.
+    # **[Required]** The hostname for the DB system.
     # @return [String]
     attr_accessor :hostname
 
-    # **[Required]** The OCID of the DB System.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
     # @return [String]
     attr_accessor :id
 
-    # The OCID of the last patch history. This is updated as soon as a patch operation is started.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the last patch history. This value is updated as soon as a patch operation starts.
     # @return [String]
     attr_accessor :last_patch_history_entry_id
 
-    # The Oracle license model that applies to all the databases on the DB System. The default is BRING_YOUR_OWN_LICENSE.
+    # The Oracle license model that applies to all the databases on the DB system. The default is LICENSE_INCLUDED.
     #
     # @return [String]
     attr_reader :license_model
@@ -145,51 +146,54 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # **[Required]** The current state of the DB System.
+    # **[Required]** The current state of the DB system.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The port number configured for the listener on the DB System.
+    # The port number configured for the listener on the DB system.
     # @return [Integer]
     attr_accessor :listener_port
 
-    # Number of nodes in this DB system. For RAC DBs, this will be greater than 1.
+    # The number of nodes in the DB system. For RAC DB systems, the value is greater than 1.
     #
     # @return [Integer]
     attr_accessor :node_count
 
-    # RECO/REDO storage size, in GBs, that is currently allocated to the DB system. This is applicable only for VM-based DBs.
+    # The RECO/REDO storage size, in gigabytes, that is currently allocated to the DB system. Applies only for virtual machine DB systems.
     #
     # @return [Integer]
     attr_accessor :reco_storage_size_in_gb
 
-    # The OCID of the DNS record for the SCAN IP addresses that are associated with the DB System.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DNS record for the SCAN IP addresses that are associated with the DB system.
     #
     # @return [String]
     attr_accessor :scan_dns_record_id
 
-    # The OCID of the Single Client Access Name (SCAN) IP addresses associated with the DB System.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the Single Client Access Name (SCAN) IP addresses associated with the DB system.
     # SCAN IP addresses are typically used for load balancing and are not assigned to any interface.
-    # Clusterware directs the requests to the appropriate nodes in the cluster.
+    # Oracle Clusterware directs the requests to the appropriate nodes in the cluster.
     #
-    # - For a single-node DB System, this list is empty.
+    # **Note:** For a single-node DB system, this list is empty.
     #
     # @return [Array<String>]
     attr_accessor :scan_ip_ids
 
-    # **[Required]** The shape of the DB System. The shape determines resources to allocate to the DB system - CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes.
+    # **[Required]** The shape of the DB system. The shape determines resources to allocate to the DB system.
+    # - For virtual machine shapes, the number of CPU cores and memory
+    # - For bare metal and Exadata shapes, the number of CPU cores, storage, and memory
+    #
     # @return [String]
     attr_accessor :shape
 
-    # **[Required]** The public key portion of one or more key pairs used for SSH access to the DB System.
+    # **[Required]** The public key portion of one or more key pairs used for SSH access to the DB system.
     # @return [Array<String>]
     attr_accessor :ssh_public_keys
 
-    # **[Required]** The OCID of the subnet the DB System is associated with.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the subnet the DB system is associated with.
     #
     # **Subnet Restrictions:**
-    # - For single node and 2-node (RAC) DB Systems, do not use a subnet that overlaps with 192.168.16.16/28
-    # - For Exadata and VM-based RAC DB Systems, do not use a subnet that overlaps with 192.168.128.0/20
+    # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
+    # - For Exadata and virtual machine 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.128.0/20.
     #
     # These subnets are used by the Oracle Clusterware private interconnect on the database instance.
     # Specifying an overlapping subnet will cause the private interconnect to malfunction.
@@ -198,19 +202,19 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # The date and time the DB System was created.
+    # The date and time the DB system was created.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The version of the DB System.
+    # The Oracle Database version of the DB system.
     # @return [String]
     attr_accessor :version
 
-    # The OCID of the virtual IP (VIP) addresses associated with the DB System.
-    # The Cluster Ready Services (CRS) creates and maintains one VIP address for each node in the DB System to
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the virtual IP (VIP) addresses associated with the DB system.
+    # The Cluster Ready Services (CRS) creates and maintains one VIP address for each node in the DB system to
     # enable failover. If one node fails, the VIP is reassigned to another active node in the cluster.
     #
-    # - For a single-node DB System, this list is empty.
+    # **Note:** For a single-node DB system, this list is empty.
     #
     # @return [Array<String>]
     attr_accessor :vip_ids

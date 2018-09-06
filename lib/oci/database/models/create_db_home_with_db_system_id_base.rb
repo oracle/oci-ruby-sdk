@@ -4,7 +4,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateDbHomeWithDbSystemIdBase model.
+  # Details for creating a database home.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Database::Models::CreateDbHomeWithDbSystemIdBase # rubocop:disable Metrics/LineLength
     SOURCE_ENUM = [
@@ -12,7 +15,7 @@ module OCI
       SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the DB System.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
     # @return [String]
     attr_accessor :db_system_id
 
@@ -20,9 +23,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # Source of database:
-    #   NONE for creating a new database
-    #   DB_BACKUP for creating a new database by restoring a backup
+    # The source of database: NONE for creating a new database. DB_BACKUP for creating a new database by restoring from a database backup.
     #
     # @return [String]
     attr_reader :source

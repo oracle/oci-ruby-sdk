@@ -9,11 +9,11 @@ module OCI
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class Database::Models::DbVersionSummary # rubocop:disable Metrics/LineLength
-    # True if this version of the Oracle database software supports pluggable dbs.
+    # True if this version of the Oracle Database software supports pluggable databases.
     # @return [BOOLEAN]
     attr_accessor :supports_pdb
 
-    # **[Required]** A valid Oracle database version.
+    # **[Required]** A valid Oracle Database version.
     # @return [String]
     attr_accessor :version
 

@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # CreateBootVolumeDetails model.
   class Core::Models::CreateBootVolumeDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The Availability Domain of the boot volume.
+    # **[Required]** The availability domain of the boot volume.
     #
     # Example: `Uocm:PHX-AD-1`
     #
@@ -50,7 +50,7 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_gbs
 
-    # **[Required]** Specifies the boot volume source details for a new boot volume. The volume source is either another boot volume in the same Availability Domain or a boot volume backup.
+    # **[Required]** Specifies the boot volume source details for a new boot volume. The volume source is either another boot volume in the same availability domain or a boot volume backup.
     # This is a mandatory field for a boot volume.
     #
     # @return [OCI::Core::Models::BootVolumeSourceDetails]

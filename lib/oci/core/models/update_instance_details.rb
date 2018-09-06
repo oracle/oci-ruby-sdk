@@ -31,13 +31,41 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # Custom metadata key/value string pairs that you provide. Any set of key/value pairs
+    # provided here will completely replace the current set of key/value pairs in the 'metadata'
+    # field on the instance.
+    #
+    # Both the 'user_data' and 'ssh_authorized_keys' fields cannot be changed after an instance
+    # has launched. Any request which updates, removes, or adds either of these fields will be
+    # rejected. You must provide the same values for 'user_data' and 'ssh_authorized_keys' that
+    # already exist on the instance.
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :metadata
+
+    # Additional metadata key/value pairs that you provide. They serve the same purpose and
+    # functionality as fields in the 'metadata' object.
+    #
+    # They are distinguished from 'metadata' fields in that these can be nested JSON objects
+    # (whereas 'metadata' fields are string/string maps only).
+    #
+    # Both the 'user_data' and 'ssh_authorized_keys' fields cannot be changed after an instance
+    # has launched. Any request which updates, removes, or adds either of these fields will be
+    # rejected. You must provide the same values for 'user_data' and 'ssh_authorized_keys' that
+    # already exist on the instance.
+    #
+    # @return [Hash<String, Object>]
+    attr_accessor :extended_metadata
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'metadata': :'metadata',
+        'extended_metadata': :'extendedMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,7 +76,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'metadata': :'Hash<String, String>',
+        'extended_metadata': :'Hash<String, Object>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -62,6 +92,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
+    # @option attributes [Hash<String, Object>] :extended_metadata The value to assign to the {#extended_metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -85,6 +117,14 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.metadata = attributes[:'metadata'] if attributes[:'metadata']
+
+      self.extended_metadata = attributes[:'extendedMetadata'] if attributes[:'extendedMetadata']
+
+      raise 'You cannot provide both :extendedMetadata and :extended_metadata' if attributes.key?(:'extendedMetadata') && attributes.key?(:'extended_metadata')
+
+      self.extended_metadata = attributes[:'extended_metadata'] if attributes[:'extended_metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -99,7 +139,9 @@ module OCI
       self.class == other.class &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        metadata == other.metadata &&
+        extended_metadata == other.extended_metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -115,7 +157,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [defined_tags, display_name, freeform_tags, metadata, extended_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

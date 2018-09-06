@@ -6,12 +6,15 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # Represents a router that connects the edge of a VCN with the Internet. For an example scenario
-  # that uses an Internet Gateway, see
+  # that uses an internet gateway, see
   # [Typical Networking Service Scenarios](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/overview.htm#scenarios).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you
+  # supply string values using the API.
   #
   class Core::Models::InternetGateway # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -22,7 +25,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment containing the Internet Gateway.
+    # **[Required]** The OCID of the compartment containing the internet gateway.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -49,7 +52,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The Internet Gateway's Oracle ID (OCID).
+    # **[Required]** The internet gateway's Oracle ID (OCID).
     # @return [String]
     attr_accessor :id
 
@@ -59,18 +62,18 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # **[Required]** The Internet Gateway's current state.
+    # **[Required]** The internet gateway's current state.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The date and time the Internet Gateway was created, in the format defined by RFC3339.
+    # The date and time the internet gateway was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The OCID of the VCN the Internet Gateway belongs to.
+    # **[Required]** The OCID of the VCN the internet gateway belongs to.
     # @return [String]
     attr_accessor :vcn_id
 

@@ -7,7 +7,7 @@ require_relative 'create_data_guard_association_details'
 module OCI
   # The configuration details for creating a Data Guard association to an existing database.
   class Database::Models::CreateDataGuardAssociationToExistingDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails # rubocop:disable Metrics/LineLength
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB System to create the standby database on.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system to create the standby database on.
     #
     # @return [String]
     attr_accessor :peer_db_system_id

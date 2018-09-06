@@ -24,7 +24,7 @@ module OCI
     # @return [String]
     attr_reader :action
 
-    # **[Required]** The OCID of the patch history entry.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch history entry.
     # @return [String]
     attr_accessor :id
 
@@ -38,7 +38,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** The OCID of the patch.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch.
     # @return [String]
     attr_accessor :patch_id
 

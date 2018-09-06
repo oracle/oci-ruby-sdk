@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # CreateVolumeDetails model.
   class Core::Models::CreateVolumeDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The Availability Domain of the volume.
+    # **[Required]** The availability domain of the volume.
     #
     # Example: `Uocm:PHX-AD-1`
     #
@@ -56,7 +56,7 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_mbs
 
-    # Specifies the volume source details for a new Block volume. The volume source is either another Block volume in the same Availability Domain or a Block volume backup.
+    # Specifies the volume source details for a new Block volume. The volume source is either another Block volume in the same availability domain or a Block volume backup.
     # This is an optional field. If not specified or set to null, the new Block volume will be empty.
     # When specified, the new Block volume will contain data from the source volume or backup.
     #
