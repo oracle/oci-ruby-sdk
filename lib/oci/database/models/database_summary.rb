@@ -5,9 +5,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # An Oracle database on a DB System. For more information, see [Managing Oracle Databases](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Concepts/overview.htm).
+  # An Oracle database on a bare metal or virtual machine DB system. For more information, see [Bare Metal and Virtual Machine DB Systems](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Concepts/overview.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::DatabaseSummary # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -26,14 +28,14 @@ module OCI
     # @return [String]
     attr_accessor :character_set
 
-    # **[Required]** The OCID of the compartment.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
     # @return [OCI::Database::Models::DbBackupConfig]
     attr_accessor :db_backup_config
 
-    # The OCID of the database home.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database home.
     # @return [String]
     attr_accessor :db_home_id
 
@@ -46,7 +48,7 @@ module OCI
     # @return [String]
     attr_accessor :db_unique_name
 
-    # Database workload type.
+    # The database workload type.
     # @return [String]
     attr_accessor :db_workload
 
@@ -66,7 +68,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The OCID of the database.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database.
     # @return [String]
     attr_accessor :id
 
@@ -82,7 +84,7 @@ module OCI
     # @return [String]
     attr_accessor :ncharacter_set
 
-    # Pluggable database name. It must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
+    # The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
     # @return [String]
     attr_accessor :pdb_name
 

@@ -7,6 +7,9 @@ require 'logger'
 module OCI
   # Represents an attachment between a boot volume and an instance.
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you
+  # supply string values using the API.
+  #
   class Core::Models::BootVolumeAttachment # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ATTACHING = 'ATTACHING'.freeze,
@@ -16,7 +19,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The Availability Domain of an instance.
+    # **[Required]** The availability domain of an instance.
     #
     # Example: `Uocm:PHX-AD-1`
     #

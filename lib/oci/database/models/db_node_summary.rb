@@ -5,9 +5,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A server where Oracle database software is running.
+  # A server where Oracle Database software is running.
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::DbNodeSummary # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -23,19 +25,19 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The OCID of the backup VNIC.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup VNIC.
     # @return [String]
     attr_accessor :backup_vnic_id
 
-    # **[Required]** The OCID of the DB System.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
     # @return [String]
     attr_accessor :db_system_id
 
-    # The host name for the DB Node.
+    # The host name for the database node.
     # @return [String]
     attr_accessor :hostname
 
-    # **[Required]** The OCID of the DB Node.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database node.
     # @return [String]
     attr_accessor :id
 
@@ -43,16 +45,16 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Storage size, in GBs, of the software volume that is allocated to the DB system. This is applicable only for VM-based DBs.
+    # The size (in GB) of the block storage volume allocation for the DB system. This attribute applies only for virtual machine DB systems.
     #
     # @return [Integer]
     attr_accessor :software_storage_size_in_gb
 
-    # **[Required]** The date and time that the DB Node was created.
+    # **[Required]** The date and time that the database node was created.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The OCID of the VNIC.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the VNIC.
     # @return [String]
     attr_accessor :vnic_id
 

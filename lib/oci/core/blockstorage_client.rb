@@ -230,11 +230,11 @@ module OCI
     # For general information about block volumes, see
     # [Overview of Block Volume Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/overview.htm).
     #
-    # A volume and instance can be in separate compartments but must be in the same Availability Domain.
+    # A volume and instance can be in separate compartments but must be in the same availability domain.
     # For information about access control and compartments, see
     # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm). For information about
-    # Availability Domains, see [Regions and Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
-    # To get a list of Availability Domains, use the `ListAvailabilityDomains` operation
+    # availability domains, see [Regions and Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
+    # To get a list of availability domains, use the `ListAvailabilityDomains` operation
     # in the Identity and Access Management Service API.
     #
     # You may optionally specify a *display name* for the volume, which is simply a friendly name or
@@ -1442,9 +1442,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -1518,9 +1518,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the boot volumes in the specified compartment and Availability Domain.
+    # Lists the boot volumes in the specified compartment and availability domain.
     #
-    # @param [String] availability_domain The name of the Availability Domain.
+    # @param [String] availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -1662,9 +1662,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -1759,9 +1759,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -1835,7 +1835,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :availability_domain The name of the Availability Domain.
+    # @option opts [String] :availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -1852,9 +1852,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -1927,13 +1927,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the volumes in the specified compartment and Availability Domain.
+    # Lists the volumes in the specified compartment and availability domain.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :availability_domain The name of the Availability Domain.
+    # @option opts [String] :availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -1950,9 +1950,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order

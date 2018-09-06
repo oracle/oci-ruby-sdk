@@ -11,7 +11,7 @@ module OCI
     # @return [OCI::Database::Models::CreateDatabaseDetails]
     attr_accessor :database
 
-    # **[Required]** A valid Oracle database version. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
+    # **[Required]** A valid Oracle Database version. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
     # @return [String]
     attr_accessor :db_version
 

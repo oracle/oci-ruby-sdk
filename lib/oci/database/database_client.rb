@@ -463,9 +463,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new DB Home in the specified DB System based on the request parameters you provide.
+    # Creates a new database home in the specified DB system based on the request parameters you provide.
     #
-    # @param [OCI::Database::Models::CreateDbHomeWithDbSystemIdBase] create_db_home_with_db_system_id_details Request to create a new DB Home.
+    # @param [OCI::Database::Models::CreateDbHomeWithDbSystemIdBase] create_db_home_with_db_system_id_details Request to create a new database home.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -534,7 +534,7 @@ module OCI
     #
     # Note that the **stop** state has no effect on the resources you consume.
     # Billing continues for DB Nodes that you stop, and related resources continue
-    # to apply against any relevant quotas. You must terminate the DB System
+    # to apply against any relevant quotas. You must terminate the DB system
     # ({#terminate_db_system terminate_db_system})
     # to remove its resources from billing and quotas.
     #
@@ -721,7 +721,7 @@ module OCI
 
 
     # Deletes a full backup. You cannot delete automatic backups using this API.
-    # @param [String] backup_id The backup OCID.
+    # @param [String] backup_id The backup [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -775,7 +775,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a DB Home. The DB Home and its database data are local to the DB System and will be lost when it is deleted. Oracle recommends that you back up any data in the DB System prior to deleting it.
+    # Deletes a DB Home. The DB Home and its database data are local to the DB system and will be lost when it is deleted. Oracle recommends that you back up any data in the DB system prior to deleting it.
     #
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -1115,7 +1115,7 @@ module OCI
 
 
     # Gets information about the specified backup.
-    # @param [String] backup_id The backup OCID.
+    # @param [String] backup_id The backup [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1333,7 +1333,7 @@ module OCI
     # Gets information about a specified patch package.
     #
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [String] patch_id The OCID of the patch.
+    # @param [String] patch_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1390,7 +1390,7 @@ module OCI
     # Gets the patch history details for the specified patchHistoryEntryId
     #
     # @param [String] db_home_id The database home [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [String] patch_history_entry_id The OCID of the patch history entry.
+    # @param [String] patch_history_entry_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch history entry.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1497,8 +1497,8 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets information about the specified DB System.
-    # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # Gets information about the specified DB system.
+    # @param [String] db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1552,8 +1552,8 @@ module OCI
 
     # Gets information about a specified patch package.
     #
-    # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [String] patch_id The OCID of the patch.
+    # @param [String] db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] patch_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1609,8 +1609,8 @@ module OCI
 
     # Gets the patch history details for the specified patchHistoryEntryId.
     #
-    # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [String] patch_history_entry_id The OCID of the patch history entry.
+    # @param [String] db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] patch_history_entry_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch history entry.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1663,18 +1663,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Launches a new DB System in the specified compartment and Availability Domain. You'll specify a single Oracle
-    # Database Edition that applies to all the databases on that DB System. The selected edition cannot be changed.
+    # Launches a new DB system in the specified compartment and availability domain. The Oracle
+    # Database edition that you specify applies to all the databases on that DB system. The selected edition cannot be changed.
     #
-    # An initial database is created on the DB System based on the request parameters you provide and some default
+    # An initial database is created on the DB system based on the request parameters you provide and some default
     # options. For more information,
-    # see [Default Options for the Initial Database](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Tasks/launchingDB.htm#Default_Options_for_the_Initial_Database).
+    # see [Default Options for the Initial Database](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Tasks/launchingDB.htm#DefaultOptionsfortheInitialDatabase).
     #
-    # The DB System will include a command line interface (CLI) that you can use to create additional databases and
-    # manage existing databases. For more information, see the
-    # [Oracle Database CLI Reference](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/References/odacli.htm#Oracle_Database_CLI_Reference).
-    #
-    # @param [OCI::Database::Models::LaunchDbSystemBase] launch_db_system_details Request to launch a DB System.
+    # @param [OCI::Database::Models::LaunchDbSystemBase] launch_db_system_details Request to launch a DB system.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1737,8 +1733,8 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :autonomous_data_warehouse_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @option opts [String] :compartment_id The compartment OCID.
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
@@ -1819,7 +1815,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
@@ -1900,8 +1896,8 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :autonomous_database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @option opts [String] :compartment_id The compartment OCID.
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
@@ -1982,7 +1978,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
@@ -2062,9 +2058,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :database_id The OCID of the database.
-    # @option opts [String] :compartment_id The compartment OCID.
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :database_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database.
+    # @option opts [String] :compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::BackupSummary BackupSummary}>
     def list_backups(opts = {})
@@ -2120,7 +2116,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DataGuardAssociationSummary DataGuardAssociationSummary}>
     def list_data_guard_associations(database_id, opts = {})
@@ -2177,7 +2173,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DatabaseSummary DatabaseSummary}>
     def list_databases(compartment_id, db_home_id, opts = {})
@@ -2235,7 +2231,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
     def list_db_home_patch_history_entries(db_home_id, opts = {})
@@ -2291,7 +2287,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
     def list_db_home_patches(db_home_id, opts = {})
@@ -2341,14 +2337,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of database homes in the specified DB System and compartment. A database home is a directory where Oracle database software is installed.
+    # Gets a list of database homes in the specified DB system and compartment. A database home is a directory where Oracle database software is installed.
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [String] db_system_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB System.
+    # @param [String] db_system_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbHomeSummary DbHomeSummary}>
     def list_db_homes(compartment_id, db_system_id, opts = {})
@@ -2400,14 +2396,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of database nodes in the specified DB System and compartment. A database node is a server running database software.
+    # Gets a list of database nodes in the specified DB system and compartment. A database node is a server running database software.
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [String] db_system_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB System.
+    # @param [String] db_system_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbNodeSummary DbNodeSummary}>
     def list_db_nodes(compartment_id, db_system_id, opts = {})
@@ -2459,13 +2455,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the history of the patch actions performed on the specified DB System.
+    # Gets the history of the patch actions performed on the specified DB system.
     #
-    # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
     def list_db_system_patch_history_entries(db_system_id, opts = {})
@@ -2515,13 +2511,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the patches applicable to the requested DB System.
+    # Lists the patches applicable to the requested DB system.
     #
-    # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
     def list_db_system_patches(db_system_id, opts = {})
@@ -2571,13 +2567,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of the shapes that can be used to launch a new DB System. The shape determines resources to allocate to the DB system - CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes.
+    # Gets a list of the shapes that can be used to launch a new DB system. The shape determines resources to allocate to the DB system - CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes.
     # @param [String] availability_domain The name of the Availability Domain.
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemShapeSummary DbSystemShapeSummary}>
     def list_db_system_shapes(availability_domain, compartment_id, opts = {})
@@ -2629,16 +2625,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of the DB Systems in the specified compartment. You can specify a backupId to list only the DB Systems that support creating a database using this backup in this compartment.
+    # Gets a list of the DB systems in the specified compartment. You can specify a backupId to list only the DB systems that support creating a database using this backup in this compartment.
     #
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
-    # @option opts [String] :backup_id The OCID of the backup. Specify a backupId to list only the DB Systems that support creating a database using this backup in this compartment.
+    # @option opts [String] :backup_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup. Specify a backupId to list only the DB systems that support creating a database using this backup in this compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemSummary DbSystemSummary}>
     def list_db_systems(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_systems.' if logger
@@ -2693,10 +2689,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :db_system_shape If provided, filters the results to the set of database versions which are supported for the given shape.
-    # @option opts [String] :db_system_id The DB system OCID. If provided, filters the results to the set of database versions which are supported for the DB system.
+    # @option opts [String] :db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm). If provided, filters the results to the set of database versions which are supported for the DB system.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbVersionSummary DbVersionSummary}>
     def list_db_versions(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_versions.' if logger
@@ -3279,8 +3275,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Terminates a DB System and permanently deletes it and any databases running on it, and any storage volumes attached to it. The database data is local to the DB System and will be lost when the system is terminated. Oracle recommends that you back up any data in the DB System prior to terminating it.
-    # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # Terminates a DB system and permanently deletes it and any databases running on it, and any storage volumes attached to it. The database data is local to the DB system and will be lost when the system is terminated. Oracle recommends that you back up any data in the DB system prior to terminating it.
+    # @param [String] db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3569,9 +3565,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the properties of a DB System, such as the CPU core count.
-    # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::UpdateDbSystemDetails] update_db_system_details Request to update the properties of a DB System.
+    # Updates the properties of a DB system, such as the CPU core count.
+    # @param [String] db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::UpdateDbSystemDetails] update_db_system_details Request to update the properties of a DB system.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

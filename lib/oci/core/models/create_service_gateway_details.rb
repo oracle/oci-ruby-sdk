@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # CreateServiceGatewayDetails model.
   class Core::Models::CreateServiceGatewayDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The [OCID] (https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm)  of the compartment to contain the Service Gateway.
+    # **[Required]** The [OCID] (https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm)  of the compartment to contain the service gateway.
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -34,7 +34,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** List of the Service OCIDs. These are the Services which will be enabled on the Service Gateway. This list can be empty.
+    # **[Required]** List of the service OCIDs. These are the services that will be enabled on the service gateway. This list can be empty.
     # @return [Array<OCI::Core::Models::ServiceIdRequestDetails>]
     attr_accessor :services
 

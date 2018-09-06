@@ -5,8 +5,10 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A database backup
+  # A database backup.
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::Backup # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -25,33 +27,33 @@ module OCI
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The name of the Availability Domain that the backup is located in.
+    # The name of the availability domain where the database backup is stored.
     # @return [String]
     attr_accessor :availability_domain
 
-    # The OCID of the compartment.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The Oracle Database Edition of the DbSystem on which the backup was taken.
+    # The Oracle Database edition of the DB system from which the database backup was taken.
     #
     # @return [String]
     attr_accessor :database_edition
 
-    # The OCID of the database.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database.
     # @return [String]
     attr_accessor :database_id
 
-    # Size of the database in mega-bytes at the time the backup was taken.
+    # Size of the database in megabytes (MB) at the time the backup was taken.
     #
     # @return [Integer]
     attr_accessor :db_data_size_in_mbs
 
-    # The user-friendly name for the backup. It does not have to be unique.
+    # The user-friendly name for the backup. The name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # The OCID of the backup.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup.
     # @return [String]
     attr_accessor :id
 
@@ -67,7 +69,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_ended
 
-    # The date and time the backup starts.
+    # The date and time the backup started.
     # @return [DateTime]
     attr_accessor :time_started
 

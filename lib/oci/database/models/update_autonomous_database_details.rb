@@ -6,16 +6,18 @@ require 'date'
 module OCI
   # Details to update an Oracle Autonomous Database.
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class Database::Models::UpdateAutonomousDatabaseDetails # rubocop:disable Metrics/LineLength
     # A strong password for Admin. The password must be between 12 and 60 characters long, and must contain at least 1 uppercase, 1 lowercase and 2 numeric characters. It cannot contain the double quote symbol (\"). It must be different than the last 4 passwords.
     # @return [String]
     attr_accessor :admin_password
 
-    # The number of CPU Cores to be made available to the database.
+    # The number of CPU cores to be made available to the database.
     # @return [Integer]
     attr_accessor :cpu_core_count
 
-    # Size, in TBs, of the data volume that will be attached to the database.
+    # The size, in terabytes, of the data volume that will be attached to the database.
     #
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs

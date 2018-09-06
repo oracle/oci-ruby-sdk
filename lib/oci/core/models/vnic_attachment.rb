@@ -8,6 +8,9 @@ module OCI
   # Represents an attachment between a VNIC and an instance. For more information, see
   # [Virtual Network Interface Cards (VNICs)](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingVNICs.htm).
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you
+  # supply string values using the API.
+  #
   class Core::Models::VnicAttachment # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ATTACHING = 'ATTACHING'.freeze,
@@ -17,7 +20,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The Availability Domain of the instance.
+    # **[Required]** The availability domain of the instance.
     #
     # Example: `Uocm:PHX-AD-1`
     #

@@ -5,7 +5,12 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Specifies a volume group which is a collection of volumes. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+  # Specifies a volume group which is a collection of
+  # volumes. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you
+  # supply string values using the API.
+  #
   class Core::Models::VolumeGroup # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,

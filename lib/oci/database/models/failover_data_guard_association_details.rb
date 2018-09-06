@@ -7,7 +7,7 @@ module OCI
   # The Data Guard association failover parameters.
   #
   class Database::Models::FailoverDataGuardAssociationDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The DB System administrator password.
+    # **[Required]** The DB system administrator password.
     # @return [String]
     attr_accessor :database_admin_password
 

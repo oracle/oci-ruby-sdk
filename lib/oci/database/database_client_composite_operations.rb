@@ -262,7 +262,7 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#create_db_home} and then waits for the {OCI::Database::Models::DbHome} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Database::Models::CreateDbHomeWithDbSystemIdBase] create_db_home_with_db_system_id_details Request to create a new DB Home.
+    # @param [OCI::Database::Models::CreateDbHomeWithDbSystemIdBase] create_db_home_with_db_system_id_details Request to create a new database home.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::DbHome#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#create_db_home}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -422,7 +422,7 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#delete_backup} and then waits for the {OCI::Database::Models::Backup} acted upon
     # to enter the given state(s).
     #
-    # @param [String] backup_id The backup OCID.
+    # @param [String] backup_id The backup [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::Backup#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_backup}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -502,7 +502,7 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#launch_db_system} and then waits for the {OCI::Database::Models::DbSystem} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Database::Models::LaunchDbSystemBase] launch_db_system_details Request to launch a DB System.
+    # @param [OCI::Database::Models::LaunchDbSystemBase] launch_db_system_details Request to launch a DB system.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::DbSystem#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#launch_db_system}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -541,7 +541,7 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#terminate_db_system} and then waits for the {OCI::Database::Models::DbSystem} acted upon
     # to enter the given state(s).
     #
-    # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::DbSystem#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#terminate_db_system}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -741,8 +741,8 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#update_db_system} and then waits for the {OCI::Database::Models::DbSystem} acted upon
     # to enter the given state(s).
     #
-    # @param [String] db_system_id The DB System [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::UpdateDbSystemDetails] update_db_system_details Request to update the properties of a DB System.
+    # @param [String] db_system_id The DB system [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::UpdateDbSystemDetails] update_db_system_details Request to update the properties of a DB system.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::DbSystem#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#update_db_system}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

@@ -111,7 +111,7 @@ module OCI
     # the *entire* list of services you want enabled on the service gateway.
     #
     # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Core::Models::ServiceIdRequestDetails] attach_service_details ServiceId of Service to be attached to a Service Gateway.
+    # @param [OCI::Core::Models::ServiceIdRequestDetails] attach_service_details ServiceId of Service to be attached to a service gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -407,7 +407,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new virtual Customer-Premises Equipment (CPE) object in the specified compartment. For
+    # Creates a new virtual customer-premises equipment (CPE) object in the specified compartment. For
     # more information, see [IPSec VPNs](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingIPsec.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want
@@ -700,7 +700,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Dynamic Routing Gateway (DRG) in the specified compartment. For more information,
+    # Creates a new dynamic routing gateway (DRG) in the specified compartment. For more information,
     # see [Dynamic Routing Gateways (DRGs)](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingDRGs.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want
@@ -839,29 +839,29 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Internet Gateway for the specified VCN. For more information, see
+    # Creates a new internet gateway for the specified VCN. For more information, see
     # [Access to the Internet](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingIGs.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want the Internet
-    # Gateway to reside. Notice that the Internet Gateway doesn't have to be in the same compartment as the VCN or
+    # Gateway to reside. Notice that the internet gateway doesn't have to be in the same compartment as the VCN or
     # other Networking Service components. If you're not sure which compartment to use, put the Internet
     # Gateway in the same compartment with the VCN. For more information about compartments and access control, see
     # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
     # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     #
-    # You may optionally specify a *display name* for the Internet Gateway, otherwise a default is provided. It
+    # You may optionally specify a *display name* for the internet gateway, otherwise a default is provided. It
     # does not have to be unique, and you can change it. Avoid entering confidential information.
     #
-    # For traffic to flow between a subnet and an Internet Gateway, you must create a route rule accordingly in
-    # the subnet's route table (for example, 0.0.0.0/0 > Internet Gateway). See
+    # For traffic to flow between a subnet and an internet gateway, you must create a route rule accordingly in
+    # the subnet's route table (for example, 0.0.0.0/0 > internet gateway). See
     # {#update_route_table update_route_table}.
     #
-    # You must specify whether the Internet Gateway is enabled when you create it. If it's disabled, that means no
+    # You must specify whether the internet gateway is enabled when you create it. If it's disabled, that means no
     # traffic will flow to/from the internet even if there's a route rule that enables that traffic. You can later
     # use {#update_internet_gateway update_internet_gateway} to easily disable/enable
     # the gateway without changing the route rule.
     #
-    # @param [OCI::Core::Models::CreateInternetGatewayDetails] create_internet_gateway_details Details for creating a new Internet Gateway.
+    # @param [OCI::Core::Models::CreateInternetGatewayDetails] create_internet_gateway_details Details for creating a new internet gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1128,7 +1128,7 @@ module OCI
     #
     # * **For an ephemeral public IP:** You must also specify a `privateIpId` with the OCID of
     # the primary private IP you want to assign the public IP to. The public IP is created in
-    # the same Availability Domain as the private IP. An ephemeral public IP must always be
+    # the same availability domain as the private IP. An ephemeral public IP must always be
     # assigned to a private IP, and only to the *primary* private IP on a VNIC, not a secondary
     # private IP.
     #
@@ -1560,7 +1560,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Virtual Cloud Network (VCN). For more information, see
+    # Creates a new virtual cloud network (VCN). For more information, see
     # [VCNs and Subnets](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingVCNs.htm).
     #
     # For the VCN you must specify a single, contiguous IPv4 CIDR block. Oracle recommends using one of the
@@ -1586,7 +1586,7 @@ module OCI
     # The OCID for each is returned in the response. You can't delete these default objects, but you can change their
     # contents (that is, change the route rules, security list rules, and so on).
     #
-    # The VCN and subnets you create are not accessible until you attach an Internet Gateway or set up an IPSec VPN
+    # The VCN and subnets you create are not accessible until you attach an internet gateway or set up an IPSec VPN
     # or FastConnect. For more information, see
     # [Overview of the Networking Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/overview.htm).
     #
@@ -2076,13 +2076,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified Internet Gateway. The Internet Gateway does not have to be disabled, but
+    # Deletes the specified internet gateway. The internet gateway does not have to be disabled, but
     # there must not be a route table that lists it as a target.
     #
     # This is an asynchronous operation. The gateway's `lifecycleState` will change to TERMINATING temporarily
     # until the gateway is completely removed.
     #
-    # @param [String] ig_id The OCID of the Internet Gateway.
+    # @param [String] ig_id The OCID of the internet gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2817,7 +2817,7 @@ module OCI
     # the individual services.
     #
     # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Core::Models::ServiceIdRequestDetails] detach_service_details ServiceId of Service to be detached from a Service Gateway.
+    # @param [OCI::Core::Models::ServiceIdRequestDetails] detach_service_details ServiceId of Service to be detached from a service gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3354,8 +3354,8 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the specified Internet Gateway's information.
-    # @param [String] ig_id The OCID of the Internet Gateway.
+    # Gets the specified internet gateway's information.
+    # @param [String] ig_id The OCID of the internet gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4400,7 +4400,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the Customer-Premises Equipment objects (CPEs) in the specified compartment.
+    # Lists the customer-premises equipment objects (CPEs) in the specified compartment.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -4479,9 +4479,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -4636,9 +4636,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -4796,9 +4796,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -5127,7 +5127,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the Internet Gateways in the specified VCN and the specified compartment.
+    # Lists the internet gateways in the specified VCN and the specified compartment.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [String] vcn_id The OCID of the VCN.
@@ -5147,9 +5147,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -5438,15 +5438,15 @@ module OCI
     # `availabilityDomain` parameter empty.
     #
     # To list your ephemeral public IPs, set `scope` = `AVAILABILITY_DOMAIN`, and set the
-    # `availabilityDomain` parameter to the desired Availability Domain. An ephemeral public IP
-    # is always in the same Availability Domain and compartment as the private IP it's assigned to.
+    # `availabilityDomain` parameter to the desired availability domain. An ephemeral public IP
+    # is always in the same availability domain and compartment as the private IP it's assigned to.
     #
-    # @param [String] scope Whether the public IP is regional or specific to a particular Availability Domain.
+    # @param [String] scope Whether the public IP is regional or specific to a particular availability domain.
     #
     #   * `REGION`: The public IP exists within a region and can be assigned to a private IP
-    #   in any Availability Domain in the region. Reserved public IPs have `scope` = `REGION`.
+    #   in any availability domain in the region. Reserved public IPs have `scope` = `REGION`.
     #
-    #   * `AVAILABILITY_DOMAIN`: The public IP exists within the Availability Domain of the private IP
+    #   * `AVAILABILITY_DOMAIN`: The public IP exists within the availability domain of the private IP
     #   it's assigned to, which is specified by the `availabilityDomain` property of the public IP object.
     #   Ephemeral public IPs have `scope` = `AVAILABILITY_DOMAIN`.
     #
@@ -5461,7 +5461,7 @@ module OCI
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
-    # @option opts [String] :availability_domain The name of the Availability Domain.
+    # @option opts [String] :availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
@@ -5604,9 +5604,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -5701,9 +5701,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -5797,9 +5797,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -5949,9 +5949,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -6026,7 +6026,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the Virtual Cloud Networks (VCNs) in the specified compartment.
+    # Lists the virtual cloud networks (VCNs) in the specified compartment.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -6045,9 +6045,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -6260,9 +6260,9 @@ module OCI
     #   sort order is case sensitive.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
-    #   optionally filter by Availability Domain if the scope of the resource type is within a
-    #   single Availability Domain. If you call one of these \"List\" operations without specifying
-    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
@@ -6694,14 +6694,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified Internet Gateway. You can disable/enable it, or change its display name
+    # Updates the specified internet gateway. You can disable/enable it, or change its display name
     # or tags. Avoid entering confidential information.
     #
     # If the gateway is disabled, that means no traffic will flow to/from the internet even if there's
     # a route rule that enables that traffic.
     #
-    # @param [String] ig_id The OCID of the Internet Gateway.
-    # @param [OCI::Core::Models::UpdateInternetGatewayDetails] update_internet_gateway_details Details for updating the Internet Gateway.
+    # @param [String] ig_id The OCID of the internet gateway.
+    # @param [OCI::Core::Models::UpdateInternetGatewayDetails] update_internet_gateway_details Details for updating the internet gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

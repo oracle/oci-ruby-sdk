@@ -12,6 +12,9 @@ module OCI
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you
+  # supply string values using the API.
+  #
   class Core::Models::BootVolume # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
@@ -23,7 +26,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The Availability Domain of the boot volume.
+    # **[Required]** The availability domain of the boot volume.
     #
     # Example: `Uocm:PHX-AD-1`
     #
@@ -83,7 +86,7 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_mbs
 
-    # The boot volume source, either an existing boot volume in the same Availability Domain or a boot volume backup.
+    # The boot volume source, either an existing boot volume in the same availability domain or a boot volume backup.
     # If null, this means that the boot volume was created from an image.
     #
     # @return [OCI::Core::Models::BootVolumeSourceDetails]

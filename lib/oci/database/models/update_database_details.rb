@@ -4,7 +4,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateDatabaseDetails model.
+  # Details to update a database.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class Database::Models::UpdateDatabaseDetails # rubocop:disable Metrics/LineLength
     # @return [OCI::Database::Models::DbBackupConfig]
     attr_accessor :db_backup_config
