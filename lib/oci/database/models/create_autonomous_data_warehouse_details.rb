@@ -6,6 +6,8 @@ require 'date'
 module OCI
   # Details to create an Oracle Autonomous Data Warehouse.
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class Database::Models::CreateAutonomousDataWarehouseDetails # rubocop:disable Metrics/LineLength
     LICENSE_MODEL_ENUM = [
       LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
@@ -16,7 +18,7 @@ module OCI
     # @return [String]
     attr_accessor :admin_password
 
-    # **[Required]** The Oracle Cloud ID (OCID) of the compartment of the DB system.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment of the Autonomous Data Warehouse.
     # @return [String]
     attr_accessor :compartment_id
 

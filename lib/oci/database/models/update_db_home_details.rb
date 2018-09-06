@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Describes the modification parameters for the DB Home.
+  # Describes the modification parameters for the database home.
   #
   class Database::Models::UpdateDbHomeDetails # rubocop:disable Metrics/LineLength
     # @return [OCI::Database::Models::PatchDetails]

@@ -4,14 +4,14 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # The shape of the DB System. The shape determines resources to allocate to the DB system - CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes.
+  # The shape of the DB system. The shape determines resources to allocate to the DB system - CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes.
   # For a description of shapes, see [DB System Launch Options](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/References/launchoptions.htm).
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator.
   # If you're an administrator who needs to write policies to give users access,
   # see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class Database::Models::DbSystemShapeSummary # rubocop:disable Metrics/LineLength
-    # **[Required]** The maximum number of CPU cores that can be enabled on the DB System for this shape.
+    # **[Required]** The maximum number of CPU cores that can be enabled on the DB system for this shape.
     # @return [Integer]
     attr_accessor :available_core_count
 
@@ -23,7 +23,7 @@ module OCI
     # @return [Integer]
     attr_accessor :maximum_node_count
 
-    # The minimum number of CPU cores that can be enabled on the DB System for this shape.
+    # The minimum number of CPU cores that can be enabled on the DB system for this shape.
     # @return [Integer]
     attr_accessor :minimum_core_count
 
@@ -31,7 +31,7 @@ module OCI
     # @return [Integer]
     attr_accessor :minimum_node_count
 
-    # **[Required]** The name of the shape used for the DB System.
+    # **[Required]** The name of the shape used for the DB system.
     # @return [String]
     attr_accessor :name
 

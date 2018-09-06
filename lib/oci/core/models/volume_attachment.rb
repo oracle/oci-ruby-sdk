@@ -12,6 +12,9 @@ module OCI
   # For general information about volume attachments, see
   # [Overview of Block Volume Storage](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/overview.htm).
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you
+  # supply string values using the API.
+  #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Core::Models::VolumeAttachment # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -26,7 +29,7 @@ module OCI
     # @return [String]
     attr_accessor :attachment_type
 
-    # **[Required]** The Availability Domain of an instance.
+    # **[Required]** The availability domain of an instance.
     #
     # Example: `Uocm:PHX-AD-1`
     #

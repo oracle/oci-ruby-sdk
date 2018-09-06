@@ -10,8 +10,8 @@ module OCI
     DATABASE_EDITION_ENUM = [
       DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
       DATABASE_EDITION_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
-      DATABASE_EDITION_ENTERPRISE_EDITION_EXTREME_PERFORMANCE = 'ENTERPRISE_EDITION_EXTREME_PERFORMANCE'.freeze,
-      DATABASE_EDITION_ENTERPRISE_EDITION_HIGH_PERFORMANCE = 'ENTERPRISE_EDITION_HIGH_PERFORMANCE'.freeze
+      DATABASE_EDITION_ENTERPRISE_EDITION_HIGH_PERFORMANCE = 'ENTERPRISE_EDITION_HIGH_PERFORMANCE'.freeze,
+      DATABASE_EDITION_ENTERPRISE_EDITION_EXTREME_PERFORMANCE = 'ENTERPRISE_EDITION_EXTREME_PERFORMANCE'.freeze
     ].freeze
 
     DISK_REDUNDANCY_ENUM = [
@@ -24,8 +24,8 @@ module OCI
       LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
     ].freeze
 
-    # **[Required]** The Oracle Database Edition that applies to all the databases on the DB System.
-    # Exadata DB Systems and 2-node RAC DB Systems require ENTERPRISE_EDITION_EXTREME_PERFORMANCE.
+    # **[Required]** The Oracle Database Edition that applies to all the databases on the DB system.
+    # Exadata DB systems and 2-node RAC DB systems require ENTERPRISE_EDITION_EXTREME_PERFORMANCE.
     #
     # @return [String]
     attr_reader :database_edition
@@ -34,14 +34,14 @@ module OCI
     # @return [OCI::Database::Models::CreateDbHomeFromBackupDetails]
     attr_accessor :db_home
 
-    # The type of redundancy configured for the DB System.
-    # Normal is 2-way redundancy, recommended for test and development systems.
-    # High is 3-way redundancy, recommended for production systems.
+    # The type of redundancy configured for the DB system.
+    # NORMAL 2-way redundancy, recommended for test and development systems.
+    # HIGH is 3-way redundancy, recommended for production systems.
     #
     # @return [String]
     attr_reader :disk_redundancy
 
-    # The Oracle license model that applies to all the databases on the DB System. The default is BRING_YOUR_OWN_LICENSE.
+    # The Oracle license model that applies to all the databases on the DB system. The default is LICENSE_INCLUDED.
     #
     # @return [String]
     attr_reader :license_model

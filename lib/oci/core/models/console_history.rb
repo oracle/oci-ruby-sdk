@@ -9,6 +9,9 @@ module OCI
   # instance boots, such as kernel and BIOS messages, and is useful for checking the status of
   # the instance or diagnosing problems. The console data is minimally formatted ASCII text.
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you
+  # supply string values using the API.
+  #
   class Core::Models::ConsoleHistory # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_REQUESTED = 'REQUESTED'.freeze,
@@ -18,7 +21,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The Availability Domain of an instance.
+    # **[Required]** The availability domain of an instance.
     #
     # Example: `Uocm:PHX-AD-1`
     #

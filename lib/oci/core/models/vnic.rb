@@ -21,6 +21,9 @@ module OCI
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you
+  # supply string values using the API.
+  #
   class Core::Models::Vnic # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
@@ -30,7 +33,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The VNIC's Availability Domain.
+    # **[Required]** The VNIC's availability domain.
     #
     # Example: `Uocm:PHX-AD-1`
     #

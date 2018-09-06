@@ -4,13 +4,16 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateBackupDetails model.
+  # Details for creating a database backup.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class Database::Models::CreateBackupDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the database.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database.
     # @return [String]
     attr_accessor :database_id
 
-    # **[Required]** The user-friendly name for the backup. It does not have to be unique.
+    # **[Required]** The user-friendly name for the backup. The name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 

@@ -10,7 +10,7 @@ module OCI
     # @return [String]
     attr_accessor :admin_password
 
-    # **[Required]** The backup OCID.
+    # **[Required]** The backup [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @return [String]
     attr_accessor :backup_id
 

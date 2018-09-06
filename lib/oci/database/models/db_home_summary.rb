@@ -5,14 +5,15 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A directory where Oracle database software is installed. Each DB System can have multiple database homes,
-  # and each database home can have multiple databases within it. All the databases within a single database home
-  # must be the same database version, but different database homes can run different versions. For more information,
-  # see [Managing Oracle Databases](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Concepts/overview.htm).
+  # A directory where Oracle Database software is installed. A bare metal DB system can have multiple database homes
+  # and each database home can run a different supported version of Oracle Database. A virtual machine DB system can have only one database home.
+  # For more information, see [Bare Metal and Virtual Machine DB Systems](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Concepts/overview.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an
   # administrator. If you're an administrator who needs to write policies to give users access,
   # see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::DbHomeSummary # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -25,27 +26,27 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The OCID of the DB System.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
     # @return [String]
     attr_accessor :db_system_id
 
-    # **[Required]** The Oracle database version.
+    # **[Required]** The Oracle Database version.
     # @return [String]
     attr_accessor :db_version
 
-    # **[Required]** The user-provided name for the database home. It does not need to be unique.
+    # **[Required]** The user-provided name for the database home. The name does not need to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the database home.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database home.
     # @return [String]
     attr_accessor :id
 
-    # The OCID of the last patch history. This is updated as soon as a patch operation is started.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the last patch history. This value is updated as soon as a patch operation is started.
     # @return [String]
     attr_accessor :last_patch_history_entry_id
 

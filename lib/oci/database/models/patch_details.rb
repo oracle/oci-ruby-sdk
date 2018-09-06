@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # The details about what actions to perform and using what patch to the specified target.
   # This is part of an update request that is applied to a version field on the target such
-  # as DB System, database home, etc.
+  # as DB system, database home, etc.
   #
   class Database::Models::PatchDetails # rubocop:disable Metrics/LineLength
     ACTION_ENUM = [
@@ -18,7 +18,7 @@ module OCI
     # @return [String]
     attr_reader :action
 
-    # The OCID of the patch.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch.
     # @return [String]
     attr_accessor :patch_id
 

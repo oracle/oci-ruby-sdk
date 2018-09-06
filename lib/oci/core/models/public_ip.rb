@@ -15,6 +15,9 @@ module OCI
   # For more information and comparison of the two types,
   # see [Public IP Addresses](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingpublicIPs.htm).
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you
+  # supply string values using the API.
+  #
   class Core::Models::PublicIp # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
@@ -40,9 +43,9 @@ module OCI
       SCOPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The public IP's Availability Domain. This property is set only for ephemeral public IPs
+    # The public IP's availability domain. This property is set only for ephemeral public IPs
     # (that is, when the `scope` of the public IP is set to AVAILABILITY_DOMAIN). The value
-    # is the Availability Domain of the assigned private IP.
+    # is the availability domain of the assigned private IP.
     #
     # Example: `Uocm:PHX-AD-1`
     #
@@ -116,12 +119,12 @@ module OCI
     # @return [String]
     attr_accessor :private_ip_id
 
-    # Whether the public IP is regional or specific to a particular Availability Domain.
+    # Whether the public IP is regional or specific to a particular availability domain.
     #
     # * `REGION`: The public IP exists within a region and can be assigned to a private IP
-    # in any Availability Domain in the region. Reserved public IPs have `scope` = `REGION`.
+    # in any availability domain in the region. Reserved public IPs have `scope` = `REGION`.
     #
-    # * `AVAILABILITY_DOMAIN`: The public IP exists within the Availability Domain of the private IP
+    # * `AVAILABILITY_DOMAIN`: The public IP exists within the availability domain of the private IP
     # it's assigned to, which is specified by the `availabilityDomain` property of the public IP object.
     # Ephemeral public IPs have `scope` = `AVAILABILITY_DOMAIN`.
     #
