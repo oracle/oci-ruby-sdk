@@ -2,7 +2,7 @@
 
 # This example demonstrates how to list and apply backup policies to an existing volume. Note that in order to list and
 # apply backup policies you will need the appropriate level of access. See the section "Required IAM Policy" on this page:
-# https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Tasks/schedulingvolumebackups.htm for more information.
+# https://docs.cloud.oracle.com/Content/Block/Tasks/schedulingvolumebackups.htm for more information.
 #
 # This will use credentials and settings from the DEFAULT profile at ~/.oci/config (on windows
 # "C:\Users\{user}\.oci\config"), however if that file does not exist we will automatically fall back to using

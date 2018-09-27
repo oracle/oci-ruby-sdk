@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.3.6**
+**Version 2.3.7**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -9,15 +9,16 @@ The Ruby SDK supports the following services:
 
 * Audit
 * Container Engine
-* Core Services (which includes Networking Service, Compute Service, and Block Volume Service)
-* Database Service
-* Domain Name System Service
-* Email Service
-* File Storage Service
-* Identity and Access Management Service
-* Load Balancing Service
-* Object Storage Service
-* OCI Search
+* Core Services (which includes Networking, Compute, and Block Volume)
+* Database
+* Domain Name System
+* Email
+* File Storage
+* Identity and Access Management
+* Key Management
+* Load Balancing
+* Object Storage
+* Search
 
 **Licensing:** This SDK and sample is dual licensed under the Universal Permissive License 1.0 and the Apache License.
 

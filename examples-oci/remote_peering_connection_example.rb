@@ -5,7 +5,7 @@
 #
 # The sample relies on the correct IAM policies already being in place for a given compartment ID.
 # For more information, please refer to the
-# {https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/remoteVCNpeering.htm Remote VCN Peering}
+# {https://docs.cloud.oracle.com/Content/Network/Tasks/remoteVCNpeering.htm Remote VCN Peering}
 # documentation that is found on the Oracle Cloud Infrastructure developer portal.
 #
 # The order of operations and waiting for the appropriate states is important. Each VCN can be set up

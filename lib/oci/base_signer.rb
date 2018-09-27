@@ -77,9 +77,9 @@ module OCI
     private
 
     def inject_missing_headers(method, headers, body, uri, operation_signing_strategy)
-      headers['date'] ||= Time.now.utc.httpdate
-      headers['accept'] ||= '*/*'
-      headers['host'] ||= uri.host if @headers_to_sign_all_requests.include?(:host)
+      headers[:date] ||= Time.now.utc.httpdate
+      headers[:accept] ||= '*/*'
+      headers[:host] ||= uri.host if @headers_to_sign_all_requests.include?(:host)
 
       return unless %i[put post patch].include?(method)
 
@@ -87,14 +87,14 @@ module OCI
 
       # For object storage service's put method, we don't need to set content length and x-content sha256
       if operation_signing_strategy == :exclude_body
-        headers['content-length'] ||= if body.respond_to?(:read) && body.respond_to?(:write)
-                                        body.respond_to?('size') ? body.size : body.stat.size
-                                      else
-                                        body.length.to_s
-                                      end
+        headers[:'content-length'] ||= if body.respond_to?(:read) && body.respond_to?(:write)
+                                         body.respond_to?('size') ? body.size : body.stat.size
+                                       else
+                                         body.length.to_s
+                                       end
       else
-        headers['content-length'] ||= body.length.to_s
-        headers['x-content-sha256'] ||= OpenSSL::Digest::SHA256.new.update(body).base64digest
+        headers[:'content-length'] ||= body.length.to_s
+        headers[:'x-content-sha256'] ||= OpenSSL::Digest::SHA256.new.update(body).base64digest
       end
     end
 
@@ -107,7 +107,7 @@ module OCI
       header_mapping = fetch_header_mapping(method, operation_signing_strategy)
 
       signed_headers = header_mapping.map(&:to_s).join(' ')
-      headers['authorization'] = [
+      headers[:authorization] = [
         %(Signature headers="#{signed_headers}"),
         %(keyId="#{@key_id}"),
         %(algorithm="rsa-sha256"),
@@ -121,10 +121,10 @@ module OCI
 
       return if header_mapping.empty?
       signing_string = header_mapping.map do |header|
-        if header == :"(request-target)"
+        if header == :'(request-target)'
           "#{header}: #{method.downcase} #{path}"
         else
-          "#{header}: #{headers[header.to_s]}"
+          "#{header}: #{headers[header]}"
         end
       end.join("\n")
 

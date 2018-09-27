@@ -69,6 +69,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_hydrated
 
+    # The OCID of the KMS key which is the master encryption key for the volume.
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # **[Required]** The current state of a volume.
     # @return [String]
     attr_reader :lifecycle_state
@@ -106,6 +110,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'is_hydrated': :'isHydrated',
+        'kms_key_id': :'kmsKeyId',
         'lifecycle_state': :'lifecycleState',
         'size_in_gbs': :'sizeInGBs',
         'size_in_mbs': :'sizeInMBs',
@@ -127,6 +132,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'is_hydrated': :'BOOLEAN',
+        'kms_key_id': :'String',
         'lifecycle_state': :'String',
         'size_in_gbs': :'Integer',
         'size_in_mbs': :'Integer',
@@ -150,6 +156,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [BOOLEAN] :is_hydrated The value to assign to the {#is_hydrated} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
@@ -199,6 +206,12 @@ module OCI
       raise 'You cannot provide both :isHydrated and :is_hydrated' if attributes.key?(:'isHydrated') && attributes.key?(:'is_hydrated')
 
       self.is_hydrated = attributes[:'is_hydrated'] unless attributes[:'is_hydrated'].nil?
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -269,6 +282,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         is_hydrated == other.is_hydrated &&
+        kms_key_id == other.kms_key_id &&
         lifecycle_state == other.lifecycle_state &&
         size_in_gbs == other.size_in_gbs &&
         size_in_mbs == other.size_in_mbs &&
@@ -290,7 +304,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, is_hydrated, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, is_hydrated, kms_key_id, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -26,6 +26,7 @@ module OCI
     NETWORK_TYPE_ENUM = [
       NETWORK_TYPE_E1000 = 'E1000'.freeze,
       NETWORK_TYPE_VFIO = 'VFIO'.freeze,
+      NETWORK_TYPE_PARAVIRTUALIZED = 'PARAVIRTUALIZED'.freeze,
       NETWORK_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -62,6 +63,7 @@ module OCI
     # **[Required]** Emulation type for NIC.
     # * `E1000` - Emulated Gigabit ethernet controller.  Compatible with Linux e1000 network driver.
     # * `VFIO` - Direct attached Virtual Function network controller.  Default for Oracle provided images.
+    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
     #
     # @return [String]
     attr_reader :network_type

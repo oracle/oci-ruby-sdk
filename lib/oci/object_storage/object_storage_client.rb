@@ -29,10 +29,12 @@ module OCI
 
 
     # Creates a new ObjectStorageClient.
-    # If a config is not specified, then the global OCI.config will be used.
+    # Notes:
+    #   If a config is not specified, then the global OCI.config will be used.
+    #   This client is not thread-safe
     #
-    # A region must be specified in either the config or the region parameter. If specified
-    # in both, then the region parameter will be used.
+    #   A region must be specified in either the config or the region parameter. If specified in both,
+    #   then the region parameter will be used.
     #
     # @param [Config] config A Config object.
     # @param [String] region A region used to determine the service endpoint. This will usually
@@ -135,8 +137,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -209,8 +211,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
@@ -241,7 +243,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a bucket in the given namespace with a bucket name and optional user-defined metadata.
+    # Creates a bucket in the given namespace with a bucket name and optional user-defined metadata. Avoid entering confidential
+    # information in bucket names.
     #
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [OCI::ObjectStorage::Models::CreateBucketDetails] create_bucket_details Request object for creating a bucket.
@@ -266,8 +269,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -333,8 +336,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
@@ -396,8 +399,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -458,8 +461,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
@@ -525,8 +528,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
@@ -588,8 +591,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -652,8 +655,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
@@ -706,8 +709,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -763,8 +766,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -838,8 +841,10 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/json'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
@@ -946,8 +951,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -1011,8 +1016,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
@@ -1082,8 +1087,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
@@ -1165,8 +1170,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -1236,8 +1241,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -1299,8 +1304,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -1383,8 +1388,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -1448,8 +1453,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -1479,7 +1484,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new object or overwrites an existing one.
+    # Creates a new object or overwrites an existing one. See [Special Instructions for Object Storage PUT](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/signingrequests.htm#ObjectStoragePut) for request signature requirements.
     #
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
@@ -1528,7 +1533,7 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
+      header_params[:accept] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
@@ -1545,7 +1550,7 @@ module OCI
           header_params["opc-meta-#{key}".to_sym] = value
         end
       end
-      header_params['content-type'] ||= 'application/octet-stream'
+      header_params[:'content-type'] ||= 'application/octet-stream'
 
       post_body = @api_client.object_to_http_body(put_object_body)
 
@@ -1602,8 +1607,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -1663,8 +1668,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -1726,8 +1731,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
@@ -1786,8 +1791,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -1817,7 +1822,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Uploads a single part of a multipart upload.
+    # Uploads a single part of a multipart upload. See [Special Instructions for Object Storage PUT](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/signingrequests.htm#ObjectStoragePut) for request signature requirements.
     #
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
@@ -1867,7 +1872,7 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
+      header_params[:accept] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
@@ -1875,7 +1880,7 @@ module OCI
       header_params[:'content-length'] = opts[:content_length] if opts[:content_length]
       header_params[:'content-md5'] = opts[:content_md5] if opts[:content_md5]
       # rubocop:enable Style/NegatedIf
-      header_params['content-type'] ||= 'application/octet-stream'
+      header_params[:'content-type'] ||= 'application/octet-stream'
 
       post_body = @api_client.object_to_http_body(upload_part_body)
 

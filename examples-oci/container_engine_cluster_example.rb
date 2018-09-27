@@ -3,7 +3,7 @@
 # This example demonstrates how to programatically create, update, and delete a Container Engine cluster.
 # As-is, it is not a fully functional for container deployments without specific configuration
 # that is tailored to your use case. For more information please refer to
-# {https://docs.us-phoenix-1.oraclecloud.com/Content/ContEng/Concepts/contengoverview.htm Overview of Container Engine
+# {https://docs.cloud.oracle.com/Content/ContEng/Concepts/contengoverview.htm Overview of Container Engine
 # for Kubernetes} documentation that is found on the Oracle Cloud Infrastructure developer portal.
 #
 # Format: container_engine_cluster_example.rb <compartment OCID>

@@ -19,6 +19,7 @@ module OCI
     LAUNCH_MODE_ENUM = [
       LAUNCH_MODE_NATIVE = 'NATIVE'.freeze,
       LAUNCH_MODE_EMULATED = 'EMULATED'.freeze,
+      LAUNCH_MODE_PARAVIRTUALIZED = 'PARAVIRTUALIZED'.freeze,
       LAUNCH_MODE_CUSTOM = 'CUSTOM'.freeze,
       LAUNCH_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -82,6 +83,7 @@ module OCI
     # Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
     # * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
     # * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
+    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
     # * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
     #
     # @return [String]

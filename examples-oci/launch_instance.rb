@@ -2,7 +2,7 @@
 
 # Creates all of the resources necessary to launch an instance, launches an instance, and ensures that it reaches
 # a running state. This example also demonstrates providing user_data when launching an instance (see the metadata entry
-# at https://docs.us-phoenix-1.oraclecloud.com/api/#/en/iaas/20160918/datatypes/LaunchInstanceDetails for
+# at https://docs.cloud.oracle.com/api/#/en/iaas/20160918/datatypes/LaunchInstanceDetails for
 # more information).
 #
 # This example will use credentials and settings from the DEFAULT profile at ~/.oci/config (on windows

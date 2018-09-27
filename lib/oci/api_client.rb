@@ -581,8 +581,8 @@ module OCI
     # @return [String] HTTP body data in the form of string
     def build_request_body(header_params, form_params, body)
       # http form
-      if header_params['content-type'] == 'application/x-www-form-urlencoded' ||
-         header_params['content-type'] == 'multipart/form-data'
+      if header_params[:'content-type'] == 'application/x-www-form-urlencoded' ||
+         header_params[:'content-type'] == 'multipart/form-data'
 
         data = {}
         form_params.each do |key, value|

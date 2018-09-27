@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.3.7 - 2018-09-27
+### Added
+- Support for `paravirtualized` launch mode when importing images in the Compute service
+- Support for Key Management service
+- Support for encrypting the contents of an Object Storage bucket using a Key Management service key
+- Support for specifying a Key Management service key when launching a compute instance in the Compute service
+- Support for specifying a Key Management service key when backing up or restoring a block storage volume in the Block Volume service
+
+### Fixed
+- Fixed [GitHub Issue #10](https://github.com/oracle/oci-ruby-sdk/issues/10) 
+where specifying an optional `content_type` for `ObjectStorageClient#put_object` was not included in the request header.
+- Fixed [GitHub Issue #11](https://github.com/oracle/oci-ruby-sdk/issues/11) by adding the ability to specify an optional `accept_encoding` parameter for `ObjectStorageClient#get_object`
+- Fixed [GitHub Issue #13](https://github.com/oracle/oci-ruby-sdk/issues/13) by adding a note about thread safety for clients
+
 ## 2.3.6 - 2018-09-06
 ### Added
 - Support for updating metadata fields on an instance in the Compute service

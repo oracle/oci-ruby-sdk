@@ -176,7 +176,7 @@ module OCI
             end
           end
       end
-      # rubocop:disable Style/ConditionalAssignment
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
