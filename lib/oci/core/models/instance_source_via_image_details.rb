@@ -15,13 +15,18 @@ module OCI
     # @return [String]
     attr_accessor :image_id
 
+    # The OCID of the KMS key to be used as the master encryption key for the boot volume.
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'source_type': :'sourceType',
         'boot_volume_size_in_gbs': :'bootVolumeSizeInGBs',
-        'image_id': :'imageId'
+        'image_id': :'imageId',
+        'kms_key_id': :'kmsKeyId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,7 +37,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'source_type': :'String',
         'boot_volume_size_in_gbs': :'Integer',
-        'image_id': :'String'
+        'image_id': :'String',
+        'kms_key_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,6 +51,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :boot_volume_size_in_gbs The value to assign to the {#boot_volume_size_in_gbs} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -66,6 +73,12 @@ module OCI
       raise 'You cannot provide both :imageId and :image_id' if attributes.key?(:'imageId') && attributes.key?(:'image_id')
 
       self.image_id = attributes[:'image_id'] if attributes[:'image_id']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -80,7 +93,8 @@ module OCI
       self.class == other.class &&
         source_type == other.source_type &&
         boot_volume_size_in_gbs == other.boot_volume_size_in_gbs &&
-        image_id == other.image_id
+        image_id == other.image_id &&
+        kms_key_id == other.kms_key_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -96,7 +110,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_type, boot_volume_size_in_gbs, image_id].hash
+      [source_type, boot_volume_size_in_gbs, image_id, kms_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

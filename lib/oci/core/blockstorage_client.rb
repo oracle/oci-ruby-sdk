@@ -29,10 +29,12 @@ module OCI
 
 
     # Creates a new BlockstorageClient.
-    # If a config is not specified, then the global OCI.config will be used.
+    # Notes:
+    #   If a config is not specified, then the global OCI.config will be used.
+    #   This client is not thread-safe
     #
-    # A region must be specified in either the config or the region parameter. If specified
-    # in both, then the region parameter will be used.
+    #   A region must be specified in either the config or the region parameter. If specified in both,
+    #   then the region parameter will be used.
     #
     # @param [Config] config A Config object.
     # @param [String] region A region used to determine the service endpoint. This will usually
@@ -129,8 +131,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -193,8 +195,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -265,8 +267,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -329,8 +331,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -385,8 +387,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_volume_backup_policy_assignment_details)
@@ -449,8 +451,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -509,8 +511,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -570,8 +572,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -625,8 +627,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -634,6 +636,62 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#delete_boot_volume_backup') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Remove kms for the specific boot volume. If the volume doesn't use KMS, then do nothing.
+    #
+    # @param [String] boot_volume_id The OCID of the boot volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_boot_volume_kms_key(boot_volume_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#delete_boot_volume_kms_key.' if logger
+
+      raise "Missing the required parameter 'boot_volume_id' when calling delete_boot_volume_kms_key." if boot_volume_id.nil?
+      raise "Parameter value for 'boot_volume_id' must not be blank" if OCI::Internal::Util.blank_string?(boot_volume_id)
+
+      path = '/bootVolumes/{bootVolumeId}/kmsKey'.sub('{bootVolumeId}', boot_volume_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#delete_boot_volume_kms_key') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -684,8 +742,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -739,8 +797,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -794,8 +852,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -851,8 +909,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -906,8 +964,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -915,6 +973,62 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#delete_volume_group_backup') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Remove kms for the specific volume. If the volume doesn't use KMS, then do nothing.
+    #
+    # @param [String] volume_id The OCID of the volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_volume_kms_key(volume_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#delete_volume_kms_key.' if logger
+
+      raise "Missing the required parameter 'volume_id' when calling delete_volume_kms_key." if volume_id.nil?
+      raise "Parameter value for 'volume_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_id)
+
+      path = '/volumes/{volumeId}/kmsKey'.sub('{volumeId}', volume_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#delete_volume_kms_key') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -958,8 +1072,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1011,8 +1125,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1036,6 +1150,63 @@ module OCI
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets kms key id for the specified boot volume.
+    #
+    # @param [String] boot_volume_id The OCID of the boot volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeKmsKey BootVolumeKmsKey}
+    def get_boot_volume_kms_key(boot_volume_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#get_boot_volume_kms_key.' if logger
+
+      raise "Missing the required parameter 'boot_volume_id' when calling get_boot_volume_kms_key." if boot_volume_id.nil?
+      raise "Parameter value for 'boot_volume_id' must not be blank" if OCI::Internal::Util.blank_string?(boot_volume_id)
+
+      path = '/bootVolumes/{bootVolumeId}/kmsKey'.sub('{bootVolumeId}', boot_volume_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#get_boot_volume_kms_key') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::BootVolumeKmsKey'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1064,8 +1235,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1117,8 +1288,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1170,8 +1341,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1233,8 +1404,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1285,8 +1456,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1338,8 +1509,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1391,8 +1562,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1416,6 +1587,63 @@ module OCI
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets kms key id for the specified volume.
+    #
+    # @param [String] volume_id The OCID of the volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeKmsKey VolumeKmsKey}
+    def get_volume_kms_key(volume_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#get_volume_kms_key.' if logger
+
+      raise "Missing the required parameter 'volume_id' when calling get_volume_kms_key." if volume_id.nil?
+      raise "Parameter value for 'volume_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_id)
+
+      path = '/volumes/{volumeId}/kmsKey'.sub('{volumeId}', volume_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#get_volume_kms_key') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeKmsKey'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -1488,8 +1716,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1556,8 +1784,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1612,8 +1840,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1708,8 +1936,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1798,8 +2026,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1897,8 +2125,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1998,8 +2226,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -2055,8 +2283,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -2115,8 +2343,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -2133,6 +2361,65 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::BootVolumeBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update kms key id for the specific volume.
+    #
+    # @param [String] boot_volume_id The OCID of the boot volume.
+    # @param [OCI::Core::Models::UpdateBootVolumeKmsKeyDetails] update_boot_volume_kms_key_details Update kms key id for the specific boot volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeKmsKey BootVolumeKmsKey}
+    def update_boot_volume_kms_key(boot_volume_id, update_boot_volume_kms_key_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#update_boot_volume_kms_key.' if logger
+
+      raise "Missing the required parameter 'boot_volume_id' when calling update_boot_volume_kms_key." if boot_volume_id.nil?
+      raise "Missing the required parameter 'update_boot_volume_kms_key_details' when calling update_boot_volume_kms_key." if update_boot_volume_kms_key_details.nil?
+      raise "Parameter value for 'boot_volume_id' must not be blank" if OCI::Internal::Util.blank_string?(boot_volume_id)
+
+      path = '/bootVolumes/{bootVolumeId}/kmsKey'.sub('{bootVolumeId}', boot_volume_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_boot_volume_kms_key_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#update_boot_volume_kms_key') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::BootVolumeKmsKey'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2175,8 +2462,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -2235,8 +2522,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -2299,8 +2586,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -2357,8 +2644,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -2375,6 +2662,65 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::VolumeGroupBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update kms key id for the specific volume.
+    #
+    # @param [String] volume_id The OCID of the volume.
+    # @param [OCI::Core::Models::UpdateVolumeKmsKeyDetails] update_volume_kms_key_details Update kms key id for the specific volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeKmsKey VolumeKmsKey}
+    def update_volume_kms_key(volume_id, update_volume_kms_key_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#update_volume_kms_key.' if logger
+
+      raise "Missing the required parameter 'volume_id' when calling update_volume_kms_key." if volume_id.nil?
+      raise "Missing the required parameter 'update_volume_kms_key_details' when calling update_volume_kms_key." if update_volume_kms_key_details.nil?
+      raise "Parameter value for 'volume_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_id)
+
+      path = '/volumes/{volumeId}/kmsKey'.sub('{volumeId}', volume_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_volume_kms_key_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#update_volume_kms_key') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeKmsKey'
         )
       end
       # rubocop:enable Metrics/BlockLength

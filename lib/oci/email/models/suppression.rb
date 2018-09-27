@@ -25,7 +25,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The reason that the email address was suppressed. For more information on the types of bounces, see [Suppresion List](https://docs.us-phoenix-1.oraclecloud.com/Content/Email/Concepts/emaildeliveryoverview.htm#suppressionlist).
+    # The reason that the email address was suppressed. For more information on the types of bounces, see [Suppresion List](https://docs.cloud.oracle.com/Content/Email/Concepts/emaildeliveryoverview.htm#suppressionlist).
     # @return [String]
     attr_reader :reason
 

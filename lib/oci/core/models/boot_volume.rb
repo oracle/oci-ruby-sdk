@@ -100,6 +100,10 @@ module OCI
     # @return [String]
     attr_accessor :volume_group_id
 
+    # The OCID of the KMS key which is the master encryption key for the boot volume.
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -117,7 +121,8 @@ module OCI
         'size_in_mbs': :'sizeInMBs',
         'source_details': :'sourceDetails',
         'time_created': :'timeCreated',
-        'volume_group_id': :'volumeGroupId'
+        'volume_group_id': :'volumeGroupId',
+        'kms_key_id': :'kmsKeyId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -139,7 +144,8 @@ module OCI
         'size_in_mbs': :'Integer',
         'source_details': :'OCI::Core::Models::BootVolumeSourceDetails',
         'time_created': :'DateTime',
-        'volume_group_id': :'String'
+        'volume_group_id': :'String',
+        'kms_key_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -164,6 +170,7 @@ module OCI
     # @option attributes [OCI::Core::Models::BootVolumeSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :volume_group_id The value to assign to the {#volume_group_id} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -249,6 +256,12 @@ module OCI
       raise 'You cannot provide both :volumeGroupId and :volume_group_id' if attributes.key?(:'volumeGroupId') && attributes.key?(:'volume_group_id')
 
       self.volume_group_id = attributes[:'volume_group_id'] if attributes[:'volume_group_id']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -289,7 +302,8 @@ module OCI
         size_in_mbs == other.size_in_mbs &&
         source_details == other.source_details &&
         time_created == other.time_created &&
-        volume_group_id == other.volume_group_id
+        volume_group_id == other.volume_group_id &&
+        kms_key_id == other.kms_key_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -305,7 +319,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, image_id, is_hydrated, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, image_id, is_hydrated, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, kms_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

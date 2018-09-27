@@ -24,7 +24,7 @@ module OCI
     attr_accessor :id
 
     # Value of the SPF field. For more information about SPF, please see
-    # [SPF Authentication](https://docs.us-phoenix-1.oraclecloud.com/Content/Email/Concepts/emaildeliveryoverview.htm#spf).
+    # [SPF Authentication](https://docs.cloud.oracle.com/Content/Email/Concepts/emaildeliveryoverview.htm#spf).
     #
     # @return [BOOLEAN]
     attr_accessor :is_spf

@@ -29,10 +29,12 @@ module OCI
 
 
     # Creates a new FileStorageClient.
-    # If a config is not specified, then the global OCI.config will be used.
+    # Notes:
+    #   If a config is not specified, then the global OCI.config will be used.
+    #   This client is not thread-safe
     #
-    # A region must be specified in either the config or the region parameter. If specified
-    # in both, then the region parameter will be used.
+    #   A region must be specified in either the config or the region parameter. If specified in both,
+    #   then the region parameter will be used.
     #
     # @param [Config] config A Config object.
     # @param [String] region A region used to determine the service endpoint. This will usually
@@ -127,8 +129,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -211,8 +213,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -301,8 +303,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -361,8 +363,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
@@ -421,8 +423,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -481,8 +483,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -540,8 +542,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -598,8 +600,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -650,8 +652,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -703,8 +705,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -756,8 +758,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -809,8 +811,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -862,8 +864,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -967,8 +969,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1065,8 +1067,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1169,8 +1171,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1275,8 +1277,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1357,8 +1359,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1416,8 +1418,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -1476,8 +1478,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -1538,8 +1540,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
@@ -1598,8 +1600,8 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params['accept'] = 'application/json'
-      header_params['content-type'] = 'application/json'
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 

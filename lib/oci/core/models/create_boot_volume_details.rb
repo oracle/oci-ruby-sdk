@@ -46,6 +46,10 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The OCID of the KMS key to be used as the master encryption key for the boot volume.
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # The size of the volume in GBs.
     # @return [Integer]
     attr_accessor :size_in_gbs
@@ -66,6 +70,7 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
+        'kms_key_id': :'kmsKeyId',
         'size_in_gbs': :'sizeInGBs',
         'source_details': :'sourceDetails'
         # rubocop:enable Style/SymbolLiteral
@@ -82,6 +87,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
+        'kms_key_id': :'String',
         'size_in_gbs': :'Integer',
         'source_details': :'OCI::Core::Models::BootVolumeSourceDetails'
         # rubocop:enable Style/SymbolLiteral
@@ -100,6 +106,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [OCI::Core::Models::BootVolumeSourceDetails] :source_details The value to assign to the {#source_details} property
     def initialize(attributes = {})
@@ -144,6 +151,12 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
       self.size_in_gbs = attributes[:'sizeInGBs'] if attributes[:'sizeInGBs']
 
       raise 'You cannot provide both :sizeInGBs and :size_in_gbs' if attributes.key?(:'sizeInGBs') && attributes.key?(:'size_in_gbs')
@@ -173,6 +186,7 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
+        kms_key_id == other.kms_key_id &&
         size_in_gbs == other.size_in_gbs &&
         source_details == other.source_details
     end
@@ -190,7 +204,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, size_in_gbs, source_details].hash
+      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, kms_key_id, size_in_gbs, source_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

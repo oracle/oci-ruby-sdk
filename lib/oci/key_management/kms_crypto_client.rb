@@ -1,0 +1,258 @@
+# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+require 'uri'
+require 'logger'
+
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
+module OCI
+  # API for managing and performing operations with keys and vaults.
+  class KeyManagement::KmsCryptoClient
+    # Client used to make HTTP requests.
+    # @return [OCI::ApiClient]
+    attr_reader :api_client
+
+    # Fully qualified endpoint URL
+    # @return [String]
+    attr_reader :endpoint
+
+    # The default retry configuration to apply to all operations in this service client. This can be overridden
+    # on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    # will not perform any retries
+    # @return [OCI::Retry::RetryConfig]
+    attr_reader :retry_config
+
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines
+
+
+    # Creates a new KmsCryptoClient.
+    # Notes:
+    #   If a config is not specified, then the global OCI.config will be used.
+    #   This client is not thread-safe
+    #
+    # @param [Config] config A Config object.
+    # @param [String] endpoint The fully qualified endpoint URL
+    # @param [OCI::BaseSigner] signer A signer implementation which can be used by this client. If this is not provided then
+    #   a signer will be constructed via the provided config. One use case of this parameter is instance principals authentication,
+    #   so that the instance principals signer can be provided to the client
+    # @param [OCI::ApiClientProxySettings] proxy_settings If your environment requires you to use a proxy server for outgoing HTTP requests
+    #   the details for the proxy can be provided in this parameter
+    # @param [OCI::Retry::RetryConfig] retry_config The retry configuration for this service client. This represents the default retry configuration to
+    #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    #   will not perform any retries
+    def initialize(config: nil, endpoint:, signer: nil, proxy_settings: nil, retry_config: nil)
+      raise 'A fully qualified endpoint URL must be defined' unless endpoint
+      @endpoint = endpoint + '/20180608'
+
+      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
+      # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
+      # pass it to this constructor.
+      #
+      # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
+      # so try and load the config from the default file.
+      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+
+      if signer.nil?
+        signer = OCI::Signer.new(
+          config.user,
+          config.fingerprint,
+          config.tenancy,
+          config.key_file,
+          pass_phrase: config.pass_phrase,
+          private_key_content: config.key_content
+        )
+      end
+
+      @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
+      @retry_config = retry_config
+
+      logger.info "KmsCryptoClient endpoint set to '#{@endpoint}'." if logger
+    end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines
+
+    # @return [Logger] The logger for this client. May be nil.
+    def logger
+      @api_client.config.logger
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Decrypts data using the given DecryptDataDetails resource.
+    #
+    # @param [OCI::KeyManagement::Models::DecryptDataDetails] decrypt_data_details DecryptDataDetails
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request. If provided, the returned request ID
+    #   will include this value. Otherwise, a random request ID will be
+    #   generated by the service.
+    #
+    # @return [Response] A Response object with data of type {OCI::KeyManagement::Models::DecryptedData DecryptedData}
+    def decrypt(decrypt_data_details, opts = {})
+      logger.debug 'Calling operation KmsCryptoClient#decrypt.' if logger
+
+      raise "Missing the required parameter 'decrypt_data_details' when calling decrypt." if decrypt_data_details.nil?
+
+      path = '/decrypt'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(decrypt_data_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'KmsCryptoClient#decrypt') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::KeyManagement::Models::DecryptedData'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Encrypts data using the given EncryptDataDetails resource.
+    # Plaintext included in the example request is a base64-encoded value
+    # of a UTF-8 string.
+    #
+    # @param [OCI::KeyManagement::Models::EncryptDataDetails] encrypt_data_details EncryptDataDetails
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request. If provided, the returned request ID
+    #   will include this value. Otherwise, a random request ID will be
+    #   generated by the service.
+    #
+    # @return [Response] A Response object with data of type {OCI::KeyManagement::Models::EncryptedData EncryptedData}
+    def encrypt(encrypt_data_details, opts = {})
+      logger.debug 'Calling operation KmsCryptoClient#encrypt.' if logger
+
+      raise "Missing the required parameter 'encrypt_data_details' when calling encrypt." if encrypt_data_details.nil?
+
+      path = '/encrypt'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(encrypt_data_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'KmsCryptoClient#encrypt') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::KeyManagement::Models::EncryptedData'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Generates a key that you can use to encrypt or decrypt data.
+    #
+    # @param [OCI::KeyManagement::Models::GenerateKeyDetails] generate_key_details GenerateKeyDetails
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request. If provided, the returned request ID
+    #   will include this value. Otherwise, a random request ID will be
+    #   generated by the service.
+    #
+    # @return [Response] A Response object with data of type {OCI::KeyManagement::Models::GeneratedKey GeneratedKey}
+    def generate_data_encryption_key(generate_key_details, opts = {})
+      logger.debug 'Calling operation KmsCryptoClient#generate_data_encryption_key.' if logger
+
+      raise "Missing the required parameter 'generate_key_details' when calling generate_data_encryption_key." if generate_key_details.nil?
+
+      path = '/generateDataEncryptionKey'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(generate_key_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'KmsCryptoClient#generate_data_encryption_key') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::KeyManagement::Models::GeneratedKey'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    private
+
+    def applicable_retry_config(opts = {})
+      return @retry_config unless opts.key?(:retry_config)
+      opts[:retry_config]
+    end
+  end
+end
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength
