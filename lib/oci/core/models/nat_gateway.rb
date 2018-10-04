@@ -5,22 +5,21 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Represents a router that connects the edge of a VCN with public Oracle Cloud Infrastructure
-  # services such as Object Storage. Traffic leaving the VCN and destined for a supported public
-  # service (see {#list_services list_services}) is routed through the
-  # service gateway and does not traverse the internet. The instances in the VCN do not need to
-  # have public IP addresses nor be in a public subnet. The VCN does not need an internet gateway
-  # for this traffic. For more information, see
-  # [Access to Object Storage: Service Gateway](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/servicegateway.htm).
+  # A NAT (Network Address Translation) gateway, which represents a router that lets instances
+  # without public IPs contact the public internet without exposing the instance to inbound
+  # internet traffic. For more information, see
+  # [NAT Gateway](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/NATgateway.htm).
   #
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
-  # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
-  # [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+  # To use any of the API operations, you must be authorized in an
+  # IAM policy. If you are not authorized, talk to an
+  # administrator. If you are an administrator who needs to write
+  # policies to give users access, see [Getting Started with
+  # Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
   #
-  class Core::Models::ServiceGateway # rubocop:disable Metrics/LineLength
+  class Core::Models::NatGateway # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
@@ -29,16 +28,8 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Whether the service gateway blocks all traffic through it. The default is `false`. When
-    # this is `true`, traffic is not routed to any services, regardless of route rules.
-    #
-    # Example: `true`
-    #
-    # @return [BOOLEAN]
-    attr_accessor :block_traffic
-
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment that contains the
-    # service gateway.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment that contains
+    # the NAT gateway.
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -66,29 +57,34 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the service gateway.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the NAT gateway.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The service gateway's current state.
+    # **[Required]** Whether the NAT gateway blocks traffic through it. The default is `false`.
+    #
+    # Example: `true`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :block_traffic
+
+    # **[Required]** The NAT gateway's current state.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** List of the services enabled on this service gateway. The list can be empty.
-    # You can enable a particular service by using
-    # {#attach_service_id attach_service_id}.
+    # **[Required]** The IP address associated with the NAT gateway.
     #
-    # @return [Array<OCI::Core::Models::ServiceIdResponseDetails>]
-    attr_accessor :services
+    # @return [String]
+    attr_accessor :nat_ip
 
-    # The date and time the service gateway was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the NAT gateway was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the VCN the service gateway
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the VCN the NAT gateway
     # belongs to.
     #
     # @return [String]
@@ -98,14 +94,14 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'block_traffic': :'blockTraffic',
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'id': :'id',
+        'block_traffic': :'blockTraffic',
         'lifecycle_state': :'lifecycleState',
-        'services': :'services',
+        'nat_ip': :'natIp',
         'time_created': :'timeCreated',
         'vcn_id': :'vcnId'
         # rubocop:enable Style/SymbolLiteral
@@ -116,14 +112,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'block_traffic': :'BOOLEAN',
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
+        'block_traffic': :'BOOLEAN',
         'lifecycle_state': :'String',
-        'services': :'Array<OCI::Core::Models::ServiceIdResponseDetails>',
+        'nat_ip': :'String',
         'time_created': :'DateTime',
         'vcn_id': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -136,14 +132,14 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [BOOLEAN] :block_traffic The value to assign to the {#block_traffic} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [BOOLEAN] :block_traffic The value to assign to the {#block_traffic} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
-    # @option attributes [Array<OCI::Core::Models::ServiceIdResponseDetails>] :services The value to assign to the {#services} property
+    # @option attributes [String] :nat_ip The value to assign to the {#nat_ip} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     def initialize(attributes = {})
@@ -151,14 +147,6 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.block_traffic = attributes[:'blockTraffic'] unless attributes[:'blockTraffic'].nil?
-      self.block_traffic = false if block_traffic.nil? && !attributes.key?(:'blockTraffic') # rubocop:disable Style/StringLiterals
-
-      raise 'You cannot provide both :blockTraffic and :block_traffic' if attributes.key?(:'blockTraffic') && attributes.key?(:'block_traffic')
-
-      self.block_traffic = attributes[:'block_traffic'] unless attributes[:'block_traffic'].nil?
-      self.block_traffic = false if block_traffic.nil? && !attributes.key?(:'blockTraffic') && !attributes.key?(:'block_traffic') # rubocop:disable Style/StringLiterals
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -186,13 +174,25 @@ module OCI
 
       self.id = attributes[:'id'] if attributes[:'id']
 
+      self.block_traffic = attributes[:'blockTraffic'] unless attributes[:'blockTraffic'].nil?
+      self.block_traffic = false if block_traffic.nil? && !attributes.key?(:'blockTraffic') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :blockTraffic and :block_traffic' if attributes.key?(:'blockTraffic') && attributes.key?(:'block_traffic')
+
+      self.block_traffic = attributes[:'block_traffic'] unless attributes[:'block_traffic'].nil?
+      self.block_traffic = false if block_traffic.nil? && !attributes.key?(:'blockTraffic') && !attributes.key?(:'block_traffic') # rubocop:disable Style/StringLiterals
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
-      self.services = attributes[:'services'] if attributes[:'services']
+      self.nat_ip = attributes[:'natIp'] if attributes[:'natIp']
+
+      raise 'You cannot provide both :natIp and :nat_ip' if attributes.key?(:'natIp') && attributes.key?(:'nat_ip')
+
+      self.nat_ip = attributes[:'nat_ip'] if attributes[:'nat_ip']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -232,14 +232,14 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        block_traffic == other.block_traffic &&
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         id == other.id &&
+        block_traffic == other.block_traffic &&
         lifecycle_state == other.lifecycle_state &&
-        services == other.services &&
+        nat_ip == other.nat_ip &&
         time_created == other.time_created &&
         vcn_id == other.vcn_id
     end
@@ -257,7 +257,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [block_traffic, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, services, time_created, vcn_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, block_traffic, lifecycle_state, nat_ip, time_created, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A NamespaceMetadta is a map for storing namespace and defaultS3CompartmentId, defaultSwiftCompartmentId.
+  # A NamespaceMetadata is a map for storing namespace and defaultS3CompartmentId, defaultSwiftCompartmentId.
   #
   class ObjectStorage::Models::NamespaceMetadata # rubocop:disable Metrics/LineLength
     # **[Required]** The namespace to which the metadata belongs.

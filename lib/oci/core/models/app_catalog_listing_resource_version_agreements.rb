@@ -4,24 +4,45 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # RestoreObjectsDetails model.
-  class ObjectStorage::Models::RestoreObjectsDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An object which is in archive-tier storage and needs to be restored.
+  # Agreements for a listing resource version.
+  class Core::Models::AppCatalogListingResourceVersionAgreements # rubocop:disable Metrics/LineLength
+    # The OCID of the listing associated with these agreements.
     # @return [String]
-    attr_accessor :object_name
+    attr_accessor :listing_id
 
-    # The number of hours for which this object will be restored.
-    # By default objects will be restored for 24 hours. Duration can be configured using the hours parameter.
+    # Listing resource version associated with these agreements.
+    # @return [String]
+    attr_accessor :listing_resource_version
+
+    # Oracle TOU link
+    # @return [String]
+    attr_accessor :oracle_terms_of_use_link
+
+    # EULA link
+    # @return [String]
+    attr_accessor :eula_link
+
+    # Date and time the agreements were retrieved, in RFC3339 format.
+    # Example: `2018-03-20T12:32:53.532Z`
     #
-    # @return [Integer]
-    attr_accessor :hours
+    # @return [DateTime]
+    attr_accessor :time_retrieved
+
+    # A generated signature for this agreement retrieval operation which should be used in the create subscription call.
+    #
+    # @return [String]
+    attr_accessor :signature
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'objectName',
-        'hours': :'hours'
+        'listing_id': :'listingId',
+        'listing_resource_version': :'listingResourceVersion',
+        'oracle_terms_of_use_link': :'oracleTermsOfUseLink',
+        'eula_link': :'eulaLink',
+        'time_retrieved': :'timeRetrieved',
+        'signature': :'signature'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,8 +51,12 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'String',
-        'hours': :'Integer'
+        'listing_id': :'String',
+        'listing_resource_version': :'String',
+        'oracle_terms_of_use_link': :'String',
+        'eula_link': :'String',
+        'time_retrieved': :'DateTime',
+        'signature': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,21 +67,49 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :object_name The value to assign to the {#object_name} property
-    # @option attributes [Integer] :hours The value to assign to the {#hours} property
+    # @option attributes [String] :listing_id The value to assign to the {#listing_id} property
+    # @option attributes [String] :listing_resource_version The value to assign to the {#listing_resource_version} property
+    # @option attributes [String] :oracle_terms_of_use_link The value to assign to the {#oracle_terms_of_use_link} property
+    # @option attributes [String] :eula_link The value to assign to the {#eula_link} property
+    # @option attributes [DateTime] :time_retrieved The value to assign to the {#time_retrieved} property
+    # @option attributes [String] :signature The value to assign to the {#signature} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.object_name = attributes[:'objectName'] if attributes[:'objectName']
+      self.listing_id = attributes[:'listingId'] if attributes[:'listingId']
 
-      raise 'You cannot provide both :objectName and :object_name' if attributes.key?(:'objectName') && attributes.key?(:'object_name')
+      raise 'You cannot provide both :listingId and :listing_id' if attributes.key?(:'listingId') && attributes.key?(:'listing_id')
 
-      self.object_name = attributes[:'object_name'] if attributes[:'object_name']
+      self.listing_id = attributes[:'listing_id'] if attributes[:'listing_id']
 
-      self.hours = attributes[:'hours'] if attributes[:'hours']
+      self.listing_resource_version = attributes[:'listingResourceVersion'] if attributes[:'listingResourceVersion']
+
+      raise 'You cannot provide both :listingResourceVersion and :listing_resource_version' if attributes.key?(:'listingResourceVersion') && attributes.key?(:'listing_resource_version')
+
+      self.listing_resource_version = attributes[:'listing_resource_version'] if attributes[:'listing_resource_version']
+
+      self.oracle_terms_of_use_link = attributes[:'oracleTermsOfUseLink'] if attributes[:'oracleTermsOfUseLink']
+
+      raise 'You cannot provide both :oracleTermsOfUseLink and :oracle_terms_of_use_link' if attributes.key?(:'oracleTermsOfUseLink') && attributes.key?(:'oracle_terms_of_use_link')
+
+      self.oracle_terms_of_use_link = attributes[:'oracle_terms_of_use_link'] if attributes[:'oracle_terms_of_use_link']
+
+      self.eula_link = attributes[:'eulaLink'] if attributes[:'eulaLink']
+
+      raise 'You cannot provide both :eulaLink and :eula_link' if attributes.key?(:'eulaLink') && attributes.key?(:'eula_link')
+
+      self.eula_link = attributes[:'eula_link'] if attributes[:'eula_link']
+
+      self.time_retrieved = attributes[:'timeRetrieved'] if attributes[:'timeRetrieved']
+
+      raise 'You cannot provide both :timeRetrieved and :time_retrieved' if attributes.key?(:'timeRetrieved') && attributes.key?(:'time_retrieved')
+
+      self.time_retrieved = attributes[:'time_retrieved'] if attributes[:'time_retrieved']
+
+      self.signature = attributes[:'signature'] if attributes[:'signature']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -69,8 +122,12 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        object_name == other.object_name &&
-        hours == other.hours
+        listing_id == other.listing_id &&
+        listing_resource_version == other.listing_resource_version &&
+        oracle_terms_of_use_link == other.oracle_terms_of_use_link &&
+        eula_link == other.eula_link &&
+        time_retrieved == other.time_retrieved &&
+        signature == other.signature
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -86,7 +143,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [object_name, hours].hash
+      [listing_id, listing_resource_version, oracle_terms_of_use_link, eula_link, time_retrieved, signature].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

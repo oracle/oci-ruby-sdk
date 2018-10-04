@@ -1,27 +1,52 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # RestoreObjectsDetails model.
-  class ObjectStorage::Models::RestoreObjectsDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An object which is in archive-tier storage and needs to be restored.
-    # @return [String]
-    attr_accessor :object_name
+  # WorkRequestResource model.
+  class ObjectStorage::Models::WorkRequestResource # rubocop:disable Metrics/LineLength
+    ACTION_TYPE_ENUM = [
+      ACTION_TYPE_CREATED = 'CREATED'.freeze,
+      ACTION_TYPE_UPDATED = 'UPDATED'.freeze,
+      ACTION_TYPE_DELETED = 'DELETED'.freeze,
+      ACTION_TYPE_RELATED = 'RELATED'.freeze,
+      ACTION_TYPE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      ACTION_TYPE_READ = 'READ'.freeze,
+      ACTION_TYPE_WRITTEN = 'WRITTEN'.freeze,
+      ACTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
 
-    # The number of hours for which this object will be restored.
-    # By default objects will be restored for 24 hours. Duration can be configured using the hours parameter.
-    #
-    # @return [Integer]
-    attr_accessor :hours
+    # The status that a work request can present
+    # @return [String]
+    attr_reader :action_type
+
+    # The resource type the work request is affects.
+    # @return [String]
+    attr_accessor :entity_type
+
+    # The identifier of the resource the work request affects.
+    # @return [String]
+    attr_accessor :identifier
+
+    # The URI path that the user can do a GET on to access the resource metadata
+    # @return [String]
+    attr_accessor :entity_uri
+
+    # The metadata of the resource.
+    # @return [Hash<String, String>]
+    attr_accessor :metadata
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'objectName',
-        'hours': :'hours'
+        'action_type': :'actionType',
+        'entity_type': :'entityType',
+        'identifier': :'identifier',
+        'entity_uri': :'entityUri',
+        'metadata': :'metadata'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,8 +55,11 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'String',
-        'hours': :'Integer'
+        'action_type': :'String',
+        'entity_type': :'String',
+        'identifier': :'String',
+        'entity_uri': :'String',
+        'metadata': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,24 +70,56 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :object_name The value to assign to the {#object_name} property
-    # @option attributes [Integer] :hours The value to assign to the {#hours} property
+    # @option attributes [String] :action_type The value to assign to the {#action_type} property
+    # @option attributes [String] :entity_type The value to assign to the {#entity_type} property
+    # @option attributes [String] :identifier The value to assign to the {#identifier} property
+    # @option attributes [String] :entity_uri The value to assign to the {#entity_uri} property
+    # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.object_name = attributes[:'objectName'] if attributes[:'objectName']
+      self.action_type = attributes[:'actionType'] if attributes[:'actionType']
 
-      raise 'You cannot provide both :objectName and :object_name' if attributes.key?(:'objectName') && attributes.key?(:'object_name')
+      raise 'You cannot provide both :actionType and :action_type' if attributes.key?(:'actionType') && attributes.key?(:'action_type')
 
-      self.object_name = attributes[:'object_name'] if attributes[:'object_name']
+      self.action_type = attributes[:'action_type'] if attributes[:'action_type']
 
-      self.hours = attributes[:'hours'] if attributes[:'hours']
+      self.entity_type = attributes[:'entityType'] if attributes[:'entityType']
+
+      raise 'You cannot provide both :entityType and :entity_type' if attributes.key?(:'entityType') && attributes.key?(:'entity_type')
+
+      self.entity_type = attributes[:'entity_type'] if attributes[:'entity_type']
+
+      self.identifier = attributes[:'identifier'] if attributes[:'identifier']
+
+      self.entity_uri = attributes[:'entityUri'] if attributes[:'entityUri']
+
+      raise 'You cannot provide both :entityUri and :entity_uri' if attributes.key?(:'entityUri') && attributes.key?(:'entity_uri')
+
+      self.entity_uri = attributes[:'entity_uri'] if attributes[:'entity_uri']
+
+      self.metadata = attributes[:'metadata'] if attributes[:'metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] action_type Object to be assigned
+    def action_type=(action_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if action_type && !ACTION_TYPE_ENUM.include?(action_type)
+        # rubocop: disable Metrics/LineLength
+        OCI.logger.debug("Unknown value for 'action_type' [" + action_type + "]. Mapping to 'ACTION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        # rubocop: enable Metrics/LineLength
+        @action_type = ACTION_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @action_type = action_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -69,8 +129,11 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        object_name == other.object_name &&
-        hours == other.hours
+        action_type == other.action_type &&
+        entity_type == other.entity_type &&
+        identifier == other.identifier &&
+        entity_uri == other.entity_uri &&
+        metadata == other.metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -86,7 +149,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [object_name, hours].hash
+      [action_type, entity_type, identifier, entity_uri, metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
