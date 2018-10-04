@@ -4,24 +4,34 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # RestoreObjectsDetails model.
-  class ObjectStorage::Models::RestoreObjectsDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An object which is in archive-tier storage and needs to be restored.
+  # Listing Resource Version summary
+  class Core::Models::AppCatalogListingResourceVersionSummary # rubocop:disable Metrics/LineLength
+    # The OCID of the listing this resource version belongs to.
     # @return [String]
-    attr_accessor :object_name
+    attr_accessor :listing_id
 
-    # The number of hours for which this object will be restored.
-    # By default objects will be restored for 24 hours. Duration can be configured using the hours parameter.
+    # Date and time the listing resource version was published, in RFC3339 format.
+    # Example: `2018-03-20T12:32:53.532Z`
     #
-    # @return [Integer]
-    attr_accessor :hours
+    # @return [DateTime]
+    attr_accessor :time_published
+
+    # OCID of the listing resource.
+    # @return [String]
+    attr_accessor :listing_resource_id
+
+    # Resource Version.
+    # @return [String]
+    attr_accessor :listing_resource_version
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'objectName',
-        'hours': :'hours'
+        'listing_id': :'listingId',
+        'time_published': :'timePublished',
+        'listing_resource_id': :'listingResourceId',
+        'listing_resource_version': :'listingResourceVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,8 +40,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'String',
-        'hours': :'Integer'
+        'listing_id': :'String',
+        'time_published': :'DateTime',
+        'listing_resource_id': :'String',
+        'listing_resource_version': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,21 +54,39 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :object_name The value to assign to the {#object_name} property
-    # @option attributes [Integer] :hours The value to assign to the {#hours} property
+    # @option attributes [String] :listing_id The value to assign to the {#listing_id} property
+    # @option attributes [DateTime] :time_published The value to assign to the {#time_published} property
+    # @option attributes [String] :listing_resource_id The value to assign to the {#listing_resource_id} property
+    # @option attributes [String] :listing_resource_version The value to assign to the {#listing_resource_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.object_name = attributes[:'objectName'] if attributes[:'objectName']
+      self.listing_id = attributes[:'listingId'] if attributes[:'listingId']
 
-      raise 'You cannot provide both :objectName and :object_name' if attributes.key?(:'objectName') && attributes.key?(:'object_name')
+      raise 'You cannot provide both :listingId and :listing_id' if attributes.key?(:'listingId') && attributes.key?(:'listing_id')
 
-      self.object_name = attributes[:'object_name'] if attributes[:'object_name']
+      self.listing_id = attributes[:'listing_id'] if attributes[:'listing_id']
 
-      self.hours = attributes[:'hours'] if attributes[:'hours']
+      self.time_published = attributes[:'timePublished'] if attributes[:'timePublished']
+
+      raise 'You cannot provide both :timePublished and :time_published' if attributes.key?(:'timePublished') && attributes.key?(:'time_published')
+
+      self.time_published = attributes[:'time_published'] if attributes[:'time_published']
+
+      self.listing_resource_id = attributes[:'listingResourceId'] if attributes[:'listingResourceId']
+
+      raise 'You cannot provide both :listingResourceId and :listing_resource_id' if attributes.key?(:'listingResourceId') && attributes.key?(:'listing_resource_id')
+
+      self.listing_resource_id = attributes[:'listing_resource_id'] if attributes[:'listing_resource_id']
+
+      self.listing_resource_version = attributes[:'listingResourceVersion'] if attributes[:'listingResourceVersion']
+
+      raise 'You cannot provide both :listingResourceVersion and :listing_resource_version' if attributes.key?(:'listingResourceVersion') && attributes.key?(:'listing_resource_version')
+
+      self.listing_resource_version = attributes[:'listing_resource_version'] if attributes[:'listing_resource_version']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -69,8 +99,10 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        object_name == other.object_name &&
-        hours == other.hours
+        listing_id == other.listing_id &&
+        time_published == other.time_published &&
+        listing_resource_id == other.listing_resource_id &&
+        listing_resource_version == other.listing_resource_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -86,7 +118,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [object_name, hours].hash
+      [listing_id, time_published, listing_resource_id, listing_resource_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

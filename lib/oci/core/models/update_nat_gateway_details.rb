@@ -4,16 +4,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateServiceGatewayDetails model.
-  class Core::Models::UpdateServiceGatewayDetails # rubocop:disable Metrics/LineLength
-    # Whether the service gateway blocks all traffic through it. The default is `false`. When
-    # this is `true`, traffic is not routed to any services, regardless of route rules.
-    #
-    # Example: `true`
-    #
-    # @return [BOOLEAN]
-    attr_accessor :block_traffic
-
+  # UpdateNatGatewayDetails model.
+  class Core::Models::UpdateNatGatewayDetails # rubocop:disable Metrics/LineLength
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -37,30 +29,21 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # List of all the services you want enabled on this service gateway. Sending an empty list
-    # means you want to disable all services. Omitting this parameter entirely keeps the
-    # existing list of services intact.
+    # Whether the NAT gateway blocks traffic through it. The default is `false`.
     #
-    # You can also enable or disable a particular service by using
-    # {#attach_service_id attach_service_id} and
-    # {#detach_service_id detach_service_id}.
+    # Example: `true`
     #
-    # For each enabled service, make sure there's a route rule with the service's `cidrBlock`
-    # as the rule's destination CIDR and the service gateway as the rule's target. See
-    # {RouteTable}.
-    #
-    # @return [Array<OCI::Core::Models::ServiceIdRequestDetails>]
-    attr_accessor :services
+    # @return [BOOLEAN]
+    attr_accessor :block_traffic
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'block_traffic': :'blockTraffic',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
-        'services': :'services'
+        'block_traffic': :'blockTraffic'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -69,11 +52,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'block_traffic': :'BOOLEAN',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'services': :'Array<OCI::Core::Models::ServiceIdRequestDetails>'
+        'block_traffic': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -84,24 +66,15 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [BOOLEAN] :block_traffic The value to assign to the {#block_traffic} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [Array<OCI::Core::Models::ServiceIdRequestDetails>] :services The value to assign to the {#services} property
+    # @option attributes [BOOLEAN] :block_traffic The value to assign to the {#block_traffic} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.block_traffic = attributes[:'blockTraffic'] unless attributes[:'blockTraffic'].nil?
-      self.block_traffic = true if block_traffic.nil? && !attributes.key?(:'blockTraffic') # rubocop:disable Style/StringLiterals
-
-      raise 'You cannot provide both :blockTraffic and :block_traffic' if attributes.key?(:'blockTraffic') && attributes.key?(:'block_traffic')
-
-      self.block_traffic = attributes[:'block_traffic'] unless attributes[:'block_traffic'].nil?
-      self.block_traffic = true if block_traffic.nil? && !attributes.key?(:'blockTraffic') && !attributes.key?(:'block_traffic') # rubocop:disable Style/StringLiterals
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -121,7 +94,13 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
-      self.services = attributes[:'services'] if attributes[:'services']
+      self.block_traffic = attributes[:'blockTraffic'] unless attributes[:'blockTraffic'].nil?
+      self.block_traffic = false if block_traffic.nil? && !attributes.key?(:'blockTraffic') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :blockTraffic and :block_traffic' if attributes.key?(:'blockTraffic') && attributes.key?(:'block_traffic')
+
+      self.block_traffic = attributes[:'block_traffic'] unless attributes[:'block_traffic'].nil?
+      self.block_traffic = false if block_traffic.nil? && !attributes.key?(:'blockTraffic') && !attributes.key?(:'block_traffic') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -134,11 +113,10 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        block_traffic == other.block_traffic &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
-        services == other.services
+        block_traffic == other.block_traffic
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -154,7 +132,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [block_traffic, defined_tags, display_name, freeform_tags, services].hash
+      [defined_tags, display_name, freeform_tags, block_traffic].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

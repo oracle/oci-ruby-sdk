@@ -4,24 +4,20 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # RestoreObjectsDetails model.
-  class ObjectStorage::Models::RestoreObjectsDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An object which is in archive-tier storage and needs to be restored.
-    # @return [String]
-    attr_accessor :object_name
-
-    # The number of hours for which this object will be restored.
-    # By default objects will be restored for 24 hours. Duration can be configured using the hours parameter.
+  # A filter that compares object names to a set of object name prefixes to determine if a rule applies to a
+  # given object.
+  #
+  class ObjectStorage::Models::ObjectNameFilter # rubocop:disable Metrics/LineLength
+    # An array of object name prefixes that the rule will apply to. An empty array means to include all objects.
     #
-    # @return [Integer]
-    attr_accessor :hours
+    # @return [Array<String>]
+    attr_accessor :inclusion_prefixes
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'objectName',
-        'hours': :'hours'
+        'inclusion_prefixes': :'inclusionPrefixes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,8 +26,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'String',
-        'hours': :'Integer'
+        'inclusion_prefixes': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,21 +37,18 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :object_name The value to assign to the {#object_name} property
-    # @option attributes [Integer] :hours The value to assign to the {#hours} property
+    # @option attributes [Array<String>] :inclusion_prefixes The value to assign to the {#inclusion_prefixes} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.object_name = attributes[:'objectName'] if attributes[:'objectName']
+      self.inclusion_prefixes = attributes[:'inclusionPrefixes'] if attributes[:'inclusionPrefixes']
 
-      raise 'You cannot provide both :objectName and :object_name' if attributes.key?(:'objectName') && attributes.key?(:'object_name')
+      raise 'You cannot provide both :inclusionPrefixes and :inclusion_prefixes' if attributes.key?(:'inclusionPrefixes') && attributes.key?(:'inclusion_prefixes')
 
-      self.object_name = attributes[:'object_name'] if attributes[:'object_name']
-
-      self.hours = attributes[:'hours'] if attributes[:'hours']
+      self.inclusion_prefixes = attributes[:'inclusion_prefixes'] if attributes[:'inclusion_prefixes']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -69,8 +61,7 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        object_name == other.object_name &&
-        hours == other.hours
+        inclusion_prefixes == other.inclusion_prefixes
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -86,7 +77,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [object_name, hours].hash
+      [inclusion_prefixes].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -4,24 +4,18 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # RestoreObjectsDetails model.
-  class ObjectStorage::Models::RestoreObjectsDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An object which is in archive-tier storage and needs to be restored.
-    # @return [String]
-    attr_accessor :object_name
-
-    # The number of hours for which this object will be restored.
-    # By default objects will be restored for 24 hours. Duration can be configured using the hours parameter.
-    #
-    # @return [Integer]
-    attr_accessor :hours
+  # Creates a new object lifecycle policy for a bucket.
+  #
+  class ObjectStorage::Models::PutObjectLifecyclePolicyDetails # rubocop:disable Metrics/LineLength
+    # The bucket's set of lifecycle policy rules.
+    # @return [Array<OCI::ObjectStorage::Models::ObjectLifecycleRule>]
+    attr_accessor :items
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'objectName',
-        'hours': :'hours'
+        'items': :'items'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,8 +24,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'object_name': :'String',
-        'hours': :'Integer'
+        'items': :'Array<OCI::ObjectStorage::Models::ObjectLifecycleRule>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,21 +35,14 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :object_name The value to assign to the {#object_name} property
-    # @option attributes [Integer] :hours The value to assign to the {#hours} property
+    # @option attributes [Array<OCI::ObjectStorage::Models::ObjectLifecycleRule>] :items The value to assign to the {#items} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.object_name = attributes[:'objectName'] if attributes[:'objectName']
-
-      raise 'You cannot provide both :objectName and :object_name' if attributes.key?(:'objectName') && attributes.key?(:'object_name')
-
-      self.object_name = attributes[:'object_name'] if attributes[:'object_name']
-
-      self.hours = attributes[:'hours'] if attributes[:'hours']
+      self.items = attributes[:'items'] if attributes[:'items']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -69,8 +55,7 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        object_name == other.object_name &&
-        hours == other.hours
+        items == other.items
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -86,7 +71,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [object_name, hours].hash
+      [items].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
