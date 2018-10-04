@@ -19,6 +19,12 @@ module OCI
   # supply string values using the API.
   #
   class Core::Models::PublicIp # rubocop:disable Metrics/LineLength
+    ASSIGNED_ENTITY_TYPE_ENUM = [
+      ASSIGNED_ENTITY_TYPE_PRIVATE_IP = 'PRIVATE_IP'.freeze,
+      ASSIGNED_ENTITY_TYPE_NAT_GATEWAY = 'NAT_GATEWAY'.freeze,
+      ASSIGNED_ENTITY_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
@@ -43,9 +49,21 @@ module OCI
       SCOPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    # The OCID of the entity the public IP is assigned to, or in the process of
+    # being assigned to.
+    #
+    # @return [String]
+    attr_accessor :assigned_entity_id
+
+    # The type of entity the public IP is assigned to, or in the process of being
+    # assigned to.
+    #
+    # @return [String]
+    attr_reader :assigned_entity_type
+
     # The public IP's availability domain. This property is set only for ephemeral public IPs
-    # (that is, when the `scope` of the public IP is set to AVAILABILITY_DOMAIN). The value
-    # is the availability domain of the assigned private IP.
+    # that are assigned to a private IP (that is, when the `scope` of the public IP is set to
+    # AVAILABILITY_DOMAIN). The value is the availability domain of the assigned private IP.
     #
     # Example: `Uocm:PHX-AD-1`
     #
@@ -53,8 +71,9 @@ module OCI
     attr_accessor :availability_domain
 
     # The OCID of the compartment containing the public IP. For an ephemeral public IP, this is
-    # the same compartment as the private IP's. For a reserved public IP that is currently assigned,
-    # this can be a different compartment than the assigned private IP's.
+    # the compartment of its assigned entity (which can be a private IP or a regional entity such
+    # as a NAT gateway). For a reserved public IP that is currently assigned,
+    # its compartment can be different from the assigned private IP's.
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -99,10 +118,12 @@ module OCI
 
     # Defines when the public IP is deleted and released back to Oracle's public IP pool.
     #
-    # * `EPHEMERAL`: The lifetime is tied to the lifetime of its assigned private IP. The
-    # ephemeral public IP is automatically deleted when its private IP is deleted, when
-    # the VNIC is terminated, or when the instance is terminated. An ephemeral
-    # public IP must always be assigned to a private IP.
+    # * `EPHEMERAL`: The lifetime is tied to the lifetime of its assigned entity. An ephemeral
+    # public IP must always be assigned to an entity. If the assigned entity is a private IP,
+    # the ephemeral public IP is automatically deleted when the private IP is deleted, when
+    # the VNIC is terminated, or when the instance is terminated. If the assigned entity is a
+    # {NatGateway}, the ephemeral public IP is automatically
+    # deleted when the NAT gateway is terminated.
     #
     # * `RESERVED`: You control the public IP's lifetime. You can delete a reserved public IP
     # whenever you like. It does not need to be assigned to a private IP at all times.
@@ -113,20 +134,27 @@ module OCI
     # @return [String]
     attr_reader :lifetime
 
+    # Deprecated. Use `assignedEntityId` instead.
+    #
     # The OCID of the private IP that the public IP is currently assigned to, or in the
     # process of being assigned to.
+    #
+    # **Note:** This is `null` if the public IP is not assigned to a private IP, or is
+    # in the process of being assigned to one.
     #
     # @return [String]
     attr_accessor :private_ip_id
 
     # Whether the public IP is regional or specific to a particular availability domain.
     #
-    # * `REGION`: The public IP exists within a region and can be assigned to a private IP
-    # in any availability domain in the region. Reserved public IPs have `scope` = `REGION`.
+    # * `REGION`: The public IP exists within a region and is assigned to a regional entity
+    # (such as a {NatGateway}), or can be assigned to a private
+    # IP in any availability domain in the region. Reserved public IPs and ephemeral public IPs
+    # assigned to a regional entity have `scope` = `REGION`.
     #
-    # * `AVAILABILITY_DOMAIN`: The public IP exists within the availability domain of the private IP
+    # * `AVAILABILITY_DOMAIN`: The public IP exists within the availability domain of the entity
     # it's assigned to, which is specified by the `availabilityDomain` property of the public IP object.
-    # Ephemeral public IPs have `scope` = `AVAILABILITY_DOMAIN`.
+    # Ephemeral public IPs that are assigned to private IPs have `scope` = `AVAILABILITY_DOMAIN`.
     #
     # @return [String]
     attr_reader :scope
@@ -142,6 +170,8 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'assigned_entity_id': :'assignedEntityId',
+        'assigned_entity_type': :'assignedEntityType',
         'availability_domain': :'availabilityDomain',
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
@@ -162,6 +192,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'assigned_entity_id': :'String',
+        'assigned_entity_type': :'String',
         'availability_domain': :'String',
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -184,6 +216,8 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :assigned_entity_id The value to assign to the {#assigned_entity_id} property
+    # @option attributes [String] :assigned_entity_type The value to assign to the {#assigned_entity_type} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -201,6 +235,18 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.assigned_entity_id = attributes[:'assignedEntityId'] if attributes[:'assignedEntityId']
+
+      raise 'You cannot provide both :assignedEntityId and :assigned_entity_id' if attributes.key?(:'assignedEntityId') && attributes.key?(:'assigned_entity_id')
+
+      self.assigned_entity_id = attributes[:'assigned_entity_id'] if attributes[:'assigned_entity_id']
+
+      self.assigned_entity_type = attributes[:'assignedEntityType'] if attributes[:'assignedEntityType']
+
+      raise 'You cannot provide both :assignedEntityType and :assigned_entity_type' if attributes.key?(:'assignedEntityType') && attributes.key?(:'assigned_entity_type')
+
+      self.assigned_entity_type = attributes[:'assigned_entity_type'] if attributes[:'assigned_entity_type']
 
       self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
 
@@ -266,6 +312,21 @@ module OCI
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] assigned_entity_type Object to be assigned
+    def assigned_entity_type=(assigned_entity_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if assigned_entity_type && !ASSIGNED_ENTITY_TYPE_ENUM.include?(assigned_entity_type)
+        # rubocop: disable Metrics/LineLength
+        OCI.logger.debug("Unknown value for 'assigned_entity_type' [" + assigned_entity_type + "]. Mapping to 'ASSIGNED_ENTITY_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        # rubocop: enable Metrics/LineLength
+        @assigned_entity_type = ASSIGNED_ENTITY_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @assigned_entity_type = assigned_entity_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -318,6 +379,8 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
+        assigned_entity_id == other.assigned_entity_id &&
+        assigned_entity_type == other.assigned_entity_type &&
         availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
@@ -345,7 +408,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, ip_address, lifecycle_state, lifetime, private_ip_id, scope, time_created].hash
+      [assigned_entity_id, assigned_entity_type, availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, ip_address, lifecycle_state, lifetime, private_ip_id, scope, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

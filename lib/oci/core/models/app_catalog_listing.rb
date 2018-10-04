@@ -4,63 +4,54 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateServiceGatewayDetails model.
-  class Core::Models::UpdateServiceGatewayDetails # rubocop:disable Metrics/LineLength
-    # Whether the service gateway blocks all traffic through it. The default is `false`. When
-    # this is `true`, traffic is not routed to any services, regardless of route rules.
-    #
-    # Example: `true`
-    #
-    # @return [BOOLEAN]
-    attr_accessor :block_traffic
+  # Listing details.
+  class Core::Models::AppCatalogListing # rubocop:disable Metrics/LineLength
+    # Listing's contact URL.
+    # @return [String]
+    attr_accessor :contact_url
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+    # Description of the listing.
+    # @return [String]
+    attr_accessor :description
 
-    # A user-friendly name. Does not have to be unique, and it's changeable.
-    # Avoid entering confidential information.
-    #
+    # The OCID of the listing.
+    # @return [String]
+    attr_accessor :listing_id
+
+    # Name of the listing.
     # @return [String]
     attr_accessor :display_name
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # Date and time the listing was published, in RFC3339 format.
+    # Example: `2018-03-20T12:32:53.532Z`
     #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
+    # @return [DateTime]
+    attr_accessor :time_published
 
-    # List of all the services you want enabled on this service gateway. Sending an empty list
-    # means you want to disable all services. Omitting this parameter entirely keeps the
-    # existing list of services intact.
-    #
-    # You can also enable or disable a particular service by using
-    # {#attach_service_id attach_service_id} and
-    # {#detach_service_id detach_service_id}.
-    #
-    # For each enabled service, make sure there's a route rule with the service's `cidrBlock`
-    # as the rule's destination CIDR and the service gateway as the rule's target. See
-    # {RouteTable}.
-    #
-    # @return [Array<OCI::Core::Models::ServiceIdRequestDetails>]
-    attr_accessor :services
+    # Publisher's logo URL.
+    # @return [String]
+    attr_accessor :publisher_logo_url
+
+    # Name of the publisher who published this listing.
+    # @return [String]
+    attr_accessor :publisher_name
+
+    # Summary of the listing.
+    # @return [String]
+    attr_accessor :summary
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'block_traffic': :'blockTraffic',
-        'defined_tags': :'definedTags',
+        'contact_url': :'contactUrl',
+        'description': :'description',
+        'listing_id': :'listingId',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags',
-        'services': :'services'
+        'time_published': :'timePublished',
+        'publisher_logo_url': :'publisherLogoUrl',
+        'publisher_name': :'publisherName',
+        'summary': :'summary'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -69,11 +60,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'block_traffic': :'BOOLEAN',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'contact_url': :'String',
+        'description': :'String',
+        'listing_id': :'String',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'services': :'Array<OCI::Core::Models::ServiceIdRequestDetails>'
+        'time_published': :'DateTime',
+        'publisher_logo_url': :'String',
+        'publisher_name': :'String',
+        'summary': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -84,30 +78,33 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [BOOLEAN] :block_traffic The value to assign to the {#block_traffic} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :contact_url The value to assign to the {#contact_url} property
+    # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :listing_id The value to assign to the {#listing_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [Array<OCI::Core::Models::ServiceIdRequestDetails>] :services The value to assign to the {#services} property
+    # @option attributes [DateTime] :time_published The value to assign to the {#time_published} property
+    # @option attributes [String] :publisher_logo_url The value to assign to the {#publisher_logo_url} property
+    # @option attributes [String] :publisher_name The value to assign to the {#publisher_name} property
+    # @option attributes [String] :summary The value to assign to the {#summary} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.block_traffic = attributes[:'blockTraffic'] unless attributes[:'blockTraffic'].nil?
-      self.block_traffic = true if block_traffic.nil? && !attributes.key?(:'blockTraffic') # rubocop:disable Style/StringLiterals
+      self.contact_url = attributes[:'contactUrl'] if attributes[:'contactUrl']
 
-      raise 'You cannot provide both :blockTraffic and :block_traffic' if attributes.key?(:'blockTraffic') && attributes.key?(:'block_traffic')
+      raise 'You cannot provide both :contactUrl and :contact_url' if attributes.key?(:'contactUrl') && attributes.key?(:'contact_url')
 
-      self.block_traffic = attributes[:'block_traffic'] unless attributes[:'block_traffic'].nil?
-      self.block_traffic = true if block_traffic.nil? && !attributes.key?(:'blockTraffic') && !attributes.key?(:'block_traffic') # rubocop:disable Style/StringLiterals
+      self.contact_url = attributes[:'contact_url'] if attributes[:'contact_url']
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      self.description = attributes[:'description'] if attributes[:'description']
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      self.listing_id = attributes[:'listingId'] if attributes[:'listingId']
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      raise 'You cannot provide both :listingId and :listing_id' if attributes.key?(:'listingId') && attributes.key?(:'listing_id')
+
+      self.listing_id = attributes[:'listing_id'] if attributes[:'listing_id']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -115,13 +112,25 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+      self.time_published = attributes[:'timePublished'] if attributes[:'timePublished']
 
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+      raise 'You cannot provide both :timePublished and :time_published' if attributes.key?(:'timePublished') && attributes.key?(:'time_published')
 
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+      self.time_published = attributes[:'time_published'] if attributes[:'time_published']
 
-      self.services = attributes[:'services'] if attributes[:'services']
+      self.publisher_logo_url = attributes[:'publisherLogoUrl'] if attributes[:'publisherLogoUrl']
+
+      raise 'You cannot provide both :publisherLogoUrl and :publisher_logo_url' if attributes.key?(:'publisherLogoUrl') && attributes.key?(:'publisher_logo_url')
+
+      self.publisher_logo_url = attributes[:'publisher_logo_url'] if attributes[:'publisher_logo_url']
+
+      self.publisher_name = attributes[:'publisherName'] if attributes[:'publisherName']
+
+      raise 'You cannot provide both :publisherName and :publisher_name' if attributes.key?(:'publisherName') && attributes.key?(:'publisher_name')
+
+      self.publisher_name = attributes[:'publisher_name'] if attributes[:'publisher_name']
+
+      self.summary = attributes[:'summary'] if attributes[:'summary']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -134,11 +143,14 @@ module OCI
     def ==(other)
       return true if equal?(other)
       self.class == other.class &&
-        block_traffic == other.block_traffic &&
-        defined_tags == other.defined_tags &&
+        contact_url == other.contact_url &&
+        description == other.description &&
+        listing_id == other.listing_id &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags &&
-        services == other.services
+        time_published == other.time_published &&
+        publisher_logo_url == other.publisher_logo_url &&
+        publisher_name == other.publisher_name &&
+        summary == other.summary
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -154,7 +166,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [block_traffic, defined_tags, display_name, freeform_tags, services].hash
+      [contact_url, description, listing_id, display_name, time_published, publisher_logo_url, publisher_name, summary].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

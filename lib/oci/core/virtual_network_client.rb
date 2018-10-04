@@ -1063,6 +1063,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new NAT gateway for the specified VCN. You must also set up a route rule with the
+    # NAT gateway as the rule's target. See {RouteTable}.
+    #
+    # @param [OCI::Core::Models::CreateNatGatewayDetails] create_nat_gateway_details Details for creating a NAT gateway.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::NatGateway NatGateway}
+    def create_nat_gateway(create_nat_gateway_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#create_nat_gateway.' if logger
+
+      raise "Missing the required parameter 'create_nat_gateway_details' when calling create_nat_gateway." if create_nat_gateway_details.nil?
+
+      path = '/natGateways'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_nat_gateway_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#create_nat_gateway') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::NatGateway'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a secondary private IP for the specified VNIC.
     # For more information about secondary private IPs, see
     # [IP Addresses](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingIPaddresses.htm).
@@ -1128,11 +1188,12 @@ module OCI
     # reserved public IP. For information about limits on how many you can create, see
     # [Public IP Addresses](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingpublicIPs.htm).
     #
-    # * **For an ephemeral public IP:** You must also specify a `privateIpId` with the OCID of
-    # the primary private IP you want to assign the public IP to. The public IP is created in
-    # the same availability domain as the private IP. An ephemeral public IP must always be
+    # * **For an ephemeral public IP assigned to a private IP:** You must also specify a `privateIpId`
+    # with the OCID of the primary private IP you want to assign the public IP to. The public IP is
+    # created in the same availability domain as the private IP. An ephemeral public IP must always be
     # assigned to a private IP, and only to the *primary* private IP on a VNIC, not a secondary
-    # private IP.
+    # private IP. Exception: If you create a {NatGateway}, Oracle
+    # automatically assigns the NAT gateway a regional ephemeral public IP that you cannot remove.
     #
     # * **For a reserved public IP:** You may also optionally assign the public IP to a private
     # IP by specifying `privateIpId`. Or you can later assign the public IP with
@@ -2260,6 +2321,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the specified NAT gateway. The NAT gateway does not have to be disabled, but there
+    # must not be a route rule that lists the NAT gateway as a target.
+    #
+    # This is an asynchronous operation. The NAT gateway's `lifecycleState` will change to
+    # TERMINATING temporarily until the NAT gateway is completely removed.
+    #
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_nat_gateway(nat_gateway_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#delete_nat_gateway.' if logger
+
+      raise "Missing the required parameter 'nat_gateway_id' when calling delete_nat_gateway." if nat_gateway_id.nil?
+      raise "Parameter value for 'nat_gateway_id' must not be blank" if OCI::Internal::Util.blank_string?(nat_gateway_id)
+
+      path = '/natGateways/{natGatewayId}'.sub('{natGatewayId}', nat_gateway_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#delete_nat_gateway') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Unassigns and deletes the specified private IP. You must
     # specify the object's OCID. The private IP address is returned to
     # the subnet's pool of available addresses.
@@ -2329,6 +2450,10 @@ module OCI
     # Unassigns and deletes the specified public IP (either ephemeral or reserved).
     # You must specify the object's OCID. The public IP address is returned to the
     # Oracle Cloud Infrastructure public IP pool.
+    #
+    # **Note:** You cannot update, unassign, or delete the public IP that Oracle automatically
+    # assigned to an entity for you (such as a load balancer or NAT gateway). The public IP is
+    # automatically deleted if the assigned entity is terminated.
     #
     # For an assigned reserved public IP, the initial unassignment portion of this operation
     # is asynchronous. Poll the public IP's `lifecycleState` to determine
@@ -3627,6 +3752,59 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # Gets the specified NAT gateway's information.
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::NatGateway NatGateway}
+    def get_nat_gateway(nat_gateway_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_nat_gateway.' if logger
+
+      raise "Missing the required parameter 'nat_gateway_id' when calling get_nat_gateway." if nat_gateway_id.nil?
+      raise "Parameter value for 'nat_gateway_id' must not be blank" if OCI::Internal::Util.blank_string?(nat_gateway_id)
+
+      path = '/natGateways/{natGatewayId}'.sub('{natGatewayId}', nat_gateway_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_nat_gateway') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::NatGateway'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
     # Gets the specified private IP. You must specify the object's OCID.
     # Alternatively, you can get the object by using
     # {#list_private_ips list_private_ips}
@@ -3694,7 +3872,7 @@ module OCI
     #
     # **Note:** If you're fetching a reserved public IP that is in the process of being
     # moved to a different private IP, the service returns the public IP object with
-    # `lifecycleState` = ASSIGNING and `privateIpId` = OCID of the target private IP.
+    # `lifecycleState` = ASSIGNING and `assignedEntityId` = OCID of the target private IP.
     #
     # @param [String] public_ip_id The OCID of the public IP.
     # @param [Hash] opts the optional parameters
@@ -3752,7 +3930,7 @@ module OCI
     #
     # **Note:** If you're fetching a reserved public IP that is in the process of being
     # moved to a different private IP, the service returns the public IP object with
-    # `lifecycleState` = ASSIGNING and `privateIpId` = OCID of the target private IP.
+    # `lifecycleState` = ASSIGNING and `assignedEntityId` = OCID of the target private IP.
     #
     # @param [OCI::Core::Models::GetPublicIpByIpAddressDetails] get_public_ip_by_ip_address_details IP address details for fetching the public IP.
     # @param [Hash] opts the optional parameters
@@ -3814,8 +3992,8 @@ module OCI
     # private IP, or if you instead call
     # {#get_public_ip get_public_ip} or
     # {#get_public_ip_by_ip_address get_public_ip_by_ip_address}, the
-    # service returns the public IP object with `lifecycleState` = ASSIGNING and `privateIpId` = OCID
-    # of the target private IP.
+    # service returns the public IP object with `lifecycleState` = ASSIGNING and
+    # `assignedEntityId` = OCID of the target private IP.
     #
     # @param [OCI::Core::Models::GetPublicIpByPrivateIpIdDetails] get_public_ip_by_private_ip_id_details Private IP details for fetching the public IP.
     # @param [Hash] opts the optional parameters
@@ -4408,11 +4586,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Cpe Cpe}>
     def list_cpes(compartment_id, opts = {})
@@ -4468,11 +4650,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -4563,11 +4749,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CrossConnectLocation CrossConnectLocation}>
     def list_cross_connect_locations(compartment_id, opts = {})
@@ -4625,11 +4815,15 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :cross_connect_group_id The OCID of the cross-connect group.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -4722,11 +4916,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CrossConnectPortSpeedShape CrossConnectPortSpeedShape}>
     def list_crossconnect_port_speed_shapes(compartment_id, opts = {})
@@ -4785,11 +4983,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -4884,11 +5086,15 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :vcn_id The OCID of the VCN.
     # @option opts [String] :drg_id The OCID of the DRG.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DrgAttachment DrgAttachment}>
     def list_drg_attachments(compartment_id, opts = {})
@@ -4946,11 +5152,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Drg Drg}>
     def list_drgs(compartment_id, opts = {})
@@ -5012,11 +5222,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::FastConnectProviderService FastConnectProviderService}>
     def list_fast_connect_provider_services(compartment_id, opts = {})
@@ -5075,11 +5289,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VirtualCircuitBandwidthShape VirtualCircuitBandwidthShape}>
     def list_fast_connect_provider_virtual_circuit_bandwidth_shapes(provider_service_id, opts = {})
@@ -5136,11 +5354,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -5235,11 +5457,15 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :drg_id The OCID of the DRG.
     # @option opts [String] :cpe_id The OCID of the CPE.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::IPSecConnection IPSecConnection}>
     def list_ip_sec_connections(compartment_id, opts = {})
@@ -5299,11 +5525,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::LocalPeeringGateway LocalPeeringGateway}>
     def list_local_peering_gateways(compartment_id, vcn_id, opts = {})
@@ -5355,6 +5585,107 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the NAT gateways in the specified compartment. You may optionally specify a VCN OCID
+    # to filter the results by VCN.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :vcn_id The OCID of the VCN.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::NatGateway NatGateway}>
+    def list_nat_gateways(compartment_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#list_nat_gateways.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_nat_gateways." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Core::Models::NatGateway::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Core::Models::NatGateway::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/natGateways'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:vcnId] = opts[:vcn_id] if opts[:vcn_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#list_nat_gateways') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::NatGateway>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the {PrivateIp} objects based
     # on one of these filters:
     #
@@ -5372,11 +5703,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :ip_address An IP address.
     #
@@ -5433,40 +5768,60 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists either the ephemeral or reserved {PublicIp} objects
-    # in the specified compartment.
+    # Lists the {PublicIp} objects
+    # in the specified compartment. You can filter the list by using query parameters.
     #
-    # To list your reserved public IPs, set `scope` = `REGION`, and leave the
-    # `availabilityDomain` parameter empty.
+    # To list your reserved public IPs:
+    #   * Set `scope` = `REGION`  (required)
+    #   * Leave the `availabilityDomain` parameter empty
+    #   * Set `lifetime` = `RESERVED`
     #
-    # To list your ephemeral public IPs, set `scope` = `AVAILABILITY_DOMAIN`, and set the
-    # `availabilityDomain` parameter to the desired availability domain. An ephemeral public IP
-    # is always in the same availability domain and compartment as the private IP it's assigned to.
+    # To list the ephemeral public IPs assigned to a regional entity such as a NAT gateway:
+    #   * Set `scope` = `REGION`  (required)
+    #   * Leave the `availabilityDomain` parameter empty
+    #   * Set `lifetime` = `EPHEMERAL`
+    #
+    # To list the ephemeral public IPs assigned to private IPs:
+    #   * Set `scope` = `AVAILABILITY_DOMAIN` (required)
+    #   * Set the `availabilityDomain` parameter to the desired availability domain (required)
+    #   * Set `lifetime` = `EPHEMERAL`
+    #
+    # **Note:** An ephemeral public IP assigned to a private IP
+    # is always in the same availability domain and compartment as the private IP.
     #
     # @param [String] scope Whether the public IP is regional or specific to a particular availability domain.
     #
-    #   * `REGION`: The public IP exists within a region and can be assigned to a private IP
-    #   in any availability domain in the region. Reserved public IPs have `scope` = `REGION`.
+    #   * `REGION`: The public IP exists within a region and is assigned to a regional entity
+    #   (such as a {NatGateway}), or can be assigned to a private IP
+    #   in any availability domain in the region. Reserved public IPs have `scope` = `REGION`, as do
+    #   ephemeral public IPs assigned to a regional entity.
     #
-    #   * `AVAILABILITY_DOMAIN`: The public IP exists within the availability domain of the private IP
+    #   * `AVAILABILITY_DOMAIN`: The public IP exists within the availability domain of the entity
     #   it's assigned to, which is specified by the `availabilityDomain` property of the public IP object.
-    #   Ephemeral public IPs have `scope` = `AVAILABILITY_DOMAIN`.
+    #   Ephemeral public IPs that are assigned to private IPs have `scope` = `AVAILABILITY_DOMAIN`.
     #
     #   Allowed values are: REGION, AVAILABILITY_DOMAIN
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
     #
+    # @option opts [String] :lifetime A filter to return only public IPs that match given lifetime.
+    #
+    #   Allowed values are: EPHEMERAL, RESERVED
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::PublicIp PublicIp}>
     def list_public_ips(scope, compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_public_ips.' if logger
@@ -5476,6 +5831,10 @@ module OCI
         raise "Invalid value for 'scope', must be one of REGION, AVAILABILITY_DOMAIN."
       end
       raise "Missing the required parameter 'compartment_id' when calling list_public_ips." if compartment_id.nil?
+
+      if opts[:lifetime] && !%w[EPHEMERAL RESERVED].include?(opts[:lifetime])
+        raise 'Invalid value for "lifetime", must be one of EPHEMERAL, RESERVED.'
+      end
 
       path = '/publicIps'
       operation_signing_strategy = :standard
@@ -5488,6 +5847,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:lifetime] = opts[:lifetime] if opts[:lifetime]
 
       # Header Params
       header_params = {}
@@ -5529,11 +5889,15 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :drg_id The OCID of the DRG.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::RemotePeeringConnection RemotePeeringConnection}>
     def list_remote_peering_connections(compartment_id, opts = {})
@@ -5593,11 +5957,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -5690,11 +6058,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -5788,11 +6160,15 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :vcn_id The OCID of the VCN.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
@@ -5879,11 +6255,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Service Service}>
     def list_services(opts = {})
@@ -5938,11 +6318,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -6034,11 +6418,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -6128,11 +6516,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VirtualCircuitBandwidthShape VirtualCircuitBandwidthShape}>
     def list_virtual_circuit_bandwidth_shapes(compartment_id, opts = {})
@@ -6249,11 +6641,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
+    #   Example: `50`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -6865,6 +7261,65 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::LocalPeeringGateway'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the specified NAT gateway.
+    #
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Core::Models::UpdateNatGatewayDetails] update_nat_gateway_details Details object for updating a NAT gateway.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::NatGateway NatGateway}
+    def update_nat_gateway(nat_gateway_id, update_nat_gateway_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#update_nat_gateway.' if logger
+
+      raise "Missing the required parameter 'nat_gateway_id' when calling update_nat_gateway." if nat_gateway_id.nil?
+      raise "Missing the required parameter 'update_nat_gateway_details' when calling update_nat_gateway." if update_nat_gateway_details.nil?
+      raise "Parameter value for 'nat_gateway_id' must not be blank" if OCI::Internal::Util.blank_string?(nat_gateway_id)
+
+      path = '/natGateways/{natGatewayId}'.sub('{natGatewayId}', nat_gateway_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_nat_gateway_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#update_nat_gateway') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::NatGateway'
         )
       end
       # rubocop:enable Metrics/BlockLength
