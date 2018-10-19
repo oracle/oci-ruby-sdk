@@ -7742,7 +7742,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified subnet's display name. Avoid entering confidential information.
+    # Updates the specified subnet.
     #
     # @param [String] subnet_id The OCID of the subnet.
     # @param [OCI::Core::Models::UpdateSubnetDetails] update_subnet_details Details object for updating a subnet.
@@ -7801,8 +7801,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified VCN's display name.
-    # Avoid entering confidential information.
+    # Updates the specified VCN.
     #
     # @param [String] vcn_id The OCID of the VCN.
     # @param [OCI::Core::Models::UpdateVcnDetails] update_vcn_details Details object for updating a VCN.
@@ -8001,6 +8000,7 @@ module OCI
 
     def applicable_retry_config(opts = {})
       return @retry_config unless opts.key?(:retry_config)
+
       opts[:retry_config]
     end
   end

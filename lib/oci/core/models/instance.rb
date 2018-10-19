@@ -177,6 +177,14 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The date and time the instance is expected to be stopped / started,  in the format defined by RFC3339.
+    # After that time if instance hasn't been rebooted, Oracle will reboot the instance within 24 hours of the due time.
+    # Regardless of how the instance was stopped, the flag will be reset to empty as soon as instance reaches Stopped state.
+    # Example: `2018-05-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_maintenance_reboot_due
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -198,7 +206,8 @@ module OCI
         'region': :'region',
         'shape': :'shape',
         'source_details': :'sourceDetails',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'time_maintenance_reboot_due': :'timeMaintenanceRebootDue'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -224,7 +233,8 @@ module OCI
         'region': :'String',
         'shape': :'String',
         'source_details': :'OCI::Core::Models::InstanceSourceDetails',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'time_maintenance_reboot_due': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -253,6 +263,7 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [OCI::Core::Models::InstanceSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_maintenance_reboot_due The value to assign to the {#time_maintenance_reboot_due} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -350,6 +361,12 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_maintenance_reboot_due = attributes[:'timeMaintenanceRebootDue'] if attributes[:'timeMaintenanceRebootDue']
+
+      raise 'You cannot provide both :timeMaintenanceRebootDue and :time_maintenance_reboot_due' if attributes.key?(:'timeMaintenanceRebootDue') && attributes.key?(:'time_maintenance_reboot_due')
+
+      self.time_maintenance_reboot_due = attributes[:'time_maintenance_reboot_due'] if attributes[:'time_maintenance_reboot_due']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -384,13 +401,14 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
+
       self.class == other.class &&
         availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
@@ -409,9 +427,10 @@ module OCI
         region == other.region &&
         shape == other.shape &&
         source_details == other.source_details &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        time_maintenance_reboot_due == other.time_maintenance_reboot_due
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -425,7 +444,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, time_created].hash
+      [availability_domain, compartment_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, time_created, time_maintenance_reboot_due].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
@@ -437,6 +456,7 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
+
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -472,6 +492,7 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
+
         hash[param] = _to_hash(value)
       end
       hash

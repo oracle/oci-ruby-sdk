@@ -101,6 +101,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a volume backup copy in specified region. For general information about volume backups,
+    # see [Overview of Block Volume Service Backups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/blockvolumebackups.htm)
+    #
+    # @param [String] volume_backup_id The OCID of the volume backup.
+    # @param [OCI::Core::Models::CopyVolumeBackupDetails] copy_volume_backup_details Request to create a cross-region copy of given backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackup VolumeBackup}
+    def copy_volume_backup(volume_backup_id, copy_volume_backup_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#copy_volume_backup.' if logger
+
+      raise "Missing the required parameter 'volume_backup_id' when calling copy_volume_backup." if volume_backup_id.nil?
+      raise "Missing the required parameter 'copy_volume_backup_details' when calling copy_volume_backup." if copy_volume_backup_details.nil?
+      raise "Parameter value for 'volume_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_backup_id)
+
+      path = '/volumeBackups/{volumeBackupId}/actions/copy'.sub('{volumeBackupId}', volume_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(copy_volume_backup_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#copy_volume_backup') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new boot volume in the specified compartment from an existing boot volume or a boot volume backup.
     # For general information about boot volumes, see [Boot Volumes](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/bootvolumes.htm).
     # You may optionally specify a *display name* for the volume, which is simply a friendly name or
@@ -1905,6 +1972,8 @@ module OCI
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
+    # @option opts [String] :source_volume_backup_id A filter to return only resources that originated from the given source volume backup.
+    #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
     #   sort order is case sensitive.
@@ -1950,6 +2019,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sourceVolumeBackupId] = opts[:source_volume_backup_id] if opts[:source_volume_backup_id]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
@@ -2288,7 +2358,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified boot volume's display name.
+    # Updates the specified boot volume's display name, defined tags, and free-form tags.
     # @param [String] boot_volume_id The OCID of the boot volume.
     # @param [OCI::Core::Models::UpdateBootVolumeDetails] update_boot_volume_details Update boot volume's display name.
     # @param [Hash] opts the optional parameters
@@ -2765,6 +2835,7 @@ module OCI
 
     def applicable_retry_config(opts = {})
       return @retry_config unless opts.key?(:retry_config)
+
       opts[:retry_config]
     end
   end

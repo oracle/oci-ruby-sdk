@@ -161,6 +161,7 @@ module OCI
     def protection_mode=(protection_mode)
       # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'protection_mode': this must be one of the values in PROTECTION_MODE_ENUM." if protection_mode && !PROTECTION_MODE_ENUM.include?(protection_mode)
+
       # rubocop: enable Metrics/LineLength
       @protection_mode = protection_mode
     end
@@ -170,24 +171,26 @@ module OCI
     def transport_type=(transport_type)
       # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'transport_type': this must be one of the values in TRANSPORT_TYPE_ENUM." if transport_type && !TRANSPORT_TYPE_ENUM.include?(transport_type)
+
       # rubocop: enable Metrics/LineLength
       @transport_type = transport_type
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
+
       self.class == other.class &&
         creation_type == other.creation_type &&
         database_admin_password == other.database_admin_password &&
         protection_mode == other.protection_mode &&
         transport_type == other.transport_type
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -213,6 +216,7 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
+
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -248,6 +252,7 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
+
         hash[param] = _to_hash(value)
       end
       hash

@@ -7,6 +7,10 @@ module OCI
   # Connection strings to connect to an Oracle Autonomous Database.
   #
   class Database::Models::AutonomousDatabaseConnectionStrings # rubocop:disable Metrics/LineLength
+    # All connection strings to use to connect to the Autonomous Database.
+    # @return [Hash<String, String>]
+    attr_accessor :all_connection_strings
+
     # The High database service provides the highest level of resources to each SQL statement resulting in the highest performance, but supports the fewest number of concurrent SQL statements.
     # @return [String]
     attr_accessor :high
@@ -23,6 +27,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'all_connection_strings': :'allConnectionStrings',
         'high': :'high',
         'low': :'low',
         'medium': :'medium'
@@ -34,6 +39,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'all_connection_strings': :'Hash<String, String>',
         'high': :'String',
         'low': :'String',
         'medium': :'String'
@@ -47,6 +53,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Hash<String, String>] :all_connection_strings The value to assign to the {#all_connection_strings} property
     # @option attributes [String] :high The value to assign to the {#high} property
     # @option attributes [String] :low The value to assign to the {#low} property
     # @option attributes [String] :medium The value to assign to the {#medium} property
@@ -55,6 +62,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.all_connection_strings = attributes[:'allConnectionStrings'] if attributes[:'allConnectionStrings']
+
+      raise 'You cannot provide both :allConnectionStrings and :all_connection_strings' if attributes.key?(:'allConnectionStrings') && attributes.key?(:'all_connection_strings')
+
+      self.all_connection_strings = attributes[:'all_connection_strings'] if attributes[:'all_connection_strings']
 
       self.high = attributes[:'high'] if attributes[:'high']
 
@@ -65,19 +78,21 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
+
       self.class == other.class &&
+        all_connection_strings == other.all_connection_strings &&
         high == other.high &&
         low == other.low &&
         medium == other.medium
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -91,7 +106,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [high, low, medium].hash
+      [all_connection_strings, high, low, medium].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
@@ -103,6 +118,7 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
+
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -138,6 +154,7 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
+
         hash[param] = _to_hash(value)
       end
       hash

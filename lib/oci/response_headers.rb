@@ -9,6 +9,7 @@ module OCI
     def initialize(headers)
       @headers = {}
       return if headers.nil?
+
       headers.each do |key, value|
         key = key.downcase if key.is_a? String
         @headers[key] = value.is_a?(Array) && value.length == 1 ? value[0] : value

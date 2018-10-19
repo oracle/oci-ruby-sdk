@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.3.9 - 2018-10-18
+### Added
+- Support for cost tracking tags in the Identity service
+- Support for generating and downloading wallets in the Database service
+- Support for creating a standalone backup from an on-premises database in the Database service
+- Support for db version and additional connection strings in the Autonomous Transaction Processing and Autonomous Data Warehouse resources of the Database service
+- Support for copying volume backups across regions in the Block Storage service
+- Support for deleting compartments in the Identity service
+- Support for reboot migration for virtual machines in the Compute service
+- Support for Instance Pools and Instance Configurations in the Compute service
+
 ## 2.3.8 - 2018-10-04
 ### Added
 - Support for trusted partner images through application listings and subscriptions in the Compute service
@@ -40,7 +51,7 @@ where specifying an optional `content_type` for `ObjectStorageClient#put_object`
 
 ## 2.3.3 - 2018-07-26
 ### Added
-- Support for OCI Search.  An example on how to call this: [resource\_search\_example.rb](https://github.com/oracle/oci-ruby-sdk/tree/master/examples-oci/resource_search_example.rb)
+- Support for Search.  An example on how to call this: [resource\_search\_example.rb](https://github.com/oracle/oci-ruby-sdk/tree/master/examples-oci/resource_search_example.rb)
 - Support for specifying a backup policy when creating a boot volume in the Block Storage service
 
 ## 2.3.2 - 2018-07-12
@@ -93,7 +104,7 @@ where specifying an optional `content_type` for `ObjectStorageClient#put_object`
 ### Added
 - Support for returning names for events in the Audit service 
 - Support for multiple hostnames per listener in the Load Balancing service
-- Support for specifying a retry strategy when calling OCI services. An example of specifying a client retry strategy: [retry\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/retry_example.rb)
+- Support for specifying a retry strategy when calling Oracle Cloud Infrastructure services. An example of specifying a client retry strategy: [retry\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/retry_example.rb)
 
 ## 2.1.1 - 2018-04-19
 
@@ -146,7 +157,7 @@ where specifying an optional `content_type` for `ObjectStorageClient#put_object`
 ### Added
 - Support for using the `ObjectReadWithoutList` public access type when creating and updating buckets
 - Support for dynamic groups in Identity Service
-- Support for instance principals authentication when calling OCI services. An example of how to use instance principals authentication: [instance\_principals\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/instance_principals_example.rb)
+- Support for instance principals authentication when calling Oracle Cloud Infrastructure services. An example of how to use instance principals authentication: [instance\_principals\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/instance_principals_example.rb)
 - Support for configuring idle timeout for listeners in Load Balancer Service 
 - Support for VNC console connections in Compute Service
 

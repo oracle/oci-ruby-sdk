@@ -101,6 +101,7 @@ module OCI
     # @return [Logger]
     def logger
       return OCI.logger if @logger.nil?
+
       @logger
     end
 

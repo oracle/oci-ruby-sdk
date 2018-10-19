@@ -32,7 +32,8 @@ module OCI
       FileStorageClient: 'filestorage',
       EmailClient: 'email',
       ContainerEngineClient: 'containerengine',
-      ResourceSearchClient: 'query'
+      ResourceSearchClient: 'query',
+      ComputeManagementClient: 'iaas'
     }.freeze
     # --- End of service prefixes ---
 
@@ -46,6 +47,7 @@ module OCI
     def self.get_service_endpoint(region, service)
       prefix = SERVICE_ENDPOINT_PREFIX_MAPPING[service]
       raise "Service '#{service}' is not supported." unless prefix
+
       format_endpoint(prefix, region)
     end
 
