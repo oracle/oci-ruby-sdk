@@ -100,7 +100,6 @@ module OCI
 
     def fetch_header_mapping(method, operation_signing_strategy)
       return @headers_to_sign_all_requests if operation_signing_strategy == :exclude_body
-
       @operation_header_mapping[method]
     end
 
@@ -119,8 +118,8 @@ module OCI
 
     def compute_signature(headers, method, path, operation_signing_strategy)
       header_mapping = fetch_header_mapping(method, operation_signing_strategy)
-      return if header_mapping.empty?
 
+      return if header_mapping.empty?
       signing_string = header_mapping.map do |header|
         if header == :'(request-target)'
           "#{header}: #{method.downcase} #{path}"

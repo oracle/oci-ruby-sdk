@@ -161,7 +161,6 @@ module OCI
 
         def multipart_parallel_process_count
           return 1 unless @upload_manager_config.allow_parallel_multipart_uploads
-
           @upload_manager_config.parallel_process_count
         end
 

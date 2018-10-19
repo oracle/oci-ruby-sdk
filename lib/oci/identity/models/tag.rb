@@ -61,11 +61,6 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # Indicates whether the tag is enabled for cost tracking.
-    #
-    # @return [BOOLEAN]
-    attr_accessor :is_cost_tracking
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -79,8 +74,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'is_retired': :'isRetired',
-        'time_created': :'timeCreated',
-        'is_cost_tracking': :'isCostTracking'
+        'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,8 +92,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'is_retired': :'BOOLEAN',
-        'time_created': :'DateTime',
-        'is_cost_tracking': :'BOOLEAN'
+        'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -120,7 +113,6 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [BOOLEAN] :is_retired The value to assign to the {#is_retired} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
-    # @option attributes [BOOLEAN] :is_cost_tracking The value to assign to the {#is_cost_tracking} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -174,24 +166,17 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
-
-      self.is_cost_tracking = attributes[:'isCostTracking'] unless attributes[:'isCostTracking'].nil?
-
-      raise 'You cannot provide both :isCostTracking and :is_cost_tracking' if attributes.key?(:'isCostTracking') && attributes.key?(:'is_cost_tracking')
-
-      self.is_cost_tracking = attributes[:'is_cost_tracking'] unless attributes[:'is_cost_tracking'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
-
       self.class == other.class &&
         compartment_id == other.compartment_id &&
         tag_namespace_id == other.tag_namespace_id &&
@@ -202,10 +187,9 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         is_retired == other.is_retired &&
-        time_created == other.time_created &&
-        is_cost_tracking == other.is_cost_tracking
+        time_created == other.time_created
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -219,7 +203,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, tag_namespace_id, tag_namespace_name, id, name, description, freeform_tags, defined_tags, is_retired, time_created, is_cost_tracking].hash
+      [compartment_id, tag_namespace_id, tag_namespace_name, id, name, description, freeform_tags, defined_tags, is_retired, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
@@ -231,7 +215,6 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
-
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -267,7 +250,6 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
-
         hash[param] = _to_hash(value)
       end
       hash

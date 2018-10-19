@@ -41,7 +41,6 @@ module OCI
       end
 
       return configs[profile_name] if configs && configs.key?(profile_name)
-
       raise Errors::ProfileNotFoundError, 'Profile not found in the given config file.'
     end
 
@@ -79,7 +78,6 @@ module OCI
 
         # key_content is not allowed in configuration file
         next if key == 'key_content'
-
         config.instance_variable_set('@' + key, value) if config.respond_to?("#{key}=") && config.respond_to?(key)
         # TODO: log the key been ignored by Ruby SDK
       end

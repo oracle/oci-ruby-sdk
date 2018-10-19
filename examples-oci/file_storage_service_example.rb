@@ -86,7 +86,6 @@ def delete_vcn_and_subnet(virtual_network, vcn_and_subnet)
       break
     rescue OCI::Errors::ServiceError => e
       raise unless e.status_code == 409 && attempt < 4
-
       sleep(5)
     end
   end

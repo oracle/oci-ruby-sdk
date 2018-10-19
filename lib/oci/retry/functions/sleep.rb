@@ -76,7 +76,6 @@ module OCI
               retry_state.last_exception.status_code == 429
 
             return exponential_backoff_with_full_jitter.call(retry_config, retry_state) unless use_equal_jitter
-
             exponential_backoff_with_equal_jitter.call(retry_config, retry_state)
           end
         end

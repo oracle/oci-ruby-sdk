@@ -20,7 +20,6 @@ begin
   instance = compute_client.get_instance(instance_id).data
 rescue OCI::Errors::ServiceError => error
   raise unless error.status_code == 404
-
   puts "Instance not found. OCID: #{instance_id}"
 end
 

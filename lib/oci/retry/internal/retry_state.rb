@@ -34,7 +34,6 @@ module OCI
         # only be done once.
         def start
           raise 'The start_time for the retry state has already been set' unless @start_time_epoch_millis.nil?
-
           @start_time_epoch_millis = (Time.now.to_f * 1000).to_i
         end
 

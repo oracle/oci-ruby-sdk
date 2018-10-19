@@ -276,7 +276,6 @@ module OCI
 
     def applicable_retry_config(opts = {})
       return @retry_config unless opts.key?(:retry_config)
-
       opts[:retry_config]
     end
   end

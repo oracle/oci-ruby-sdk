@@ -177,19 +177,17 @@ module OCI
     def provider_state=(provider_state)
       # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'provider_state': this must be one of the values in PROVIDER_STATE_ENUM." if provider_state && !PROVIDER_STATE_ENUM.include?(provider_state)
-
       # rubocop: enable Metrics/LineLength
       @provider_state = provider_state
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
-
       self.class == other.class &&
         bandwidth_shape_name == other.bandwidth_shape_name &&
         cross_connect_mappings == other.cross_connect_mappings &&
@@ -199,7 +197,7 @@ module OCI
         provider_state == other.provider_state &&
         reference_comment == other.reference_comment
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -225,7 +223,6 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
-
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -261,7 +258,6 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
-
         hash[param] = _to_hash(value)
       end
       hash

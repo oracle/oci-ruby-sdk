@@ -36,12 +36,12 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the parent compartment containing the compartment.
+    # **[Required]** The OCID of the tenancy containing the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
     # **[Required]** The name you assign to the compartment during creation. The name must be unique across all
-    # compartments in the parent. Avoid entering confidential information.
+    # compartments in the tenancy. Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :name
@@ -66,13 +66,6 @@ module OCI
     # The detailed status of INACTIVE lifecycleState.
     # @return [Integer]
     attr_accessor :inactive_status
-
-    # Indicates whether or not the compartment is accessible for the user making the request.
-    # Returns true when the user has INSPECT permissions directly on a resource in the
-    # compartment or indirectly (permissions can be on a resource in a subcompartment).
-    #
-    # @return [BOOLEAN]
-    attr_accessor :is_accessible
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
@@ -99,7 +92,6 @@ module OCI
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
         'inactive_status': :'inactiveStatus',
-        'is_accessible': :'isAccessible',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -117,7 +109,6 @@ module OCI
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
         'inactive_status': :'Integer',
-        'is_accessible': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -137,7 +128,6 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :inactive_status The value to assign to the {#inactive_status} property
-    # @option attributes [BOOLEAN] :is_accessible The value to assign to the {#is_accessible} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -176,12 +166,6 @@ module OCI
 
       self.inactive_status = attributes[:'inactive_status'] if attributes[:'inactive_status']
 
-      self.is_accessible = attributes[:'isAccessible'] unless attributes[:'isAccessible'].nil?
-
-      raise 'You cannot provide both :isAccessible and :is_accessible' if attributes.key?(:'isAccessible') && attributes.key?(:'is_accessible')
-
-      self.is_accessible = attributes[:'is_accessible'] unless attributes[:'is_accessible'].nil?
-
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -212,14 +196,13 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
-
       self.class == other.class &&
         id == other.id &&
         compartment_id == other.compartment_id &&
@@ -228,11 +211,10 @@ module OCI
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
         inactive_status == other.inactive_status &&
-        is_accessible == other.is_accessible &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -246,7 +228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, time_created, lifecycle_state, inactive_status, is_accessible, freeform_tags, defined_tags].hash
+      [id, compartment_id, name, description, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
@@ -258,7 +240,6 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
-
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -294,7 +275,6 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
-
         hash[param] = _to_hash(value)
       end
       hash

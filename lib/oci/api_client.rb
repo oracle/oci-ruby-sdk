@@ -25,7 +25,6 @@ module OCI
 
         # Port of the Java SDK behaviour where we omit fractional seconds if they would be 0
         return as_utc.iso8601 if as_utc.strftime('%L').to_i.zero?
-
         as_utc.iso8601(3)
       end
 
@@ -354,7 +353,6 @@ module OCI
             #   2. Release resources sooner/don't hold connections open longer than necessary (e.g. we don't need the
             #      connection open while we're deserialising)
             return process_response_block(response, &block) if success?(response) && !block.nil?
-
             response.body
           end
         end
@@ -381,7 +379,6 @@ module OCI
       @config.logger.debug("HTTP response body ~BEGIN~\n#{response_ref.body}\n~END~\n") if @config.logger
 
       return handle_success_response(request, response_ref, opts[:return_type]) if success?(response_ref)
-
       handle_non_success_response(request, response_ref)
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -434,7 +431,6 @@ module OCI
 
     def process_response_block(response)
       raise 'A block must be provided' unless block_given?
-
       response.read_body do |chunk|
         yield chunk, response
       end
@@ -444,7 +440,6 @@ module OCI
 
     def handle_timeout_response(request, response)
       return unless response.is_a?(Net::HTTPRequestTimeOut)
-
       raise Errors::NetworkError.new(
         response.message,
         response.code.to_i,

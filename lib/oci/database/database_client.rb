@@ -101,75 +101,6 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Changes the status of the standalone backup resource to `ACTIVE` after the backup is created from the on-premises database and placed in Oracle Cloud Infrastructure Object Storage.
-    #
-    # **Note:** This API is used by an Oracle Cloud Infrastructure Python script that is packaged with the Oracle Cloud Infrastructure CLI. Oracle recommends that you use the script instead using the API directly. See [Migrating an On-Premises Database to Oracle Cloud Infrastructure by Creating a Backup in the Cloud](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Tasks/mig-onprembackup.htm) for more information.
-    #
-    # @param [String] backup_id The backup [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::CompleteExternalBackupJobDetails] complete_external_backup_job_details Updates the status of the backup resource.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
-    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
-    #
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
-    #   has been deleted and purged from the system, then a retry of the original creation request
-    #   may be rejected).
-    #
-    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalBackupJob ExternalBackupJob}
-    def complete_external_backup_job(backup_id, complete_external_backup_job_details, opts = {})
-      logger.debug 'Calling operation DatabaseClient#complete_external_backup_job.' if logger
-
-      raise "Missing the required parameter 'backup_id' when calling complete_external_backup_job." if backup_id.nil?
-      raise "Missing the required parameter 'complete_external_backup_job_details' when calling complete_external_backup_job." if complete_external_backup_job_details.nil?
-      raise "Parameter value for 'backup_id' must not be blank" if OCI::Internal::Util.blank_string?(backup_id)
-
-      path = '/externalBackupJobs/{backupId}/actions/complete'.sub('{backupId}', backup_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
-
-      post_body = @api_client.object_to_http_body(complete_external_backup_job_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#complete_external_backup_job') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::ExternalBackupJob'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
     # Creates a new Autonomous Data Warehouse.
     #
     # @param [OCI::Database::Models::CreateAutonomousDataWarehouseDetails] create_autonomous_data_warehouse_details Request to create a new Autonomous Data Warehouse.
@@ -300,8 +231,6 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   may be rejected).
     #
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
     def create_autonomous_database(create_autonomous_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_autonomous_database.' if logger
@@ -320,7 +249,6 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -362,8 +290,6 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   may be rejected).
     #
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabaseBackup AutonomousDatabaseBackup}
     def create_autonomous_database_backup(create_autonomous_database_backup_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_autonomous_database_backup.' if logger
@@ -382,7 +308,6 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -599,67 +524,6 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new backup resource and returns the information the caller needs to back up an on-premises Oracle Database to Oracle Cloud Infrastructure.
-    #
-    # **Note:** This API is used by an Oracle Cloud Infrastructure Python script that is packaged with the Oracle Cloud Infrastructure CLI. Oracle recommends that you use the script instead using the API directly. See [Migrating an On-Premises Database to Oracle Cloud Infrastructure by Creating a Backup in the Cloud](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Tasks/mig-onprembackup.htm) for more information.
-    #
-    # @param [OCI::Database::Models::CreateExternalBackupJobDetails] create_external_backup_job_details Request to create a cloud backup resource for a database running outside the cloud.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
-    #   has been deleted and purged from the system, then a retry of the original creation request
-    #   may be rejected).
-    #
-    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalBackupJob ExternalBackupJob}
-    def create_external_backup_job(create_external_backup_job_details, opts = {})
-      logger.debug 'Calling operation DatabaseClient#create_external_backup_job.' if logger
-
-      raise "Missing the required parameter 'create_external_backup_job_details' when calling create_external_backup_job." if create_external_backup_job_details.nil?
-
-      path = '/externalBackupJobs'
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
-
-      post_body = @api_client.object_to_http_body(create_external_backup_job_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_external_backup_job') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::ExternalBackupJob'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
     # Performs an action, such as one of the power actions (start, stop, softreset, or reset), on the specified DB Node.
     #
     # **start** - power on
@@ -812,8 +676,6 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
     # @return [Response] A Response object with data of type nil
     def delete_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_autonomous_database.' if logger
@@ -833,7 +695,6 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1038,228 +899,6 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # Creates and downloads a wallet for the specified Autonomous Data Warehouse.
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::GenerateAutonomousDataWarehouseWalletDetails] generate_autonomous_data_warehouse_wallet_details Request to create a new Autonomous Data Warehouse wallet.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
-    #   has been deleted and purged from the system, then a retry of the original creation request
-    #   may be rejected).
-    #
-    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
-    # @option [Block] &block Streaming http body to the block
-    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
-    def generate_autonomous_data_warehouse_wallet(autonomous_data_warehouse_id, generate_autonomous_data_warehouse_wallet_details, opts = {}, &block)
-      logger.debug 'Calling operation DatabaseClient#generate_autonomous_data_warehouse_wallet.' if logger
-
-      raise "Missing the required parameter 'autonomous_data_warehouse_id' when calling generate_autonomous_data_warehouse_wallet." if autonomous_data_warehouse_id.nil?
-      raise "Missing the required parameter 'generate_autonomous_data_warehouse_wallet_details' when calling generate_autonomous_data_warehouse_wallet." if generate_autonomous_data_warehouse_wallet_details.nil?
-      raise "Parameter value for 'autonomous_data_warehouse_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_data_warehouse_id)
-
-      path = '/autonomousDataWarehouses/{autonomousDataWarehouseId}/actions/generateWallet'.sub('{autonomousDataWarehouseId}', autonomous_data_warehouse_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = opts[:accept] if opts[:accept]
-      header_params[:accept] ||= 'application/octet-stream'
-      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
-
-      post_body = @api_client.object_to_http_body(generate_autonomous_data_warehouse_wallet_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#generate_autonomous_data_warehouse_wallet') do
-        if !block.nil?
-          @api_client.call_api(
-            :POST,
-            path,
-            endpoint,
-            header_params: header_params,
-            query_params: query_params,
-            operation_signing_strategy: operation_signing_strategy,
-            body: post_body,
-            return_type: 'Stream',
-            &block
-          )
-        elsif opts[:response_target]
-          if opts[:response_target].respond_to? :write
-            @api_client.call_api(
-              :POST,
-              path,
-              endpoint,
-              header_params: header_params,
-              query_params: query_params,
-              operation_signing_strategy: operation_signing_strategy,
-              body: post_body,
-              return_type: 'Stream',
-              &proc { |chunk, _response| opts[:response_target].write(chunk) }
-            )
-          elsif opts[:response_target].is_a?(String)
-            File.open(opts[:response_target], 'wb') do |output|
-              return @api_client.call_api(
-                :POST,
-                path,
-                endpoint,
-                header_params: header_params,
-                query_params: query_params,
-                operation_signing_strategy: operation_signing_strategy,
-                body: post_body,
-                return_type: 'Stream',
-                &proc { |chunk, _response| output.write(chunk) }
-              )
-            end
-          end
-        else
-          @api_client.call_api(
-            :POST,
-            path,
-            endpoint,
-            header_params: header_params,
-            query_params: query_params,
-            operation_signing_strategy: operation_signing_strategy,
-            body: post_body,
-            return_type: 'String'
-          )
-        end
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # Creates and downloads a wallet for the specified Autonomous Transaction Processing database.
-    #
-    # @param [String] autonomous_database_id The database [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::GenerateAutonomousDatabaseWalletDetails] generate_autonomous_database_wallet_details Request to create a new Autonomous Transaction Processing database wallet.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
-    #   has been deleted and purged from the system, then a retry of the original creation request
-    #   may be rejected).
-    #
-    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
-    # @option [Block] &block Streaming http body to the block
-    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
-    def generate_autonomous_database_wallet(autonomous_database_id, generate_autonomous_database_wallet_details, opts = {}, &block)
-      logger.debug 'Calling operation DatabaseClient#generate_autonomous_database_wallet.' if logger
-
-      raise "Missing the required parameter 'autonomous_database_id' when calling generate_autonomous_database_wallet." if autonomous_database_id.nil?
-      raise "Missing the required parameter 'generate_autonomous_database_wallet_details' when calling generate_autonomous_database_wallet." if generate_autonomous_database_wallet_details.nil?
-      raise "Parameter value for 'autonomous_database_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_database_id)
-
-      path = '/autonomousDatabases/{autonomousDatabaseId}/actions/generateWallet'.sub('{autonomousDatabaseId}', autonomous_database_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = opts[:accept] if opts[:accept]
-      header_params[:accept] ||= 'application/octet-stream'
-      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
-
-      post_body = @api_client.object_to_http_body(generate_autonomous_database_wallet_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#generate_autonomous_database_wallet') do
-        if !block.nil?
-          @api_client.call_api(
-            :POST,
-            path,
-            endpoint,
-            header_params: header_params,
-            query_params: query_params,
-            operation_signing_strategy: operation_signing_strategy,
-            body: post_body,
-            return_type: 'Stream',
-            &block
-          )
-        elsif opts[:response_target]
-          if opts[:response_target].respond_to? :write
-            @api_client.call_api(
-              :POST,
-              path,
-              endpoint,
-              header_params: header_params,
-              query_params: query_params,
-              operation_signing_strategy: operation_signing_strategy,
-              body: post_body,
-              return_type: 'Stream',
-              &proc { |chunk, _response| opts[:response_target].write(chunk) }
-            )
-          elsif opts[:response_target].is_a?(String)
-            File.open(opts[:response_target], 'wb') do |output|
-              return @api_client.call_api(
-                :POST,
-                path,
-                endpoint,
-                header_params: header_params,
-                query_params: query_params,
-                operation_signing_strategy: operation_signing_strategy,
-                body: post_body,
-                return_type: 'Stream',
-                &proc { |chunk, _response| output.write(chunk) }
-              )
-            end
-          end
-        else
-          @api_client.call_api(
-            :POST,
-            path,
-            endpoint,
-            header_params: header_params,
-            query_params: query_params,
-            operation_signing_strategy: operation_signing_strategy,
-            body: post_body,
-            return_type: 'String'
-          )
-        end
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
@@ -1367,6 +1006,7 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets the details of the specified Autonomous Database.
@@ -1375,8 +1015,6 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
     def get_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_database.' if logger
@@ -1395,7 +1033,6 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1418,10 +1055,12 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets information about the specified Autonomous Database backup.
@@ -1429,8 +1068,6 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabaseBackup AutonomousDatabaseBackup}
     def get_autonomous_database_backup(autonomous_database_backup_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_database_backup.' if logger
@@ -1449,7 +1086,6 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1472,6 +1108,7 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -2026,62 +1663,6 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
-
-
-    # Gets information about the specified external backup job.
-    #
-    # **Note:** This API is used by an Oracle Cloud Infrastructure Python script that is packaged with the Oracle Cloud Infrastructure CLI. Oracle recommends that you use the script instead using the API directly. See [Migrating an On-Premises Database to Oracle Cloud Infrastructure by Creating a Backup in the Cloud](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Tasks/mig-onprembackup.htm) for more information.
-    #
-    # @param [String] backup_id The backup [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalBackupJob ExternalBackupJob}
-    def get_external_backup_job(backup_id, opts = {})
-      logger.debug 'Calling operation DatabaseClient#get_external_backup_job.' if logger
-
-      raise "Missing the required parameter 'backup_id' when calling get_external_backup_job." if backup_id.nil?
-      raise "Parameter value for 'backup_id' must not be blank" if OCI::Internal::Util.blank_string?(backup_id)
-
-      path = '/externalBackupJobs/{backupId}'.sub('{backupId}', backup_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_external_backup_job') do
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::ExternalBackupJob'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
     # Launches a new DB system in the specified compartment and availability domain. The Oracle
@@ -2329,8 +1910,6 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDatabaseBackupSummary AutonomousDatabaseBackupSummary}>
     def list_autonomous_database_backups(opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_database_backups.' if logger
@@ -2367,7 +1946,6 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -2413,8 +1991,6 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDatabaseSummary AutonomousDatabaseSummary}>
     def list_autonomous_databases(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_databases.' if logger
@@ -2451,7 +2027,6 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -2602,30 +2177,12 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
-    # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DBNAME is ascending. The DBNAME sort order is case sensitive.
-    #   Allowed values are: DBNAME, TIMECREATED
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
-    #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
-    # @option opts [String] :db_name A filter to return only resources that match the entire database name given. The match is not case sensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DatabaseSummary DatabaseSummary}>
     def list_databases(compartment_id, db_home_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_databases.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_databases." if compartment_id.nil?
       raise "Missing the required parameter 'db_home_id' when calling list_databases." if db_home_id.nil?
-
-      if opts[:sort_by] && !%w[DBNAME TIMECREATED].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of DBNAME, TIMECREATED.'
-      end
-
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
-      end
-
-      if opts[:lifecycle_state] && !OCI::Database::Models::DatabaseSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::DatabaseSummary::LIFECYCLE_STATE_ENUM.'
-      end
 
       path = '/databases'
       operation_signing_strategy = :standard
@@ -2637,10 +2194,6 @@ module OCI
       query_params[:dbHomeId] = db_home_id
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
-      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
-      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
-      query_params[:dbName] = opts[:db_name] if opts[:db_name]
 
       # Header Params
       header_params = {}
@@ -2795,30 +2348,12 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
-    # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
-    #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
-    #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbHomeSummary DbHomeSummary}>
     def list_db_homes(compartment_id, db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_homes.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_db_homes." if compartment_id.nil?
       raise "Missing the required parameter 'db_system_id' when calling list_db_homes." if db_system_id.nil?
-
-      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
-      end
-
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
-      end
-
-      if opts[:lifecycle_state] && !OCI::Database::Models::DbHomeSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::DbHomeSummary::LIFECYCLE_STATE_ENUM.'
-      end
 
       path = '/dbHomes'
       operation_signing_strategy = :standard
@@ -2830,10 +2365,6 @@ module OCI
       query_params[:dbSystemId] = db_system_id
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
-      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
-      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
-      query_params[:displayName] = opts[:display_name] if opts[:display_name]
 
       # Header Params
       header_params = {}
@@ -2876,29 +2407,12 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
-    # @option opts [String] :sort_by Sort by TIMECREATED.  Default order for TIMECREATED is descending.
-    #   Allowed values are: TIMECREATED
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
-    #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbNodeSummary DbNodeSummary}>
     def list_db_nodes(compartment_id, db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_nodes.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_db_nodes." if compartment_id.nil?
       raise "Missing the required parameter 'db_system_id' when calling list_db_nodes." if db_system_id.nil?
-
-      if opts[:sort_by] && !%w[TIMECREATED].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED.'
-      end
-
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
-      end
-
-      if opts[:lifecycle_state] && !OCI::Database::Models::DbNodeSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::DbNodeSummary::LIFECYCLE_STATE_ENUM.'
-      end
 
       path = '/dbNodes'
       operation_signing_strategy = :standard
@@ -2910,9 +2424,6 @@ module OCI
       query_params[:dbSystemId] = db_system_id
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
-      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
-      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -3126,33 +2637,11 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page.
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :backup_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup. Specify a backupId to list only the DB systems that support creating a database using this backup in this compartment.
-    # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
-    #
-    #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
-    #
-    #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
-    #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
-    # @option opts [String] :availability_domain A filter to return only resources that match the given availability domain exactly.
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemSummary DbSystemSummary}>
     def list_db_systems(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_systems.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_db_systems." if compartment_id.nil?
-
-      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
-      end
-
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
-      end
-
-      if opts[:lifecycle_state] && !OCI::Database::Models::DbSystemSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::DbSystemSummary::LIFECYCLE_STATE_ENUM.'
-      end
 
       path = '/dbSystems'
       operation_signing_strategy = :standard
@@ -3164,11 +2653,6 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:backupId] = opts[:backup_id] if opts[:backup_id]
-      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
-      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
-      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
-      query_params[:displayName] = opts[:display_name] if opts[:display_name]
 
       # Header Params
       header_params = {}
@@ -3681,8 +3165,6 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
     def stop_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#stop_autonomous_database.' if logger
@@ -3702,7 +3184,6 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -3921,8 +3402,6 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
     def update_autonomous_database(autonomous_database_id, update_autonomous_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_autonomous_database.' if logger
@@ -3943,7 +3422,6 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_autonomous_database_details)
@@ -4146,7 +3624,6 @@ module OCI
 
     def applicable_retry_config(opts = {})
       return @retry_config unless opts.key?(:retry_config)
-
       opts[:retry_config]
     end
   end

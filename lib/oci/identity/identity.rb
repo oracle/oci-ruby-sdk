@@ -68,11 +68,6 @@ require 'oci/identity/models/update_tag_namespace_details'
 require 'oci/identity/models/update_user_details'
 require 'oci/identity/models/user'
 require 'oci/identity/models/user_group_membership'
-require 'oci/identity/models/work_request'
-require 'oci/identity/models/work_request_error'
-require 'oci/identity/models/work_request_log_entry'
-require 'oci/identity/models/work_request_resource'
-require 'oci/identity/models/work_request_summary'
 
 # Require generated clients
 require 'oci/identity/identity_client'

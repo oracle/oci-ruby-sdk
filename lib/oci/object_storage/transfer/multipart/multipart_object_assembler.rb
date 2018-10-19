@@ -387,7 +387,6 @@ module OCI
 
           def calculate_md5(file_part: nil, raw_content: nil)
             raise 'Cannot specify both a file_part and raw_content' if file_part && raw_content
-
             md5 = OpenSSL::Digest::MD5.new
 
             if file_part
@@ -395,7 +394,6 @@ module OCI
               loop do
                 part_read = file_part.read(MD5_CALC_PART_READ_BYTES)
                 break unless part_read
-
                 md5.update(part_read)
               end
               file_part.rewind

@@ -24,46 +24,6 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Core::BlockstorageClient#copy_volume_backup} and then waits for the {OCI::Core::Models::VolumeBackup} acted upon
-    # to enter the given state(s).
-    #
-    # @param [String] volume_backup_id The OCID of the volume backup.
-    # @param [OCI::Core::Models::CopyVolumeBackupDetails] copy_volume_backup_details Request to create a cross-region copy of given backup.
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::VolumeBackup#lifecycle_state}
-    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::BlockstorageClient#copy_volume_backup}
-    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
-    #   * max_interval_seconds: The maximum interval between queries, in seconds.
-    #   * max_wait_seconds The maximum time to wait, in seconds
-    #
-    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Core::Models::VolumeBackup}
-    def copy_volume_backup_and_wait_for_state(volume_backup_id, copy_volume_backup_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      operation_result = @service_client.copy_volume_backup(volume_backup_id, copy_volume_backup_details, base_operation_opts)
-
-      return operation_result if wait_for_states.empty?
-
-      lowered_wait_for_states = wait_for_states.map(&:downcase)
-      wait_for_resource_id = operation_result.data.id
-
-      begin
-        waiter_result = @service_client.get_volume_backup(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
-        result_to_return = waiter_result
-
-        return result_to_return
-      rescue StandardError
-        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
-      end
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:enable Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:disable Layout/EmptyLines
-
-
     # Calls {OCI::Core::BlockstorageClient#create_boot_volume} and then waits for the {OCI::Core::Models::BootVolume} acted upon
     # to enter the given state(s).
     #

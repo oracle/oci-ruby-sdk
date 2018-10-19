@@ -11,14 +11,6 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::Backup # rubocop:disable Metrics/LineLength
-    DATABASE_EDITION_ENUM = [
-      DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
-      DATABASE_EDITION_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
-      DATABASE_EDITION_ENTERPRISE_EDITION_HIGH_PERFORMANCE = 'ENTERPRISE_EDITION_HIGH_PERFORMANCE'.freeze,
-      DATABASE_EDITION_ENTERPRISE_EDITION_EXTREME_PERFORMANCE = 'ENTERPRISE_EDITION_EXTREME_PERFORMANCE'.freeze,
-      DATABASE_EDITION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
-    ].freeze
-
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
@@ -46,16 +38,16 @@ module OCI
     # The Oracle Database edition of the DB system from which the database backup was taken.
     #
     # @return [String]
-    attr_reader :database_edition
+    attr_accessor :database_edition
 
     # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database.
     # @return [String]
     attr_accessor :database_id
 
-    # The size of the database in gigabytes at the time the backup was taken.
+    # Size of the database in megabytes (MB) at the time the backup was taken.
     #
-    # @return [Float]
-    attr_accessor :database_size_in_g_bs
+    # @return [Integer]
+    attr_accessor :db_data_size_in_mbs
 
     # The user-friendly name for the backup. The name does not have to be unique.
     # @return [String]
@@ -93,7 +85,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'database_edition': :'databaseEdition',
         'database_id': :'databaseId',
-        'database_size_in_g_bs': :'databaseSizeInGBs',
+        'db_data_size_in_mbs': :'dbDataSizeInMBs',
         'display_name': :'displayName',
         'id': :'id',
         'lifecycle_details': :'lifecycleDetails',
@@ -113,7 +105,7 @@ module OCI
         'compartment_id': :'String',
         'database_edition': :'String',
         'database_id': :'String',
-        'database_size_in_g_bs': :'Float',
+        'db_data_size_in_mbs': :'Integer',
         'display_name': :'String',
         'id': :'String',
         'lifecycle_details': :'String',
@@ -135,7 +127,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
-    # @option attributes [Float] :database_size_in_g_bs The value to assign to the {#database_size_in_g_bs} property
+    # @option attributes [Integer] :db_data_size_in_mbs The value to assign to the {#db_data_size_in_mbs} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -173,11 +165,11 @@ module OCI
 
       self.database_id = attributes[:'database_id'] if attributes[:'database_id']
 
-      self.database_size_in_g_bs = attributes[:'databaseSizeInGBs'] if attributes[:'databaseSizeInGBs']
+      self.db_data_size_in_mbs = attributes[:'dbDataSizeInMBs'] if attributes[:'dbDataSizeInMBs']
 
-      raise 'You cannot provide both :databaseSizeInGBs and :database_size_in_g_bs' if attributes.key?(:'databaseSizeInGBs') && attributes.key?(:'database_size_in_g_bs')
+      raise 'You cannot provide both :dbDataSizeInMBs and :db_data_size_in_mbs' if attributes.key?(:'dbDataSizeInMBs') && attributes.key?(:'db_data_size_in_mbs')
 
-      self.database_size_in_g_bs = attributes[:'database_size_in_g_bs'] if attributes[:'database_size_in_g_bs']
+      self.db_data_size_in_mbs = attributes[:'db_data_size_in_mbs'] if attributes[:'db_data_size_in_mbs']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -217,21 +209,6 @@ module OCI
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] database_edition Object to be assigned
-    def database_edition=(database_edition)
-      # rubocop:disable Style/ConditionalAssignment
-      if database_edition && !DATABASE_EDITION_ENUM.include?(database_edition)
-        # rubocop: disable Metrics/LineLength
-        OCI.logger.debug("Unknown value for 'database_edition' [" + database_edition + "]. Mapping to 'DATABASE_EDITION_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
-        @database_edition = DATABASE_EDITION_UNKNOWN_ENUM_VALUE
-      else
-        @database_edition = database_edition
-      end
-      # rubocop:enable Style/ConditionalAssignment
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -261,20 +238,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
-
       self.class == other.class &&
         availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
         database_edition == other.database_edition &&
         database_id == other.database_id &&
-        database_size_in_g_bs == other.database_size_in_g_bs &&
+        db_data_size_in_mbs == other.db_data_size_in_mbs &&
         display_name == other.display_name &&
         id == other.id &&
         lifecycle_details == other.lifecycle_details &&
@@ -283,7 +259,7 @@ module OCI
         time_started == other.time_started &&
         type == other.type
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -297,7 +273,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, database_edition, database_id, database_size_in_g_bs, display_name, id, lifecycle_details, lifecycle_state, time_ended, time_started, type].hash
+      [availability_domain, compartment_id, database_edition, database_id, db_data_size_in_mbs, display_name, id, lifecycle_details, lifecycle_state, time_ended, time_started, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
@@ -309,7 +285,6 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
-
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -345,7 +320,6 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
-
         hash[param] = _to_hash(value)
       end
       hash
