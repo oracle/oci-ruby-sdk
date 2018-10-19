@@ -26,6 +26,7 @@ module OCI
       LIFECYCLE_STATE_TERMINATED = 'TERMINATED'.freeze,
       LIFECYCLE_STATE_UNAVAILABLE = 'UNAVAILABLE'.freeze,
       LIFECYCLE_STATE_RESTORE_IN_PROGRESS = 'RESTORE_IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_RESTORE_FAILED = 'RESTORE_FAILED'.freeze,
       LIFECYCLE_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_SCALE_IN_PROGRESS = 'SCALE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_AVAILABLE_NEEDS_ATTENTION = 'AVAILABLE_NEEDS_ATTENTION'.freeze,
@@ -51,6 +52,10 @@ module OCI
     # **[Required]** The database name.
     # @return [String]
     attr_accessor :db_name
+
+    # A valid Oracle Database version for Autonomous Database.
+    # @return [String]
+    attr_accessor :db_version
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
@@ -81,7 +86,7 @@ module OCI
     # @return [String]
     attr_reader :license_model
 
-    # Additional information about the current lifecycle state.
+    # Information about the current lifecycle state.
     # @return [String]
     attr_accessor :lifecycle_details
 
@@ -106,6 +111,7 @@ module OCI
         'cpu_core_count': :'cpuCoreCount',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'db_name': :'dbName',
+        'db_version': :'dbVersion',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
@@ -128,6 +134,7 @@ module OCI
         'cpu_core_count': :'Integer',
         'data_storage_size_in_tbs': :'Integer',
         'db_name': :'String',
+        'db_version': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -152,6 +159,7 @@ module OCI
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
+    # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -196,6 +204,12 @@ module OCI
       raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
 
       self.db_name = attributes[:'db_name'] if attributes[:'db_name']
+
+      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
+
+      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
+
+      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -280,19 +294,21 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
+
       self.class == other.class &&
         compartment_id == other.compartment_id &&
         connection_strings == other.connection_strings &&
         cpu_core_count == other.cpu_core_count &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         db_name == other.db_name &&
+        db_version == other.db_version &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
@@ -303,7 +319,7 @@ module OCI
         service_console_url == other.service_console_url &&
         time_created == other.time_created
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -317,7 +333,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, connection_strings, cpu_core_count, data_storage_size_in_tbs, db_name, defined_tags, display_name, freeform_tags, id, license_model, lifecycle_details, lifecycle_state, service_console_url, time_created].hash
+      [compartment_id, connection_strings, cpu_core_count, data_storage_size_in_tbs, db_name, db_version, defined_tags, display_name, freeform_tags, id, license_model, lifecycle_details, lifecycle_state, service_console_url, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
@@ -329,6 +345,7 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
+
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -364,6 +381,7 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
+
         hash[param] = _to_hash(value)
       end
       hash

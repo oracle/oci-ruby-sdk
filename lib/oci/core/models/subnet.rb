@@ -53,7 +53,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of the set of DHCP options associated with the subnet.
+    # The OCID of the set of DHCP options that the subnet uses.
     #
     # @return [String]
     attr_accessor :dhcp_options_id
@@ -113,11 +113,14 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :prohibit_public_ip_on_vnic
 
-    # **[Required]** The OCID of the route table the subnet is using.
+    # **[Required]** The OCID of the route table that the subnet uses.
     # @return [String]
     attr_accessor :route_table_id
 
-    # OCIDs for the security lists to use for VNICs in this subnet.
+    # The OCIDs of the security list or lists that the subnet uses. Remember
+    # that security lists are associated *with the subnet*, but the
+    # rules are applied to the individual VNICs in the subnet.
+    #
     # @return [Array<String>]
     attr_accessor :security_list_ids
 
@@ -361,13 +364,14 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
+
       self.class == other.class &&
         availability_domain == other.availability_domain &&
         cidr_block == other.cidr_block &&
@@ -388,7 +392,7 @@ module OCI
         virtual_router_ip == other.virtual_router_ip &&
         virtual_router_mac == other.virtual_router_mac
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -414,6 +418,7 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
+
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -449,6 +454,7 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
+
         hash[param] = _to_hash(value)
       end
       hash

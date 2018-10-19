@@ -22,6 +22,7 @@ module OCI
             # @param [IO] source the IO-like object which will back this wrapper
             def initialize(source:)
               raise 'The provided source is not seekable' unless source.respond_to?(:seek)
+
               @source = source
               @lock = Mutex.new
             end
