@@ -78,16 +78,19 @@ module OCI
 
         unless max_attempts.nil?
           raise 'max_attempts must be greater than or equal to 1' if max_attempts < 1
+
           @max_attempts = max_attempts
         end
 
         unless max_elapsed_time_millis.nil?
           raise 'max_elapsed_time_millis must be greater than or equal to 0' if max_elapsed_time_millis < 0
+
           @max_elapsed_time_millis = max_elapsed_time_millis
         end
 
         raise 'max_sleep_between_attempts_millis must be greater than or equal to 0' \
           if max_sleep_between_attempts_millis && max_sleep_between_attempts_millis < 0
+
         @max_sleep_between_attempts_millis = max_sleep_between_attempts_millis if max_sleep_between_attempts_millis
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Layout/EmptyLines

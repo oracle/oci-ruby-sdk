@@ -98,6 +98,10 @@ module OCI
     # @return [String]
     attr_reader :source_type
 
+    # The OCID of the source volume backup.
+    # @return [String]
+    attr_accessor :source_volume_backup_id
+
     # **[Required]** The date and time the volume backup was created. This is the time the actual point-in-time image
     # of the volume data was taken. Format defined by RFC3339.
     #
@@ -144,6 +148,7 @@ module OCI
         'size_in_gbs': :'sizeInGBs',
         'size_in_mbs': :'sizeInMBs',
         'source_type': :'sourceType',
+        'source_volume_backup_id': :'sourceVolumeBackupId',
         'time_created': :'timeCreated',
         'time_request_received': :'timeRequestReceived',
         'type': :'type',
@@ -168,6 +173,7 @@ module OCI
         'size_in_gbs': :'Integer',
         'size_in_mbs': :'Integer',
         'source_type': :'String',
+        'source_volume_backup_id': :'String',
         'time_created': :'DateTime',
         'time_request_received': :'DateTime',
         'type': :'String',
@@ -194,6 +200,7 @@ module OCI
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
     # @option attributes [String] :source_type The value to assign to the {#source_type} property
+    # @option attributes [String] :source_volume_backup_id The value to assign to the {#source_volume_backup_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_request_received The value to assign to the {#time_request_received} property
     # @option attributes [String] :type The value to assign to the {#type} property
@@ -261,6 +268,12 @@ module OCI
       raise 'You cannot provide both :sourceType and :source_type' if attributes.key?(:'sourceType') && attributes.key?(:'source_type')
 
       self.source_type = attributes[:'source_type'] if attributes[:'source_type']
+
+      self.source_volume_backup_id = attributes[:'sourceVolumeBackupId'] if attributes[:'sourceVolumeBackupId']
+
+      raise 'You cannot provide both :sourceVolumeBackupId and :source_volume_backup_id' if attributes.key?(:'sourceVolumeBackupId') && attributes.key?(:'source_volume_backup_id')
+
+      self.source_volume_backup_id = attributes[:'source_volume_backup_id'] if attributes[:'source_volume_backup_id']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -342,13 +355,14 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
+
       self.class == other.class &&
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
@@ -360,6 +374,7 @@ module OCI
         size_in_gbs == other.size_in_gbs &&
         size_in_mbs == other.size_in_mbs &&
         source_type == other.source_type &&
+        source_volume_backup_id == other.source_volume_backup_id &&
         time_created == other.time_created &&
         time_request_received == other.time_request_received &&
         type == other.type &&
@@ -367,7 +382,7 @@ module OCI
         unique_size_in_mbs == other.unique_size_in_mbs &&
         volume_id == other.volume_id
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -381,7 +396,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, expiration_time, freeform_tags, id, lifecycle_state, size_in_gbs, size_in_mbs, source_type, time_created, time_request_received, type, unique_size_in_gbs, unique_size_in_mbs, volume_id].hash
+      [compartment_id, defined_tags, display_name, expiration_time, freeform_tags, id, lifecycle_state, size_in_gbs, size_in_mbs, source_type, source_volume_backup_id, time_created, time_request_received, type, unique_size_in_gbs, unique_size_in_mbs, volume_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
@@ -393,6 +408,7 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
+
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -428,6 +444,7 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
+
         hash[param] = _to_hash(value)
       end
       hash

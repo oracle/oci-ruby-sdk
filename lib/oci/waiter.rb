@@ -37,6 +37,7 @@ module OCI
                               max_wait_seconds: 1200)
         raise 'Work request ID not specified.' unless work_request_id
         raise 'Evaluation proc for determining success not specified' unless eval_success_proc
+
         interval_seconds = 1
         start_time = Time.now
 
@@ -148,6 +149,7 @@ module OCI
           response.api_call = @api_call
         rescue OCI::Errors::ServiceError => e
           return nil if e.status_code == 404 && succeed_on_not_found
+
           raise
         end
 

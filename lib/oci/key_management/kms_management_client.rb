@@ -41,6 +41,7 @@ module OCI
     #   will not perform any retries
     def initialize(config: nil, endpoint:, signer: nil, proxy_settings: nil, retry_config: nil)
       raise 'A fully qualified endpoint URL must be defined' unless endpoint
+
       @endpoint = endpoint + '/20180608'
 
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
@@ -709,6 +710,7 @@ module OCI
 
     def applicable_retry_config(opts = {})
       return @retry_config unless opts.key?(:retry_config)
+
       opts[:retry_config]
     end
   end

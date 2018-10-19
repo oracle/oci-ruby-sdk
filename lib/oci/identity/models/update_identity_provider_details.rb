@@ -117,24 +117,26 @@ module OCI
     def protocol=(protocol)
       # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'protocol': this must be one of the values in PROTOCOL_ENUM." if protocol && !PROTOCOL_ENUM.include?(protocol)
+
       # rubocop: enable Metrics/LineLength
       @protocol = protocol
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
+
       self.class == other.class &&
         protocol == other.protocol &&
         description == other.description &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -160,6 +162,7 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
+
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -195,6 +198,7 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
+
         hash[param] = _to_hash(value)
       end
       hash

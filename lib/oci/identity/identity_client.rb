@@ -234,11 +234,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new compartment in your tenancy.
+    # Creates a new compartment in the specified compartment.
     #
     # **Important:** Compartments cannot be deleted.
     #
-    # You must specify your tenancy's OCID as the compartment ID in the request object. Remember that the tenancy
+    # Specify the parent compartment's OCID as the compartment ID in the request object. Remember that the tenancy
     # is simply the root compartment. For information about OCIDs, see
     # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     #
@@ -1387,6 +1387,62 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the specified compartment. The compartment must be empty.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_compartment(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#delete_compartment.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling delete_compartment." if compartment_id.nil?
+      raise "Parameter value for 'compartment_id' must not be blank" if OCI::Internal::Util.blank_string?(compartment_id)
+
+      path = '/compartments/{compartmentId}'.sub('{compartmentId}', compartment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_compartment') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified secret key for the specified user.
     #
     # @param [String] user_id The OCID of the user.
@@ -2511,6 +2567,61 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # Gets details on a specified work request. The workRequestID is returned in the opc-workrequest-id header
+    # for any asynchronous operation in the Identity and Access Management service.
+    #
+    # @param [String] work_request_id The OCID of the work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::WorkRequest WorkRequest}
+    def get_work_request(work_request_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#get_work_request.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling get_work_request." if work_request_id.nil?
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/workRequests/{workRequestId}'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#get_work_request') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::WorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
     # Lists the API signing keys for the specified user. A user can have a maximum of three keys.
     #
     # Every user has permission to use this API call for *their own user ID*.  An administrator in your
@@ -2629,7 +2740,7 @@ module OCI
     # Note that the order of the results returned can change if availability domains are added or removed; therefore, do not
     # create a dependency on the list order.
     #
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2681,11 +2792,26 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the compartments in your tenancy. You must specify your tenancy's OCID as the value
-    # for the compartment ID (remember that the tenancy is simply the root compartment).
+    # Lists the compartments in a specified compartment. The members of the list
+    # returned depends on the values set for several parameters.
+    #
+    # With the exception of the tenancy (root compartment), the ListCompartments operation
+    # returns only the first-level child compartments in the parent compartment specified in
+    # `compartmentId`. The list does not include any subcompartments of the child
+    # compartments (grandchildren).
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (the resource can be in a subcompartment).
+    #
+    # The parameter `compartmentIdInSubtree` applies only when you perform ListCompartments on the
+    # tenancy (root compartment). When set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ANY.
+    #
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2694,11 +2820,30 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
+    # @option opts [String] :access_level Valid values are `ANY` and `ACCESSIBLE`. Default is `ANY`.
+    #   Setting this to `ACCESSIBLE` returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). For the compartments on which the user indirectly has
+    #   INSPECT permissions, a restricted set of fields is returned.
+    #
+    #   When set to `ANY` permissions are not checked.
+    #
+    #   Allowed values are: ANY, ACCESSIBLE
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false. Can only be set to true when performing
+    #   ListCompartments on the tenancy (root compartment).
+    #   When set to true, the hierarchy of compartments is traversed
+    #   and all compartments and subcompartments in the tenancy are
+    #   returned depending on the the setting of `accessLevel`.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Compartment Compartment}>
     def list_compartments(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_compartments.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_compartments." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[ANY ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of ANY, ACCESSIBLE.'
+      end
 
       path = '/compartments/'
       operation_signing_strategy = :standard
@@ -2709,6 +2854,8 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
 
       # Header Params
       header_params = {}
@@ -2729,6 +2876,66 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Identity::Models::Compartment>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists all the tags enabled for cost-tracking in the specified tenancy. For information about
+    # cost-tracking tags, see [Using Cost-tracking Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/taggingoverview.htm#costs).
+    #
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Tag Tag}>
+    def list_cost_tracking_tags(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_cost_tracking_tags.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_cost_tracking_tags." if compartment_id.nil?
+
+      path = '/tagNamespaces/actions/listCostTrackingTags'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_cost_tracking_tags') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::Tag>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2801,7 +3008,7 @@ module OCI
     # the compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2863,7 +3070,7 @@ module OCI
     # of your compartments as the value for the compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [String] availability_domain The name of the availibilityDomain.
     #
@@ -2923,7 +3130,7 @@ module OCI
     # the compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2987,7 +3194,7 @@ module OCI
     #
     # @param [String] protocol The protocol used for federation.
     #   Allowed values are: SAML2
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3113,7 +3320,7 @@ module OCI
     # To determine which policies apply to a particular group or compartment, you must view the individual
     # statements inside all your policies. There isn't a way to automatically obtain that information via the API.
     #
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3387,7 +3594,7 @@ module OCI
 
     # Lists the tag namespaces in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3518,7 +3725,7 @@ module OCI
     # If the answer is no, the response is an empty list.
     # - Although`userId` and `groupId` are not indvidually required, you must set one of them.
     #
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3583,7 +3790,7 @@ module OCI
     # compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3627,6 +3834,67 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Identity::Models::User>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the work requests in compartment.
+    #
+    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :resource_identifier The identifier of the resource the work request affects.
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::WorkRequestSummary WorkRequestSummary}>
+    def list_work_requests(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_work_requests.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_work_requests." if compartment_id.nil?
+
+      path = '/workRequests/'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:resourceIdentifier] = opts[:resource_identifier] if opts[:resource_identifier]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_work_requests') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::WorkRequestSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -4617,6 +4885,7 @@ module OCI
 
     def applicable_retry_config(opts = {})
       return @retry_config unless opts.key?(:retry_config)
+
       opts[:retry_config]
     end
   end

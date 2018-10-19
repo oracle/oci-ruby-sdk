@@ -172,6 +172,7 @@ module OCI
     def database_edition=(database_edition)
       # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'database_edition': this must be one of the values in DATABASE_EDITION_ENUM." if database_edition && !DATABASE_EDITION_ENUM.include?(database_edition)
+
       # rubocop: enable Metrics/LineLength
       @database_edition = database_edition
     end
@@ -181,6 +182,7 @@ module OCI
     def disk_redundancy=(disk_redundancy)
       # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'disk_redundancy': this must be one of the values in DISK_REDUNDANCY_ENUM." if disk_redundancy && !DISK_REDUNDANCY_ENUM.include?(disk_redundancy)
+
       # rubocop: enable Metrics/LineLength
       @disk_redundancy = disk_redundancy
     end
@@ -190,17 +192,19 @@ module OCI
     def license_model=(license_model)
       # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
+
       # rubocop: enable Metrics/LineLength
       @license_model = license_model
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
     # @param [Object] other the other object to be compared
     def ==(other)
       return true if equal?(other)
+
       self.class == other.class &&
         availability_domain == other.availability_domain &&
         backup_subnet_id == other.backup_subnet_id &&
@@ -224,7 +228,7 @@ module OCI
         disk_redundancy == other.disk_redundancy &&
         license_model == other.license_model
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -250,6 +254,7 @@ module OCI
     # @return [Object] Returns the model itself
     def build_from_hash(attributes)
       return nil unless attributes.is_a?(Hash)
+
       self.class.swagger_types.each_pair do |key, type|
         if type =~ /^Array<(.*)>/i
           # check to ensure the input is an array given that the the attribute
@@ -285,6 +290,7 @@ module OCI
       self.class.attribute_map.each_pair do |attr, param|
         value = public_method(attr).call
         next if value.nil? && !instance_variable_defined?("@#{attr}")
+
         hash[param] = _to_hash(value)
       end
       hash
