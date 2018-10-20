@@ -9,10 +9,35 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Support for generating and downloading wallets in the Database service
 - Support for creating a standalone backup from an on-premises database in the Database service
 - Support for db version and additional connection strings in the Autonomous Transaction Processing and Autonomous Data Warehouse resources of the Database service
-- Support for copying volume backups across regions in the Block Storage service
+- Support for copying volume backups across regions in the Block Storage service (please see Known Issues)
 - Support for deleting compartments in the Identity service
 - Support for reboot migration for virtual machines in the Compute service
 - Support for Instance Pools and Instance Configurations in the Compute service
+
+### Known Issues
+- Block Storage service for copying volume backups across regions is not yet enabled
+
+### Breaking Changes
+- The `db_data_size_in_mbs` field in the `OCI::Database::Models::Backup` and `OCI::Database::Models::BackupSummary` classes was renamed to `database_size_in_g_bs`, and its type was changed from `Integer` to `Float`
+    - Before
+    ```ruby
+    # @return [Integer]
+    attr_accessor :db_data_size_in_mbs
+    ```
+    - After
+    ```ruby
+    # @return [Float]
+    attr_accessor :database_size_in_g_bs
+    ```
+- The data type of `database_edition` in the `OCI::Database::Models::Backup` and `OCI::Database::Models::BackupSummary` classes was changed from `attr_accessor` to `attr_reader`
+    - Before
+    ```ruby
+    attr_accessor :database_edition
+    ```
+    - After
+    ```ruby
+    attr_reader :database_edition
+    ```
 
 ## 2.3.8 - 2018-10-04
 ### Added
