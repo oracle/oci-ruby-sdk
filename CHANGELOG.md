@@ -3,16 +3,50 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.0 - 2018-11-01
+### Added
+- Support for modifying the route table, DHCP options, and security lists associated with a subnet in the Networking service
+- Support for tagging of File Systems, Mount Targets, and Snapshots in the File Storage service
+- Support for nested compartments in the Identity service
+
+### Breaking Changes
+- `database_size_in_g_bs` field in Backup and BackupSummary models renamed to `database_size_in_gbs`
+
 ## 2.3.9 - 2018-10-18
 ### Added
 - Support for cost tracking tags in the Identity service
 - Support for generating and downloading wallets in the Database service
 - Support for creating a standalone backup from an on-premises database in the Database service
 - Support for db version and additional connection strings in the Autonomous Transaction Processing and Autonomous Data Warehouse resources of the Database service
-- Support for copying volume backups across regions in the Block Storage service
+- Support for copying volume backups across regions in the Block Storage service (please see Known Issues)
 - Support for deleting compartments in the Identity service
 - Support for reboot migration for virtual machines in the Compute service
 - Support for Instance Pools and Instance Configurations in the Compute service
+
+### Known Issues
+- Block Storage service for copying volume backups across regions is not yet enabled
+
+### Breaking Changes
+- The `db_data_size_in_mbs` field in the `OCI::Database::Models::Backup` and `OCI::Database::Models::BackupSummary` classes was renamed to `database_size_in_g_bs`, and its type was changed from `Integer` to `Float`
+    - Before
+    ```ruby
+    # @return [Integer]
+    attr_accessor :db_data_size_in_mbs
+    ```
+    - After
+    ```ruby
+    # @return [Float]
+    attr_accessor :database_size_in_g_bs
+    ```
+- The data type of `database_edition` in the `OCI::Database::Models::Backup` and `OCI::Database::Models::BackupSummary` classes was changed from `attr_accessor` to `attr_reader`
+    - Before
+    ```ruby
+    attr_accessor :database_edition
+    ```
+    - After
+    ```ruby
+    attr_reader :database_edition
+    ```
 
 ## 2.3.8 - 2018-10-04
 ### Added

@@ -29,6 +29,7 @@ require 'oci/file_storage/models/update_export_details'
 require 'oci/file_storage/models/update_export_set_details'
 require 'oci/file_storage/models/update_file_system_details'
 require 'oci/file_storage/models/update_mount_target_details'
+require 'oci/file_storage/models/update_snapshot_details'
 
 # Require generated clients
 require 'oci/file_storage/file_storage_client'
