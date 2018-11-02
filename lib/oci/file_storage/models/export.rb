@@ -39,6 +39,8 @@ module OCI
   # Use `exportOptions` to control access to an export. For more information, see
   # [Export Options](https://docs.us-phoenix-1.oraclecloud.com/Content/File/Tasks/exportoptions.htm).
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class FileStorage::Models::Export # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,

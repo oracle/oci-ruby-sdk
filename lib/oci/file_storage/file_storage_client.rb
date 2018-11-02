@@ -905,11 +905,20 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A user-friendly name. It does not have to be unique, and it is changeable.
     #
@@ -1007,11 +1016,20 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :compartment_id The OCID of the compartment.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :export_set_id The OCID of the export set.
     # @option opts [String] :file_system_id The OCID of the file system.
@@ -1107,11 +1125,20 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A user-friendly name. It does not have to be unique, and it is changeable.
     #
@@ -1211,11 +1238,20 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A user-friendly name. It does not have to be unique, and it is changeable.
     #
@@ -1313,11 +1349,20 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
@@ -1618,6 +1663,66 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::FileStorage::Models::MountTarget'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the specified snapshot's information.
+    # @param [String] snapshot_id The OCID of the snapshot.
+    # @param [OCI::FileStorage::Models::UpdateSnapshotDetails] update_snapshot_details Details object for updating a snapshot.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Snapshot Snapshot}
+    def update_snapshot(snapshot_id, update_snapshot_details, opts = {})
+      logger.debug 'Calling operation FileStorageClient#update_snapshot.' if logger
+
+      raise "Missing the required parameter 'snapshot_id' when calling update_snapshot." if snapshot_id.nil?
+      raise "Missing the required parameter 'update_snapshot_details' when calling update_snapshot." if update_snapshot_details.nil?
+      raise "Parameter value for 'snapshot_id' must not be blank" if OCI::Internal::Util.blank_string?(snapshot_id)
+
+      path = '/snapshots/{snapshotId}'.sub('{snapshotId}', snapshot_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_snapshot_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'FileStorageClient#update_snapshot') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::FileStorage::Models::Snapshot'
         )
       end
       # rubocop:enable Metrics/BlockLength

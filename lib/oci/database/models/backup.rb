@@ -55,7 +55,7 @@ module OCI
     # The size of the database in gigabytes at the time the backup was taken.
     #
     # @return [Float]
-    attr_accessor :database_size_in_g_bs
+    attr_accessor :database_size_in_gbs
 
     # The user-friendly name for the backup. The name does not have to be unique.
     # @return [String]
@@ -93,7 +93,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'database_edition': :'databaseEdition',
         'database_id': :'databaseId',
-        'database_size_in_g_bs': :'databaseSizeInGBs',
+        'database_size_in_gbs': :'databaseSizeInGBs',
         'display_name': :'displayName',
         'id': :'id',
         'lifecycle_details': :'lifecycleDetails',
@@ -113,7 +113,7 @@ module OCI
         'compartment_id': :'String',
         'database_edition': :'String',
         'database_id': :'String',
-        'database_size_in_g_bs': :'Float',
+        'database_size_in_gbs': :'Float',
         'display_name': :'String',
         'id': :'String',
         'lifecycle_details': :'String',
@@ -135,7 +135,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
-    # @option attributes [Float] :database_size_in_g_bs The value to assign to the {#database_size_in_g_bs} property
+    # @option attributes [Float] :database_size_in_gbs The value to assign to the {#database_size_in_gbs} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -173,11 +173,11 @@ module OCI
 
       self.database_id = attributes[:'database_id'] if attributes[:'database_id']
 
-      self.database_size_in_g_bs = attributes[:'databaseSizeInGBs'] if attributes[:'databaseSizeInGBs']
+      self.database_size_in_gbs = attributes[:'databaseSizeInGBs'] if attributes[:'databaseSizeInGBs']
 
-      raise 'You cannot provide both :databaseSizeInGBs and :database_size_in_g_bs' if attributes.key?(:'databaseSizeInGBs') && attributes.key?(:'database_size_in_g_bs')
+      raise 'You cannot provide both :databaseSizeInGBs and :database_size_in_gbs' if attributes.key?(:'databaseSizeInGBs') && attributes.key?(:'database_size_in_gbs')
 
-      self.database_size_in_g_bs = attributes[:'database_size_in_g_bs'] if attributes[:'database_size_in_g_bs']
+      self.database_size_in_gbs = attributes[:'database_size_in_gbs'] if attributes[:'database_size_in_gbs']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -274,7 +274,7 @@ module OCI
         compartment_id == other.compartment_id &&
         database_edition == other.database_edition &&
         database_id == other.database_id &&
-        database_size_in_g_bs == other.database_size_in_g_bs &&
+        database_size_in_gbs == other.database_size_in_gbs &&
         display_name == other.display_name &&
         id == other.id &&
         lifecycle_details == other.lifecycle_details &&
@@ -297,7 +297,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, database_edition, database_id, database_size_in_g_bs, display_name, id, lifecycle_details, lifecycle_state, time_ended, time_started, type].hash
+      [availability_domain, compartment_id, database_edition, database_id, database_size_in_gbs, display_name, id, lifecycle_details, lifecycle_state, time_ended, time_started, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
