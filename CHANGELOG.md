@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.0 - 2018-11-01
+### Added
+- Support for modifying the route table, DHCP options, and security lists associated with a subnet in the Networking service
+- Support for tagging of File Systems, Mount Targets, and Snapshots in the File Storage service
+- Support for nested compartments in the Identity service
+
+### Breaking Changes
+- `database_size_in_g_bs` field in Backup and BackupSummary models renamed to `database_size_in_gbs`
+
 ## 2.3.9 - 2018-10-18
 ### Added
 - Support for cost tracking tags in the Identity service

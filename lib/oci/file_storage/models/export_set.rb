@@ -8,6 +8,8 @@ module OCI
   # A set of file systems to export through one or more mount
   # targets. Composed of zero or more export resources.
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class FileStorage::Models::ExportSet # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,

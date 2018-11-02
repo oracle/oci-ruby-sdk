@@ -14,6 +14,11 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The OCID of the set of DHCP options the subnet will use.
+    #
+    # @return [String]
+    attr_accessor :dhcp_options_id
+
     # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
@@ -29,13 +34,29 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The OCID of the route table the subnet will use.
+    #
+    # @return [String]
+    attr_accessor :route_table_id
+
+    # The OCIDs of the security list or lists the subnet will use. This
+    # replaces the entire current set of security lists. Remember that
+    # security lists are associated *with the subnet*, but the rules are
+    # applied to the individual VNICs in the subnet.
+    #
+    # @return [Array<String>]
+    attr_accessor :security_list_ids
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'definedTags',
+        'dhcp_options_id': :'dhcpOptionsId',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'route_table_id': :'routeTableId',
+        'security_list_ids': :'securityListIds'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,8 +66,11 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'dhcp_options_id': :'String',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'route_table_id': :'String',
+        'security_list_ids': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -58,8 +82,11 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :dhcp_options_id The value to assign to the {#dhcp_options_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
+    # @option attributes [Array<String>] :security_list_ids The value to assign to the {#security_list_ids} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -72,6 +99,12 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
+      self.dhcp_options_id = attributes[:'dhcpOptionsId'] if attributes[:'dhcpOptionsId']
+
+      raise 'You cannot provide both :dhcpOptionsId and :dhcp_options_id' if attributes.key?(:'dhcpOptionsId') && attributes.key?(:'dhcp_options_id')
+
+      self.dhcp_options_id = attributes[:'dhcp_options_id'] if attributes[:'dhcp_options_id']
+
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
@@ -83,6 +116,18 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+
+      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+
+      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+
+      self.security_list_ids = attributes[:'securityListIds'] if attributes[:'securityListIds']
+
+      raise 'You cannot provide both :securityListIds and :security_list_ids' if attributes.key?(:'securityListIds') && attributes.key?(:'security_list_ids')
+
+      self.security_list_ids = attributes[:'security_list_ids'] if attributes[:'security_list_ids']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -97,8 +142,11 @@ module OCI
 
       self.class == other.class &&
         defined_tags == other.defined_tags &&
+        dhcp_options_id == other.dhcp_options_id &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        route_table_id == other.route_table_id &&
+        security_list_ids == other.security_list_ids
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -114,7 +162,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [defined_tags, dhcp_options_id, display_name, freeform_tags, route_table_id, security_list_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

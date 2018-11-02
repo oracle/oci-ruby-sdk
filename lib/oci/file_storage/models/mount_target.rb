@@ -9,6 +9,8 @@ module OCI
   # specified subnet. The set of file systems is controlled through the
   # referenced export set.
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class FileStorage::Models::MountTarget # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -74,6 +76,21 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # Free-form tags for this resource. Each tag is a simple key-value pair
+    #  with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -87,7 +104,9 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'private_ip_ids': :'privateIpIds',
         'subnet_id': :'subnetId',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -105,7 +124,9 @@ module OCI
         'lifecycle_state': :'String',
         'private_ip_ids': :'Array<String>',
         'subnet_id': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -126,6 +147,8 @@ module OCI
     # @option attributes [Array<String>] :private_ip_ids The value to assign to the {#private_ip_ids} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -187,6 +210,18 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -224,7 +259,9 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         private_ip_ids == other.private_ip_ids &&
         subnet_id == other.subnet_id &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -240,7 +277,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, display_name, export_set_id, id, lifecycle_details, lifecycle_state, private_ip_ids, subnet_id, time_created].hash
+      [availability_domain, compartment_id, display_name, export_set_id, id, lifecycle_details, lifecycle_state, private_ip_ids, subnet_id, time_created, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
