@@ -12,11 +12,16 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # The OCID of the route table the DRG attachment will use.
+    # @return [String]
+    attr_accessor :route_table_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'display_name': :'displayName'
+        'display_name': :'displayName',
+        'route_table_id': :'routeTableId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +30,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'display_name': :'String'
+        'display_name': :'String',
+        'route_table_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,6 +43,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -48,6 +55,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+
+      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+
+      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -61,7 +74,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        display_name == other.display_name
+        display_name == other.display_name &&
+        route_table_id == other.route_table_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -77,7 +91,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name].hash
+      [display_name, route_table_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

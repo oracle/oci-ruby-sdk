@@ -78,15 +78,24 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The range of IP addresses available on the VCN at the other
-    # end of the peering from this LPG. The value is `null` if the LPG is not peered.
-    # You can use this as the destination CIDR for a route rule to route a subnet's
-    # traffic to this LPG.
+    # The smallest aggregate CIDR that contains all the CIDR routes advertised by the VCN
+    # at the other end of the peering from this LPG. See `peerAdvertisedCidrDetails` for
+    # the individual CIDRs. The value is `null` if the LPG is not peered.
     #
-    # Example: `192.168.0.0/16`
+    # Example: `192.168.0.0/16`, or if aggregated with `172.16.0.0/24` then `128.0.0.0/1`
     #
     # @return [String]
     attr_accessor :peer_advertised_cidr
+
+    # The specific ranges of IP addresses available on or via the VCN at the other
+    # end of the peering from this LPG. The value is `null` if the LPG is not peered.
+    # You can use these as destination CIDRs for route rules to route a subnet's
+    # traffic to this LPG.
+    #
+    # Example: [`192.168.0.0/16`, `172.16.0.0/24`]
+    #
+    # @return [Array<String>]
+    attr_accessor :peer_advertised_cidr_details
 
     # **[Required]** Whether the LPG is peered with another LPG. `NEW` means the LPG has not yet been
     # peered. `PENDING` means the peering is being established. `REVOKED` means the
@@ -98,6 +107,10 @@ module OCI
     # Additional information regarding the peering status, if applicable.
     # @return [String]
     attr_accessor :peering_status_details
+
+    # The OCID of the route table the LPG is using.
+    # @return [String]
+    attr_accessor :route_table_id
 
     # **[Required]** The date and time the LPG was created, in the format defined by RFC3339.
     #
@@ -122,8 +135,10 @@ module OCI
         'is_cross_tenancy_peering': :'isCrossTenancyPeering',
         'lifecycle_state': :'lifecycleState',
         'peer_advertised_cidr': :'peerAdvertisedCidr',
+        'peer_advertised_cidr_details': :'peerAdvertisedCidrDetails',
         'peering_status': :'peeringStatus',
         'peering_status_details': :'peeringStatusDetails',
+        'route_table_id': :'routeTableId',
         'time_created': :'timeCreated',
         'vcn_id': :'vcnId'
         # rubocop:enable Style/SymbolLiteral
@@ -142,8 +157,10 @@ module OCI
         'is_cross_tenancy_peering': :'BOOLEAN',
         'lifecycle_state': :'String',
         'peer_advertised_cidr': :'String',
+        'peer_advertised_cidr_details': :'Array<String>',
         'peering_status': :'String',
         'peering_status_details': :'String',
+        'route_table_id': :'String',
         'time_created': :'DateTime',
         'vcn_id': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -164,8 +181,10 @@ module OCI
     # @option attributes [BOOLEAN] :is_cross_tenancy_peering The value to assign to the {#is_cross_tenancy_peering} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :peer_advertised_cidr The value to assign to the {#peer_advertised_cidr} property
+    # @option attributes [Array<String>] :peer_advertised_cidr_details The value to assign to the {#peer_advertised_cidr_details} property
     # @option attributes [String] :peering_status The value to assign to the {#peering_status} property
     # @option attributes [String] :peering_status_details The value to assign to the {#peering_status_details} property
+    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     def initialize(attributes = {})
@@ -218,6 +237,12 @@ module OCI
 
       self.peer_advertised_cidr = attributes[:'peer_advertised_cidr'] if attributes[:'peer_advertised_cidr']
 
+      self.peer_advertised_cidr_details = attributes[:'peerAdvertisedCidrDetails'] if attributes[:'peerAdvertisedCidrDetails']
+
+      raise 'You cannot provide both :peerAdvertisedCidrDetails and :peer_advertised_cidr_details' if attributes.key?(:'peerAdvertisedCidrDetails') && attributes.key?(:'peer_advertised_cidr_details')
+
+      self.peer_advertised_cidr_details = attributes[:'peer_advertised_cidr_details'] if attributes[:'peer_advertised_cidr_details']
+
       self.peering_status = attributes[:'peeringStatus'] if attributes[:'peeringStatus']
 
       raise 'You cannot provide both :peeringStatus and :peering_status' if attributes.key?(:'peeringStatus') && attributes.key?(:'peering_status')
@@ -229,6 +254,12 @@ module OCI
       raise 'You cannot provide both :peeringStatusDetails and :peering_status_details' if attributes.key?(:'peeringStatusDetails') && attributes.key?(:'peering_status_details')
 
       self.peering_status_details = attributes[:'peering_status_details'] if attributes[:'peering_status_details']
+
+      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+
+      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+
+      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -292,8 +323,10 @@ module OCI
         is_cross_tenancy_peering == other.is_cross_tenancy_peering &&
         lifecycle_state == other.lifecycle_state &&
         peer_advertised_cidr == other.peer_advertised_cidr &&
+        peer_advertised_cidr_details == other.peer_advertised_cidr_details &&
         peering_status == other.peering_status &&
         peering_status_details == other.peering_status_details &&
+        route_table_id == other.route_table_id &&
         time_created == other.time_created &&
         vcn_id == other.vcn_id
     end
@@ -311,7 +344,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, is_cross_tenancy_peering, lifecycle_state, peer_advertised_cidr, peering_status, peering_status_details, time_created, vcn_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, is_cross_tenancy_peering, lifecycle_state, peer_advertised_cidr, peer_advertised_cidr_details, peering_status, peering_status_details, route_table_id, time_created, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

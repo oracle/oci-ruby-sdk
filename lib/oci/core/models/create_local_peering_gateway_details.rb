@@ -33,6 +33,15 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The OCID of the route table the LPG will use.
+    #
+    # If you don't specify a route table here, the LPG is created without an associated route
+    # table. The Networking service does NOT automatically associate the attached VCN's default route table
+    # with the LPG.
+    #
+    # @return [String]
+    attr_accessor :route_table_id
+
     # **[Required]** The OCID of the VCN the LPG belongs to.
     # @return [String]
     attr_accessor :vcn_id
@@ -45,6 +54,7 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
+        'route_table_id': :'routeTableId',
         'vcn_id': :'vcnId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -58,6 +68,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
+        'route_table_id': :'String',
         'vcn_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -73,6 +84,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -104,6 +116,12 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
+      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+
+      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+
+      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+
       self.vcn_id = attributes[:'vcnId'] if attributes[:'vcnId']
 
       raise 'You cannot provide both :vcnId and :vcn_id' if attributes.key?(:'vcnId') && attributes.key?(:'vcn_id')
@@ -126,6 +144,7 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
+        route_table_id == other.route_table_id &&
         vcn_id == other.vcn_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -142,7 +161,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, vcn_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, route_table_id, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
