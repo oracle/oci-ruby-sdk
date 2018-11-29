@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.4.1**
+**Version 2.4.2**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -157,6 +157,8 @@ To use any of the APIs, you must supply a {OCI::Config Config} object. You can c
 
 * Required credentials and settings: See [SDK and Tool Configuration](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/sdkconfig.htm) in the User Guide.
 * Optional SDK-specific settings: See the {OCI::Config Config} object for the full list of config options.
+
+Note that the Ruby SDK does not support parsing custom attributes in the configuration file.
 
 ## Forward Compatibility
 

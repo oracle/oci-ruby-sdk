@@ -101,6 +101,11 @@ module OCI
           signer.sign(:post, @federation_endpoint, header_params, request.body)
           header_params.each { |key, value| request[key.to_s] = value }
 
+          # Additional header info to aid in debugging issues
+          request['opc-client-info'] = OCI::ApiClient.build_user_info
+          request['opc-request-id'] ||= OCI::ApiClient.build_request_id
+          request['User-Agent'] =  OCI::ApiClient.build_user_agent
+
           raw_body = nil
           @federation_http_client.start do
             @federation_http_client.request(request) do |response|

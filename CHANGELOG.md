@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.2 - 2018-11-29
+### Added
+- Support for getting bucket statistics in the Object Storage service
+
+### Fixed 
+- Block Storage service for copying volume backups across regions is now enabled
+
 ## 2.4.1 - 2018-11-15
 ### Added
 - Support for VCN transit routing in the Networking service 
@@ -22,13 +29,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Support for generating and downloading wallets in the Database service
 - Support for creating a standalone backup from an on-premises database in the Database service
 - Support for db version and additional connection strings in the Autonomous Transaction Processing and Autonomous Data Warehouse resources of the Database service
-- Support for copying volume backups across regions in the Block Storage service (please see Known Issues)
+- Support for copying volume backups across regions in the Block Storage service
 - Support for deleting compartments in the Identity service
 - Support for reboot migration for virtual machines in the Compute service
 - Support for Instance Pools and Instance Configurations in the Compute service
-
-### Known Issues
-- Block Storage service for copying volume backups across regions is not yet enabled
 
 ### Breaking Changes
 - The `db_data_size_in_mbs` field in the `OCI::Database::Models::Backup` and `OCI::Database::Models::BackupSummary` classes was renamed to `database_size_in_g_bs`, and its type was changed from `Integer` to `Float`
