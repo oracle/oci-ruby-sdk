@@ -810,12 +810,27 @@ module OCI
     #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [Array<String>] :fields Bucket summary includes the 'namespace', 'name', 'compartmentId', 'createdBy', 'timeCreated',
+    #   and 'etag' fields. This parameter can also include 'approximateCount' (Approximate number of objects) and 'approximateSize'
+    #   (total approximate size in bytes of all objects). For example 'approximateCount,approximateSize'
+    #
+    #   Allowed values are: approximateCount, approximateSize
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::Bucket Bucket}
     def get_bucket(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_bucket.' if logger
 
       raise "Missing the required parameter 'namespace_name' when calling get_bucket." if namespace_name.nil?
       raise "Missing the required parameter 'bucket_name' when calling get_bucket." if bucket_name.nil?
+
+
+      fields_allowable_values = %w[approximateCount approximateSize]
+      if opts[:fields] && !opts[:fields].empty?
+        opts[:fields].each do |val_to_check|
+          unless fields_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "fields", must be one of approximateCount, approximateSize.'
+          end
+        end
+      end
       raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
       raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
 
@@ -825,6 +840,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :csv) if opts[:fields] && !opts[:fields].empty?
 
       # Header Params
       header_params = {}

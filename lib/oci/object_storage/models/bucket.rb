@@ -96,6 +96,18 @@ module OCI
     # @return [String]
     attr_accessor :object_lifecycle_policy_etag
 
+    # The approximate number of objects in the bucket. Count statistics are reported periodically. You will see a
+    # lag between what is displayed and the actual object count.
+    #
+    # @return [Integer]
+    attr_accessor :approximate_count
+
+    # The approximate total size of all objects in the bucket. Size statistics are reported periodically. You will
+    # see a lag between what is displayed and the actual size of the bucket.
+    #
+    # @return [Integer]
+    attr_accessor :approximate_size
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -112,7 +124,9 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'kms_key_id': :'kmsKeyId',
-        'object_lifecycle_policy_etag': :'objectLifecyclePolicyEtag'
+        'object_lifecycle_policy_etag': :'objectLifecyclePolicyEtag',
+        'approximate_count': :'approximateCount',
+        'approximate_size': :'approximateSize'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -133,7 +147,9 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'kms_key_id': :'String',
-        'object_lifecycle_policy_etag': :'String'
+        'object_lifecycle_policy_etag': :'String',
+        'approximate_count': :'Integer',
+        'approximate_size': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -157,6 +173,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :object_lifecycle_policy_etag The value to assign to the {#object_lifecycle_policy_etag} property
+    # @option attributes [Integer] :approximate_count The value to assign to the {#approximate_count} property
+    # @option attributes [Integer] :approximate_size The value to assign to the {#approximate_size} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -224,6 +242,18 @@ module OCI
       raise 'You cannot provide both :objectLifecyclePolicyEtag and :object_lifecycle_policy_etag' if attributes.key?(:'objectLifecyclePolicyEtag') && attributes.key?(:'object_lifecycle_policy_etag')
 
       self.object_lifecycle_policy_etag = attributes[:'object_lifecycle_policy_etag'] if attributes[:'object_lifecycle_policy_etag']
+
+      self.approximate_count = attributes[:'approximateCount'] if attributes[:'approximateCount']
+
+      raise 'You cannot provide both :approximateCount and :approximate_count' if attributes.key?(:'approximateCount') && attributes.key?(:'approximate_count')
+
+      self.approximate_count = attributes[:'approximate_count'] if attributes[:'approximate_count']
+
+      self.approximate_size = attributes[:'approximateSize'] if attributes[:'approximateSize']
+
+      raise 'You cannot provide both :approximateSize and :approximate_size' if attributes.key?(:'approximateSize') && attributes.key?(:'approximate_size')
+
+      self.approximate_size = attributes[:'approximate_size'] if attributes[:'approximate_size']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -279,7 +309,9 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         kms_key_id == other.kms_key_id &&
-        object_lifecycle_policy_etag == other.object_lifecycle_policy_etag
+        object_lifecycle_policy_etag == other.object_lifecycle_policy_etag &&
+        approximate_count == other.approximate_count &&
+        approximate_size == other.approximate_size
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -295,7 +327,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, name, compartment_id, metadata, created_by, time_created, etag, public_access_type, storage_tier, freeform_tags, defined_tags, kms_key_id, object_lifecycle_policy_etag].hash
+      [namespace, name, compartment_id, metadata, created_by, time_created, etag, public_access_type, storage_tier, freeform_tags, defined_tags, kms_key_id, object_lifecycle_policy_etag, approximate_count, approximate_size].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

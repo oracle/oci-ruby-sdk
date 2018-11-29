@@ -18,6 +18,21 @@ module OCI
   # services. This client also handles request serialization and response deserialization
   class ApiClient
     class << self
+      # Builds the client info string to be sent with each request.
+      def build_request_id
+        SecureRandom.uuid.delete!('-').upcase
+      end
+
+      # Builds the client info string to be sent with each request.
+      def build_user_info
+        "Oracle-RubySDK/#{VERSION}"
+      end
+
+      # Build the user agent string to be sent with each request.
+      def build_user_agent
+        "#{build_user_info}#{OCI.sdk_name} (ruby #{RUBY_VERSION}; #{RUBY_PLATFORM})"
+      end
+
       private
 
       def get_rfc339_formatted_date_string_with_z_offset(date_time)
@@ -158,24 +173,6 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
-    # Builds the client info string to be sent with each request.
-    def build_request_id
-      SecureRandom.uuid.delete!('-').upcase
-    end
-
-    # Builds the client info string to be sent with each request.
-    def build_user_info
-      "Oracle-RubySDK/#{VERSION}"
-    end
-
-    # Build the user agent string to be send with each request.
-    def build_user_agent
-      agent = "#{build_user_info}#{OCI.sdk_name} (ruby #{RUBY_VERSION}; #{RUBY_PLATFORM})"
-      agent = "#{agent} #{config.additional_user_agent}" if config.additional_user_agent
-
-      agent
-    end
-
     def self.build_collection_params(collection, collection_format)
       if collection_format.nil? || !VALID_COLLECTION_FORMATS.key?(collection_format.to_sym)
         raise "Invalid collection_format: #{collection_format}. Must be one of: #{VALID_COLLECTION_FORMATS.keys}"
@@ -265,6 +262,12 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
+    # Build the user agent string that also includes the additional_user_agent to be sent with each request.
+    def build_user_agent
+      agent = self.class.build_user_agent
+      "#{agent} #{config.additional_user_agent}" unless config.nil? || config.additional_user_agent.nil?
+    end
+
     private
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -311,8 +314,8 @@ module OCI
         request[key.to_s] = value
       end
 
-      request['opc-client-info'] = build_user_info
-      request['opc-request-id'] ||= build_request_id
+      request['opc-client-info'] = self.class.build_user_info
+      request['opc-request-id'] ||= self.class.build_request_id
       request['User-Agent'] = build_user_agent
 
       http = get_http_object(uri.hostname, uri.port)
@@ -566,6 +569,7 @@ module OCI
 
       OCI::Internal::Util.convert_to_type return_type, data
     end
+
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     def build_request_url(path, endpoint)
