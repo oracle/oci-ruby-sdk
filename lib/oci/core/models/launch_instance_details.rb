@@ -199,6 +199,10 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # Whether to enable encryption in transit for the PV boot volume attachment. Defaults to false.
+    # @return [BOOLEAN]
+    attr_accessor :is_pv_encryption_in_transit_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -217,7 +221,8 @@ module OCI
         'metadata': :'metadata',
         'shape': :'shape',
         'source_details': :'sourceDetails',
-        'subnet_id': :'subnetId'
+        'subnet_id': :'subnetId',
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -240,7 +245,8 @@ module OCI
         'metadata': :'Hash<String, String>',
         'shape': :'String',
         'source_details': :'OCI::Core::Models::InstanceSourceDetails',
-        'subnet_id': :'String'
+        'subnet_id': :'String',
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -266,6 +272,7 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [OCI::Core::Models::InstanceSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -353,6 +360,12 @@ module OCI
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'isPvEncryptionInTransitEnabled'] unless attributes[:'isPvEncryptionInTransitEnabled'].nil?
+
+      raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -380,7 +393,8 @@ module OCI
         metadata == other.metadata &&
         shape == other.shape &&
         source_details == other.source_details &&
-        subnet_id == other.subnet_id
+        subnet_id == other.subnet_id &&
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -396,7 +410,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, metadata, shape, source_details, subnet_id].hash
+      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, metadata, shape, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

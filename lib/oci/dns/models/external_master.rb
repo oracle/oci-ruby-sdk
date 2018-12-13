@@ -10,7 +10,9 @@ module OCI
     # @return [String]
     attr_accessor :address
 
-    # The server's port.
+    # The server's port. Port value must be a value of 53, otherwise omit
+    # the port value.
+    #
     # @return [Integer]
     attr_accessor :port
 

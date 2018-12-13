@@ -11,26 +11,6 @@ module OCI
   # see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class Database::Models::DbSystemShapeSummary # rubocop:disable Metrics/LineLength
-    # **[Required]** The maximum number of CPU cores that can be enabled on the DB system for this shape.
-    # @return [Integer]
-    attr_accessor :available_core_count
-
-    # The discrete number by which the CPU core count for this shape can be increased or decreased.
-    # @return [Integer]
-    attr_accessor :core_count_increment
-
-    # The maximum number of database nodes available for this shape.
-    # @return [Integer]
-    attr_accessor :maximum_node_count
-
-    # The minimum number of CPU cores that can be enabled on the DB system for this shape.
-    # @return [Integer]
-    attr_accessor :minimum_core_count
-
-    # The minimum number of database nodes available for this shape.
-    # @return [Integer]
-    attr_accessor :minimum_node_count
-
     # **[Required]** The name of the shape used for the DB system.
     # @return [String]
     attr_accessor :name
@@ -39,17 +19,37 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # **[Required]** The maximum number of CPU cores that can be enabled on the DB system for this shape.
+    # @return [Integer]
+    attr_accessor :available_core_count
+
+    # The minimum number of CPU cores that can be enabled on the DB system for this shape.
+    # @return [Integer]
+    attr_accessor :minimum_core_count
+
+    # The discrete number by which the CPU core count for this shape can be increased or decreased.
+    # @return [Integer]
+    attr_accessor :core_count_increment
+
+    # The minimum number of database nodes available for this shape.
+    # @return [Integer]
+    attr_accessor :minimum_node_count
+
+    # The maximum number of database nodes available for this shape.
+    # @return [Integer]
+    attr_accessor :maximum_node_count
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'available_core_count': :'availableCoreCount',
-        'core_count_increment': :'coreCountIncrement',
-        'maximum_node_count': :'maximumNodeCount',
-        'minimum_core_count': :'minimumCoreCount',
-        'minimum_node_count': :'minimumNodeCount',
         'name': :'name',
-        'shape': :'shape'
+        'shape': :'shape',
+        'available_core_count': :'availableCoreCount',
+        'minimum_core_count': :'minimumCoreCount',
+        'core_count_increment': :'coreCountIncrement',
+        'minimum_node_count': :'minimumNodeCount',
+        'maximum_node_count': :'maximumNodeCount'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -58,13 +58,13 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'available_core_count': :'Integer',
-        'core_count_increment': :'Integer',
-        'maximum_node_count': :'Integer',
-        'minimum_core_count': :'Integer',
-        'minimum_node_count': :'Integer',
         'name': :'String',
-        'shape': :'String'
+        'shape': :'String',
+        'available_core_count': :'Integer',
+        'minimum_core_count': :'Integer',
+        'core_count_increment': :'Integer',
+        'minimum_node_count': :'Integer',
+        'maximum_node_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,18 +75,22 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Integer] :available_core_count The value to assign to the {#available_core_count} property
-    # @option attributes [Integer] :core_count_increment The value to assign to the {#core_count_increment} property
-    # @option attributes [Integer] :maximum_node_count The value to assign to the {#maximum_node_count} property
-    # @option attributes [Integer] :minimum_core_count The value to assign to the {#minimum_core_count} property
-    # @option attributes [Integer] :minimum_node_count The value to assign to the {#minimum_node_count} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [Integer] :available_core_count The value to assign to the {#available_core_count} property
+    # @option attributes [Integer] :minimum_core_count The value to assign to the {#minimum_core_count} property
+    # @option attributes [Integer] :core_count_increment The value to assign to the {#core_count_increment} property
+    # @option attributes [Integer] :minimum_node_count The value to assign to the {#minimum_node_count} property
+    # @option attributes [Integer] :maximum_node_count The value to assign to the {#maximum_node_count} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.name = attributes[:'name'] if attributes[:'name']
+
+      self.shape = attributes[:'shape'] if attributes[:'shape']
 
       self.available_core_count = attributes[:'availableCoreCount'] if attributes[:'availableCoreCount']
 
@@ -94,23 +98,17 @@ module OCI
 
       self.available_core_count = attributes[:'available_core_count'] if attributes[:'available_core_count']
 
-      self.core_count_increment = attributes[:'coreCountIncrement'] if attributes[:'coreCountIncrement']
-
-      raise 'You cannot provide both :coreCountIncrement and :core_count_increment' if attributes.key?(:'coreCountIncrement') && attributes.key?(:'core_count_increment')
-
-      self.core_count_increment = attributes[:'core_count_increment'] if attributes[:'core_count_increment']
-
-      self.maximum_node_count = attributes[:'maximumNodeCount'] if attributes[:'maximumNodeCount']
-
-      raise 'You cannot provide both :maximumNodeCount and :maximum_node_count' if attributes.key?(:'maximumNodeCount') && attributes.key?(:'maximum_node_count')
-
-      self.maximum_node_count = attributes[:'maximum_node_count'] if attributes[:'maximum_node_count']
-
       self.minimum_core_count = attributes[:'minimumCoreCount'] if attributes[:'minimumCoreCount']
 
       raise 'You cannot provide both :minimumCoreCount and :minimum_core_count' if attributes.key?(:'minimumCoreCount') && attributes.key?(:'minimum_core_count')
 
       self.minimum_core_count = attributes[:'minimum_core_count'] if attributes[:'minimum_core_count']
+
+      self.core_count_increment = attributes[:'coreCountIncrement'] if attributes[:'coreCountIncrement']
+
+      raise 'You cannot provide both :coreCountIncrement and :core_count_increment' if attributes.key?(:'coreCountIncrement') && attributes.key?(:'core_count_increment')
+
+      self.core_count_increment = attributes[:'core_count_increment'] if attributes[:'core_count_increment']
 
       self.minimum_node_count = attributes[:'minimumNodeCount'] if attributes[:'minimumNodeCount']
 
@@ -118,9 +116,11 @@ module OCI
 
       self.minimum_node_count = attributes[:'minimum_node_count'] if attributes[:'minimum_node_count']
 
-      self.name = attributes[:'name'] if attributes[:'name']
+      self.maximum_node_count = attributes[:'maximumNodeCount'] if attributes[:'maximumNodeCount']
 
-      self.shape = attributes[:'shape'] if attributes[:'shape']
+      raise 'You cannot provide both :maximumNodeCount and :maximum_node_count' if attributes.key?(:'maximumNodeCount') && attributes.key?(:'maximum_node_count')
+
+      self.maximum_node_count = attributes[:'maximum_node_count'] if attributes[:'maximum_node_count']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -134,13 +134,13 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        available_core_count == other.available_core_count &&
-        core_count_increment == other.core_count_increment &&
-        maximum_node_count == other.maximum_node_count &&
-        minimum_core_count == other.minimum_core_count &&
-        minimum_node_count == other.minimum_node_count &&
         name == other.name &&
-        shape == other.shape
+        shape == other.shape &&
+        available_core_count == other.available_core_count &&
+        minimum_core_count == other.minimum_core_count &&
+        core_count_increment == other.core_count_increment &&
+        minimum_node_count == other.minimum_node_count &&
+        maximum_node_count == other.maximum_node_count
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -156,7 +156,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [available_core_count, core_count_increment, maximum_node_count, minimum_core_count, minimum_node_count, name, shape].hash
+      [name, shape, available_core_count, minimum_core_count, core_count_increment, minimum_node_count, maximum_node_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

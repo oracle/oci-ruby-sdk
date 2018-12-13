@@ -75,6 +75,10 @@ module OCI
     # @return [String]
     attr_accessor :volume_id
 
+    # Whether the enable encryption in transit for the PV volume attachment is on or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_pv_encryption_in_transit_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -88,7 +92,8 @@ module OCI
         'is_read_only': :'isReadOnly',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
-        'volume_id': :'volumeId'
+        'volume_id': :'volumeId',
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -106,7 +111,8 @@ module OCI
         'is_read_only': :'BOOLEAN',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
-        'volume_id': :'String'
+        'volume_id': :'String',
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -143,6 +149,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :volume_id The value to assign to the {#volume_id} property
+    # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -204,6 +211,12 @@ module OCI
       raise 'You cannot provide both :volumeId and :volume_id' if attributes.key?(:'volumeId') && attributes.key?(:'volume_id')
 
       self.volume_id = attributes[:'volume_id'] if attributes[:'volume_id']
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'isPvEncryptionInTransitEnabled'] unless attributes[:'isPvEncryptionInTransitEnabled'].nil?
+
+      raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -241,7 +254,8 @@ module OCI
         is_read_only == other.is_read_only &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
-        volume_id == other.volume_id
+        volume_id == other.volume_id &&
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -257,7 +271,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachment_type, availability_domain, compartment_id, display_name, id, instance_id, is_read_only, lifecycle_state, time_created, volume_id].hash
+      [attachment_type, availability_domain, compartment_id, display_name, id, instance_id, is_read_only, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

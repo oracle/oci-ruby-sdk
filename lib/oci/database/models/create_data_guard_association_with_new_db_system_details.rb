@@ -1,49 +1,47 @@
 # Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
+require_relative 'create_data_guard_association_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateLocalPeeringGatewayDetails model.
-  class Core::Models::UpdateLocalPeeringGatewayDetails # rubocop:disable Metrics/LineLength
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
-
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
-    #
+  # The configuration details for creating a Data Guard association to an existing database. A new DbSystem will be launched for standby database.
+  class Database::Models::CreateDataGuardAssociationWithNewDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails # rubocop:disable Metrics/LineLength
+    # The user-friendly name of the DB system that will contain the the standby database. The display name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
+    # The name of the availability domain that the standby database DB system will be located in. For example- \"Uocm:PHX-AD-1\".
+    # @return [String]
+    attr_accessor :availability_domain
 
-    # The OCID of the route table the LPG will use. For information about why you
-    # would associate a route table with an LPG, see
-    # [Advanced Scenario: Transit Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/transitrouting.htm).
+    # The OCID of the subnet the DB system is associated with.
+    # **Subnet Restrictions:**
+    # - For 1- and 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.16.16/28
+    #
+    # These subnets are used by the Oracle Clusterware private interconnect on the database instance.
+    # Specifying an overlapping subnet will cause the private interconnect to malfunction.
+    # This restriction applies to both the client subnet and backup subnet.
     #
     # @return [String]
-    attr_accessor :route_table_id
+    attr_accessor :subnet_id
+
+    # The host name for the DB Node.
+    # @return [String]
+    attr_accessor :hostname
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'definedTags',
+        'database_admin_password': :'databaseAdminPassword',
+        'protection_mode': :'protectionMode',
+        'transport_type': :'transportType',
+        'creation_type': :'creationType',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags',
-        'route_table_id': :'routeTableId'
+        'availability_domain': :'availabilityDomain',
+        'subnet_id': :'subnetId',
+        'hostname': :'hostname'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,10 +50,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'database_admin_password': :'String',
+        'protection_mode': :'String',
+        'transport_type': :'String',
+        'creation_type': :'String',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'route_table_id': :'String'
+        'availability_domain': :'String',
+        'subnet_id': :'String',
+        'hostname': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,21 +68,22 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :database_admin_password The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#database_admin_password #database_admin_password} proprety
+    # @option attributes [String] :protection_mode The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#protection_mode #protection_mode} proprety
+    # @option attributes [String] :transport_type The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#transport_type #transport_type} proprety
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
+    # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [String] :hostname The value to assign to the {#hostname} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
+      attributes['creationType'] = 'NewDbSystem'
+
+      super(attributes)
+
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -88,17 +91,19 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+      self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
 
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+      raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
 
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+      self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
 
-      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+      self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
 
-      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+      raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
-      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+      self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.hostname = attributes[:'hostname'] if attributes[:'hostname']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -112,10 +117,14 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        defined_tags == other.defined_tags &&
+        database_admin_password == other.database_admin_password &&
+        protection_mode == other.protection_mode &&
+        transport_type == other.transport_type &&
+        creation_type == other.creation_type &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags &&
-        route_table_id == other.route_table_id
+        availability_domain == other.availability_domain &&
+        subnet_id == other.subnet_id &&
+        hostname == other.hostname
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -131,7 +140,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, route_table_id].hash
+      [database_admin_password, protection_mode, transport_type, creation_type, display_name, availability_domain, subnet_id, hostname].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -26,25 +26,17 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database home.
+    # @return [String]
+    attr_accessor :id
+
     # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
-    # @return [String]
-    attr_accessor :db_system_id
-
-    # **[Required]** The Oracle Database version.
-    # @return [String]
-    attr_accessor :db_version
-
     # **[Required]** The user-provided name for the database home. The name does not need to be unique.
     # @return [String]
     attr_accessor :display_name
-
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database home.
-    # @return [String]
-    attr_accessor :id
 
     # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the last patch history. This value is updated as soon as a patch operation is started.
     # @return [String]
@@ -54,6 +46,14 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
+    # @return [String]
+    attr_accessor :db_system_id
+
+    # **[Required]** The Oracle Database version.
+    # @return [String]
+    attr_accessor :db_version
+
     # The date and time the database home was created.
     # @return [DateTime]
     attr_accessor :time_created
@@ -62,13 +62,13 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'compartment_id': :'compartmentId',
-        'db_system_id': :'dbSystemId',
-        'db_version': :'dbVersion',
-        'display_name': :'displayName',
         'id': :'id',
+        'compartment_id': :'compartmentId',
+        'display_name': :'displayName',
         'last_patch_history_entry_id': :'lastPatchHistoryEntryId',
         'lifecycle_state': :'lifecycleState',
+        'db_system_id': :'dbSystemId',
+        'db_version': :'dbVersion',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -78,13 +78,13 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'compartment_id': :'String',
-        'db_system_id': :'String',
-        'db_version': :'String',
-        'display_name': :'String',
         'id': :'String',
+        'compartment_id': :'String',
+        'display_name': :'String',
         'last_patch_history_entry_id': :'String',
         'lifecycle_state': :'String',
+        'db_system_id': :'String',
+        'db_version': :'String',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -96,13 +96,13 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
-    # @option attributes [String] :db_version The value to assign to the {#db_version} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :last_patch_history_entry_id The value to assign to the {#last_patch_history_entry_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
+    # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -110,31 +110,19 @@ module OCI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
+      self.id = attributes[:'id'] if attributes[:'id']
+
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.db_system_id = attributes[:'dbSystemId'] if attributes[:'dbSystemId']
-
-      raise 'You cannot provide both :dbSystemId and :db_system_id' if attributes.key?(:'dbSystemId') && attributes.key?(:'db_system_id')
-
-      self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
-
-      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
-
-      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
-
-      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
-
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
-
-      self.id = attributes[:'id'] if attributes[:'id']
 
       self.last_patch_history_entry_id = attributes[:'lastPatchHistoryEntryId'] if attributes[:'lastPatchHistoryEntryId']
 
@@ -147,6 +135,18 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.db_system_id = attributes[:'dbSystemId'] if attributes[:'dbSystemId']
+
+      raise 'You cannot provide both :dbSystemId and :db_system_id' if attributes.key?(:'dbSystemId') && attributes.key?(:'db_system_id')
+
+      self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
+
+      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
+
+      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
+
+      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -181,13 +181,13 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        compartment_id == other.compartment_id &&
-        db_system_id == other.db_system_id &&
-        db_version == other.db_version &&
-        display_name == other.display_name &&
         id == other.id &&
+        compartment_id == other.compartment_id &&
+        display_name == other.display_name &&
         last_patch_history_entry_id == other.last_patch_history_entry_id &&
         lifecycle_state == other.lifecycle_state &&
+        db_system_id == other.db_system_id &&
+        db_version == other.db_version &&
         time_created == other.time_created
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -204,7 +204,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_system_id, db_version, display_name, id, last_patch_history_entry_id, lifecycle_state, time_created].hash
+      [id, compartment_id, display_name, last_patch_history_entry_id, lifecycle_state, db_system_id, db_version, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

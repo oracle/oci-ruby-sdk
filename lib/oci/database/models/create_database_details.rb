@@ -14,6 +14,14 @@ module OCI
       DB_WORKLOAD_DSS = 'DSS'.freeze
     ].freeze
 
+    # **[Required]** The database name. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted.
+    # @return [String]
+    attr_accessor :db_name
+
+    # The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
+    # @return [String]
+    attr_accessor :pdb_name
+
     # **[Required]** A strong password for SYS, SYSTEM, and PDB Admin. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numbers, and two special characters. The special characters must be _, \\#, or -.
     # @return [String]
     attr_accessor :admin_password
@@ -25,24 +33,18 @@ module OCI
     # @return [String]
     attr_accessor :character_set
 
-    # @return [OCI::Database::Models::DbBackupConfig]
-    attr_accessor :db_backup_config
-
-    # **[Required]** The database name. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted.
+    # The national character set for the database.  The default is AL16UTF16. Allowed values are:
+    # AL16UTF16 or UTF8.
+    #
     # @return [String]
-    attr_accessor :db_name
+    attr_accessor :ncharacter_set
 
     # The database workload type.
     # @return [String]
     attr_reader :db_workload
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+    # @return [OCI::Database::Models::DbBackupConfig]
+    attr_accessor :db_backup_config
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
@@ -52,29 +54,27 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The national character set for the database.  The default is AL16UTF16. Allowed values are:
-    # AL16UTF16 or UTF8.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
-    # @return [String]
-    attr_accessor :ncharacter_set
-
-    # The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
-    # @return [String]
-    attr_accessor :pdb_name
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'db_name': :'dbName',
+        'pdb_name': :'pdbName',
         'admin_password': :'adminPassword',
         'character_set': :'characterSet',
-        'db_backup_config': :'dbBackupConfig',
-        'db_name': :'dbName',
-        'db_workload': :'dbWorkload',
-        'defined_tags': :'definedTags',
-        'freeform_tags': :'freeformTags',
         'ncharacter_set': :'ncharacterSet',
-        'pdb_name': :'pdbName'
+        'db_workload': :'dbWorkload',
+        'db_backup_config': :'dbBackupConfig',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,15 +83,15 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'db_name': :'String',
+        'pdb_name': :'String',
         'admin_password': :'String',
         'character_set': :'String',
-        'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
-        'db_name': :'String',
-        'db_workload': :'String',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'freeform_tags': :'Hash<String, String>',
         'ncharacter_set': :'String',
-        'pdb_name': :'String'
+        'db_workload': :'String',
+        'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -102,20 +102,32 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :db_name The value to assign to the {#db_name} property
+    # @option attributes [String] :pdb_name The value to assign to the {#pdb_name} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :character_set The value to assign to the {#character_set} property
-    # @option attributes [OCI::Database::Models::DbBackupConfig] :db_backup_config The value to assign to the {#db_backup_config} property
-    # @option attributes [String] :db_name The value to assign to the {#db_name} property
-    # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :ncharacter_set The value to assign to the {#ncharacter_set} property
-    # @option attributes [String] :pdb_name The value to assign to the {#pdb_name} property
+    # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
+    # @option attributes [OCI::Database::Models::DbBackupConfig] :db_backup_config The value to assign to the {#db_backup_config} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
+
+      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
+
+      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
+
+      self.pdb_name = attributes[:'pdbName'] if attributes[:'pdbName']
+
+      raise 'You cannot provide both :pdbName and :pdb_name' if attributes.key?(:'pdbName') && attributes.key?(:'pdb_name')
+
+      self.pdb_name = attributes[:'pdb_name'] if attributes[:'pdb_name']
 
       self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
 
@@ -129,17 +141,11 @@ module OCI
 
       self.character_set = attributes[:'character_set'] if attributes[:'character_set']
 
-      self.db_backup_config = attributes[:'dbBackupConfig'] if attributes[:'dbBackupConfig']
+      self.ncharacter_set = attributes[:'ncharacterSet'] if attributes[:'ncharacterSet']
 
-      raise 'You cannot provide both :dbBackupConfig and :db_backup_config' if attributes.key?(:'dbBackupConfig') && attributes.key?(:'db_backup_config')
+      raise 'You cannot provide both :ncharacterSet and :ncharacter_set' if attributes.key?(:'ncharacterSet') && attributes.key?(:'ncharacter_set')
 
-      self.db_backup_config = attributes[:'db_backup_config'] if attributes[:'db_backup_config']
-
-      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
-
-      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
-
-      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
+      self.ncharacter_set = attributes[:'ncharacter_set'] if attributes[:'ncharacter_set']
 
       self.db_workload = attributes[:'dbWorkload'] if attributes[:'dbWorkload']
 
@@ -147,11 +153,11 @@ module OCI
 
       self.db_workload = attributes[:'db_workload'] if attributes[:'db_workload']
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      self.db_backup_config = attributes[:'dbBackupConfig'] if attributes[:'dbBackupConfig']
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      raise 'You cannot provide both :dbBackupConfig and :db_backup_config' if attributes.key?(:'dbBackupConfig') && attributes.key?(:'db_backup_config')
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      self.db_backup_config = attributes[:'db_backup_config'] if attributes[:'db_backup_config']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -159,17 +165,11 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
-      self.ncharacter_set = attributes[:'ncharacterSet'] if attributes[:'ncharacterSet']
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
-      raise 'You cannot provide both :ncharacterSet and :ncharacter_set' if attributes.key?(:'ncharacterSet') && attributes.key?(:'ncharacter_set')
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
-      self.ncharacter_set = attributes[:'ncharacter_set'] if attributes[:'ncharacter_set']
-
-      self.pdb_name = attributes[:'pdbName'] if attributes[:'pdbName']
-
-      raise 'You cannot provide both :pdbName and :pdb_name' if attributes.key?(:'pdbName') && attributes.key?(:'pdb_name')
-
-      self.pdb_name = attributes[:'pdb_name'] if attributes[:'pdb_name']
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -193,15 +193,15 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        db_name == other.db_name &&
+        pdb_name == other.pdb_name &&
         admin_password == other.admin_password &&
         character_set == other.character_set &&
-        db_backup_config == other.db_backup_config &&
-        db_name == other.db_name &&
-        db_workload == other.db_workload &&
-        defined_tags == other.defined_tags &&
-        freeform_tags == other.freeform_tags &&
         ncharacter_set == other.ncharacter_set &&
-        pdb_name == other.pdb_name
+        db_workload == other.db_workload &&
+        db_backup_config == other.db_backup_config &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -217,7 +217,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [admin_password, character_set, db_backup_config, db_name, db_workload, defined_tags, freeform_tags, ncharacter_set, pdb_name].hash
+      [db_name, pdb_name, admin_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

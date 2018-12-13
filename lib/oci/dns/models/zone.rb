@@ -6,6 +6,9 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # A DNS zone.
+  #
+  # *Warning:* Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class Dns::Models::Zone # rubocop:disable Metrics/LineLength
     ZONE_TYPE_ENUM = [
       ZONE_TYPE_PRIMARY = 'PRIMARY'.freeze,
@@ -35,7 +38,22 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # External master servers for the zone.
+    # Simple key-value pair that is applied without any predefined name, type, or scope.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"bar-key\": \"value\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Usage of predefined tag keys. These predefined keys are scoped to a namespace.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # External master servers for the zone. `externalMasters` becomes a
+    # required parameter when the `zoneType` value is `SECONDARY`.
+    #
     # @return [Array<OCI::Dns::Models::ExternalMaster>]
     attr_accessor :external_masters
 
@@ -47,7 +65,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The date and time the image was created in \"YYYY-MM-ddThh:mmZ\" format
+    # The date and time the resource was created in \"YYYY-MM-ddThh:mmZ\" format
     # with a Z offset, as defined by RFC 3339.
     #
     # **Example:** `2016-07-22T17:23:59:60Z`
@@ -71,6 +89,10 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # The authoritative nameservers for the zone.
+    # @return [Array<OCI::Dns::Models::Nameserver>]
+    attr_accessor :nameservers
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -78,13 +100,16 @@ module OCI
         'name': :'name',
         'zone_type': :'zoneType',
         'compartment_id': :'compartmentId',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
         'external_masters': :'externalMasters',
         'self_uri': :'self',
         'id': :'id',
         'time_created': :'timeCreated',
         'version': :'version',
         'serial': :'serial',
-        'lifecycle_state': :'lifecycleState'
+        'lifecycle_state': :'lifecycleState',
+        'nameservers': :'nameservers'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -96,13 +121,16 @@ module OCI
         'name': :'String',
         'zone_type': :'String',
         'compartment_id': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'external_masters': :'Array<OCI::Dns::Models::ExternalMaster>',
         'self_uri': :'String',
         'id': :'String',
         'time_created': :'DateTime',
         'version': :'String',
         'serial': :'Integer',
-        'lifecycle_state': :'String'
+        'lifecycle_state': :'String',
+        'nameservers': :'Array<OCI::Dns::Models::Nameserver>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -116,6 +144,8 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :zone_type The value to assign to the {#zone_type} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Array<OCI::Dns::Models::ExternalMaster>] :external_masters The value to assign to the {#external_masters} property
     # @option attributes [String] :self_uri The value to assign to the {#self_uri} property
     # @option attributes [String] :id The value to assign to the {#id} property
@@ -123,6 +153,7 @@ module OCI
     # @option attributes [String] :version The value to assign to the {#version} property
     # @option attributes [Integer] :serial The value to assign to the {#serial} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [Array<OCI::Dns::Models::Nameserver>] :nameservers The value to assign to the {#nameservers} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -142,6 +173,18 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
       self.external_masters = attributes[:'externalMasters'] if attributes[:'externalMasters']
 
@@ -172,6 +215,8 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.nameservers = attributes[:'nameservers'] if attributes[:'nameservers']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -218,13 +263,16 @@ module OCI
         name == other.name &&
         zone_type == other.zone_type &&
         compartment_id == other.compartment_id &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
         external_masters == other.external_masters &&
         self_uri == other.self_uri &&
         id == other.id &&
         time_created == other.time_created &&
         version == other.version &&
         serial == other.serial &&
-        lifecycle_state == other.lifecycle_state
+        lifecycle_state == other.lifecycle_state &&
+        nameservers == other.nameservers
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -240,7 +288,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, zone_type, compartment_id, external_masters, self_uri, id, time_created, version, serial, lifecycle_state].hash
+      [name, zone_type, compartment_id, freeform_tags, defined_tags, external_masters, self_uri, id, time_created, version, serial, lifecycle_state, nameservers].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

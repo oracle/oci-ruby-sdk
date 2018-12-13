@@ -20,13 +20,21 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch history entry.
+    # @return [String]
+    attr_accessor :id
+
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch.
+    # @return [String]
+    attr_accessor :patch_id
+
     # The action being performed or was completed.
     # @return [String]
     attr_reader :action
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch history entry.
+    # **[Required]** The current state of the action.
     # @return [String]
-    attr_accessor :id
+    attr_reader :lifecycle_state
 
     # A descriptive text associated with the lifecycleState.
     # Typically contains additional displayable text.
@@ -34,33 +42,25 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # **[Required]** The current state of the action.
-    # @return [String]
-    attr_reader :lifecycle_state
-
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch.
-    # @return [String]
-    attr_accessor :patch_id
+    # **[Required]** The date and time when the patch action started.
+    # @return [DateTime]
+    attr_accessor :time_started
 
     # The date and time when the patch action completed.
     # @return [DateTime]
     attr_accessor :time_ended
 
-    # **[Required]** The date and time when the patch action started.
-    # @return [DateTime]
-    attr_accessor :time_started
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'action': :'action',
         'id': :'id',
-        'lifecycle_details': :'lifecycleDetails',
-        'lifecycle_state': :'lifecycleState',
         'patch_id': :'patchId',
-        'time_ended': :'timeEnded',
-        'time_started': :'timeStarted'
+        'action': :'action',
+        'lifecycle_state': :'lifecycleState',
+        'lifecycle_details': :'lifecycleDetails',
+        'time_started': :'timeStarted',
+        'time_ended': :'timeEnded'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -69,13 +69,13 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'action': :'String',
         'id': :'String',
-        'lifecycle_details': :'String',
-        'lifecycle_state': :'String',
         'patch_id': :'String',
-        'time_ended': :'DateTime',
-        'time_started': :'DateTime'
+        'action': :'String',
+        'lifecycle_state': :'String',
+        'lifecycle_details': :'String',
+        'time_started': :'DateTime',
+        'time_ended': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -86,34 +86,20 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :action The value to assign to the {#action} property
     # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
-    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
-    # @option attributes [DateTime] :time_ended The value to assign to the {#time_ended} property
+    # @option attributes [String] :action The value to assign to the {#action} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
+    # @option attributes [DateTime] :time_ended The value to assign to the {#time_ended} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.action = attributes[:'action'] if attributes[:'action']
-
       self.id = attributes[:'id'] if attributes[:'id']
-
-      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
-
-      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
-
-      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
-
-      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
-
-      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
-
-      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
       self.patch_id = attributes[:'patchId'] if attributes[:'patchId']
 
@@ -121,17 +107,31 @@ module OCI
 
       self.patch_id = attributes[:'patch_id'] if attributes[:'patch_id']
 
-      self.time_ended = attributes[:'timeEnded'] if attributes[:'timeEnded']
+      self.action = attributes[:'action'] if attributes[:'action']
 
-      raise 'You cannot provide both :timeEnded and :time_ended' if attributes.key?(:'timeEnded') && attributes.key?(:'time_ended')
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
-      self.time_ended = attributes[:'time_ended'] if attributes[:'time_ended']
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
+
+      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
+
+      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
       self.time_started = attributes[:'timeStarted'] if attributes[:'timeStarted']
 
       raise 'You cannot provide both :timeStarted and :time_started' if attributes.key?(:'timeStarted') && attributes.key?(:'time_started')
 
       self.time_started = attributes[:'time_started'] if attributes[:'time_started']
+
+      self.time_ended = attributes[:'timeEnded'] if attributes[:'timeEnded']
+
+      raise 'You cannot provide both :timeEnded and :time_ended' if attributes.key?(:'timeEnded') && attributes.key?(:'time_ended')
+
+      self.time_ended = attributes[:'time_ended'] if attributes[:'time_ended']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -175,13 +175,13 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        action == other.action &&
         id == other.id &&
-        lifecycle_details == other.lifecycle_details &&
-        lifecycle_state == other.lifecycle_state &&
         patch_id == other.patch_id &&
-        time_ended == other.time_ended &&
-        time_started == other.time_started
+        action == other.action &&
+        lifecycle_state == other.lifecycle_state &&
+        lifecycle_details == other.lifecycle_details &&
+        time_started == other.time_started &&
+        time_ended == other.time_ended
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -197,7 +197,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [action, id, lifecycle_details, lifecycle_state, patch_id, time_ended, time_started].hash
+      [id, patch_id, action, lifecycle_state, lifecycle_details, time_started, time_ended].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

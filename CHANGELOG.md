@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.3 - 2018-12-13
+### Added
+- Support for Data Guard for VM shapes in the Database service
+- Support for sparse disk groups for Exadata shapes in the Database service
+- Support for a new field, `is_latest_for_major_version`, when listing DB versions in the Database service
+- Support for in-transit encryption for paravirtualized boot volume and data volume attachments in the Block Storage service
+- Support for tagging DNS Zones in the DNS service
+- Support for resetting credentials for SCIM clients associated with an Identity provider and updating user capabilities in the Identity service
+
+### Fixed
+- KmsVaultClient now properly sets the endpoint when provided a region during instantiation as specified in [OCI::Regions::REGION_ENUM](https://github.com/oracle/oci-ruby-sdk/blob/master/lib/oci/regions.rb#L6)
+
 ## 2.4.2 - 2018-11-29
 ### Added
 - Support for getting bucket statistics in the Object Storage service

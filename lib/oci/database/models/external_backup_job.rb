@@ -11,23 +11,17 @@ module OCI
     # @return [String]
     attr_accessor :backup_id
 
-    # **[Required]** The name of the Swift compartment bucket where the backup should be stored.
-    # @return [String]
-    attr_accessor :bucket_name
-
     # **[Required]** An indicator for the provisioning state of the resource. If `TRUE`, the resource is still being provisioned.
     # @return [BOOLEAN]
     attr_accessor :provisioning
 
-    # The auth token to use for access to the Swift compartment bucket that will store the standalone backup.
-    # For information about auth tokens, see [Working with Auth Tokens](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm#two).
-    #
-    # @return [String]
-    attr_accessor :swift_password
-
     # **[Required]** The Swift path to use as a destination for the standalone backup.
     # @return [String]
     attr_accessor :swift_path
+
+    # **[Required]** The name of the Swift compartment bucket where the backup should be stored.
+    # @return [String]
+    attr_accessor :bucket_name
 
     # **[Required]** The tag for RMAN to apply to the backup.
     # @return [String]
@@ -37,17 +31,23 @@ module OCI
     # @return [String]
     attr_accessor :user_name
 
+    # The auth token to use for access to the Swift compartment bucket that will store the standalone backup.
+    # For information about auth tokens, see [Working with Auth Tokens](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm#two).
+    #
+    # @return [String]
+    attr_accessor :swift_password
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'backup_id': :'backupId',
-        'bucket_name': :'bucketName',
         'provisioning': :'provisioning',
-        'swift_password': :'swiftPassword',
         'swift_path': :'swiftPath',
+        'bucket_name': :'bucketName',
         'tag': :'tag',
-        'user_name': :'userName'
+        'user_name': :'userName',
+        'swift_password': :'swiftPassword'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,12 +57,12 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'backup_id': :'String',
-        'bucket_name': :'String',
         'provisioning': :'BOOLEAN',
-        'swift_password': :'String',
         'swift_path': :'String',
+        'bucket_name': :'String',
         'tag': :'String',
-        'user_name': :'String'
+        'user_name': :'String',
+        'swift_password': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,12 +74,12 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :backup_id The value to assign to the {#backup_id} property
-    # @option attributes [String] :bucket_name The value to assign to the {#bucket_name} property
     # @option attributes [BOOLEAN] :provisioning The value to assign to the {#provisioning} property
-    # @option attributes [String] :swift_password The value to assign to the {#swift_password} property
     # @option attributes [String] :swift_path The value to assign to the {#swift_path} property
+    # @option attributes [String] :bucket_name The value to assign to the {#bucket_name} property
     # @option attributes [String] :tag The value to assign to the {#tag} property
     # @option attributes [String] :user_name The value to assign to the {#user_name} property
+    # @option attributes [String] :swift_password The value to assign to the {#swift_password} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -92,25 +92,19 @@ module OCI
 
       self.backup_id = attributes[:'backup_id'] if attributes[:'backup_id']
 
-      self.bucket_name = attributes[:'bucketName'] if attributes[:'bucketName']
-
-      raise 'You cannot provide both :bucketName and :bucket_name' if attributes.key?(:'bucketName') && attributes.key?(:'bucket_name')
-
-      self.bucket_name = attributes[:'bucket_name'] if attributes[:'bucket_name']
-
       self.provisioning = attributes[:'provisioning'] unless attributes[:'provisioning'].nil?
-
-      self.swift_password = attributes[:'swiftPassword'] if attributes[:'swiftPassword']
-
-      raise 'You cannot provide both :swiftPassword and :swift_password' if attributes.key?(:'swiftPassword') && attributes.key?(:'swift_password')
-
-      self.swift_password = attributes[:'swift_password'] if attributes[:'swift_password']
 
       self.swift_path = attributes[:'swiftPath'] if attributes[:'swiftPath']
 
       raise 'You cannot provide both :swiftPath and :swift_path' if attributes.key?(:'swiftPath') && attributes.key?(:'swift_path')
 
       self.swift_path = attributes[:'swift_path'] if attributes[:'swift_path']
+
+      self.bucket_name = attributes[:'bucketName'] if attributes[:'bucketName']
+
+      raise 'You cannot provide both :bucketName and :bucket_name' if attributes.key?(:'bucketName') && attributes.key?(:'bucket_name')
+
+      self.bucket_name = attributes[:'bucket_name'] if attributes[:'bucket_name']
 
       self.tag = attributes[:'tag'] if attributes[:'tag']
 
@@ -119,6 +113,12 @@ module OCI
       raise 'You cannot provide both :userName and :user_name' if attributes.key?(:'userName') && attributes.key?(:'user_name')
 
       self.user_name = attributes[:'user_name'] if attributes[:'user_name']
+
+      self.swift_password = attributes[:'swiftPassword'] if attributes[:'swiftPassword']
+
+      raise 'You cannot provide both :swiftPassword and :swift_password' if attributes.key?(:'swiftPassword') && attributes.key?(:'swift_password')
+
+      self.swift_password = attributes[:'swift_password'] if attributes[:'swift_password']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -133,12 +133,12 @@ module OCI
 
       self.class == other.class &&
         backup_id == other.backup_id &&
-        bucket_name == other.bucket_name &&
         provisioning == other.provisioning &&
-        swift_password == other.swift_password &&
         swift_path == other.swift_path &&
+        bucket_name == other.bucket_name &&
         tag == other.tag &&
-        user_name == other.user_name
+        user_name == other.user_name &&
+        swift_password == other.swift_password
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -154,7 +154,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backup_id, bucket_name, provisioning, swift_password, swift_path, tag, user_name].hash
+      [backup_id, provisioning, swift_path, bucket_name, tag, user_name, swift_password].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

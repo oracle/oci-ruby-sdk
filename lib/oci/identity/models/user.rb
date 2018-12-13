@@ -51,6 +51,14 @@ module OCI
     # @return [String]
     attr_accessor :description
 
+    # The OCID of the `IdentityProvider` this user belongs to.
+    # @return [String]
+    attr_accessor :identity_provider_id
+
+    # Identifier of the user in the identity provider
+    # @return [String]
+    attr_accessor :external_identifier
+
     # **[Required]** Date and time the user was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
@@ -88,6 +96,10 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # Properties indicating how the user is allowed to authenticate.
+    # @return [OCI::Identity::Models::UserCapabilities]
+    attr_accessor :capabilities
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -96,11 +108,14 @@ module OCI
         'compartment_id': :'compartmentId',
         'name': :'name',
         'description': :'description',
+        'identity_provider_id': :'identityProviderId',
+        'external_identifier': :'externalIdentifier',
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
         'inactive_status': :'inactiveStatus',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'capabilities': :'capabilities'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -113,11 +128,14 @@ module OCI
         'compartment_id': :'String',
         'name': :'String',
         'description': :'String',
+        'identity_provider_id': :'String',
+        'external_identifier': :'String',
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
         'inactive_status': :'Integer',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'capabilities': :'OCI::Identity::Models::UserCapabilities'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -132,11 +150,14 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :identity_provider_id The value to assign to the {#identity_provider_id} property
+    # @option attributes [String] :external_identifier The value to assign to the {#external_identifier} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :inactive_status The value to assign to the {#inactive_status} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [OCI::Identity::Models::UserCapabilities] :capabilities The value to assign to the {#capabilities} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -154,6 +175,18 @@ module OCI
       self.name = attributes[:'name'] if attributes[:'name']
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.identity_provider_id = attributes[:'identityProviderId'] if attributes[:'identityProviderId']
+
+      raise 'You cannot provide both :identityProviderId and :identity_provider_id' if attributes.key?(:'identityProviderId') && attributes.key?(:'identity_provider_id')
+
+      self.identity_provider_id = attributes[:'identity_provider_id'] if attributes[:'identity_provider_id']
+
+      self.external_identifier = attributes[:'externalIdentifier'] if attributes[:'externalIdentifier']
+
+      raise 'You cannot provide both :externalIdentifier and :external_identifier' if attributes.key?(:'externalIdentifier') && attributes.key?(:'external_identifier')
+
+      self.external_identifier = attributes[:'external_identifier'] if attributes[:'external_identifier']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -184,6 +217,8 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.capabilities = attributes[:'capabilities'] if attributes[:'capabilities']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -216,11 +251,14 @@ module OCI
         compartment_id == other.compartment_id &&
         name == other.name &&
         description == other.description &&
+        identity_provider_id == other.identity_provider_id &&
+        external_identifier == other.external_identifier &&
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
         inactive_status == other.inactive_status &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        capabilities == other.capabilities
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -236,7 +274,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags].hash
+      [id, compartment_id, name, description, identity_provider_id, external_identifier, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags, capabilities].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

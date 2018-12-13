@@ -6,10 +6,6 @@ require 'date'
 module OCI
   # CreateDatabaseFromBackupDetails model.
   class Database::Models::CreateDatabaseFromBackupDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** A strong password for SYS, SYSTEM, PDB Admin and TDE Wallet. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numbers, and two special characters. The special characters must be _, \\#, or -.
-    # @return [String]
-    attr_accessor :admin_password
-
     # **[Required]** The backup [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @return [String]
     attr_accessor :backup_id
@@ -18,13 +14,17 @@ module OCI
     # @return [String]
     attr_accessor :backup_tde_password
 
+    # **[Required]** A strong password for SYS, SYSTEM, PDB Admin and TDE Wallet. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numbers, and two special characters. The special characters must be _, \\#, or -.
+    # @return [String]
+    attr_accessor :admin_password
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'admin_password': :'adminPassword',
         'backup_id': :'backupId',
-        'backup_tde_password': :'backupTDEPassword'
+        'backup_tde_password': :'backupTDEPassword',
+        'admin_password': :'adminPassword'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -33,9 +33,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'admin_password': :'String',
         'backup_id': :'String',
-        'backup_tde_password': :'String'
+        'backup_tde_password': :'String',
+        'admin_password': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -46,20 +46,14 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :backup_id The value to assign to the {#backup_id} property
     # @option attributes [String] :backup_tde_password The value to assign to the {#backup_tde_password} property
+    # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
-
-      raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
-
-      self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
 
       self.backup_id = attributes[:'backupId'] if attributes[:'backupId']
 
@@ -72,6 +66,12 @@ module OCI
       raise 'You cannot provide both :backupTDEPassword and :backup_tde_password' if attributes.key?(:'backupTDEPassword') && attributes.key?(:'backup_tde_password')
 
       self.backup_tde_password = attributes[:'backup_tde_password'] if attributes[:'backup_tde_password']
+
+      self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
+
+      raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
+
+      self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -85,9 +85,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        admin_password == other.admin_password &&
         backup_id == other.backup_id &&
-        backup_tde_password == other.backup_tde_password
+        backup_tde_password == other.backup_tde_password &&
+        admin_password == other.admin_password
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -103,7 +103,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [admin_password, backup_id, backup_tde_password].hash
+      [backup_id, backup_tde_password, admin_password].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

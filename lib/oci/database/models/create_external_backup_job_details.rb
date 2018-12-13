@@ -6,6 +6,11 @@ require 'date'
 module OCI
   # CreateExternalBackupJobDetails model.
   class Database::Models::CreateExternalBackupJobDetails # rubocop:disable Metrics/LineLength
+    DATABASE_MODE_ENUM = [
+      DATABASE_MODE_SI = 'SI'.freeze,
+      DATABASE_MODE_RAC = 'RAC'.freeze
+    ].freeze
+
     DATABASE_EDITION_ENUM = [
       DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
       DATABASE_EDITION_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
@@ -13,32 +18,21 @@ module OCI
       DATABASE_EDITION_ENTERPRISE_EDITION_EXTREME_PERFORMANCE = 'ENTERPRISE_EDITION_EXTREME_PERFORMANCE'.freeze
     ].freeze
 
-    DATABASE_MODE_ENUM = [
-      DATABASE_MODE_SI = 'SI'.freeze,
-      DATABASE_MODE_RAC = 'RAC'.freeze
-    ].freeze
-
     # **[Required]** The targeted availability domain for the backup.
     # @return [String]
     attr_accessor :availability_domain
-
-    # **[Required]** The character set for the database.
-    # @return [String]
-    attr_accessor :character_set
 
     # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment where this backup should be created.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The Oracle Database edition to use for creating a database from this standalone backup.
-    # Note that 2-node RAC DB systems require Enterprise Edition - Extreme Performance.
-    #
+    # **[Required]** A user-friendly name for the backup. This name does not have to be unique.
     # @return [String]
-    attr_reader :database_edition
+    attr_accessor :display_name
 
-    # **[Required]** The mode (single instance or RAC) of the database being backed up.
+    # **[Required]** A valid Oracle Database version.
     # @return [String]
-    attr_reader :database_mode
+    attr_accessor :db_version
 
     # **[Required]** The name of the database from which the backup is being taken.
     # @return [String]
@@ -48,42 +42,48 @@ module OCI
     # @return [String]
     attr_accessor :db_unique_name
 
-    # **[Required]** A valid Oracle Database version.
+    # The pluggable database name.
     # @return [String]
-    attr_accessor :db_version
-
-    # **[Required]** A user-friendly name for the backup. This name does not have to be unique.
-    # @return [String]
-    attr_accessor :display_name
+    attr_accessor :pdb_name
 
     # **[Required]** The `DBID` of the Oracle Database being backed up.
     # @return [Integer]
     attr_accessor :external_database_identifier
 
+    # **[Required]** The character set for the database.
+    # @return [String]
+    attr_accessor :character_set
+
     # **[Required]** The national character set for the database.
     # @return [String]
     attr_accessor :ncharacter_set
 
-    # The pluggable database name.
+    # **[Required]** The mode (single instance or RAC) of the database being backed up.
     # @return [String]
-    attr_accessor :pdb_name
+    attr_reader :database_mode
+
+    # **[Required]** The Oracle Database edition to use for creating a database from this standalone backup.
+    # Note that 2-node RAC DB systems require Enterprise Edition - Extreme Performance.
+    #
+    # @return [String]
+    attr_reader :database_edition
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
-        'character_set': :'characterSet',
         'compartment_id': :'compartmentId',
-        'database_edition': :'databaseEdition',
-        'database_mode': :'databaseMode',
+        'display_name': :'displayName',
+        'db_version': :'dbVersion',
         'db_name': :'dbName',
         'db_unique_name': :'dbUniqueName',
-        'db_version': :'dbVersion',
-        'display_name': :'displayName',
+        'pdb_name': :'pdbName',
         'external_database_identifier': :'externalDatabaseIdentifier',
+        'character_set': :'characterSet',
         'ncharacter_set': :'ncharacterSet',
-        'pdb_name': :'pdbName'
+        'database_mode': :'databaseMode',
+        'database_edition': :'databaseEdition'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -93,17 +93,17 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
-        'character_set': :'String',
         'compartment_id': :'String',
-        'database_edition': :'String',
-        'database_mode': :'String',
+        'display_name': :'String',
+        'db_version': :'String',
         'db_name': :'String',
         'db_unique_name': :'String',
-        'db_version': :'String',
-        'display_name': :'String',
+        'pdb_name': :'String',
         'external_database_identifier': :'Integer',
+        'character_set': :'String',
         'ncharacter_set': :'String',
-        'pdb_name': :'String'
+        'database_mode': :'String',
+        'database_edition': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -115,17 +115,17 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
-    # @option attributes [String] :character_set The value to assign to the {#character_set} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
-    # @option attributes [String] :database_mode The value to assign to the {#database_mode} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [String] :db_unique_name The value to assign to the {#db_unique_name} property
-    # @option attributes [String] :db_version The value to assign to the {#db_version} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Integer] :external_database_identifier The value to assign to the {#external_database_identifier} property
-    # @option attributes [String] :ncharacter_set The value to assign to the {#ncharacter_set} property
     # @option attributes [String] :pdb_name The value to assign to the {#pdb_name} property
+    # @option attributes [Integer] :external_database_identifier The value to assign to the {#external_database_identifier} property
+    # @option attributes [String] :character_set The value to assign to the {#character_set} property
+    # @option attributes [String] :ncharacter_set The value to assign to the {#ncharacter_set} property
+    # @option attributes [String] :database_mode The value to assign to the {#database_mode} property
+    # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -138,29 +138,23 @@ module OCI
 
       self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
 
-      self.character_set = attributes[:'characterSet'] if attributes[:'characterSet']
-
-      raise 'You cannot provide both :characterSet and :character_set' if attributes.key?(:'characterSet') && attributes.key?(:'character_set')
-
-      self.character_set = attributes[:'character_set'] if attributes[:'character_set']
-
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.database_edition = attributes[:'databaseEdition'] if attributes[:'databaseEdition']
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
-      raise 'You cannot provide both :databaseEdition and :database_edition' if attributes.key?(:'databaseEdition') && attributes.key?(:'database_edition')
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
-      self.database_edition = attributes[:'database_edition'] if attributes[:'database_edition']
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.database_mode = attributes[:'databaseMode'] if attributes[:'databaseMode']
+      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
 
-      raise 'You cannot provide both :databaseMode and :database_mode' if attributes.key?(:'databaseMode') && attributes.key?(:'database_mode')
+      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
 
-      self.database_mode = attributes[:'database_mode'] if attributes[:'database_mode']
+      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
 
       self.db_name = attributes[:'dbName'] if attributes[:'dbName']
 
@@ -174,17 +168,11 @@ module OCI
 
       self.db_unique_name = attributes[:'db_unique_name'] if attributes[:'db_unique_name']
 
-      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
+      self.pdb_name = attributes[:'pdbName'] if attributes[:'pdbName']
 
-      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
+      raise 'You cannot provide both :pdbName and :pdb_name' if attributes.key?(:'pdbName') && attributes.key?(:'pdb_name')
 
-      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
-
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
-
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
-
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+      self.pdb_name = attributes[:'pdb_name'] if attributes[:'pdb_name']
 
       self.external_database_identifier = attributes[:'externalDatabaseIdentifier'] if attributes[:'externalDatabaseIdentifier']
 
@@ -192,30 +180,32 @@ module OCI
 
       self.external_database_identifier = attributes[:'external_database_identifier'] if attributes[:'external_database_identifier']
 
+      self.character_set = attributes[:'characterSet'] if attributes[:'characterSet']
+
+      raise 'You cannot provide both :characterSet and :character_set' if attributes.key?(:'characterSet') && attributes.key?(:'character_set')
+
+      self.character_set = attributes[:'character_set'] if attributes[:'character_set']
+
       self.ncharacter_set = attributes[:'ncharacterSet'] if attributes[:'ncharacterSet']
 
       raise 'You cannot provide both :ncharacterSet and :ncharacter_set' if attributes.key?(:'ncharacterSet') && attributes.key?(:'ncharacter_set')
 
       self.ncharacter_set = attributes[:'ncharacter_set'] if attributes[:'ncharacter_set']
 
-      self.pdb_name = attributes[:'pdbName'] if attributes[:'pdbName']
+      self.database_mode = attributes[:'databaseMode'] if attributes[:'databaseMode']
 
-      raise 'You cannot provide both :pdbName and :pdb_name' if attributes.key?(:'pdbName') && attributes.key?(:'pdb_name')
+      raise 'You cannot provide both :databaseMode and :database_mode' if attributes.key?(:'databaseMode') && attributes.key?(:'database_mode')
 
-      self.pdb_name = attributes[:'pdb_name'] if attributes[:'pdb_name']
+      self.database_mode = attributes[:'database_mode'] if attributes[:'database_mode']
+
+      self.database_edition = attributes[:'databaseEdition'] if attributes[:'databaseEdition']
+
+      raise 'You cannot provide both :databaseEdition and :database_edition' if attributes.key?(:'databaseEdition') && attributes.key?(:'database_edition')
+
+      self.database_edition = attributes[:'database_edition'] if attributes[:'database_edition']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] database_edition Object to be assigned
-    def database_edition=(database_edition)
-      # rubocop: disable Metrics/LineLength
-      raise "Invalid value for 'database_edition': this must be one of the values in DATABASE_EDITION_ENUM." if database_edition && !DATABASE_EDITION_ENUM.include?(database_edition)
-
-      # rubocop: enable Metrics/LineLength
-      @database_edition = database_edition
-    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] database_mode Object to be assigned
@@ -225,6 +215,16 @@ module OCI
 
       # rubocop: enable Metrics/LineLength
       @database_mode = database_mode
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] database_edition Object to be assigned
+    def database_edition=(database_edition)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'database_edition': this must be one of the values in DATABASE_EDITION_ENUM." if database_edition && !DATABASE_EDITION_ENUM.include?(database_edition)
+
+      # rubocop: enable Metrics/LineLength
+      @database_edition = database_edition
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -237,17 +237,17 @@ module OCI
 
       self.class == other.class &&
         availability_domain == other.availability_domain &&
-        character_set == other.character_set &&
         compartment_id == other.compartment_id &&
-        database_edition == other.database_edition &&
-        database_mode == other.database_mode &&
+        display_name == other.display_name &&
+        db_version == other.db_version &&
         db_name == other.db_name &&
         db_unique_name == other.db_unique_name &&
-        db_version == other.db_version &&
-        display_name == other.display_name &&
+        pdb_name == other.pdb_name &&
         external_database_identifier == other.external_database_identifier &&
+        character_set == other.character_set &&
         ncharacter_set == other.ncharacter_set &&
-        pdb_name == other.pdb_name
+        database_mode == other.database_mode &&
+        database_edition == other.database_edition
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -263,7 +263,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, character_set, compartment_id, database_edition, database_mode, db_name, db_unique_name, db_version, display_name, external_database_identifier, ncharacter_set, pdb_name].hash
+      [availability_domain, compartment_id, display_name, db_version, db_name, db_unique_name, pdb_name, external_database_identifier, character_set, ncharacter_set, database_mode, database_edition].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

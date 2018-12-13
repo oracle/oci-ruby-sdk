@@ -6,17 +6,13 @@ require 'date'
 module OCI
   # CompleteExternalBackupJobDetails model.
   class Database::Models::CompleteExternalBackupJobDetails # rubocop:disable Metrics/LineLength
+    # If the database being backed up is TDE enabled, this will be the path to the associated TDE wallet in Object Storage.
+    # @return [String]
+    attr_accessor :tde_wallet_path
+
     # The handle of the control file backup.
     # @return [String]
     attr_accessor :cf_backup_handle
-
-    # The size of the data in the database, in megabytes.
-    # @return [Integer]
-    attr_accessor :data_size
-
-    # The size of the redo in the database, in megabytes.
-    # @return [Integer]
-    attr_accessor :redo_size
 
     # The handle of the spfile backup.
     # @return [String]
@@ -26,20 +22,24 @@ module OCI
     # @return [Array<String>]
     attr_accessor :sql_patches
 
-    # If the database being backed up is TDE enabled, this will be the path to the associated TDE wallet in Object Storage.
-    # @return [String]
-    attr_accessor :tde_wallet_path
+    # The size of the data in the database, in megabytes.
+    # @return [Integer]
+    attr_accessor :data_size
+
+    # The size of the redo in the database, in megabytes.
+    # @return [Integer]
+    attr_accessor :redo_size
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'tde_wallet_path': :'tdeWalletPath',
         'cf_backup_handle': :'cfBackupHandle',
-        'data_size': :'dataSize',
-        'redo_size': :'redoSize',
         'spf_backup_handle': :'spfBackupHandle',
         'sql_patches': :'sqlPatches',
-        'tde_wallet_path': :'tdeWalletPath'
+        'data_size': :'dataSize',
+        'redo_size': :'redoSize'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,12 +48,12 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'tde_wallet_path': :'String',
         'cf_backup_handle': :'String',
-        'data_size': :'Integer',
-        'redo_size': :'Integer',
         'spf_backup_handle': :'String',
         'sql_patches': :'Array<String>',
-        'tde_wallet_path': :'String'
+        'data_size': :'Integer',
+        'redo_size': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,35 +64,29 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :tde_wallet_path The value to assign to the {#tde_wallet_path} property
     # @option attributes [String] :cf_backup_handle The value to assign to the {#cf_backup_handle} property
-    # @option attributes [Integer] :data_size The value to assign to the {#data_size} property
-    # @option attributes [Integer] :redo_size The value to assign to the {#redo_size} property
     # @option attributes [String] :spf_backup_handle The value to assign to the {#spf_backup_handle} property
     # @option attributes [Array<String>] :sql_patches The value to assign to the {#sql_patches} property
-    # @option attributes [String] :tde_wallet_path The value to assign to the {#tde_wallet_path} property
+    # @option attributes [Integer] :data_size The value to assign to the {#data_size} property
+    # @option attributes [Integer] :redo_size The value to assign to the {#redo_size} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
+      self.tde_wallet_path = attributes[:'tdeWalletPath'] if attributes[:'tdeWalletPath']
+
+      raise 'You cannot provide both :tdeWalletPath and :tde_wallet_path' if attributes.key?(:'tdeWalletPath') && attributes.key?(:'tde_wallet_path')
+
+      self.tde_wallet_path = attributes[:'tde_wallet_path'] if attributes[:'tde_wallet_path']
+
       self.cf_backup_handle = attributes[:'cfBackupHandle'] if attributes[:'cfBackupHandle']
 
       raise 'You cannot provide both :cfBackupHandle and :cf_backup_handle' if attributes.key?(:'cfBackupHandle') && attributes.key?(:'cf_backup_handle')
 
       self.cf_backup_handle = attributes[:'cf_backup_handle'] if attributes[:'cf_backup_handle']
-
-      self.data_size = attributes[:'dataSize'] if attributes[:'dataSize']
-
-      raise 'You cannot provide both :dataSize and :data_size' if attributes.key?(:'dataSize') && attributes.key?(:'data_size')
-
-      self.data_size = attributes[:'data_size'] if attributes[:'data_size']
-
-      self.redo_size = attributes[:'redoSize'] if attributes[:'redoSize']
-
-      raise 'You cannot provide both :redoSize and :redo_size' if attributes.key?(:'redoSize') && attributes.key?(:'redo_size')
-
-      self.redo_size = attributes[:'redo_size'] if attributes[:'redo_size']
 
       self.spf_backup_handle = attributes[:'spfBackupHandle'] if attributes[:'spfBackupHandle']
 
@@ -106,11 +100,17 @@ module OCI
 
       self.sql_patches = attributes[:'sql_patches'] if attributes[:'sql_patches']
 
-      self.tde_wallet_path = attributes[:'tdeWalletPath'] if attributes[:'tdeWalletPath']
+      self.data_size = attributes[:'dataSize'] if attributes[:'dataSize']
 
-      raise 'You cannot provide both :tdeWalletPath and :tde_wallet_path' if attributes.key?(:'tdeWalletPath') && attributes.key?(:'tde_wallet_path')
+      raise 'You cannot provide both :dataSize and :data_size' if attributes.key?(:'dataSize') && attributes.key?(:'data_size')
 
-      self.tde_wallet_path = attributes[:'tde_wallet_path'] if attributes[:'tde_wallet_path']
+      self.data_size = attributes[:'data_size'] if attributes[:'data_size']
+
+      self.redo_size = attributes[:'redoSize'] if attributes[:'redoSize']
+
+      raise 'You cannot provide both :redoSize and :redo_size' if attributes.key?(:'redoSize') && attributes.key?(:'redo_size')
+
+      self.redo_size = attributes[:'redo_size'] if attributes[:'redo_size']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -124,12 +124,12 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        tde_wallet_path == other.tde_wallet_path &&
         cf_backup_handle == other.cf_backup_handle &&
-        data_size == other.data_size &&
-        redo_size == other.redo_size &&
         spf_backup_handle == other.spf_backup_handle &&
         sql_patches == other.sql_patches &&
-        tde_wallet_path == other.tde_wallet_path
+        data_size == other.data_size &&
+        redo_size == other.redo_size
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -145,7 +145,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cf_backup_handle, data_size, redo_size, spf_backup_handle, sql_patches, tde_wallet_path].hash
+      [tde_wallet_path, cf_backup_handle, spf_backup_handle, sql_patches, data_size, redo_size].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

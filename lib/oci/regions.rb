@@ -34,21 +34,22 @@ module OCI
 
     # --- Start of service prefixes ---
     SERVICE_ENDPOINT_PREFIX_MAPPING = {
-      BlockstorageClient: 'iaas',
-      ComputeClient: 'iaas',
-      VirtualNetworkClient: 'iaas',
-      IdentityClient: 'identity',
-      LoadBalancerClient: 'iaas',
-      ObjectStorageClient: 'objectstorage',
-      DatabaseClient: 'database',
       AuditClient: 'audit',
       Auth: 'auth',
-      DnsClient: 'dns',
-      FileStorageClient: 'filestorage',
-      EmailClient: 'email',
+      BlockstorageClient: 'iaas',
+      ComputeClient: 'iaas',
+      ComputeManagementClient: 'iaas',
       ContainerEngineClient: 'containerengine',
+      DatabaseClient: 'database',
+      DnsClient: 'dns',
+      EmailClient: 'email',
+      FileStorageClient: 'filestorage',
+      IdentityClient: 'identity',
+      KmsVaultClient: 'kms',
+      LoadBalancerClient: 'iaas',
+      ObjectStorageClient: 'objectstorage',
       ResourceSearchClient: 'query',
-      ComputeManagementClient: 'iaas'
+      VirtualNetworkClient: 'iaas'
     }.freeze
     # --- End of service prefixes ---
 

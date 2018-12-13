@@ -4,46 +4,42 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateLocalPeeringGatewayDetails model.
-  class Core::Models::UpdateLocalPeeringGatewayDetails # rubocop:disable Metrics/LineLength
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+  # UpdateUserCapabilitiesDetails model.
+  class Identity::Models::UpdateUserCapabilitiesDetails # rubocop:disable Metrics/LineLength
+    # Indicates if the user can log in to the console.
     #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+    # @return [BOOLEAN]
+    attr_accessor :can_use_console_password
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
+    # Indicates if the user can use API keys.
     #
-    # @return [String]
-    attr_accessor :display_name
+    # @return [BOOLEAN]
+    attr_accessor :can_use_api_keys
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # Indicates if the user can use SWIFT passwords / auth tokens.
     #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
+    # @return [BOOLEAN]
+    attr_accessor :can_use_auth_tokens
 
-    # The OCID of the route table the LPG will use. For information about why you
-    # would associate a route table with an LPG, see
-    # [Advanced Scenario: Transit Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/transitrouting.htm).
+    # Indicates if the user can use SMTP passwords.
     #
-    # @return [String]
-    attr_accessor :route_table_id
+    # @return [BOOLEAN]
+    attr_accessor :can_use_smtp_credentials
+
+    # Indicates if the user can use SigV4 symmetric keys.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :can_use_customer_secret_keys
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'definedTags',
-        'display_name': :'displayName',
-        'freeform_tags': :'freeformTags',
-        'route_table_id': :'routeTableId'
+        'can_use_console_password': :'canUseConsolePassword',
+        'can_use_api_keys': :'canUseApiKeys',
+        'can_use_auth_tokens': :'canUseAuthTokens',
+        'can_use_smtp_credentials': :'canUseSmtpCredentials',
+        'can_use_customer_secret_keys': :'canUseCustomerSecretKeys'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,10 +48,11 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'route_table_id': :'String'
+        'can_use_console_password': :'BOOLEAN',
+        'can_use_api_keys': :'BOOLEAN',
+        'can_use_auth_tokens': :'BOOLEAN',
+        'can_use_smtp_credentials': :'BOOLEAN',
+        'can_use_customer_secret_keys': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,39 +63,46 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
+    # @option attributes [BOOLEAN] :can_use_console_password The value to assign to the {#can_use_console_password} property
+    # @option attributes [BOOLEAN] :can_use_api_keys The value to assign to the {#can_use_api_keys} property
+    # @option attributes [BOOLEAN] :can_use_auth_tokens The value to assign to the {#can_use_auth_tokens} property
+    # @option attributes [BOOLEAN] :can_use_smtp_credentials The value to assign to the {#can_use_smtp_credentials} property
+    # @option attributes [BOOLEAN] :can_use_customer_secret_keys The value to assign to the {#can_use_customer_secret_keys} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      self.can_use_console_password = attributes[:'canUseConsolePassword'] unless attributes[:'canUseConsolePassword'].nil?
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      raise 'You cannot provide both :canUseConsolePassword and :can_use_console_password' if attributes.key?(:'canUseConsolePassword') && attributes.key?(:'can_use_console_password')
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      self.can_use_console_password = attributes[:'can_use_console_password'] unless attributes[:'can_use_console_password'].nil?
 
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+      self.can_use_api_keys = attributes[:'canUseApiKeys'] unless attributes[:'canUseApiKeys'].nil?
 
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+      raise 'You cannot provide both :canUseApiKeys and :can_use_api_keys' if attributes.key?(:'canUseApiKeys') && attributes.key?(:'can_use_api_keys')
 
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+      self.can_use_api_keys = attributes[:'can_use_api_keys'] unless attributes[:'can_use_api_keys'].nil?
 
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+      self.can_use_auth_tokens = attributes[:'canUseAuthTokens'] unless attributes[:'canUseAuthTokens'].nil?
 
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+      raise 'You cannot provide both :canUseAuthTokens and :can_use_auth_tokens' if attributes.key?(:'canUseAuthTokens') && attributes.key?(:'can_use_auth_tokens')
 
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+      self.can_use_auth_tokens = attributes[:'can_use_auth_tokens'] unless attributes[:'can_use_auth_tokens'].nil?
 
-      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+      self.can_use_smtp_credentials = attributes[:'canUseSmtpCredentials'] unless attributes[:'canUseSmtpCredentials'].nil?
 
-      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+      raise 'You cannot provide both :canUseSmtpCredentials and :can_use_smtp_credentials' if attributes.key?(:'canUseSmtpCredentials') && attributes.key?(:'can_use_smtp_credentials')
 
-      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+      self.can_use_smtp_credentials = attributes[:'can_use_smtp_credentials'] unless attributes[:'can_use_smtp_credentials'].nil?
+
+      self.can_use_customer_secret_keys = attributes[:'canUseCustomerSecretKeys'] unless attributes[:'canUseCustomerSecretKeys'].nil?
+
+      raise 'You cannot provide both :canUseCustomerSecretKeys and :can_use_customer_secret_keys' if attributes.key?(:'canUseCustomerSecretKeys') && attributes.key?(:'can_use_customer_secret_keys')
+
+      self.can_use_customer_secret_keys = attributes[:'can_use_customer_secret_keys'] unless attributes[:'can_use_customer_secret_keys'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -112,10 +116,11 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        defined_tags == other.defined_tags &&
-        display_name == other.display_name &&
-        freeform_tags == other.freeform_tags &&
-        route_table_id == other.route_table_id
+        can_use_console_password == other.can_use_console_password &&
+        can_use_api_keys == other.can_use_api_keys &&
+        can_use_auth_tokens == other.can_use_auth_tokens &&
+        can_use_smtp_credentials == other.can_use_smtp_credentials &&
+        can_use_customer_secret_keys == other.can_use_customer_secret_keys
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -131,7 +136,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, route_table_id].hash
+      [can_use_console_password, can_use_api_keys, can_use_auth_tokens, can_use_smtp_credentials, can_use_customer_secret_keys].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

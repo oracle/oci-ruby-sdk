@@ -28,6 +28,12 @@ module OCI
     # @return [String]
     attr_accessor :redirect_url
 
+    # Extra name value pairs associated with this identity provider.
+    # Example: `{\"clientId\": \"app_sf3kdjf3\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_attributes
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -45,7 +51,8 @@ module OCI
         'defined_tags': :'definedTags',
         'metadata_url': :'metadataUrl',
         'signing_certificate': :'signingCertificate',
-        'redirect_url': :'redirectUrl'
+        'redirect_url': :'redirectUrl',
+        'freeform_attributes': :'freeformAttributes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -67,7 +74,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'metadata_url': :'String',
         'signing_certificate': :'String',
-        'redirect_url': :'String'
+        'redirect_url': :'String',
+        'freeform_attributes': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -91,6 +99,7 @@ module OCI
     # @option attributes [String] :metadata_url The value to assign to the {#metadata_url} property
     # @option attributes [String] :signing_certificate The value to assign to the {#signing_certificate} property
     # @option attributes [String] :redirect_url The value to assign to the {#redirect_url} property
+    # @option attributes [Hash<String, String>] :freeform_attributes The value to assign to the {#freeform_attributes} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -118,6 +127,12 @@ module OCI
       raise 'You cannot provide both :redirectUrl and :redirect_url' if attributes.key?(:'redirectUrl') && attributes.key?(:'redirect_url')
 
       self.redirect_url = attributes[:'redirect_url'] if attributes[:'redirect_url']
+
+      self.freeform_attributes = attributes[:'freeformAttributes'] if attributes[:'freeformAttributes']
+
+      raise 'You cannot provide both :freeformAttributes and :freeform_attributes' if attributes.key?(:'freeformAttributes') && attributes.key?(:'freeform_attributes')
+
+      self.freeform_attributes = attributes[:'freeform_attributes'] if attributes[:'freeform_attributes']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -144,7 +159,8 @@ module OCI
         defined_tags == other.defined_tags &&
         metadata_url == other.metadata_url &&
         signing_certificate == other.signing_certificate &&
-        redirect_url == other.redirect_url
+        redirect_url == other.redirect_url &&
+        freeform_attributes == other.freeform_attributes
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -160,7 +176,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, product_type, time_created, lifecycle_state, inactive_status, protocol, freeform_tags, defined_tags, metadata_url, signing_certificate, redirect_url].hash
+      [id, compartment_id, name, description, product_type, time_created, lifecycle_state, inactive_status, protocol, freeform_tags, defined_tags, metadata_url, signing_certificate, redirect_url, freeform_attributes].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

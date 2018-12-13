@@ -7,6 +7,10 @@ require_relative 'attach_volume_details'
 module OCI
   # AttachParavirtualizedVolumeDetails model.
   class Core::Models::AttachParavirtualizedVolumeDetails < Core::Models::AttachVolumeDetails # rubocop:disable Metrics/LineLength
+    # Whether to enable encryption in transit for the PV data volume attachment. Defaults to false.
+    # @return [BOOLEAN]
+    attr_accessor :is_pv_encryption_in_transit_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -15,7 +19,8 @@ module OCI
         'instance_id': :'instanceId',
         'is_read_only': :'isReadOnly',
         'type': :'type',
-        'volume_id': :'volumeId'
+        'volume_id': :'volumeId',
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -28,7 +33,8 @@ module OCI
         'instance_id': :'String',
         'is_read_only': :'BOOLEAN',
         'type': :'String',
-        'volume_id': :'String'
+        'volume_id': :'String',
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,12 +49,22 @@ module OCI
     # @option attributes [String] :instance_id The value to assign to the {OCI::Core::Models::AttachVolumeDetails#instance_id #instance_id} proprety
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {OCI::Core::Models::AttachVolumeDetails#is_read_only #is_read_only} proprety
     # @option attributes [String] :volume_id The value to assign to the {OCI::Core::Models::AttachVolumeDetails#volume_id #volume_id} proprety
+    # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['type'] = 'paravirtualized'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'isPvEncryptionInTransitEnabled'] unless attributes[:'isPvEncryptionInTransitEnabled'].nil?
+
+      raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -66,7 +82,8 @@ module OCI
         instance_id == other.instance_id &&
         is_read_only == other.is_read_only &&
         type == other.type &&
-        volume_id == other.volume_id
+        volume_id == other.volume_id &&
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -82,7 +99,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, instance_id, is_read_only, type, volume_id].hash
+      [display_name, instance_id, is_read_only, type, volume_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

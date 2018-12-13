@@ -5,12 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A server where Oracle Database software is running.
-  #
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
-  #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-  #
+  # DbNode model.
   class Database::Models::DbNode # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
@@ -25,51 +20,51 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup VNIC.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database node.
     # @return [String]
-    attr_accessor :backup_vnic_id
+    attr_accessor :id
 
     # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
     # @return [String]
     attr_accessor :db_system_id
 
-    # The host name for the database node.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the VNIC.
     # @return [String]
-    attr_accessor :hostname
+    attr_accessor :vnic_id
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the database node.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup VNIC.
     # @return [String]
-    attr_accessor :id
+    attr_accessor :backup_vnic_id
 
     # **[Required]** The current state of the database node.
     # @return [String]
     attr_reader :lifecycle_state
+
+    # The host name for the database node.
+    # @return [String]
+    attr_accessor :hostname
+
+    # **[Required]** The date and time that the database node was created.
+    # @return [DateTime]
+    attr_accessor :time_created
 
     # The size (in GB) of the block storage volume allocation for the DB system. This attribute applies only for virtual machine DB systems.
     #
     # @return [Integer]
     attr_accessor :software_storage_size_in_gb
 
-    # **[Required]** The date and time that the database node was created.
-    # @return [DateTime]
-    attr_accessor :time_created
-
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the VNIC.
-    # @return [String]
-    attr_accessor :vnic_id
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'backup_vnic_id': :'backupVnicId',
-        'db_system_id': :'dbSystemId',
-        'hostname': :'hostname',
         'id': :'id',
+        'db_system_id': :'dbSystemId',
+        'vnic_id': :'vnicId',
+        'backup_vnic_id': :'backupVnicId',
         'lifecycle_state': :'lifecycleState',
-        'software_storage_size_in_gb': :'softwareStorageSizeInGB',
+        'hostname': :'hostname',
         'time_created': :'timeCreated',
-        'vnic_id': :'vnicId'
+        'software_storage_size_in_gb': :'softwareStorageSizeInGB'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -78,14 +73,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'backup_vnic_id': :'String',
-        'db_system_id': :'String',
-        'hostname': :'String',
         'id': :'String',
+        'db_system_id': :'String',
+        'vnic_id': :'String',
+        'backup_vnic_id': :'String',
         'lifecycle_state': :'String',
-        'software_storage_size_in_gb': :'Integer',
+        'hostname': :'String',
         'time_created': :'DateTime',
-        'vnic_id': :'String'
+        'software_storage_size_in_gb': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -96,25 +91,18 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :backup_vnic_id The value to assign to the {#backup_vnic_id} property
-    # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
-    # @option attributes [String] :hostname The value to assign to the {#hostname} property
     # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
-    # @option attributes [Integer] :software_storage_size_in_gb The value to assign to the {#software_storage_size_in_gb} property
-    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
     # @option attributes [String] :vnic_id The value to assign to the {#vnic_id} property
+    # @option attributes [String] :backup_vnic_id The value to assign to the {#backup_vnic_id} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :hostname The value to assign to the {#hostname} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Integer] :software_storage_size_in_gb The value to assign to the {#software_storage_size_in_gb} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
-      # convert string to symbol for hash key
-      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.backup_vnic_id = attributes[:'backupVnicId'] if attributes[:'backupVnicId']
-
-      raise 'You cannot provide both :backupVnicId and :backup_vnic_id' if attributes.key?(:'backupVnicId') && attributes.key?(:'backup_vnic_id')
-
-      self.backup_vnic_id = attributes[:'backup_vnic_id'] if attributes[:'backup_vnic_id']
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.db_system_id = attributes[:'dbSystemId'] if attributes[:'dbSystemId']
 
@@ -122,9 +110,17 @@ module OCI
 
       self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
 
-      self.hostname = attributes[:'hostname'] if attributes[:'hostname']
+      self.vnic_id = attributes[:'vnicId'] if attributes[:'vnicId']
 
-      self.id = attributes[:'id'] if attributes[:'id']
+      raise 'You cannot provide both :vnicId and :vnic_id' if attributes.key?(:'vnicId') && attributes.key?(:'vnic_id')
+
+      self.vnic_id = attributes[:'vnic_id'] if attributes[:'vnic_id']
+
+      self.backup_vnic_id = attributes[:'backupVnicId'] if attributes[:'backupVnicId']
+
+      raise 'You cannot provide both :backupVnicId and :backup_vnic_id' if attributes.key?(:'backupVnicId') && attributes.key?(:'backup_vnic_id')
+
+      self.backup_vnic_id = attributes[:'backup_vnic_id'] if attributes[:'backup_vnic_id']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -132,11 +128,7 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
-      self.software_storage_size_in_gb = attributes[:'softwareStorageSizeInGB'] if attributes[:'softwareStorageSizeInGB']
-
-      raise 'You cannot provide both :softwareStorageSizeInGB and :software_storage_size_in_gb' if attributes.key?(:'softwareStorageSizeInGB') && attributes.key?(:'software_storage_size_in_gb')
-
-      self.software_storage_size_in_gb = attributes[:'software_storage_size_in_gb'] if attributes[:'software_storage_size_in_gb']
+      self.hostname = attributes[:'hostname'] if attributes[:'hostname']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -144,11 +136,11 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
-      self.vnic_id = attributes[:'vnicId'] if attributes[:'vnicId']
+      self.software_storage_size_in_gb = attributes[:'softwareStorageSizeInGB'] if attributes[:'softwareStorageSizeInGB']
 
-      raise 'You cannot provide both :vnicId and :vnic_id' if attributes.key?(:'vnicId') && attributes.key?(:'vnic_id')
+      raise 'You cannot provide both :softwareStorageSizeInGB and :software_storage_size_in_gb' if attributes.key?(:'softwareStorageSizeInGB') && attributes.key?(:'software_storage_size_in_gb')
 
-      self.vnic_id = attributes[:'vnic_id'] if attributes[:'vnic_id']
+      self.software_storage_size_in_gb = attributes[:'software_storage_size_in_gb'] if attributes[:'software_storage_size_in_gb']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -177,14 +169,14 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        backup_vnic_id == other.backup_vnic_id &&
-        db_system_id == other.db_system_id &&
-        hostname == other.hostname &&
         id == other.id &&
+        db_system_id == other.db_system_id &&
+        vnic_id == other.vnic_id &&
+        backup_vnic_id == other.backup_vnic_id &&
         lifecycle_state == other.lifecycle_state &&
-        software_storage_size_in_gb == other.software_storage_size_in_gb &&
+        hostname == other.hostname &&
         time_created == other.time_created &&
-        vnic_id == other.vnic_id
+        software_storage_size_in_gb == other.software_storage_size_in_gb
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -200,7 +192,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backup_vnic_id, db_system_id, hostname, id, lifecycle_state, software_storage_size_in_gb, time_created, vnic_id].hash
+      [id, db_system_id, vnic_id, backup_vnic_id, lifecycle_state, hostname, time_created, software_storage_size_in_gb].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

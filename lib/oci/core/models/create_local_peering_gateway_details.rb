@@ -39,6 +39,9 @@ module OCI
     # table. The Networking service does NOT automatically associate the attached VCN's default route table
     # with the LPG.
     #
+    # For information about why you would associate a route table with an LPG, see
+    # [Advanced Scenario: Transit Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/transitrouting.htm).
+    #
     # @return [String]
     attr_accessor :route_table_id
 

@@ -14,20 +14,20 @@ module OCI
       ACTION_PRECHECK = 'PRECHECK'.freeze
     ].freeze
 
-    # The action to perform on the patch.
-    # @return [String]
-    attr_reader :action
-
     # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch.
     # @return [String]
     attr_accessor :patch_id
+
+    # The action to perform on the patch.
+    # @return [String]
+    attr_reader :action
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'action': :'action',
-        'patch_id': :'patchId'
+        'patch_id': :'patchId',
+        'action': :'action'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,8 +36,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'action': :'String',
-        'patch_id': :'String'
+        'patch_id': :'String',
+        'action': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,21 +48,21 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :action The value to assign to the {#action} property
     # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
+    # @option attributes [String] :action The value to assign to the {#action} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.action = attributes[:'action'] if attributes[:'action']
-
       self.patch_id = attributes[:'patchId'] if attributes[:'patchId']
 
       raise 'You cannot provide both :patchId and :patch_id' if attributes.key?(:'patchId') && attributes.key?(:'patch_id')
 
       self.patch_id = attributes[:'patch_id'] if attributes[:'patch_id']
+
+      self.action = attributes[:'action'] if attributes[:'action']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -86,8 +86,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        action == other.action &&
-        patch_id == other.patch_id
+        patch_id == other.patch_id &&
+        action == other.action
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -103,7 +103,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [action, patch_id].hash
+      [patch_id, action].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

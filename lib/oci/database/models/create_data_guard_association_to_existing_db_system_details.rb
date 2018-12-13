@@ -7,7 +7,7 @@ require_relative 'create_data_guard_association_details'
 module OCI
   # The configuration details for creating a Data Guard association to an existing database.
   class Database::Models::CreateDataGuardAssociationToExistingDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails # rubocop:disable Metrics/LineLength
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system to create the standby database on.
+    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system in which to create the standby database.
     #
     # @return [String]
     attr_accessor :peer_db_system_id
@@ -16,10 +16,10 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'creation_type': :'creationType',
         'database_admin_password': :'databaseAdminPassword',
         'protection_mode': :'protectionMode',
         'transport_type': :'transportType',
+        'creation_type': :'creationType',
         'peer_db_system_id': :'peerDbSystemId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -29,10 +29,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'creation_type': :'String',
         'database_admin_password': :'String',
         'protection_mode': :'String',
         'transport_type': :'String',
+        'creation_type': :'String',
         'peer_db_system_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -76,10 +76,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        creation_type == other.creation_type &&
         database_admin_password == other.database_admin_password &&
         protection_mode == other.protection_mode &&
         transport_type == other.transport_type &&
+        creation_type == other.creation_type &&
         peer_db_system_id == other.peer_db_system_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -96,7 +96,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [creation_type, database_admin_password, protection_mode, transport_type, peer_db_system_id].hash
+      [database_admin_password, protection_mode, transport_type, creation_type, peer_db_system_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

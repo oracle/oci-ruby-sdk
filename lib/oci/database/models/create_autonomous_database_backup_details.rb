@@ -9,20 +9,20 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::CreateAutonomousDatabaseBackupDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the Autonomous Database backup.
-    # @return [String]
-    attr_accessor :autonomous_database_id
-
     # **[Required]** The user-friendly name for the backup. The name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
+
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the Autonomous Database backup.
+    # @return [String]
+    attr_accessor :autonomous_database_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'autonomous_database_id': :'autonomousDatabaseId',
-        'display_name': :'displayName'
+        'display_name': :'displayName',
+        'autonomous_database_id': :'autonomousDatabaseId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -31,8 +31,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'autonomous_database_id': :'String',
-        'display_name': :'String'
+        'display_name': :'String',
+        'autonomous_database_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,25 +43,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :autonomous_database_id The value to assign to the {#autonomous_database_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :autonomous_database_id The value to assign to the {#autonomous_database_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.autonomous_database_id = attributes[:'autonomousDatabaseId'] if attributes[:'autonomousDatabaseId']
-
-      raise 'You cannot provide both :autonomousDatabaseId and :autonomous_database_id' if attributes.key?(:'autonomousDatabaseId') && attributes.key?(:'autonomous_database_id')
-
-      self.autonomous_database_id = attributes[:'autonomous_database_id'] if attributes[:'autonomous_database_id']
-
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.autonomous_database_id = attributes[:'autonomousDatabaseId'] if attributes[:'autonomousDatabaseId']
+
+      raise 'You cannot provide both :autonomousDatabaseId and :autonomous_database_id' if attributes.key?(:'autonomousDatabaseId') && attributes.key?(:'autonomous_database_id')
+
+      self.autonomous_database_id = attributes[:'autonomous_database_id'] if attributes[:'autonomous_database_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -75,8 +75,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        autonomous_database_id == other.autonomous_database_id &&
-        display_name == other.display_name
+        display_name == other.display_name &&
+        autonomous_database_id == other.autonomous_database_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -92,7 +92,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [autonomous_database_id, display_name].hash
+      [display_name, autonomous_database_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
