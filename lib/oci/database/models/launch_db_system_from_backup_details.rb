@@ -24,15 +24,15 @@ module OCI
       LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
     ].freeze
 
+    # This attribute is required.
+    # @return [OCI::Database::Models::CreateDbHomeFromBackupDetails]
+    attr_accessor :db_home
+
     # **[Required]** The Oracle Database Edition that applies to all the databases on the DB system.
     # Exadata DB systems and 2-node RAC DB systems require ENTERPRISE_EDITION_EXTREME_PERFORMANCE.
     #
     # @return [String]
     attr_reader :database_edition
-
-    # This attribute is required.
-    # @return [OCI::Database::Models::CreateDbHomeFromBackupDetails]
-    attr_accessor :db_home
 
     # The type of redundancy configured for the DB system.
     # NORMAL 2-way redundancy, recommended for test and development systems.
@@ -50,25 +50,26 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'availability_domain': :'availabilityDomain',
-        'backup_subnet_id': :'backupSubnetId',
-        'cluster_name': :'clusterName',
         'compartment_id': :'compartmentId',
-        'cpu_core_count': :'cpuCoreCount',
-        'data_storage_percentage': :'dataStoragePercentage',
-        'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'domain': :'domain',
-        'freeform_tags': :'freeformTags',
+        'availability_domain': :'availabilityDomain',
+        'subnet_id': :'subnetId',
+        'backup_subnet_id': :'backupSubnetId',
+        'shape': :'shape',
+        'sparse_diskgroup': :'sparseDiskgroup',
+        'ssh_public_keys': :'sshPublicKeys',
         'hostname': :'hostname',
+        'domain': :'domain',
+        'cpu_core_count': :'cpuCoreCount',
+        'cluster_name': :'clusterName',
+        'data_storage_percentage': :'dataStoragePercentage',
         'initial_data_storage_size_in_gb': :'initialDataStorageSizeInGB',
         'node_count': :'nodeCount',
-        'shape': :'shape',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
         'source': :'source',
-        'ssh_public_keys': :'sshPublicKeys',
-        'subnet_id': :'subnetId',
-        'database_edition': :'databaseEdition',
         'db_home': :'dbHome',
+        'database_edition': :'databaseEdition',
         'disk_redundancy': :'diskRedundancy',
         'license_model': :'licenseModel'
         # rubocop:enable Style/SymbolLiteral
@@ -79,25 +80,26 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'availability_domain': :'String',
-        'backup_subnet_id': :'String',
-        'cluster_name': :'String',
         'compartment_id': :'String',
-        'cpu_core_count': :'Integer',
-        'data_storage_percentage': :'Integer',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'domain': :'String',
-        'freeform_tags': :'Hash<String, String>',
+        'availability_domain': :'String',
+        'subnet_id': :'String',
+        'backup_subnet_id': :'String',
+        'shape': :'String',
+        'sparse_diskgroup': :'BOOLEAN',
+        'ssh_public_keys': :'Array<String>',
         'hostname': :'String',
+        'domain': :'String',
+        'cpu_core_count': :'Integer',
+        'cluster_name': :'String',
+        'data_storage_percentage': :'Integer',
         'initial_data_storage_size_in_gb': :'Integer',
         'node_count': :'Integer',
-        'shape': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'source': :'String',
-        'ssh_public_keys': :'Array<String>',
-        'subnet_id': :'String',
-        'database_edition': :'String',
         'db_home': :'OCI::Database::Models::CreateDbHomeFromBackupDetails',
+        'database_edition': :'String',
         'disk_redundancy': :'String',
         'license_model': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -110,24 +112,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :availability_domain The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#availability_domain #availability_domain} proprety
-    # @option attributes [String] :backup_subnet_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#backup_subnet_id #backup_subnet_id} proprety
-    # @option attributes [String] :cluster_name The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#cluster_name #cluster_name} proprety
     # @option attributes [String] :compartment_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#compartment_id #compartment_id} proprety
-    # @option attributes [Integer] :cpu_core_count The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#cpu_core_count #cpu_core_count} proprety
-    # @option attributes [Integer] :data_storage_percentage The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#data_storage_percentage #data_storage_percentage} proprety
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#defined_tags #defined_tags} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#display_name #display_name} proprety
-    # @option attributes [String] :domain The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#domain #domain} proprety
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#freeform_tags #freeform_tags} proprety
+    # @option attributes [String] :availability_domain The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#availability_domain #availability_domain} proprety
+    # @option attributes [String] :subnet_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#subnet_id #subnet_id} proprety
+    # @option attributes [String] :backup_subnet_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#backup_subnet_id #backup_subnet_id} proprety
+    # @option attributes [String] :shape The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#shape #shape} proprety
+    # @option attributes [BOOLEAN] :sparse_diskgroup The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#sparse_diskgroup #sparse_diskgroup} proprety
+    # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#ssh_public_keys #ssh_public_keys} proprety
     # @option attributes [String] :hostname The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#hostname #hostname} proprety
+    # @option attributes [String] :domain The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#domain #domain} proprety
+    # @option attributes [Integer] :cpu_core_count The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#cpu_core_count #cpu_core_count} proprety
+    # @option attributes [String] :cluster_name The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#cluster_name #cluster_name} proprety
+    # @option attributes [Integer] :data_storage_percentage The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#data_storage_percentage #data_storage_percentage} proprety
     # @option attributes [Integer] :initial_data_storage_size_in_gb The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#initial_data_storage_size_in_gb #initial_data_storage_size_in_gb} proprety
     # @option attributes [Integer] :node_count The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#node_count #node_count} proprety
-    # @option attributes [String] :shape The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#shape #shape} proprety
-    # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#ssh_public_keys #ssh_public_keys} proprety
-    # @option attributes [String] :subnet_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#subnet_id #subnet_id} proprety
-    # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#freeform_tags #freeform_tags} proprety
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#defined_tags #defined_tags} proprety
     # @option attributes [OCI::Database::Models::CreateDbHomeFromBackupDetails] :db_home The value to assign to the {#db_home} property
+    # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     # @option attributes [String] :disk_redundancy The value to assign to the {#disk_redundancy} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     def initialize(attributes = {})
@@ -140,17 +143,17 @@ module OCI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.database_edition = attributes[:'databaseEdition'] if attributes[:'databaseEdition']
-
-      raise 'You cannot provide both :databaseEdition and :database_edition' if attributes.key?(:'databaseEdition') && attributes.key?(:'database_edition')
-
-      self.database_edition = attributes[:'database_edition'] if attributes[:'database_edition']
-
       self.db_home = attributes[:'dbHome'] if attributes[:'dbHome']
 
       raise 'You cannot provide both :dbHome and :db_home' if attributes.key?(:'dbHome') && attributes.key?(:'db_home')
 
       self.db_home = attributes[:'db_home'] if attributes[:'db_home']
+
+      self.database_edition = attributes[:'databaseEdition'] if attributes[:'databaseEdition']
+
+      raise 'You cannot provide both :databaseEdition and :database_edition' if attributes.key?(:'databaseEdition') && attributes.key?(:'database_edition')
+
+      self.database_edition = attributes[:'database_edition'] if attributes[:'database_edition']
 
       self.disk_redundancy = attributes[:'diskRedundancy'] if attributes[:'diskRedundancy']
 
@@ -206,25 +209,26 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        availability_domain == other.availability_domain &&
-        backup_subnet_id == other.backup_subnet_id &&
-        cluster_name == other.cluster_name &&
         compartment_id == other.compartment_id &&
-        cpu_core_count == other.cpu_core_count &&
-        data_storage_percentage == other.data_storage_percentage &&
-        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        domain == other.domain &&
-        freeform_tags == other.freeform_tags &&
+        availability_domain == other.availability_domain &&
+        subnet_id == other.subnet_id &&
+        backup_subnet_id == other.backup_subnet_id &&
+        shape == other.shape &&
+        sparse_diskgroup == other.sparse_diskgroup &&
+        ssh_public_keys == other.ssh_public_keys &&
         hostname == other.hostname &&
+        domain == other.domain &&
+        cpu_core_count == other.cpu_core_count &&
+        cluster_name == other.cluster_name &&
+        data_storage_percentage == other.data_storage_percentage &&
         initial_data_storage_size_in_gb == other.initial_data_storage_size_in_gb &&
         node_count == other.node_count &&
-        shape == other.shape &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
         source == other.source &&
-        ssh_public_keys == other.ssh_public_keys &&
-        subnet_id == other.subnet_id &&
-        database_edition == other.database_edition &&
         db_home == other.db_home &&
+        database_edition == other.database_edition &&
         disk_redundancy == other.disk_redundancy &&
         license_model == other.license_model
     end
@@ -242,7 +246,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, backup_subnet_id, cluster_name, compartment_id, cpu_core_count, data_storage_percentage, defined_tags, display_name, domain, freeform_tags, hostname, initial_data_storage_size_in_gb, node_count, shape, source, ssh_public_keys, subnet_id, database_edition, db_home, disk_redundancy, license_model].hash
+      [compartment_id, display_name, availability_domain, subnet_id, backup_subnet_id, shape, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, db_home, database_edition, disk_redundancy, license_model].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

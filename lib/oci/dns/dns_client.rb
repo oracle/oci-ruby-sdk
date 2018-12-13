@@ -5,7 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for managing DNS zones, records, and policies.
+  # API for the DNS service. Use this API to manage DNS zones, records, and other DNS resources.
+  # For more information, see [Overview of the DNS Service](/iaas/Content/DNS/Concepts/dnszonemanagement.htm).
   class Dns::DnsClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -298,8 +299,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified zone. A `204` response indicates that zone has been
-    # successfully deleted.
+    # Deletes the specified zone. A `204` response indicates that zone has been successfully
+    # deleted.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
@@ -615,7 +616,7 @@ module OCI
 
     # Gets all records in the specified zone. The results are
     # sorted by `domain` in alphabetical order by default. For more
-    # information about records, please see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
+    # information about records, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
@@ -743,12 +744,12 @@ module OCI
     # @option opts [DateTime] :time_created_less_than An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created before the indicated time.
     #
+    # @option opts [String] :lifecycle_state The state of a resource.
+    #   Allowed values are: ACTIVE, CREATING, DELETED, DELETING, FAILED
     # @option opts [String] :sort_by The field by which to sort zones. (default to timeCreated)
     #   Allowed values are: name, zoneType, timeCreated
     # @option opts [String] :sort_order The order to sort the resources.
     #
-    # @option opts [String] :lifecycle_state The state of a resource.
-    #   Allowed values are: ACTIVE, CREATING, DELETED, DELETING, FAILED
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ZoneSummary ZoneSummary}>
     def list_zones(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_zones.' if logger
@@ -759,16 +760,16 @@ module OCI
         raise 'Invalid value for "zone_type", must be one of PRIMARY, SECONDARY.'
       end
 
+      if opts[:lifecycle_state] && !%w[ACTIVE CREATING DELETED DELETING FAILED].include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of ACTIVE, CREATING, DELETED, DELETING, FAILED.'
+      end
+
       if opts[:sort_by] && !%w[name zoneType timeCreated].include?(opts[:sort_by])
         raise 'Invalid value for "sort_by", must be one of name, zoneType, timeCreated.'
       end
 
       if opts[:sort_order] && !OCI::Dns::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
-      end
-
-      if opts[:lifecycle_state] && !%w[ACTIVE CREATING DELETED DELETING FAILED].include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of ACTIVE, CREATING, DELETED, DELETING, FAILED.'
       end
 
       path = '/zones'
@@ -785,9 +786,9 @@ module OCI
       query_params[:zoneType] = opts[:zone_type] if opts[:zone_type]
       query_params[:timeCreatedGreaterThanOrEqualTo] = opts[:time_created_greater_than_or_equal_to] if opts[:time_created_greater_than_or_equal_to]
       query_params[:timeCreatedLessThan] = opts[:time_created_less_than] if opts[:time_created_less_than]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -821,7 +822,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Replaces records in the specified zone at a domain. You can update one record or all records for the specified zone depending on the changes provided in the request body. You can also add or remove records using this function.
+    # Updates records in the specified zone at a domain. You can update one record or all records for the specified zone depending on the changes provided in the request body. You can also add or remove records using this function.
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [OCI::Dns::Models::PatchDomainRecordsDetails] patch_domain_records_details Operations describing how to modify the collection of records.
@@ -1197,7 +1198,7 @@ module OCI
 
     # Updates the specified secondary zone with your new external master
     # server information. For more information about secondary zone, see
-    # [Manage DNS Service Zone](https://docs.cloud.oracle.com/Content/DNS/Tasks/managingdnszones.htm).
+    # [Manage DNS Service Zone](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [OCI::Dns::Models::UpdateZoneDetails] update_zone_details New data for the zone.

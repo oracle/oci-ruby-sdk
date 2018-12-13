@@ -19,7 +19,7 @@ module OCI
     ].freeze
 
     # If you set `serverType` to `CustomDnsServer`, specify the
-    # IP address of at least one DNS server of your choice (three maximum). gd
+    # IP address of at least one DNS server of your choice (three maximum).
     #
     # @return [Array<String>]
     attr_accessor :custom_dns_servers

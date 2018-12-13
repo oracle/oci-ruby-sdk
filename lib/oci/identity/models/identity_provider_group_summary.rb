@@ -4,46 +4,49 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateLocalPeeringGatewayDetails model.
-  class Core::Models::UpdateLocalPeeringGatewayDetails # rubocop:disable Metrics/LineLength
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+  # A group created in an identity provider that can be mapped to a group in OCI
+  #
+  class Identity::Models::IdentityProviderGroupSummary # rubocop:disable Metrics/LineLength
+    # The OCID of the `IdentityProviderGroup`.
+    # @return [String]
+    attr_accessor :id
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
-    #
+    # The OCID of the `IdentityProvider` this group belongs to.
+    # @return [String]
+    attr_accessor :identity_provider_id
+
+    # Display name of the group
     # @return [String]
     attr_accessor :display_name
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
-    # The OCID of the route table the LPG will use. For information about why you
-    # would associate a route table with an LPG, see
-    # [Advanced Scenario: Transit Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/transitrouting.htm).
-    #
+    # Identifier of the group in the identity provider
     # @return [String]
-    attr_accessor :route_table_id
+    attr_accessor :external_identifier
+
+    # Date and time the `IdentityProviderGroup` was created, in the format defined by RFC3339.
+    #
+    # Example: `2016-08-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_created
+
+    # Date and time the `IdentityProviderGroup` was last modified, in the format defined by RFC3339.
+    #
+    # Example: `2016-08-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_modified
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'definedTags',
+        'id': :'id',
+        'identity_provider_id': :'identityProviderId',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags',
-        'route_table_id': :'routeTableId'
+        'external_identifier': :'externalIdentifier',
+        'time_created': :'timeCreated',
+        'time_modified': :'timeModified'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,10 +55,12 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'id': :'String',
+        'identity_provider_id': :'String',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'route_table_id': :'String'
+        'external_identifier': :'String',
+        'time_created': :'DateTime',
+        'time_modified': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,21 +71,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :identity_provider_id The value to assign to the {#identity_provider_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
+    # @option attributes [String] :external_identifier The value to assign to the {#external_identifier} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_modified The value to assign to the {#time_modified} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      self.id = attributes[:'id'] if attributes[:'id']
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      self.identity_provider_id = attributes[:'identityProviderId'] if attributes[:'identityProviderId']
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      raise 'You cannot provide both :identityProviderId and :identity_provider_id' if attributes.key?(:'identityProviderId') && attributes.key?(:'identity_provider_id')
+
+      self.identity_provider_id = attributes[:'identity_provider_id'] if attributes[:'identity_provider_id']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -88,17 +97,23 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+      self.external_identifier = attributes[:'externalIdentifier'] if attributes[:'externalIdentifier']
 
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+      raise 'You cannot provide both :externalIdentifier and :external_identifier' if attributes.key?(:'externalIdentifier') && attributes.key?(:'external_identifier')
 
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+      self.external_identifier = attributes[:'external_identifier'] if attributes[:'external_identifier']
 
-      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
-      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
-      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_modified = attributes[:'timeModified'] if attributes[:'timeModified']
+
+      raise 'You cannot provide both :timeModified and :time_modified' if attributes.key?(:'timeModified') && attributes.key?(:'time_modified')
+
+      self.time_modified = attributes[:'time_modified'] if attributes[:'time_modified']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -112,10 +127,12 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        defined_tags == other.defined_tags &&
+        id == other.id &&
+        identity_provider_id == other.identity_provider_id &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags &&
-        route_table_id == other.route_table_id
+        external_identifier == other.external_identifier &&
+        time_created == other.time_created &&
+        time_modified == other.time_modified
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -131,7 +148,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, route_table_id].hash
+      [id, identity_provider_id, display_name, external_identifier, time_created, time_modified].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -12,14 +12,6 @@ module OCI
     # @return [OCI::Database::Models::DbBackupConfig]
     attr_accessor :db_backup_config
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
-
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -28,13 +20,21 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'db_backup_config': :'dbBackupConfig',
-        'defined_tags': :'definedTags',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,8 +44,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,8 +57,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::Database::Models::DbBackupConfig] :db_backup_config The value to assign to the {#db_backup_config} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -71,17 +71,17 @@ module OCI
 
       self.db_backup_config = attributes[:'db_backup_config'] if attributes[:'db_backup_config']
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
-
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -96,8 +96,8 @@ module OCI
 
       self.class == other.class &&
         db_backup_config == other.db_backup_config &&
-        defined_tags == other.defined_tags &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -113,7 +113,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_backup_config, defined_tags, freeform_tags].hash
+      [db_backup_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

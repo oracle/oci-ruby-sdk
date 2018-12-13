@@ -27,12 +27,6 @@ module OCI
       TRANSPORT_TYPE_FASTSYNC = 'FASTSYNC'.freeze
     ].freeze
 
-    # **[Required]** Specifies where to create the associated database.
-    # \"ExistingDbSystem\" is the only supported `creationType` value.
-    #
-    # @return [String]
-    attr_accessor :creation_type
-
     # **[Required]** A strong password for the `SYS`, `SYSTEM`, and `PDB Admin` users to apply during standby creation.
     #
     # The password must contain no fewer than nine characters and include:
@@ -54,7 +48,7 @@ module OCI
     # [Oracle Data Guard Protection Modes](http://docs.oracle.com/database/122/SBYDB/oracle-data-guard-protection-modes.htm#SBYDB02000)
     # in the Oracle Data Guard documentation.
     #
-    # **IMPORTANT** - The only protection mode currently supported by the Database Service is MAXIMUM_PERFORMANCE.
+    # **IMPORTANT** - The only protection mode currently supported by the Database service is MAXIMUM_PERFORMANCE.
     #
     # @return [String]
     attr_reader :protection_mode
@@ -69,19 +63,24 @@ module OCI
     # [Redo Transport Services](http://docs.oracle.com/database/122/SBYDB/oracle-data-guard-redo-transport-services.htm#SBYDB00400)
     # in the Oracle Data Guard documentation.
     #
-    # **IMPORTANT** - The only transport type currently supported by the Database Service is ASYNC.
+    # **IMPORTANT** - The only transport type currently supported by the Database service is ASYNC.
     #
     # @return [String]
     attr_reader :transport_type
+
+    # **[Required]** Specifies whether to create the peer database in an existing DB system or in a new DB system. Use either \"ExistingDbSystem\" or \"NewDbSystem.\"
+    #
+    # @return [String]
+    attr_accessor :creation_type
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'creation_type': :'creationType',
         'database_admin_password': :'databaseAdminPassword',
         'protection_mode': :'protectionMode',
-        'transport_type': :'transportType'
+        'transport_type': :'transportType',
+        'creation_type': :'creationType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -90,10 +89,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'creation_type': :'String',
         'database_admin_password': :'String',
         'protection_mode': :'String',
-        'transport_type': :'String'
+        'transport_type': :'String',
+        'creation_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -106,6 +105,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'creationType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Database::Models::CreateDataGuardAssociationWithNewDbSystemDetails' if type == 'NewDbSystem'
       return 'OCI::Database::Models::CreateDataGuardAssociationToExistingDbSystemDetails' if type == 'ExistingDbSystem'
 
       # TODO: Log a warning when the subtype is not found.
@@ -119,21 +119,15 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :creation_type The value to assign to the {#creation_type} property
     # @option attributes [String] :database_admin_password The value to assign to the {#database_admin_password} property
     # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
     # @option attributes [String] :transport_type The value to assign to the {#transport_type} property
+    # @option attributes [String] :creation_type The value to assign to the {#creation_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.creation_type = attributes[:'creationType'] if attributes[:'creationType']
-
-      raise 'You cannot provide both :creationType and :creation_type' if attributes.key?(:'creationType') && attributes.key?(:'creation_type')
-
-      self.creation_type = attributes[:'creation_type'] if attributes[:'creation_type']
 
       self.database_admin_password = attributes[:'databaseAdminPassword'] if attributes[:'databaseAdminPassword']
 
@@ -152,6 +146,12 @@ module OCI
       raise 'You cannot provide both :transportType and :transport_type' if attributes.key?(:'transportType') && attributes.key?(:'transport_type')
 
       self.transport_type = attributes[:'transport_type'] if attributes[:'transport_type']
+
+      self.creation_type = attributes[:'creationType'] if attributes[:'creationType']
+
+      raise 'You cannot provide both :creationType and :creation_type' if attributes.key?(:'creationType') && attributes.key?(:'creation_type')
+
+      self.creation_type = attributes[:'creation_type'] if attributes[:'creation_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -185,10 +185,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        creation_type == other.creation_type &&
         database_admin_password == other.database_admin_password &&
         protection_mode == other.protection_mode &&
-        transport_type == other.transport_type
+        transport_type == other.transport_type &&
+        creation_type == other.creation_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -204,7 +204,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [creation_type, database_admin_password, protection_mode, transport_type].hash
+      [database_admin_password, protection_mode, transport_type, creation_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

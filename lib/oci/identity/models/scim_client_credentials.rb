@@ -4,46 +4,23 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # UpdateLocalPeeringGatewayDetails model.
-  class Core::Models::UpdateLocalPeeringGatewayDetails # rubocop:disable Metrics/LineLength
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
-
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
-    #
+  # The OAuth2 client credentials.
+  #
+  class Identity::Models::ScimClientCredentials # rubocop:disable Metrics/LineLength
+    # The client identifier.
     # @return [String]
-    attr_accessor :display_name
+    attr_accessor :client_id
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
-    # The OCID of the route table the LPG will use. For information about why you
-    # would associate a route table with an LPG, see
-    # [Advanced Scenario: Transit Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/transitrouting.htm).
-    #
+    # The client secret.
     # @return [String]
-    attr_accessor :route_table_id
+    attr_accessor :client_secret
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'definedTags',
-        'display_name': :'displayName',
-        'freeform_tags': :'freeformTags',
-        'route_table_id': :'routeTableId'
+        'client_id': :'clientId',
+        'client_secret': :'clientSecret'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,10 +29,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'route_table_id': :'String'
+        'client_id': :'String',
+        'client_secret': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,39 +41,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
+    # @option attributes [String] :client_id The value to assign to the {#client_id} property
+    # @option attributes [String] :client_secret The value to assign to the {#client_secret} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      self.client_id = attributes[:'clientId'] if attributes[:'clientId']
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      raise 'You cannot provide both :clientId and :client_id' if attributes.key?(:'clientId') && attributes.key?(:'client_id')
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      self.client_id = attributes[:'client_id'] if attributes[:'client_id']
 
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+      self.client_secret = attributes[:'clientSecret'] if attributes[:'clientSecret']
 
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+      raise 'You cannot provide both :clientSecret and :client_secret' if attributes.key?(:'clientSecret') && attributes.key?(:'client_secret')
 
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
-
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
-
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
-
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
-
-      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
-
-      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
-
-      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+      self.client_secret = attributes[:'client_secret'] if attributes[:'client_secret']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -112,10 +73,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        defined_tags == other.defined_tags &&
-        display_name == other.display_name &&
-        freeform_tags == other.freeform_tags &&
-        route_table_id == other.route_table_id
+        client_id == other.client_id &&
+        client_secret == other.client_secret
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -131,7 +90,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, route_table_id].hash
+      [client_id, client_secret].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

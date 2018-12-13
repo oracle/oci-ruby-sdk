@@ -9,25 +9,25 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::CreateDbHomeDetails # rubocop:disable Metrics/LineLength
-    # This attribute is required.
-    # @return [OCI::Database::Models::CreateDatabaseDetails]
-    attr_accessor :database
+    # The user-provided name of the database home.
+    # @return [String]
+    attr_accessor :display_name
 
     # **[Required]** A valid Oracle Database version. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
     # @return [String]
     attr_accessor :db_version
 
-    # The user-provided name of the database home.
-    # @return [String]
-    attr_accessor :display_name
+    # This attribute is required.
+    # @return [OCI::Database::Models::CreateDatabaseDetails]
+    attr_accessor :database
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'database': :'database',
+        'display_name': :'displayName',
         'db_version': :'dbVersion',
-        'display_name': :'displayName'
+        'database': :'database'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,9 +36,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'database': :'OCI::Database::Models::CreateDatabaseDetails',
+        'display_name': :'String',
         'db_version': :'String',
-        'display_name': :'String'
+        'database': :'OCI::Database::Models::CreateDatabaseDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,16 +49,20 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [OCI::Database::Models::CreateDatabaseDetails] :database The value to assign to the {#database} property
-    # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :db_version The value to assign to the {#db_version} property
+    # @option attributes [OCI::Database::Models::CreateDatabaseDetails] :database The value to assign to the {#database} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.database = attributes[:'database'] if attributes[:'database']
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
       self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
 
@@ -66,11 +70,7 @@ module OCI
 
       self.db_version = attributes[:'db_version'] if attributes[:'db_version']
 
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
-
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
-
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+      self.database = attributes[:'database'] if attributes[:'database']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -84,9 +84,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        database == other.database &&
+        display_name == other.display_name &&
         db_version == other.db_version &&
-        display_name == other.display_name
+        database == other.database
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -102,7 +102,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database, db_version, display_name].hash
+      [display_name, db_version, database].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

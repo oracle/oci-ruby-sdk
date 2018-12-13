@@ -10,12 +10,6 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::AutonomousDataWarehouseSummary # rubocop:disable Metrics/LineLength
-    LICENSE_MODEL_ENUM = [
-      LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
-      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze,
-      LICENSE_MODEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
-    ].freeze
-
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
@@ -32,13 +26,31 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    LICENSE_MODEL_ENUM = [
+      LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
+      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze,
+      LICENSE_MODEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse.
+    # @return [String]
+    attr_accessor :id
+
     # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The connection string used to connect to the Data Warehouse. The username for the Service Console is ADMIN. Use the password you entered when creating the Autonomous Data Warehouse for the password value.
-    # @return [OCI::Database::Models::AutonomousDataWarehouseConnectionStrings]
-    attr_accessor :connection_strings
+    # **[Required]** The current state of the database.
+    # @return [String]
+    attr_reader :lifecycle_state
+
+    # Information about the current lifecycle state.
+    # @return [String]
+    attr_accessor :lifecycle_details
+
+    # **[Required]** The database name.
+    # @return [String]
+    attr_accessor :db_name
 
     # **[Required]** The number of CPU cores to be made available to the database.
     # @return [Integer]
@@ -48,25 +60,26 @@ module OCI
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
 
-    # **[Required]** The database name.
-    # @return [String]
-    attr_accessor :db_name
-
-    # A valid Oracle Database version for Autonomous Data Warehouse.
-    # @return [String]
-    attr_accessor :db_version
-
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+    # The date and time the database was created.
+    # @return [DateTime]
+    attr_accessor :time_created
 
     # The user-friendly name for the Autonomous Data Warehouse. The name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
+
+    # The URL of the Service Console for the Data Warehouse.
+    # @return [String]
+    attr_accessor :service_console_url
+
+    # The connection string used to connect to the Data Warehouse. The username for the Service Console is ADMIN. Use the password you entered when creating the Autonomous Data Warehouse for the password value.
+    # @return [OCI::Database::Models::AutonomousDataWarehouseConnectionStrings]
+    attr_accessor :connection_strings
+
+    # The Oracle license model that applies to the Oracle Autonomous Data Warehouse. The default is BRING_YOUR_OWN_LICENSE.
+    #
+    # @return [String]
+    attr_reader :license_model
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
@@ -76,50 +89,37 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse.
-    # @return [String]
-    attr_accessor :id
-
-    # The Oracle license model that applies to the Oracle Autonomous Data Warehouse. The default is BRING_YOUR_OWN_LICENSE.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
-    # @return [String]
-    attr_reader :license_model
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
-    # Information about the current lifecycle state.
+    # A valid Oracle Database version for Autonomous Data Warehouse.
     # @return [String]
-    attr_accessor :lifecycle_details
-
-    # **[Required]** The current state of the database.
-    # @return [String]
-    attr_reader :lifecycle_state
-
-    # The URL of the Service Console for the Data Warehouse.
-    # @return [String]
-    attr_accessor :service_console_url
-
-    # The date and time the database was created.
-    # @return [DateTime]
-    attr_accessor :time_created
+    attr_accessor :db_version
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'id',
         'compartment_id': :'compartmentId',
-        'connection_strings': :'connectionStrings',
+        'lifecycle_state': :'lifecycleState',
+        'lifecycle_details': :'lifecycleDetails',
+        'db_name': :'dbName',
         'cpu_core_count': :'cpuCoreCount',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
-        'db_name': :'dbName',
-        'db_version': :'dbVersion',
-        'defined_tags': :'definedTags',
+        'time_created': :'timeCreated',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags',
-        'id': :'id',
-        'license_model': :'licenseModel',
-        'lifecycle_details': :'lifecycleDetails',
-        'lifecycle_state': :'lifecycleState',
         'service_console_url': :'serviceConsoleUrl',
-        'time_created': :'timeCreated'
+        'connection_strings': :'connectionStrings',
+        'license_model': :'licenseModel',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
+        'db_version': :'dbVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -128,21 +128,21 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'String',
         'compartment_id': :'String',
-        'connection_strings': :'OCI::Database::Models::AutonomousDataWarehouseConnectionStrings',
+        'lifecycle_state': :'String',
+        'lifecycle_details': :'String',
+        'db_name': :'String',
         'cpu_core_count': :'Integer',
         'data_storage_size_in_tbs': :'Integer',
-        'db_name': :'String',
-        'db_version': :'String',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'time_created': :'DateTime',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'id': :'String',
-        'license_model': :'String',
-        'lifecycle_details': :'String',
-        'lifecycle_state': :'String',
         'service_console_url': :'String',
-        'time_created': :'DateTime'
+        'connection_strings': :'OCI::Database::Models::AutonomousDataWarehouseConnectionStrings',
+        'license_model': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'db_version': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -153,26 +153,28 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [OCI::Database::Models::AutonomousDataWarehouseConnectionStrings] :connection_strings The value to assign to the {#connection_strings} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
-    # @option attributes [String] :db_name The value to assign to the {#db_name} property
-    # @option attributes [String] :db_version The value to assign to the {#db_version} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [String] :license_model The value to assign to the {#license_model} property
-    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
-    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
-    # @option attributes [String] :service_console_url The value to assign to the {#service_console_url} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :service_console_url The value to assign to the {#service_console_url} property
+    # @option attributes [OCI::Database::Models::AutonomousDataWarehouseConnectionStrings] :connection_strings The value to assign to the {#connection_strings} property
+    # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :db_version The value to assign to the {#db_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -180,11 +182,23 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.connection_strings = attributes[:'connectionStrings'] if attributes[:'connectionStrings']
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
-      raise 'You cannot provide both :connectionStrings and :connection_strings' if attributes.key?(:'connectionStrings') && attributes.key?(:'connection_strings')
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
-      self.connection_strings = attributes[:'connection_strings'] if attributes[:'connection_strings']
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
+
+      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
+
+      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
+
+      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
+
+      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
+
+      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
 
       self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
 
@@ -198,23 +212,11 @@ module OCI
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
 
-      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
-      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
-      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
-
-      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
-
-      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
-
-      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
-
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -222,13 +224,17 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+      self.service_console_url = attributes[:'serviceConsoleUrl'] if attributes[:'serviceConsoleUrl']
 
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+      raise 'You cannot provide both :serviceConsoleUrl and :service_console_url' if attributes.key?(:'serviceConsoleUrl') && attributes.key?(:'service_console_url')
 
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+      self.service_console_url = attributes[:'service_console_url'] if attributes[:'service_console_url']
 
-      self.id = attributes[:'id'] if attributes[:'id']
+      self.connection_strings = attributes[:'connectionStrings'] if attributes[:'connectionStrings']
+
+      raise 'You cannot provide both :connectionStrings and :connection_strings' if attributes.key?(:'connectionStrings') && attributes.key?(:'connection_strings')
+
+      self.connection_strings = attributes[:'connection_strings'] if attributes[:'connection_strings']
 
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
@@ -236,47 +242,26 @@ module OCI
 
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
 
-      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
-      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
-      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
-      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
-      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
-      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
-      self.service_console_url = attributes[:'serviceConsoleUrl'] if attributes[:'serviceConsoleUrl']
+      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
 
-      raise 'You cannot provide both :serviceConsoleUrl and :service_console_url' if attributes.key?(:'serviceConsoleUrl') && attributes.key?(:'service_console_url')
+      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
 
-      self.service_console_url = attributes[:'service_console_url'] if attributes[:'service_console_url']
-
-      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
-
-      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
-
-      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] license_model Object to be assigned
-    def license_model=(license_model)
-      # rubocop:disable Style/ConditionalAssignment
-      if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
-        # rubocop: disable Metrics/LineLength
-        OCI.logger.debug("Unknown value for 'license_model' [" + license_model + "]. Mapping to 'LICENSE_MODEL_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
-        @license_model = LICENSE_MODEL_UNKNOWN_ENUM_VALUE
-      else
-        @license_model = license_model
-      end
-      # rubocop:enable Style/ConditionalAssignment
-    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
@@ -293,6 +278,21 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license_model Object to be assigned
+    def license_model=(license_model)
+      # rubocop:disable Style/ConditionalAssignment
+      if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
+        # rubocop: disable Metrics/LineLength
+        OCI.logger.debug("Unknown value for 'license_model' [" + license_model + "]. Mapping to 'LICENSE_MODEL_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        # rubocop: enable Metrics/LineLength
+        @license_model = LICENSE_MODEL_UNKNOWN_ENUM_VALUE
+      else
+        @license_model = license_model
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
@@ -302,21 +302,21 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        id == other.id &&
         compartment_id == other.compartment_id &&
-        connection_strings == other.connection_strings &&
+        lifecycle_state == other.lifecycle_state &&
+        lifecycle_details == other.lifecycle_details &&
+        db_name == other.db_name &&
         cpu_core_count == other.cpu_core_count &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
-        db_name == other.db_name &&
-        db_version == other.db_version &&
-        defined_tags == other.defined_tags &&
+        time_created == other.time_created &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags &&
-        id == other.id &&
-        license_model == other.license_model &&
-        lifecycle_details == other.lifecycle_details &&
-        lifecycle_state == other.lifecycle_state &&
         service_console_url == other.service_console_url &&
-        time_created == other.time_created
+        connection_strings == other.connection_strings &&
+        license_model == other.license_model &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
+        db_version == other.db_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -332,7 +332,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, connection_strings, cpu_core_count, data_storage_size_in_tbs, db_name, db_version, defined_tags, display_name, freeform_tags, id, license_model, lifecycle_details, lifecycle_state, service_console_url, time_created].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, freeform_tags, defined_tags, db_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

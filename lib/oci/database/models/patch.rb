@@ -5,23 +5,18 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A Patch for a DB system or DB Home.
-  #
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
-  # talk to an administrator. If you're an administrator who needs to write policies to give users access,
-  # see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
-  #
+  # Patch model.
   class Database::Models::Patch # rubocop:disable Metrics/LineLength
-    AVAILABLE_ACTIONS_ENUM = [
-      AVAILABLE_ACTIONS_APPLY = 'APPLY'.freeze,
-      AVAILABLE_ACTIONS_PRECHECK = 'PRECHECK'.freeze,
-      AVAILABLE_ACTIONS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
-    ].freeze
-
     LAST_ACTION_ENUM = [
       LAST_ACTION_APPLY = 'APPLY'.freeze,
       LAST_ACTION_PRECHECK = 'PRECHECK'.freeze,
       LAST_ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    AVAILABLE_ACTIONS_ENUM = [
+      AVAILABLE_ACTIONS_APPLY = 'APPLY'.freeze,
+      AVAILABLE_ACTIONS_PRECHECK = 'PRECHECK'.freeze,
+      AVAILABLE_ACTIONS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     LIFECYCLE_STATE_ENUM = [
@@ -32,21 +27,21 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Actions that can possibly be performed using this patch.
-    # @return [Array<String>]
-    attr_reader :available_actions
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch.
+    # @return [String]
+    attr_accessor :id
 
     # **[Required]** The text describing this patch package.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the patch.
-    # @return [String]
-    attr_accessor :id
-
     # Action that is currently being performed or was completed last.
     # @return [String]
     attr_reader :last_action
+
+    # Actions that can possibly be performed using this patch.
+    # @return [Array<String>]
+    attr_reader :available_actions
 
     # A descriptive text associated with the lifecycleState.
     # Typically can contain additional displayable text.
@@ -70,10 +65,10 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'available_actions': :'availableActions',
-        'description': :'description',
         'id': :'id',
+        'description': :'description',
         'last_action': :'lastAction',
+        'available_actions': :'availableActions',
         'lifecycle_details': :'lifecycleDetails',
         'lifecycle_state': :'lifecycleState',
         'time_released': :'timeReleased',
@@ -86,10 +81,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'available_actions': :'Array<String>',
-        'description': :'String',
         'id': :'String',
+        'description': :'String',
         'last_action': :'String',
+        'available_actions': :'Array<String>',
         'lifecycle_details': :'String',
         'lifecycle_state': :'String',
         'time_released': :'DateTime',
@@ -104,10 +99,10 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Array<String>] :available_actions The value to assign to the {#available_actions} property
-    # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :last_action The value to assign to the {#last_action} property
+    # @option attributes [Array<String>] :available_actions The value to assign to the {#available_actions} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_released The value to assign to the {#time_released} property
@@ -115,24 +110,21 @@ module OCI
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
-      # convert string to symbol for hash key
-      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.available_actions = attributes[:'availableActions'] if attributes[:'availableActions']
-
-      raise 'You cannot provide both :availableActions and :available_actions' if attributes.key?(:'availableActions') && attributes.key?(:'available_actions')
-
-      self.available_actions = attributes[:'available_actions'] if attributes[:'available_actions']
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.description = attributes[:'description'] if attributes[:'description']
-
-      self.id = attributes[:'id'] if attributes[:'id']
 
       self.last_action = attributes[:'lastAction'] if attributes[:'lastAction']
 
       raise 'You cannot provide both :lastAction and :last_action' if attributes.key?(:'lastAction') && attributes.key?(:'last_action')
 
       self.last_action = attributes[:'last_action'] if attributes[:'last_action']
+
+      self.available_actions = attributes[:'availableActions'] if attributes[:'availableActions']
+
+      raise 'You cannot provide both :availableActions and :available_actions' if attributes.key?(:'availableActions') && attributes.key?(:'available_actions')
+
+      self.available_actions = attributes[:'available_actions'] if attributes[:'available_actions']
 
       self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
 
@@ -158,6 +150,21 @@ module OCI
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] last_action Object to be assigned
+    def last_action=(last_action)
+      # rubocop:disable Style/ConditionalAssignment
+      if last_action && !LAST_ACTION_ENUM.include?(last_action)
+        # rubocop: disable Metrics/LineLength
+        OCI.logger.debug("Unknown value for 'last_action' [" + last_action + "]. Mapping to 'LAST_ACTION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        # rubocop: enable Metrics/LineLength
+        @last_action = LAST_ACTION_UNKNOWN_ENUM_VALUE
+      else
+        @last_action = last_action
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] available_actions Object to be assigned
     def available_actions=(available_actions)
       # rubocop:disable Style/ConditionalAssignment
@@ -175,21 +182,6 @@ module OCI
               AVAILABLE_ACTIONS_UNKNOWN_ENUM_VALUE
             end
           end
-      end
-      # rubocop:enable Style/ConditionalAssignment
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] last_action Object to be assigned
-    def last_action=(last_action)
-      # rubocop:disable Style/ConditionalAssignment
-      if last_action && !LAST_ACTION_ENUM.include?(last_action)
-        # rubocop: disable Metrics/LineLength
-        OCI.logger.debug("Unknown value for 'last_action' [" + last_action + "]. Mapping to 'LAST_ACTION_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
-        @last_action = LAST_ACTION_UNKNOWN_ENUM_VALUE
-      else
-        @last_action = last_action
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -218,10 +210,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        available_actions == other.available_actions &&
-        description == other.description &&
         id == other.id &&
+        description == other.description &&
         last_action == other.last_action &&
+        available_actions == other.available_actions &&
         lifecycle_details == other.lifecycle_details &&
         lifecycle_state == other.lifecycle_state &&
         time_released == other.time_released &&
@@ -241,7 +233,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [available_actions, description, id, last_action, lifecycle_details, lifecycle_state, time_released, version].hash
+      [id, description, last_action, available_actions, lifecycle_details, lifecycle_state, time_released, version].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

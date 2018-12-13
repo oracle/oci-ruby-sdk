@@ -3187,6 +3187,63 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the identity provider groups.
+    # @param [String] identity_provider_id The OCID of the identity provider.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IdentityProviderGroupSummary IdentityProviderGroupSummary}>
+    def list_identity_provider_groups(identity_provider_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_identity_provider_groups.' if logger
+
+      raise "Missing the required parameter 'identity_provider_id' when calling list_identity_provider_groups." if identity_provider_id.nil?
+      raise "Parameter value for 'identity_provider_id' must not be blank" if OCI::Internal::Util.blank_string?(identity_provider_id)
+
+      path = '/identityProviders/{identityProviderId}/groups/'.sub('{identityProviderId}', identity_provider_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_identity_provider_groups') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::IdentityProviderGroupSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists all the identity providers in your tenancy. You must specify the identity provider type (e.g., `SAML2` for
     # identity providers using the SAML2.0 protocol). You must specify your tenancy's OCID as the value for the
     # compartment ID (remember that the tenancy is simply the root compartment).
@@ -3799,6 +3856,10 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
+    # @option opts [String] :identity_provider_id The id of the identity provider.
+    #
+    # @option opts [String] :external_identifier The id of a user in the identity provider.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::User User}>
     def list_users(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_users.' if logger
@@ -3814,6 +3875,8 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:identityProviderId] = opts[:identity_provider_id] if opts[:identity_provider_id]
+      query_params[:externalIdentifier] = opts[:external_identifier] if opts[:external_identifier]
 
       # Header Params
       header_params = {}
@@ -3957,6 +4020,60 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Resets the OAuth2 client credentials for the SCIM client associated with this identity provider.
+    #
+    # @param [String] identity_provider_id The OCID of the identity provider.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::ScimClientCredentials ScimClientCredentials}
+    def reset_idp_scim_client(identity_provider_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#reset_idp_scim_client.' if logger
+
+      raise "Missing the required parameter 'identity_provider_id' when calling reset_idp_scim_client." if identity_provider_id.nil?
+      raise "Parameter value for 'identity_provider_id' must not be blank" if OCI::Internal::Util.blank_string?(identity_provider_id)
+
+      path = '/identityProviders/{identityProviderId}/actions/resetScimClient/'.sub('{identityProviderId}', identity_provider_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#reset_idp_scim_client') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::ScimClientCredentials'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -4729,6 +4846,65 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#update_user') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::User'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the capabilities of the specified user.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [OCI::Identity::Models::UpdateUserCapabilitiesDetails] update_user_capabilities_details Request object for updating user capabilities.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::User User}
+    def update_user_capabilities(user_id, update_user_capabilities_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#update_user_capabilities.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling update_user_capabilities." if user_id.nil?
+      raise "Missing the required parameter 'update_user_capabilities_details' when calling update_user_capabilities." if update_user_capabilities_details.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+
+      path = '/users/{userId}/capabilities/'.sub('{userId}', user_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_user_capabilities_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#update_user_capabilities') do
         @api_client.call_api(
           :PUT,
           path,

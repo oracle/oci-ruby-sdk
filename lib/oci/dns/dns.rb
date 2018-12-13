@@ -12,6 +12,7 @@ end
 # Require models
 require 'oci/dns/models/create_zone_details'
 require 'oci/dns/models/external_master'
+require 'oci/dns/models/nameserver'
 require 'oci/dns/models/patch_domain_records_details'
 require 'oci/dns/models/patch_rr_set_details'
 require 'oci/dns/models/patch_zone_records_details'

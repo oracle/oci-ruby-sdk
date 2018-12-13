@@ -7,13 +7,13 @@ require_relative 'create_db_home_with_db_system_id_base'
 module OCI
   # CreateDbHomeWithDbSystemIdDetails model.
   class Database::Models::CreateDbHomeWithDbSystemIdDetails < Database::Models::CreateDbHomeWithDbSystemIdBase # rubocop:disable Metrics/LineLength
-    # This attribute is required.
-    # @return [OCI::Database::Models::CreateDatabaseDetails]
-    attr_accessor :database
-
     # **[Required]** A valid Oracle Database version. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
     # @return [String]
     attr_accessor :db_version
+
+    # This attribute is required.
+    # @return [OCI::Database::Models::CreateDatabaseDetails]
+    attr_accessor :database
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -22,8 +22,8 @@ module OCI
         'db_system_id': :'dbSystemId',
         'display_name': :'displayName',
         'source': :'source',
-        'database': :'database',
-        'db_version': :'dbVersion'
+        'db_version': :'dbVersion',
+        'database': :'database'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -35,8 +35,8 @@ module OCI
         'db_system_id': :'String',
         'display_name': :'String',
         'source': :'String',
-        'database': :'OCI::Database::Models::CreateDatabaseDetails',
-        'db_version': :'String'
+        'db_version': :'String',
+        'database': :'OCI::Database::Models::CreateDatabaseDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,8 +49,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :db_system_id The value to assign to the {OCI::Database::Models::CreateDbHomeWithDbSystemIdBase#db_system_id #db_system_id} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::CreateDbHomeWithDbSystemIdBase#display_name #display_name} proprety
-    # @option attributes [OCI::Database::Models::CreateDatabaseDetails] :database The value to assign to the {#database} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
+    # @option attributes [OCI::Database::Models::CreateDatabaseDetails] :database The value to assign to the {#database} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -61,13 +61,13 @@ module OCI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.database = attributes[:'database'] if attributes[:'database']
-
       self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
 
       raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
 
       self.db_version = attributes[:'db_version'] if attributes[:'db_version']
+
+      self.database = attributes[:'database'] if attributes[:'database']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -84,8 +84,8 @@ module OCI
         db_system_id == other.db_system_id &&
         display_name == other.display_name &&
         source == other.source &&
-        database == other.database &&
-        db_version == other.db_version
+        db_version == other.db_version &&
+        database == other.database
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -101,7 +101,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_system_id, display_name, source, database, db_version].hash
+      [db_system_id, display_name, source, db_version, database].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -9,20 +9,25 @@ module OCI
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class Database::Models::DbVersionSummary # rubocop:disable Metrics/LineLength
-    # True if this version of the Oracle Database software supports pluggable databases.
-    # @return [BOOLEAN]
-    attr_accessor :supports_pdb
-
     # **[Required]** A valid Oracle Database version.
     # @return [String]
     attr_accessor :version
+
+    # True if this version of the Oracle Database software is the latest version for a release.
+    # @return [BOOLEAN]
+    attr_accessor :is_latest_for_major_version
+
+    # True if this version of the Oracle Database software supports pluggable databases.
+    # @return [BOOLEAN]
+    attr_accessor :supports_pdb
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'supports_pdb': :'supportsPdb',
-        'version': :'version'
+        'version': :'version',
+        'is_latest_for_major_version': :'isLatestForMajorVersion',
+        'supports_pdb': :'supportsPdb'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -31,8 +36,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'supports_pdb': :'BOOLEAN',
-        'version': :'String'
+        'version': :'String',
+        'is_latest_for_major_version': :'BOOLEAN',
+        'supports_pdb': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,21 +49,28 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [BOOLEAN] :supports_pdb The value to assign to the {#supports_pdb} property
     # @option attributes [String] :version The value to assign to the {#version} property
+    # @option attributes [BOOLEAN] :is_latest_for_major_version The value to assign to the {#is_latest_for_major_version} property
+    # @option attributes [BOOLEAN] :supports_pdb The value to assign to the {#supports_pdb} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
+      self.version = attributes[:'version'] if attributes[:'version']
+
+      self.is_latest_for_major_version = attributes[:'isLatestForMajorVersion'] unless attributes[:'isLatestForMajorVersion'].nil?
+
+      raise 'You cannot provide both :isLatestForMajorVersion and :is_latest_for_major_version' if attributes.key?(:'isLatestForMajorVersion') && attributes.key?(:'is_latest_for_major_version')
+
+      self.is_latest_for_major_version = attributes[:'is_latest_for_major_version'] unless attributes[:'is_latest_for_major_version'].nil?
+
       self.supports_pdb = attributes[:'supportsPdb'] unless attributes[:'supportsPdb'].nil?
 
       raise 'You cannot provide both :supportsPdb and :supports_pdb' if attributes.key?(:'supportsPdb') && attributes.key?(:'supports_pdb')
 
       self.supports_pdb = attributes[:'supports_pdb'] unless attributes[:'supports_pdb'].nil?
-
-      self.version = attributes[:'version'] if attributes[:'version']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -71,8 +84,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        supports_pdb == other.supports_pdb &&
-        version == other.version
+        version == other.version &&
+        is_latest_for_major_version == other.is_latest_for_major_version &&
+        supports_pdb == other.supports_pdb
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -88,7 +102,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [supports_pdb, version].hash
+      [version, is_latest_for_major_version, supports_pdb].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

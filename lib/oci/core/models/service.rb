@@ -23,7 +23,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** Name of the service.
+    # **[Required]** Name of the service. This name can change and is not guaranteed to be unique.
     # @return [String]
     attr_accessor :name
 

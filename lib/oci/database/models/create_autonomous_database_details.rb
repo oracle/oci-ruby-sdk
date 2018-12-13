@@ -14,13 +14,13 @@ module OCI
       LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
     ].freeze
 
-    # **[Required]** A strong password for Admin. The password must be between 12 and 60 characters long, and must contain at least 1 uppercase, 1 lowercase and 2 numeric characters. It cannot contain the double quote symbol (\"). It must be different than the last 4 passwords.
-    # @return [String]
-    attr_accessor :admin_password
-
     # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment of the autonomous database.
     # @return [String]
     attr_accessor :compartment_id
+
+    # **[Required]** The database name. The name must begin with an alphabetic character and can contain a maximum of 14 alphanumeric characters. Special characters are not permitted. The database name must be unique in the tenancy.
+    # @return [String]
+    attr_accessor :db_name
 
     # **[Required]** The number of CPU Cores to be made available to the database.
     # @return [Integer]
@@ -31,21 +31,18 @@ module OCI
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
 
-    # **[Required]** The database name. The name must begin with an alphabetic character and can contain a maximum of 14 alphanumeric characters. Special characters are not permitted. The database name must be unique in the tenancy.
+    # **[Required]** The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing.
     # @return [String]
-    attr_accessor :db_name
-
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+    attr_accessor :admin_password
 
     # The user-friendly name for the Autonomous Database. The name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
+
+    # The Oracle license model that applies to the Oracle Autonomous Database. The default is BRING_YOUR_OWN_LICENSE.
+    #
+    # @return [String]
+    attr_reader :license_model
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
@@ -55,24 +52,27 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The Oracle license model that applies to the Oracle Autonomous Database. The default is BRING_YOUR_OWN_LICENSE.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
-    # @return [String]
-    attr_reader :license_model
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'admin_password': :'adminPassword',
         'compartment_id': :'compartmentId',
+        'db_name': :'dbName',
         'cpu_core_count': :'cpuCoreCount',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
-        'db_name': :'dbName',
-        'defined_tags': :'definedTags',
+        'admin_password': :'adminPassword',
         'display_name': :'displayName',
+        'license_model': :'licenseModel',
         'freeform_tags': :'freeformTags',
-        'license_model': :'licenseModel'
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -81,15 +81,15 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'admin_password': :'String',
         'compartment_id': :'String',
+        'db_name': :'String',
         'cpu_core_count': :'Integer',
         'data_storage_size_in_tbs': :'Integer',
-        'db_name': :'String',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'admin_password': :'String',
         'display_name': :'String',
+        'license_model': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'license_model': :'String'
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -100,32 +100,32 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
-    # @option attributes [String] :db_name The value to assign to the {#db_name} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
-
-      raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
-
-      self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
-
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
+
+      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
+
+      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
 
       self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
 
@@ -139,17 +139,11 @@ module OCI
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
 
-      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
+      self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
 
-      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
+      raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
 
-      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
-
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -157,17 +151,23 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
+      self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
+
+      raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
+
+      self.license_model = attributes[:'license_model'] if attributes[:'license_model']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
-      self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
-      raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
-      self.license_model = attributes[:'license_model'] if attributes[:'license_model']
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -191,15 +191,15 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        admin_password == other.admin_password &&
         compartment_id == other.compartment_id &&
+        db_name == other.db_name &&
         cpu_core_count == other.cpu_core_count &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
-        db_name == other.db_name &&
-        defined_tags == other.defined_tags &&
+        admin_password == other.admin_password &&
         display_name == other.display_name &&
+        license_model == other.license_model &&
         freeform_tags == other.freeform_tags &&
-        license_model == other.license_model
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -215,7 +215,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [admin_password, compartment_id, cpu_core_count, data_storage_size_in_tbs, db_name, defined_tags, display_name, freeform_tags, license_model].hash
+      [compartment_id, db_name, cpu_core_count, data_storage_size_in_tbs, admin_password, display_name, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

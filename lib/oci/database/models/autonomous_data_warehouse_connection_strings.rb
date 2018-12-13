@@ -7,30 +7,30 @@ module OCI
   # Connection strings to connect to an Oracle Autonomous Data Warehouse.
   #
   class Database::Models::AutonomousDataWarehouseConnectionStrings # rubocop:disable Metrics/LineLength
-    # All connection strings to use to connect to the Data Warehouse.
-    # @return [Hash<String, String>]
-    attr_accessor :all_connection_strings
-
     # The High database service provides the highest level of resources to each SQL statement resulting in the highest performance, but supports the fewest number of concurrent SQL statements.
     # @return [String]
     attr_accessor :high
-
-    # The Low database service provides the least level of resources to each SQL statement, but supports the most number of concurrent SQL statements.
-    # @return [String]
-    attr_accessor :low
 
     # The Medium database service provides a lower level of resources to each SQL statement potentially resulting a lower level of performance, but supports more concurrent SQL statements.
     # @return [String]
     attr_accessor :medium
 
+    # The Low database service provides the least level of resources to each SQL statement, but supports the most number of concurrent SQL statements.
+    # @return [String]
+    attr_accessor :low
+
+    # All connection strings to use to connect to the Data Warehouse.
+    # @return [Hash<String, String>]
+    attr_accessor :all_connection_strings
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'all_connection_strings': :'allConnectionStrings',
         'high': :'high',
+        'medium': :'medium',
         'low': :'low',
-        'medium': :'medium'
+        'all_connection_strings': :'allConnectionStrings'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -39,10 +39,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'all_connection_strings': :'Hash<String, String>',
         'high': :'String',
+        'medium': :'String',
         'low': :'String',
-        'medium': :'String'
+        'all_connection_strings': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -53,27 +53,27 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Hash<String, String>] :all_connection_strings The value to assign to the {#all_connection_strings} property
     # @option attributes [String] :high The value to assign to the {#high} property
-    # @option attributes [String] :low The value to assign to the {#low} property
     # @option attributes [String] :medium The value to assign to the {#medium} property
+    # @option attributes [String] :low The value to assign to the {#low} property
+    # @option attributes [Hash<String, String>] :all_connection_strings The value to assign to the {#all_connection_strings} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
+      self.high = attributes[:'high'] if attributes[:'high']
+
+      self.medium = attributes[:'medium'] if attributes[:'medium']
+
+      self.low = attributes[:'low'] if attributes[:'low']
+
       self.all_connection_strings = attributes[:'allConnectionStrings'] if attributes[:'allConnectionStrings']
 
       raise 'You cannot provide both :allConnectionStrings and :all_connection_strings' if attributes.key?(:'allConnectionStrings') && attributes.key?(:'all_connection_strings')
 
       self.all_connection_strings = attributes[:'all_connection_strings'] if attributes[:'all_connection_strings']
-
-      self.high = attributes[:'high'] if attributes[:'high']
-
-      self.low = attributes[:'low'] if attributes[:'low']
-
-      self.medium = attributes[:'medium'] if attributes[:'medium']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -87,10 +87,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        all_connection_strings == other.all_connection_strings &&
         high == other.high &&
+        medium == other.medium &&
         low == other.low &&
-        medium == other.medium
+        all_connection_strings == other.all_connection_strings
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -106,7 +106,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [all_connection_strings, high, low, medium].hash
+      [high, medium, low, all_connection_strings].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

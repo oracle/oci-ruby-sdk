@@ -80,6 +80,10 @@ module OCI
     # @return [String]
     attr_reader :remote_data_volume_type
 
+    # Whether to enable encryption in transit for the PV boot volume attachment. Defaults to false.
+    # @return [BOOLEAN]
+    attr_accessor :is_pv_encryption_in_transit_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -87,7 +91,8 @@ module OCI
         'boot_volume_type': :'bootVolumeType',
         'firmware': :'firmware',
         'network_type': :'networkType',
-        'remote_data_volume_type': :'remoteDataVolumeType'
+        'remote_data_volume_type': :'remoteDataVolumeType',
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -99,7 +104,8 @@ module OCI
         'boot_volume_type': :'String',
         'firmware': :'String',
         'network_type': :'String',
-        'remote_data_volume_type': :'String'
+        'remote_data_volume_type': :'String',
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -114,6 +120,7 @@ module OCI
     # @option attributes [String] :firmware The value to assign to the {#firmware} property
     # @option attributes [String] :network_type The value to assign to the {#network_type} property
     # @option attributes [String] :remote_data_volume_type The value to assign to the {#remote_data_volume_type} property
+    # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -139,6 +146,12 @@ module OCI
       raise 'You cannot provide both :remoteDataVolumeType and :remote_data_volume_type' if attributes.key?(:'remoteDataVolumeType') && attributes.key?(:'remote_data_volume_type')
 
       self.remote_data_volume_type = attributes[:'remote_data_volume_type'] if attributes[:'remote_data_volume_type']
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'isPvEncryptionInTransitEnabled'] unless attributes[:'isPvEncryptionInTransitEnabled'].nil?
+
+      raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -215,7 +228,8 @@ module OCI
         boot_volume_type == other.boot_volume_type &&
         firmware == other.firmware &&
         network_type == other.network_type &&
-        remote_data_volume_type == other.remote_data_volume_type
+        remote_data_volume_type == other.remote_data_volume_type &&
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -231,7 +245,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [boot_volume_type, firmware, network_type, remote_data_volume_type].hash
+      [boot_volume_type, firmware, network_type, remote_data_volume_type, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -15,9 +15,30 @@ module OCI
       SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze
     ].freeze
 
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment the DB system  belongs in.
+    # @return [String]
+    attr_accessor :compartment_id
+
+    # The user-friendly name for the DB system. The name does not have to be unique.
+    # @return [String]
+    attr_accessor :display_name
+
     # **[Required]** The availability domain where the DB system is located.
     # @return [String]
     attr_accessor :availability_domain
+
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the subnet the DB system is associated with.
+    #
+    # **Subnet Restrictions:**
+    # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
+    # - For Exadata and virtual machine 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.128.0/20.
+    #
+    # These subnets are used by the Oracle Clusterware private interconnect on the database instance.
+    # Specifying an overlapping subnet will cause the private interconnect to malfunction.
+    # This restriction applies to both the client subnet and the backup subnet.
+    #
+    # @return [String]
+    attr_accessor :subnet_id
 
     # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup network subnet the DB system is associated with. Applicable only to Exadata DB systems.
     #
@@ -26,14 +47,41 @@ module OCI
     # @return [String]
     attr_accessor :backup_subnet_id
 
-    # The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
+    # **[Required]** The shape of the DB system. The shape determines resources allocated to the DB system.
+    # - For virtual machine shapes, the number of CPU cores and memory
+    # - For bare metal and Exadata shapes, the number of CPU cores, memory, and storage
+    #
+    # To get a list of shapes, use the {#list_db_system_shapes list_db_system_shapes} operation.
     #
     # @return [String]
-    attr_accessor :cluster_name
+    attr_accessor :shape
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment the DB system  belongs in.
+    # If true, Sparse Diskgroup is configured for Exadata dbsystem. If False, Sparse diskgroup is not configured.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :sparse_diskgroup
+
+    # **[Required]** The public key portion of the key pair to use for SSH access to the DB system. Multiple public keys can be provided. The length of the combined keys cannot exceed 10,000 characters.
+    # @return [Array<String>]
+    attr_accessor :ssh_public_keys
+
+    # **[Required]** The hostname for the DB system. The hostname must begin with an alphabetic character and
+    # can contain a maximum of 30 alphanumeric characters, including hyphens (-).
+    #
+    # The maximum length of the combined hostname and domain is 63 characters.
+    #
+    # **Note:** The hostname must be unique within the subnet. If it is not unique,
+    # the DB system will fail to provision.
+    #
     # @return [String]
-    attr_accessor :compartment_id
+    attr_accessor :hostname
+
+    # A domain name used for the DB system. If the Oracle-provided Internet and VCN
+    # Resolver is enabled for the specified subnet, the domain name for the subnet is used
+    # (do not provide one). Otherwise, provide a valid DNS domain name. Hyphens (-) are not permitted.
+    #
+    # @return [String]
+    attr_accessor :domain
 
     # **[Required]** The number of CPU cores to enable for a bare metal or Exadata DB system. The valid values depend on the specified shape:
     #
@@ -52,50 +100,17 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
+    # The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
+    #
+    # @return [String]
+    attr_accessor :cluster_name
+
     # The percentage assigned to DATA storage (user data and database files).
     # The remaining percentage is assigned to RECO storage (database redo logs, archive logs, and recovery manager backups).
     # Specify 80 or 40. The default is 80 percent assigned to DATA storage. Not applicable for virtual machine DB systems.
     #
     # @return [Integer]
     attr_accessor :data_storage_percentage
-
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
-
-    # The user-friendly name for the DB system. The name does not have to be unique.
-    # @return [String]
-    attr_accessor :display_name
-
-    # A domain name used for the DB system. If the Oracle-provided Internet and VCN
-    # Resolver is enabled for the specified subnet, the domain name for the subnet is used
-    # (do not provide one). Otherwise, provide a valid DNS domain name. Hyphens (-) are not permitted.
-    #
-    # @return [String]
-    attr_accessor :domain
-
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
-    # **[Required]** The hostname for the DB system. The hostname must begin with an alphabetic character and
-    # can contain a maximum of 30 alphanumeric characters, including hyphens (-).
-    #
-    # The maximum length of the combined hostname and domain is 63 characters.
-    #
-    # **Note:** The hostname must be unique within the subnet. If it is not unique,
-    # the DB system will fail to provision.
-    #
-    # @return [String]
-    attr_accessor :hostname
 
     # Size (in GB) of the initial data volume that will be created and attached to a virtual machine DB system. You can scale up storage after provisioning, as needed. Note that the total storage size attached will be more than the amount you specify to allow for REDO/RECO space and software volume.
     #
@@ -107,14 +122,21 @@ module OCI
     # @return [Integer]
     attr_accessor :node_count
 
-    # **[Required]** The shape of the DB system. The shape determines resources allocated to the DB system.
-    # - For virtual machine shapes, the number of CPU cores and memory
-    # - For bare metal and Exadata shapes, the number of CPU cores, memory, and storage
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
-    # To get a list of shapes, use the {#list_db_system_shapes list_db_system_shapes} operation.
+    # Example: `{\"Department\": \"Finance\"}`
     #
-    # @return [String]
-    attr_accessor :shape
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
     # The source of the database:
     #   NONE for creating a new database. DB_BACKUP for creating a new database by restoring from a backup. The default is NONE.
@@ -122,44 +144,28 @@ module OCI
     # @return [String]
     attr_reader :source
 
-    # **[Required]** The public key portion of the key pair to use for SSH access to the DB system. Multiple public keys can be provided. The length of the combined keys cannot exceed 10,000 characters.
-    # @return [Array<String>]
-    attr_accessor :ssh_public_keys
-
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the subnet the DB system is associated with.
-    #
-    # **Subnet Restrictions:**
-    # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
-    # - For Exadata and virtual machine 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.128.0/20.
-    #
-    # These subnets are used by the Oracle Clusterware private interconnect on the database instance.
-    # Specifying an overlapping subnet will cause the private interconnect to malfunction.
-    # This restriction applies to both the client subnet and the backup subnet.
-    #
-    # @return [String]
-    attr_accessor :subnet_id
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'availability_domain': :'availabilityDomain',
-        'backup_subnet_id': :'backupSubnetId',
-        'cluster_name': :'clusterName',
         'compartment_id': :'compartmentId',
-        'cpu_core_count': :'cpuCoreCount',
-        'data_storage_percentage': :'dataStoragePercentage',
-        'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'domain': :'domain',
-        'freeform_tags': :'freeformTags',
+        'availability_domain': :'availabilityDomain',
+        'subnet_id': :'subnetId',
+        'backup_subnet_id': :'backupSubnetId',
+        'shape': :'shape',
+        'sparse_diskgroup': :'sparseDiskgroup',
+        'ssh_public_keys': :'sshPublicKeys',
         'hostname': :'hostname',
+        'domain': :'domain',
+        'cpu_core_count': :'cpuCoreCount',
+        'cluster_name': :'clusterName',
+        'data_storage_percentage': :'dataStoragePercentage',
         'initial_data_storage_size_in_gb': :'initialDataStorageSizeInGB',
         'node_count': :'nodeCount',
-        'shape': :'shape',
-        'source': :'source',
-        'ssh_public_keys': :'sshPublicKeys',
-        'subnet_id': :'subnetId'
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
+        'source': :'source'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -168,23 +174,24 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'availability_domain': :'String',
-        'backup_subnet_id': :'String',
-        'cluster_name': :'String',
         'compartment_id': :'String',
-        'cpu_core_count': :'Integer',
-        'data_storage_percentage': :'Integer',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'domain': :'String',
-        'freeform_tags': :'Hash<String, String>',
+        'availability_domain': :'String',
+        'subnet_id': :'String',
+        'backup_subnet_id': :'String',
+        'shape': :'String',
+        'sparse_diskgroup': :'BOOLEAN',
+        'ssh_public_keys': :'Array<String>',
         'hostname': :'String',
+        'domain': :'String',
+        'cpu_core_count': :'Integer',
+        'cluster_name': :'String',
+        'data_storage_percentage': :'Integer',
         'initial_data_storage_size_in_gb': :'Integer',
         'node_count': :'Integer',
-        'shape': :'String',
-        'source': :'String',
-        'ssh_public_keys': :'Array<String>',
-        'subnet_id': :'String'
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'source': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -211,46 +218,29 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
-    # @option attributes [String] :backup_subnet_id The value to assign to the {#backup_subnet_id} property
-    # @option attributes [String] :cluster_name The value to assign to the {#cluster_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
-    # @option attributes [Integer] :data_storage_percentage The value to assign to the {#data_storage_percentage} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [String] :domain The value to assign to the {#domain} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [String] :backup_subnet_id The value to assign to the {#backup_subnet_id} property
+    # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [BOOLEAN] :sparse_diskgroup The value to assign to the {#sparse_diskgroup} property
+    # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
+    # @option attributes [String] :domain The value to assign to the {#domain} property
+    # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [String] :cluster_name The value to assign to the {#cluster_name} property
+    # @option attributes [Integer] :data_storage_percentage The value to assign to the {#data_storage_percentage} property
     # @option attributes [Integer] :initial_data_storage_size_in_gb The value to assign to the {#initial_data_storage_size_in_gb} property
     # @option attributes [Integer] :node_count The value to assign to the {#node_count} property
-    # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :source The value to assign to the {#source} property
-    # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
-    # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
-
-      raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
-
-      self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
-
-      self.backup_subnet_id = attributes[:'backupSubnetId'] if attributes[:'backupSubnetId']
-
-      raise 'You cannot provide both :backupSubnetId and :backup_subnet_id' if attributes.key?(:'backupSubnetId') && attributes.key?(:'backup_subnet_id')
-
-      self.backup_subnet_id = attributes[:'backup_subnet_id'] if attributes[:'backup_subnet_id']
-
-      self.cluster_name = attributes[:'clusterName'] if attributes[:'clusterName']
-
-      raise 'You cannot provide both :clusterName and :cluster_name' if attributes.key?(:'clusterName') && attributes.key?(:'cluster_name')
-
-      self.cluster_name = attributes[:'cluster_name'] if attributes[:'cluster_name']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -258,39 +248,65 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
-
-      raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
-
-      self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
-
-      self.data_storage_percentage = attributes[:'dataStoragePercentage'] if attributes[:'dataStoragePercentage']
-
-      raise 'You cannot provide both :dataStoragePercentage and :data_storage_percentage' if attributes.key?(:'dataStoragePercentage') && attributes.key?(:'data_storage_percentage')
-
-      self.data_storage_percentage = attributes[:'data_storage_percentage'] if attributes[:'data_storage_percentage']
-
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
-
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.domain = attributes[:'domain'] if attributes[:'domain']
+      self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
 
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+      raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
 
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+      self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
 
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+      self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
+
+      raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
+
+      self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.backup_subnet_id = attributes[:'backupSubnetId'] if attributes[:'backupSubnetId']
+
+      raise 'You cannot provide both :backupSubnetId and :backup_subnet_id' if attributes.key?(:'backupSubnetId') && attributes.key?(:'backup_subnet_id')
+
+      self.backup_subnet_id = attributes[:'backup_subnet_id'] if attributes[:'backup_subnet_id']
+
+      self.shape = attributes[:'shape'] if attributes[:'shape']
+
+      self.sparse_diskgroup = attributes[:'sparseDiskgroup'] unless attributes[:'sparseDiskgroup'].nil?
+
+      raise 'You cannot provide both :sparseDiskgroup and :sparse_diskgroup' if attributes.key?(:'sparseDiskgroup') && attributes.key?(:'sparse_diskgroup')
+
+      self.sparse_diskgroup = attributes[:'sparse_diskgroup'] unless attributes[:'sparse_diskgroup'].nil?
+
+      self.ssh_public_keys = attributes[:'sshPublicKeys'] if attributes[:'sshPublicKeys']
+
+      raise 'You cannot provide both :sshPublicKeys and :ssh_public_keys' if attributes.key?(:'sshPublicKeys') && attributes.key?(:'ssh_public_keys')
+
+      self.ssh_public_keys = attributes[:'ssh_public_keys'] if attributes[:'ssh_public_keys']
 
       self.hostname = attributes[:'hostname'] if attributes[:'hostname']
+
+      self.domain = attributes[:'domain'] if attributes[:'domain']
+
+      self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
+
+      raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
+
+      self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
+
+      self.cluster_name = attributes[:'clusterName'] if attributes[:'clusterName']
+
+      raise 'You cannot provide both :clusterName and :cluster_name' if attributes.key?(:'clusterName') && attributes.key?(:'cluster_name')
+
+      self.cluster_name = attributes[:'cluster_name'] if attributes[:'cluster_name']
+
+      self.data_storage_percentage = attributes[:'dataStoragePercentage'] if attributes[:'dataStoragePercentage']
+
+      raise 'You cannot provide both :dataStoragePercentage and :data_storage_percentage' if attributes.key?(:'dataStoragePercentage') && attributes.key?(:'data_storage_percentage')
+
+      self.data_storage_percentage = attributes[:'data_storage_percentage'] if attributes[:'data_storage_percentage']
 
       self.initial_data_storage_size_in_gb = attributes[:'initialDataStorageSizeInGB'] if attributes[:'initialDataStorageSizeInGB']
 
@@ -304,22 +320,20 @@ module OCI
 
       self.node_count = attributes[:'node_count'] if attributes[:'node_count']
 
-      self.shape = attributes[:'shape'] if attributes[:'shape']
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
       self.source = attributes[:'source'] if attributes[:'source']
       self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
-
-      self.ssh_public_keys = attributes[:'sshPublicKeys'] if attributes[:'sshPublicKeys']
-
-      raise 'You cannot provide both :sshPublicKeys and :ssh_public_keys' if attributes.key?(:'sshPublicKeys') && attributes.key?(:'ssh_public_keys')
-
-      self.ssh_public_keys = attributes[:'ssh_public_keys'] if attributes[:'ssh_public_keys']
-
-      self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
-
-      raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
-
-      self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -343,23 +357,24 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        availability_domain == other.availability_domain &&
-        backup_subnet_id == other.backup_subnet_id &&
-        cluster_name == other.cluster_name &&
         compartment_id == other.compartment_id &&
-        cpu_core_count == other.cpu_core_count &&
-        data_storage_percentage == other.data_storage_percentage &&
-        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        domain == other.domain &&
-        freeform_tags == other.freeform_tags &&
+        availability_domain == other.availability_domain &&
+        subnet_id == other.subnet_id &&
+        backup_subnet_id == other.backup_subnet_id &&
+        shape == other.shape &&
+        sparse_diskgroup == other.sparse_diskgroup &&
+        ssh_public_keys == other.ssh_public_keys &&
         hostname == other.hostname &&
+        domain == other.domain &&
+        cpu_core_count == other.cpu_core_count &&
+        cluster_name == other.cluster_name &&
+        data_storage_percentage == other.data_storage_percentage &&
         initial_data_storage_size_in_gb == other.initial_data_storage_size_in_gb &&
         node_count == other.node_count &&
-        shape == other.shape &&
-        source == other.source &&
-        ssh_public_keys == other.ssh_public_keys &&
-        subnet_id == other.subnet_id
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
+        source == other.source
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -375,7 +390,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, backup_subnet_id, cluster_name, compartment_id, cpu_core_count, data_storage_percentage, defined_tags, display_name, domain, freeform_tags, hostname, initial_data_storage_size_in_gb, node_count, shape, source, ssh_public_keys, subnet_id].hash
+      [compartment_id, display_name, availability_domain, subnet_id, backup_subnet_id, shape, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

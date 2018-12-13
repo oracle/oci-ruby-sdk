@@ -7431,7 +7431,7 @@ module OCI
     # {#delete_public_ip delete_public_ip}, which
     # unassigns and deletes the ephemeral public IP.
     #
-    # **Note:** If a public IP (either ephemeral or reserved) is assigned to a secondary private
+    # **Note:** If a public IP is assigned to a secondary private
     # IP (see {PrivateIp}), and you move that secondary
     # private IP to another VNIC, the public IP moves with it.
     #

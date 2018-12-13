@@ -13,18 +13,17 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
+    # @return [OCI::Database::Models::PatchDetails]
+    attr_accessor :version
+
+    # The public key portion of the key pair to use for SSH access to the DB system. Multiple public keys can be provided. The length of the combined keys cannot exceed 10,000 characters.
+    # @return [Array<String>]
+    attr_accessor :ssh_public_keys
+
     # The size, in gigabytes, to scale the attached storage up to for this virtual machine DB system. This value must be greater than current storage size. Note that the resulting total storage size attached will be greater than the amount requested to allow for REDO/RECO space and software volume. Applies only to virtual machine DB systems.
     #
     # @return [Integer]
     attr_accessor :data_storage_size_in_gbs
-
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
@@ -34,23 +33,24 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The public key portion of the key pair to use for SSH access to the DB system. Multiple public keys can be provided. The length of the combined keys cannot exceed 10,000 characters.
-    # @return [Array<String>]
-    attr_accessor :ssh_public_keys
-
-    # @return [OCI::Database::Models::PatchDetails]
-    attr_accessor :version
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'cpu_core_count': :'cpuCoreCount',
-        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
-        'defined_tags': :'definedTags',
-        'freeform_tags': :'freeformTags',
+        'version': :'version',
         'ssh_public_keys': :'sshPublicKeys',
-        'version': :'version'
+        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -60,11 +60,11 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cpu_core_count': :'Integer',
-        'data_storage_size_in_gbs': :'Integer',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'freeform_tags': :'Hash<String, String>',
+        'version': :'OCI::Database::Models::PatchDetails',
         'ssh_public_keys': :'Array<String>',
-        'version': :'OCI::Database::Models::PatchDetails'
+        'data_storage_size_in_gbs': :'Integer',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -76,11 +76,11 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
-    # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [OCI::Database::Models::PatchDetails] :version The value to assign to the {#version} property
+    # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
+    # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -93,23 +93,7 @@ module OCI
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
 
-      self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
-
-      raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
-
-      self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
-
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
-
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
-
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
-
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+      self.version = attributes[:'version'] if attributes[:'version']
 
       self.ssh_public_keys = attributes[:'sshPublicKeys'] if attributes[:'sshPublicKeys']
 
@@ -117,7 +101,23 @@ module OCI
 
       self.ssh_public_keys = attributes[:'ssh_public_keys'] if attributes[:'ssh_public_keys']
 
-      self.version = attributes[:'version'] if attributes[:'version']
+      self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
+
+      raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
+
+      self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -132,11 +132,11 @@ module OCI
 
       self.class == other.class &&
         cpu_core_count == other.cpu_core_count &&
-        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
-        defined_tags == other.defined_tags &&
-        freeform_tags == other.freeform_tags &&
+        version == other.version &&
         ssh_public_keys == other.ssh_public_keys &&
-        version == other.version
+        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -152,7 +152,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, data_storage_size_in_gbs, defined_tags, freeform_tags, ssh_public_keys, version].hash
+      [cpu_core_count, version, ssh_public_keys, data_storage_size_in_gbs, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

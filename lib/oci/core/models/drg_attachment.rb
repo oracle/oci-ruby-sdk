@@ -42,7 +42,10 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The OCID of the route table the DRG attachment is using.
+    # The OCID of the route table the DRG attachment is using. For information about why you
+    # would associate a route table with a DRG attachment, see
+    # [Advanced Scenario: Transit Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/transitrouting.htm).
+    #
     # @return [String]
     attr_accessor :route_table_id
 

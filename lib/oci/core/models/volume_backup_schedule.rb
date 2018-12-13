@@ -26,7 +26,7 @@ module OCI
     # @return [String]
     attr_reader :backup_type
 
-    # **[Required]** The number of seconds (positive or negative) that the backup time should be shifted from the default interval boundaries specified by the period.
+    # **[Required]** The number of seconds (positive or negative) that the backup time should be shifted from the default interval boundaries specified by the period. Backup time = Frequency start time + Offset.
     # @return [Integer]
     attr_accessor :offset_seconds
 
