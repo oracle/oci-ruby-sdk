@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 # This script demonstrates how to use the UploadManager to upload objects to Object Storage when the input
 # comes from stdin, e.g. it is being piped from other application.

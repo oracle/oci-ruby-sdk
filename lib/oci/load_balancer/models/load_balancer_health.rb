@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -18,14 +18,6 @@ module OCI
       STATUS_UNKNOWN = 'UNKNOWN'.freeze,
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
-
-    # **[Required]** A list of backend sets that are currently in the `CRITICAL` health state. The list identifies each backend set by the
-    # friendly name you assigned when you created it.
-    #
-    # Example: `example_backend_set`
-    #
-    # @return [Array<String>]
-    attr_accessor :critical_state_backend_set_names
 
     # **[Required]** The overall health status of the load balancer.
     #
@@ -50,12 +42,21 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # **[Required]** The total number of backend sets associated with this load balancer.
+    # **[Required]** A list of backend sets that are currently in the `WARNING` health state. The list identifies each backend set by the
+    # friendly name you assigned when you created it.
     #
-    # Example: `4`
+    # Example: `example_backend_set3`
     #
-    # @return [Integer]
-    attr_accessor :total_backend_set_count
+    # @return [Array<String>]
+    attr_accessor :warning_state_backend_set_names
+
+    # **[Required]** A list of backend sets that are currently in the `CRITICAL` health state. The list identifies each backend set by the
+    # friendly name you assigned when you created it.
+    #
+    # Example: `example_backend_set`
+    #
+    # @return [Array<String>]
+    attr_accessor :critical_state_backend_set_names
 
     # **[Required]** A list of backend sets that are currently in the `UNKNOWN` health state. The list identifies each backend set by the
     # friendly name you assigned when you created it.
@@ -65,23 +66,22 @@ module OCI
     # @return [Array<String>]
     attr_accessor :unknown_state_backend_set_names
 
-    # **[Required]** A list of backend sets that are currently in the `WARNING` health state. The list identifies each backend set by the
-    # friendly name you assigned when you created it.
+    # **[Required]** The total number of backend sets associated with this load balancer.
     #
-    # Example: `example_backend_set3`
+    # Example: `4`
     #
-    # @return [Array<String>]
-    attr_accessor :warning_state_backend_set_names
+    # @return [Integer]
+    attr_accessor :total_backend_set_count
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'critical_state_backend_set_names': :'criticalStateBackendSetNames',
         'status': :'status',
-        'total_backend_set_count': :'totalBackendSetCount',
+        'warning_state_backend_set_names': :'warningStateBackendSetNames',
+        'critical_state_backend_set_names': :'criticalStateBackendSetNames',
         'unknown_state_backend_set_names': :'unknownStateBackendSetNames',
-        'warning_state_backend_set_names': :'warningStateBackendSetNames'
+        'total_backend_set_count': :'totalBackendSetCount'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -90,11 +90,11 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'critical_state_backend_set_names': :'Array<String>',
         'status': :'String',
-        'total_backend_set_count': :'Integer',
+        'warning_state_backend_set_names': :'Array<String>',
+        'critical_state_backend_set_names': :'Array<String>',
         'unknown_state_backend_set_names': :'Array<String>',
-        'warning_state_backend_set_names': :'Array<String>'
+        'total_backend_set_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -105,16 +105,24 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Array<String>] :critical_state_backend_set_names The value to assign to the {#critical_state_backend_set_names} property
     # @option attributes [String] :status The value to assign to the {#status} property
-    # @option attributes [Integer] :total_backend_set_count The value to assign to the {#total_backend_set_count} property
-    # @option attributes [Array<String>] :unknown_state_backend_set_names The value to assign to the {#unknown_state_backend_set_names} property
     # @option attributes [Array<String>] :warning_state_backend_set_names The value to assign to the {#warning_state_backend_set_names} property
+    # @option attributes [Array<String>] :critical_state_backend_set_names The value to assign to the {#critical_state_backend_set_names} property
+    # @option attributes [Array<String>] :unknown_state_backend_set_names The value to assign to the {#unknown_state_backend_set_names} property
+    # @option attributes [Integer] :total_backend_set_count The value to assign to the {#total_backend_set_count} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.status = attributes[:'status'] if attributes[:'status']
+
+      self.warning_state_backend_set_names = attributes[:'warningStateBackendSetNames'] if attributes[:'warningStateBackendSetNames']
+
+      raise 'You cannot provide both :warningStateBackendSetNames and :warning_state_backend_set_names' if attributes.key?(:'warningStateBackendSetNames') && attributes.key?(:'warning_state_backend_set_names')
+
+      self.warning_state_backend_set_names = attributes[:'warning_state_backend_set_names'] if attributes[:'warning_state_backend_set_names']
 
       self.critical_state_backend_set_names = attributes[:'criticalStateBackendSetNames'] if attributes[:'criticalStateBackendSetNames']
 
@@ -122,25 +130,17 @@ module OCI
 
       self.critical_state_backend_set_names = attributes[:'critical_state_backend_set_names'] if attributes[:'critical_state_backend_set_names']
 
-      self.status = attributes[:'status'] if attributes[:'status']
-
-      self.total_backend_set_count = attributes[:'totalBackendSetCount'] if attributes[:'totalBackendSetCount']
-
-      raise 'You cannot provide both :totalBackendSetCount and :total_backend_set_count' if attributes.key?(:'totalBackendSetCount') && attributes.key?(:'total_backend_set_count')
-
-      self.total_backend_set_count = attributes[:'total_backend_set_count'] if attributes[:'total_backend_set_count']
-
       self.unknown_state_backend_set_names = attributes[:'unknownStateBackendSetNames'] if attributes[:'unknownStateBackendSetNames']
 
       raise 'You cannot provide both :unknownStateBackendSetNames and :unknown_state_backend_set_names' if attributes.key?(:'unknownStateBackendSetNames') && attributes.key?(:'unknown_state_backend_set_names')
 
       self.unknown_state_backend_set_names = attributes[:'unknown_state_backend_set_names'] if attributes[:'unknown_state_backend_set_names']
 
-      self.warning_state_backend_set_names = attributes[:'warningStateBackendSetNames'] if attributes[:'warningStateBackendSetNames']
+      self.total_backend_set_count = attributes[:'totalBackendSetCount'] if attributes[:'totalBackendSetCount']
 
-      raise 'You cannot provide both :warningStateBackendSetNames and :warning_state_backend_set_names' if attributes.key?(:'warningStateBackendSetNames') && attributes.key?(:'warning_state_backend_set_names')
+      raise 'You cannot provide both :totalBackendSetCount and :total_backend_set_count' if attributes.key?(:'totalBackendSetCount') && attributes.key?(:'total_backend_set_count')
 
-      self.warning_state_backend_set_names = attributes[:'warning_state_backend_set_names'] if attributes[:'warning_state_backend_set_names']
+      self.total_backend_set_count = attributes[:'total_backend_set_count'] if attributes[:'total_backend_set_count']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -169,11 +169,11 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        critical_state_backend_set_names == other.critical_state_backend_set_names &&
         status == other.status &&
-        total_backend_set_count == other.total_backend_set_count &&
+        warning_state_backend_set_names == other.warning_state_backend_set_names &&
+        critical_state_backend_set_names == other.critical_state_backend_set_names &&
         unknown_state_backend_set_names == other.unknown_state_backend_set_names &&
-        warning_state_backend_set_names == other.warning_state_backend_set_names
+        total_backend_set_count == other.total_backend_set_count
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -189,7 +189,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [critical_state_backend_set_names, status, total_backend_set_count, unknown_state_backend_set_names, warning_state_backend_set_names].hash
+      [status, warning_state_backend_set_names, critical_state_backend_set_names, unknown_state_backend_set_names, total_backend_set_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

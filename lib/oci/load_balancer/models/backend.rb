@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -8,29 +8,6 @@ module OCI
   # For more information, see [Managing Backend Servers](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingbackendservers.htm).
   #
   class LoadBalancer::Models::Backend # rubocop:disable Metrics/LineLength
-    # **[Required]** Whether the load balancer should treat this server as a backup unit. If `true`, the load balancer forwards no ingress
-    # traffic to this backend server unless all other backend servers not marked as \"backup\" fail the health check policy.
-    #
-    # Example: `false`
-    #
-    # @return [BOOLEAN]
-    attr_accessor :backup
-
-    # **[Required]** Whether the load balancer should drain this server. Servers marked \"drain\" receive no new
-    # incoming traffic.
-    #
-    # Example: `false`
-    #
-    # @return [BOOLEAN]
-    attr_accessor :drain
-
-    # **[Required]** The IP address of the backend server.
-    #
-    # Example: `10.0.0.3`
-    #
-    # @return [String]
-    attr_accessor :ip_address
-
     # **[Required]** A read-only field showing the IP address and port that uniquely identify this backend server in the backend set.
     #
     # Example: `10.0.0.3:8080`
@@ -38,13 +15,12 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** Whether the load balancer should treat this server as offline. Offline servers receive no incoming
-    # traffic.
+    # **[Required]** The IP address of the backend server.
     #
-    # Example: `false`
+    # Example: `10.0.0.3`
     #
-    # @return [BOOLEAN]
-    attr_accessor :offline
+    # @return [String]
+    attr_accessor :ip_address
 
     # **[Required]** The communication port for the backend server.
     #
@@ -64,17 +40,41 @@ module OCI
     # @return [Integer]
     attr_accessor :weight
 
+    # **[Required]** Whether the load balancer should drain this server. Servers marked \"drain\" receive no new
+    # incoming traffic.
+    #
+    # Example: `false`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :drain
+
+    # **[Required]** Whether the load balancer should treat this server as a backup unit. If `true`, the load balancer forwards no ingress
+    # traffic to this backend server unless all other backend servers not marked as \"backup\" fail the health check policy.
+    #
+    # Example: `false`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :backup
+
+    # **[Required]** Whether the load balancer should treat this server as offline. Offline servers receive no incoming
+    # traffic.
+    #
+    # Example: `false`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :offline
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'backup': :'backup',
-        'drain': :'drain',
-        'ip_address': :'ipAddress',
         'name': :'name',
-        'offline': :'offline',
+        'ip_address': :'ipAddress',
         'port': :'port',
-        'weight': :'weight'
+        'weight': :'weight',
+        'drain': :'drain',
+        'backup': :'backup',
+        'offline': :'offline'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,13 +83,13 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'backup': :'BOOLEAN',
-        'drain': :'BOOLEAN',
-        'ip_address': :'String',
         'name': :'String',
-        'offline': :'BOOLEAN',
+        'ip_address': :'String',
         'port': :'Integer',
-        'weight': :'Integer'
+        'weight': :'Integer',
+        'drain': :'BOOLEAN',
+        'backup': :'BOOLEAN',
+        'offline': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -100,24 +100,20 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [BOOLEAN] :backup The value to assign to the {#backup} property
-    # @option attributes [BOOLEAN] :drain The value to assign to the {#drain} property
-    # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
     # @option attributes [String] :name The value to assign to the {#name} property
-    # @option attributes [BOOLEAN] :offline The value to assign to the {#offline} property
+    # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
     # @option attributes [Integer] :port The value to assign to the {#port} property
     # @option attributes [Integer] :weight The value to assign to the {#weight} property
+    # @option attributes [BOOLEAN] :drain The value to assign to the {#drain} property
+    # @option attributes [BOOLEAN] :backup The value to assign to the {#backup} property
+    # @option attributes [BOOLEAN] :offline The value to assign to the {#offline} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.backup = attributes[:'backup'] unless attributes[:'backup'].nil?
-      self.backup = false if backup.nil? && !attributes.key?(:'backup') # rubocop:disable Style/StringLiterals
-
-      self.drain = attributes[:'drain'] unless attributes[:'drain'].nil?
-      self.drain = false if drain.nil? && !attributes.key?(:'drain') # rubocop:disable Style/StringLiterals
+      self.name = attributes[:'name'] if attributes[:'name']
 
       self.ip_address = attributes[:'ipAddress'] if attributes[:'ipAddress']
 
@@ -125,14 +121,18 @@ module OCI
 
       self.ip_address = attributes[:'ip_address'] if attributes[:'ip_address']
 
-      self.name = attributes[:'name'] if attributes[:'name']
-
-      self.offline = attributes[:'offline'] unless attributes[:'offline'].nil?
-      self.offline = false if offline.nil? && !attributes.key?(:'offline') # rubocop:disable Style/StringLiterals
-
       self.port = attributes[:'port'] if attributes[:'port']
 
       self.weight = attributes[:'weight'] if attributes[:'weight']
+
+      self.drain = attributes[:'drain'] unless attributes[:'drain'].nil?
+      self.drain = false if drain.nil? && !attributes.key?(:'drain') # rubocop:disable Style/StringLiterals
+
+      self.backup = attributes[:'backup'] unless attributes[:'backup'].nil?
+      self.backup = false if backup.nil? && !attributes.key?(:'backup') # rubocop:disable Style/StringLiterals
+
+      self.offline = attributes[:'offline'] unless attributes[:'offline'].nil?
+      self.offline = false if offline.nil? && !attributes.key?(:'offline') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -146,13 +146,13 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        backup == other.backup &&
-        drain == other.drain &&
-        ip_address == other.ip_address &&
         name == other.name &&
-        offline == other.offline &&
+        ip_address == other.ip_address &&
         port == other.port &&
-        weight == other.weight
+        weight == other.weight &&
+        drain == other.drain &&
+        backup == other.backup &&
+        offline == other.offline
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -168,7 +168,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backup, drain, ip_address, name, offline, port, weight].hash
+      [name, ip_address, port, weight, drain, backup, offline].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

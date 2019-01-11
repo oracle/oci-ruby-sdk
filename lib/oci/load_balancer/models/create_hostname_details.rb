@@ -1,19 +1,14 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # The details of the hostname resource to add to a load balancer.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class LoadBalancer::Models::CreateHostnameDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** A virtual hostname. For more information about virtual hostname string construction, see
-    # [Managing Request Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingrequest.htm#routing).
-    #
-    # Example: `app.example.com`
-    #
-    # @return [String]
-    attr_accessor :hostname
-
     # **[Required]** A friendly name for the hostname resource. It must be unique and it cannot be changed. Avoid entering confidential
     # information.
     #
@@ -22,12 +17,20 @@ module OCI
     # @return [String]
     attr_accessor :name
 
+    # **[Required]** A virtual hostname. For more information about virtual hostname string construction, see
+    # [Managing Request Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingrequest.htm#routing).
+    #
+    # Example: `app.example.com`
+    #
+    # @return [String]
+    attr_accessor :hostname
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'hostname': :'hostname',
-        'name': :'name'
+        'name': :'name',
+        'hostname': :'hostname'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,8 +39,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'hostname': :'String',
-        'name': :'String'
+        'name': :'String',
+        'hostname': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,17 +51,17 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :hostname The value to assign to the {#hostname} property
     # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :hostname The value to assign to the {#hostname} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.hostname = attributes[:'hostname'] if attributes[:'hostname']
-
       self.name = attributes[:'name'] if attributes[:'name']
+
+      self.hostname = attributes[:'hostname'] if attributes[:'hostname']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -72,8 +75,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        hostname == other.hostname &&
-        name == other.name
+        name == other.name &&
+        hostname == other.hostname
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -89,7 +92,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [hostname, name].hash
+      [name, hostname].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

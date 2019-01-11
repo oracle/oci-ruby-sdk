@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -8,36 +8,15 @@ module OCI
   # For more information on listener configuration, see
   # [Managing Load Balancer Listeners](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managinglisteners.htm).
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class LoadBalancer::Models::CreateListenerDetails # rubocop:disable Metrics/LineLength
-    # @return [OCI::LoadBalancer::Models::ConnectionConfiguration]
-    attr_accessor :connection_configuration
-
     # **[Required]** The name of the associated backend set.
     #
     # Example: `example_backend_set`
     #
     # @return [String]
     attr_accessor :default_backend_set_name
-
-    # An array of hostname resource names.
-    # @return [Array<String>]
-    attr_accessor :hostname_names
-
-    # **[Required]** A friendly name for the listener. It must be unique and it cannot be changed.
-    # Avoid entering confidential information.
-    #
-    # Example: `example_listener`
-    #
-    # @return [String]
-    attr_accessor :name
-
-    # The name of the set of path-based routing rules, {PathRouteSet},
-    # applied to this listener's traffic.
-    #
-    # Example: `example_path_route_set`
-    #
-    # @return [String]
-    attr_accessor :path_route_set_name
 
     # **[Required]** The communication port for the listener.
     #
@@ -55,21 +34,52 @@ module OCI
     # @return [String]
     attr_accessor :protocol
 
+    # An array of hostname resource names.
+    # @return [Array<String>]
+    attr_accessor :hostname_names
+
+    # The name of the set of path-based routing rules, {PathRouteSet},
+    # applied to this listener's traffic.
+    #
+    # Example: `example_path_route_set`
+    #
+    # @return [String]
+    attr_accessor :path_route_set_name
+
     # @return [OCI::LoadBalancer::Models::SSLConfigurationDetails]
     attr_accessor :ssl_configuration
+
+    # @return [OCI::LoadBalancer::Models::ConnectionConfiguration]
+    attr_accessor :connection_configuration
+
+    # **[Required]** A friendly name for the listener. It must be unique and it cannot be changed.
+    # Avoid entering confidential information.
+    #
+    # Example: `example_listener`
+    #
+    # @return [String]
+    attr_accessor :name
+
+    # The names of the {RuleSet} to apply to the listener.
+    #
+    # Example: [\"example_rule_set\"]
+    #
+    # @return [Array<String>]
+    attr_accessor :rule_set_names
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'connection_configuration': :'connectionConfiguration',
         'default_backend_set_name': :'defaultBackendSetName',
-        'hostname_names': :'hostnameNames',
-        'name': :'name',
-        'path_route_set_name': :'pathRouteSetName',
         'port': :'port',
         'protocol': :'protocol',
-        'ssl_configuration': :'sslConfiguration'
+        'hostname_names': :'hostnameNames',
+        'path_route_set_name': :'pathRouteSetName',
+        'ssl_configuration': :'sslConfiguration',
+        'connection_configuration': :'connectionConfiguration',
+        'name': :'name',
+        'rule_set_names': :'ruleSetNames'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -78,14 +88,15 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'connection_configuration': :'OCI::LoadBalancer::Models::ConnectionConfiguration',
         'default_backend_set_name': :'String',
-        'hostname_names': :'Array<String>',
-        'name': :'String',
-        'path_route_set_name': :'String',
         'port': :'Integer',
         'protocol': :'String',
-        'ssl_configuration': :'OCI::LoadBalancer::Models::SSLConfigurationDetails'
+        'hostname_names': :'Array<String>',
+        'path_route_set_name': :'String',
+        'ssl_configuration': :'OCI::LoadBalancer::Models::SSLConfigurationDetails',
+        'connection_configuration': :'OCI::LoadBalancer::Models::ConnectionConfiguration',
+        'name': :'String',
+        'rule_set_names': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -96,25 +107,20 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [OCI::LoadBalancer::Models::ConnectionConfiguration] :connection_configuration The value to assign to the {#connection_configuration} property
     # @option attributes [String] :default_backend_set_name The value to assign to the {#default_backend_set_name} property
-    # @option attributes [Array<String>] :hostname_names The value to assign to the {#hostname_names} property
-    # @option attributes [String] :name The value to assign to the {#name} property
-    # @option attributes [String] :path_route_set_name The value to assign to the {#path_route_set_name} property
     # @option attributes [Integer] :port The value to assign to the {#port} property
     # @option attributes [String] :protocol The value to assign to the {#protocol} property
+    # @option attributes [Array<String>] :hostname_names The value to assign to the {#hostname_names} property
+    # @option attributes [String] :path_route_set_name The value to assign to the {#path_route_set_name} property
     # @option attributes [OCI::LoadBalancer::Models::SSLConfigurationDetails] :ssl_configuration The value to assign to the {#ssl_configuration} property
+    # @option attributes [OCI::LoadBalancer::Models::ConnectionConfiguration] :connection_configuration The value to assign to the {#connection_configuration} property
+    # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [Array<String>] :rule_set_names The value to assign to the {#rule_set_names} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.connection_configuration = attributes[:'connectionConfiguration'] if attributes[:'connectionConfiguration']
-
-      raise 'You cannot provide both :connectionConfiguration and :connection_configuration' if attributes.key?(:'connectionConfiguration') && attributes.key?(:'connection_configuration')
-
-      self.connection_configuration = attributes[:'connection_configuration'] if attributes[:'connection_configuration']
 
       self.default_backend_set_name = attributes[:'defaultBackendSetName'] if attributes[:'defaultBackendSetName']
 
@@ -122,13 +128,15 @@ module OCI
 
       self.default_backend_set_name = attributes[:'default_backend_set_name'] if attributes[:'default_backend_set_name']
 
+      self.port = attributes[:'port'] if attributes[:'port']
+
+      self.protocol = attributes[:'protocol'] if attributes[:'protocol']
+
       self.hostname_names = attributes[:'hostnameNames'] if attributes[:'hostnameNames']
 
       raise 'You cannot provide both :hostnameNames and :hostname_names' if attributes.key?(:'hostnameNames') && attributes.key?(:'hostname_names')
 
       self.hostname_names = attributes[:'hostname_names'] if attributes[:'hostname_names']
-
-      self.name = attributes[:'name'] if attributes[:'name']
 
       self.path_route_set_name = attributes[:'pathRouteSetName'] if attributes[:'pathRouteSetName']
 
@@ -136,15 +144,25 @@ module OCI
 
       self.path_route_set_name = attributes[:'path_route_set_name'] if attributes[:'path_route_set_name']
 
-      self.port = attributes[:'port'] if attributes[:'port']
-
-      self.protocol = attributes[:'protocol'] if attributes[:'protocol']
-
       self.ssl_configuration = attributes[:'sslConfiguration'] if attributes[:'sslConfiguration']
 
       raise 'You cannot provide both :sslConfiguration and :ssl_configuration' if attributes.key?(:'sslConfiguration') && attributes.key?(:'ssl_configuration')
 
       self.ssl_configuration = attributes[:'ssl_configuration'] if attributes[:'ssl_configuration']
+
+      self.connection_configuration = attributes[:'connectionConfiguration'] if attributes[:'connectionConfiguration']
+
+      raise 'You cannot provide both :connectionConfiguration and :connection_configuration' if attributes.key?(:'connectionConfiguration') && attributes.key?(:'connection_configuration')
+
+      self.connection_configuration = attributes[:'connection_configuration'] if attributes[:'connection_configuration']
+
+      self.name = attributes[:'name'] if attributes[:'name']
+
+      self.rule_set_names = attributes[:'ruleSetNames'] if attributes[:'ruleSetNames']
+
+      raise 'You cannot provide both :ruleSetNames and :rule_set_names' if attributes.key?(:'ruleSetNames') && attributes.key?(:'rule_set_names')
+
+      self.rule_set_names = attributes[:'rule_set_names'] if attributes[:'rule_set_names']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -158,14 +176,15 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        connection_configuration == other.connection_configuration &&
         default_backend_set_name == other.default_backend_set_name &&
-        hostname_names == other.hostname_names &&
-        name == other.name &&
-        path_route_set_name == other.path_route_set_name &&
         port == other.port &&
         protocol == other.protocol &&
-        ssl_configuration == other.ssl_configuration
+        hostname_names == other.hostname_names &&
+        path_route_set_name == other.path_route_set_name &&
+        ssl_configuration == other.ssl_configuration &&
+        connection_configuration == other.connection_configuration &&
+        name == other.name &&
+        rule_set_names == other.rule_set_names
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -181,7 +200,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [connection_configuration, default_backend_set_name, hostname_names, name, path_route_set_name, port, protocol, ssl_configuration].hash
+      [default_backend_set_name, port, protocol, hostname_names, path_route_set_name, ssl_configuration, connection_configuration, name, rule_set_names].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

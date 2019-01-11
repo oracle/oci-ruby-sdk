@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 # Creates all of the resources necessary to launch an instance, launches an instance, and ensures that it reaches
 # a running state. This example also demonstrates providing user_data when launching an instance (see the metadata entry

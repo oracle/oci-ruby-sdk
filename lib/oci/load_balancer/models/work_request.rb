@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -19,24 +19,27 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # This attribute is required.
-    # @return [Array<OCI::LoadBalancer::Models::WorkRequestError>]
-    attr_accessor :error_details
-
     # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the work request.
     # @return [String]
     attr_accessor :id
-
-    # **[Required]** The current state of the work request.
-    #
-    # @return [String]
-    attr_reader :lifecycle_state
 
     # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer with which the work request
     # is associated.
     #
     # @return [String]
     attr_accessor :load_balancer_id
+
+    # **[Required]** The type of action the work request represents.
+    #
+    # Example: `CreateListener`
+    #
+    # @return [String]
+    attr_accessor :type
+
+    # **[Required]** The current state of the work request.
+    #
+    # @return [String]
+    attr_reader :lifecycle_state
 
     # **[Required]** A collection of data, related to the load balancer provisioning process, that helps with debugging in the event of failure.
     # Possible data elements include:
@@ -64,25 +67,22 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_finished
 
-    # **[Required]** The type of action the work request represents.
-    #
-    # Example: `CreateListener`
-    #
-    # @return [String]
-    attr_accessor :type
+    # This attribute is required.
+    # @return [Array<OCI::LoadBalancer::Models::WorkRequestError>]
+    attr_accessor :error_details
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'error_details': :'errorDetails',
         'id': :'id',
-        'lifecycle_state': :'lifecycleState',
         'load_balancer_id': :'loadBalancerId',
+        'type': :'type',
+        'lifecycle_state': :'lifecycleState',
         'message': :'message',
         'time_accepted': :'timeAccepted',
         'time_finished': :'timeFinished',
-        'type': :'type'
+        'error_details': :'errorDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -91,14 +91,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'error_details': :'Array<OCI::LoadBalancer::Models::WorkRequestError>',
         'id': :'String',
-        'lifecycle_state': :'String',
         'load_balancer_id': :'String',
+        'type': :'String',
+        'lifecycle_state': :'String',
         'message': :'String',
         'time_accepted': :'DateTime',
         'time_finished': :'DateTime',
-        'type': :'String'
+        'error_details': :'Array<OCI::LoadBalancer::Models::WorkRequestError>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -109,39 +109,35 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Array<OCI::LoadBalancer::Models::WorkRequestError>] :error_details The value to assign to the {#error_details} property
     # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :load_balancer_id The value to assign to the {#load_balancer_id} property
+    # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :message The value to assign to the {#message} property
     # @option attributes [DateTime] :time_accepted The value to assign to the {#time_accepted} property
     # @option attributes [DateTime] :time_finished The value to assign to the {#time_finished} property
-    # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [Array<OCI::LoadBalancer::Models::WorkRequestError>] :error_details The value to assign to the {#error_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.error_details = attributes[:'errorDetails'] if attributes[:'errorDetails']
-
-      raise 'You cannot provide both :errorDetails and :error_details' if attributes.key?(:'errorDetails') && attributes.key?(:'error_details')
-
-      self.error_details = attributes[:'error_details'] if attributes[:'error_details']
-
       self.id = attributes[:'id'] if attributes[:'id']
-
-      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
-
-      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
-
-      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
       self.load_balancer_id = attributes[:'loadBalancerId'] if attributes[:'loadBalancerId']
 
       raise 'You cannot provide both :loadBalancerId and :load_balancer_id' if attributes.key?(:'loadBalancerId') && attributes.key?(:'load_balancer_id')
 
       self.load_balancer_id = attributes[:'load_balancer_id'] if attributes[:'load_balancer_id']
+
+      self.type = attributes[:'type'] if attributes[:'type']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
       self.message = attributes[:'message'] if attributes[:'message']
 
@@ -157,7 +153,11 @@ module OCI
 
       self.time_finished = attributes[:'time_finished'] if attributes[:'time_finished']
 
-      self.type = attributes[:'type'] if attributes[:'type']
+      self.error_details = attributes[:'errorDetails'] if attributes[:'errorDetails']
+
+      raise 'You cannot provide both :errorDetails and :error_details' if attributes.key?(:'errorDetails') && attributes.key?(:'error_details')
+
+      self.error_details = attributes[:'error_details'] if attributes[:'error_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -186,14 +186,14 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        error_details == other.error_details &&
         id == other.id &&
-        lifecycle_state == other.lifecycle_state &&
         load_balancer_id == other.load_balancer_id &&
+        type == other.type &&
+        lifecycle_state == other.lifecycle_state &&
         message == other.message &&
         time_accepted == other.time_accepted &&
         time_finished == other.time_finished &&
-        type == other.type
+        error_details == other.error_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -209,7 +209,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [error_details, id, lifecycle_state, load_balancer_id, message, time_accepted, time_finished, type].hash
+      [id, load_balancer_id, type, lifecycle_state, message, time_accepted, time_finished, error_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

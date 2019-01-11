@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.4 - 2019-01-10
+### Added
+- Support for device attributes on volume attachments in the Compute service
+- Support for custom header rulesets in the Load Balancing service 
+
 ## 2.4.3 - 2018-12-13
 ### Added
 - Support for Data Guard for VM shapes in the Database service

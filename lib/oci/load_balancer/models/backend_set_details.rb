@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,16 +6,9 @@ require 'date'
 module OCI
   # The configuration details for a load balancer backend set.
   # For more information on backend set configuration, see
-  # [Managing Backend Sets](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/tasks/managingbackendsets.htm).
+  # [Managing Backend Sets](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingbackendsets.htm).
   #
   class LoadBalancer::Models::BackendSetDetails # rubocop:disable Metrics/LineLength
-    # @return [Array<OCI::LoadBalancer::Models::BackendDetails>]
-    attr_accessor :backends
-
-    # This attribute is required.
-    # @return [OCI::LoadBalancer::Models::HealthCheckerDetails]
-    attr_accessor :health_checker
-
     # **[Required]** The load balancer policy for the backend set. To get a list of available policies, use the
     # {#list_policies list_policies} operation.
     #
@@ -24,21 +17,28 @@ module OCI
     # @return [String]
     attr_accessor :policy
 
-    # @return [OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails]
-    attr_accessor :session_persistence_configuration
+    # @return [Array<OCI::LoadBalancer::Models::BackendDetails>]
+    attr_accessor :backends
+
+    # This attribute is required.
+    # @return [OCI::LoadBalancer::Models::HealthCheckerDetails]
+    attr_accessor :health_checker
 
     # @return [OCI::LoadBalancer::Models::SSLConfigurationDetails]
     attr_accessor :ssl_configuration
+
+    # @return [OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails]
+    attr_accessor :session_persistence_configuration
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'policy': :'policy',
         'backends': :'backends',
         'health_checker': :'healthChecker',
-        'policy': :'policy',
-        'session_persistence_configuration': :'sessionPersistenceConfiguration',
-        'ssl_configuration': :'sslConfiguration'
+        'ssl_configuration': :'sslConfiguration',
+        'session_persistence_configuration': :'sessionPersistenceConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,11 +47,11 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'policy': :'String',
         'backends': :'Array<OCI::LoadBalancer::Models::BackendDetails>',
         'health_checker': :'OCI::LoadBalancer::Models::HealthCheckerDetails',
-        'policy': :'String',
-        'session_persistence_configuration': :'OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails',
-        'ssl_configuration': :'OCI::LoadBalancer::Models::SSLConfigurationDetails'
+        'ssl_configuration': :'OCI::LoadBalancer::Models::SSLConfigurationDetails',
+        'session_persistence_configuration': :'OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -62,16 +62,18 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :policy The value to assign to the {#policy} property
     # @option attributes [Array<OCI::LoadBalancer::Models::BackendDetails>] :backends The value to assign to the {#backends} property
     # @option attributes [OCI::LoadBalancer::Models::HealthCheckerDetails] :health_checker The value to assign to the {#health_checker} property
-    # @option attributes [String] :policy The value to assign to the {#policy} property
-    # @option attributes [OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails] :session_persistence_configuration The value to assign to the {#session_persistence_configuration} property
     # @option attributes [OCI::LoadBalancer::Models::SSLConfigurationDetails] :ssl_configuration The value to assign to the {#ssl_configuration} property
+    # @option attributes [OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails] :session_persistence_configuration The value to assign to the {#session_persistence_configuration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.policy = attributes[:'policy'] if attributes[:'policy']
 
       self.backends = attributes[:'backends'] if attributes[:'backends']
 
@@ -81,19 +83,17 @@ module OCI
 
       self.health_checker = attributes[:'health_checker'] if attributes[:'health_checker']
 
-      self.policy = attributes[:'policy'] if attributes[:'policy']
+      self.ssl_configuration = attributes[:'sslConfiguration'] if attributes[:'sslConfiguration']
+
+      raise 'You cannot provide both :sslConfiguration and :ssl_configuration' if attributes.key?(:'sslConfiguration') && attributes.key?(:'ssl_configuration')
+
+      self.ssl_configuration = attributes[:'ssl_configuration'] if attributes[:'ssl_configuration']
 
       self.session_persistence_configuration = attributes[:'sessionPersistenceConfiguration'] if attributes[:'sessionPersistenceConfiguration']
 
       raise 'You cannot provide both :sessionPersistenceConfiguration and :session_persistence_configuration' if attributes.key?(:'sessionPersistenceConfiguration') && attributes.key?(:'session_persistence_configuration')
 
       self.session_persistence_configuration = attributes[:'session_persistence_configuration'] if attributes[:'session_persistence_configuration']
-
-      self.ssl_configuration = attributes[:'sslConfiguration'] if attributes[:'sslConfiguration']
-
-      raise 'You cannot provide both :sslConfiguration and :ssl_configuration' if attributes.key?(:'sslConfiguration') && attributes.key?(:'ssl_configuration')
-
-      self.ssl_configuration = attributes[:'ssl_configuration'] if attributes[:'ssl_configuration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -107,11 +107,11 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        policy == other.policy &&
         backends == other.backends &&
         health_checker == other.health_checker &&
-        policy == other.policy &&
-        session_persistence_configuration == other.session_persistence_configuration &&
-        ssl_configuration == other.ssl_configuration
+        ssl_configuration == other.ssl_configuration &&
+        session_persistence_configuration == other.session_persistence_configuration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -127,7 +127,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backends, health_checker, policy, session_persistence_configuration, ssl_configuration].hash
+      [policy, backends, health_checker, ssl_configuration, session_persistence_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
