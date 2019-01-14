@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'volume_attachment'
@@ -14,6 +14,7 @@ module OCI
         'attachment_type': :'attachmentType',
         'availability_domain': :'availabilityDomain',
         'compartment_id': :'compartmentId',
+        'device': :'device',
         'display_name': :'displayName',
         'id': :'id',
         'instance_id': :'instanceId',
@@ -33,6 +34,7 @@ module OCI
         'attachment_type': :'String',
         'availability_domain': :'String',
         'compartment_id': :'String',
+        'device': :'String',
         'display_name': :'String',
         'id': :'String',
         'instance_id': :'String',
@@ -53,6 +55,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {OCI::Core::Models::VolumeAttachment#availability_domain #availability_domain} proprety
     # @option attributes [String] :compartment_id The value to assign to the {OCI::Core::Models::VolumeAttachment#compartment_id #compartment_id} proprety
+    # @option attributes [String] :device The value to assign to the {OCI::Core::Models::VolumeAttachment#device #device} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::Core::Models::VolumeAttachment#display_name #display_name} proprety
     # @option attributes [String] :id The value to assign to the {OCI::Core::Models::VolumeAttachment#id #id} proprety
     # @option attributes [String] :instance_id The value to assign to the {OCI::Core::Models::VolumeAttachment#instance_id #instance_id} proprety
@@ -83,6 +86,7 @@ module OCI
         attachment_type == other.attachment_type &&
         availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
+        device == other.device &&
         display_name == other.display_name &&
         id == other.id &&
         instance_id == other.instance_id &&
@@ -106,7 +110,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachment_type, availability_domain, compartment_id, display_name, id, instance_id, is_read_only, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled].hash
+      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

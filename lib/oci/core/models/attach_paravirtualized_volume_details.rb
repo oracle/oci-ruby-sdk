@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'attach_volume_details'
@@ -15,6 +15,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'device': :'device',
         'display_name': :'displayName',
         'instance_id': :'instanceId',
         'is_read_only': :'isReadOnly',
@@ -29,6 +30,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'device': :'String',
         'display_name': :'String',
         'instance_id': :'String',
         'is_read_only': :'BOOLEAN',
@@ -45,6 +47,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :device The value to assign to the {OCI::Core::Models::AttachVolumeDetails#device #device} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::Core::Models::AttachVolumeDetails#display_name #display_name} proprety
     # @option attributes [String] :instance_id The value to assign to the {OCI::Core::Models::AttachVolumeDetails#instance_id #instance_id} proprety
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {OCI::Core::Models::AttachVolumeDetails#is_read_only #is_read_only} proprety
@@ -78,6 +81,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        device == other.device &&
         display_name == other.display_name &&
         instance_id == other.instance_id &&
         is_read_only == other.is_read_only &&
@@ -99,7 +103,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, instance_id, is_read_only, type, volume_id, is_pv_encryption_in_transit_enabled].hash
+      [device, display_name, instance_id, is_read_only, type, volume_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

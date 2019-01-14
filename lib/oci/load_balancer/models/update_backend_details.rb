@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,6 +6,17 @@ require 'date'
 module OCI
   # The configuration details for updating a backend server.
   class LoadBalancer::Models::UpdateBackendDetails # rubocop:disable Metrics/LineLength
+    # **[Required]** The load balancing policy weight assigned to the server. Backend servers with a higher weight receive a larger
+    # proportion of incoming traffic. For example, a server weighted '3' receives 3 times the number of new connections
+    # as a server weighted '1'.
+    # For more information on load balancing policies, see
+    # [How Load Balancing Policies Work](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Reference/lbpolicies.htm).
+    #
+    # Example: `3`
+    #
+    # @return [Integer]
+    attr_accessor :weight
+
     # **[Required]** Whether the load balancer should treat this server as a backup unit. If `true`, the load balancer forwards no ingress
     # traffic to this backend server unless all other backend servers not marked as \"backup\" fail the health check policy.
     #
@@ -30,25 +41,14 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :offline
 
-    # **[Required]** The load balancing policy weight assigned to the server. Backend servers with a higher weight receive a larger
-    # proportion of incoming traffic. For example, a server weighted '3' receives 3 times the number of new connections
-    # as a server weighted '1'.
-    # For more information on load balancing policies, see
-    # [How Load Balancing Policies Work](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Reference/lbpolicies.htm).
-    #
-    # Example: `3`
-    #
-    # @return [Integer]
-    attr_accessor :weight
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'weight': :'weight',
         'backup': :'backup',
         'drain': :'drain',
-        'offline': :'offline',
-        'weight': :'weight'
+        'offline': :'offline'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,10 +57,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'weight': :'Integer',
         'backup': :'BOOLEAN',
         'drain': :'BOOLEAN',
-        'offline': :'BOOLEAN',
-        'weight': :'Integer'
+        'offline': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -71,15 +71,17 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Integer] :weight The value to assign to the {#weight} property
     # @option attributes [BOOLEAN] :backup The value to assign to the {#backup} property
     # @option attributes [BOOLEAN] :drain The value to assign to the {#drain} property
     # @option attributes [BOOLEAN] :offline The value to assign to the {#offline} property
-    # @option attributes [Integer] :weight The value to assign to the {#weight} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.weight = attributes[:'weight'] if attributes[:'weight']
 
       self.backup = attributes[:'backup'] unless attributes[:'backup'].nil?
       self.backup = false if backup.nil? && !attributes.key?(:'backup') # rubocop:disable Style/StringLiterals
@@ -89,8 +91,6 @@ module OCI
 
       self.offline = attributes[:'offline'] unless attributes[:'offline'].nil?
       self.offline = false if offline.nil? && !attributes.key?(:'offline') # rubocop:disable Style/StringLiterals
-
-      self.weight = attributes[:'weight'] if attributes[:'weight']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -104,10 +104,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        weight == other.weight &&
         backup == other.backup &&
         drain == other.drain &&
-        offline == other.offline &&
-        weight == other.weight
+        offline == other.offline
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -123,7 +123,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backup, drain, offline, weight].hash
+      [weight, backup, drain, offline].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

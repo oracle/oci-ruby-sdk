@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -9,13 +9,6 @@ module OCI
   # Path route rules apply only to HTTP and HTTPS requests. They have no effect on TCP requests.
   #
   class LoadBalancer::Models::PathRoute # rubocop:disable Metrics/LineLength
-    # **[Required]** The name of the target backend set for requests where the incoming URI matches the specified path.
-    #
-    # Example: `example_backend_set`
-    #
-    # @return [String]
-    attr_accessor :backend_set_name
-
     # **[Required]** The path string to match against the incoming URI path.
     #
     # *  Path strings are case-insensitive.
@@ -33,13 +26,20 @@ module OCI
     # @return [OCI::LoadBalancer::Models::PathMatchType]
     attr_accessor :path_match_type
 
+    # **[Required]** The name of the target backend set for requests where the incoming URI matches the specified path.
+    #
+    # Example: `example_backend_set`
+    #
+    # @return [String]
+    attr_accessor :backend_set_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'backend_set_name': :'backendSetName',
         'path': :'path',
-        'path_match_type': :'pathMatchType'
+        'path_match_type': :'pathMatchType',
+        'backend_set_name': :'backendSetName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,9 +48,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'backend_set_name': :'String',
         'path': :'String',
-        'path_match_type': :'OCI::LoadBalancer::Models::PathMatchType'
+        'path_match_type': :'OCI::LoadBalancer::Models::PathMatchType',
+        'backend_set_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,20 +61,14 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :backend_set_name The value to assign to the {#backend_set_name} property
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [OCI::LoadBalancer::Models::PathMatchType] :path_match_type The value to assign to the {#path_match_type} property
+    # @option attributes [String] :backend_set_name The value to assign to the {#backend_set_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.backend_set_name = attributes[:'backendSetName'] if attributes[:'backendSetName']
-
-      raise 'You cannot provide both :backendSetName and :backend_set_name' if attributes.key?(:'backendSetName') && attributes.key?(:'backend_set_name')
-
-      self.backend_set_name = attributes[:'backend_set_name'] if attributes[:'backend_set_name']
 
       self.path = attributes[:'path'] if attributes[:'path']
 
@@ -83,6 +77,12 @@ module OCI
       raise 'You cannot provide both :pathMatchType and :path_match_type' if attributes.key?(:'pathMatchType') && attributes.key?(:'path_match_type')
 
       self.path_match_type = attributes[:'path_match_type'] if attributes[:'path_match_type']
+
+      self.backend_set_name = attributes[:'backendSetName'] if attributes[:'backendSetName']
+
+      raise 'You cannot provide both :backendSetName and :backend_set_name' if attributes.key?(:'backendSetName') && attributes.key?(:'backend_set_name')
+
+      self.backend_set_name = attributes[:'backend_set_name'] if attributes[:'backend_set_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -96,9 +96,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        backend_set_name == other.backend_set_name &&
         path == other.path &&
-        path_match_type == other.path_match_type
+        path_match_type == other.path_match_type &&
+        backend_set_name == other.backend_set_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -114,7 +114,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backend_set_name, path, path_match_type].hash
+      [path, path_match_type, backend_set_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

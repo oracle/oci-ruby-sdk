@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 # This script demonstrates how to use the UploadManager to upload objects to Object Storage. We'll see how
 # the UploadManager can be used to upload objects in multiple parts, as well as doing a single-part upload

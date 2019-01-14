@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module LoadBalancer
@@ -10,6 +10,8 @@ module OCI
 end
 
 # Require models
+require 'oci/load_balancer/models/add_http_request_header_rule'
+require 'oci/load_balancer/models/add_http_response_header_rule'
 require 'oci/load_balancer/models/backend'
 require 'oci/load_balancer/models/backend_details'
 require 'oci/load_balancer/models/backend_health'
@@ -26,6 +28,9 @@ require 'oci/load_balancer/models/create_hostname_details'
 require 'oci/load_balancer/models/create_listener_details'
 require 'oci/load_balancer/models/create_load_balancer_details'
 require 'oci/load_balancer/models/create_path_route_set_details'
+require 'oci/load_balancer/models/create_rule_set_details'
+require 'oci/load_balancer/models/extend_http_request_header_value_rule'
+require 'oci/load_balancer/models/extend_http_response_header_value_rule'
 require 'oci/load_balancer/models/health_check_result'
 require 'oci/load_balancer/models/health_checker'
 require 'oci/load_balancer/models/health_checker_details'
@@ -44,6 +49,11 @@ require 'oci/load_balancer/models/path_match_type'
 require 'oci/load_balancer/models/path_route'
 require 'oci/load_balancer/models/path_route_set'
 require 'oci/load_balancer/models/path_route_set_details'
+require 'oci/load_balancer/models/remove_http_request_header_rule'
+require 'oci/load_balancer/models/remove_http_response_header_rule'
+require 'oci/load_balancer/models/rule'
+require 'oci/load_balancer/models/rule_set'
+require 'oci/load_balancer/models/rule_set_details'
 require 'oci/load_balancer/models/ssl_configuration'
 require 'oci/load_balancer/models/ssl_configuration_details'
 require 'oci/load_balancer/models/session_persistence_configuration_details'
@@ -54,6 +64,7 @@ require 'oci/load_balancer/models/update_hostname_details'
 require 'oci/load_balancer/models/update_listener_details'
 require 'oci/load_balancer/models/update_load_balancer_details'
 require 'oci/load_balancer/models/update_path_route_set_details'
+require 'oci/load_balancer/models/update_rule_set_details'
 require 'oci/load_balancer/models/work_request'
 require 'oci/load_balancer/models/work_request_error'
 

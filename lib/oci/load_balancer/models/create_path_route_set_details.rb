@@ -1,10 +1,13 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # A named set of path route rules to add to the load balancer.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class LoadBalancer::Models::CreatePathRouteSetDetails # rubocop:disable Metrics/LineLength
     # **[Required]** The name for this set of path route rules. It must be unique and it cannot be changed. Avoid entering
     # confidential information.

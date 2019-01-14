@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -16,11 +16,6 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** A list of the most recent health check results returned for the specified backend server.
-    #
-    # @return [Array<OCI::LoadBalancer::Models::HealthCheckResult>]
-    attr_accessor :health_check_results
-
     # **[Required]** The general health status of the specified backend server as reported by the primary and standby load balancers.
     #
     # *   **OK:** Both health checks returned `OK`.
@@ -34,12 +29,17 @@ module OCI
     # @return [String]
     attr_reader :status
 
+    # **[Required]** A list of the most recent health check results returned for the specified backend server.
+    #
+    # @return [Array<OCI::LoadBalancer::Models::HealthCheckResult>]
+    attr_accessor :health_check_results
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'health_check_results': :'healthCheckResults',
-        'status': :'status'
+        'status': :'status',
+        'health_check_results': :'healthCheckResults'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,8 +48,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'health_check_results': :'Array<OCI::LoadBalancer::Models::HealthCheckResult>',
-        'status': :'String'
+        'status': :'String',
+        'health_check_results': :'Array<OCI::LoadBalancer::Models::HealthCheckResult>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -60,21 +60,21 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Array<OCI::LoadBalancer::Models::HealthCheckResult>] :health_check_results The value to assign to the {#health_check_results} property
     # @option attributes [String] :status The value to assign to the {#status} property
+    # @option attributes [Array<OCI::LoadBalancer::Models::HealthCheckResult>] :health_check_results The value to assign to the {#health_check_results} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
+      self.status = attributes[:'status'] if attributes[:'status']
+
       self.health_check_results = attributes[:'healthCheckResults'] if attributes[:'healthCheckResults']
 
       raise 'You cannot provide both :healthCheckResults and :health_check_results' if attributes.key?(:'healthCheckResults') && attributes.key?(:'health_check_results')
 
       self.health_check_results = attributes[:'health_check_results'] if attributes[:'health_check_results']
-
-      self.status = attributes[:'status'] if attributes[:'status']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -103,8 +103,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        health_check_results == other.health_check_results &&
-        status == other.status
+        status == other.status &&
+        health_check_results == other.health_check_results
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -120,7 +120,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [health_check_results, status].hash
+      [status, health_check_results].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

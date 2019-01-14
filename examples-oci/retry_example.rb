@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 # This example demonstrates how to use retry_config in the Ruby SDK to configure retrying service calls at the
 # client and operation level.

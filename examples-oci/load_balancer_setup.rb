@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 # Given 2 instances and an internet gateway, this script will create a load balancer
 # that can be used to verify traffic to those instances. This is example code only - there

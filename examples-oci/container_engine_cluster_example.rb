@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 # This example demonstrates how to programatically create, update, and delete a Container Engine cluster.
 # As-is, it is not a fully functional for container deployments without specific configuration
@@ -15,6 +15,9 @@ require 'oci'
 require 'time'
 
 SECTION_BREAK_LENGTH = 50 # 50 characters
+KUBERNETES_VERSION = 'v1.11.5'.freeze
+NODE_IMAGE_NAME = 'Oracle-Linux-7.5'.freeze
+NODE_SHAPE = 'VM.Standard2.1'.freeze
 
 compartment_id = ARGV[0] # Example: 'ocid1.compartment.oc1..aaaaaaaac4xqx43texeuonfionxsx4okzfsya5evr2goe2t7v5wntztaymab'
 vcn_cidr_block = '10.0.0.0/16'
@@ -76,7 +79,7 @@ def create_cluster(ce_client, ce_client_composite, compartment_id, vcn_id, lb_su
       name: 'Example_Cluster_' + new_timestamp_suffix.to_s,
       compartment_id: compartment_id,
       vcn_id: vcn_id,
-      kubernetes_version: 'v1.9.7',
+      kubernetes_version: KUBERNETES_VERSION,
       options: OCI::ContainerEngine::Models::ClusterCreateOptions.new(
         service_lb_subnet_ids: lb_subnet_ids
       )
@@ -96,11 +99,11 @@ def create_node_pool(ce_client, ce_client_composite, compartment_id, cluster_id,
       compartment_id: compartment_id,
       cluster_id: cluster_id,
       name: 'Example_Node_Pool_' + new_timestamp_suffix.to_s,
-      kubernetes_version: 'v1.9.7',
+      kubernetes_version: KUBERNETES_VERSION,
       subnet_ids: node_pool_subnet_ids,
       quantity_per_subnet: 1,
-      node_image_name: 'Oracle-Linux-7.4',
-      node_shape: 'VM.Standard1.2'
+      node_image_name: NODE_IMAGE_NAME,
+      node_shape: NODE_SHAPE
     )
   )
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -84,6 +84,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 
+    # Whether to enable consistent volume naming feature. Defaults to false.
+    # @return [BOOLEAN]
+    attr_accessor :is_consistent_volume_naming_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -92,7 +96,8 @@ module OCI
         'firmware': :'firmware',
         'network_type': :'networkType',
         'remote_data_volume_type': :'remoteDataVolumeType',
-        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
+        'is_consistent_volume_naming_enabled': :'isConsistentVolumeNamingEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -105,7 +110,8 @@ module OCI
         'firmware': :'String',
         'network_type': :'String',
         'remote_data_volume_type': :'String',
-        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
+        'is_consistent_volume_naming_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -121,6 +127,7 @@ module OCI
     # @option attributes [String] :network_type The value to assign to the {#network_type} property
     # @option attributes [String] :remote_data_volume_type The value to assign to the {#remote_data_volume_type} property
     # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
+    # @option attributes [BOOLEAN] :is_consistent_volume_naming_enabled The value to assign to the {#is_consistent_volume_naming_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -152,6 +159,12 @@ module OCI
       raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
 
       self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
+
+      self.is_consistent_volume_naming_enabled = attributes[:'isConsistentVolumeNamingEnabled'] unless attributes[:'isConsistentVolumeNamingEnabled'].nil?
+
+      raise 'You cannot provide both :isConsistentVolumeNamingEnabled and :is_consistent_volume_naming_enabled' if attributes.key?(:'isConsistentVolumeNamingEnabled') && attributes.key?(:'is_consistent_volume_naming_enabled')
+
+      self.is_consistent_volume_naming_enabled = attributes[:'is_consistent_volume_naming_enabled'] unless attributes[:'is_consistent_volume_naming_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -229,7 +242,8 @@ module OCI
         firmware == other.firmware &&
         network_type == other.network_type &&
         remote_data_volume_type == other.remote_data_volume_type &&
-        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
+        is_consistent_volume_naming_enabled == other.is_consistent_volume_naming_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -245,7 +259,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [boot_volume_type, firmware, network_type, remote_data_volume_type, is_pv_encryption_in_transit_enabled].hash
+      [boot_volume_type, firmware, network_type, remote_data_volume_type, is_pv_encryption_in_transit_enabled, is_consistent_volume_naming_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

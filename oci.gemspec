@@ -20,13 +20,13 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'json', '>= 1.4.6', '< 3.0.0'
   s.add_runtime_dependency 'inifile', '~> 3.0', '>= 3.0.0'
   s.add_runtime_dependency 'jwt', '~> 2.1'
-  s.add_development_dependency 'webmock', '~> 3.0.1'
-  s.add_development_dependency 'vcr', '~> 3.0.3'
+  s.add_development_dependency 'webmock', '~> 3.5', '>=3.5.1'
+  s.add_development_dependency 'vcr', '~> 4.0'
   s.add_development_dependency 'yard', '~> 0.9', '>= 0.9.12'
   s.add_development_dependency 'os', '~> 1.0'
   s.add_development_dependency 'rubocop', '~> 0', '>= 0.55'
-  s.add_development_dependency 'mocha', '~> 1.5' , '>= 1.5.0'
-  s.add_development_dependency 'nokogiri', '~> 1.8', '>= 1.8.3'
+  s.add_development_dependency 'mocha', '~> 1.7'
+  s.add_development_dependency 'nokogiri', '~> 1.9'
 
   s.executables   = nil
   s.require_paths = ["lib"]

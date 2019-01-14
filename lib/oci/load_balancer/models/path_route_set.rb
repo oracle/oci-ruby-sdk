@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,6 +6,8 @@ require 'date'
 module OCI
   # A named set of path route rules. For more information, see
   # [Managing Request Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingrequest.htm).
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class LoadBalancer::Models::PathRouteSet # rubocop:disable Metrics/LineLength
     # **[Required]** The unique name for this set of path route rules. Avoid entering confidential information.

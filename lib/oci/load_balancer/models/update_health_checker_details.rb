@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,12 +6,19 @@ require 'date'
 module OCI
   # The health checker's configuration details.
   class LoadBalancer::Models::UpdateHealthCheckerDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The interval between health checks, in milliseconds.
+    # **[Required]** The protocol the health check must use; either HTTP or TCP.
     #
-    # Example: `10000`
+    # Example: `HTTP`
     #
-    # @return [Integer]
-    attr_accessor :interval_in_millis
+    # @return [String]
+    attr_accessor :protocol
+
+    # The path against which to run the health check.
+    #
+    # Example: `/healthcheck`
+    #
+    # @return [String]
+    attr_accessor :url_path
 
     # **[Required]** The backend server port against which to run the health check.
     #
@@ -20,19 +27,12 @@ module OCI
     # @return [Integer]
     attr_accessor :port
 
-    # **[Required]** The protocol the health check must use; either HTTP or TCP.
+    # **[Required]** The status code a healthy backend server should return.
     #
-    # Example: `HTTP`
+    # Example: `200`
     #
-    # @return [String]
-    attr_accessor :protocol
-
-    # **[Required]** A regular expression for parsing the response body from the backend server.
-    #
-    # Example: `^((?!false).|\\s)*$`
-    #
-    # @return [String]
-    attr_accessor :response_body_regex
+    # @return [Integer]
+    attr_accessor :return_code
 
     # **[Required]** The number of retries to attempt before a backend server is considered \"unhealthy\".
     #
@@ -40,13 +40,6 @@ module OCI
     #
     # @return [Integer]
     attr_accessor :retries
-
-    # **[Required]** The status code a healthy backend server should return.
-    #
-    # Example: `200`
-    #
-    # @return [Integer]
-    attr_accessor :return_code
 
     # **[Required]** The maximum time, in milliseconds, to wait for a reply to a health check. A health check is successful only if a reply
     # returns within this timeout period.
@@ -56,25 +49,32 @@ module OCI
     # @return [Integer]
     attr_accessor :timeout_in_millis
 
-    # The path against which to run the health check.
+    # **[Required]** The interval between health checks, in milliseconds.
     #
-    # Example: `/healthcheck`
+    # Example: `10000`
+    #
+    # @return [Integer]
+    attr_accessor :interval_in_millis
+
+    # **[Required]** A regular expression for parsing the response body from the backend server.
+    #
+    # Example: `^((?!false).|\\s)*$`
     #
     # @return [String]
-    attr_accessor :url_path
+    attr_accessor :response_body_regex
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'interval_in_millis': :'intervalInMillis',
-        'port': :'port',
         'protocol': :'protocol',
-        'response_body_regex': :'responseBodyRegex',
-        'retries': :'retries',
+        'url_path': :'urlPath',
+        'port': :'port',
         'return_code': :'returnCode',
+        'retries': :'retries',
         'timeout_in_millis': :'timeoutInMillis',
-        'url_path': :'urlPath'
+        'interval_in_millis': :'intervalInMillis',
+        'response_body_regex': :'responseBodyRegex'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,14 +83,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'interval_in_millis': :'Integer',
-        'port': :'Integer',
         'protocol': :'String',
-        'response_body_regex': :'String',
-        'retries': :'Integer',
+        'url_path': :'String',
+        'port': :'Integer',
         'return_code': :'Integer',
+        'retries': :'Integer',
         'timeout_in_millis': :'Integer',
-        'url_path': :'String'
+        'interval_in_millis': :'Integer',
+        'response_body_regex': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -101,37 +101,29 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Integer] :interval_in_millis The value to assign to the {#interval_in_millis} property
-    # @option attributes [Integer] :port The value to assign to the {#port} property
     # @option attributes [String] :protocol The value to assign to the {#protocol} property
-    # @option attributes [String] :response_body_regex The value to assign to the {#response_body_regex} property
-    # @option attributes [Integer] :retries The value to assign to the {#retries} property
-    # @option attributes [Integer] :return_code The value to assign to the {#return_code} property
-    # @option attributes [Integer] :timeout_in_millis The value to assign to the {#timeout_in_millis} property
     # @option attributes [String] :url_path The value to assign to the {#url_path} property
+    # @option attributes [Integer] :port The value to assign to the {#port} property
+    # @option attributes [Integer] :return_code The value to assign to the {#return_code} property
+    # @option attributes [Integer] :retries The value to assign to the {#retries} property
+    # @option attributes [Integer] :timeout_in_millis The value to assign to the {#timeout_in_millis} property
+    # @option attributes [Integer] :interval_in_millis The value to assign to the {#interval_in_millis} property
+    # @option attributes [String] :response_body_regex The value to assign to the {#response_body_regex} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.interval_in_millis = attributes[:'intervalInMillis'] if attributes[:'intervalInMillis']
-
-      raise 'You cannot provide both :intervalInMillis and :interval_in_millis' if attributes.key?(:'intervalInMillis') && attributes.key?(:'interval_in_millis')
-
-      self.interval_in_millis = attributes[:'interval_in_millis'] if attributes[:'interval_in_millis']
-
-      self.port = attributes[:'port'] if attributes[:'port']
-
       self.protocol = attributes[:'protocol'] if attributes[:'protocol']
 
-      self.response_body_regex = attributes[:'responseBodyRegex'] if attributes[:'responseBodyRegex']
+      self.url_path = attributes[:'urlPath'] if attributes[:'urlPath']
 
-      raise 'You cannot provide both :responseBodyRegex and :response_body_regex' if attributes.key?(:'responseBodyRegex') && attributes.key?(:'response_body_regex')
+      raise 'You cannot provide both :urlPath and :url_path' if attributes.key?(:'urlPath') && attributes.key?(:'url_path')
 
-      self.response_body_regex = attributes[:'response_body_regex'] if attributes[:'response_body_regex']
+      self.url_path = attributes[:'url_path'] if attributes[:'url_path']
 
-      self.retries = attributes[:'retries'] if attributes[:'retries']
+      self.port = attributes[:'port'] if attributes[:'port']
 
       self.return_code = attributes[:'returnCode'] if attributes[:'returnCode']
 
@@ -139,17 +131,25 @@ module OCI
 
       self.return_code = attributes[:'return_code'] if attributes[:'return_code']
 
+      self.retries = attributes[:'retries'] if attributes[:'retries']
+
       self.timeout_in_millis = attributes[:'timeoutInMillis'] if attributes[:'timeoutInMillis']
 
       raise 'You cannot provide both :timeoutInMillis and :timeout_in_millis' if attributes.key?(:'timeoutInMillis') && attributes.key?(:'timeout_in_millis')
 
       self.timeout_in_millis = attributes[:'timeout_in_millis'] if attributes[:'timeout_in_millis']
 
-      self.url_path = attributes[:'urlPath'] if attributes[:'urlPath']
+      self.interval_in_millis = attributes[:'intervalInMillis'] if attributes[:'intervalInMillis']
 
-      raise 'You cannot provide both :urlPath and :url_path' if attributes.key?(:'urlPath') && attributes.key?(:'url_path')
+      raise 'You cannot provide both :intervalInMillis and :interval_in_millis' if attributes.key?(:'intervalInMillis') && attributes.key?(:'interval_in_millis')
 
-      self.url_path = attributes[:'url_path'] if attributes[:'url_path']
+      self.interval_in_millis = attributes[:'interval_in_millis'] if attributes[:'interval_in_millis']
+
+      self.response_body_regex = attributes[:'responseBodyRegex'] if attributes[:'responseBodyRegex']
+
+      raise 'You cannot provide both :responseBodyRegex and :response_body_regex' if attributes.key?(:'responseBodyRegex') && attributes.key?(:'response_body_regex')
+
+      self.response_body_regex = attributes[:'response_body_regex'] if attributes[:'response_body_regex']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -163,14 +163,14 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        interval_in_millis == other.interval_in_millis &&
-        port == other.port &&
         protocol == other.protocol &&
-        response_body_regex == other.response_body_regex &&
-        retries == other.retries &&
+        url_path == other.url_path &&
+        port == other.port &&
         return_code == other.return_code &&
+        retries == other.retries &&
         timeout_in_millis == other.timeout_in_millis &&
-        url_path == other.url_path
+        interval_in_millis == other.interval_in_millis &&
+        response_body_regex == other.response_body_regex
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -186,7 +186,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [interval_in_millis, port, protocol, response_body_regex, retries, return_code, timeout_in_millis, url_path].hash
+      [protocol, url_path, port, return_code, retries, timeout_in_millis, interval_in_millis, response_body_regex].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

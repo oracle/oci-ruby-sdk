@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -7,6 +7,8 @@ module OCI
   # A listener's SSL handling configuration.
   #
   # To use SSL, a listener must be associated with a {Certificate}.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class LoadBalancer::Models::SSLConfiguration # rubocop:disable Metrics/LineLength
     # **[Required]** A friendly name for the certificate bundle. It must be unique and it cannot be changed.
@@ -18,13 +20,6 @@ module OCI
     # @return [String]
     attr_accessor :certificate_name
 
-    # **[Required]** The maximum depth for peer certificate chain verification.
-    #
-    # Example: `3`
-    #
-    # @return [Integer]
-    attr_accessor :verify_depth
-
     # **[Required]** Whether the load balancer listener should verify peer certificates.
     #
     # Example: `true`
@@ -32,13 +27,20 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :verify_peer_certificate
 
+    # **[Required]** The maximum depth for peer certificate chain verification.
+    #
+    # Example: `3`
+    #
+    # @return [Integer]
+    attr_accessor :verify_depth
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'certificate_name': :'certificateName',
-        'verify_depth': :'verifyDepth',
-        'verify_peer_certificate': :'verifyPeerCertificate'
+        'verify_peer_certificate': :'verifyPeerCertificate',
+        'verify_depth': :'verifyDepth'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,8 +50,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'certificate_name': :'String',
-        'verify_depth': :'Integer',
-        'verify_peer_certificate': :'BOOLEAN'
+        'verify_peer_certificate': :'BOOLEAN',
+        'verify_depth': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,8 +63,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :certificate_name The value to assign to the {#certificate_name} property
-    # @option attributes [Integer] :verify_depth The value to assign to the {#verify_depth} property
     # @option attributes [BOOLEAN] :verify_peer_certificate The value to assign to the {#verify_peer_certificate} property
+    # @option attributes [Integer] :verify_depth The value to assign to the {#verify_depth} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -75,12 +77,6 @@ module OCI
 
       self.certificate_name = attributes[:'certificate_name'] if attributes[:'certificate_name']
 
-      self.verify_depth = attributes[:'verifyDepth'] if attributes[:'verifyDepth']
-
-      raise 'You cannot provide both :verifyDepth and :verify_depth' if attributes.key?(:'verifyDepth') && attributes.key?(:'verify_depth')
-
-      self.verify_depth = attributes[:'verify_depth'] if attributes[:'verify_depth']
-
       self.verify_peer_certificate = attributes[:'verifyPeerCertificate'] unless attributes[:'verifyPeerCertificate'].nil?
       self.verify_peer_certificate = false if verify_peer_certificate.nil? && !attributes.key?(:'verifyPeerCertificate') # rubocop:disable Style/StringLiterals
 
@@ -88,6 +84,12 @@ module OCI
 
       self.verify_peer_certificate = attributes[:'verify_peer_certificate'] unless attributes[:'verify_peer_certificate'].nil?
       self.verify_peer_certificate = false if verify_peer_certificate.nil? && !attributes.key?(:'verifyPeerCertificate') && !attributes.key?(:'verify_peer_certificate') # rubocop:disable Style/StringLiterals
+
+      self.verify_depth = attributes[:'verifyDepth'] if attributes[:'verifyDepth']
+
+      raise 'You cannot provide both :verifyDepth and :verify_depth' if attributes.key?(:'verifyDepth') && attributes.key?(:'verify_depth')
+
+      self.verify_depth = attributes[:'verify_depth'] if attributes[:'verify_depth']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -102,8 +104,8 @@ module OCI
 
       self.class == other.class &&
         certificate_name == other.certificate_name &&
-        verify_depth == other.verify_depth &&
-        verify_peer_certificate == other.verify_peer_certificate
+        verify_peer_certificate == other.verify_peer_certificate &&
+        verify_depth == other.verify_depth
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -119,7 +121,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [certificate_name, verify_depth, verify_peer_certificate].hash
+      [certificate_name, verify_peer_certificate, verify_depth].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

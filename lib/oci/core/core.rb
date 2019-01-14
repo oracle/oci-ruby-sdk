@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module Core
@@ -79,6 +79,7 @@ require 'oci/core/models/cross_connect_mapping'
 require 'oci/core/models/cross_connect_port_speed_shape'
 require 'oci/core/models/cross_connect_status'
 require 'oci/core/models/delete_virtual_circuit_public_prefix_details'
+require 'oci/core/models/device'
 require 'oci/core/models/dhcp_dns_option'
 require 'oci/core/models/dhcp_option'
 require 'oci/core/models/dhcp_options'

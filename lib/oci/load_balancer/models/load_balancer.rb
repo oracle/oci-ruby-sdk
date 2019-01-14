@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -26,23 +26,13 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # @return [Hash<String, OCI::LoadBalancer::Models::BackendSet>]
-    attr_accessor :backend_sets
-
-    # @return [Hash<String, OCI::LoadBalancer::Models::Certificate>]
-    attr_accessor :certificates
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer.
+    # @return [String]
+    attr_accessor :id
 
     # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment containing the load balancer.
     # @return [String]
     attr_accessor :compartment_id
-
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
 
     # **[Required]** A user-friendly name. It does not have to be unique, and it is changeable.
     #
@@ -51,55 +41,22 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
-    # @return [Hash<String, OCI::LoadBalancer::Models::Hostname>]
-    attr_accessor :hostnames
-
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer.
-    # @return [String]
-    attr_accessor :id
-
-    # An array of IP addresses.
-    #
-    # @return [Array<OCI::LoadBalancer::Models::IpAddress>]
-    attr_accessor :ip_addresses
-
-    # Whether the load balancer has a VCN-local (private) IP address.
-    #
-    # If \"true\", the service assigns a private IP address to the load balancer. The load balancer requires only one subnet
-    # to host both the primary and secondary load balancers. The private IP address is local to the subnet. The load balancer
-    # is accessible only from within the VCN that contains the associated subnet, or as further restricted by your security
-    # list rules. The load balancer can route traffic to any backend server that is reachable from the VCN.
-    #
-    # For a private load balancer, both the primary and secondary load balancer hosts are within the same Availability Domain.
-    #
-    # If \"false\", the service assigns a public IP address to the load balancer. A load balancer with a public IP address
-    # requires two subnets, each in a different Availability Domain. One subnet hosts the primary load balancer and the other
-    # hosts the secondary (standby) load balancer. A public load balancer is accessible from the internet, depending on your
-    # VCN's [security list rules](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/securitylists.htm).
-    #
-    # Example: `true`
-    #
-    # @return [BOOLEAN]
-    attr_accessor :is_private
-
     # **[Required]** The current state of the load balancer.
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # @return [Hash<String, OCI::LoadBalancer::Models::Listener>]
-    attr_accessor :listeners
+    # **[Required]** The date and time the load balancer was created, in the format defined by RFC3339.
+    #
+    # Example: `2016-08-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_created
 
-    # @return [Hash<String, OCI::LoadBalancer::Models::PathRouteSet>]
-    attr_accessor :path_route_sets
+    # An array of IP addresses.
+    #
+    # @return [Array<OCI::LoadBalancer::Models::IpAddress>]
+    attr_accessor :ip_addresses
 
     # **[Required]** A template that determines the total pre-provisioned bandwidth (ingress plus egress).
     # To get a list of available shapes, use the {#list_shapes list_shapes}
@@ -110,37 +67,80 @@ module OCI
     # @return [String]
     attr_accessor :shape_name
 
+    # Whether the load balancer has a VCN-local (private) IP address.
+    #
+    # If \"true\", the service assigns a private IP address to the load balancer.
+    #
+    # If \"false\", the service assigns a public IP address to the load balancer.
+    #
+    # A public load balancer is accessible from the internet, depending on your VCN's
+    # [security list rules](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/securitylists.htm). For more information about public and
+    # private load balancers, see [How Load Balancing Works](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Concepts/balanceoverview.htm#how-load-balancing-works).
+    #
+    # Example: `true`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_private
+
     # An array of subnet [OCIDs](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @return [Array<String>]
     attr_accessor :subnet_ids
 
-    # **[Required]** The date and time the load balancer was created, in the format defined by RFC3339.
+    # @return [Hash<String, OCI::LoadBalancer::Models::Listener>]
+    attr_accessor :listeners
+
+    # @return [Hash<String, OCI::LoadBalancer::Models::Hostname>]
+    attr_accessor :hostnames
+
+    # @return [Hash<String, OCI::LoadBalancer::Models::Certificate>]
+    attr_accessor :certificates
+
+    # @return [Hash<String, OCI::LoadBalancer::Models::BackendSet>]
+    attr_accessor :backend_sets
+
+    # @return [Hash<String, OCI::LoadBalancer::Models::PathRouteSet>]
+    attr_accessor :path_route_sets
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
-    # Example: `2016-08-25T21:10:29.600Z`
+    # Example: `{\"Department\": \"Finance\"}`
     #
-    # @return [DateTime]
-    attr_accessor :time_created
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # @return [Hash<String, OCI::LoadBalancer::Models::RuleSet>]
+    attr_accessor :rule_sets
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'backend_sets': :'backendSets',
-        'certificates': :'certificates',
-        'compartment_id': :'compartmentId',
-        'defined_tags': :'definedTags',
-        'display_name': :'displayName',
-        'freeform_tags': :'freeformTags',
-        'hostnames': :'hostnames',
         'id': :'id',
-        'ip_addresses': :'ipAddresses',
-        'is_private': :'isPrivate',
+        'compartment_id': :'compartmentId',
+        'display_name': :'displayName',
         'lifecycle_state': :'lifecycleState',
-        'listeners': :'listeners',
-        'path_route_sets': :'pathRouteSets',
+        'time_created': :'timeCreated',
+        'ip_addresses': :'ipAddresses',
         'shape_name': :'shapeName',
+        'is_private': :'isPrivate',
         'subnet_ids': :'subnetIds',
-        'time_created': :'timeCreated'
+        'listeners': :'listeners',
+        'hostnames': :'hostnames',
+        'certificates': :'certificates',
+        'backend_sets': :'backendSets',
+        'path_route_sets': :'pathRouteSets',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
+        'rule_sets': :'ruleSets'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -149,22 +149,23 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'backend_sets': :'Hash<String, OCI::LoadBalancer::Models::BackendSet>',
-        'certificates': :'Hash<String, OCI::LoadBalancer::Models::Certificate>',
-        'compartment_id': :'String',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'hostnames': :'Hash<String, OCI::LoadBalancer::Models::Hostname>',
         'id': :'String',
-        'ip_addresses': :'Array<OCI::LoadBalancer::Models::IpAddress>',
-        'is_private': :'BOOLEAN',
+        'compartment_id': :'String',
+        'display_name': :'String',
         'lifecycle_state': :'String',
-        'listeners': :'Hash<String, OCI::LoadBalancer::Models::Listener>',
-        'path_route_sets': :'Hash<String, OCI::LoadBalancer::Models::PathRouteSet>',
+        'time_created': :'DateTime',
+        'ip_addresses': :'Array<OCI::LoadBalancer::Models::IpAddress>',
         'shape_name': :'String',
+        'is_private': :'BOOLEAN',
         'subnet_ids': :'Array<String>',
-        'time_created': :'DateTime'
+        'listeners': :'Hash<String, OCI::LoadBalancer::Models::Listener>',
+        'hostnames': :'Hash<String, OCI::LoadBalancer::Models::Hostname>',
+        'certificates': :'Hash<String, OCI::LoadBalancer::Models::Certificate>',
+        'backend_sets': :'Hash<String, OCI::LoadBalancer::Models::BackendSet>',
+        'path_route_sets': :'Hash<String, OCI::LoadBalancer::Models::PathRouteSet>',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'rule_sets': :'Hash<String, OCI::LoadBalancer::Models::RuleSet>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -175,35 +176,30 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Hash<String, OCI::LoadBalancer::Models::BackendSet>] :backend_sets The value to assign to the {#backend_sets} property
-    # @option attributes [Hash<String, OCI::LoadBalancer::Models::Certificate>] :certificates The value to assign to the {#certificates} property
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [Hash<String, OCI::LoadBalancer::Models::Hostname>] :hostnames The value to assign to the {#hostnames} property
     # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [Array<OCI::LoadBalancer::Models::IpAddress>] :ip_addresses The value to assign to the {#ip_addresses} property
-    # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
-    # @option attributes [Hash<String, OCI::LoadBalancer::Models::Listener>] :listeners The value to assign to the {#listeners} property
-    # @option attributes [Hash<String, OCI::LoadBalancer::Models::PathRouteSet>] :path_route_sets The value to assign to the {#path_route_sets} property
-    # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
-    # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Array<OCI::LoadBalancer::Models::IpAddress>] :ip_addresses The value to assign to the {#ip_addresses} property
+    # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
+    # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
+    # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::Listener>] :listeners The value to assign to the {#listeners} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::Hostname>] :hostnames The value to assign to the {#hostnames} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::Certificate>] :certificates The value to assign to the {#certificates} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::BackendSet>] :backend_sets The value to assign to the {#backend_sets} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::PathRouteSet>] :path_route_sets The value to assign to the {#path_route_sets} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::RuleSet>] :rule_sets The value to assign to the {#rule_sets} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.backend_sets = attributes[:'backendSets'] if attributes[:'backendSets']
-
-      raise 'You cannot provide both :backendSets and :backend_sets' if attributes.key?(:'backendSets') && attributes.key?(:'backend_sets')
-
-      self.backend_sets = attributes[:'backend_sets'] if attributes[:'backend_sets']
-
-      self.certificates = attributes[:'certificates'] if attributes[:'certificates']
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -211,39 +207,11 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
-
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
-
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
-
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
-
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
-
-      self.hostnames = attributes[:'hostnames'] if attributes[:'hostnames']
-
-      self.id = attributes[:'id'] if attributes[:'id']
-
-      self.ip_addresses = attributes[:'ipAddresses'] if attributes[:'ipAddresses']
-
-      raise 'You cannot provide both :ipAddresses and :ip_addresses' if attributes.key?(:'ipAddresses') && attributes.key?(:'ip_addresses')
-
-      self.ip_addresses = attributes[:'ip_addresses'] if attributes[:'ip_addresses']
-
-      self.is_private = attributes[:'isPrivate'] unless attributes[:'isPrivate'].nil?
-
-      raise 'You cannot provide both :isPrivate and :is_private' if attributes.key?(:'isPrivate') && attributes.key?(:'is_private')
-
-      self.is_private = attributes[:'is_private'] unless attributes[:'is_private'].nil?
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -251,13 +219,17 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
-      self.listeners = attributes[:'listeners'] if attributes[:'listeners']
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
-      self.path_route_sets = attributes[:'pathRouteSets'] if attributes[:'pathRouteSets']
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
-      raise 'You cannot provide both :pathRouteSets and :path_route_sets' if attributes.key?(:'pathRouteSets') && attributes.key?(:'path_route_sets')
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
-      self.path_route_sets = attributes[:'path_route_sets'] if attributes[:'path_route_sets']
+      self.ip_addresses = attributes[:'ipAddresses'] if attributes[:'ipAddresses']
+
+      raise 'You cannot provide both :ipAddresses and :ip_addresses' if attributes.key?(:'ipAddresses') && attributes.key?(:'ip_addresses')
+
+      self.ip_addresses = attributes[:'ip_addresses'] if attributes[:'ip_addresses']
 
       self.shape_name = attributes[:'shapeName'] if attributes[:'shapeName']
 
@@ -265,17 +237,53 @@ module OCI
 
       self.shape_name = attributes[:'shape_name'] if attributes[:'shape_name']
 
+      self.is_private = attributes[:'isPrivate'] unless attributes[:'isPrivate'].nil?
+
+      raise 'You cannot provide both :isPrivate and :is_private' if attributes.key?(:'isPrivate') && attributes.key?(:'is_private')
+
+      self.is_private = attributes[:'is_private'] unless attributes[:'is_private'].nil?
+
       self.subnet_ids = attributes[:'subnetIds'] if attributes[:'subnetIds']
 
       raise 'You cannot provide both :subnetIds and :subnet_ids' if attributes.key?(:'subnetIds') && attributes.key?(:'subnet_ids')
 
       self.subnet_ids = attributes[:'subnet_ids'] if attributes[:'subnet_ids']
 
-      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
+      self.listeners = attributes[:'listeners'] if attributes[:'listeners']
 
-      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
+      self.hostnames = attributes[:'hostnames'] if attributes[:'hostnames']
 
-      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+      self.certificates = attributes[:'certificates'] if attributes[:'certificates']
+
+      self.backend_sets = attributes[:'backendSets'] if attributes[:'backendSets']
+
+      raise 'You cannot provide both :backendSets and :backend_sets' if attributes.key?(:'backendSets') && attributes.key?(:'backend_sets')
+
+      self.backend_sets = attributes[:'backend_sets'] if attributes[:'backend_sets']
+
+      self.path_route_sets = attributes[:'pathRouteSets'] if attributes[:'pathRouteSets']
+
+      raise 'You cannot provide both :pathRouteSets and :path_route_sets' if attributes.key?(:'pathRouteSets') && attributes.key?(:'path_route_sets')
+
+      self.path_route_sets = attributes[:'path_route_sets'] if attributes[:'path_route_sets']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.rule_sets = attributes[:'ruleSets'] if attributes[:'ruleSets']
+
+      raise 'You cannot provide both :ruleSets and :rule_sets' if attributes.key?(:'ruleSets') && attributes.key?(:'rule_sets')
+
+      self.rule_sets = attributes[:'rule_sets'] if attributes[:'rule_sets']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -304,22 +312,23 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        backend_sets == other.backend_sets &&
-        certificates == other.certificates &&
-        compartment_id == other.compartment_id &&
-        defined_tags == other.defined_tags &&
-        display_name == other.display_name &&
-        freeform_tags == other.freeform_tags &&
-        hostnames == other.hostnames &&
         id == other.id &&
-        ip_addresses == other.ip_addresses &&
-        is_private == other.is_private &&
+        compartment_id == other.compartment_id &&
+        display_name == other.display_name &&
         lifecycle_state == other.lifecycle_state &&
-        listeners == other.listeners &&
-        path_route_sets == other.path_route_sets &&
+        time_created == other.time_created &&
+        ip_addresses == other.ip_addresses &&
         shape_name == other.shape_name &&
+        is_private == other.is_private &&
         subnet_ids == other.subnet_ids &&
-        time_created == other.time_created
+        listeners == other.listeners &&
+        hostnames == other.hostnames &&
+        certificates == other.certificates &&
+        backend_sets == other.backend_sets &&
+        path_route_sets == other.path_route_sets &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
+        rule_sets == other.rule_sets
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -335,7 +344,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backend_sets, certificates, compartment_id, defined_tags, display_name, freeform_tags, hostnames, id, ip_addresses, is_private, lifecycle_state, listeners, path_route_sets, shape_name, subnet_ids, time_created].hash
+      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, is_private, subnet_ids, listeners, hostnames, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

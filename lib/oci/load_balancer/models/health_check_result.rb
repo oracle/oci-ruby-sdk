@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -20,10 +20,10 @@ module OCI
       HEALTH_CHECK_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The result of the most recent health check.
+    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the subnet hosting the load balancer that reported this health check status.
     #
     # @return [String]
-    attr_reader :health_check_status
+    attr_accessor :subnet_id
 
     # **[Required]** The IP address of the health check status report provider. This identifier helps you differentiate same-subnet
     # (private) load balancers that report health check status.
@@ -33,11 +33,6 @@ module OCI
     # @return [String]
     attr_accessor :source_ip_address
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the subnet hosting the load balancer that reported this health check status.
-    #
-    # @return [String]
-    attr_accessor :subnet_id
-
     # **[Required]** The date and time the data was retrieved, in the format defined by RFC3339.
     #
     # Example: `2017-06-02T18:28:11+00:00`
@@ -45,14 +40,19 @@ module OCI
     # @return [DateTime]
     attr_accessor :timestamp
 
+    # **[Required]** The result of the most recent health check.
+    #
+    # @return [String]
+    attr_reader :health_check_status
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'health_check_status': :'healthCheckStatus',
-        'source_ip_address': :'sourceIpAddress',
         'subnet_id': :'subnetId',
-        'timestamp': :'timestamp'
+        'source_ip_address': :'sourceIpAddress',
+        'timestamp': :'timestamp',
+        'health_check_status': :'healthCheckStatus'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,10 +61,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'health_check_status': :'String',
-        'source_ip_address': :'String',
         'subnet_id': :'String',
-        'timestamp': :'DateTime'
+        'source_ip_address': :'String',
+        'timestamp': :'DateTime',
+        'health_check_status': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,27 +75,15 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :health_check_status The value to assign to the {#health_check_status} property
-    # @option attributes [String] :source_ip_address The value to assign to the {#source_ip_address} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [String] :source_ip_address The value to assign to the {#source_ip_address} property
     # @option attributes [DateTime] :timestamp The value to assign to the {#timestamp} property
+    # @option attributes [String] :health_check_status The value to assign to the {#health_check_status} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.health_check_status = attributes[:'healthCheckStatus'] if attributes[:'healthCheckStatus']
-
-      raise 'You cannot provide both :healthCheckStatus and :health_check_status' if attributes.key?(:'healthCheckStatus') && attributes.key?(:'health_check_status')
-
-      self.health_check_status = attributes[:'health_check_status'] if attributes[:'health_check_status']
-
-      self.source_ip_address = attributes[:'sourceIpAddress'] if attributes[:'sourceIpAddress']
-
-      raise 'You cannot provide both :sourceIpAddress and :source_ip_address' if attributes.key?(:'sourceIpAddress') && attributes.key?(:'source_ip_address')
-
-      self.source_ip_address = attributes[:'source_ip_address'] if attributes[:'source_ip_address']
 
       self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
 
@@ -103,7 +91,19 @@ module OCI
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
 
+      self.source_ip_address = attributes[:'sourceIpAddress'] if attributes[:'sourceIpAddress']
+
+      raise 'You cannot provide both :sourceIpAddress and :source_ip_address' if attributes.key?(:'sourceIpAddress') && attributes.key?(:'source_ip_address')
+
+      self.source_ip_address = attributes[:'source_ip_address'] if attributes[:'source_ip_address']
+
       self.timestamp = attributes[:'timestamp'] if attributes[:'timestamp']
+
+      self.health_check_status = attributes[:'healthCheckStatus'] if attributes[:'healthCheckStatus']
+
+      raise 'You cannot provide both :healthCheckStatus and :health_check_status' if attributes.key?(:'healthCheckStatus') && attributes.key?(:'health_check_status')
+
+      self.health_check_status = attributes[:'health_check_status'] if attributes[:'health_check_status']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -132,10 +132,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        health_check_status == other.health_check_status &&
-        source_ip_address == other.source_ip_address &&
         subnet_id == other.subnet_id &&
-        timestamp == other.timestamp
+        source_ip_address == other.source_ip_address &&
+        timestamp == other.timestamp &&
+        health_check_status == other.health_check_status
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -151,7 +151,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [health_check_status, source_ip_address, subnet_id, timestamp].hash
+      [subnet_id, source_ip_address, timestamp, health_check_status].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
