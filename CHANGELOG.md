@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.5 - 2019-01-24
+### Added
+- Support for renaming databases during restore-from-backup operations in the Database service
+- Support for calling Oracle Cloud Infrastructure services in the ca-toronto-1 region
+
 ## 2.4.4 - 2019-01-10
 ### Added
 - Support for device attributes on volume attachments in the Compute service

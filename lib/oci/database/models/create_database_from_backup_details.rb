@@ -18,13 +18,18 @@ module OCI
     # @return [String]
     attr_accessor :admin_password
 
+    # The display name of the database to be created from the backup. It must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted.
+    # @return [String]
+    attr_accessor :db_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'backup_id': :'backupId',
         'backup_tde_password': :'backupTDEPassword',
-        'admin_password': :'adminPassword'
+        'admin_password': :'adminPassword',
+        'db_name': :'dbName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -35,7 +40,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'backup_id': :'String',
         'backup_tde_password': :'String',
-        'admin_password': :'String'
+        'admin_password': :'String',
+        'db_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,6 +55,7 @@ module OCI
     # @option attributes [String] :backup_id The value to assign to the {#backup_id} property
     # @option attributes [String] :backup_tde_password The value to assign to the {#backup_tde_password} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
+    # @option attributes [String] :db_name The value to assign to the {#db_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -72,6 +79,12 @@ module OCI
       raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
 
       self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
+
+      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
+
+      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
+
+      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -87,7 +100,8 @@ module OCI
       self.class == other.class &&
         backup_id == other.backup_id &&
         backup_tde_password == other.backup_tde_password &&
-        admin_password == other.admin_password
+        admin_password == other.admin_password &&
+        db_name == other.db_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -103,7 +117,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backup_id, backup_tde_password, admin_password].hash
+      [backup_id, backup_tde_password, admin_password, db_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
