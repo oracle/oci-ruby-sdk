@@ -3,7 +3,6 @@ AllCops:
   TargetRubyVersion: 2.2
   Exclude:
     - "oci.gemspec"
-    - "lib/oci/auth/federation_client.rb"
 
 Metrics/AbcSize:
   Exclude:
@@ -13,8 +12,7 @@ Metrics/AbcSize:
     # initialize method in UrlBasedCertificateRetriever
     - "lib/oci/auth/url_based_certificate_retriever.rb"
     - "lib/oci/config_file_loader.rb"
-    - "lib/oci/internal/util.rb"
-    - "lib/oci/load_balancer/util.rb"
+    - "lib/oci/**/util.rb"
     - "lib/oci/waiter.rb"
     - "lib/oci/config.rb"
     - "lib/oci/base_signer.rb"

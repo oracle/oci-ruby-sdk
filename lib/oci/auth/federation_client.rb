@@ -2,7 +2,6 @@
 
 require 'json'
 require 'net/http'
-require 'thread'
 
 require 'oci/auth/internal/auth_token_request_signer'
 require 'oci/auth/session_key_supplier'
@@ -26,6 +25,8 @@ module OCI
       # sign all requests made with the token vended by this client
       # @return [OCI::Auth::SessionKeySupplier] A supplier which vends a private and public key for signing token requests to Auth Service
       attr_reader :session_key_supplier
+
+      # rubocop:disable Metrics/LineLength
 
       # Creates a new FederationClient
       #
@@ -51,6 +52,8 @@ module OCI
         @security_token = nil
       end
 
+      # rubocop:enable Metrics/LineLength
+
       # Retrieves a security token, but always asks Auth Service for a new token, regardless of whether or not the previously requested
       # token is still valid
       # @return [String] The security token
@@ -63,69 +66,84 @@ module OCI
       # @return [String] The security token
       def security_token
         return @security_token.security_token if @security_token && @security_token.token_valid?
+
         refresh_security_token_inner
       end
 
       private
-        def refresh_security_token_inner
-          @refresh_lock.lock
 
-          @session_key_supplier.refresh
-          @leaf_certificate_supplier.refresh
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
-          updated_tenancy_id = OCI::Auth::Util.get_tenancy_id_from_certificate(@leaf_certificate_supplier.certificate)
-          raise "Unexpected update of tenancy OCID in the leaf certificate. Previous tenancy: #{@tenancy_id}, Updated: #{updated_tenancy_id}" if updated_tenancy_id != @tenancy_id
+      def refresh_security_token_inner
+        @refresh_lock.lock
 
-          @intermediate_certificate_suppliers.each { |supplier| supplier.refresh }
+        @session_key_supplier.refresh
+        @leaf_certificate_supplier.refresh
 
-          leaf_certificate_pem = @leaf_certificate_supplier.certificate_pem
-          request_payload = {
-            'certificate': OCI::Auth::Util.sanitize_certificate_string(leaf_certificate_pem),
-            'publicKey': OCI::Auth::Util.sanitize_certificate_string(@session_key_supplier.key_pair[:public_key].to_pem)
-          }
-
-          unless @intermediate_certificate_suppliers.empty?
-            retrieved_certs = []
-            @intermediate_certificate_suppliers.each { |supplier| retrieved_certs << OCI::Auth::Util.sanitize_certificate_string(supplier.certificate_pem) }
-            request_payload['intermediateCertificates'] = retrieved_certs
-          end
-
-          fingerprint = OCI::Auth::Util.colon_separate_fingerprint(OpenSSL::Digest::SHA1.new(@leaf_certificate_supplier.certificate.to_der).to_s)
-          signer = OCI::Auth::Internal::AuthTokenRequestSigner.new(@tenancy_id, fingerprint, @leaf_certificate_supplier.private_key_pem)
-
-          request = Net::HTTP::Post.new(@federation_endpoint)
-          request.body = request_payload.to_json
-
-          header_params = {}
-          header_params['content-type'] = 'application/json'
-          signer.sign(:post, @federation_endpoint, header_params, request.body)
-          header_params.each { |key, value| request[key.to_s] = value }
-
-          # Additional header info to aid in debugging issues
-          request['opc-client-info'] = OCI::ApiClient.build_user_info
-          request['opc-request-id'] ||= OCI::ApiClient.build_request_id
-          request['User-Agent'] =  OCI::ApiClient.build_user_agent
-
-          raw_body = nil
-          @federation_http_client.start do
-            @federation_http_client.request(request) do |response|
-              raw_body = response.body
-            end
-          end
-
-          begin
-            parsed_response = JSON.parse(raw_body)
-            raise "No token received in the response from auth service: #{raw_body}" unless parsed_response.has_key?('token')
-
-            @security_token = OCI::Auth::SecurityTokenContainer.new(parsed_response['token'])
-          rescue JSON::ParserError => e
-            raise "Unable to parse response from Auth Service: #{raw_body}"
-          end
-
-          @security_token.security_token
-        ensure
-          @refresh_lock.unlock if @refresh_lock.locked? && @refresh_lock.owned?
+        updated_tenancy_id = OCI::Auth::Util.get_tenancy_id_from_certificate(@leaf_certificate_supplier.certificate)
+        if updated_tenancy_id != @tenancy_id
+          raise 'Unexpected update of tenancy OCID in the leaf certificate.' \
+             "Previous tenancy: #{@tenancy_id}, Updated: #{updated_tenancy_id}"
         end
+
+        @intermediate_certificate_suppliers.each(&:refresh)
+
+        leaf_certificate_pem = @leaf_certificate_supplier.certificate_pem
+        request_payload = {
+          'certificate': OCI::Auth::Util.sanitize_certificate_string(leaf_certificate_pem),
+          'publicKey': OCI::Auth::Util.sanitize_certificate_string(@session_key_supplier.key_pair[:public_key].to_pem)
+        }
+
+        unless @intermediate_certificate_suppliers.empty?
+          retrieved_certs = []
+          @intermediate_certificate_suppliers.each do |supplier|
+            retrieved_certs << OCI::Auth::Util.sanitize_certificate_string(supplier.certificate_pem)
+          end
+          request_payload['intermediateCertificates'] = retrieved_certs
+        end
+
+        fingerprint = OCI::Auth::Util.colon_separate_fingerprint(
+          OpenSSL::Digest::SHA1.new(@leaf_certificate_supplier.certificate.to_der).to_s
+        )
+        signer = OCI::Auth::Internal::AuthTokenRequestSigner.new(@tenancy_id,
+                                                                 fingerprint,
+                                                                 @leaf_certificate_supplier.private_key_pem)
+
+        request = Net::HTTP::Post.new(@federation_endpoint)
+        request.body = request_payload.to_json
+
+        header_params = {}
+        header_params['content-type'] = 'application/json'
+        signer.sign(:post, @federation_endpoint, header_params, request.body)
+        header_params.each { |key, value| request[key.to_s] = value }
+
+        # Additional header info to aid in debugging issues
+        request['opc-client-info'] = OCI::ApiClient.build_user_info
+        request['opc-request-id'] ||= OCI::ApiClient.build_request_id
+        request['User-Agent'] = OCI::ApiClient.build_user_agent
+
+        raw_body = nil
+        @federation_http_client.start do
+          @federation_http_client.request(request) do |response|
+            raw_body = response.body
+          end
+        end
+
+        begin
+          parsed_response = JSON.parse(raw_body)
+          raise "No token received in the response from auth service: #{raw_body}" unless parsed_response.key?('token')
+
+          @security_token = OCI::Auth::SecurityTokenContainer.new(parsed_response['token'])
+        rescue JSON::ParserError => ex
+          raise "Unable to parse response from Auth Service [#{ex}]: #{raw_body}"
+        end
+
+        @security_token.security_token
+      ensure
+        @refresh_lock.unlock if @refresh_lock.locked? && @refresh_lock.owned?
+      end
+
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
     end
   end
 end

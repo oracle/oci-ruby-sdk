@@ -4,7 +4,7 @@ module OCI
   module Internal
     # Utility methods for internal use only.
     module Util
-      BLANK_STRING_REGEX = /\A[[:space:]]*\z/
+      BLANK_STRING_REGEX = /\A[[:space:]]*\z/.freeze
       def self.blank_string?(str)
         str.nil? || str.empty? || !BLANK_STRING_REGEX.match(str).nil?
       end
