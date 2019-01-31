@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.6 - 2019-01-31
+### Added
+- Support for the Announcements service
+
 ## 2.4.5 - 2019-01-24
 ### Added
 - Support for renaming databases during restore-from-backup operations in the Database service
