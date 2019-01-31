@@ -37,6 +37,7 @@ module OCI
 
     # --- Start of service prefixes ---
     SERVICE_ENDPOINT_PREFIX_MAPPING = {
+      AnnouncementClient: 'announcements',
       AuditClient: 'audit',
       Auth: 'auth',
       BlockstorageClient: 'iaas',

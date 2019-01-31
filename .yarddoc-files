@@ -1,3 +1,4 @@
+lib/oci/announcements_service/announcements_service.rb
 lib/oci/audit/audit.rb
 lib/oci/auth/auth.rb
 lib/oci/container_engine/container_engine.rb
