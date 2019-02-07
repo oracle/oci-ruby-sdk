@@ -48,12 +48,14 @@ module OCI
       DnsClient: 'dns',
       EmailClient: 'email',
       FileStorageClient: 'filestorage',
+      HealthChecksClient: 'healthchecks',
       IdentityClient: 'identity',
       KmsVaultClient: 'kms',
       LoadBalancerClient: 'iaas',
       ObjectStorageClient: 'objectstorage',
       ResourceSearchClient: 'query',
-      VirtualNetworkClient: 'iaas'
+      VirtualNetworkClient: 'iaas',
+      WaasClient: 'waas'
     }.freeze
     # --- End of service prefixes ---
 

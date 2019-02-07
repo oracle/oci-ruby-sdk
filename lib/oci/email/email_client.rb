@@ -5,7 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API spec for managing OCI Email Delivery services.
+  # API for the Email Delivery service. Use this API to send high-volume, application-generated
+  # emails. For more information, see [Overview of the Email Delivery Service](/iaas/Content/Email/Concepts/overview.htm).
   class Email::EmailClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -87,7 +88,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :EmailClient) + '/20170907'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://email.{region}.{secondLevelDomain}') + '/20170907'
       logger.info "EmailClient endpoint set to '#{endpoint}'." if logger
     end
 
@@ -99,7 +100,6 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Creates a sender for a tenancy in a given compartment.
@@ -107,6 +107,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
     def create_sender(create_sender_details, opts = {})
       logger.debug 'Calling operation EmailClient#create_sender.' if logger
@@ -124,6 +125,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_sender_details)
@@ -146,21 +148,23 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Adds recipient email addresses to the suppression list for a tenancy.
+    # Addresses added to the suppression list via the API are denoted as
+    # \"MANUAL\" in the `reason` field. *Note:* All email addresses added to the
+    # suppression list are normalized to include only lowercase letters.
     #
     # @param [OCI::Email::Models::CreateSuppressionDetails] create_suppression_details Adds a single email address to the suppression list for a compartment's tenancy.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Suppression Suppression}
     def create_suppression(create_suppression_details, opts = {})
       logger.debug 'Calling operation EmailClient#create_suppression.' if logger
@@ -178,6 +182,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_suppression_details)
@@ -200,12 +205,10 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Deletes an approved sender for a tenancy in a given compartment for a
@@ -215,6 +218,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type nil
     def delete_sender(sender_id, opts = {})
       logger.debug 'Calling operation EmailClient#delete_sender.' if logger
@@ -233,6 +237,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -254,12 +259,10 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Removes a suppressed recipient email address from the suppression list
@@ -269,6 +272,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type nil
     def delete_suppression(suppression_id, opts = {})
       logger.debug 'Calling operation EmailClient#delete_suppression.' if logger
@@ -287,6 +291,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -308,12 +313,10 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets an approved sender for a given `senderId`.
@@ -321,6 +324,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
     def get_sender(sender_id, opts = {})
       logger.debug 'Calling operation EmailClient#get_sender.' if logger
@@ -339,6 +343,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -361,12 +366,10 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets the details of a suppressed recipient email address for a given
@@ -376,6 +379,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Suppression Suppression}
     def get_suppression(suppression_id, opts = {})
       logger.debug 'Calling operation EmailClient#get_suppression.' if logger
@@ -394,6 +398,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -416,7 +421,6 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -429,12 +433,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @option opts [String] :lifecycle_state The current state of a sender.
     # @option opts [String] :email_address The email address of the approved sender.
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous
     #   GET request.
     #
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated GET request.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. `1` is the minimum, `1000` is the maximum. For important details about
+    #   how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. The `TIMECREATED` value returns the list in in
     #   descending order by default. The `EMAILADDRESS` value returns the list in
@@ -481,6 +488,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -517,6 +525,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @option opts [String] :email_address The email address of the suppression.
     # @option opts [DateTime] :time_created_greater_than_or_equal_to Search for suppressions that were created within a specific date range,
     #   using this parameter to specify the earliest creation date for the
@@ -539,7 +548,9 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous
     #   GET request.
     #
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated GET request.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. `1` is the minimum, `1000` is the maximum. For important details about
+    #   how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. The `TIMECREATED` value returns the list in in
     #   descending order by default. The `EMAILADDRESS` value returns the list in
@@ -583,6 +594,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -598,6 +610,65 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Email::Models::SuppressionSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Replaces the set of tags for a sender with the tags provided. If either freeform
+    # or defined tags are omitted, the tags for that set remain the same. Each set must
+    # include the full set of tags for the sender, partial updates are not permitted.
+    # For more information about tagging, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # @param [String] sender_id The unique OCID of the sender.
+    # @param [OCI::Email::Models::UpdateSenderDetails] update_sender_details update details for sender.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The request ID for tracing from the system
+    # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
+    def update_sender(sender_id, update_sender_details, opts = {})
+      logger.debug 'Calling operation EmailClient#update_sender.' if logger
+
+      raise "Missing the required parameter 'sender_id' when calling update_sender." if sender_id.nil?
+      raise "Missing the required parameter 'update_sender_details' when calling update_sender." if update_sender_details.nil?
+      raise "Parameter value for 'sender_id' must not be blank" if OCI::Internal::Util.blank_string?(sender_id)
+
+      path = '/senders/{senderId}'.sub('{senderId}', sender_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_sender_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#update_sender') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Email::Models::Sender'
         )
       end
       # rubocop:enable Metrics/BlockLength

@@ -31,6 +31,8 @@ require 'oci/object_storage/transfer/transfer'
 require 'oci/resource_search/resource_search'
 require 'oci/key_management/key_management'
 require 'oci/announcements_service/announcements_service'
+require 'oci/waas/waas'
+require 'oci/healthchecks/healthchecks'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

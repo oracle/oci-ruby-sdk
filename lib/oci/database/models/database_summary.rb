@@ -92,6 +92,10 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The Connection strings used to connect to the Oracle Database.
+    # @return [OCI::Database::Models::DatabaseConnectionStrings]
+    attr_accessor :connection_strings
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -110,7 +114,8 @@ module OCI
         'time_created': :'timeCreated',
         'db_backup_config': :'dbBackupConfig',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'connection_strings': :'connectionStrings'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -133,7 +138,8 @@ module OCI
         'time_created': :'DateTime',
         'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'connection_strings': :'OCI::Database::Models::DatabaseConnectionStrings'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -159,6 +165,7 @@ module OCI
     # @option attributes [OCI::Database::Models::DbBackupConfig] :db_backup_config The value to assign to the {#db_backup_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [OCI::Database::Models::DatabaseConnectionStrings] :connection_strings The value to assign to the {#connection_strings} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -250,6 +257,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.connection_strings = attributes[:'connectionStrings'] if attributes[:'connectionStrings']
+
+      raise 'You cannot provide both :connectionStrings and :connection_strings' if attributes.key?(:'connectionStrings') && attributes.key?(:'connection_strings')
+
+      self.connection_strings = attributes[:'connection_strings'] if attributes[:'connection_strings']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -292,7 +305,8 @@ module OCI
         time_created == other.time_created &&
         db_backup_config == other.db_backup_config &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        connection_strings == other.connection_strings
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -308,7 +322,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, db_backup_config, freeform_tags, defined_tags].hash
+      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, db_backup_config, freeform_tags, defined_tags, connection_strings].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

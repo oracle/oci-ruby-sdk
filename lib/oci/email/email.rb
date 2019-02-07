@@ -16,6 +16,7 @@ require 'oci/email/models/sender'
 require 'oci/email/models/sender_summary'
 require 'oci/email/models/suppression'
 require 'oci/email/models/suppression_summary'
+require 'oci/email/models/update_sender_details'
 
 # Require generated clients
 require 'oci/email/email_client'
