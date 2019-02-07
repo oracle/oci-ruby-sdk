@@ -7,11 +7,13 @@ lib/oci/database/database.rb
 lib/oci/dns/dns.rb
 lib/oci/email/email.rb
 lib/oci/file_storage/file_storage.rb
+lib/oci/healthchecks/healthchecks.rb
 lib/oci/identity/identity.rb
 lib/oci/key_management/key_management.rb
 lib/oci/load_balancer/load_balancer.rb
 lib/oci/object_storage/object_storage.rb
 lib/oci/resource_search/resource_search.rb
+lib/oci/waas/waas.rb
 lib/
 -
 LICENSE.txt

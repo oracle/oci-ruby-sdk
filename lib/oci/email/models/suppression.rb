@@ -17,6 +17,13 @@ module OCI
       REASON_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    # The OCID of the compartment to contain the suppression. Since
+    # suppressions are at the customer level, this must be the tenancy
+    # OCID.
+    #
+    # @return [String]
+    attr_accessor :compartment_id
+
     # Email address of the suppression.
     # @return [String]
     attr_accessor :email_address
@@ -25,11 +32,11 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The reason that the email address was suppressed. For more information on the types of bounces, see [Suppresion List](https://docs.cloud.oracle.com/Content/Email/Concepts/emaildeliveryoverview.htm#suppressionlist).
+    # The reason that the email address was suppressed. For more information on the types of bounces, see [Suppression List](https://docs.cloud.oracle.com/Content/Email/Concepts/overview.htm#components).
     # @return [String]
     attr_reader :reason
 
-    # The date and time the approved sender was added in \"YYYY-MM-ddThh:mmZ\"
+    # The date and time the suppression was added in \"YYYY-MM-ddThh:mmZ\"
     # format with a Z offset, as defined by RFC 3339.
     #
     # @return [DateTime]
@@ -39,6 +46,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'compartment_id': :'compartmentId',
         'email_address': :'emailAddress',
         'id': :'id',
         'reason': :'reason',
@@ -51,6 +59,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'compartment_id': :'String',
         'email_address': :'String',
         'id': :'String',
         'reason': :'String',
@@ -65,6 +74,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :email_address The value to assign to the {#email_address} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :reason The value to assign to the {#reason} property
@@ -74,6 +84,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.email_address = attributes[:'emailAddress'] if attributes[:'emailAddress']
 
@@ -118,6 +134,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        compartment_id == other.compartment_id &&
         email_address == other.email_address &&
         id == other.id &&
         reason == other.reason &&
@@ -137,7 +154,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [email_address, id, reason, time_created].hash
+      [compartment_id, email_address, id, reason, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

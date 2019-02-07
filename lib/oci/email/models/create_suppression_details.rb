@@ -6,14 +6,14 @@ require 'date'
 module OCI
   # The details needed for creating a single suppression.
   class Email::Models::CreateSuppressionDetails # rubocop:disable Metrics/LineLength
-    # The OCID of the compartment to contain the suppression. Since
+    # **[Required]** The OCID of the compartment to contain the suppression. Since
     # suppressions are at the customer level, this must be the tenancy
     # OCID.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # The recipient email address of the suppression.
+    # **[Required]** The recipient email address of the suppression.
     # @return [String]
     attr_accessor :email_address
 
