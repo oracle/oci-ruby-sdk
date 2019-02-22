@@ -6,7 +6,7 @@ require_relative 'base_announcement'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # An announcement summary object which is returned by List API
+  # Summary representation of an announcement.
   #
   class AnnouncementsService::Models::AnnouncementSummary < AnnouncementsService::Models::BaseAnnouncement # rubocop:disable Metrics/LineLength
     # Attribute mapping from ruby-style variable name to JSON key.

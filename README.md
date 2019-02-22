@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.4.7**
+**Version 2.5.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -21,6 +21,7 @@ The Ruby SDK supports the following services:
 * Load Balancing
 * Object Storage
 * Search
+* Streaming
 * Web Application Acceleration and Security
 
 **Licensing:** This SDK and sample is dual licensed under the Universal Permissive License 1.0 and the Apache License.
@@ -166,6 +167,22 @@ Note that the Ruby SDK does not support parsing custom attributes in the configu
 ## Forward Compatibility
 
 Some response fields are enum-typed. In the future, individual services may return values not covered by existing enums for that field. To address this possibility, every enum-type response field has an additional value named "UNKNOWN_ENUM_VALUE". If a service returns a value that is not recognized by your version of the SDK, then the response field will be set to this value. Please ensure that your code handles the "UNKNOWN_ENUM_VALUE" case if you have conditional logic based on an enum-typed field.
+
+## New Region Support
+
+If you are using a version of the SDK released prior to the announcement of a new region, you may still be able to reach it, depending on whether the region is in the oraclecloud.com realm.
+
+A *region* is a localized geographic area. For more information on regions and how to identify them, see [Regions and Availability Domains](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm).
+
+A *realm* is a set of regions that share entities. You can identify your realm by looking at the domain name at the end of the network address. For example, the realm for ``xyz.abc.123.oraclecloud.com`` is ``oraclecloud.com``.
+
+### oraclecloud.com Realm
+
+For regions in the oraclecloud.com realm, even if the `OCI::Regions::REGION_ENUM` does not contain the new region, the forward compatibility of the SDK can automatically handle it. You can pass new region names just as you would pass ones that are already defined. For more information on passing region names in the configuration, see [Configuring the SDK](#configuring-the-sdk). For details on `OCI::Regions::REGION_ENUM`, see [OCI::Regions](https://docs.cloud.oracle.com/iaas/tools/ruby/latest/OCI/Regions.html).
+
+### Other Realms
+
+Accessing regions in realms other than oraclecloud.com with prior versions of the Ruby SDK is currently unsupported. We recommend moving to a version that explicitly supports the desired region.
 
 ## Writing Your First Ruby Program with the SDK
 

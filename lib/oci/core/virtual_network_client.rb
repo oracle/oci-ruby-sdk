@@ -25,20 +25,22 @@ module OCI
     # @return [String]
     attr_reader :region
 
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
 
 
     # Creates a new VirtualNetworkClient.
     # Notes:
     #   If a config is not specified, then the global OCI.config will be used.
+    #
     #   This client is not thread-safe
     #
-    #   A region must be specified in either the config or the region parameter. If specified in both,
-    #   then the region parameter will be used.
-    #
+    #   Either a region or an endpoint must be specified.  If an endpoint is specified, it will be used instead of the
+    #     region. A region may be specified in the config or via or the region parameter. If specified in both, then the
+    #     region parameter will be used.
     # @param [Config] config A Config object.
     # @param [String] region A region used to determine the service endpoint. This will usually
     #   correspond to a value in {OCI::Regions::REGION_ENUM}, but may be an arbitrary string.
+    # @param [String] endpoint The fully qualified endpoint URL
     # @param [OCI::BaseSigner] signer A signer implementation which can be used by this client. If this is not provided then
     #   a signer will be constructed via the provided config. One use case of this parameter is instance principals authentication,
     #   so that the instance principals signer can be provided to the client
@@ -47,7 +49,7 @@ module OCI
     # @param [OCI::Retry::RetryConfig] retry_config The retry configuration for this service client. This represents the default retry configuration to
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
-    def initialize(config: nil, region: nil, signer: nil, proxy_settings: nil, retry_config: nil)
+    def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
@@ -73,11 +75,16 @@ module OCI
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
 
-      region ||= config.region
-      region ||= signer.region if signer.respond_to?(:region)
-      self.region = region
+      if endpoint
+        @endpoint = endpoint + '/20160918'
+      else
+        region ||= config.region
+        region ||= signer.region if signer.respond_to?(:region)
+        self.region = region
+      end
+      logger.info "VirtualNetworkClient endpoint set to '#{@endpoint}'." if logger
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
 
     # Set the region that will be used to determine the service endpoint.
     # This will usually correspond to a value in {OCI::Regions::REGION_ENUM},
@@ -88,7 +95,7 @@ module OCI
       raise 'A region must be specified.' unless @region
 
       @endpoint = OCI::Regions.get_service_endpoint(@region, :VirtualNetworkClient) + '/20160918'
-      logger.info "VirtualNetworkClient endpoint set to '#{endpoint}'." if logger
+      logger.info "VirtualNetworkClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
     # @return [Logger] The logger for this client. May be nil.

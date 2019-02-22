@@ -27,7 +27,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop', '~> 0', '>= 0.55'
   s.add_development_dependency 'mocha', '~> 1.7'
   s.add_development_dependency 'nokogiri', '~> 1.9'
-
+  s.add_development_dependency 'rspec', '~> 3.8'
+  s.add_development_dependency 'activesupport', '~> 5.2.2'
   s.executables   = nil
   s.require_paths = ["lib"]
   s.files         = Dir["./lib/**/*.rb", "README.md", "LICENSE.txt"]

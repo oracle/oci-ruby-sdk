@@ -4,44 +4,54 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateKeyDetails model.
-  class KeyManagement::Models::CreateKeyDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the compartment that contains this key.
+  # Object used to create a stream.
+  class Streaming::Models::CreateStreamDetails # rubocop:disable Metrics/LineLength
+    # **[Required]** The name of the stream. Avoid entering confidential information.
+    #
+    # Example: `TelemetryEvents`
+    #
+    # @return [String]
+    attr_accessor :name
+
+    # **[Required]** The number of partitions in the stream.
+    # @return [Integer]
+    attr_accessor :partitions
+
+    # **[Required]** The OCID of the compartment that contains the stream.
     # @return [String]
     attr_accessor :compartment_id
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"foo-value\"}}`
+    # The retention period of the stream, in hours. Accepted values are between 24 and 168 (7 days).
+    # If not specified, the stream will have a retention period of 24 hours.
     #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+    # @return [Integer]
+    attr_accessor :retention_in_hours
 
-    # **[Required]** A user-friendly name for the key. It does not have to be unique, and it is changeable.
-    # Avoid entering confidential information.
+    # Free-form tags for this resource. Each tag is a simple key-value pair that is applied with no predefined name, type, or namespace. Exists for cross-compatibility only.
+    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
     #
-    # @return [String]
-    attr_accessor :display_name
-
-    # Simple key-value pair that is applied without any predefined name, type, or scope.
-    # Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # This attribute is required.
-    # @return [OCI::KeyManagement::Models::KeyShape]
-    attr_accessor :key_shape
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'name': :'name',
+        'partitions': :'partitions',
         'compartment_id': :'compartmentId',
-        'defined_tags': :'definedTags',
-        'display_name': :'displayName',
+        'retention_in_hours': :'retentionInHours',
         'freeform_tags': :'freeformTags',
-        'key_shape': :'keyShape'
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,11 +60,12 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'name': :'String',
+        'partitions': :'Integer',
         'compartment_id': :'String',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'display_name': :'String',
+        'retention_in_hours': :'Integer',
         'freeform_tags': :'Hash<String, String>',
-        'key_shape': :'OCI::KeyManagement::Models::KeyShape'
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -65,16 +76,21 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [Integer] :partitions The value to assign to the {#partitions} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Integer] :retention_in_hours The value to assign to the {#retention_in_hours} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [OCI::KeyManagement::Models::KeyShape] :key_shape The value to assign to the {#key_shape} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.name = attributes[:'name'] if attributes[:'name']
+
+      self.partitions = attributes[:'partitions'] if attributes[:'partitions']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -82,17 +98,11 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      self.retention_in_hours = attributes[:'retentionInHours'] if attributes[:'retentionInHours']
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      raise 'You cannot provide both :retentionInHours and :retention_in_hours' if attributes.key?(:'retentionInHours') && attributes.key?(:'retention_in_hours')
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
-
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
-
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
-
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+      self.retention_in_hours = attributes[:'retention_in_hours'] if attributes[:'retention_in_hours']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -100,11 +110,11 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
-      self.key_shape = attributes[:'keyShape'] if attributes[:'keyShape']
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
-      raise 'You cannot provide both :keyShape and :key_shape' if attributes.key?(:'keyShape') && attributes.key?(:'key_shape')
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
-      self.key_shape = attributes[:'key_shape'] if attributes[:'key_shape']
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -118,11 +128,12 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        name == other.name &&
+        partitions == other.partitions &&
         compartment_id == other.compartment_id &&
-        defined_tags == other.defined_tags &&
-        display_name == other.display_name &&
+        retention_in_hours == other.retention_in_hours &&
         freeform_tags == other.freeform_tags &&
-        key_shape == other.key_shape
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -138,7 +149,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, key_shape].hash
+      [name, partitions, compartment_id, retention_in_hours, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

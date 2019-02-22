@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Base for announcements and incidents
+  # Incident information that forms the basis of an announcement. Avoid entering confidential information.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class AnnouncementsService::Models::BaseAnnouncement # rubocop:disable Metrics/LineLength
     ANNOUNCEMENT_TYPE_ENUM = [
@@ -29,66 +29,76 @@ module OCI
       LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the announcement
+    # **[Required]** The OCID of the announcement.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** Entity type
+    # **[Required]** The entity type.
     # @return [String]
     attr_accessor :type
 
-    # **[Required]** The reference JIRA ticket number
+    # **[Required]** The reference Jira ticket number.
     # @return [String]
     attr_accessor :reference_ticket_number
 
-    # **[Required]** Forms part of the email subject and/or the console representation (a banner or alike)
+    # **[Required]** A summary of the issue. A summary might appear in the console banner view of the announcement or in
+    # an email subject line. Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :summary
 
-    # The title of the first time value, e.g. Time Started
+    # The label associated with an initial time value.
+    # Example: `Time Started`
+    #
     # @return [String]
     attr_accessor :time_one_title
 
-    # The first time value, actual meaning depending on notification type
+    # The actual value of the first time value for the event. Typically, this is the time an event started, but the meaning
+    # can vary, depending on the announcement type.
+    #
     # @return [DateTime]
     attr_accessor :time_one_value
 
-    # The title of the second time value, e.g. Time Ended
+    # The label associated with a second time value.
+    # Example: `Time Ended`
+    #
     # @return [String]
     attr_accessor :time_two_title
 
-    # The second time value, actual meaning depending on notification type
+    # The actual value of the second time value. Typically, this is the time an event ended, but the meaning
+    # can vary, depending on the announcement type.
+    #
     # @return [DateTime]
     attr_accessor :time_two_value
 
-    # Impacted services
+    # **[Required]** Impacted Oracle Cloud Infrastructure services.
     # @return [Array<String>]
     attr_accessor :services
 
-    # Impacted regions
+    # **[Required]** Impacted regions.
     # @return [Array<String>]
     attr_accessor :affected_regions
 
-    # **[Required]** The detailed description of an announcement
+    # **[Required]** The type of announcement. An announcement's type signals its severity.
     # @return [String]
     attr_reader :announcement_type
 
-    # **[Required]** Lifecycle states of announcement
+    # **[Required]** The current lifecycle state of the announcement.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** Show announcement as a banner
+    # **[Required]** Whether the announcement is displayed as a banner in the console.
     # @return [BOOLEAN]
     attr_accessor :is_banner
 
-    # The date and time the announcement was created, in the format defined by RFC3339
-    # Example: `2016-07-22T17:43:01.389+0000`
+    # The date and time the announcement was created, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # Example: `2019-01-01T17:43:01.389+0000`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The date and time the announcement was last updated, in the format defined by RFC3339
-    # Example: `2016-07-22T17:43:01.389+0000`
+    # The date and time the announcement was last updated, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # Example: `2019-01-01T17:43:01.389+0000`
     #
     # @return [DateTime]
     attr_accessor :time_updated

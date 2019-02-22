@@ -4,19 +4,19 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # An announcement status
+  # An announcement's status regarding whether it has been acknowledged by a user.
   #
   class AnnouncementsService::Models::AnnouncementUserStatusDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the announcement this status belongs to
+    # **[Required]** The OCID of the announcement that this status is associated with.
     # @return [String]
     attr_accessor :user_status_announcement_id
 
-    # **[Required]** The OCID of the user this status belongs to
+    # **[Required]** The OCID of the user that this status is associated with.
     # @return [String]
     attr_accessor :user_id
 
-    # The date and time the announcement was acknowledged, in the format defined by RFC3339
-    # Example: `2016-07-22T17:43:01.389+0000`
+    # The date and time the announcement was acknowledged, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # Example: `2019-01-01T17:43:01.389+0000`
     #
     # @return [DateTime]
     attr_accessor :time_acknowledged

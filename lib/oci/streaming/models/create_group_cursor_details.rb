@@ -4,49 +4,50 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateVaultDetails model.
-  class KeyManagement::Models::CreateVaultDetails # rubocop:disable Metrics/LineLength
-    VAULT_TYPE_ENUM = [
-      VAULT_TYPE_VIRTUAL_PRIVATE = 'VIRTUAL_PRIVATE'.freeze
+  # Object used to create a group cursor.
+  class Streaming::Models::CreateGroupCursorDetails # rubocop:disable Metrics/LineLength
+    TYPE_ENUM = [
+      TYPE_AT_TIME = 'AT_TIME'.freeze,
+      TYPE_LATEST = 'LATEST'.freeze,
+      TYPE_TRIM_HORIZON = 'TRIM_HORIZON'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment where you want to create this vault.
+    # **[Required]** The type of the cursor. This value is only used when the group is created.
     # @return [String]
-    attr_accessor :compartment_id
+    attr_reader :type
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"foo-value\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+    # The time to consume from if type is AT_TIME.
+    # @return [DateTime]
+    attr_accessor :time
 
-    # **[Required]** A user-friendly name for the vault. It does not have to be unique, and it is changeable.
-    # Avoid entering confidential information.
-    #
+    # **[Required]** Name of the consumer group.
     # @return [String]
-    attr_accessor :display_name
+    attr_accessor :group_name
 
-    # Simple key-value pair that is applied without any predefined name, type, or scope.
-    # Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
-    # **[Required]** The type of vault to create. Each type of vault stores the key with different degrees of isolation and has different options and pricing.
-    #
+    # A unique identifier for the instance joining the consumer group. If an instanceName is not provided, a UUID will be generated and used.
     # @return [String]
-    attr_reader :vault_type
+    attr_accessor :instance_name
+
+    # The amount of a consumer instance inactivity time, before partition reservations are released.
+    # @return [Integer]
+    attr_accessor :timeout_in_ms
+
+    # When using consumer-groups, the default commit-on-get behaviour can be overriden by setting this value to false.
+    # If disabled, a consumer must manually commit their cursors.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :commit_on_get
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'compartment_id': :'compartmentId',
-        'defined_tags': :'definedTags',
-        'display_name': :'displayName',
-        'freeform_tags': :'freeformTags',
-        'vault_type': :'vaultType'
+        'type': :'type',
+        'time': :'time',
+        'group_name': :'groupName',
+        'instance_name': :'instanceName',
+        'timeout_in_ms': :'timeoutInMs',
+        'commit_on_get': :'commitOnGet'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -55,11 +56,12 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'compartment_id': :'String',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'vault_type': :'String'
+        'type': :'String',
+        'time': :'DateTime',
+        'group_name': :'String',
+        'instance_name': :'String',
+        'timeout_in_ms': :'Integer',
+        'commit_on_get': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -70,58 +72,61 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [String] :vault_type The value to assign to the {#vault_type} property
+    # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [DateTime] :time The value to assign to the {#time} property
+    # @option attributes [String] :group_name The value to assign to the {#group_name} property
+    # @option attributes [String] :instance_name The value to assign to the {#instance_name} property
+    # @option attributes [Integer] :timeout_in_ms The value to assign to the {#timeout_in_ms} property
+    # @option attributes [BOOLEAN] :commit_on_get The value to assign to the {#commit_on_get} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+      self.type = attributes[:'type'] if attributes[:'type']
 
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+      self.time = attributes[:'time'] if attributes[:'time']
 
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+      self.group_name = attributes[:'groupName'] if attributes[:'groupName']
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      raise 'You cannot provide both :groupName and :group_name' if attributes.key?(:'groupName') && attributes.key?(:'group_name')
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      self.group_name = attributes[:'group_name'] if attributes[:'group_name']
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      self.instance_name = attributes[:'instanceName'] if attributes[:'instanceName']
 
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+      raise 'You cannot provide both :instanceName and :instance_name' if attributes.key?(:'instanceName') && attributes.key?(:'instance_name')
 
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+      self.instance_name = attributes[:'instance_name'] if attributes[:'instance_name']
 
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+      self.timeout_in_ms = attributes[:'timeoutInMs'] if attributes[:'timeoutInMs']
+      self.timeout_in_ms = 30000 if timeout_in_ms.nil? && !attributes.key?(:'timeoutInMs') # rubocop:disable Style/StringLiterals
 
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+      raise 'You cannot provide both :timeoutInMs and :timeout_in_ms' if attributes.key?(:'timeoutInMs') && attributes.key?(:'timeout_in_ms')
 
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+      self.timeout_in_ms = attributes[:'timeout_in_ms'] if attributes[:'timeout_in_ms']
+      self.timeout_in_ms = 30000 if timeout_in_ms.nil? && !attributes.key?(:'timeoutInMs') && !attributes.key?(:'timeout_in_ms') # rubocop:disable Style/StringLiterals
 
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+      self.commit_on_get = attributes[:'commitOnGet'] unless attributes[:'commitOnGet'].nil?
+      self.commit_on_get = true if commit_on_get.nil? && !attributes.key?(:'commitOnGet') # rubocop:disable Style/StringLiterals
 
-      self.vault_type = attributes[:'vaultType'] if attributes[:'vaultType']
+      raise 'You cannot provide both :commitOnGet and :commit_on_get' if attributes.key?(:'commitOnGet') && attributes.key?(:'commit_on_get')
 
-      raise 'You cannot provide both :vaultType and :vault_type' if attributes.key?(:'vaultType') && attributes.key?(:'vault_type')
-
-      self.vault_type = attributes[:'vault_type'] if attributes[:'vault_type']
+      self.commit_on_get = attributes[:'commit_on_get'] unless attributes[:'commit_on_get'].nil?
+      self.commit_on_get = true if commit_on_get.nil? && !attributes.key?(:'commitOnGet') && !attributes.key?(:'commit_on_get') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] vault_type Object to be assigned
-    def vault_type=(vault_type)
+    # @param [Object] type Object to be assigned
+    def type=(type)
       # rubocop: disable Metrics/LineLength
-      raise "Invalid value for 'vault_type': this must be one of the values in VAULT_TYPE_ENUM." if vault_type && !VAULT_TYPE_ENUM.include?(vault_type)
+      raise "Invalid value for 'type': this must be one of the values in TYPE_ENUM." if type && !TYPE_ENUM.include?(type)
 
       # rubocop: enable Metrics/LineLength
-      @vault_type = vault_type
+      @type = type
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -133,11 +138,12 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        compartment_id == other.compartment_id &&
-        defined_tags == other.defined_tags &&
-        display_name == other.display_name &&
-        freeform_tags == other.freeform_tags &&
-        vault_type == other.vault_type
+        type == other.type &&
+        time == other.time &&
+        group_name == other.group_name &&
+        instance_name == other.instance_name &&
+        timeout_in_ms == other.timeout_in_ms &&
+        commit_on_get == other.commit_on_get
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -153,7 +159,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, vault_type].hash
+      [type, time, group_name, instance_name, timeout_in_ms, commit_on_get].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

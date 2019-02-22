@@ -4,18 +4,18 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Descrption of a resource affected by the announcement
+  # The resource affected by the event described in the announcement.
   #
   class AnnouncementsService::Models::AffectedResource # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the resource
+    # **[Required]** The OCID of the affected resource.
     # @return [String]
     attr_accessor :resource_id
 
-    # **[Required]** User-friendly name of the resource
+    # **[Required]** The friendly name of the resource.
     # @return [String]
     attr_accessor :resource_name
 
-    # **[Required]** Region where this resource belongs to
+    # **[Required]** The region where the affected resource exists.
     # @return [String]
     attr_accessor :region
 

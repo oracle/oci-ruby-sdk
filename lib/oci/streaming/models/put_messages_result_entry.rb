@@ -4,22 +4,40 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Information represents a notification follow-up
-  class AnnouncementsService::Models::NotificationFollowupDetails # rubocop:disable Metrics/LineLength
-    # The follow-up message, a markdown format input
+  # Represents the result of a {#put_messages put_messages} request, whether it was successful or not.
+  # If a message was successfully appended to the stream, the entry includes the `offset`, `partition`, and `timestamp`.
+  # If the message failed to be appended to the stream, the entry includes the `error` and `errorMessage`.
+  #
+  class Streaming::Models::PutMessagesResultEntry # rubocop:disable Metrics/LineLength
+    # The ID of the partition where the message was stored.
     # @return [String]
-    attr_accessor :message
+    attr_accessor :partition
 
-    # When the update is made
+    # The offset of the message in the partition.
+    # @return [Integer]
+    attr_accessor :offset
+
+    # The timestamp indicating when the server appended the message to the stream.
     # @return [DateTime]
-    attr_accessor :time_created
+    attr_accessor :timestamp
+
+    # The error code, in case the message was not successfully appended to the stream.
+    # @return [String]
+    attr_accessor :error
+
+    # A human-readable error message associated with the error code.
+    # @return [String]
+    attr_accessor :error_message
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'message': :'message',
-        'time_created': :'timeCreated'
+        'partition': :'partition',
+        'offset': :'offset',
+        'timestamp': :'timestamp',
+        'error': :'error',
+        'error_message': :'errorMessage'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -28,8 +46,11 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'message': :'String',
-        'time_created': :'DateTime'
+        'partition': :'String',
+        'offset': :'Integer',
+        'timestamp': :'DateTime',
+        'error': :'String',
+        'error_message': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -40,21 +61,30 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :message The value to assign to the {#message} property
-    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :partition The value to assign to the {#partition} property
+    # @option attributes [Integer] :offset The value to assign to the {#offset} property
+    # @option attributes [DateTime] :timestamp The value to assign to the {#timestamp} property
+    # @option attributes [String] :error The value to assign to the {#error} property
+    # @option attributes [String] :error_message The value to assign to the {#error_message} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.message = attributes[:'message'] if attributes[:'message']
+      self.partition = attributes[:'partition'] if attributes[:'partition']
 
-      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
+      self.offset = attributes[:'offset'] if attributes[:'offset']
 
-      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
+      self.timestamp = attributes[:'timestamp'] if attributes[:'timestamp']
 
-      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+      self.error = attributes[:'error'] if attributes[:'error']
+
+      self.error_message = attributes[:'errorMessage'] if attributes[:'errorMessage']
+
+      raise 'You cannot provide both :errorMessage and :error_message' if attributes.key?(:'errorMessage') && attributes.key?(:'error_message')
+
+      self.error_message = attributes[:'error_message'] if attributes[:'error_message']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -68,8 +98,11 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        message == other.message &&
-        time_created == other.time_created
+        partition == other.partition &&
+        offset == other.offset &&
+        timestamp == other.timestamp &&
+        error == other.error &&
+        error_message == other.error_message
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -85,7 +118,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [message, time_created].hash
+      [partition, offset, timestamp, error, error_message].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

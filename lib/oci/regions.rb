@@ -1,5 +1,7 @@
 # Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
+require 'pp'
+
 module OCI
   # Module defining available regions and helper methods to get value service endpoints
   module Regions
@@ -8,7 +10,12 @@ module OCI
       REGION_US_PHOENIX_1 = 'us-phoenix-1'.freeze,
       REGION_US_ASHBURN_1 = 'us-ashburn-1'.freeze,
       REGION_EU_FRANKFURT_1 = 'eu-frankfurt-1'.freeze,
-      REGION_UK_LONDON_1 = 'uk-london-1'.freeze
+      REGION_UK_LONDON_1 = 'uk-london-1'.freeze,
+      REGION_US_LANGLEY_1 = 'us-langley-1'.freeze,
+      REGION_US_LUKE_1 = 'us-luke-1'.freeze,
+      REGION_US_GOV_ASHBURN_1 = 'us-gov-ashburn-1'.freeze,
+      REGION_US_GOV_PHOENIX_1 = 'us-gov-phoenix-1'.freeze,
+      REGION_US_GOV_CHICAGO_1 = 'us-gov-chicago-1'.freeze
     ].freeze
 
     REGION_SHORT_NAMES_TO_LONG_NAMES = {
@@ -25,13 +32,20 @@ module OCI
       'us-phoenix-1': 'oc1'.freeze,
       'us-ashburn-1': 'oc1'.freeze,
       'eu-frankfurt-1': 'oc1'.freeze,
-      'uk-london-1': 'oc1'.freeze
+      'uk-london-1': 'oc1'.freeze,
+      'us-langley-1': 'oc2'.freeze,
+      'us-luke-1': 'oc2'.freeze,
+      'us-gov-ashburn-1': 'oc3'.freeze,
+      'us-gov-phoenix-1': 'oc3'.freeze,
+      'us-gov-chicago-1': 'oc3'.freeze
     }.freeze
     # ---  end of region realm mapping  ---
 
     # --- Start of realm domain mapping ---
     REALM_DOMAIN_MAPPING = {
-      'oc1': 'oraclecloud.com'.freeze
+      'oc1': 'oraclecloud.com'.freeze,
+      'oc2': 'oraclegovcloud.com'.freeze,
+      'oc3': 'oraclegovcloud.com'.freeze
     }.freeze
     # ---  end of realm domain mapping  ---
 
@@ -54,6 +68,8 @@ module OCI
       LoadBalancerClient: 'iaas',
       ObjectStorageClient: 'objectstorage',
       ResourceSearchClient: 'query',
+      StreamAdminClient: 'streams',
+      StreamClient: 'streams',
       VirtualNetworkClient: 'iaas',
       WaasClient: 'waas'
     }.freeze
@@ -120,9 +136,9 @@ module OCI
 
       # return second level domain if exists
       symbolised_realm = realm.to_sym
+
       return REALM_DOMAIN_MAPPING[symbolised_realm] if REALM_DOMAIN_MAPPING.key?(symbolised_realm)
 
-      # otherwise return oc1 domain by default
       REALM_DOMAIN_MAPPING[:oc1]
     end
   end
