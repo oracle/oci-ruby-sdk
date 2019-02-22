@@ -4,44 +4,33 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # CreateKeyDetails model.
-  class KeyManagement::Models::CreateKeyDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the compartment that contains this key.
+  # Represents the state of a single partition reservation.
+  #
+  class Streaming::Models::PartitionReservation # rubocop:disable Metrics/LineLength
+    # The partition for which the reservation applies.
     # @return [String]
-    attr_accessor :compartment_id
+    attr_accessor :partition
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"foo-value\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
+    # The latest offset which has been committed for this partition.
+    # @return [Integer]
+    attr_accessor :committed_offset
 
-    # **[Required]** A user-friendly name for the key. It does not have to be unique, and it is changeable.
-    # Avoid entering confidential information.
-    #
+    # The consumer instance which currently has the partition reserved.
     # @return [String]
-    attr_accessor :display_name
+    attr_accessor :reserved_instance
 
-    # Simple key-value pair that is applied without any predefined name, type, or scope.
-    # Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
-    # This attribute is required.
-    # @return [OCI::KeyManagement::Models::KeyShape]
-    attr_accessor :key_shape
+    # A timestamp when the current reservation expires.
+    # @return [DateTime]
+    attr_accessor :time_reserved_until
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'compartment_id': :'compartmentId',
-        'defined_tags': :'definedTags',
-        'display_name': :'displayName',
-        'freeform_tags': :'freeformTags',
-        'key_shape': :'keyShape'
+        'partition': :'partition',
+        'committed_offset': :'committedOffset',
+        'reserved_instance': :'reservedInstance',
+        'time_reserved_until': :'timeReservedUntil'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,11 +39,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'compartment_id': :'String',
-        'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'key_shape': :'OCI::KeyManagement::Models::KeyShape'
+        'partition': :'String',
+        'committed_offset': :'Integer',
+        'reserved_instance': :'String',
+        'time_reserved_until': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -65,46 +53,35 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [OCI::KeyManagement::Models::KeyShape] :key_shape The value to assign to the {#key_shape} property
+    # @option attributes [String] :partition The value to assign to the {#partition} property
+    # @option attributes [Integer] :committed_offset The value to assign to the {#committed_offset} property
+    # @option attributes [String] :reserved_instance The value to assign to the {#reserved_instance} property
+    # @option attributes [DateTime] :time_reserved_until The value to assign to the {#time_reserved_until} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+      self.partition = attributes[:'partition'] if attributes[:'partition']
 
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+      self.committed_offset = attributes[:'committedOffset'] if attributes[:'committedOffset']
 
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+      raise 'You cannot provide both :committedOffset and :committed_offset' if attributes.key?(:'committedOffset') && attributes.key?(:'committed_offset')
 
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+      self.committed_offset = attributes[:'committed_offset'] if attributes[:'committed_offset']
 
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+      self.reserved_instance = attributes[:'reservedInstance'] if attributes[:'reservedInstance']
 
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+      raise 'You cannot provide both :reservedInstance and :reserved_instance' if attributes.key?(:'reservedInstance') && attributes.key?(:'reserved_instance')
 
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+      self.reserved_instance = attributes[:'reserved_instance'] if attributes[:'reserved_instance']
 
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+      self.time_reserved_until = attributes[:'timeReservedUntil'] if attributes[:'timeReservedUntil']
 
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+      raise 'You cannot provide both :timeReservedUntil and :time_reserved_until' if attributes.key?(:'timeReservedUntil') && attributes.key?(:'time_reserved_until')
 
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
-
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
-
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
-
-      self.key_shape = attributes[:'keyShape'] if attributes[:'keyShape']
-
-      raise 'You cannot provide both :keyShape and :key_shape' if attributes.key?(:'keyShape') && attributes.key?(:'key_shape')
-
-      self.key_shape = attributes[:'key_shape'] if attributes[:'key_shape']
+      self.time_reserved_until = attributes[:'time_reserved_until'] if attributes[:'time_reserved_until']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -118,11 +95,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        compartment_id == other.compartment_id &&
-        defined_tags == other.defined_tags &&
-        display_name == other.display_name &&
-        freeform_tags == other.freeform_tags &&
-        key_shape == other.key_shape
+        partition == other.partition &&
+        committed_offset == other.committed_offset &&
+        reserved_instance == other.reserved_instance &&
+        time_reserved_until == other.time_reserved_until
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -138,7 +114,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, key_shape].hash
+      [partition, committed_offset, reserved_instance, time_reserved_until].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

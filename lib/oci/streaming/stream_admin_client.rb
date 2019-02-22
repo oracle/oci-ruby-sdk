@@ -5,8 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Manage Oracle Cloud Infrastructure console announcements.
-  class AnnouncementsService::AnnouncementClient
+  # The API for the Streaming Service.
+  class Streaming::StreamAdminClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
     attr_reader :api_client
@@ -28,7 +28,7 @@ module OCI
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
 
 
-    # Creates a new AnnouncementClient.
+    # Creates a new StreamAdminClient.
     # Notes:
     #   If a config is not specified, then the global OCI.config will be used.
     #
@@ -76,13 +76,13 @@ module OCI
       @retry_config = retry_config
 
       if endpoint
-        @endpoint = endpoint + '/20180904'
+        @endpoint = endpoint + '/20180418'
       else
         region ||= config.region
         region ||= signer.region if signer.respond_to?(:region)
         self.region = region
       end
-      logger.info "AnnouncementClient endpoint set to '#{@endpoint}'." if logger
+      logger.info "StreamAdminClient endpoint set to '#{@endpoint}'." if logger
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
 
@@ -94,8 +94,8 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :AnnouncementClient) + '/20180904'
-      logger.info "AnnouncementClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://streams.{region}.streaming.oci.{secondLevelDomain}') + '/20180418'
+      logger.info "StreamAdminClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
     # @return [Logger] The logger for this client. May be nil.
@@ -108,23 +108,84 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the details of a specific announcement.
+    # Starts the provisioning of a new stream.
+    # To track the progress of the provisioning, you can periodically call {#get_stream get_stream}.
+    # In the response, the `lifecycleState` parameter of the {Stream} object tells you its current state.
     #
-    # @param [String] announcement_id The OCID of the announcement.
+    # @param [OCI::Streaming::Models::CreateStreamDetails] create_stream_details The stream to create.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about
-    #   a particular request, please provide the complete request ID.
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
     #
-    # @return [Response] A Response object with data of type {OCI::AnnouncementsService::Models::Announcement Announcement}
-    def get_announcement(announcement_id, opts = {})
-      logger.debug 'Calling operation AnnouncementClient#get_announcement.' if logger
+    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Stream Stream}
+    def create_stream(create_stream_details, opts = {})
+      logger.debug 'Calling operation StreamAdminClient#create_stream.' if logger
 
-      raise "Missing the required parameter 'announcement_id' when calling get_announcement." if announcement_id.nil?
-      raise "Parameter value for 'announcement_id' must not be blank" if OCI::Internal::Util.blank_string?(announcement_id)
+      raise "Missing the required parameter 'create_stream_details' when calling create_stream." if create_stream_details.nil?
 
-      path = '/announcements/{announcementId}'.sub('{announcementId}', announcement_id.to_s)
+      path = '/streams'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(create_stream_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#create_stream') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Streaming::Models::Stream'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a stream and its content. Stream contents are deleted immediately. The service retains records of the stream itself for 90 days after deletion.
+    # The `lifeCycleState` parameter of the `Stream` object changes to `DELETING` and the stream becomes inaccessible for read or write operations.
+    # To verify that a stream has been deleted, make a {#get_stream get_stream} request. If the call returns the stream's
+    # lifecycle state as `DELETED`, then the stream has been deleted. If the call returns a \"404 Not Found\" error, that means all records of the
+    # stream have been deleted.
+    #
+    # @param [String] stream_id The OCID of the stream to delete.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_stream(stream_id, opts = {})
+      logger.debug 'Calling operation StreamAdminClient#delete_stream.' if logger
+
+      raise "Missing the required parameter 'stream_id' when calling delete_stream." if stream_id.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
+
+      path = '/streams/{streamId}'.sub('{streamId}', stream_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -141,16 +202,15 @@ module OCI
       post_body = nil
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnnouncementClient#get_announcement') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#delete_stream') do
         @api_client.call_api(
-          :GET,
+          :DELETE,
           path,
           endpoint,
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::AnnouncementsService::Models::Announcement'
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -164,23 +224,22 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about whether a specific announcement was acknowledged by a user.
-    #
-    # @param [String] announcement_id The OCID of the announcement.
+    # Gets detailed information about a stream, including the number of partitions.
+    # @param [String] stream_id The OCID of the stream to retrieve.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about
-    #   a particular request, please provide the complete request ID.
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
     #
-    # @return [Response] A Response object with data of type {OCI::AnnouncementsService::Models::AnnouncementUserStatusDetails AnnouncementUserStatusDetails}
-    def get_announcement_user_status(announcement_id, opts = {})
-      logger.debug 'Calling operation AnnouncementClient#get_announcement_user_status.' if logger
+    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Stream Stream}
+    def get_stream(stream_id, opts = {})
+      logger.debug 'Calling operation StreamAdminClient#get_stream.' if logger
 
-      raise "Missing the required parameter 'announcement_id' when calling get_announcement_user_status." if announcement_id.nil?
-      raise "Parameter value for 'announcement_id' must not be blank" if OCI::Internal::Util.blank_string?(announcement_id)
+      raise "Missing the required parameter 'stream_id' when calling get_stream." if stream_id.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
 
-      path = '/announcements/{announcementId}/userStatus'.sub('{announcementId}', announcement_id.to_s)
+      path = '/streams/{streamId}'.sub('{streamId}', stream_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -197,7 +256,7 @@ module OCI
       post_body = nil
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnnouncementClient#get_announcement_user_status') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#get_stream') do
         @api_client.call_api(
           :GET,
           path,
@@ -206,7 +265,7 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
-          return_type: 'OCI::AnnouncementsService::Models::AnnouncementUserStatusDetails'
+          return_type: 'OCI::Streaming::Models::Stream'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -220,65 +279,60 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of announcements for the current tenancy.
-    #
-    # @param [String] compartment_id The OCID of the compartment. Because announcements are specific to a tenancy, this is the
-    #   OCID of the root compartment.
-    #
+    # Lists the streams.
+    # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    # @option opts [String] :announcement_type The type of announcement.
-    # @option opts [String] :lifecycle_state The announcement's current lifecycle state.
-    #   Allowed values are: ACTIVE, INACTIVE
-    # @option opts [BOOLEAN] :is_banner Whether the announcement is displayed as a console banner.
-    # @option opts [String] :sort_by The criteria to sort by. You can specify only one sort order.
+    # @option opts [String] :id A filter to return only resources that match the given ID exactly.
     #
-    #   Allowed values are: timeOneValue, timeTwoValue, timeCreated, referenceTicketNumber, summary, announcementType
-    # @option opts [String] :sort_order The sort order to use. (Sorting by `announcementType` orders the announcements list according to importance.)
+    # @option opts [String] :name A filter to return only resources that match the given name exactly.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 50. The default is 10. (default to 5)
+    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [String] :sort_by The field to sort by. You can provide no more than one sort order. By default, `TIMECREATED` sorts results in descending order and `NAME` sorts results in ascending order.
+    #
+    #   Allowed values are: NAME, TIMECREATED
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [DateTime] :time_one_earliest_time The boundary for the earliest `timeOneValue` date on announcements that you want to see.
-    # @option opts [DateTime] :time_one_latest_time The boundary for the latest `timeOneValue` date on announcements that you want to see.
-    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about
-    #   a particular request, please provide the complete request ID.
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state. The state value is case-insensitive.
     #
-    # @return [Response] A Response object with data of type {OCI::AnnouncementsService::Models::AnnouncementsCollection AnnouncementsCollection}
-    def list_announcements(compartment_id, opts = {})
-      logger.debug 'Calling operation AnnouncementClient#list_announcements.' if logger
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Streaming::Models::StreamSummary StreamSummary}>
+    def list_streams(compartment_id, opts = {})
+      logger.debug 'Calling operation StreamAdminClient#list_streams.' if logger
 
-      raise "Missing the required parameter 'compartment_id' when calling list_announcements." if compartment_id.nil?
+      raise "Missing the required parameter 'compartment_id' when calling list_streams." if compartment_id.nil?
 
-      if opts[:lifecycle_state] && !%w[ACTIVE INACTIVE].include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of ACTIVE, INACTIVE.'
-      end
-
-      if opts[:sort_by] && !%w[timeOneValue timeTwoValue timeCreated referenceTicketNumber summary announcementType].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of timeOneValue, timeTwoValue, timeCreated, referenceTicketNumber, summary, announcementType.'
+      if opts[:sort_by] && !%w[NAME TIMECREATED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME, TIMECREATED.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
       end
 
-      path = '/announcements'
+      if opts[:lifecycle_state] && !OCI::Streaming::Models::Stream::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Streaming::Models::Stream::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/streams'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:name] = opts[:name] if opts[:name]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
-      query_params[:announcementType] = opts[:announcement_type] if opts[:announcement_type]
-      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
-      query_params[:isBanner] = opts[:is_banner] if !opts[:is_banner].nil?
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:timeOneEarliestTime] = opts[:time_one_earliest_time] if opts[:time_one_earliest_time]
-      query_params[:timeOneLatestTime] = opts[:time_one_latest_time] if opts[:time_one_latest_time]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -290,7 +344,7 @@ module OCI
       post_body = nil
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnnouncementClient#list_announcements') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#list_streams') do
         @api_client.call_api(
           :GET,
           path,
@@ -299,7 +353,7 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
-          return_type: 'OCI::AnnouncementsService::Models::AnnouncementsCollection'
+          return_type: 'Array<OCI::Streaming::Models::StreamSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -313,26 +367,25 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the status of the specified announcement with regard to whether it has been marked as read.
+    # Updates the tags applied to the stream.
     #
-    # @param [String] announcement_id The OCID of the announcement.
-    # @param [OCI::AnnouncementsService::Models::AnnouncementUserStatusDetails] status_details The information to use to update the announcement's read status.
+    # @param [String] stream_id The OCID of the stream to update.
+    # @param [OCI::Streaming::Models::UpdateStreamDetails] update_stream_details The stream is updated with the tags provided.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The locking version, used for optimistic concurrency control.
-    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about
-    #   a particular request, please provide the complete request ID.
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
     #
-    # @return [Response] A Response object with data of type nil
-    def update_announcement_user_status(announcement_id, status_details, opts = {})
-      logger.debug 'Calling operation AnnouncementClient#update_announcement_user_status.' if logger
+    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Stream Stream}
+    def update_stream(stream_id, update_stream_details, opts = {})
+      logger.debug 'Calling operation StreamAdminClient#update_stream.' if logger
 
-      raise "Missing the required parameter 'announcement_id' when calling update_announcement_user_status." if announcement_id.nil?
-      raise "Missing the required parameter 'status_details' when calling update_announcement_user_status." if status_details.nil?
-      raise "Parameter value for 'announcement_id' must not be blank" if OCI::Internal::Util.blank_string?(announcement_id)
+      raise "Missing the required parameter 'stream_id' when calling update_stream." if stream_id.nil?
+      raise "Missing the required parameter 'update_stream_details' when calling update_stream." if update_stream_details.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
 
-      path = '/announcements/{announcementId}/userStatus'.sub('{announcementId}', announcement_id.to_s)
+      path = '/streams/{streamId}'.sub('{streamId}', stream_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -343,14 +396,13 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
-      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
-      post_body = @api_client.object_to_http_body(status_details)
+      post_body = @api_client.object_to_http_body(update_stream_details)
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnnouncementClient#update_announcement_user_status') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#update_stream') do
         @api_client.call_api(
           :PUT,
           path,
@@ -358,7 +410,8 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::Streaming::Models::Stream'
         )
       end
       # rubocop:enable Metrics/BlockLength

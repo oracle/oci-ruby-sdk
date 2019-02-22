@@ -27,7 +27,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The subnet's availability domain.
+    # The subnet's availability domain.
     #
     # Example: `Uocm:PHX-AD-1`
     #

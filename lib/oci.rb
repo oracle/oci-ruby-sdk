@@ -33,6 +33,7 @@ require 'oci/key_management/key_management'
 require 'oci/announcements_service/announcements_service'
 require 'oci/waas/waas'
 require 'oci/healthchecks/healthchecks'
+require 'oci/streaming/streaming'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

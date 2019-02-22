@@ -4,14 +4,14 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Results of annoucements search. Contains both announcements, and user specific status of the announcments
+  # A list of announcements that match filter criteria, if any. Results contain both the announcements and the user-specific status of the announcements.
   #
   class AnnouncementsService::Models::AnnouncementsCollection # rubocop:disable Metrics/LineLength
-    # collection of announcements
+    # A collection of announcements.
     # @return [Array<OCI::AnnouncementsService::Models::AnnouncementSummary>]
     attr_accessor :items
 
-    # user specific status of found announcements
+    # The user-specific status for found announcements.
     # @return [Array<OCI::AnnouncementsService::Models::AnnouncementUserStatusDetails>]
     attr_accessor :user_statuses
 

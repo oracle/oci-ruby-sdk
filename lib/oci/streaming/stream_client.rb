@@ -5,9 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for the Email Delivery service. Use this API to send high-volume, application-generated
-  # emails. For more information, see [Overview of the Email Delivery Service](/iaas/Content/Email/Concepts/overview.htm).
-  class Email::EmailClient
+  # The API for the Streaming Service.
+  class Streaming::StreamClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
     attr_reader :api_client
@@ -29,7 +28,7 @@ module OCI
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
 
 
-    # Creates a new EmailClient.
+    # Creates a new StreamClient.
     # Notes:
     #   If a config is not specified, then the global OCI.config will be used.
     #
@@ -77,13 +76,13 @@ module OCI
       @retry_config = retry_config
 
       if endpoint
-        @endpoint = endpoint + '/20170907'
+        @endpoint = endpoint + '/20180418'
       else
         region ||= config.region
         region ||= signer.region if signer.respond_to?(:region)
         self.region = region
       end
-      logger.info "EmailClient endpoint set to '#{@endpoint}'." if logger
+      logger.info "StreamClient endpoint set to '#{@endpoint}'." if logger
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
 
@@ -95,8 +94,8 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://email.{region}.{secondLevelDomain}') + '/20170907'
-      logger.info "EmailClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://streams.{region}.streaming.oci.{secondLevelDomain}') + '/20180418'
+      logger.info "StreamClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
     # @return [Logger] The logger for this client. May be nil.
@@ -109,24 +108,33 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a sender for a tenancy in a given compartment.
-    # @param [OCI::Email::Models::CreateSenderDetails] create_sender_details Create a sender.
+    # Provides a mechanism to manually commit offsets, if not using commit-on-get consumer semantics.
+    # This commits offsets assicated with the provided cursor, extends the timeout on each of the affected partitions, and returns an updated cursor.
+    #
+    # @param [String] stream_id The OCID of the stream for which the group is committing offsets.
+    # @param [String] cursor The group-cursor representing the offsets of the group. This cursor is retrieved from the CreateGroupCursor API call.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The request ID for tracing from the system
-    # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
-    def create_sender(create_sender_details, opts = {})
-      logger.debug 'Calling operation EmailClient#create_sender.' if logger
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Cursor Cursor}
+    def consumer_commit(stream_id, cursor, opts = {})
+      logger.debug 'Calling operation StreamClient#consumer_commit.' if logger
 
-      raise "Missing the required parameter 'create_sender_details' when calling create_sender." if create_sender_details.nil?
+      raise "Missing the required parameter 'stream_id' when calling consumer_commit." if stream_id.nil?
+      raise "Missing the required parameter 'cursor' when calling consumer_commit." if cursor.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
 
-      path = '/senders'
+      path = '/streams/{streamId}/commit'.sub('{streamId}', stream_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:cursor] = cursor
 
       # Header Params
       header_params = {}
@@ -135,10 +143,10 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
-      post_body = @api_client.object_to_http_body(create_sender_details)
+      post_body = nil
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#create_sender') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamClient#consumer_commit') do
         @api_client.call_api(
           :POST,
           path,
@@ -147,7 +155,7 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
-          return_type: 'OCI::Email::Models::Sender'
+          return_type: 'OCI::Streaming::Models::Cursor'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -161,29 +169,32 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Adds recipient email addresses to the suppression list for a tenancy.
-    # Addresses added to the suppression list via the API are denoted as
-    # \"MANUAL\" in the `reason` field. *Note:* All email addresses added to the
-    # suppression list are normalized to include only lowercase letters.
+    # Allows long-running processes to extend the timeout on partitions reserved by a consumer instance.
     #
-    # @param [OCI::Email::Models::CreateSuppressionDetails] create_suppression_details Adds a single email address to the suppression list for a compartment's tenancy.
+    # @param [String] stream_id The OCID of the stream for which the group is committing offsets.
+    # @param [String] cursor The group-cursor representing the offsets of the group. This cursor is retrieved from the CreateGroupCursor API call.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The request ID for tracing from the system
-    # @return [Response] A Response object with data of type {OCI::Email::Models::Suppression Suppression}
-    def create_suppression(create_suppression_details, opts = {})
-      logger.debug 'Calling operation EmailClient#create_suppression.' if logger
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Cursor Cursor}
+    def consumer_heartbeat(stream_id, cursor, opts = {})
+      logger.debug 'Calling operation StreamClient#consumer_heartbeat.' if logger
 
-      raise "Missing the required parameter 'create_suppression_details' when calling create_suppression." if create_suppression_details.nil?
+      raise "Missing the required parameter 'stream_id' when calling consumer_heartbeat." if stream_id.nil?
+      raise "Missing the required parameter 'cursor' when calling consumer_heartbeat." if cursor.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
 
-      path = '/suppressions'
+      path = '/streams/{streamId}/heartbeat'.sub('{streamId}', stream_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:cursor] = cursor
 
       # Header Params
       header_params = {}
@@ -192,10 +203,10 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
-      post_body = @api_client.object_to_http_body(create_suppression_details)
+      post_body = nil
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#create_suppression') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamClient#consumer_heartbeat') do
         @api_client.call_api(
           :POST,
           path,
@@ -204,7 +215,7 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
-          return_type: 'OCI::Email::Models::Suppression'
+          return_type: 'OCI::Streaming::Models::Cursor'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -218,22 +229,29 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes an approved sender for a tenancy in a given compartment for a
-    # provided `senderId`.
+    # Creates a cursor. Cursors are used to consume a stream, starting from a specific point in the partition and going forward from there.
+    # You can create a cursor based on an offset, a time, the trim horizon, or the most recent message in the stream. As the oldest message
+    # inside the retention period boundary, using the trim horizon effectively lets you consume all messages in the stream. A cursor based
+    # on the most recent message allows consumption of only messages that are added to the stream after you create the cursor. Cursors expire
+    # five minutes after you receive them from the service.
     #
-    # @param [String] sender_id The unique OCID of the sender.
+    # @param [String] stream_id The OCID of the stream to create a cursor for.
+    # @param [OCI::Streaming::Models::CreateCursorDetails] create_cursor_details The information used to create the cursor.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The request ID for tracing from the system
-    # @return [Response] A Response object with data of type nil
-    def delete_sender(sender_id, opts = {})
-      logger.debug 'Calling operation EmailClient#delete_sender.' if logger
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Cursor Cursor}
+    def create_cursor(stream_id, create_cursor_details, opts = {})
+      logger.debug 'Calling operation StreamClient#create_cursor.' if logger
 
-      raise "Missing the required parameter 'sender_id' when calling delete_sender." if sender_id.nil?
-      raise "Parameter value for 'sender_id' must not be blank" if OCI::Internal::Util.blank_string?(sender_id)
+      raise "Missing the required parameter 'stream_id' when calling create_cursor." if stream_id.nil?
+      raise "Missing the required parameter 'create_cursor_details' when calling create_cursor." if create_cursor_details.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
 
-      path = '/senders/{senderId}'.sub('{senderId}', sender_id.to_s)
+      path = '/streams/{streamId}/cursors'.sub('{streamId}', stream_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -247,18 +265,19 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
-      post_body = nil
+      post_body = @api_client.object_to_http_body(create_cursor_details)
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#delete_sender') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamClient#create_cursor') do
         @api_client.call_api(
-          :DELETE,
+          :POST,
           path,
           endpoint,
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::Streaming::Models::Cursor'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -272,22 +291,25 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Removes a suppressed recipient email address from the suppression list
-    # for a tenancy in a given compartment for a provided `suppressionId`.
+    # Creates a group-cursor.
     #
-    # @param [String] suppression_id The unique OCID of the suppression.
+    # @param [String] stream_id The OCID of the stream to create a cursor for.
+    # @param [OCI::Streaming::Models::CreateGroupCursorDetails] create_group_cursor_details The information used to create the cursor.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The request ID for tracing from the system
-    # @return [Response] A Response object with data of type nil
-    def delete_suppression(suppression_id, opts = {})
-      logger.debug 'Calling operation EmailClient#delete_suppression.' if logger
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Cursor Cursor}
+    def create_group_cursor(stream_id, create_group_cursor_details, opts = {})
+      logger.debug 'Calling operation StreamClient#create_group_cursor.' if logger
 
-      raise "Missing the required parameter 'suppression_id' when calling delete_suppression." if suppression_id.nil?
-      raise "Parameter value for 'suppression_id' must not be blank" if OCI::Internal::Util.blank_string?(suppression_id)
+      raise "Missing the required parameter 'stream_id' when calling create_group_cursor." if stream_id.nil?
+      raise "Missing the required parameter 'create_group_cursor_details' when calling create_group_cursor." if create_group_cursor_details.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
 
-      path = '/suppressions/{suppressionId}'.sub('{suppressionId}', suppression_id.to_s)
+      path = '/streams/{streamId}/groupCursors'.sub('{streamId}', stream_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -301,18 +323,19 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
-      post_body = nil
+      post_body = @api_client.object_to_http_body(create_group_cursor_details)
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#delete_suppression') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamClient#create_group_cursor') do
         @api_client.call_api(
-          :DELETE,
+          :POST,
           path,
           endpoint,
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::Streaming::Models::Cursor'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -326,20 +349,26 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets an approved sender for a given `senderId`.
-    # @param [String] sender_id The unique OCID of the sender.
+    # Returns the current state of a consumer group.
+    #
+    # @param [String] stream_id The OCID of the stream, on which the group is operating.
+    # @param [String] group_name The name of the consumer group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The request ID for tracing from the system
-    # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
-    def get_sender(sender_id, opts = {})
-      logger.debug 'Calling operation EmailClient#get_sender.' if logger
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Group Group}
+    def get_group(stream_id, group_name, opts = {})
+      logger.debug 'Calling operation StreamClient#get_group.' if logger
 
-      raise "Missing the required parameter 'sender_id' when calling get_sender." if sender_id.nil?
-      raise "Parameter value for 'sender_id' must not be blank" if OCI::Internal::Util.blank_string?(sender_id)
+      raise "Missing the required parameter 'stream_id' when calling get_group." if stream_id.nil?
+      raise "Missing the required parameter 'group_name' when calling get_group." if group_name.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
+      raise "Parameter value for 'group_name' must not be blank" if OCI::Internal::Util.blank_string?(group_name)
 
-      path = '/senders/{senderId}'.sub('{senderId}', sender_id.to_s)
+      path = '/streams/{streamId}/groups/{groupName}'.sub('{streamId}', stream_id.to_s).sub('{groupName}', group_name.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -356,7 +385,7 @@ module OCI
       post_body = nil
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#get_sender') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamClient#get_group') do
         @api_client.call_api(
           :GET,
           path,
@@ -365,7 +394,7 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
-          return_type: 'OCI::Email::Models::Sender'
+          return_type: 'OCI::Streaming::Models::Group'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -379,117 +408,38 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the details of a suppressed recipient email address for a given
-    # `suppressionId`. Each suppression is given a unique OCID.
+    # Returns messages from the specified stream using the specified cursor as the starting point for consumption. By default, the number of messages returned is undefined, but the service returns as many as possible.
+    # To get messages, you must first obtain a cursor using the {#create_cursor create_cursor} operation.
+    # In the response, retrieve the value of the 'opc-next-cursor' header to pass as a parameter to get the next batch of messages in the stream.
     #
-    # @param [String] suppression_id The unique OCID of the suppression.
+    # @param [String] stream_id The OCID of the stream to get messages from.
+    # @param [String] cursor The cursor used to consume the stream.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The request ID for tracing from the system
-    # @return [Response] A Response object with data of type {OCI::Email::Models::Suppression Suppression}
-    def get_suppression(suppression_id, opts = {})
-      logger.debug 'Calling operation EmailClient#get_suppression.' if logger
+    # @option opts [Integer] :limit The maximum number of messages to return. You can specify any value up to 10000. By default, the service returns as many messages as possible.
+    #   Consider your average message size to help avoid exceeding throughput on the stream.
+    #
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Streaming::Models::Message Message}>
+    def get_messages(stream_id, cursor, opts = {})
+      logger.debug 'Calling operation StreamClient#get_messages.' if logger
 
-      raise "Missing the required parameter 'suppression_id' when calling get_suppression." if suppression_id.nil?
-      raise "Parameter value for 'suppression_id' must not be blank" if OCI::Internal::Util.blank_string?(suppression_id)
+      raise "Missing the required parameter 'stream_id' when calling get_messages." if stream_id.nil?
+      raise "Missing the required parameter 'cursor' when calling get_messages." if cursor.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
 
-      path = '/suppressions/{suppressionId}'.sub('{suppressionId}', suppression_id.to_s)
+      path = '/streams/{streamId}/messages'.sub('{streamId}', stream_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#get_suppression') do
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Email::Models::Suppression'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # Gets a collection of approved sender email addresses and sender IDs.
-    #
-    # @param [String] compartment_id The OCID for the compartment.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The request ID for tracing from the system
-    # @option opts [String] :lifecycle_state The current state of a sender.
-    # @option opts [String] :email_address The email address of the approved sender.
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous
-    #   GET request.
-    #
-    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
-    #   paginated \"List\" call. `1` is the minimum, `1000` is the maximum. For important details about
-    #   how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
-    # @option opts [String] :sort_by The field to sort by. The `TIMECREATED` value returns the list in in
-    #   descending order by default. The `EMAILADDRESS` value returns the list in
-    #   ascending order by default. Use the `SortOrderQueryParam` to change the
-    #   direction of the returned list of items.
-    #
-    #   Allowed values are: TIMECREATED, EMAILADDRESS
-    # @option opts [String] :sort_order The sort order to use, either ascending or descending order.
-    #
-    #   Allowed values are: ASC, DESC
-    # @return [Response] A Response object with data of type Array<{OCI::Email::Models::SenderSummary SenderSummary}>
-    def list_senders(compartment_id, opts = {})
-      logger.debug 'Calling operation EmailClient#list_senders.' if logger
-
-      raise "Missing the required parameter 'compartment_id' when calling list_senders." if compartment_id.nil?
-
-      if opts[:lifecycle_state] && !OCI::Email::Models::Sender::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Email::Models::Sender::LIFECYCLE_STATE_ENUM.'
-      end
-
-      if opts[:sort_by] && !%w[TIMECREATED EMAILADDRESS].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED, EMAILADDRESS.'
-      end
-
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
-      end
-
-      path = '/senders'
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-      query_params[:compartmentId] = compartment_id
-      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
-      query_params[:emailAddress] = opts[:email_address] if opts[:email_address]
-      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:cursor] = cursor
       query_params[:limit] = opts[:limit] if opts[:limit]
-      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
-      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
 
       # Header Params
       header_params = {}
@@ -501,7 +451,7 @@ module OCI
       post_body = nil
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#list_senders') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamClient#get_messages') do
         @api_client.call_api(
           :GET,
           path,
@@ -510,7 +460,7 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
-          return_type: 'Array<OCI::Email::Models::SenderSummary>'
+          return_type: 'Array<OCI::Streaming::Models::Message>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -524,78 +474,33 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of suppressed recipient email addresses for a user. The
-    # `compartmentId` for suppressions must be a tenancy OCID. The returned list
-    # is sorted by creation time in descending order.
+    # Emits messages to a stream. There's no limit to the number of messages in a request, but the total size of a message or request must be 1 MiB or less.
+    # The service calculates the partition ID from the message key and stores messages that share a key on the same partition.
+    # If a message does not contain a key or if the key is null, the service generates a message key for you.
+    # The partition ID cannot be passed as a parameter.
     #
-    # @param [String] compartment_id The OCID for the compartment.
+    # @param [String] stream_id The OCID of the stream where you want to put messages.
+    # @param [OCI::Streaming::Models::PutMessagesDetails] put_messages_details Array of messages to put into the stream.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The request ID for tracing from the system
-    # @option opts [String] :email_address The email address of the suppression.
-    # @option opts [DateTime] :time_created_greater_than_or_equal_to Search for suppressions that were created within a specific date range,
-    #   using this parameter to specify the earliest creation date for the
-    #   returned list (inclusive). Specifying this parameter without the
-    #   corresponding `timeCreatedLessThan` parameter will retrieve suppressions created from the
-    #   given `timeCreatedGreaterThanOrEqualTo` to the current time, in \"YYYY-MM-ddThh:mmZ\" format with a
-    #   Z offset, as defined by RFC 3339.
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
     #
-    #   **Example:** 2016-12-19T16:39:57.600Z
-    #
-    # @option opts [DateTime] :time_created_less_than Search for suppressions that were created within a specific date range,
-    #   using this parameter to specify the latest creation date for the returned
-    #   list (exclusive). Specifying this parameter without the corresponding
-    #   `timeCreatedGreaterThanOrEqualTo` parameter will retrieve all suppressions created before the
-    #   specified end date, in \"YYYY-MM-ddThh:mmZ\" format with a Z offset, as
-    #   defined by RFC 3339.
-    #
-    #   **Example:** 2016-12-19T16:39:57.600Z
-    #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous
-    #   GET request.
-    #
-    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
-    #   paginated \"List\" call. `1` is the minimum, `1000` is the maximum. For important details about
-    #   how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
-    # @option opts [String] :sort_by The field to sort by. The `TIMECREATED` value returns the list in in
-    #   descending order by default. The `EMAILADDRESS` value returns the list in
-    #   ascending order by default. Use the `SortOrderQueryParam` to change the
-    #   direction of the returned list of items.
-    #
-    #   Allowed values are: TIMECREATED, EMAILADDRESS
-    # @option opts [String] :sort_order The sort order to use, either ascending or descending order.
-    #
-    #   Allowed values are: ASC, DESC
-    # @return [Response] A Response object with data of type Array<{OCI::Email::Models::SuppressionSummary SuppressionSummary}>
-    def list_suppressions(compartment_id, opts = {})
-      logger.debug 'Calling operation EmailClient#list_suppressions.' if logger
+    # @return [Response] A Response object with data of type {OCI::Streaming::Models::PutMessagesResult PutMessagesResult}
+    def put_messages(stream_id, put_messages_details, opts = {})
+      logger.debug 'Calling operation StreamClient#put_messages.' if logger
 
-      raise "Missing the required parameter 'compartment_id' when calling list_suppressions." if compartment_id.nil?
+      raise "Missing the required parameter 'stream_id' when calling put_messages." if stream_id.nil?
+      raise "Missing the required parameter 'put_messages_details' when calling put_messages." if put_messages_details.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
 
-      if opts[:sort_by] && !%w[TIMECREATED EMAILADDRESS].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED, EMAILADDRESS.'
-      end
-
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
-      end
-
-      path = '/suppressions'
-      operation_signing_strategy = :standard
+      path = '/streams/{streamId}/messages'.sub('{streamId}', stream_id.to_s)
+      operation_signing_strategy = :exclude_body
 
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:compartmentId] = compartment_id
-      query_params[:emailAddress] = opts[:email_address] if opts[:email_address]
-      query_params[:timeCreatedGreaterThanOrEqualTo] = opts[:time_created_greater_than_or_equal_to] if opts[:time_created_greater_than_or_equal_to]
-      query_params[:timeCreatedLessThan] = opts[:time_created_less_than] if opts[:time_created_less_than]
-      query_params[:page] = opts[:page] if opts[:page]
-      query_params[:limit] = opts[:limit] if opts[:limit]
-      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
-      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
 
       # Header Params
       header_params = {}
@@ -604,19 +509,19 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
-      post_body = nil
+      post_body = @api_client.object_to_http_body(put_messages_details)
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#list_suppressions') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamClient#put_messages') do
         @api_client.call_api(
-          :GET,
+          :POST,
           path,
           endpoint,
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
-          return_type: 'Array<OCI::Email::Models::SuppressionSummary>'
+          return_type: 'OCI::Streaming::Models::PutMessagesResult'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -630,26 +535,28 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Replaces the set of tags for a sender with the tags provided. If either freeform
-    # or defined tags are omitted, the tags for that set remain the same. Each set must
-    # include the full set of tags for the sender, partial updates are not permitted.
-    # For more information about tagging, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # Forcefully changes the current location of a group as a whole; reseting processing location of all consumers to a particular location in the stream.
     #
-    # @param [String] sender_id The unique OCID of the sender.
-    # @param [OCI::Email::Models::UpdateSenderDetails] update_sender_details update details for sender.
+    # @param [String] stream_id The OCID of the stream, on which the group is operating.
+    # @param [String] group_name The name of the consumer group.
+    # @param [OCI::Streaming::Models::UpdateGroupDetails] update_group_details The information used to modify the group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The request ID for tracing from the system
-    # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
-    def update_sender(sender_id, update_sender_details, opts = {})
-      logger.debug 'Calling operation EmailClient#update_sender.' if logger
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_group(stream_id, group_name, update_group_details, opts = {})
+      logger.debug 'Calling operation StreamClient#update_group.' if logger
 
-      raise "Missing the required parameter 'sender_id' when calling update_sender." if sender_id.nil?
-      raise "Missing the required parameter 'update_sender_details' when calling update_sender." if update_sender_details.nil?
-      raise "Parameter value for 'sender_id' must not be blank" if OCI::Internal::Util.blank_string?(sender_id)
+      raise "Missing the required parameter 'stream_id' when calling update_group." if stream_id.nil?
+      raise "Missing the required parameter 'group_name' when calling update_group." if group_name.nil?
+      raise "Missing the required parameter 'update_group_details' when calling update_group." if update_group_details.nil?
+      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
+      raise "Parameter value for 'group_name' must not be blank" if OCI::Internal::Util.blank_string?(group_name)
 
-      path = '/senders/{senderId}'.sub('{senderId}', sender_id.to_s)
+      path = '/streams/{streamId}/groups/{groupName}'.sub('{streamId}', stream_id.to_s).sub('{groupName}', group_name.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -663,10 +570,10 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
-      post_body = @api_client.object_to_http_body(update_sender_details)
+      post_body = @api_client.object_to_http_body(update_group_details)
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'EmailClient#update_sender') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamClient#update_group') do
         @api_client.call_api(
           :PUT,
           path,
@@ -674,8 +581,7 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Email::Models::Sender'
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength

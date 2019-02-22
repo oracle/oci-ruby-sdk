@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # CreateSubnetDetails model.
   class Core::Models::CreateSubnetDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The availability domain to contain the subnet.
+    # The availability domain to contain the subnet.
     #
     # Example: `Uocm:PHX-AD-1`
     #

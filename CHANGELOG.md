@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.5.0 - 2019-02-21
+### Added
+- Support for government-realm regions
+- Support for the Streaming service
+- Support for tags in the Key Management service
+- Support for regional subnets in the Virtual Networking service
+- Support for specifying an optional `endpoint` parameter when creating a new client
+
+### Fixed
+- Removed unused Announcements service `OCI::AnnouncementsService::Models::NotificationFollowupDetails` model and `followups` from `OCI::AnnouncementsService::Models::Announcement`
+
+
 ## 2.4.7 - 2019-02-07
 ### Added
 - Support for the Web Application Acceleration and Security (WAAS) service

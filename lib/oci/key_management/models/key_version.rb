@@ -20,7 +20,7 @@ module OCI
 
     # **[Required]** The date and time this key version was created, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
     #
-    # Example: `2018-04-03T21:10:29.600Z`
+    # Example: \"2018-04-03T21:10:29.600Z\"
     #
     # @return [DateTime]
     attr_accessor :time_created

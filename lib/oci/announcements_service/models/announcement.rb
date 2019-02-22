@@ -6,21 +6,23 @@ require_relative 'base_announcement'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # An announcement object which represents a message targetted to a specific tenant
+  # A message about an impactful operational event.
   #
   class AnnouncementsService::Models::Announcement < AnnouncementsService::Models::BaseAnnouncement # rubocop:disable Metrics/LineLength
-    # A more detailed explanation of the notification. A markdown format input
+    # A detailed explanation of the event, expressed by using Markdown language. Avoid entering
+    # confidential information.
+    #
     # @return [String]
     attr_accessor :description
 
-    # A markdown format input that forms e.g. the FAQ section of a notification
+    # Additional information about the event, expressed by using Markdown language and included in the
+    # details view of an announcement. Additional information might include remediation steps or
+    # answers to frequently asked questions. Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :additional_information
 
-    # @return [Array<OCI::AnnouncementsService::Models::NotificationFollowupDetails>]
-    attr_accessor :followups
-
-    # List of resources (possibly empty) affected by this announcement
+    # The list of resources, if any, affected by the event described in the announcement.
     # @return [Array<OCI::AnnouncementsService::Models::AffectedResource>]
     attr_accessor :affected_resources
 
@@ -45,7 +47,6 @@ module OCI
         'time_updated': :'timeUpdated',
         'description': :'description',
         'additional_information': :'additionalInformation',
-        'followups': :'followups',
         'affected_resources': :'affectedResources'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -72,7 +73,6 @@ module OCI
         'time_updated': :'DateTime',
         'description': :'String',
         'additional_information': :'String',
-        'followups': :'Array<OCI::AnnouncementsService::Models::NotificationFollowupDetails>',
         'affected_resources': :'Array<OCI::AnnouncementsService::Models::AffectedResource>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -100,7 +100,6 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_updated #time_updated} proprety
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :additional_information The value to assign to the {#additional_information} property
-    # @option attributes [Array<OCI::AnnouncementsService::Models::NotificationFollowupDetails>] :followups The value to assign to the {#followups} property
     # @option attributes [Array<OCI::AnnouncementsService::Models::AffectedResource>] :affected_resources The value to assign to the {#affected_resources} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -119,8 +118,6 @@ module OCI
       raise 'You cannot provide both :additionalInformation and :additional_information' if attributes.key?(:'additionalInformation') && attributes.key?(:'additional_information')
 
       self.additional_information = attributes[:'additional_information'] if attributes[:'additional_information']
-
-      self.followups = attributes[:'followups'] if attributes[:'followups']
 
       self.affected_resources = attributes[:'affectedResources'] if attributes[:'affectedResources']
 
@@ -157,7 +154,6 @@ module OCI
         time_updated == other.time_updated &&
         description == other.description &&
         additional_information == other.additional_information &&
-        followups == other.followups &&
         affected_resources == other.affected_resources
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -174,7 +170,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, type, reference_ticket_number, summary, time_one_title, time_one_value, time_two_title, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated, description, additional_information, followups, affected_resources].hash
+      [id, type, reference_ticket_number, summary, time_one_title, time_one_value, time_two_title, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated, description, additional_information, affected_resources].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

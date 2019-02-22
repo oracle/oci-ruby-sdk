@@ -16,7 +16,6 @@ require 'oci/announcements_service/models/announcement_summary'
 require 'oci/announcements_service/models/announcement_user_status_details'
 require 'oci/announcements_service/models/announcements_collection'
 require 'oci/announcements_service/models/base_announcement'
-require 'oci/announcements_service/models/notification_followup_details'
 
 # Require generated clients
 require 'oci/announcements_service/announcement_client'
