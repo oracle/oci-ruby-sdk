@@ -53,6 +53,10 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
+    # List of the fault domains in which this DB system is provisioned.
+    # @return [Array<String>]
+    attr_accessor :fault_domains
+
     # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the subnet the DB system is associated with.
     #
     # **Subnet Restrictions:**
@@ -215,6 +219,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'availability_domain': :'availabilityDomain',
+        'fault_domains': :'faultDomains',
         'subnet_id': :'subnetId',
         'backup_subnet_id': :'backupSubnetId',
         'shape': :'shape',
@@ -254,6 +259,7 @@ module OCI
         'compartment_id': :'String',
         'display_name': :'String',
         'availability_domain': :'String',
+        'fault_domains': :'Array<String>',
         'subnet_id': :'String',
         'backup_subnet_id': :'String',
         'shape': :'String',
@@ -295,6 +301,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [Array<String>] :fault_domains The value to assign to the {#fault_domains} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :backup_subnet_id The value to assign to the {#backup_subnet_id} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
@@ -344,6 +351,12 @@ module OCI
       raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
 
       self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
+
+      self.fault_domains = attributes[:'faultDomains'] if attributes[:'faultDomains']
+
+      raise 'You cannot provide both :faultDomains and :fault_domains' if attributes.key?(:'faultDomains') && attributes.key?(:'fault_domains')
+
+      self.fault_domains = attributes[:'fault_domains'] if attributes[:'fault_domains']
 
       self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
 
@@ -567,6 +580,7 @@ module OCI
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         availability_domain == other.availability_domain &&
+        fault_domains == other.fault_domains &&
         subnet_id == other.subnet_id &&
         backup_subnet_id == other.backup_subnet_id &&
         shape == other.shape &&
@@ -609,7 +623,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, availability_domain, subnet_id, backup_subnet_id, shape, ssh_public_keys, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, shape, ssh_public_keys, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

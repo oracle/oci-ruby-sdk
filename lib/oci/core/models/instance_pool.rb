@@ -70,6 +70,11 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The load balancers attached to the instance pool.
+    #
+    # @return [Array<OCI::Core::Models::InstancePoolLoadBalancerAttachment>]
+    attr_accessor :load_balancers
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -83,7 +88,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'placement_configurations': :'placementConfigurations',
         'size': :'size',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'load_balancers': :'loadBalancers'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -101,7 +107,8 @@ module OCI
         'lifecycle_state': :'String',
         'placement_configurations': :'Array<OCI::Core::Models::InstancePoolPlacementConfiguration>',
         'size': :'Integer',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'load_balancers': :'Array<OCI::Core::Models::InstancePoolLoadBalancerAttachment>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -122,6 +129,7 @@ module OCI
     # @option attributes [Array<OCI::Core::Models::InstancePoolPlacementConfiguration>] :placement_configurations The value to assign to the {#placement_configurations} property
     # @option attributes [Integer] :size The value to assign to the {#size} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Array<OCI::Core::Models::InstancePoolLoadBalancerAttachment>] :load_balancers The value to assign to the {#load_balancers} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -179,6 +187,12 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.load_balancers = attributes[:'loadBalancers'] if attributes[:'loadBalancers']
+
+      raise 'You cannot provide both :loadBalancers and :load_balancers' if attributes.key?(:'loadBalancers') && attributes.key?(:'load_balancers')
+
+      self.load_balancers = attributes[:'load_balancers'] if attributes[:'load_balancers']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -216,7 +230,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         placement_configurations == other.placement_configurations &&
         size == other.size &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        load_balancers == other.load_balancers
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -232,7 +247,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, defined_tags, display_name, freeform_tags, instance_configuration_id, lifecycle_state, placement_configurations, size, time_created].hash
+      [id, compartment_id, defined_tags, display_name, freeform_tags, instance_configuration_id, lifecycle_state, placement_configurations, size, time_created, load_balancers].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

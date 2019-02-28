@@ -110,6 +110,9 @@ module OCI
     # @return [String]
     attr_accessor :operating_system_version
 
+    # @return [OCI::Core::Models::InstanceAgentFeatures]
+    attr_accessor :agent_features
+
     # Image size (1 MB = 1048576 bytes)
     #
     # Example: `47694`
@@ -140,6 +143,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'operating_system': :'operatingSystem',
         'operating_system_version': :'operatingSystemVersion',
+        'agent_features': :'agentFeatures',
         'size_in_mbs': :'sizeInMBs',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
@@ -162,6 +166,7 @@ module OCI
         'lifecycle_state': :'String',
         'operating_system': :'String',
         'operating_system_version': :'String',
+        'agent_features': :'OCI::Core::Models::InstanceAgentFeatures',
         'size_in_mbs': :'Integer',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -186,6 +191,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :operating_system The value to assign to the {#operating_system} property
     # @option attributes [String] :operating_system_version The value to assign to the {#operating_system_version} property
+    # @option attributes [OCI::Core::Models::InstanceAgentFeatures] :agent_features The value to assign to the {#agent_features} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
@@ -262,6 +268,12 @@ module OCI
 
       self.operating_system_version = attributes[:'operating_system_version'] if attributes[:'operating_system_version']
 
+      self.agent_features = attributes[:'agentFeatures'] if attributes[:'agentFeatures']
+
+      raise 'You cannot provide both :agentFeatures and :agent_features' if attributes.key?(:'agentFeatures') && attributes.key?(:'agent_features')
+
+      self.agent_features = attributes[:'agent_features'] if attributes[:'agent_features']
+
       self.size_in_mbs = attributes[:'sizeInMBs'] if attributes[:'sizeInMBs']
 
       raise 'You cannot provide both :sizeInMBs and :size_in_mbs' if attributes.key?(:'sizeInMBs') && attributes.key?(:'size_in_mbs')
@@ -328,6 +340,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         operating_system == other.operating_system &&
         operating_system_version == other.operating_system_version &&
+        agent_features == other.agent_features &&
         size_in_mbs == other.size_in_mbs &&
         time_created == other.time_created
     end
@@ -345,7 +358,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [base_image_id, compartment_id, create_image_allowed, defined_tags, display_name, freeform_tags, id, launch_mode, launch_options, lifecycle_state, operating_system, operating_system_version, size_in_mbs, time_created].hash
+      [base_image_id, compartment_id, create_image_allowed, defined_tags, display_name, freeform_tags, id, launch_mode, launch_options, lifecycle_state, operating_system, operating_system_version, agent_features, size_in_mbs, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

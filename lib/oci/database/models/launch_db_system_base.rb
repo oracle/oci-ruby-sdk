@@ -19,6 +19,27 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # A fault domain is a grouping of hardware and infrastructure within an availability domain.
+    # fault domains let you distribute your instances so that they are not on the same physical
+    # hardware within a single availability domain. A hardware failure or maintenance
+    # that affects one fault domain does not affect DB systems in other fault domains.
+    #
+    # If you do not specify the fault domain, the system selects one for you. To change the fault
+    # domain for a DB system, terminate it and launch a new DB system in the preferred fault domain.
+    #
+    # If the node count is greater than 1, you can specify which fault domains these nodes will be distributed into.
+    # The system assigns your nodes automatically to the fault domains you specify so that
+    # no fault domain contains more than one node.
+    #
+    # To get a list of fault domains, use the
+    # {#list_fault_domains list_fault_domains} operation in the
+    # Identity and Access Management Service API.
+    #
+    # Example: `FAULT-DOMAIN-1`
+    #
+    # @return [Array<String>]
+    attr_accessor :fault_domains
+
     # The user-friendly name for the DB system. The name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
@@ -61,7 +82,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :sparse_diskgroup
 
-    # **[Required]** The public key portion of the key pair to use for SSH access to the DB system. Multiple public keys can be provided. The length of the combined keys cannot exceed 10,000 characters.
+    # **[Required]** The public key portion of the key pair to use for SSH access to the DB system. Multiple public keys can be provided. The length of the combined keys cannot exceed 40,000 characters.
     # @return [Array<String>]
     attr_accessor :ssh_public_keys
 
@@ -149,6 +170,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
+        'fault_domains': :'faultDomains',
         'display_name': :'displayName',
         'availability_domain': :'availabilityDomain',
         'subnet_id': :'subnetId',
@@ -175,6 +197,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
+        'fault_domains': :'Array<String>',
         'display_name': :'String',
         'availability_domain': :'String',
         'subnet_id': :'String',
@@ -219,6 +242,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Array<String>] :fault_domains The value to assign to the {#fault_domains} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
@@ -247,6 +271,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.fault_domains = attributes[:'faultDomains'] if attributes[:'faultDomains']
+
+      raise 'You cannot provide both :faultDomains and :fault_domains' if attributes.key?(:'faultDomains') && attributes.key?(:'fault_domains')
+
+      self.fault_domains = attributes[:'fault_domains'] if attributes[:'fault_domains']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -358,6 +388,7 @@ module OCI
 
       self.class == other.class &&
         compartment_id == other.compartment_id &&
+        fault_domains == other.fault_domains &&
         display_name == other.display_name &&
         availability_domain == other.availability_domain &&
         subnet_id == other.subnet_id &&
@@ -390,7 +421,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, availability_domain, subnet_id, backup_subnet_id, shape, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, shape, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

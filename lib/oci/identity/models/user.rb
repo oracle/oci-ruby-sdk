@@ -100,6 +100,10 @@ module OCI
     # @return [OCI::Identity::Models::UserCapabilities]
     attr_accessor :capabilities
 
+    # **[Required]** Flag indicates if MFA has been activated for the user.
+    # @return [BOOLEAN]
+    attr_accessor :is_mfa_activated
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -115,7 +119,8 @@ module OCI
         'inactive_status': :'inactiveStatus',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'capabilities': :'capabilities'
+        'capabilities': :'capabilities',
+        'is_mfa_activated': :'isMfaActivated'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -135,7 +140,8 @@ module OCI
         'inactive_status': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'capabilities': :'OCI::Identity::Models::UserCapabilities'
+        'capabilities': :'OCI::Identity::Models::UserCapabilities',
+        'is_mfa_activated': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -158,6 +164,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Identity::Models::UserCapabilities] :capabilities The value to assign to the {#capabilities} property
+    # @option attributes [BOOLEAN] :is_mfa_activated The value to assign to the {#is_mfa_activated} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -219,6 +226,12 @@ module OCI
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
       self.capabilities = attributes[:'capabilities'] if attributes[:'capabilities']
+
+      self.is_mfa_activated = attributes[:'isMfaActivated'] unless attributes[:'isMfaActivated'].nil?
+
+      raise 'You cannot provide both :isMfaActivated and :is_mfa_activated' if attributes.key?(:'isMfaActivated') && attributes.key?(:'is_mfa_activated')
+
+      self.is_mfa_activated = attributes[:'is_mfa_activated'] unless attributes[:'is_mfa_activated'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -258,7 +271,8 @@ module OCI
         inactive_status == other.inactive_status &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        capabilities == other.capabilities
+        capabilities == other.capabilities &&
+        is_mfa_activated == other.is_mfa_activated
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -274,7 +288,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, identity_provider_id, external_identifier, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags, capabilities].hash
+      [id, compartment_id, name, description, identity_provider_id, external_identifier, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags, capabilities, is_mfa_activated].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

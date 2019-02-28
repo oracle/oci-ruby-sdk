@@ -6,12 +6,7 @@ require 'date'
 module OCI
   # The configuration details for creating a Data Guard association between databases.
   #
-  # **NOTE:**
-  # \"ExistingDbSystem\" is the only supported `creationType` value. Therefore, all
-  # {#create_data_guard_association create_data_guard_association}
-  # requests must include the `peerDbSystemId` parameter found in the
-  # {#create_data_guard_association_to_existing_db_system_details create_data_guard_association_to_existing_db_system_details}
-  # object.
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Database::Models::CreateDataGuardAssociationDetails # rubocop:disable Metrics/LineLength
@@ -68,7 +63,7 @@ module OCI
     # @return [String]
     attr_reader :transport_type
 
-    # **[Required]** Specifies whether to create the peer database in an existing DB system or in a new DB system. Use either \"ExistingDbSystem\" or \"NewDbSystem.\"
+    # **[Required]** Specifies whether to create the peer database in an existing DB system or in a new DB system. `ExistingDbSystem` is not supported for creating Data Guard associations for virtual machine DB system databases.
     #
     # @return [String]
     attr_accessor :creation_type

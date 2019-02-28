@@ -5,9 +5,13 @@ require_relative 'create_data_guard_association_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # The configuration details for creating a Data Guard association to an existing database.
+  # The configuration details for creating a Data Guard association for a bare metal DB system database. A standby database will be created in the DB system you specify.
+  #
+  # To create a Data Guard association for a database in a virtual machine DB system, use the {#create_data_guard_association_with_new_db_system_details create_data_guard_association_with_new_db_system_details} subtype.
+  #
   class Database::Models::CreateDataGuardAssociationToExistingDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails # rubocop:disable Metrics/LineLength
     # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system in which to create the standby database.
+    # You must supply this value if creationType is `ExistingDbSystem`.
     #
     # @return [String]
     attr_accessor :peer_db_system_id

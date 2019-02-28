@@ -45,6 +45,11 @@ module OCI
     # @return [Integer]
     attr_accessor :size
 
+    # The load balancers to attach to the instance pool.
+    #
+    # @return [Array<OCI::Core::Models::AttachLoadBalancerDetails>]
+    attr_accessor :load_balancers
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -55,7 +60,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'instance_configuration_id': :'instanceConfigurationId',
         'placement_configurations': :'placementConfigurations',
-        'size': :'size'
+        'size': :'size',
+        'load_balancers': :'loadBalancers'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -70,7 +76,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'instance_configuration_id': :'String',
         'placement_configurations': :'Array<OCI::Core::Models::CreateInstancePoolPlacementConfigurationDetails>',
-        'size': :'Integer'
+        'size': :'Integer',
+        'load_balancers': :'Array<OCI::Core::Models::AttachLoadBalancerDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -88,6 +95,7 @@ module OCI
     # @option attributes [String] :instance_configuration_id The value to assign to the {#instance_configuration_id} property
     # @option attributes [Array<OCI::Core::Models::CreateInstancePoolPlacementConfigurationDetails>] :placement_configurations The value to assign to the {#placement_configurations} property
     # @option attributes [Integer] :size The value to assign to the {#size} property
+    # @option attributes [Array<OCI::Core::Models::AttachLoadBalancerDetails>] :load_balancers The value to assign to the {#load_balancers} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -131,6 +139,12 @@ module OCI
       self.placement_configurations = attributes[:'placement_configurations'] if attributes[:'placement_configurations']
 
       self.size = attributes[:'size'] if attributes[:'size']
+
+      self.load_balancers = attributes[:'loadBalancers'] if attributes[:'loadBalancers']
+
+      raise 'You cannot provide both :loadBalancers and :load_balancers' if attributes.key?(:'loadBalancers') && attributes.key?(:'load_balancers')
+
+      self.load_balancers = attributes[:'load_balancers'] if attributes[:'load_balancers']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -150,7 +164,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         instance_configuration_id == other.instance_configuration_id &&
         placement_configurations == other.placement_configurations &&
-        size == other.size
+        size == other.size &&
+        load_balancers == other.load_balancers
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -166,7 +181,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, instance_configuration_id, placement_configurations, size].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, instance_configuration_id, placement_configurations, size, load_balancers].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

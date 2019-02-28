@@ -51,6 +51,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
+        'fault_domains': :'faultDomains',
         'display_name': :'displayName',
         'availability_domain': :'availabilityDomain',
         'subnet_id': :'subnetId',
@@ -81,6 +82,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
+        'fault_domains': :'Array<String>',
         'display_name': :'String',
         'availability_domain': :'String',
         'subnet_id': :'String',
@@ -113,6 +115,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#compartment_id #compartment_id} proprety
+    # @option attributes [Array<String>] :fault_domains The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#fault_domains #fault_domains} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#display_name #display_name} proprety
     # @option attributes [String] :availability_domain The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#availability_domain #availability_domain} proprety
     # @option attributes [String] :subnet_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#subnet_id #subnet_id} proprety
@@ -210,6 +213,7 @@ module OCI
 
       self.class == other.class &&
         compartment_id == other.compartment_id &&
+        fault_domains == other.fault_domains &&
         display_name == other.display_name &&
         availability_domain == other.availability_domain &&
         subnet_id == other.subnet_id &&
@@ -246,7 +250,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, availability_domain, subnet_id, backup_subnet_id, shape, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, db_home, database_edition, disk_redundancy, license_model].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, shape, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, db_home, database_edition, disk_redundancy, license_model].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

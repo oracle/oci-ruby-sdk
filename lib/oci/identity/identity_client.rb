@@ -108,6 +108,76 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Activate the specified MFA TOTP device for the user.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [String] mfa_totp_device_id The OCID of the MFA TOTP device.
+    # @param [OCI::Identity::Models::MfaTotpToken] mfa_totp_token MFA TOTP token
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::MfaTotpDeviceSummary MfaTotpDeviceSummary}
+    def activate_mfa_totp_device(user_id, mfa_totp_device_id, mfa_totp_token, opts = {})
+      logger.debug 'Calling operation IdentityClient#activate_mfa_totp_device.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling activate_mfa_totp_device." if user_id.nil?
+      raise "Missing the required parameter 'mfa_totp_device_id' when calling activate_mfa_totp_device." if mfa_totp_device_id.nil?
+      raise "Missing the required parameter 'mfa_totp_token' when calling activate_mfa_totp_device." if mfa_totp_token.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+      raise "Parameter value for 'mfa_totp_device_id' must not be blank" if OCI::Internal::Util.blank_string?(mfa_totp_device_id)
+
+      path = '/users/{userId}/mfaTotpDevices/{mfaTotpDeviceId}/actions/activate'.sub('{userId}', user_id.to_s).sub('{mfaTotpDeviceId}', mfa_totp_device_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(mfa_totp_token)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#activate_mfa_totp_device') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::MfaTotpDeviceSummary'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Adds the specified user to the specified group and returns a `UserGroupMembership` object with its own OCID.
     #
     # After you send your request, the new object's `lifecycleState` will temporarily be CREATING. Before using the
@@ -157,6 +227,73 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Identity::Models::UserGroupMembership'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves the specified tag namespace to the specified compartment within the same tenancy.
+    #
+    # To move the tag namespace, you must have the manage tag-namespaces permission on both compartments.
+    # For more information about IAM policies, see [Details for IAM](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Reference/iampolicyreference.htm).
+    #
+    # Moving a tag namespace moves all the tag key definitions contained in the tag namespace.
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [OCI::Identity::Models::ChangeTagNamespaceCompartmentDetail] change_tag_namespace_compartment_detail Request object for changing the compartment of a tag namespace.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_tag_namespace_compartment(tag_namespace_id, change_tag_namespace_compartment_detail, opts = {})
+      logger.debug 'Calling operation IdentityClient#change_tag_namespace_compartment.' if logger
+
+      raise "Missing the required parameter 'tag_namespace_id' when calling change_tag_namespace_compartment." if tag_namespace_id.nil?
+      raise "Missing the required parameter 'change_tag_namespace_compartment_detail' when calling change_tag_namespace_compartment." if change_tag_namespace_compartment_detail.nil?
+      raise "Parameter value for 'tag_namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(tag_namespace_id)
+
+      path = '/tagNamespaces/{tagNamespaceId}/actions/changeCompartment'.sub('{tagNamespaceId}', tag_namespace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_tag_namespace_compartment_detail)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#change_tag_namespace_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -671,6 +808,66 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Identity::Models::IdpGroupMapping'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Create a new MFA TOTP device for the user. A user can only create one MFA TOTP device.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::MfaTotpDevice MfaTotpDevice}
+    def create_mfa_totp_device(user_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#create_mfa_totp_device.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling create_mfa_totp_device." if user_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+
+      path = '/users/{userId}/mfaTotpDevices'.sub('{userId}', user_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#create_mfa_totp_device') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::MfaTotpDevice'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1736,6 +1933,65 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Delete the specified MFA TOTP device for the specified user.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [String] mfa_totp_device_id The OCID of the MFA TOTP device.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_mfa_totp_device(user_id, mfa_totp_device_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#delete_mfa_totp_device.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling delete_mfa_totp_device." if user_id.nil?
+      raise "Missing the required parameter 'mfa_totp_device_id' when calling delete_mfa_totp_device." if mfa_totp_device_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+      raise "Parameter value for 'mfa_totp_device_id' must not be blank" if OCI::Internal::Util.blank_string?(mfa_totp_device_id)
+
+      path = '/users/{userId}/mfaTotpDevices/{mfaTotpDeviceId}'.sub('{userId}', user_id.to_s).sub('{mfaTotpDeviceId}', mfa_totp_device_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_mfa_totp_device') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified policy. The deletion takes effect typically within 10 seconds.
     # @param [String] policy_id The OCID of the policy.
     # @param [Hash] opts the optional parameters
@@ -1953,6 +2209,66 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Generate seed for the MFA TOTP device
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [String] mfa_totp_device_id The OCID of the MFA TOTP device.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::MfaTotpDevice MfaTotpDevice}
+    def generate_totp_seed(user_id, mfa_totp_device_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#generate_totp_seed.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling generate_totp_seed." if user_id.nil?
+      raise "Missing the required parameter 'mfa_totp_device_id' when calling generate_totp_seed." if mfa_totp_device_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+      raise "Parameter value for 'mfa_totp_device_id' must not be blank" if OCI::Internal::Util.blank_string?(mfa_totp_device_id)
+
+      path = '/users/{userId}/mfaTotpDevices/{mfaTotpDeviceId}/actions/generateSeed'.sub('{userId}', user_id.to_s).sub('{mfaTotpDeviceId}', mfa_totp_device_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#generate_totp_seed') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::MfaTotpDevice'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2234,6 +2550,63 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Identity::Models::IdpGroupMapping'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Get the specified MFA TOTP device for the specified user.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [String] mfa_totp_device_id The OCID of the MFA TOTP device.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::MfaTotpDeviceSummary MfaTotpDeviceSummary}
+    def get_mfa_totp_device(user_id, mfa_totp_device_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#get_mfa_totp_device.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling get_mfa_totp_device." if user_id.nil?
+      raise "Missing the required parameter 'mfa_totp_device_id' when calling get_mfa_totp_device." if mfa_totp_device_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+      raise "Parameter value for 'mfa_totp_device_id' must not be blank" if OCI::Internal::Util.blank_string?(mfa_totp_device_id)
+
+      path = '/users/{userId}/mfaTotpDevices/{mfaTotpDeviceId}'.sub('{userId}', user_id.to_s).sub('{mfaTotpDeviceId}', mfa_totp_device_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#get_mfa_totp_device') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::MfaTotpDeviceSummary'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2747,7 +3120,7 @@ module OCI
     # Note that the order of the results returned can change if availability domains are added or removed; therefore, do not
     # create a dependency on the list order.
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2818,7 +3191,7 @@ module OCI
     #
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2899,7 +3272,7 @@ module OCI
     # Lists all the tags enabled for cost-tracking in the specified tenancy. For information about
     # cost-tracking tags, see [Using Cost-tracking Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/taggingoverview.htm#costs).
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3015,7 +3388,7 @@ module OCI
     # the compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3077,7 +3450,7 @@ module OCI
     # of your compartments as the value for the compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [String] availability_domain The name of the availibilityDomain.
     #
@@ -3137,7 +3510,7 @@ module OCI
     # the compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3258,7 +3631,7 @@ module OCI
     #
     # @param [String] protocol The protocol used for federation.
     #   Allowed values are: SAML2
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3378,13 +3751,96 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the MFA TOTP devices for the specified user. The returned object contains the device's OCID, but not
+    # the seed. The seed is returned only upon creation or when we regenerate MFA seed for the device.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::MfaTotpDeviceSummary MfaTotpDeviceSummary}>
+    def list_mfa_totp_devices(user_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_mfa_totp_devices.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling list_mfa_totp_devices." if user_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+
+      path = '/users/{userId}/mfaTotpDevices'.sub('{userId}', user_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_mfa_totp_devices') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::MfaTotpDeviceSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the policies in the specified compartment (either the tenancy or another of your compartments).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
     # To determine which policies apply to a particular group or compartment, you must view the individual
     # statements inside all your policies. There isn't a way to automatically obtain that information via the API.
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3658,7 +4114,7 @@ module OCI
 
     # Lists the tag namespaces in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3789,7 +4245,7 @@ module OCI
     # If the answer is no, the response is an empty list.
     # - Although`userId` and `groupId` are not indvidually required, you must set one of them.
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3854,7 +4310,7 @@ module OCI
     # compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3919,7 +4375,7 @@ module OCI
 
     # Lists the work requests in compartment.
     #
-    # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :ComputeClient) + '/20160918'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://iaas.{region}.{secondLevelDomain}') + '/20160918'
       logger.info "ComputeClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 

@@ -34,6 +34,10 @@ require 'oci/announcements_service/announcements_service'
 require 'oci/waas/waas'
 require 'oci/healthchecks/healthchecks'
 require 'oci/streaming/streaming'
+require 'oci/monitoring/monitoring'
+require 'oci/resource_manager/resource_manager'
+require 'oci/autoscaling/autoscaling'
+require 'oci/ons/ons'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

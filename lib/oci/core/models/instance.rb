@@ -154,7 +154,10 @@ module OCI
 
     # **[Required]** The region that contains the availability domain the instance is running in.
     #
-    # Example: `phx`
+    # For the us-phoenix-1 and us-ashburn-1 regions, `phx` and `iad` are returned, respectively.
+    # For all other regions, the full region name is returned.
+    #
+    # Examples: `phx`, `eu-frankfurt-1`
     #
     # @return [String]
     attr_accessor :region
@@ -176,6 +179,9 @@ module OCI
     #
     # @return [DateTime]
     attr_accessor :time_created
+
+    # @return [OCI::Core::Models::InstanceAgentConfig]
+    attr_accessor :agent_config
 
     # The date and time the instance is expected to be stopped / started,  in the format defined by RFC3339.
     # After that time if instance hasn't been rebooted, Oracle will reboot the instance within 24 hours of the due time.
@@ -207,6 +213,7 @@ module OCI
         'shape': :'shape',
         'source_details': :'sourceDetails',
         'time_created': :'timeCreated',
+        'agent_config': :'agentConfig',
         'time_maintenance_reboot_due': :'timeMaintenanceRebootDue'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -234,6 +241,7 @@ module OCI
         'shape': :'String',
         'source_details': :'OCI::Core::Models::InstanceSourceDetails',
         'time_created': :'DateTime',
+        'agent_config': :'OCI::Core::Models::InstanceAgentConfig',
         'time_maintenance_reboot_due': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -263,6 +271,7 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [OCI::Core::Models::InstanceSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [OCI::Core::Models::InstanceAgentConfig] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [DateTime] :time_maintenance_reboot_due The value to assign to the {#time_maintenance_reboot_due} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -362,6 +371,12 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
+      self.agent_config = attributes[:'agentConfig'] if attributes[:'agentConfig']
+
+      raise 'You cannot provide both :agentConfig and :agent_config' if attributes.key?(:'agentConfig') && attributes.key?(:'agent_config')
+
+      self.agent_config = attributes[:'agent_config'] if attributes[:'agent_config']
+
       self.time_maintenance_reboot_due = attributes[:'timeMaintenanceRebootDue'] if attributes[:'timeMaintenanceRebootDue']
 
       raise 'You cannot provide both :timeMaintenanceRebootDue and :time_maintenance_reboot_due' if attributes.key?(:'timeMaintenanceRebootDue') && attributes.key?(:'time_maintenance_reboot_due')
@@ -428,6 +443,7 @@ module OCI
         shape == other.shape &&
         source_details == other.source_details &&
         time_created == other.time_created &&
+        agent_config == other.agent_config &&
         time_maintenance_reboot_due == other.time_maintenance_reboot_due
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -444,7 +460,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, time_created, time_maintenance_reboot_due].hash
+      [availability_domain, compartment_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, time_created, agent_config, time_maintenance_reboot_due].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

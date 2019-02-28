@@ -17,13 +17,17 @@ module OCI
       # A SecurityTokenSigner which uses a security token for an instance principal.  This signer can also
       # refresh its token as needed.
       #
-      # This signer is self-sufficient in that its internals know how to source the required information to request and use
-      # the token:
+      # This signer is self-sufficient in that its internals know how to source the required information to request and
+      #   use the token:
       #
-      #   * Using the metadata endpoint for the instance (http://169.254.169.254/opc/v1) we can discover the region the instance is in, its leaf certificate and any intermediate certificates (for requesting the token) and the tenancy (as) that is in the leaf certificate.
-      #   * The signer leverages {OCI::Auth::FederationClient} so it can refresh the security token and also get the private key needed to sign requests (via the client's session_key_supplier)
+      #   * Using the metadata endpoint for the instance (http://169.254.169.254/opc/v1) we can discover the region the
+      #     instance is in, its leaf certificate and any intermediate certificates (for requesting the token) and the
+      #     tenancy (as) that is in the leaf certificate.
+      #   * The signer leverages {OCI::Auth::FederationClient} so it can refresh the security token and also get the
+      #     private key needed to sign requests (via the client's session_key_supplier)
       class InstancePrincipalsSecurityTokenSigner < OCI::Auth::Signers::X509FederationClientBasedSecurityTokenSigner
-        # The region the instance is in, as returned from the metadata endpoint for the instance (http://169.254.169.254/opc/v1/instance/region)
+        # The region the instance is in, as returned from the metadata endpoint for the instance
+        #   (http://169.254.169.254/opc/v1/instance/region)
         # @return [String] The region for the instance
         attr_reader :region
 
@@ -35,12 +39,18 @@ module OCI
 
         # Creates a new InstancePrincipalsSecurityTokenSigner
         #
-        # @param [String] federation_endpoint The endpoint where we will retrieve the instance principals auth token from. If not provided, this will
-        # default to the endpoint which the instance is in
-        # @param [String] federation_client_cert_bundle The full file path to a custom certificate bundle which can be used for SSL verification against the federation_endpoint. If not provided (e.g. because a custom bundle is not needed), defaults to nil
-        # @param [String] signing_strategy Whether this signer is used for Object Storage requests or not. Acceptable values are {OCI::BaseSigner::STANDARD} and {OCI::BaseSigner::OBJECT_STORAGE}. If not provided, defaults to {OCI::BaseSigner::STANDARD}
-        # @param [Array<String>] headers_to_sign_in_all_requests An array of headers which will be signed in each request. If not provided, defaults to {OCI::BaseSigner::GENERIC_HEADERS}
-        # @param [Array<String>] body_headers_to_sign An array of headers which should be signed on requests with bodies. If not provided, defaults to {OCI::BaseSigner::BODY_HEADERS}
+        # @param [String] federation_endpoint The endpoint where we will retrieve the instance principals auth token
+        #   from. If not provided, this will default to the endpoint which the instance is in
+        # @param [String] federation_client_cert_bundle The full file path to a custom certificate bundle which can be
+        #   used for SSL verification against the federation_endpoint. If not provided (e.g. because a custom bundle is
+        #   not needed), defaults to nil
+        # @param [String] signing_strategy Whether this signer is used for Object Storage requests or not. Acceptable
+        #   values are {OCI::BaseSigner::STANDARD} and {OCI::BaseSigner::OBJECT_STORAGE}. If not provided, defaults to
+        #   {OCI::BaseSigner::STANDARD}
+        # @param [Array<String>] headers_to_sign_in_all_requests An array of headers which will be signed in each
+        #   request. If not provided, defaults to {OCI::BaseSigner::GENERIC_HEADERS}
+        # @param [Array<String>] body_headers_to_sign An array of headers which should be signed on requests with
+        #   bodies. If not provided, defaults to {OCI::BaseSigner::BODY_HEADERS}
         def initialize(
           federation_endpoint: nil,
           federation_client_cert_bundle: nil,
@@ -68,11 +78,7 @@ module OCI
                       raw_region
                     end
 
-          @federation_endpoint = if defined?(federation_endpoint)
-                                   federation_endpoint
-                                 else
-                                   "#{OCI::Regions.get_service_endpoint(@region, :Auth)}/v1/x509"
-                                 end
+          @federation_endpoint = federation_endpoint || "#{OCI::Regions.get_service_endpoint(@region, :Auth)}/v1/x509"
 
           @federation_client = OCI::Auth::FederationClient.new(
             @federation_endpoint,
