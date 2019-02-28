@@ -16,7 +16,7 @@ module OCI
     # @return [OCI::Database::Models::PatchDetails]
     attr_accessor :version
 
-    # The public key portion of the key pair to use for SSH access to the DB system. Multiple public keys can be provided. The length of the combined keys cannot exceed 10,000 characters.
+    # The public key portion of the key pair to use for SSH access to the DB system. Multiple public keys can be provided. The length of the combined keys cannot exceed 40,000 characters.
     # @return [Array<String>]
     attr_accessor :ssh_public_keys
 

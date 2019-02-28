@@ -13,7 +13,8 @@ module OCI
     ].freeze
 
     PROTOCOL_ENUM = [
-      PROTOCOL_SAML2 = 'SAML2'.freeze
+      PROTOCOL_SAML2 = 'SAML2'.freeze,
+      PROTOCOL_ADFS = 'ADFS'.freeze
     ].freeze
 
     # **[Required]** The OCID of your tenancy.

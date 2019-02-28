@@ -44,6 +44,10 @@ module OCI
     # @return [String]
     attr_accessor :hostname
 
+    # The name of the fault domain the instance is contained in.
+    # @return [String]
+    attr_accessor :fault_domain
+
     # **[Required]** The date and time that the database node was created.
     # @return [DateTime]
     attr_accessor :time_created
@@ -63,6 +67,7 @@ module OCI
         'backup_vnic_id': :'backupVnicId',
         'lifecycle_state': :'lifecycleState',
         'hostname': :'hostname',
+        'fault_domain': :'faultDomain',
         'time_created': :'timeCreated',
         'software_storage_size_in_gb': :'softwareStorageSizeInGB'
         # rubocop:enable Style/SymbolLiteral
@@ -79,6 +84,7 @@ module OCI
         'backup_vnic_id': :'String',
         'lifecycle_state': :'String',
         'hostname': :'String',
+        'fault_domain': :'String',
         'time_created': :'DateTime',
         'software_storage_size_in_gb': :'Integer'
         # rubocop:enable Style/SymbolLiteral
@@ -97,6 +103,7 @@ module OCI
     # @option attributes [String] :backup_vnic_id The value to assign to the {#backup_vnic_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
+    # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Integer] :software_storage_size_in_gb The value to assign to the {#software_storage_size_in_gb} property
     def initialize(attributes = {})
@@ -129,6 +136,12 @@ module OCI
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
       self.hostname = attributes[:'hostname'] if attributes[:'hostname']
+
+      self.fault_domain = attributes[:'faultDomain'] if attributes[:'faultDomain']
+
+      raise 'You cannot provide both :faultDomain and :fault_domain' if attributes.key?(:'faultDomain') && attributes.key?(:'fault_domain')
+
+      self.fault_domain = attributes[:'fault_domain'] if attributes[:'fault_domain']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -175,6 +188,7 @@ module OCI
         backup_vnic_id == other.backup_vnic_id &&
         lifecycle_state == other.lifecycle_state &&
         hostname == other.hostname &&
+        fault_domain == other.fault_domain &&
         time_created == other.time_created &&
         software_storage_size_in_gb == other.software_storage_size_in_gb
     end
@@ -192,7 +206,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, db_system_id, vnic_id, backup_vnic_id, lifecycle_state, hostname, time_created, software_storage_size_in_gb].hash
+      [id, db_system_id, vnic_id, backup_vnic_id, lifecycle_state, hostname, fault_domain, time_created, software_storage_size_in_gb].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

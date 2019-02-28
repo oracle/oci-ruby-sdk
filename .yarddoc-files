@@ -1,6 +1,7 @@
 lib/oci/announcements_service/announcements_service.rb
 lib/oci/audit/audit.rb
 lib/oci/auth/auth.rb
+lib/oci/autoscaling/autoscaling.rb
 lib/oci/container_engine/container_engine.rb
 lib/oci/core/core.rb
 lib/oci/database/database.rb
@@ -11,7 +12,10 @@ lib/oci/healthchecks/healthchecks.rb
 lib/oci/identity/identity.rb
 lib/oci/key_management/key_management.rb
 lib/oci/load_balancer/load_balancer.rb
+lib/oci/monitoring/monitoring.rb
 lib/oci/object_storage/object_storage.rb
+lib/oci/resource_manager/resource_manager.rb
+lib/oci/ons/ons.rb
 lib/oci/resource_search/resource_search.rb
 lib/oci/streaming/streaming.rb
 lib/oci/waas/waas.rb

@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :DatabaseClient) + '/20160918'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://database.{region}.{secondLevelDomain}') + '/20160918'
       logger.info "DatabaseClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -667,21 +667,19 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Performs an action, such as one of the power actions (start, stop, softreset, or reset), on the specified DB Node.
+    # Performs one of the following power actions on the specified DB node:
+    # - start - power on
+    # - stop - power off
+    # - softreset - ACPI shutdown and power on
+    # - reset - power off and power on
     #
-    # **start** - power on
-    #
-    # **stop** - power off
-    #
-    # **softreset** - ACPI shutdown and power on
-    #
-    # **reset** - power off and power on
-    #
-    # Note that the **stop** state has no effect on the resources you consume.
-    # Billing continues for DB Nodes that you stop, and related resources continue
+    # **Note:** Stopping a node affects billing differently, depending on the type of DB system:
+    # *Bare metal and Exadata DB systems* - The _stop_ state has no effect on the resources you consume.
+    # Billing continues for DB nodes that you stop, and related resources continue
     # to apply against any relevant quotas. You must terminate the DB system
     # ({#terminate_db_system terminate_db_system})
     # to remove its resources from billing and quotas.
+    # *Virtual machine DB systems* - Stopping a node stops billing for all OCPUs associated with that node, and billing resumes when you restart the node.
     #
     # @param [String] db_node_id The database node [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] action The action to perform on the DB Node.
@@ -2793,7 +2791,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of database homes in the specified DB system and compartment. A database home is a directory where Oracle database software is installed.
+    # Gets a list of database homes in the specified DB system and compartment. A database home is a directory where Oracle Database software is installed.
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [String] db_system_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
@@ -3209,7 +3207,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of supported Oracle database versions.
+    # Gets a list of supported Oracle Database versions.
     # @param [String] compartment_id The compartment [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

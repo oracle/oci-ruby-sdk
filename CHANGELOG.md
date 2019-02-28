@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.5.1 - 2019-02-28
+### Added
+- Support for the Monitoring service
+- Support for the Notification service
+- Support for the Resource Manager service
+- Support for the Compute Autoscaling service
+- Support for changing the compartment of a tag namespace in the Identity service
+- Support for specifying fault domains in the Database service
+- Support for managing instance monitoring in the Compute service
+- Support for attaching/detaching load balancers to instance pools in the Compute service
+
+### Fixed
+- [GitHub Issue #29](https://github.com/oracle/oci-ruby-sdk/issues/29): Ability to omit specifying a `federation_endpoint` when using instance principals
+- The `FederationClient` now properly sets the `:'content-type'` header so that it can be properly signed in the request to retrieve an auth token
+
 ## 2.5.0 - 2019-02-21
 ### Added
 - Support for government-realm regions

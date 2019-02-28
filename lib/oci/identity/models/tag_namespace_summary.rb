@@ -44,7 +44,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_retired
 
-    # Date and time the tagNamespace was created, in the format defined by RFC3339.
+    # Date and time the tag namespace was created, in the format defined by RFC3339.
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]

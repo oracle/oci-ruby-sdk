@@ -31,6 +31,11 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # Instance agent configuration options to choose for updating the instance
+    #
+    # @return [OCI::Core::Models::UpdateInstanceAgentConfigDetails]
+    attr_accessor :agent_config
+
     # Custom metadata key/value string pairs that you provide. Any set of key/value pairs
     # provided here will completely replace the current set of key/value pairs in the 'metadata'
     # field on the instance.
@@ -64,6 +69,7 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
+        'agent_config': :'agentConfig',
         'metadata': :'metadata',
         'extended_metadata': :'extendedMetadata'
         # rubocop:enable Style/SymbolLiteral
@@ -77,6 +83,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
+        'agent_config': :'OCI::Core::Models::UpdateInstanceAgentConfigDetails',
         'metadata': :'Hash<String, String>',
         'extended_metadata': :'Hash<String, Object>'
         # rubocop:enable Style/SymbolLiteral
@@ -92,6 +99,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [OCI::Core::Models::UpdateInstanceAgentConfigDetails] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     # @option attributes [Hash<String, Object>] :extended_metadata The value to assign to the {#extended_metadata} property
     def initialize(attributes = {})
@@ -118,6 +126,12 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
+      self.agent_config = attributes[:'agentConfig'] if attributes[:'agentConfig']
+
+      raise 'You cannot provide both :agentConfig and :agent_config' if attributes.key?(:'agentConfig') && attributes.key?(:'agent_config')
+
+      self.agent_config = attributes[:'agent_config'] if attributes[:'agent_config']
+
       self.metadata = attributes[:'metadata'] if attributes[:'metadata']
 
       self.extended_metadata = attributes[:'extendedMetadata'] if attributes[:'extendedMetadata']
@@ -141,6 +155,7 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
+        agent_config == other.agent_config &&
         metadata == other.metadata &&
         extended_metadata == other.extended_metadata
     end
@@ -158,7 +173,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, metadata, extended_metadata].hash
+      [defined_tags, display_name, freeform_tags, agent_config, metadata, extended_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

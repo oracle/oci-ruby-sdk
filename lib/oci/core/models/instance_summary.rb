@@ -52,6 +52,11 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The load balancer backends configured for the instance pool instance.
+    #
+    # @return [Array<OCI::Core::Models::InstancePoolInstanceLoadBalancerBackend>]
+    attr_accessor :load_balancer_backends
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -65,7 +70,8 @@ module OCI
         'region': :'region',
         'shape': :'shape',
         'state': :'state',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'load_balancer_backends': :'loadBalancerBackends'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,7 +89,8 @@ module OCI
         'region': :'String',
         'shape': :'String',
         'state': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'load_balancer_backends': :'Array<OCI::Core::Models::InstancePoolInstanceLoadBalancerBackend>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -104,6 +111,7 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :state The value to assign to the {#state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Array<OCI::Core::Models::InstancePoolInstanceLoadBalancerBackend>] :load_balancer_backends The value to assign to the {#load_balancer_backends} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -153,6 +161,12 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.load_balancer_backends = attributes[:'loadBalancerBackends'] if attributes[:'loadBalancerBackends']
+
+      raise 'You cannot provide both :loadBalancerBackends and :load_balancer_backends' if attributes.key?(:'loadBalancerBackends') && attributes.key?(:'load_balancer_backends')
+
+      self.load_balancer_backends = attributes[:'load_balancer_backends'] if attributes[:'load_balancer_backends']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -175,7 +189,8 @@ module OCI
         region == other.region &&
         shape == other.shape &&
         state == other.state &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        load_balancer_backends == other.load_balancer_backends
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -191,7 +206,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, availability_domain, compartment_id, display_name, fault_domain, instance_configuration_id, region, shape, state, time_created].hash
+      [id, availability_domain, compartment_id, display_name, fault_domain, instance_configuration_id, region, shape, state, time_created, load_balancer_backends].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

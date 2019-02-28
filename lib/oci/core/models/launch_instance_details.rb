@@ -178,6 +178,9 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :metadata
 
+    # @return [OCI::Core::Models::LaunchInstanceAgentConfigDetails]
+    attr_accessor :agent_config
+
     # **[Required]** The shape of an instance. The shape determines the number of CPUs, amount of memory,
     # and other resources allocated to the instance.
     #
@@ -219,6 +222,7 @@ module OCI
         'image_id': :'imageId',
         'ipxe_script': :'ipxeScript',
         'metadata': :'metadata',
+        'agent_config': :'agentConfig',
         'shape': :'shape',
         'source_details': :'sourceDetails',
         'subnet_id': :'subnetId',
@@ -243,6 +247,7 @@ module OCI
         'image_id': :'String',
         'ipxe_script': :'String',
         'metadata': :'Hash<String, String>',
+        'agent_config': :'OCI::Core::Models::LaunchInstanceAgentConfigDetails',
         'shape': :'String',
         'source_details': :'OCI::Core::Models::InstanceSourceDetails',
         'subnet_id': :'String',
@@ -269,6 +274,7 @@ module OCI
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
     # @option attributes [String] :ipxe_script The value to assign to the {#ipxe_script} property
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
+    # @option attributes [OCI::Core::Models::LaunchInstanceAgentConfigDetails] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [OCI::Core::Models::InstanceSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
@@ -347,6 +353,12 @@ module OCI
 
       self.metadata = attributes[:'metadata'] if attributes[:'metadata']
 
+      self.agent_config = attributes[:'agentConfig'] if attributes[:'agentConfig']
+
+      raise 'You cannot provide both :agentConfig and :agent_config' if attributes.key?(:'agentConfig') && attributes.key?(:'agent_config')
+
+      self.agent_config = attributes[:'agent_config'] if attributes[:'agent_config']
+
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
       self.source_details = attributes[:'sourceDetails'] if attributes[:'sourceDetails']
@@ -391,6 +403,7 @@ module OCI
         image_id == other.image_id &&
         ipxe_script == other.ipxe_script &&
         metadata == other.metadata &&
+        agent_config == other.agent_config &&
         shape == other.shape &&
         source_details == other.source_details &&
         subnet_id == other.subnet_id &&
@@ -410,7 +423,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, metadata, shape, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
+      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, metadata, agent_config, shape, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
