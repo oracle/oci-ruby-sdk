@@ -10,15 +10,19 @@ module OCI
     # @return [String]
     attr_accessor :description
 
+    # The email you assign to the user. Has to be unique across the tenancy.
+    # @return [String]
+    attr_accessor :email
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
@@ -29,6 +33,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'description': :'description',
+        'email': :'email',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -40,6 +45,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'description': :'String',
+        'email': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -53,6 +59,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :email The value to assign to the {#email} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -62,6 +69,8 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.email = attributes[:'email'] if attributes[:'email']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -88,6 +97,7 @@ module OCI
 
       self.class == other.class &&
         description == other.description &&
+        email == other.email &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -105,7 +115,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, freeform_tags, defined_tags].hash
+      [description, email, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

@@ -38,6 +38,7 @@ require 'oci/monitoring/monitoring'
 require 'oci/resource_manager/resource_manager'
 require 'oci/autoscaling/autoscaling'
 require 'oci/ons/ons'
+require 'oci/budget/budget'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

@@ -66,7 +66,7 @@ module OCI
     # Calls {OCI::Monitoring::MonitoringClient#delete_alarm} and then waits for the {OCI::Monitoring::Models::Alarm} acted upon
     # to enter the given state(s).
     #
-    # @param [String] alarm_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
+    # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Monitoring::Models::Alarm#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Monitoring::MonitoringClient#delete_alarm}
@@ -107,7 +107,7 @@ module OCI
     # Calls {OCI::Monitoring::MonitoringClient#update_alarm} and then waits for the {OCI::Monitoring::Models::Alarm} acted upon
     # to enter the given state(s).
     #
-    # @param [String] alarm_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
+    # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
     # @param [OCI::Monitoring::Models::UpdateAlarmDetails] update_alarm_details Document for updating an alarm.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Monitoring::Models::Alarm#lifecycle_state}

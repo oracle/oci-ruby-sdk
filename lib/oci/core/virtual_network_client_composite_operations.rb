@@ -27,7 +27,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#attach_service_id} and then waits for the {OCI::Core::Models::ServiceGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::ServiceIdRequestDetails] attach_service_details ServiceId of Service to be attached to a service gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ServiceGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#attach_service_id}
@@ -1050,7 +1050,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_nat_gateway} and then waits for the {OCI::Core::Models::NatGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::NatGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_nat_gateway}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1250,7 +1250,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_service_gateway} and then waits for the {OCI::Core::Models::ServiceGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ServiceGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_service_gateway}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1410,7 +1410,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#detach_service_id} and then waits for the {OCI::Core::Models::ServiceGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::ServiceIdRequestDetails] detach_service_details ServiceId of Service to be detached from a service gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ServiceGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#detach_service_id}
@@ -1770,7 +1770,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_nat_gateway} and then waits for the {OCI::Core::Models::NatGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::UpdateNatGatewayDetails] update_nat_gateway_details Details object for updating a NAT gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::NatGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_nat_gateway}
@@ -1970,7 +1970,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_service_gateway} and then waits for the {OCI::Core::Models::ServiceGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::UpdateServiceGatewayDetails] update_service_gateway_details Details object for updating a service gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ServiceGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_service_gateway}

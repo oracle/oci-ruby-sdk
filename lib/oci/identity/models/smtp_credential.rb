@@ -12,7 +12,7 @@ module OCI
   # **Note:** The credential set is always an Oracle-generated SMTP user name and password pair;
   # you cannot designate the SMTP user name or the SMTP password.
   #
-  # For more information, see [Managing User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm#SMTP).
+  # For more information, see [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm#SMTP).
   #
   class Identity::Models::SmtpCredential # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [

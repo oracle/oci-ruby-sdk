@@ -109,7 +109,7 @@ module OCI
 
 
     # Creates a volume backup copy in specified region. For general information about volume backups,
-    # see [Overview of Block Volume Service Backups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/blockvolumebackups.htm)
+    # see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumebackups.htm)
     #
     # @param [String] volume_backup_id The OCID of the volume backup.
     # @param [OCI::Core::Models::CopyVolumeBackupDetails] copy_volume_backup_details Request to create a cross-region copy of given backup.
@@ -176,7 +176,7 @@ module OCI
 
 
     # Creates a new boot volume in the specified compartment from an existing boot volume or a boot volume backup.
-    # For general information about boot volumes, see [Boot Volumes](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/bootvolumes.htm).
+    # For general information about boot volumes, see [Boot Volumes](https://docs.cloud.oracle.com/Content/Block/Concepts/bootvolumes.htm).
     # You may optionally specify a *display name* for the volume, which is simply a friendly name or
     # description. It does not have to be unique, and you can change it. Avoid entering confidential information.
     #
@@ -238,7 +238,7 @@ module OCI
 
 
     # Creates a new boot volume backup of the specified boot volume. For general information about boot volume backups,
-    # see [Overview of Boot Volume Backups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/bootvolumebackups.htm)
+    # see [Overview of Boot Volume Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/bootvolumebackups.htm)
     #
     # When the request is received, the backup object is in a REQUEST_RECEIVED state.
     # When the data is imaged, it goes into a CREATING state.
@@ -304,12 +304,12 @@ module OCI
     # Creates a new volume in the specified compartment. Volumes can be created in sizes ranging from
     # 50 GB (51200 MB) to 32 TB (33554432 MB), in 1 GB (1024 MB) increments. By default, volumes are 1 TB (1048576 MB).
     # For general information about block volumes, see
-    # [Overview of Block Volume Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/overview.htm).
+    # [Overview of Block Volume Service](https://docs.cloud.oracle.com/Content/Block/Concepts/overview.htm).
     #
     # A volume and instance can be in separate compartments but must be in the same availability domain.
     # For information about access control and compartments, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm). For information about
-    # availability domains, see [Regions and Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm). For information about
+    # availability domains, see [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm).
     # To get a list of availability domains, use the `ListAvailabilityDomains` operation
     # in the Identity and Access Management Service API.
     #
@@ -374,7 +374,7 @@ module OCI
 
 
     # Creates a new backup of the specified volume. For general information about volume backups,
-    # see [Overview of Block Volume Service Backups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/blockvolumebackups.htm)
+    # see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumebackups.htm)
     #
     # When the request is received, the backup object is in a REQUEST_RECEIVED state.
     # When the data is imaged, it goes into a CREATING state.
@@ -498,7 +498,7 @@ module OCI
     # You may optionally specify a *display name* for the volume group, which is simply a friendly name or
     # description. It does not have to be unique, and you can change it. Avoid entering confidential information.
     #
-    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [OCI::Core::Models::CreateVolumeGroupDetails] create_volume_group_details Request to create a new volume group.
     # @param [Hash] opts the optional parameters
@@ -558,7 +558,7 @@ module OCI
 
 
     # Creates a new backup volume group of the specified volume group.
-    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [OCI::Core::Models::CreateVolumeGroupBackupDetails] create_volume_group_backup_details Request to create a new backup group of given volume group.
     # @param [Hash] opts the optional parameters
@@ -619,7 +619,7 @@ module OCI
 
     # Deletes the specified boot volume. The volume cannot have an active connection to an instance.
     # To disconnect the boot volume from a connected instance, see
-    # [Disconnecting From a Boot Volume](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Tasks/deletingbootvolume.htm).
+    # [Disconnecting From a Boot Volume](https://docs.cloud.oracle.com/Content/Block/Tasks/deletingbootvolume.htm).
     # **Warning:** All data on the boot volume will be permanently lost when the boot volume is deleted.
     #
     # @param [String] boot_volume_id The OCID of the boot volume.
@@ -789,7 +789,7 @@ module OCI
 
     # Deletes the specified volume. The volume cannot have an active connection to an instance.
     # To disconnect the volume from a connected instance, see
-    # [Disconnecting From a Volume](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Tasks/disconnectingfromavolume.htm).
+    # [Disconnecting From a Volume](https://docs.cloud.oracle.com/Content/Block/Tasks/disconnectingfromavolume.htm).
     # **Warning:** All data on the volume will be permanently lost when the volume is deleted.
     #
     # @param [String] volume_id The OCID of the volume.
@@ -957,7 +957,7 @@ module OCI
 
 
     # Deletes the specified volume group. Individual volumes are not deleted, only the volume group is deleted.
-    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
     # @param [Hash] opts the optional parameters
@@ -1013,7 +1013,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a volume group backup. This operation deletes all the backups in the volume group. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # Deletes a volume group backup. This operation deletes all the backups in the volume group. For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1456,13 +1456,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeBackupPolicyAssignment VolumeBackupPolicyAssignment}>
     def get_volume_backup_policy_asset_assignment(asset_id, opts = {})
@@ -1566,7 +1566,7 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets information for the specified volume group. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # Gets information for the specified volume group. For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1619,7 +1619,7 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets information for the specified volume group backup. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # Gets information for the specified volume group backup. For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1737,13 +1737,13 @@ module OCI
     # @option opts [String] :boot_volume_id The OCID of the boot volume.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -1840,13 +1840,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :volume_group_id The OCID of the volume group.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::BootVolume BootVolume}>
@@ -1906,13 +1906,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeBackupPolicy VolumeBackupPolicy}>
     def list_volume_backup_policies(opts = {})
@@ -1969,13 +1969,13 @@ module OCI
     # @option opts [String] :volume_id The OCID of the volume.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -2064,7 +2064,7 @@ module OCI
 
 
     # Lists the volume group backups in the specified compartment. You can filter the results by volume group.
-    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -2073,13 +2073,13 @@ module OCI
     # @option opts [String] :volume_group_id The OCID of the volume group.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -2158,7 +2158,7 @@ module OCI
 
 
     # Lists the volume groups in the specified compartment and availability domain.
-    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -2170,13 +2170,13 @@ module OCI
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -2272,13 +2272,13 @@ module OCI
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -2667,7 +2667,7 @@ module OCI
     # volume group. If the volume ID is not specified in the call, it will be removed from the volume group.
     # Avoid entering confidential information.
     #
-    # For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     #
     # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
     # @param [OCI::Core::Models::UpdateVolumeGroupDetails] update_volume_group_details Update volume group's set of volumes and/or display name
@@ -2726,7 +2726,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the display name for the specified volume group backup. For more information, see [Volume Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Block/Concepts/volumegroups.htm).
+    # Updates the display name for the specified volume group backup. For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     # @param [OCI::Core::Models::UpdateVolumeGroupBackupDetails] update_volume_group_backup_details Update volume group backup fields
     # @param [Hash] opts the optional parameters

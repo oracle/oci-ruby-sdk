@@ -7,7 +7,7 @@ module OCI
   # The configuration details for retrieving alarm history.
   #
   class Monitoring::Models::AlarmHistoryCollection # rubocop:disable Metrics/LineLength
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the alarm for which to retrieve history.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the alarm for which to retrieve history.
     #
     # @return [String]
     attr_accessor :alarm_id

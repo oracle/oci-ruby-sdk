@@ -7,7 +7,7 @@ require_relative 'identity_provider'
 module OCI
   # A special type of {IdentityProvider} that
   # supports the SAML 2.0 protocol. For more information, see
-  # [Identity Providers and Federation](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/federation.htm).
+  # [Identity Providers and Federation](https://docs.cloud.oracle.com/Content/Identity/Concepts/federation.htm).
   #
   class Identity::Models::Saml2IdentityProvider < Identity::Models::IdentityProvider # rubocop:disable Metrics/LineLength
     # **[Required]** The URL for retrieving the identity provider's metadata, which

@@ -9,7 +9,7 @@ module OCI
   # enabling you to troubleshoot malfunctioning instances remotely.
   #
   # For more information about console access, see
-  # [Accessing the Console](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/References/serialconsole.htm).
+  # [Accessing the Console](https://docs.cloud.oracle.com/Content/Compute/References/serialconsole.htm).
   #
   class Core::Models::InstanceConsoleConnection # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -30,7 +30,7 @@ module OCI
     attr_accessor :connection_string
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -43,7 +43,7 @@ module OCI
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #

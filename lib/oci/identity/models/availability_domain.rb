@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # One or more isolated, fault-tolerant Oracle data centers that host cloud resources such as instances, volumes,
   # and subnets. A region contains several Availability Domains. For more information, see
-  # [Regions and Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
+  # [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm).
   #
   class Identity::Models::AvailabilityDomain # rubocop:disable Metrics/LineLength
     # The name of the Availability Domain.

@@ -7,7 +7,7 @@ require 'logger'
 module OCI
   # A public IP prefix and its details. With a public virtual circuit, the customer
   # specifies the customer-owned public IP prefixes to advertise across the connection.
-  # For more information, see [FastConnect Overview](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/fastconnect.htm).
+  # For more information, see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
   #
   class Core::Models::VirtualCircuitPublicPrefix # rubocop:disable Metrics/LineLength
     VERIFICATION_STATE_ENUM = [

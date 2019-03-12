@@ -108,7 +108,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Activate the specified MFA TOTP device for the user.
+    # Activates the specified MFA TOTP device for the user. Activation requires manual interaction with the Console.
     #
     # @param [String] user_id The OCID of the user.
     # @param [String] mfa_totp_device_id The OCID of the MFA TOTP device.
@@ -243,7 +243,7 @@ module OCI
     # Moves the specified tag namespace to the specified compartment within the same tenancy.
     #
     # To move the tag namespace, you must have the manage tag-namespaces permission on both compartments.
-    # For more information about IAM policies, see [Details for IAM](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Reference/iampolicyreference.htm).
+    # For more information about IAM policies, see [Details for IAM](https://docs.cloud.oracle.com/Content/Identity/Reference/iampolicyreference.htm).
     #
     # Moving a tag namespace moves all the tag key definitions contained in the tag namespace.
     #
@@ -308,7 +308,7 @@ module OCI
 
 
     # Creates a new auth token for the specified user. For information about what auth tokens are for, see
-    # [Managing User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm).
+    # [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm).
     #
     # You must specify a *description* for the auth token (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with
@@ -384,12 +384,12 @@ module OCI
     #
     # Specify the parent compartment's OCID as the compartment ID in the request object. Remember that the tenancy
     # is simply the root compartment. For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You must also specify a *name* for the compartment, which must be unique across all compartments in
     # your tenancy. You can use this name or the OCID when writing policies that apply
     # to the compartment. For more information about policies, see
-    # [How Policies Work](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policies.htm).
+    # [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
     #
     # You must also specify a *description* for the compartment (although it can be an empty string). It does
     # not have to be unique, and you can change it anytime with
@@ -457,7 +457,7 @@ module OCI
 
     # Creates a new secret key for the specified user. Secret keys are used for authentication with the Object Storage Service's Amazon S3
     # compatible API. For information, see
-    # [Managing User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm).
+    # [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm).
     #
     # You must specify a *description* for the secret key (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with
@@ -533,12 +533,12 @@ module OCI
     # is simply the root compartment). Notice that IAM resources (users, groups, compartments, and some policies)
     # reside within the tenancy itself, unlike cloud resources such as compute instances, which typically
     # reside within compartments inside the tenancy. For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You must also specify a *name* for the dynamic group, which must be unique across all dynamic groups in your
     # tenancy, and cannot be changed. Note that this name has to be also unique accross all groups in your tenancy.
     # You can use this name or the OCID when writing policies that apply to the dynamic group. For more information
-    # about policies, see [How Policies Work](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policies.htm).
+    # about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
     #
     # You must also specify a *description* for the dynamic group (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with {#update_dynamic_group update_dynamic_group}.
@@ -609,11 +609,11 @@ module OCI
     # is simply the root compartment). Notice that IAM resources (users, groups, compartments, and some policies)
     # reside within the tenancy itself, unlike cloud resources such as compute instances, which typically
     # reside within compartments inside the tenancy. For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You must also specify a *name* for the group, which must be unique across all groups in your tenancy and
     # cannot be changed. You can use this name or the OCID when writing policies that apply to the group. For more
-    # information about policies, see [How Policies Work](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policies.htm).
+    # information about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
     #
     # You must also specify a *description* for the group (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with {#update_group update_group}.
@@ -683,11 +683,11 @@ module OCI
 
 
     # Creates a new identity provider in your tenancy. For more information, see
-    # [Identity Providers and Federation](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/federation.htm).
+    # [Identity Providers and Federation](https://docs.cloud.oracle.com/Content/Identity/Concepts/federation.htm).
     #
     # You must specify your tenancy's OCID as the compartment ID in the request object.
     # Remember that the tenancy is simply the root compartment. For information about
-    # OCIDs, see [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # OCIDs, see [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You must also specify a *name* for the `IdentityProvider`, which must be unique
     # across all `IdentityProvider` objects in your tenancy and cannot be changed.
@@ -821,7 +821,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create a new MFA TOTP device for the user. A user can only create one MFA TOTP device.
+    # Creates a new MFA TOTP device for the user. A user can have one MFA TOTP device.
     #
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
@@ -882,7 +882,7 @@ module OCI
 
 
     # Creates a new Console one-time password for the specified user. For more information about user
-    # credentials, see [User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/usercredentials.htm).
+    # credentials, see [User Credentials](https://docs.cloud.oracle.com/Content/Identity/Concepts/usercredentials.htm).
     #
     # Use this operation after creating a new user, or if a user forgets their password. The new one-time
     # password is returned to you in the response, and you must securely deliver it to the user. They'll
@@ -952,7 +952,7 @@ module OCI
 
 
     # Creates a new policy in the specified compartment (either the tenancy or another of your compartments).
-    # If you're new to policies, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+    # If you're new to policies, see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
     #
     # You must specify a *name* for the policy, which must be unique across all policies in your tenancy
     # and cannot be changed.
@@ -961,8 +961,8 @@ module OCI
     # have to be unique, and you can change it anytime with {#update_policy update_policy}.
     #
     # You must specify one or more policy statements in the statements array. For information about writing
-    # policies, see [How Policies Work](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policies.htm) and
-    # [Common Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/commonpolicies.htm).
+    # policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm) and
+    # [Common Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/commonpolicies.htm).
     #
     # After you send your request, the new object's `lifecycleState` will temporarily be CREATING. Before using the
     # object, first make sure its `lifecycleState` has changed to ACTIVE.
@@ -1156,7 +1156,7 @@ module OCI
     # **Deprecated. Use {#create_auth_token create_auth_token} instead.**
     #
     # Creates a new Swift password for the specified user. For information about what Swift passwords are for, see
-    # [Managing User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm).
+    # [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm).
     #
     # You must specify a *description* for the Swift password (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with
@@ -1300,6 +1300,69 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new Tag Default in the specified Compartment for the specified Tag Definition.
+    #
+    # @param [OCI::Identity::Models::CreateTagDefaultDetails] create_tag_default_details Request object for creating a new Tag Default.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::TagDefault TagDefault}
+    def create_tag_default(create_tag_default_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#create_tag_default.' if logger
+
+      raise "Missing the required parameter 'create_tag_default_details' when calling create_tag_default." if create_tag_default_details.nil?
+
+      path = '/tagDefaults'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_tag_default_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#create_tag_default') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::TagDefault'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new tag namespace in the specified compartment.
     #
     # You must specify the compartment ID in the request object (remember that the tenancy is simply the root
@@ -1316,7 +1379,7 @@ module OCI
     # {#update_tag_namespace update_tag_namespace}.
     #
     # Tag namespaces cannot be deleted, but they can be retired.
-    # See [Retiring Key Definitions and Namespace Definitions](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/taggingoverview.htm#Retiring) for more information.
+    # See [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring) for more information.
     #
     # @param [OCI::Identity::Models::CreateTagNamespaceDetails] create_tag_namespace_details Request object for creating a new tag namespace.
     # @param [Hash] opts the optional parameters
@@ -1376,13 +1439,13 @@ module OCI
 
 
     # Creates a new user in your tenancy. For conceptual information about users, your tenancy, and other
-    # IAM Service components, see [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    # IAM Service components, see [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     #
     # You must specify your tenancy's OCID as the compartment ID in the request object (remember that the
     # tenancy is simply the root compartment). Notice that IAM resources (users, groups, compartments, and
     # some policies) reside within the tenancy itself, unlike cloud resources such as compute instances,
     # which typically reside within compartments inside the tenancy. For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You must also specify a *name* for the user, which must be unique across all users in your tenancy
     # and cannot be changed. Allowed characters: No spaces. Only letters, numerals, hyphens, periods,
@@ -1406,7 +1469,7 @@ module OCI
     # {#create_or_reset_ui_password create_or_reset_ui_password}).
     # If the user needs to access the Oracle Cloud Infrastructure REST API, you need to upload a
     # public API signing key for that user (see
-    # [Required Keys and OCIDs](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm) and also
+    # [Required Keys and OCIDs](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm) and also
     # {#upload_api_key upload_api_key}).
     #
     # **Important:** Make sure to inform the new user which compartment(s) they have access to.
@@ -1933,7 +1996,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete the specified MFA TOTP device for the specified user.
+    # Deletes the specified MFA TOTP device for the specified user.
     #
     # @param [String] user_id The OCID of the user.
     # @param [String] mfa_totp_device_id The OCID of the MFA TOTP device.
@@ -2167,6 +2230,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the the specified Tag Default.
+    #
+    # @param [String] tag_default_id The OCID of the Tag Default.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_tag_default(tag_default_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#delete_tag_default.' if logger
+
+      raise "Missing the required parameter 'tag_default_id' when calling delete_tag_default." if tag_default_id.nil?
+      raise "Parameter value for 'tag_default_id' must not be blank" if OCI::Internal::Util.blank_string?(tag_default_id)
+
+      path = '/tagDefaults/{tagDefaultId}'.sub('{tagDefaultId}', tag_default_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_tag_default') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified user. The user must not be in any groups.
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
@@ -2222,7 +2345,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Generate seed for the MFA TOTP device
+    # Generate seed for the MFA TOTP device.
     #
     # @param [String] user_id The OCID of the user.
     # @param [String] mfa_totp_device_id The OCID of the MFA TOTP device.
@@ -2276,6 +2399,61 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets the authentication policy for the given tenancy. You must specify your tenant\u2019s OCID as the value for
+    # the compartment ID (remember that the tenancy is simply the root compartment).
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::AuthenticationPolicy AuthenticationPolicy}
+    def get_authentication_policy(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#get_authentication_policy.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling get_authentication_policy." if compartment_id.nil?
+      raise "Parameter value for 'compartment_id' must not be blank" if OCI::Internal::Util.blank_string?(compartment_id)
+
+      path = '/authenticationPolicies/{compartmentId}'.sub('{compartmentId}', compartment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#get_authentication_policy') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::AuthenticationPolicy'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -2733,6 +2911,60 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # Retrieves the specified Tag Default.
+    #
+    # @param [String] tag_default_id The OCID of the Tag Default.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::TagDefault TagDefault}
+    def get_tag_default(tag_default_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#get_tag_default.' if logger
+
+      raise "Missing the required parameter 'tag_default_id' when calling get_tag_default." if tag_default_id.nil?
+      raise "Parameter value for 'tag_default_id' must not be blank" if OCI::Internal::Util.blank_string?(tag_default_id)
+
+      path = '/tagDefaults/{tagDefaultId}'.sub('{tagDefaultId}', tag_default_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#get_tag_default') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::TagDefault'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
     # Gets the specified tag namespace's information.
     #
     # @param [String] tag_namespace_id The OCID of the tag namespace.
@@ -3116,7 +3348,7 @@ module OCI
 
     # Lists the availability domains in your tenancy. Specify the OCID of either the tenancy or another
     # of your compartments as the value for the compartment ID (remember that the tenancy is simply the root compartment).
-    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
     # Note that the order of the results returned can change if availability domains are added or removed; therefore, do not
     # create a dependency on the list order.
     #
@@ -3189,7 +3421,7 @@ module OCI
     # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
     # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ANY.
     #
-    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -3270,7 +3502,7 @@ module OCI
 
 
     # Lists all the tags enabled for cost-tracking in the specified tenancy. For information about
-    # cost-tracking tags, see [Using Cost-tracking Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/taggingoverview.htm#costs).
+    # cost-tracking tags, see [Using Cost-tracking Tags](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#costs).
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -3386,7 +3618,7 @@ module OCI
 
     # Lists the dynamic groups in your tenancy. You must specify your tenancy's OCID as the value for
     # the compartment ID (remember that the tenancy is simply the root compartment).
-    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -3448,7 +3680,7 @@ module OCI
 
     # Lists the Fault Domains in your tenancy. Specify the OCID of either the tenancy or another
     # of your compartments as the value for the compartment ID (remember that the tenancy is simply the root compartment).
-    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -3508,7 +3740,7 @@ module OCI
 
     # Lists the groups in your tenancy. You must specify your tenancy's OCID as the value for
     # the compartment ID (remember that the tenancy is simply the root compartment).
-    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -3627,7 +3859,7 @@ module OCI
     # Lists all the identity providers in your tenancy. You must specify the identity provider type (e.g., `SAML2` for
     # identity providers using the SAML2.0 protocol). You must specify your tenancy's OCID as the value for the
     # compartment ID (remember that the tenancy is simply the root compartment).
-    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
     #
     # @param [String] protocol The protocol used for federation.
     #   Allowed values are: SAML2
@@ -3752,7 +3984,7 @@ module OCI
 
 
     # Lists the MFA TOTP devices for the specified user. The returned object contains the device's OCID, but not
-    # the seed. The seed is returned only upon creation or when we regenerate MFA seed for the device.
+    # the seed. The seed is returned only upon creation or when the IAM service regenerates the MFA seed for the device.
     #
     # @param [String] user_id The OCID of the user.
     # @param [Hash] opts the optional parameters
@@ -3835,7 +4067,7 @@ module OCI
 
 
     # Lists the policies in the specified compartment (either the tenancy or another of your compartments).
-    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
     #
     # To determine which policies apply to a particular group or compartment, you must view the individual
     # statements inside all your policies. There isn't a way to automatically obtain that information via the API.
@@ -4112,6 +4344,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the Tag Defaults for Tag Definitions in the specified Compartment.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :id A filter to only return resources that match the specified OCID exactly.
+    #
+    # @option opts [String] :compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @option opts [String] :tag_definition_id The OCID of the Tag Definition.
+    #
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TagDefaultSummary TagDefaultSummary}>
+    def list_tag_defaults(opts = {})
+      logger.debug 'Calling operation IdentityClient#list_tag_defaults.' if logger
+
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::TagDefaultSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::TagDefaultSummary::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/tagDefaults'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:tagDefinitionId] = opts[:tag_definition_id] if opts[:tag_definition_id]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_tag_defaults') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::TagDefaultSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the tag namespaces in the specified compartment.
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
@@ -4236,7 +4539,7 @@ module OCI
 
     # Lists the `UserGroupMembership` objects in your tenancy. You must specify your tenancy's OCID
     # as the value for the compartment ID
-    # (see [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five)).
+    # (see [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five)).
     # You must also then filter the list in one of these ways:
     #
     # - You can limit the results to just the memberships for a given user by specifying a `userId`.
@@ -4308,7 +4611,7 @@ module OCI
 
     # Lists the users in your tenancy. You must specify your tenancy's OCID as the value for the
     # compartment ID (remember that the tenancy is simply the root compartment).
-    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/apisigningkey.htm#five).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -4592,6 +4895,65 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Identity::Models::AuthToken'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates authentication policy for the specified tenancy
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [OCI::Identity::Models::UpdateAuthenticationPolicyDetails] update_authentication_policy_details Request object for updating the authentication policy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::AuthenticationPolicy AuthenticationPolicy}
+    def update_authentication_policy(compartment_id, update_authentication_policy_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#update_authentication_policy.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling update_authentication_policy." if compartment_id.nil?
+      raise "Missing the required parameter 'update_authentication_policy_details' when calling update_authentication_policy." if update_authentication_policy_details.nil?
+      raise "Parameter value for 'compartment_id' must not be blank" if OCI::Internal::Util.blank_string?(compartment_id)
+
+      path = '/authenticationPolicies/{compartmentId}'.sub('{compartmentId}', compartment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_authentication_policy_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#update_authentication_policy') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::AuthenticationPolicy'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5206,6 +5568,69 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the the specified Tag Default. You can presently update the following fields: `value`.
+    #
+    # @param [String] tag_default_id The OCID of the Tag Default.
+    # @param [OCI::Identity::Models::UpdateTagDefaultDetails] update_tag_default_details Request object for updating a Tag Default.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::TagDefault TagDefault}
+    def update_tag_default(tag_default_id, update_tag_default_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#update_tag_default.' if logger
+
+      raise "Missing the required parameter 'tag_default_id' when calling update_tag_default." if tag_default_id.nil?
+      raise "Missing the required parameter 'update_tag_default_details' when calling update_tag_default." if update_tag_default_details.nil?
+      raise "Parameter value for 'tag_default_id' must not be blank" if OCI::Internal::Util.blank_string?(tag_default_id)
+
+      path = '/tagDefaults/{tagDefaultId}'.sub('{tagDefaultId}', tag_default_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_tag_default_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#update_tag_default') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::TagDefault'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
@@ -5215,7 +5640,7 @@ module OCI
     # namespace (changing `isRetired` from 'true' to 'false') does not reactivate tag definitions.
     # To reactivate the tag definitions, you must reactivate each one indvidually *after* you reactivate the namespace,
     # using {#update_tag update_tag}. For more information about retiring tag namespaces, see
-    # [Retiring Key Definitions and Namespace Definitions](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
+    # [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
     #
     # You can't add a namespace with the same name as a retired namespace in the same tenancy.
     #

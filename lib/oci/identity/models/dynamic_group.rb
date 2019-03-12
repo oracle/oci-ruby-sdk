@@ -13,7 +13,7 @@ module OCI
   #
   # This works like regular user/group membership. But in that case, the membership is a static relationship, whereas
   # in a dynamic group, the membership of an instance certificate to a dynamic group is determined during runtime.
-  # For more information, see [Managing Dynamic Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingdynamicgroups.htm).
+  # For more information, see [Managing Dynamic Groups](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingdynamicgroups.htm).
   #
   class Identity::Models::DynamicGroup # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -44,7 +44,7 @@ module OCI
     attr_accessor :description
 
     # **[Required]** A rule string that defines which instance certificates will be matched.
-    # For syntax, see [Managing Dynamic Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingdynamicgroups.htm).
+    # For syntax, see [Managing Dynamic Groups](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingdynamicgroups.htm).
     #
     # @return [String]
     attr_accessor :matching_rule

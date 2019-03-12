@@ -119,7 +119,7 @@ module OCI
     # lets you enable an individual service. However, with `UpdateServiceGateway`, you must specify
     # the *entire* list of services you want enabled on the service gateway.
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::ServiceIdRequestDetails] attach_service_details ServiceId of Service to be attached to a service gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -300,7 +300,7 @@ module OCI
     # an Identity and Access Management (IAM) policy that gives the requestor permission
     # to connect to LPGs in the acceptor's compartment. Without that permission, this
     # operation will fail. For more information, see
-    # [VCN Peering](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/VCNpeering.htm).
+    # [VCN Peering](https://docs.cloud.oracle.com/Content/Network/Tasks/VCNpeering.htm).
     #
     # @param [String] local_peering_gateway_id The OCID of the local peering gateway.
     # @param [OCI::Core::Models::ConnectLocalPeeringGatewaysDetails] connect_local_peering_gateways_details Details regarding the local peering gateway to connect.
@@ -362,7 +362,7 @@ module OCI
     # an Identity and Access Management (IAM) policy that gives the requestor permission
     # to connect to RPCs in the acceptor's compartment. Without that permission, this
     # operation will fail. For more information, see
-    # [VCN Peering](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/VCNpeering.htm).
+    # [VCN Peering](https://docs.cloud.oracle.com/Content/Network/Tasks/VCNpeering.htm).
     #
     # @param [String] remote_peering_connection_id The OCID of the remote peering connection (RPC).
     # @param [OCI::Core::Models::ConnectRemotePeeringConnectionsDetails] connect_remote_peering_connections_details Details to connect peering connection with peering connection from remote region
@@ -417,17 +417,17 @@ module OCI
 
 
     # Creates a new virtual customer-premises equipment (CPE) object in the specified compartment. For
-    # more information, see [IPSec VPNs](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingIPsec.htm).
+    # more information, see [IPSec VPNs](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPsec.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want
     # the CPE to reside. Notice that the CPE doesn't have to be in the same compartment as the IPSec
     # connection or other Networking Service components. If you're not sure which compartment to
     # use, put the CPE in the same compartment as the DRG. For more information about
-    # compartments and access control, see [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
-    # For information about OCIDs, see [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # compartments and access control, see [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
+    # For information about OCIDs, see [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You must provide the public IP address of your on-premises router. See
-    # [Configuring Your On-Premises Router for an IPSec VPN](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/configuringCPE.htm).
+    # [Configuring Your On-Premises Router for an IPSec VPN](https://docs.cloud.oracle.com/Content/Network/Tasks/configuringCPE.htm).
     #
     # You may optionally specify a *display name* for the CPE, otherwise a default is provided. It does not have to
     # be unique, and you can change it. Avoid entering confidential information.
@@ -495,16 +495,16 @@ module OCI
     #
     # After creating the `CrossConnect` object, you need to go the FastConnect location
     # and request to have the physical cable installed. For more information, see
-    # [FastConnect Overview](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/fastconnect.htm).
+    # [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
     #
     # For the purposes of access control, you must provide the OCID of the
     # compartment where you want the cross-connect to reside. If you're
     # not sure which compartment to use, put the cross-connect in the
     # same compartment with your VCN. For more information about
     # compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     # For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the cross-connect.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -568,16 +568,16 @@ module OCI
 
     # Creates a new cross-connect group to use with Oracle Cloud Infrastructure
     # FastConnect. For more information, see
-    # [FastConnect Overview](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/fastconnect.htm).
+    # [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
     #
     # For the purposes of access control, you must provide the OCID of the
     # compartment where you want the cross-connect group to reside. If you're
     # not sure which compartment to use, put the cross-connect group in the
     # same compartment with your VCN. For more information about
     # compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     # For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the cross-connect group.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -646,8 +646,8 @@ module OCI
     # DHCP options to reside. Notice that the set of options doesn't have to be in the same compartment as the VCN,
     # subnets, or other Networking Service components. If you're not sure which compartment to use, put the set
     # of DHCP options in the same compartment as the VCN. For more information about compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the set of DHCP options, otherwise a default is provided.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -710,14 +710,14 @@ module OCI
 
 
     # Creates a new dynamic routing gateway (DRG) in the specified compartment. For more information,
-    # see [Dynamic Routing Gateways (DRGs)](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingDRGs.htm).
+    # see [Dynamic Routing Gateways (DRGs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingDRGs.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want
     # the DRG to reside. Notice that the DRG doesn't have to be in the same compartment as the VCN,
     # the DRG attachment, or other Networking Service components. If you're not sure which compartment
     # to use, put the DRG in the same compartment as the VCN. For more information about compartments
-    # and access control, see [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
-    # For information about OCIDs, see [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # and access control, see [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
+    # For information about OCIDs, see [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the DRG, otherwise a default is provided.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -782,14 +782,14 @@ module OCI
     # Attaches the specified DRG to the specified VCN. A VCN can be attached to only one DRG at a time,
     # and vice versa. The response includes a `DrgAttachment` object with its own OCID. For more
     # information about DRGs, see
-    # [Dynamic Routing Gateways (DRGs)](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingDRGs.htm).
+    # [Dynamic Routing Gateways (DRGs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingDRGs.htm).
     #
     # You may optionally specify a *display name* for the attachment, otherwise a default is provided.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
     #
     # For the purposes of access control, the DRG attachment is automatically placed into the same compartment
     # as the VCN. For more information about compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     #
     # @param [OCI::Core::Models::CreateDrgAttachmentDetails] create_drg_attachment_details Details for creating a `DrgAttachment`.
     # @param [Hash] opts the optional parameters
@@ -849,14 +849,14 @@ module OCI
 
 
     # Creates a new internet gateway for the specified VCN. For more information, see
-    # [Access to the Internet](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingIGs.htm).
+    # [Access to the Internet](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIGs.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want the Internet
     # Gateway to reside. Notice that the internet gateway doesn't have to be in the same compartment as the VCN or
     # other Networking Service components. If you're not sure which compartment to use, put the Internet
     # Gateway in the same compartment with the VCN. For more information about compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the internet gateway, otherwise a default is provided. It
     # does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -928,7 +928,7 @@ module OCI
 
 
     # Creates a new IPSec connection between the specified DRG and CPE. For more information, see
-    # [IPSec VPNs](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingIPsec.htm).
+    # [IPSec VPNs](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPsec.htm).
     #
     # In the request, you must include at least one static route to the CPE object (you're allowed a maximum
     # of 10). For example: 10.0.8.0/16.
@@ -938,8 +938,8 @@ module OCI
     # as the DRG, CPE, or other Networking Service components. If you're not sure which compartment to
     # use, put the IPSec connection in the same compartment as the DRG. For more information about
     # compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
-    # For information about OCIDs, see [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
+    # For information about OCIDs, see [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the IPSec connection, otherwise a default is provided.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -949,7 +949,7 @@ module OCI
     # {#get_ip_sec_connection_device_config get_ip_sec_connection_device_config}.
     # For each tunnel, that operation gives you the IP address of Oracle's VPN headend and the shared secret
     # (that is, the pre-shared key). For more information, see
-    # [Configuring Your On-Premises Router for an IPSec VPN](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/configuringCPE.htm).
+    # [Configuring Your On-Premises Router for an IPSec VPN](https://docs.cloud.oracle.com/Content/Network/Tasks/configuringCPE.htm).
     #
     # To get the status of the tunnels (whether they're up or down), use
     # {#get_ip_sec_connection_device_status get_ip_sec_connection_device_status}.
@@ -1132,7 +1132,7 @@ module OCI
 
     # Creates a secondary private IP for the specified VNIC.
     # For more information about secondary private IPs, see
-    # [IP Addresses](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingIPaddresses.htm).
+    # [IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPaddresses.htm).
     #
     # @param [OCI::Core::Models::CreatePrivateIpDetails] create_private_ip_details Create private IP details.
     # @param [Hash] opts the optional parameters
@@ -1193,7 +1193,7 @@ module OCI
 
     # Creates a public IP. Use the `lifetime` property to specify whether it's an ephemeral or
     # reserved public IP. For information about limits on how many you can create, see
-    # [Public IP Addresses](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingpublicIPs.htm).
+    # [Public IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingpublicIPs.htm).
     #
     # * **For an ephemeral public IP assigned to a private IP:** You must also specify a `privateIpId`
     # with the OCID of the primary private IP you want to assign the public IP to. The public IP is
@@ -1331,16 +1331,16 @@ module OCI
 
     # Creates a new route table for the specified VCN. In the request you must also include at least one route
     # rule for the new route table. For information on the number of rules you can have in a route table, see
-    # [Service Limits](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/servicelimits.htm). For general information about route
+    # [Service Limits](https://docs.cloud.oracle.com/Content/General/Concepts/servicelimits.htm). For general information about route
     # tables in your VCN and the types of targets you can use in route rules,
-    # see [Route Tables](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingroutetables.htm).
+    # see [Route Tables](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want the route
     # table to reside. Notice that the route table doesn't have to be in the same compartment as the VCN, subnets,
     # or other Networking Service components. If you're not sure which compartment to use, put the route
     # table in the same compartment as the VCN. For more information about compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the route table, otherwise a default is provided.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -1403,16 +1403,16 @@ module OCI
 
 
     # Creates a new security list for the specified VCN. For more information
-    # about security lists, see [Security Lists](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/securitylists.htm).
+    # about security lists, see [Security Lists](https://docs.cloud.oracle.com/Content/Network/Concepts/securitylists.htm).
     # For information on the number of rules you can have in a security list, see
-    # [Service Limits](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/servicelimits.htm).
+    # [Service Limits](https://docs.cloud.oracle.com/Content/General/Concepts/servicelimits.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want the security
     # list to reside. Notice that the security list doesn't have to be in the same compartment as the VCN, subnets,
     # or other Networking Service components. If you're not sure which compartment to use, put the security
     # list in the same compartment as the VCN. For more information about compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the security list, otherwise a default is provided.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -1478,8 +1478,8 @@ module OCI
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want
     # the service gateway to reside. For more information about compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
-    # For information about OCIDs, see [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
+    # For information about OCIDs, see [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the service gateway, otherwise a default is provided.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -1543,35 +1543,35 @@ module OCI
 
     # Creates a new subnet in the specified VCN. You can't change the size of the subnet after creation,
     # so it's important to think about the size of subnets you need before creating them.
-    # For more information, see [VCNs and Subnets](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingVCNs.htm).
+    # For more information, see [VCNs and Subnets](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVCNs.htm).
     # For information on the number of subnets you can have in a VCN, see
-    # [Service Limits](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/servicelimits.htm).
+    # [Service Limits](https://docs.cloud.oracle.com/Content/General/Concepts/servicelimits.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want the subnet
     # to reside. Notice that the subnet doesn't have to be in the same compartment as the VCN, route tables, or
     # other Networking Service components. If you're not sure which compartment to use, put the subnet in
     # the same compartment as the VCN. For more information about compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm). For information about OCIDs,
-    # see [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm). For information about OCIDs,
+    # see [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally associate a route table with the subnet. If you don't, the subnet will use the
     # VCN's default route table. For more information about route tables, see
-    # [Route Tables](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingroutetables.htm).
+    # [Route Tables](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm).
     #
     # You may optionally associate a security list with the subnet. If you don't, the subnet will use the
     # VCN's default security list. For more information about security lists, see
-    # [Security Lists](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/securitylists.htm).
+    # [Security Lists](https://docs.cloud.oracle.com/Content/Network/Concepts/securitylists.htm).
     #
     # You may optionally associate a set of DHCP options with the subnet. If you don't, the subnet will use the
     # VCN's default set. For more information about DHCP options, see
-    # [DHCP Options](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingDHCP.htm).
+    # [DHCP Options](https://docs.cloud.oracle.com/Content/Network/Tasks/managingDHCP.htm).
     #
     # You may optionally specify a *display name* for the subnet, otherwise a default is provided.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
     #
     # You can also add a DNS label for the subnet, which is required if you want the Internet and
     # VCN Resolver to resolve hostnames for instances in the subnet. For more information, see
-    # [DNS in Your Virtual Cloud Network](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/dns.htm).
+    # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/Content/Network/Concepts/dns.htm).
     #
     # @param [OCI::Core::Models::CreateSubnetDetails] create_subnet_details Details for creating a subnet.
     # @param [Hash] opts the optional parameters
@@ -1631,7 +1631,7 @@ module OCI
 
 
     # Creates a new virtual cloud network (VCN). For more information, see
-    # [VCNs and Subnets](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingVCNs.htm).
+    # [VCNs and Subnets](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVCNs.htm).
     #
     # For the VCN you must specify a single, contiguous IPv4 CIDR block. Oracle recommends using one of the
     # private IP address ranges specified in [RFC 1918](https://tools.ietf.org/html/rfc1918) (10.0.0.0/8,
@@ -1642,15 +1642,15 @@ module OCI
     # reside. Consult an Oracle Cloud Infrastructure administrator in your organization if you're not sure which
     # compartment to use. Notice that the VCN doesn't have to be in the same compartment as the subnets or other
     # Networking Service components. For more information about compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm). For information about OCIDs, see
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the VCN, otherwise a default is provided. It does not have to
     # be unique, and you can change it. Avoid entering confidential information.
     #
     # You can also add a DNS label for the VCN, which is required if you want the instances to use the
     # Interent and VCN Resolver option for DNS in the VCN. For more information, see
-    # [DNS in Your Virtual Cloud Network](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/dns.htm).
+    # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/Content/Network/Concepts/dns.htm).
     #
     # The VCN automatically comes with a default route table, default security list, and default set of DHCP options.
     # The OCID for each is returned in the response. You can't delete these default objects, but you can change their
@@ -1658,7 +1658,7 @@ module OCI
     #
     # The VCN and subnets you create are not accessible until you attach an internet gateway or set up an IPSec VPN
     # or FastConnect. For more information, see
-    # [Overview of the Networking Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/overview.htm).
+    # [Overview of the Networking Service](https://docs.cloud.oracle.com/Content/Network/Concepts/overview.htm).
     #
     # @param [OCI::Core::Models::CreateVcnDetails] create_vcn_details Details for creating a new VCN.
     # @param [Hash] opts the optional parameters
@@ -1719,16 +1719,16 @@ module OCI
 
     # Creates a new virtual circuit to use with Oracle Cloud
     # Infrastructure FastConnect. For more information, see
-    # [FastConnect Overview](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/fastconnect.htm).
+    # [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
     #
     # For the purposes of access control, you must provide the OCID of the
     # compartment where you want the virtual circuit to reside. If you're
     # not sure which compartment to use, put the virtual circuit in the
     # same compartment with the DRG it's using. For more information about
     # compartments and access control, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     # For information about OCIDs, see
-    # [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You may optionally specify a *display name* for the virtual circuit.
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
@@ -1737,7 +1737,7 @@ module OCI
     # the traffic to flow through. Make sure you attach the DRG to your
     # VCN and confirm the VCN's routing sends traffic to the DRG. Otherwise
     # traffic will not flow. For more information, see
-    # [Route Tables](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingroutetables.htm).
+    # [Route Tables](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm).
     #
     # @param [OCI::Core::Models::CreateVirtualCircuitDetails] create_virtual_circuit_details Details to create a VirtualCircuit.
     # @param [Hash] opts the optional parameters
@@ -2334,7 +2334,7 @@ module OCI
     # This is an asynchronous operation. The NAT gateway's `lifecycleState` will change to
     # TERMINATING temporarily until the NAT gateway is completely removed.
     #
-    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2396,7 +2396,7 @@ module OCI
     # automatically unassigned and deleted when the VNIC is terminated.
     #
     # **Important:** If a secondary private IP is the
-    # [target of a route rule](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingroutetables.htm#privateip),
+    # [target of a route rule](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm#privateip),
     # unassigning it from the VNIC causes that route rule to blackhole and the traffic
     # will be dropped.
     #
@@ -2706,7 +2706,7 @@ module OCI
     # Deletes the specified service gateway. There must not be a route table that lists the service
     # gateway as a target.
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2950,7 +2950,7 @@ module OCI
     # also lets you block all traffic through the service gateway without having to disable each of
     # the individual services.
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::ServiceIdRequestDetails] detach_service_details ServiceId of Service to be detached from a service gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3434,7 +3434,7 @@ module OCI
 
 
     # Gets the specified provider service.
-    # For more information, see [FastConnect Overview](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/fastconnect.htm).
+    # For more information, see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
     #
     # @param [String] provider_service_id The OCID of the provider service.
     # @param [Hash] opts the optional parameters
@@ -3760,7 +3760,7 @@ module OCI
 
 
     # Gets the specified NAT gateway's information.
-    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4215,7 +4215,7 @@ module OCI
 
     # Gets the specified service's information.
     #
-    # @param [String] service_id The service's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_id The service's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4268,7 +4268,7 @@ module OCI
 
 
     # Gets the specified service gateway's information.
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4537,7 +4537,7 @@ module OCI
 
 
     # Lists the regions that support remote VCN peering (which is peering across regions).
-    # For more information, see [VCN Peering](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/VCNpeering.htm).
+    # For more information, see [VCN Peering](https://docs.cloud.oracle.com/Content/Network/Tasks/VCNpeering.htm).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -4595,13 +4595,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Cpe Cpe}>
     def list_cpes(compartment_id, opts = {})
@@ -4659,13 +4659,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -4758,13 +4758,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CrossConnectLocation CrossConnectLocation}>
     def list_cross_connect_locations(compartment_id, opts = {})
@@ -4824,13 +4824,13 @@ module OCI
     # @option opts [String] :cross_connect_group_id The OCID of the cross-connect group.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -4925,13 +4925,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CrossConnectPortSpeedShape CrossConnectPortSpeedShape}>
     def list_crossconnect_port_speed_shapes(compartment_id, opts = {})
@@ -4992,13 +4992,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -5095,13 +5095,13 @@ module OCI
     # @option opts [String] :drg_id The OCID of the DRG.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DrgAttachment DrgAttachment}>
     def list_drg_attachments(compartment_id, opts = {})
@@ -5161,13 +5161,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Drg Drg}>
     def list_drgs(compartment_id, opts = {})
@@ -5223,7 +5223,7 @@ module OCI
     #
     # For the compartment ID, provide the OCID of your tenancy (the root compartment).
     #
-    # For more information, see [FastConnect Overview](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/fastconnect.htm).
+    # For more information, see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -5231,13 +5231,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::FastConnectProviderService FastConnectProviderService}>
     def list_fast_connect_provider_services(compartment_id, opts = {})
@@ -5290,7 +5290,7 @@ module OCI
     # Gets the list of available virtual circuit bandwidth levels for a provider.
     # You need this information so you can specify your desired bandwidth level (shape) when you create a virtual circuit.
     #
-    # For more information about virtual circuits, see [FastConnect Overview](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/fastconnect.htm).
+    # For more information about virtual circuits, see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
     #
     # @param [String] provider_service_id The OCID of the provider service.
     # @param [Hash] opts the optional parameters
@@ -5298,13 +5298,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VirtualCircuitBandwidthShape VirtualCircuitBandwidthShape}>
     def list_fast_connect_provider_virtual_circuit_bandwidth_shapes(provider_service_id, opts = {})
@@ -5363,13 +5363,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -5466,13 +5466,13 @@ module OCI
     # @option opts [String] :cpe_id The OCID of the CPE.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::IPSecConnection IPSecConnection}>
     def list_ip_sec_connections(compartment_id, opts = {})
@@ -5534,13 +5534,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::LocalPeeringGateway LocalPeeringGateway}>
     def list_local_peering_gateways(compartment_id, vcn_id, opts = {})
@@ -5602,13 +5602,13 @@ module OCI
     # @option opts [String] :vcn_id The OCID of the VCN.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -5712,13 +5712,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :ip_address An IP address.
     #
@@ -5814,13 +5814,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :availability_domain The name of the availability domain.
     #
@@ -5898,13 +5898,13 @@ module OCI
     # @option opts [String] :drg_id The OCID of the DRG.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::RemotePeeringConnection RemotePeeringConnection}>
     def list_remote_peering_connections(compartment_id, opts = {})
@@ -5966,13 +5966,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -6067,13 +6067,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -6169,13 +6169,13 @@ module OCI
     # @option opts [String] :vcn_id The OCID of the VCN.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
@@ -6264,13 +6264,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Service Service}>
     def list_services(opts = {})
@@ -6327,13 +6327,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -6427,13 +6427,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -6525,13 +6525,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VirtualCircuitBandwidthShape VirtualCircuitBandwidthShape}>
     def list_virtual_circuit_bandwidth_shapes(compartment_id, opts = {})
@@ -6650,13 +6650,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
@@ -7283,7 +7283,7 @@ module OCI
 
     # Updates the specified NAT gateway.
     #
-    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::UpdateNatGatewayDetails] update_nat_gateway_details Details object for updating a NAT gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -7446,7 +7446,7 @@ module OCI
     # a VNIC or instance can have. If you try to move a reserved public IP
     # to a VNIC or instance that has already reached its public IP limit, an error is
     # returned. For information about the public IP limits, see
-    # [Public IP Addresses](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingpublicIPs.htm).
+    # [Public IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingpublicIPs.htm).
     #
     # @param [String] public_ip_id The OCID of the public IP.
     # @param [OCI::Core::Models::UpdatePublicIpDetails] update_public_ip_details Public IP details.
@@ -7692,7 +7692,7 @@ module OCI
     # Updates the specified service gateway. The information you provide overwrites the existing
     # attributes of the gateway.
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::UpdateServiceGatewayDetails] update_service_gateway_details Details object for updating a service gateway.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -7882,7 +7882,7 @@ module OCI
     # its state will return to PROVISIONED. Make sure you confirm that
     # the associated BGP session is back up. For more information
     # about the various states and how to test connectivity, see
-    # [FastConnect Overview](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/fastconnect.htm).
+    # [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
     #
     # To change the list of public IP prefixes for a public virtual circuit,
     # use {#bulk_add_virtual_circuit_public_prefixes bulk_add_virtual_circuit_public_prefixes}

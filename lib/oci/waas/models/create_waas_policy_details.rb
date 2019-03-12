@@ -8,7 +8,7 @@ module OCI
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   class Waas::Models::CreateWaasPolicyDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment in which to create the WAAS policy.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment in which to create the WAAS policy.
     # @return [String]
     attr_accessor :compartment_id
 

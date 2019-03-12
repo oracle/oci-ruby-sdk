@@ -9,12 +9,17 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::CreateAutonomousDatabaseDetails # rubocop:disable Metrics/LineLength
+    DB_WORKLOAD_ENUM = [
+      DB_WORKLOAD_OLTP = 'OLTP'.freeze,
+      DB_WORKLOAD_DW = 'DW'.freeze
+    ].freeze
+
     LICENSE_MODEL_ENUM = [
       LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
       LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment of the autonomous database.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment of the autonomous database.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -25,6 +30,10 @@ module OCI
     # **[Required]** The number of CPU Cores to be made available to the database.
     # @return [Integer]
     attr_accessor :cpu_core_count
+
+    # The autonomous database workload type.
+    # @return [String]
+    attr_reader :db_workload
 
     # **[Required]** The size, in terabytes, of the data volume that will be created and attached to the database. This storage can later be scaled up if needed.
     #
@@ -45,7 +54,7 @@ module OCI
     attr_reader :license_model
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -53,7 +62,7 @@ module OCI
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -67,6 +76,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'db_name': :'dbName',
         'cpu_core_count': :'cpuCoreCount',
+        'db_workload': :'dbWorkload',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'admin_password': :'adminPassword',
         'display_name': :'displayName',
@@ -84,6 +94,7 @@ module OCI
         'compartment_id': :'String',
         'db_name': :'String',
         'cpu_core_count': :'Integer',
+        'db_workload': :'String',
         'data_storage_size_in_tbs': :'Integer',
         'admin_password': :'String',
         'display_name': :'String',
@@ -103,6 +114,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
@@ -132,6 +144,12 @@ module OCI
       raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
+
+      self.db_workload = attributes[:'dbWorkload'] if attributes[:'dbWorkload']
+
+      raise 'You cannot provide both :dbWorkload and :db_workload' if attributes.key?(:'dbWorkload') && attributes.key?(:'db_workload')
+
+      self.db_workload = attributes[:'db_workload'] if attributes[:'db_workload']
 
       self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
 
@@ -173,6 +191,16 @@ module OCI
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] db_workload Object to be assigned
+    def db_workload=(db_workload)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'db_workload': this must be one of the values in DB_WORKLOAD_ENUM." if db_workload && !DB_WORKLOAD_ENUM.include?(db_workload)
+
+      # rubocop: enable Metrics/LineLength
+      @db_workload = db_workload
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] license_model Object to be assigned
     def license_model=(license_model)
       # rubocop: disable Metrics/LineLength
@@ -194,6 +222,7 @@ module OCI
         compartment_id == other.compartment_id &&
         db_name == other.db_name &&
         cpu_core_count == other.cpu_core_count &&
+        db_workload == other.db_workload &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         admin_password == other.admin_password &&
         display_name == other.display_name &&
@@ -215,7 +244,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, data_storage_size_in_tbs, admin_password, display_name, license_model, freeform_tags, defined_tags].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

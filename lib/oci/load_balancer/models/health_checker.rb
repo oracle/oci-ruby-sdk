@@ -5,7 +5,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # The health check policy configuration.
-  # For more information, see [Editing Health Check Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/editinghealthcheck.htm).
+  # For more information, see [Editing Health Check Policies](https://docs.cloud.oracle.com/Content/Balance/Tasks/editinghealthcheck.htm).
   #
   class LoadBalancer::Models::HealthChecker # rubocop:disable Metrics/LineLength
     # **[Required]** The protocol the health check must use; either HTTP or TCP.

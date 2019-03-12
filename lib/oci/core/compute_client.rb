@@ -169,7 +169,7 @@ module OCI
 
     # Creates a secondary VNIC and attaches it to the specified instance.
     # For more information about secondary VNICs, see
-    # [Virtual Network Interface Cards (VNICs)](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingVNICs.htm).
+    # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
     #
     # @param [OCI::Core::Models::AttachVnicDetails] attach_vnic_details Attach VNIC details.
     # @param [Hash] opts the optional parameters
@@ -425,7 +425,7 @@ module OCI
     #
     # When creating a new image, you must provide the OCID of the instance you want to use as the basis for the image, and
     # the OCID of the compartment containing that instance. For more information about images,
-    # see [Managing Custom Images](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/managingcustomimages.htm).
+    # see [Managing Custom Images](https://docs.cloud.oracle.com/Content/Compute/Tasks/managingcustomimages.htm).
     #
     # When importing an exported image from Object Storage, you specify the source information
     # in {#image_source_details image_source_details}.
@@ -435,11 +435,11 @@ module OCI
     #
     # When importing an image based on the Object Storage URL, use
     # {#image_source_via_object_storage_uri_details image_source_via_object_storage_uri_details}.
-    # See [Object Storage URLs](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [pre-authenticated requests](https://docs.us-phoenix-1.oraclecloud.com/Content/Object/Tasks/managingaccess.htm#pre-auth)
+    # See [Object Storage URLs](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [pre-authenticated requests](https://docs.cloud.oracle.com/Content/Object/Tasks/managingaccess.htm#pre-auth)
     # for constructing URLs for image import/export.
     #
     # For more information about importing exported images, see
-    # [Image Import/Export](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/imageimportexport.htm).
+    # [Image Import/Export](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm).
     #
     # You may optionally specify a *display name* for the image, which is simply a friendly name or description.
     # It does not have to be unique, and you can change it. See {#update_image update_image}.
@@ -506,7 +506,7 @@ module OCI
     # Once the console connection has been created and is available,
     # you connect to the console using SSH.
     #
-    # For more information about console access, see [Accessing the Console](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/References/serialconsole.htm).
+    # For more information about console access, see [Accessing the Console](https://docs.cloud.oracle.com/Content/Compute/References/serialconsole.htm).
     #
     # @param [OCI::Core::Models::CreateInstanceConsoleConnectionDetails] create_instance_console_connection_details Request object for creating an InstanceConsoleConnection
     # @param [Hash] opts the optional parameters
@@ -854,7 +854,7 @@ module OCI
     #
     # **Important:** If the VNIC has a
     # {PrivateIp} that is the
-    # [target of a route rule](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingroutetables.htm#privateip),
+    # [target of a route rule](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm#privateip),
     # deleting the VNIC causes that route rule to blackhole and the traffic
     # will be dropped.
     #
@@ -974,12 +974,12 @@ module OCI
     # Exports the specified image to the Oracle Cloud Infrastructure Object Storage service. You can use the Object Storage URL,
     # or the namespace, bucket name, and object name when specifying the location to export to.
     #
-    # For more information about exporting images, see [Image Import/Export](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/imageimportexport.htm).
+    # For more information about exporting images, see [Image Import/Export](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm).
     #
     # To perform an image export, you need write access to the Object Storage bucket for the image,
-    # see [Let Users Write Objects to Object Storage Buckets](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/commonpolicies.htm#Let4).
+    # see [Let Users Write Objects to Object Storage Buckets](https://docs.cloud.oracle.com/Content/Identity/Concepts/commonpolicies.htm#Let4).
     #
-    # See [Object Storage URLs](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [pre-authenticated requests](https://docs.us-phoenix-1.oraclecloud.com/Content/Object/Tasks/managingaccess.htm#pre-auth)
+    # See [Object Storage URLs](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [pre-authenticated requests](https://docs.cloud.oracle.com/Content/Object/Tasks/managingaccess.htm#pre-auth)
     # for constructing URLs for image import/export.
     #
     # @param [String] image_id The OCID of the image.
@@ -1712,7 +1712,7 @@ module OCI
     #
     # - **RESET** - Powers off the instance and then powers it back on.
     #
-    # For more information see [Stopping and Starting an Instance](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/restartinginstance.htm).
+    # For more information see [Stopping and Starting an Instance](https://docs.cloud.oracle.com/Content/Compute/Tasks/restartinginstance.htm).
     #
     # @param [String] instance_id The OCID of the instance.
     # @param [String] action The action to perform on the instance.
@@ -1786,13 +1786,13 @@ module OCI
 
     # Creates a new instance in the specified compartment and the specified availability domain.
     # For general information about instances, see
-    # [Overview of the Compute Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Concepts/computeoverview.htm).
+    # [Overview of the Compute Service](https://docs.cloud.oracle.com/Content/Compute/Concepts/computeoverview.htm).
     #
     # For information about access control and compartments, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     #
     # For information about availability domains, see
-    # [Regions and Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
+    # [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm).
     # To get a list of availability domains, use the `ListAvailabilityDomains` operation
     # in the Identity and Access Management Service API.
     #
@@ -1814,7 +1814,7 @@ module OCI
     # {#get_vnic get_vnic} with the VNIC ID.
     #
     # You can later add secondary VNICs to an instance. For more information, see
-    # [Virtual Network Interface Cards (VNICs)](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingVNICs.htm).
+    # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
     #
     # @param [OCI::Core::Models::LaunchInstanceDetails] launch_instance_details Instance details
     # @param [Hash] opts the optional parameters
@@ -1880,13 +1880,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
     #   is case sensitive.
@@ -1951,13 +1951,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
     #   is case sensitive.
@@ -2030,13 +2030,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
@@ -2126,13 +2126,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :instance_id The OCID of the instance.
     # @option opts [String] :boot_volume_id The OCID of the boot volume.
@@ -2200,13 +2200,13 @@ module OCI
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :instance_id The OCID of the instance.
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -2291,8 +2291,8 @@ module OCI
 
 
     # Lists the available images in the specified compartment, including both
-    # [Oracle-provided images](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/References/images.htm) and
-    # [custom images](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/managingcustomimages.htm) that have
+    # [Oracle-provided images](https://docs.cloud.oracle.com/Content/Compute/References/images.htm) and
+    # [custom images](https://docs.cloud.oracle.com/Content/Compute/Tasks/managingcustomimages.htm) that have
     # been created. The list of images returned is ordered to first show all
     # Oracle-provided images, then all custom images.
     #
@@ -2315,13 +2315,13 @@ module OCI
     # @option opts [String] :shape Shape name.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
@@ -2408,7 +2408,7 @@ module OCI
 
     # Lists the console connections for the specified compartment or instance.
     #
-    # For more information about console access, see [Accessing the Console](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/References/serialconsole.htm).
+    # For more information about console access, see [Accessing the Console](https://docs.cloud.oracle.com/Content/Compute/References/serialconsole.htm).
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -2417,13 +2417,13 @@ module OCI
     # @option opts [String] :instance_id The OCID of the instance.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::InstanceConsoleConnection InstanceConsoleConnection}>
     def list_instance_console_connections(compartment_id, opts = {})
@@ -2485,13 +2485,13 @@ module OCI
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
@@ -2587,13 +2587,13 @@ module OCI
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
@@ -2689,13 +2689,13 @@ module OCI
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :image_id The OCID of an image.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Shape Shape}>
@@ -2763,13 +2763,13 @@ module OCI
     # @option opts [String] :instance_id The OCID of the instance.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :vnic_id The OCID of the VNIC.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VnicAttachment VnicAttachment}>
@@ -2839,13 +2839,13 @@ module OCI
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `50`
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
     #   call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :instance_id The OCID of the instance.
     # @option opts [String] :volume_id The OCID of the volume.

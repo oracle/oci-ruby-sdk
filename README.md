@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.5.1**
+**Version 2.5.2**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -9,6 +9,7 @@ The Ruby SDK supports the following services:
 
 * Announcements 
 * Audit
+* Budgets
 * Compute Autoscaling
 * Container Engine
 * Core Services (which includes Networking, Compute, and Block Volume)
@@ -186,7 +187,21 @@ For regions in the oraclecloud.com realm, even if the `OCI::Regions::REGION_ENUM
 
 ### Other Realms
 
-Accessing regions in realms other than oraclecloud.com with prior versions of the Ruby SDK is currently unsupported. We recommend moving to a version that explicitly supports the desired region.
+For regions in realms other than oraclecloud.com, you can use the following workarounds to reach new regions with earlier versions of the SDK.
+
+You can set the endpoint when creating a new client:
+```
+identity_client = OCI::Identity::IdentityClient.new(
+  endpoint: 'https://identity.us-gov-phoenix-1.oraclegovcloud.com'
+)
+```
+
+If you are authenticating via instance principals, you can set the `federation_endpoint` for the region using `InstancePrincipalsSecurityTokenSigner` when initializing the signer:
+```
+instance_principals_signer = OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner.new(
+  federation_endpoint: 'https://auth.us-gov-phoenix-1.oraclegovcloud.com/v1/x509'
+)
+```
 
 ## Writing Your First Ruby Program with the SDK
 

@@ -15,12 +15,12 @@ module OCI
       SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment the DB system  belongs in.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment the DB system  belongs in.
     # @return [String]
     attr_accessor :compartment_id
 
     # A fault domain is a grouping of hardware and infrastructure within an availability domain.
-    # fault domains let you distribute your instances so that they are not on the same physical
+    # Fault domains let you distribute your instances so that they are not on the same physical
     # hardware within a single availability domain. A hardware failure or maintenance
     # that affects one fault domain does not affect DB systems in other fault domains.
     #
@@ -48,7 +48,7 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the subnet the DB system is associated with.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet the DB system is associated with.
     #
     # **Subnet Restrictions:**
     # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
@@ -61,7 +61,7 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup network subnet the DB system is associated with. Applicable only to Exadata DB systems.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the backup network subnet the DB system is associated with. Applicable only to Exadata DB systems.
     #
     # **Subnet Restrictions:** See the subnet restrictions information for **subnetId**.
     #
@@ -77,6 +77,10 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # The time zone to use for the DB system. For details, see [DB System Time Zones](https://docs.cloud.oracle.com/Content/Database/References/timezones.htm).
+    # @return [String]
+    attr_accessor :time_zone
+
     # If true, Sparse Diskgroup is configured for Exadata dbsystem. If False, Sparse diskgroup is not configured.
     #
     # @return [BOOLEAN]
@@ -86,8 +90,8 @@ module OCI
     # @return [Array<String>]
     attr_accessor :ssh_public_keys
 
-    # **[Required]** The hostname for the DB system. The hostname must begin with an alphabetic character and
-    # can contain a maximum of 30 alphanumeric characters, including hyphens (-).
+    # **[Required]** The hostname for the DB system. The hostname must begin with an alphabetic character, and
+    # can contain alphanumeric characters and hyphens (-). The maximum length of the hostname is 16 characters for bare metal and virtual machine DB systems, and 12 characters for Exadata DB systems.
     #
     # The maximum length of the combined hostname and domain is 63 characters.
     #
@@ -116,7 +120,7 @@ module OCI
     # - Exadata.Full2.368 - Specify a multiple of 8, from 0 to 368.
     #
     # This parameter is not used for virtual machine DB systems because virtual machine DB systems have a set number of cores for each shape.
-    # For information about the number of cores for a virtual machine DB system shape, see [Virtual Machine DB Systems](https://docs.us-phoenix-1.oraclecloud.com/Content/Database/Concepts/overview.htm#virtualmachine)
+    # For information about the number of cores for a virtual machine DB system shape, see [Virtual Machine DB Systems](https://docs.cloud.oracle.com/Content/Database/Concepts/overview.htm#virtualmachine)
     #
     # @return [Integer]
     attr_accessor :cpu_core_count
@@ -144,7 +148,7 @@ module OCI
     attr_accessor :node_count
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -152,7 +156,7 @@ module OCI
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -176,6 +180,7 @@ module OCI
         'subnet_id': :'subnetId',
         'backup_subnet_id': :'backupSubnetId',
         'shape': :'shape',
+        'time_zone': :'timeZone',
         'sparse_diskgroup': :'sparseDiskgroup',
         'ssh_public_keys': :'sshPublicKeys',
         'hostname': :'hostname',
@@ -203,6 +208,7 @@ module OCI
         'subnet_id': :'String',
         'backup_subnet_id': :'String',
         'shape': :'String',
+        'time_zone': :'String',
         'sparse_diskgroup': :'BOOLEAN',
         'ssh_public_keys': :'Array<String>',
         'hostname': :'String',
@@ -248,6 +254,7 @@ module OCI
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :backup_subnet_id The value to assign to the {#backup_subnet_id} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     # @option attributes [BOOLEAN] :sparse_diskgroup The value to assign to the {#sparse_diskgroup} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
@@ -303,6 +310,12 @@ module OCI
       self.backup_subnet_id = attributes[:'backup_subnet_id'] if attributes[:'backup_subnet_id']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
+
+      self.time_zone = attributes[:'timeZone'] if attributes[:'timeZone']
+
+      raise 'You cannot provide both :timeZone and :time_zone' if attributes.key?(:'timeZone') && attributes.key?(:'time_zone')
+
+      self.time_zone = attributes[:'time_zone'] if attributes[:'time_zone']
 
       self.sparse_diskgroup = attributes[:'sparseDiskgroup'] unless attributes[:'sparseDiskgroup'].nil?
 
@@ -394,6 +407,7 @@ module OCI
         subnet_id == other.subnet_id &&
         backup_subnet_id == other.backup_subnet_id &&
         shape == other.shape &&
+        time_zone == other.time_zone &&
         sparse_diskgroup == other.sparse_diskgroup &&
         ssh_public_keys == other.ssh_public_keys &&
         hostname == other.hostname &&
@@ -421,7 +435,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, shape, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, shape, time_zone, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

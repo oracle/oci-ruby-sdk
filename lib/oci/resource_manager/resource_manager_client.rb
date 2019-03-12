@@ -427,10 +427,10 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
-    #   For information about pagination, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [DateTime] :timestamp_greater_than_or_equal_to Time stamp specifying the lower time limit for which logs are returned in a query.
     #
@@ -955,10 +955,10 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
-    #   For information about pagination, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceManager::Models::JobSummary JobSummary}>
     def list_jobs(opts = {})
@@ -1059,10 +1059,10 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
-    #   For information about pagination, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceManager::Models::StackSummary StackSummary}>
     def list_stacks(opts = {})

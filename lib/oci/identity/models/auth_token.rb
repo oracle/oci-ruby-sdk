@@ -14,7 +14,7 @@ module OCI
   #
   # **Note:** The token is always an Oracle-generated string; you can't change it to a string of your choice.
   #
-  # For more information, see [Managing User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingcredentials.htm).
+  # For more information, see [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm).
   #
   class Identity::Models::AuthToken # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [

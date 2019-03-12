@@ -1932,7 +1932,7 @@ module OCI
 
     # Updates the specified secondary zone with your new external master
     # server information. For more information about secondary zone, see
-    # [Manage DNS Service Zone](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
+    # [Manage DNS Service Zone](https://docs.cloud.oracle.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [OCI::Dns::Models::UpdateZoneDetails] update_zone_details New data for the zone.

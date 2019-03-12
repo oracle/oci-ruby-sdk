@@ -21,7 +21,7 @@ module OCI
     # with the DRG attachment.
     #
     # For information about why you would associate a route table with a DRG attachment, see
-    # [Advanced Scenario: Transit Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/transitrouting.htm).
+    # [Advanced Scenario: Transit Routing](https://docs.cloud.oracle.com/Content/Network/Tasks/transitrouting.htm).
     #
     # @return [String]
     attr_accessor :route_table_id

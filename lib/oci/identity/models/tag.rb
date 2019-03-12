@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # A tag definition that belongs to a specific tag namespace.  \"Defined tags\" must be set up in your tenancy before
   # you can apply them to resources.
-  # For more information, see [Managing Tags and Tag Namespaces](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/taggingoverview.htm).
+  # For more information, see [Managing Tags and Tag Namespaces](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm).
   #
   class Identity::Models::Tag # rubocop:disable Metrics/LineLength
     # **[Required]** The OCID of the compartment that contains the tag definition.
@@ -36,21 +36,21 @@ module OCI
     attr_accessor :description
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}``
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
     # **[Required]** Indicates whether the tag is retired.
-    # See [Retiring Key Definitions and Namespace Definitions](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
+    # See [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
     #
     # @return [BOOLEAN]
     attr_accessor :is_retired

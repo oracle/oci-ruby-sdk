@@ -448,7 +448,7 @@ module OCI
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
     #   paginated \"List\" call. `1` is the minimum, `1000` is the maximum. For important details about
-    #   how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. The `TIMECREATED` value returns the list in in
     #   descending order by default. The `EMAILADDRESS` value returns the list in
@@ -557,7 +557,7 @@ module OCI
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
     #   paginated \"List\" call. `1` is the minimum, `1000` is the maximum. For important details about
-    #   how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. The `TIMECREATED` value returns the list in in
     #   descending order by default. The `EMAILADDRESS` value returns the list in
@@ -633,7 +633,7 @@ module OCI
     # Replaces the set of tags for a sender with the tags provided. If either freeform
     # or defined tags are omitted, the tags for that set remain the same. Each set must
     # include the full set of tags for the sender, partial updates are not permitted.
-    # For more information about tagging, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information about tagging, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # @param [String] sender_id The unique OCID of the sender.
     # @param [OCI::Email::Models::UpdateSenderDetails] update_sender_details update details for sender.

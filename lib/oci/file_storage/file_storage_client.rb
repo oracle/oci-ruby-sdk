@@ -180,10 +180,10 @@ module OCI
     # more than one mount target at a time.
     #
     # For information about access control and compartments, see
-    # [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     #
     # For information about availability domains, see [Regions and
-    # Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
+    # Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm).
     # To get a list of availability domains, use the
     # `ListAvailabilityDomains` operation in the Identity and Access
     # Management Service API.
@@ -270,10 +270,10 @@ module OCI
     #
     # For information about access control and compartments, see
     # [Overview of the IAM
-    # Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    # Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     #
     # For information about availability domains, see [Regions and
-    # Availability Domains](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/regions.htm).
+    # Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm).
     # To get a list of availability domains, use the
     # `ListAvailabilityDomains` operation in the Identity and Access
     # Management Service API.
@@ -917,7 +917,7 @@ module OCI
     #   1 is the minimum, 1000 is the maximum.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
@@ -925,7 +925,7 @@ module OCI
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A user-friendly name. It does not have to be unique, and it is changeable.
     #
@@ -1028,7 +1028,7 @@ module OCI
     #   1 is the minimum, 1000 is the maximum.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
@@ -1036,7 +1036,7 @@ module OCI
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :export_set_id The OCID of the export set.
     # @option opts [String] :file_system_id The OCID of the file system.
@@ -1137,7 +1137,7 @@ module OCI
     #   1 is the minimum, 1000 is the maximum.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
@@ -1145,7 +1145,7 @@ module OCI
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A user-friendly name. It does not have to be unique, and it is changeable.
     #
@@ -1250,7 +1250,7 @@ module OCI
     #   1 is the minimum, 1000 is the maximum.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
@@ -1258,7 +1258,7 @@ module OCI
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :display_name A user-friendly name. It does not have to be unique, and it is changeable.
     #
@@ -1361,7 +1361,7 @@ module OCI
     #   1 is the minimum, 1000 is the maximum.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #
@@ -1369,7 +1369,7 @@ module OCI
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
-    #   see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.

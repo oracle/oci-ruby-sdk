@@ -459,7 +459,7 @@ module OCI
 
     # Lists AutoScalingConfigurations in the specific compartment.
     #
-    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment containing the
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
     #   the root compartment.
     #
@@ -470,10 +470,10 @@ module OCI
     #
     # @option opts [String] :opc_request_id
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. For information about pagination, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/#API/Concepts/usingapi.htm#List_Pagination).
+    #   [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call. For information about
-    #   pagination, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/#API/Concepts/usingapi.htm#List_Pagination).
+    #   pagination, see [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
@@ -554,10 +554,10 @@ module OCI
     #
     # @option opts [String] :opc_request_id
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. For information about pagination, see
-    #   [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/#API/Concepts/usingapi.htm#List_Pagination).
+    #   [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call. For information about
-    #   pagination, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/#API/Concepts/usingapi.htm#List_Pagination).
+    #   pagination, see [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME

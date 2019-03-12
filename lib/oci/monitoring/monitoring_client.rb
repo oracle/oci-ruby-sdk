@@ -174,7 +174,7 @@ module OCI
 
     # Deletes the specified alarm.
     #
-    # @param [String] alarm_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
+    # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -230,7 +230,7 @@ module OCI
 
     # Gets the specified alarm.
     #
-    # @param [String] alarm_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
+    # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -287,7 +287,7 @@ module OCI
 
     # Get the history of the specified alarm.
     #
-    # @param [String] alarm_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
+    # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -302,11 +302,11 @@ module OCI
     #
     #   Allowed values are: STATE_HISTORY, STATE_TRANSITION_HISTORY
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call.
-    #   For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
-    #   For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Default: 1000
     #
@@ -378,7 +378,7 @@ module OCI
 
     # Lists the alarms for the specified compartment.
     #
-    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
     #   the root compartment.
     #
@@ -389,11 +389,11 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call.
-    #   For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
-    #   For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Default: 1000
     #
@@ -488,7 +488,7 @@ module OCI
 
     # List the status of each alarm in the specified compartment.
     #
-    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
     #   the root compartment.
     #
@@ -505,11 +505,11 @@ module OCI
     #   compartmentId. Default is false.
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call.
-    #   For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
-    #   For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Default: 1000
     #
@@ -590,9 +590,9 @@ module OCI
 
 
     # Returns metric definitions that match the criteria specified in the request. Compartment OCID required.
-    # For information about metrics, see [Metrics Overview](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
+    # For information about metrics, see [Metrics Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
     #
-    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
     #   the root compartment.
     #
@@ -604,11 +604,11 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call.
-    #   For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
-    #   For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Default: 1000
     #
@@ -672,7 +672,7 @@ module OCI
 
 
     # Publishes raw metric data points to the Monitoring service.
-    # For more information about publishing metrics, see [Publishing Custom Metrics](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Monitoring/Tasks/publishingcustommetrics.htm).
+    # For more information about publishing metrics, see [Publishing Custom Metrics](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Tasks/publishingcustommetrics.htm).
     #
     # The endpoints for this operation differ from other Monitoring operations. Replace the string `telemetry` with `telemetry-ingestion` in the endpoint, as in the following example:
     #
@@ -734,7 +734,7 @@ module OCI
 
     # Removes any existing suppression for the specified alarm.
     #
-    # @param [String] alarm_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
+    # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -789,9 +789,9 @@ module OCI
 
 
     # Returns aggregated data that match the criteria specified in the request. Compartment OCID required.
-    # For information on metric queries, see [Building Metric Queries](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Monitoring/Tasks/buildingqueries.htm).
+    # For information on metric queries, see [Building Metric Queries](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Tasks/buildingqueries.htm).
     #
-    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
     #   the root compartment.
     #
@@ -859,7 +859,7 @@ module OCI
 
     # Updates the specified alarm.
     #
-    # @param [String] alarm_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
+    # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
     # @param [OCI::Monitoring::Models::UpdateAlarmDetails] update_alarm_details Document for updating an alarm.
     # @param [Hash] opts the optional parameters

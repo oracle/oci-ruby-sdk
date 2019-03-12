@@ -19,7 +19,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The service's [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The service's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @return [String]
     attr_accessor :id
 

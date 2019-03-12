@@ -27,7 +27,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#accept_recommendations} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<String>] protection_rule_keys
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#accept_recommendations}
@@ -165,7 +165,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#delete_certificate} and then waits for the {OCI::Waas::Models::Certificate} acted upon
     # to enter the given state(s).
     #
-    # @param [String] certificate_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the SSL certificate used in the WAAS policy. This number is generated when the certificate is added to the policy.
+    # @param [String] certificate_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SSL certificate used in the WAAS policy. This number is generated when the certificate is added to the policy.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::Certificate#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#delete_certificate}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -205,7 +205,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#delete_waas_policy} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#delete_waas_policy}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -254,7 +254,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_access_rules} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::AccessRule>] access_rules
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_access_rules}
@@ -304,7 +304,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_captchas} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::Captcha>] captchas A list of CAPTCHA details.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_captchas}
@@ -354,7 +354,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_certificate} and then waits for the {OCI::Waas::Models::Certificate} acted upon
     # to enter the given state(s).
     #
-    # @param [String] certificate_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the SSL certificate used in the WAAS policy. This number is generated when the certificate is added to the policy.
+    # @param [String] certificate_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SSL certificate used in the WAAS policy. This number is generated when the certificate is added to the policy.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::Certificate#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_certificate}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -393,7 +393,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_device_fingerprint_challenge} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::DeviceFingerprintChallenge] update_device_fingerprint_challenge_details The device fingerprint challenge settings to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_device_fingerprint_challenge}
@@ -443,7 +443,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_good_bots} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::GoodBot>] good_bots
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_good_bots}
@@ -493,7 +493,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_human_interaction_challenge} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::HumanInteractionChallenge] update_human_interaction_challenge_details The human interaction challenge settings.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_human_interaction_challenge}
@@ -543,7 +543,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_js_challenge} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::JsChallenge] update_js_challenge_details The JavaScript challenge settings to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_js_challenge}
@@ -593,7 +593,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_policy_config} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::PolicyConfig] update_policy_config_details The new configuration to apply to a WAAS policy.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_policy_config}
@@ -643,7 +643,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_protection_rules} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::ProtectionRuleAction>] protection_rules
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_protection_rules}
@@ -693,7 +693,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_protection_settings} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::ProtectionSettings] update_protection_settings_details The details of the protection settings to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_protection_settings}
@@ -743,7 +743,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_threat_feeds} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::ThreatFeedAction>] threat_feeds A list of threat feeds for which to update the actions.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_threat_feeds}
@@ -793,7 +793,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_waas_policy} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::UpdateWaasPolicyDetails] update_waas_policy_details The details of the WAAS policy to update.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_waas_policy}
@@ -843,7 +843,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_waf_address_rate_limiting} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::AddressRateLimiting] update_waf_address_rate_limiting_details The address rate limiting settings.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_waf_address_rate_limiting}
@@ -893,7 +893,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_waf_config} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::WafConfig] update_waf_config_details The new Web Application Firewall configuration to apply to a WAAS policy.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_waf_config}
@@ -943,7 +943,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_whitelists} and then waits for the {OCI::Waas::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] waas_policy_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::Whitelist>] whitelists
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_whitelists}

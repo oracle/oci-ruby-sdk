@@ -6,15 +6,15 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # A summary of properties for the specified alarm.
-  # For information about alarms, see [Alarms Overview](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#AlarmsOverview).
+  # For information about alarms, see [Alarms Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#AlarmsOverview).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
-  # [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
+  # [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
   #
   # For information about endpoints and signing API requests, see
-  # [About the API](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm). For information about available SDKs and tools, see
-  # [SDKS and Other Tools](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/sdks.htm).
+  # [About the API](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm). For information about available SDKs and tools, see
+  # [SDKS and Other Tools](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/sdks.htm).
   #
   class Monitoring::Models::AlarmSummary # rubocop:disable Metrics/LineLength
     SEVERITY_ENUM = [
@@ -25,7 +25,7 @@ module OCI
       SEVERITY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the alarm.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the alarm.
     #
     # @return [String]
     attr_accessor :id
@@ -40,12 +40,12 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the alarm.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the alarm.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the metric
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the metric
     # being evaluated by the alarm.
     #
     # @return [String]
@@ -64,9 +64,9 @@ module OCI
     # rule condition has been met. The query must specify a metric, statistic, interval, and trigger
     # rule (threshold or absence). Supported values for interval: `1m`-`60m` (also `1h`). You can optionally
     # specify dimensions and grouping functions. Supported grouping functions: `grouping()`, `groupBy()`.
-    # For details about Monitoring Query Language (MQL), see [Monitoring Query Language (MQL) Reference](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Monitoring/Reference/mql.htm).
+    # For details about Monitoring Query Language (MQL), see [Monitoring Query Language (MQL) Reference](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Reference/mql.htm).
     # For available dimensions, review the metric definition for the supported service.
-    # See [Supported Services](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#SupportedServices).
+    # See [Supported Services](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#SupportedServices).
     #
     # Example of threshold alarm:
     #
@@ -94,7 +94,7 @@ module OCI
     # @return [String]
     attr_reader :severity
 
-    # **[Required]** An array of [OCIDs](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) to which the notifications for
+    # **[Required]** An array of [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) to which the notifications for
     # this alarm will be delivered. An example destination is an OCID for a topic managed by the
     # Oracle Cloud Infrastructure Notification service.
     #

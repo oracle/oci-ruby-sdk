@@ -33,11 +33,17 @@ module OCI
       LICENSE_MODEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the Autonomous Database.
+    DB_WORKLOAD_ENUM = [
+      DB_WORKLOAD_OLTP = 'OLTP'.freeze,
+      DB_WORKLOAD_DW = 'DW'.freeze,
+      DB_WORKLOAD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Database.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -83,7 +89,7 @@ module OCI
     attr_reader :license_model
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -91,7 +97,7 @@ module OCI
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -101,6 +107,10 @@ module OCI
     # A valid Oracle Database version for Autonomous Database.
     # @return [String]
     attr_accessor :db_version
+
+    # The Autonomous Database workload type.
+    # @return [String]
+    attr_reader :db_workload
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -120,7 +130,8 @@ module OCI
         'license_model': :'licenseModel',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'db_version': :'dbVersion'
+        'db_version': :'dbVersion',
+        'db_workload': :'dbWorkload'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -143,7 +154,8 @@ module OCI
         'license_model': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'db_version': :'String'
+        'db_version': :'String',
+        'db_workload': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -169,6 +181,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
+    # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -260,6 +273,12 @@ module OCI
       raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
 
       self.db_version = attributes[:'db_version'] if attributes[:'db_version']
+
+      self.db_workload = attributes[:'dbWorkload'] if attributes[:'dbWorkload']
+
+      raise 'You cannot provide both :dbWorkload and :db_workload' if attributes.key?(:'dbWorkload') && attributes.key?(:'db_workload')
+
+      self.db_workload = attributes[:'db_workload'] if attributes[:'db_workload']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -294,6 +313,21 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] db_workload Object to be assigned
+    def db_workload=(db_workload)
+      # rubocop:disable Style/ConditionalAssignment
+      if db_workload && !DB_WORKLOAD_ENUM.include?(db_workload)
+        # rubocop: disable Metrics/LineLength
+        OCI.logger.debug("Unknown value for 'db_workload' [" + db_workload + "]. Mapping to 'DB_WORKLOAD_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        # rubocop: enable Metrics/LineLength
+        @db_workload = DB_WORKLOAD_UNKNOWN_ENUM_VALUE
+      else
+        @db_workload = db_workload
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
@@ -317,7 +351,8 @@ module OCI
         license_model == other.license_model &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        db_version == other.db_version
+        db_version == other.db_version &&
+        db_workload == other.db_workload
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -333,7 +368,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, freeform_tags, defined_tags, db_version].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, freeform_tags, defined_tags, db_version, db_workload].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
