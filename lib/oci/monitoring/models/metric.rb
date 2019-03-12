@@ -5,7 +5,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # The properties that define a metric.
-  # For information about metrics, see [Metrics Overview](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
+  # For information about metrics, see [Metrics Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
   #
   class Monitoring::Models::Metric # rubocop:disable Metrics/LineLength
     # The name of the metric.
@@ -22,7 +22,7 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing
     # the resources monitored by the metric.
     #
     # @return [String]

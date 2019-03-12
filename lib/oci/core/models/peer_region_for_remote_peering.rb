@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Details about a region that supports remote VCN peering. For more information, see [VCN Peering](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/VCNpeering.htm).
+  # Details about a region that supports remote VCN peering. For more information, see [VCN Peering](https://docs.cloud.oracle.com/Content/Network/Tasks/VCNpeering.htm).
   class Core::Models::PeerRegionForRemotePeering # rubocop:disable Metrics/LineLength
     # **[Required]** The region's name.
     #

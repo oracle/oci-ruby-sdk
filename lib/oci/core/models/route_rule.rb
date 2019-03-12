@@ -53,7 +53,7 @@ module OCI
 
     # **[Required]** The OCID for the route rule's target. For information about the type of
     # targets you can specify, see
-    # [Route Tables](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Tasks/managingroutetables.htm).
+    # [Route Tables](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm).
     #
     # @return [String]
     attr_accessor :network_entity_id

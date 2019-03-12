@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # A policy that determines how traffic is distributed among backend servers.
   # For more information on load balancing policies, see
-  # [How Load Balancing Policies Work](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Reference/lbpolicies.htm).
+  # [How Load Balancing Policies Work](https://docs.cloud.oracle.com/Content/Balance/Reference/lbpolicies.htm).
   #
   class LoadBalancer::Models::LoadBalancerPolicy # rubocop:disable Metrics/LineLength
     # **[Required]** The name of a load balancing policy.

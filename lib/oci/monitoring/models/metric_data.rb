@@ -5,7 +5,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # The set of aggregated data returned for a metric.
-  # For information about metrics, see [Metrics Overview](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
+  # For information about metrics, see [Metrics Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
   #
   class Monitoring::Models::MetricData # rubocop:disable Metrics/LineLength
     # **[Required]** The reference provided in a metric definition to indicate the source service or
@@ -16,7 +16,7 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     # resources from which the aggregated data was returned.
     #
     # @return [String]

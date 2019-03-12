@@ -28,7 +28,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::CreateBackendDetails] create_backend_details The details to add a backend server to a backend set.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and servers.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and servers.
     # @param [String] backend_set_name The name of the backend set to add the backend server to.
     #
     #   Example: `example_backend_set`
@@ -82,7 +82,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::CreateBackendSetDetails] create_backend_set_details The details for adding a backend set.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add a backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add a backend set.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#create_backend_set}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -132,7 +132,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::CreateCertificateDetails] create_certificate_details The details of the certificate bundle to add.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add the certificate bundle.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add the certificate bundle.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#create_certificate}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -182,7 +182,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::CreateHostnameDetails] create_hostname_details The details of the hostname resource to add to the specified load balancer.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to add the hostname to.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer to add the hostname to.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#create_hostname}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -232,7 +232,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::CreateListenerDetails] create_listener_details Details to add a listener.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add a listener.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer on which to add a listener.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#create_listener}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -331,7 +331,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::CreatePathRouteSetDetails] create_path_route_set_details The details of the path route set to add.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to add the path route set to.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer to add the path route set to.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#create_path_route_set}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -380,7 +380,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#create_rule_set} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
     # @param [OCI::LoadBalancer::Models::CreateRuleSetDetails] create_rule_set_details The configuration details for the rule set to create.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#create_rule_set}
@@ -430,7 +430,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_backend} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
     # @param [String] backend_set_name The name of the backend set associated with the backend server.
     #
     #   Example: `example_backend_set`
@@ -487,7 +487,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_backend_set} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set.
     # @param [String] backend_set_name The name of the backend set to delete.
     #
     #   Example: `example_backend_set`
@@ -540,7 +540,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_certificate} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the certificate bundle
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the certificate bundle
     #   to be deleted.
     #
     # @param [String] certificate_name The name of the certificate bundle to delete.
@@ -595,7 +595,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_hostname} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the hostname to delete.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the hostname to delete.
     # @param [String] name The name of the hostname resource to delete.
     #
     #   Example: `example_hostname_001`
@@ -648,7 +648,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_listener} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the listener to delete.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the listener to delete.
     # @param [String] listener_name The name of the listener to delete.
     #
     #   Example: `example_listener`
@@ -701,7 +701,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_load_balancer} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to delete.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer to delete.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#delete_load_balancer}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -750,7 +750,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_path_route_set} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the path route set to delete.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the path route set to delete.
     # @param [String] path_route_set_name The name of the path route set to delete.
     #
     #   Example: `example_path_route_set`
@@ -803,7 +803,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#delete_rule_set} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
     # @param [String] rule_set_name The name of the rule set to delete.
     #
     #   Example: `example_rule_set`
@@ -857,7 +857,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::UpdateBackendDetails] update_backend_details Details for updating a backend server.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
     # @param [String] backend_set_name The name of the backend set associated with the backend server.
     #
     #   Example: `example_backend_set`
@@ -915,7 +915,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::UpdateBackendSetDetails] update_backend_set_details The details to update a backend set.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set.
     # @param [String] backend_set_name The name of the backend set to update.
     #
     #   Example: `example_backend_set`
@@ -969,7 +969,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::UpdateHealthCheckerDetails] health_checker The health check policy configuration details.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the health check policy to be updated.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the health check policy to be updated.
     # @param [String] backend_set_name The name of the backend set associated with the health check policy to be retrieved.
     #
     #   Example: `example_backend_set`
@@ -1023,7 +1023,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::UpdateHostnameDetails] update_hostname_details The configuration details to update a virtual hostname.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the virtual hostname
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the virtual hostname
     #   to update.
     #
     # @param [String] name The name of the hostname resource to update.
@@ -1079,7 +1079,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::UpdateListenerDetails] update_listener_details Details to update a listener.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the listener to update.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the listener to update.
     # @param [String] listener_name The name of the listener to update.
     #
     #   Example: `example_listener`
@@ -1133,7 +1133,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::UpdateLoadBalancerDetails] update_load_balancer_details The details for updating a load balancer's configuration.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer to update.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer to update.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#update_load_balancer}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1183,7 +1183,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::LoadBalancer::Models::UpdatePathRouteSetDetails] update_path_route_set_details The configuration details to update a path route set.
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the path route set to update.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the path route set to update.
     # @param [String] path_route_set_name The name of the path route set to update.
     #
     #   Example: `example_path_route_set`
@@ -1236,7 +1236,7 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#update_rule_set} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] load_balancer_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
     # @param [String] rule_set_name The name of the rule set to update.
     #
     #   Example: `example_rule_set`

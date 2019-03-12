@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # ServiceIdRequestDetails model.
   class Core::Models::ServiceIdRequestDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the service.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the service.
     #
     # @return [String]
     attr_accessor :service_id

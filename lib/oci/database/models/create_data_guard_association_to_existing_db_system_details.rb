@@ -10,7 +10,7 @@ module OCI
   # To create a Data Guard association for a database in a virtual machine DB system, use the {#create_data_guard_association_with_new_db_system_details create_data_guard_association_with_new_db_system_details} subtype.
   #
   class Database::Models::CreateDataGuardAssociationToExistingDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails # rubocop:disable Metrics/LineLength
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system in which to create the standby database.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system in which to create the standby database.
     # You must supply this value if creationType is `ExistingDbSystem`.
     #
     # @return [String]

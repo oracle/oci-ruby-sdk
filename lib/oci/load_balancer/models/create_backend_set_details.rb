@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # The configuration details for creating a backend set in a load balancer.
   # For more information on backend set configuration, see
-  # [Managing Backend Sets](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingbackendsets.htm).
+  # [Managing Backend Sets](https://docs.cloud.oracle.com/Content/Balance/Tasks/managingbackendsets.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #

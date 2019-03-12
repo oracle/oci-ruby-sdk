@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # The configuration details for implementing session persistence. Session persistence enables the Load Balancing
   # Service to direct any number of requests that originate from a single logical client to a single backend web server.
-  # For more information, see [Session Persistence](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Reference/sessionpersistence.htm).
+  # For more information, see [Session Persistence](https://docs.cloud.oracle.com/Content/Balance/Reference/sessionpersistence.htm).
   #
   # To disable session persistence on a running load balancer, use the
   # {#update_backend_set update_backend_set} operation and specify \"null\" for the

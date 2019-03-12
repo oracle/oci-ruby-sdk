@@ -29,7 +29,7 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # The host name for the DB Node.
+    # The hostname for the DB node.
     # @return [String]
     attr_accessor :hostname
 

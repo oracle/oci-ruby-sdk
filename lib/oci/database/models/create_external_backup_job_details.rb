@@ -22,7 +22,7 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment where this backup should be created.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment where this backup should be created.
     # @return [String]
     attr_accessor :compartment_id
 

@@ -10,18 +10,18 @@ module OCI
   # have one or more IAM Service credentials ({ApiKey},
   # {UIPassword}, {SwiftPassword} and
   # {AuthToken}).
-  # For more information, see [User Credentials](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/usercredentials.htm)). End users of your
+  # For more information, see [User Credentials](https://docs.cloud.oracle.com/Content/API/Concepts/usercredentials.htm)). End users of your
   # application are not typically IAM Service users. For conceptual information about users and other IAM Service
-  # components, see [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+  # components, see [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
   #
   # These users are created directly within the Oracle Cloud Infrastructure system, via the IAM service.
   # They are different from *federated users*, who authenticate themselves to the Oracle Cloud Infrastructure
   # Console via an identity provider. For more information, see
-  # [Identity Providers and Federation](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/federation.htm).
+  # [Identity Providers and Federation](https://docs.cloud.oracle.com/Content/Identity/Concepts/federation.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access,
-  # see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+  # see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class Identity::Models::User # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -50,6 +50,12 @@ module OCI
     # **[Required]** The description you assign to the user. Does not have to be unique, and it's changeable.
     # @return [String]
     attr_accessor :description
+
+    # The email you assign to the user during creation.
+    # The name must be unique across all users in the tenancy.
+    #
+    # @return [String]
+    attr_accessor :email
 
     # The OCID of the `IdentityProvider` this user belongs to.
     # @return [String]
@@ -83,14 +89,14 @@ module OCI
     attr_accessor :inactive_status
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
@@ -112,6 +118,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'name': :'name',
         'description': :'description',
+        'email': :'email',
         'identity_provider_id': :'identityProviderId',
         'external_identifier': :'externalIdentifier',
         'time_created': :'timeCreated',
@@ -133,6 +140,7 @@ module OCI
         'compartment_id': :'String',
         'name': :'String',
         'description': :'String',
+        'email': :'String',
         'identity_provider_id': :'String',
         'external_identifier': :'String',
         'time_created': :'DateTime',
@@ -156,6 +164,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :email The value to assign to the {#email} property
     # @option attributes [String] :identity_provider_id The value to assign to the {#identity_provider_id} property
     # @option attributes [String] :external_identifier The value to assign to the {#external_identifier} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -182,6 +191,8 @@ module OCI
       self.name = attributes[:'name'] if attributes[:'name']
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.email = attributes[:'email'] if attributes[:'email']
 
       self.identity_provider_id = attributes[:'identityProviderId'] if attributes[:'identityProviderId']
 
@@ -264,6 +275,7 @@ module OCI
         compartment_id == other.compartment_id &&
         name == other.name &&
         description == other.description &&
+        email == other.email &&
         identity_provider_id == other.identity_provider_id &&
         external_identifier == other.external_identifier &&
         time_created == other.time_created &&
@@ -288,7 +300,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, identity_provider_id, external_identifier, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags, capabilities, is_mfa_activated].hash
+      [id, compartment_id, name, description, email, identity_provider_id, external_identifier, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags, capabilities, is_mfa_activated].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

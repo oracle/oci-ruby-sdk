@@ -6,7 +6,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # A service offering from a supported provider. For more information,
-  # see [FastConnect Overview](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/fastconnect.htm).
+  # see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
   #
   class Core::Models::FastConnectProviderService # rubocop:disable Metrics/LineLength
     PRIVATE_PEERING_BGP_MANAGEMENT_ENUM = [

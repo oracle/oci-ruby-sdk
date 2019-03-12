@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # CreateDatabaseFromBackupDetails model.
   class Database::Models::CreateDatabaseFromBackupDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The backup [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The backup [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @return [String]
     attr_accessor :backup_id
 

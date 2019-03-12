@@ -8,7 +8,7 @@ module OCI
   # Many of the API requests you use to create and configure load balancing do not take effect immediately.
   # In these cases, the request spawns an asynchronous work flow to fulfill the request. WorkRequest objects provide visibility
   # for in-progress work flows.
-  # For more information about work requests, see [Viewing the State of a Work Request](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/viewingworkrequest.htm).
+  # For more information about work requests, see [Viewing the State of a Work Request](https://docs.cloud.oracle.com/Content/Balance/Tasks/viewingworkrequest.htm).
   #
   class LoadBalancer::Models::WorkRequest # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -19,11 +19,11 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the work request.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the work request.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the load balancer with which the work request
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer with which the work request
     # is associated.
     #
     # @return [String]

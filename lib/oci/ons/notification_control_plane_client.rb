@@ -110,17 +110,17 @@ module OCI
 
 
     # Creates a topic in the specified compartment. For general information about topics, see
-    # [Managing Topics and Subscriptions](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm).
+    # [Managing Topics and Subscriptions](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm).
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want the topic to reside.
-    # For information about access control and compartments, see [Overview of the IAM Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/overview.htm).
+    # For information about access control and compartments, see [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     #
     # You must specify a display name for the topic.
     #
     # All Oracle Cloud Infrastructure resources, including topics, get an Oracle-assigned, unique ID called an
     # Oracle Cloud Identifier (OCID). When you create a resource, you can find its OCID in the response. You can also
     # retrieve a resource's OCID by using a List API operation on that resource type, or by viewing the resource in the
-    # Console. Fore more information, see [Resource Identifiers](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm).
+    # Console. Fore more information, see [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @param [OCI::Ons::Models::CreateTopicDetails] create_topic_details The topic to create.
     # @param [Hash] opts the optional parameters
@@ -185,7 +185,7 @@ module OCI
 
     # Deletes the specified topic.
     #
-    # @param [String] topic_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to delete.
+    # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to delete.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -246,7 +246,7 @@ module OCI
 
     # Gets the specified topic's configuration information.
     #
-    # @param [String] topic_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to retrieve.
+    # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to retrieve.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -303,7 +303,7 @@ module OCI
 
     # Lists topics in the specified compartment.
     #
-    # @param [String] compartment_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -312,9 +312,9 @@ module OCI
     #
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
-    # @option opts [String] :page For list pagination. The value of the opc-next-page response header from the previous \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The value of the opc-next-page response header from the previous \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to 10)
     # @option opts [String] :sort_by The field to sort by. Only one field can be selected for sorting. Default value: TIMECREATED.
     #    (default to TIMECREATED)
@@ -395,7 +395,7 @@ module OCI
 
     # Updates the specified topic's configuration.
     #
-    # @param [String] topic_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to update.
+    # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to update.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

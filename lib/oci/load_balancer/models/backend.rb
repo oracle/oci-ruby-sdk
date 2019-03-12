@@ -5,7 +5,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # The configuration of a backend server that is a member of a load balancer backend set.
-  # For more information, see [Managing Backend Servers](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingbackendservers.htm).
+  # For more information, see [Managing Backend Servers](https://docs.cloud.oracle.com/Content/Balance/Tasks/managingbackendservers.htm).
   #
   class LoadBalancer::Models::Backend # rubocop:disable Metrics/LineLength
     # **[Required]** A read-only field showing the IP address and port that uniquely identify this backend server in the backend set.
@@ -33,7 +33,7 @@ module OCI
     # proportion of incoming traffic. For example, a server weighted '3' receives 3 times the number of new connections
     # as a server weighted '1'.
     # For more information on load balancing policies, see
-    # [How Load Balancing Policies Work](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Reference/lbpolicies.htm).
+    # [How Load Balancing Policies Work](https://docs.cloud.oracle.com/Content/Balance/Reference/lbpolicies.htm).
     #
     # Example: `3`
     #

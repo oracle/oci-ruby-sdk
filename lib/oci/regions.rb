@@ -56,6 +56,7 @@ module OCI
       Auth: 'auth',
       AutoScalingClient: 'autoscaling',
       BlockstorageClient: 'iaas',
+      BudgetClient: 'usage',
       ComputeClient: 'iaas',
       ComputeManagementClient: 'iaas',
       ContainerEngineClient: 'containerengine',

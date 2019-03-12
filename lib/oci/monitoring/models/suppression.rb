@@ -6,7 +6,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # The configuration details for suppressing an alarm.
-  # For information about alarms, see [Alarms Overview](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#AlarmsOverview).
+  # For information about alarms, see [Alarms Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#AlarmsOverview).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #

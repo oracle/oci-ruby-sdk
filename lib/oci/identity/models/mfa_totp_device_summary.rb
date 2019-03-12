@@ -45,7 +45,13 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The detailed status of INACTIVE lifecycleState. Possible values are 1(SUSPENDED), 2(DISABLED), 4(BLOCKED) and 8(LOCKED).
+    # The detailed status of INACTIVE lifecycleState.
+    # Allowed values are:
+    #  - 1 - SUSPENDED
+    #  - 2 - DISABLED
+    #  - 4 - BLOCKED
+    #  - 8 - LOCKED
+    #
     # @return [Integer]
     attr_accessor :inactive_status
 

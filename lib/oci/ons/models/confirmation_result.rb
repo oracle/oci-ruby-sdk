@@ -12,7 +12,7 @@ module OCI
     # @return [String]
     attr_accessor :topic_name
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to delete.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to delete.
     #
     # @return [String]
     attr_accessor :topic_id
@@ -32,7 +32,7 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription.
     # @return [String]
     attr_accessor :subscription_id
 

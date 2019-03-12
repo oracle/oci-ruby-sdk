@@ -17,7 +17,7 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to use for metrics.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to use for metrics.
     #
     # @return [String]
     attr_accessor :compartment_id

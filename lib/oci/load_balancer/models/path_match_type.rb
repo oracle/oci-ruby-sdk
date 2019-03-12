@@ -28,7 +28,7 @@ module OCI
     # *  **SUFFIX_MATCH** - Looks for a `path` string that matches the ending portion of the incoming URI path.
     #
     # For a full description of how the system handles `matchType` in a path route set containing multiple rules, see
-    # [Managing Request Routing](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managingrequest.htm).
+    # [Managing Request Routing](https://docs.cloud.oracle.com/Content/Balance/Tasks/managingrequest.htm).
     #
     # @return [String]
     attr_reader :match_type

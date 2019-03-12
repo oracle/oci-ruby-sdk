@@ -37,11 +37,14 @@ module OCI
       LICENSE_MODEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DB system.
+    # @return [OCI::Database::Models::ExadataIormConfig]
+    attr_accessor :iorm_config_cache
+
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -57,7 +60,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :fault_domains
 
-    # **[Required]** The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the subnet the DB system is associated with.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet the DB system is associated with.
     #
     # **Subnet Restrictions:**
     # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
@@ -70,7 +73,7 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the backup network subnet the DB system is associated with. Applicable only to Exadata DB systems.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the backup network subnet the DB system is associated with. Applicable only to Exadata DB systems.
     #
     # **Subnet Restriction:** See the subnet restrictions information for **subnetId**.
     #
@@ -87,6 +90,10 @@ module OCI
     # **[Required]** The public key portion of one or more key pairs used for SSH access to the DB system.
     # @return [Array<String>]
     attr_accessor :ssh_public_keys
+
+    # The time zone of the DB system. For details, see [DB System Time Zones](https://docs.cloud.oracle.com/Content/Database/References/timezones.htm).
+    # @return [String]
+    attr_accessor :time_zone
 
     # **[Required]** The hostname for the DB system.
     # @return [String]
@@ -120,7 +127,7 @@ module OCI
     # @return [String]
     attr_reader :database_edition
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the last patch history. This value is updated as soon as a patch operation starts.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the last patch history. This value is updated as soon as a patch operation starts.
     # @return [String]
     attr_accessor :last_patch_history_entry_id
 
@@ -152,7 +159,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :sparse_diskgroup
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the Single Client Access Name (SCAN) IP addresses associated with the DB system.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Single Client Access Name (SCAN) IP addresses associated with the DB system.
     # SCAN IP addresses are typically used for load balancing and are not assigned to any interface.
     # Oracle Clusterware directs the requests to the appropriate nodes in the cluster.
     #
@@ -161,7 +168,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :scan_ip_ids
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the virtual IP (VIP) addresses associated with the DB system.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the virtual IP (VIP) addresses associated with the DB system.
     # The Cluster Ready Services (CRS) creates and maintains one VIP address for each node in the DB system to
     # enable failover. If one node fails, the VIP is reassigned to another active node in the cluster.
     #
@@ -170,7 +177,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :vip_ids
 
-    # The [OCID](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/identifiers.htm) of the DNS record for the SCAN IP addresses that are associated with the DB system.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DNS record for the SCAN IP addresses that are associated with the DB system.
     #
     # @return [String]
     attr_accessor :scan_dns_record_id
@@ -196,7 +203,7 @@ module OCI
     attr_reader :license_model
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -204,7 +211,7 @@ module OCI
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.us-phoenix-1.oraclecloud.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -215,6 +222,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'iorm_config_cache': :'iormConfigCache',
         'id': :'id',
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
@@ -224,6 +232,7 @@ module OCI
         'backup_subnet_id': :'backupSubnetId',
         'shape': :'shape',
         'ssh_public_keys': :'sshPublicKeys',
+        'time_zone': :'timeZone',
         'hostname': :'hostname',
         'domain': :'domain',
         'version': :'version',
@@ -255,6 +264,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'iorm_config_cache': :'OCI::Database::Models::ExadataIormConfig',
         'id': :'String',
         'compartment_id': :'String',
         'display_name': :'String',
@@ -264,6 +274,7 @@ module OCI
         'backup_subnet_id': :'String',
         'shape': :'String',
         'ssh_public_keys': :'Array<String>',
+        'time_zone': :'String',
         'hostname': :'String',
         'domain': :'String',
         'version': :'String',
@@ -297,6 +308,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [OCI::Database::Models::ExadataIormConfig] :iorm_config_cache The value to assign to the {#iorm_config_cache} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
@@ -306,6 +318,7 @@ module OCI
     # @option attributes [String] :backup_subnet_id The value to assign to the {#backup_subnet_id} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
+    # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
     # @option attributes [String] :domain The value to assign to the {#domain} property
     # @option attributes [String] :version The value to assign to the {#version} property
@@ -331,6 +344,15 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.iorm_config_cache = attributes[:'iormConfigCache'] if attributes[:'iormConfigCache']
+
+      raise 'You cannot provide both :iormConfigCache and :iorm_config_cache' if attributes.key?(:'iormConfigCache') && attributes.key?(:'iorm_config_cache')
+
+      self.iorm_config_cache = attributes[:'iorm_config_cache'] if attributes[:'iorm_config_cache']
 
       self.id = attributes[:'id'] if attributes[:'id']
 
@@ -377,6 +399,12 @@ module OCI
       raise 'You cannot provide both :sshPublicKeys and :ssh_public_keys' if attributes.key?(:'sshPublicKeys') && attributes.key?(:'ssh_public_keys')
 
       self.ssh_public_keys = attributes[:'ssh_public_keys'] if attributes[:'ssh_public_keys']
+
+      self.time_zone = attributes[:'timeZone'] if attributes[:'timeZone']
+
+      raise 'You cannot provide both :timeZone and :time_zone' if attributes.key?(:'timeZone') && attributes.key?(:'time_zone')
+
+      self.time_zone = attributes[:'time_zone'] if attributes[:'time_zone']
 
       self.hostname = attributes[:'hostname'] if attributes[:'hostname']
 
@@ -576,6 +604,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        iorm_config_cache == other.iorm_config_cache &&
         id == other.id &&
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
@@ -585,6 +614,7 @@ module OCI
         backup_subnet_id == other.backup_subnet_id &&
         shape == other.shape &&
         ssh_public_keys == other.ssh_public_keys &&
+        time_zone == other.time_zone &&
         hostname == other.hostname &&
         domain == other.domain &&
         version == other.version &&
@@ -623,7 +653,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, shape, ssh_public_keys, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
+      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, shape, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

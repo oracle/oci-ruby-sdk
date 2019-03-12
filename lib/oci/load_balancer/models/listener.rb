@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # The listener's configuration.
   # For more information on backend set configuration, see
-  # [Managing Load Balancer Listeners](https://docs.us-phoenix-1.oraclecloud.com/Content/Balance/Tasks/managinglisteners.htm).
+  # [Managing Load Balancer Listeners](https://docs.cloud.oracle.com/Content/Balance/Tasks/managinglisteners.htm).
   #
   class LoadBalancer::Models::Listener # rubocop:disable Metrics/LineLength
     # **[Required]** A friendly name for the listener. It must be unique and it cannot be changed.

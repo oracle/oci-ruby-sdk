@@ -11,7 +11,7 @@ module OCI
     attr_accessor :description
 
     # The matching rule to dynamically match an instance certificate to this dynamic group.
-    # For rule syntax, see [Managing Dynamic Groups](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/managingdynamicgroups.htm).
+    # For rule syntax, see [Managing Dynamic Groups](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingdynamicgroups.htm).
     #
     # @return [String]
     attr_accessor :matching_rule

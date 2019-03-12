@@ -5,7 +5,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # A compute instance shape that can be used in {#launch_instance launch_instance}.
-  # For more information, see [Overview of the Compute Service](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Concepts/computeoverview.htm).
+  # For more information, see [Overview of the Compute Service](https://docs.cloud.oracle.com/Content/Compute/Concepts/computeoverview.htm).
   #
   class Core::Models::Shape # rubocop:disable Metrics/LineLength
     # **[Required]** The name of the shape. You can enumerate all available shapes by calling

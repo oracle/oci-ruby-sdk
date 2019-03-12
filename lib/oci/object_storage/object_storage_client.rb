@@ -938,7 +938,7 @@ module OCI
     # Get the metadata for the namespace, which contains defaultS3CompartmentId and defaultSwiftCompartmentId.
     # Any user with the NAMESPACE_READ permission will be able to see the current metadata. If you're not authorized,
     # talk to an administrator. If you're an administrator who needs to write
-    # policies to give users access, see [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+    # policies to give users access, see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
     #
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [Hash] opts the optional parameters
@@ -1431,7 +1431,7 @@ module OCI
     #
     # To use this and other API operations, you must be authorized in an IAM policy. If you're not authorized,
     # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
-    # [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+    # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
     #
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [String] compartment_id The ID of the compartment in which to list buckets.
@@ -1646,7 +1646,7 @@ module OCI
     #
     # To use this and other API operations, you must be authorized in an IAM policy. If you're not authorized,
     # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
-    # [Getting Started with Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/policygetstarted.htm).
+    # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
     #
     # @param [String] namespace_name The top-level namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.

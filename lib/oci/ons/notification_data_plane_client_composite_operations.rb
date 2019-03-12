@@ -66,7 +66,7 @@ module OCI
     # Calls {OCI::Ons::NotificationDataPlaneClient#delete_subscription} and then waits for the {OCI::Ons::Models::Subscription} acted upon
     # to enter the given state(s).
     #
-    # @param [String] subscription_id The [OCID](https://docs.us-phoenix-1.oraclecloud.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to delete.
+    # @param [String] subscription_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to delete.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Ons::Models::Subscription#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Ons::NotificationDataPlaneClient#delete_subscription}

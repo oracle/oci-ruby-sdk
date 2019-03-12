@@ -7,8 +7,8 @@ require_relative 'export_image_details'
 module OCI
   # ExportImageViaObjectStorageUriDetails model.
   class Core::Models::ExportImageViaObjectStorageUriDetails < Core::Models::ExportImageDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The Object Storage URL to export the image to. See [Object Storage URLs](https://docs.us-phoenix-1.oraclecloud.com/Content/Compute/Tasks/imageimportexport.htm#URLs)
-    # and [pre-authenticated requests](https://docs.us-phoenix-1.oraclecloud.com/Content/Object/Tasks/managingaccess.htm#pre-auth) for constructing URLs for image import/export.
+    # **[Required]** The Object Storage URL to export the image to. See [Object Storage URLs](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm#URLs)
+    # and [pre-authenticated requests](https://docs.cloud.oracle.com/Content/Object/Tasks/managingaccess.htm#pre-auth) for constructing URLs for image import/export.
     #
     # @return [String]
     attr_accessor :destination_uri
