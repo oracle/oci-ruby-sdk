@@ -86,6 +86,10 @@ module OCI
     # @return [String]
     attr_reader :license_model
 
+    # The amount of storage that has been used, in terabytes.
+    # @return [Integer]
+    attr_accessor :used_data_storage_size_in_tbs
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -126,6 +130,7 @@ module OCI
         'service_console_url': :'serviceConsoleUrl',
         'connection_strings': :'connectionStrings',
         'license_model': :'licenseModel',
+        'used_data_storage_size_in_tbs': :'usedDataStorageSizeInTBs',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'db_version': :'dbVersion',
@@ -150,6 +155,7 @@ module OCI
         'service_console_url': :'String',
         'connection_strings': :'OCI::Database::Models::AutonomousDatabaseConnectionStrings',
         'license_model': :'String',
+        'used_data_storage_size_in_tbs': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'db_version': :'String',
@@ -176,6 +182,7 @@ module OCI
     # @option attributes [String] :service_console_url The value to assign to the {#service_console_url} property
     # @option attributes [OCI::Database::Models::AutonomousDatabaseConnectionStrings] :connection_strings The value to assign to the {#connection_strings} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [Integer] :used_data_storage_size_in_tbs The value to assign to the {#used_data_storage_size_in_tbs} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
@@ -250,6 +257,12 @@ module OCI
       raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
 
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
+
+      self.used_data_storage_size_in_tbs = attributes[:'usedDataStorageSizeInTBs'] if attributes[:'usedDataStorageSizeInTBs']
+
+      raise 'You cannot provide both :usedDataStorageSizeInTBs and :used_data_storage_size_in_tbs' if attributes.key?(:'usedDataStorageSizeInTBs') && attributes.key?(:'used_data_storage_size_in_tbs')
+
+      self.used_data_storage_size_in_tbs = attributes[:'used_data_storage_size_in_tbs'] if attributes[:'used_data_storage_size_in_tbs']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -344,6 +357,7 @@ module OCI
         service_console_url == other.service_console_url &&
         connection_strings == other.connection_strings &&
         license_model == other.license_model &&
+        used_data_storage_size_in_tbs == other.used_data_storage_size_in_tbs &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         db_version == other.db_version &&
@@ -363,7 +377,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, freeform_tags, defined_tags, db_version, db_workload].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, db_version, db_workload].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

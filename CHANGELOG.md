@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.5.3 - 2019-03-19
+### Added
+- Support for specifying metadata on node pools in the Container Engine for Kubernetes service
+- Support for provisioning a new autonomous database or autonomous data warehouse as a clone of another in the Database service
+
 ## 2.5.2 - 2019-03-12
 ### Added
 - Support for the Budgets service
@@ -61,7 +66,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ## 2.4.4 - 2019-01-10
 ### Added
 - Support for device attributes on volume attachments in the Compute service
-- Support for custom header rulesets in the Load Balancing service 
+- Support for custom header rulesets in the Load Balancing service
 
 ## 2.4.3 - 2018-12-13
 ### Added
@@ -79,12 +84,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Added
 - Support for getting bucket statistics in the Object Storage service
 
-### Fixed 
+### Fixed
 - Block Storage service for copying volume backups across regions is now enabled
 
 ## 2.4.1 - 2018-11-15
 ### Added
-- Support for VCN transit routing in the Networking service 
+- Support for VCN transit routing in the Networking service
 
 ## 2.4.0 - 2018-11-01
 ### Added
@@ -144,7 +149,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Support for specifying a Key Management service key when backing up or restoring a block storage volume in the Block Volume service
 
 ### Fixed
-- Fixed [GitHub Issue #10](https://github.com/oracle/oci-ruby-sdk/issues/10) 
+- Fixed [GitHub Issue #10](https://github.com/oracle/oci-ruby-sdk/issues/10)
 where specifying an optional `content_type` for `ObjectStorageClient#put_object` was not included in the request header.
 - Fixed [GitHub Issue #11](https://github.com/oracle/oci-ruby-sdk/issues/11) by adding the ability to specify an optional `accept_encoding` parameter for `ObjectStorageClient#get_object`
 - Fixed [GitHub Issue #13](https://github.com/oracle/oci-ruby-sdk/issues/13) by adding a note about thread safety for clients
@@ -216,7 +221,7 @@ where specifying an optional `content_type` for `ObjectStorageClient#put_object`
 
 ## 2.1.2 - 2018-05-03
 ### Added
-- Support for returning names for events in the Audit service 
+- Support for returning names for events in the Audit service
 - Support for multiple hostnames per listener in the Load Balancing service
 - Support for specifying a retry strategy when calling Oracle Cloud Infrastructure services. An example of specifying a client retry strategy: [retry\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/retry_example.rb)
 
@@ -272,7 +277,7 @@ where specifying an optional `content_type` for `ObjectStorageClient#put_object`
 - Support for using the `ObjectReadWithoutList` public access type when creating and updating buckets
 - Support for dynamic groups in Identity Service
 - Support for instance principals authentication when calling Oracle Cloud Infrastructure services. An example of how to use instance principals authentication: [instance\_principals\_example.rb](https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/instance_principals_example.rb)
-- Support for configuring idle timeout for listeners in Load Balancer Service 
+- Support for configuring idle timeout for listeners in Load Balancer Service
 - Support for VNC console connections in Compute Service
 
 ### Fixed
@@ -290,7 +295,7 @@ where specifying an optional `content_type` for `ObjectStorageClient#put_object`
 ## 2.0.4 - 2017-12-11
 
 ### Added
-- Support for retrieving custom operation metadata, such as the OCID of a resource, from response_payload attribute on the AuditEvent model of the Audit Service 
+- Support for retrieving custom operation metadata, such as the OCID of a resource, from response_payload attribute on the AuditEvent model of the Audit Service
 - Support for public peering for FastConnect in Core Services
 - Support for specifying an authorized entity name in a Letter of Authority in Core Services
 - Support for showing a list of bandwidth shapes for FastConnect provider in Core Services

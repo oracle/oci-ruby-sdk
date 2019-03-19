@@ -5,9 +5,22 @@ require_relative 'create_autonomous_database_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Details to create an Oracle Autonomous Database.
+  # Details to create an Oracle Autonomous Database by cloning an existing Autonomous Database.
   #
-  class Database::Models::CreateAutonomousDatabaseDetails < Database::Models::CreateAutonomousDatabaseBase # rubocop:disable Metrics/LineLength
+  class Database::Models::CreateAutonomousDatabaseCloneDetails < Database::Models::CreateAutonomousDatabaseBase # rubocop:disable Metrics/LineLength
+    CLONE_TYPE_ENUM = [
+      CLONE_TYPE_FULL = 'FULL'.freeze,
+      CLONE_TYPE_METADATA = 'METADATA'.freeze
+    ].freeze
+
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the source Autonomous Database that you will clone to create a new Autonomous Database.
+    # @return [String]
+    attr_accessor :source_id
+
+    # **[Required]** The clone type.
+    # @return [String]
+    attr_reader :clone_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -22,7 +35,9 @@ module OCI
         'license_model': :'licenseModel',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'source': :'source'
+        'source': :'source',
+        'source_id': :'sourceId',
+        'clone_type': :'cloneType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -41,7 +56,9 @@ module OCI
         'license_model': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'source': :'String'
+        'source': :'String',
+        'source_id': :'String',
+        'clone_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -62,15 +79,42 @@ module OCI
     # @option attributes [String] :license_model The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#license_model #license_model} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#defined_tags #defined_tags} proprety
+    # @option attributes [String] :source_id The value to assign to the {#source_id} property
+    # @option attributes [String] :clone_type The value to assign to the {#clone_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
-      attributes['source'] = 'NONE'
+      attributes['source'] = 'DATABASE'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.source_id = attributes[:'sourceId'] if attributes[:'sourceId']
+
+      raise 'You cannot provide both :sourceId and :source_id' if attributes.key?(:'sourceId') && attributes.key?(:'source_id')
+
+      self.source_id = attributes[:'source_id'] if attributes[:'source_id']
+
+      self.clone_type = attributes[:'cloneType'] if attributes[:'cloneType']
+
+      raise 'You cannot provide both :cloneType and :clone_type' if attributes.key?(:'cloneType') && attributes.key?(:'clone_type')
+
+      self.clone_type = attributes[:'clone_type'] if attributes[:'clone_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] clone_type Object to be assigned
+    def clone_type=(clone_type)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'clone_type': this must be one of the values in CLONE_TYPE_ENUM." if clone_type && !CLONE_TYPE_ENUM.include?(clone_type)
+
+      # rubocop: enable Metrics/LineLength
+      @clone_type = clone_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -91,7 +135,9 @@ module OCI
         license_model == other.license_model &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        source == other.source
+        source == other.source &&
+        source_id == other.source_id &&
+        clone_type == other.clone_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -107,7 +153,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, freeform_tags, defined_tags, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, freeform_tags, defined_tags, source, source_id, clone_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

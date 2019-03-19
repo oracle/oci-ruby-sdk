@@ -297,7 +297,7 @@ module OCI
 
     # Creates a new Autonomous Database.
     #
-    # @param [OCI::Database::Models::CreateAutonomousDatabaseDetails] create_autonomous_database_details Request to create a new Autonomous Database.
+    # @param [OCI::Database::Models::CreateAutonomousDatabaseBase] create_autonomous_database_details Request to create a new Autonomous Database.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A pool of compute nodes attached to a cluster.
+  # A pool of compute nodes attached to a cluster. Avoid entering confidential information.
   class ContainerEngine::Models::NodePool # rubocop:disable Metrics/LineLength
     # The OCID of the node pool.
     # @return [String]
@@ -25,6 +25,10 @@ module OCI
     # The version of Kubernetes running on the nodes in the node pool.
     # @return [String]
     attr_accessor :kubernetes_version
+
+    # A list of key/value pairs to add to each underlying OCI instance in the node pool.
+    # @return [Hash<String, String>]
+    attr_accessor :node_metadata
 
     # The OCID of the image running on the nodes in the node pool.
     # @return [String]
@@ -67,6 +71,7 @@ module OCI
         'cluster_id': :'clusterId',
         'name': :'name',
         'kubernetes_version': :'kubernetesVersion',
+        'node_metadata': :'nodeMetadata',
         'node_image_id': :'nodeImageId',
         'node_image_name': :'nodeImageName',
         'node_shape': :'nodeShape',
@@ -88,6 +93,7 @@ module OCI
         'cluster_id': :'String',
         'name': :'String',
         'kubernetes_version': :'String',
+        'node_metadata': :'Hash<String, String>',
         'node_image_id': :'String',
         'node_image_name': :'String',
         'node_shape': :'String',
@@ -111,6 +117,7 @@ module OCI
     # @option attributes [String] :cluster_id The value to assign to the {#cluster_id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
+    # @option attributes [Hash<String, String>] :node_metadata The value to assign to the {#node_metadata} property
     # @option attributes [String] :node_image_id The value to assign to the {#node_image_id} property
     # @option attributes [String] :node_image_name The value to assign to the {#node_image_name} property
     # @option attributes [String] :node_shape The value to assign to the {#node_shape} property
@@ -146,6 +153,12 @@ module OCI
       raise 'You cannot provide both :kubernetesVersion and :kubernetes_version' if attributes.key?(:'kubernetesVersion') && attributes.key?(:'kubernetes_version')
 
       self.kubernetes_version = attributes[:'kubernetes_version'] if attributes[:'kubernetes_version']
+
+      self.node_metadata = attributes[:'nodeMetadata'] if attributes[:'nodeMetadata']
+
+      raise 'You cannot provide both :nodeMetadata and :node_metadata' if attributes.key?(:'nodeMetadata') && attributes.key?(:'node_metadata')
+
+      self.node_metadata = attributes[:'node_metadata'] if attributes[:'node_metadata']
 
       self.node_image_id = attributes[:'nodeImageId'] if attributes[:'nodeImageId']
 
@@ -208,6 +221,7 @@ module OCI
         cluster_id == other.cluster_id &&
         name == other.name &&
         kubernetes_version == other.kubernetes_version &&
+        node_metadata == other.node_metadata &&
         node_image_id == other.node_image_id &&
         node_image_name == other.node_image_name &&
         node_shape == other.node_shape &&
@@ -231,7 +245,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, cluster_id, name, kubernetes_version, node_image_id, node_image_name, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, nodes].hash
+      [id, compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_id, node_image_name, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, nodes].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
