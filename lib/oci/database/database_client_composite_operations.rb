@@ -105,7 +105,7 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#create_autonomous_database} and then waits for the {OCI::Database::Models::AutonomousDatabase} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Database::Models::CreateAutonomousDatabaseDetails] create_autonomous_database_details Request to create a new Autonomous Database.
+    # @param [OCI::Database::Models::CreateAutonomousDatabaseBase] create_autonomous_database_details Request to create a new Autonomous Database.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousDatabase#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#create_autonomous_database}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

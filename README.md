@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.5.2**
+**Version 2.5.3**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -7,7 +7,7 @@ This topic describes how to install, configure, and use the Oracle Cloud Infrast
 
 The Ruby SDK supports the following services:
 
-* Announcements 
+* Announcements
 * Audit
 * Budgets
 * Compute Autoscaling
@@ -17,7 +17,7 @@ The Ruby SDK supports the following services:
 * Domain Name System
 * Email
 * File Storage
-* Health Checks 
+* Health Checks
 * Identity and Access Management
 * Key Management
 * Load Balancing
@@ -326,7 +326,7 @@ Once an {OCI::ApiClientProxySettings} object has been created, it can be used wh
 ## Exceptions
 
 ### Service Errors
-Any operation that receives a response with a non-2xx HTTP status code from an Oracle Cloud Infrastructure service will cause an exception of type {OCI::Errors::ServiceError ServiceError} to be thrown by the SDK. 
+Any operation that receives a response with a non-2xx HTTP status code from an Oracle Cloud Infrastructure service will cause an exception of type {OCI::Errors::ServiceError ServiceError} to be thrown by the SDK.
 
 For information about common service errors returned by OCI, see [API Errors](https://docs.us-phoenix-1.oraclecloud.com/Content/API/References/apierrors.htm).
 
@@ -342,7 +342,7 @@ You can also call {OCI::Errors::ServiceError#to_s to_s} on the error to get a su
 #### HTTP 3xx Responses
 The SDK will throw exceptions of type {OCI::Errors::ServiceError ServiceError} on HTTP 3xx responses. This impacts operations that support conditional GETs. This includes {OCI::ObjectStorage::ObjectStorageClient#get_object} and {OCI::ObjectStorage::ObjectStorageClient#head_object} methods as these can return responses with a HTTP status code of 304 if passed an `if_none_match`, which corresponds to the current etag of the object or bucket.
 
-In order to account for this, you should catch {OCI::Errors::ServiceError ServiceError} and check its `status_code` attribute for the HTTP status code. For example: 
+In order to account for this, you should catch {OCI::Errors::ServiceError ServiceError} and check its `status_code` attribute for the HTTP status code. For example:
 
     require 'oci'
 
@@ -373,9 +373,9 @@ The key attributes to inspect when dealing with a {OCI::Errors::NetworkError} ar
 You can also call {OCI::Errors::NetworkError#to_s to_s} on the error to get a summary of the key information about the error. In addition, the {OCI::Errors::NetworkError#cause NetworkError.cause} of the {OCI::Errors::NetworkError NetworkError} can be inspected to see the original error that caused the {OCI::Errors::NetworkError NetworkError} to be thrown.
 
 ### Response Parsing Errors
-{OCI::Errors::ResponseParsingError ResponseParsingError} is thrown when a response was received from an Oracle Cloud Infrastructure service but the SDK could not parse it into the appropriate model type to put into an {OCI::Response}. 
+{OCI::Errors::ResponseParsingError ResponseParsingError} is thrown when a response was received from an Oracle Cloud Infrastructure service but the SDK could not parse it into the appropriate model type to put into an {OCI::Response}.
 
-The key attributes to inspect when dealing with a {OCI::Errors::ResponseParsingError} are: 
+The key attributes to inspect when dealing with a {OCI::Errors::ResponseParsingError} are:
 
 * {OCI::Errors::ResponseParsingError#request_made request_made} and {OCI::Errors::ResponseParsingError#response_received response_received} contain the `Net::HTTPRequest` and `Net::HTTPResponse`, respectively
 * {OCI::Errors::ResponseParsingError#response_body response_body} contains the response data which failed to parse

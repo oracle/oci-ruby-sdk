@@ -420,7 +420,7 @@ module OCI
       raise 'Response cannot be nil' if response.nil?
       raise 'A non-blank prefix must be provided' if prefix.nil? || prefix.strip.empty?
 
-      prefix_size = prefix.length.freeze
+      prefix_size = prefix.length
       processed_keys = {}
 
       response.each_header do |key, value|

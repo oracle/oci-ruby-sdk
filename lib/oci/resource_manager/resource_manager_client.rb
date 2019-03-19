@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Oracle Resource Manager API.
+  # API for the Resource Manager service. Use this API to install, configure, and manage resources via the &quot;infrastructure-as-code&quot; model. For more information, see [Overview of Resource Manager](/iaas/Content/ResourceManager/Concepts/resourcemanager.htm).
   class ResourceManager::ResourceManagerClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]

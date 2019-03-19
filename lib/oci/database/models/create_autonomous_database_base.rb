@@ -1,96 +1,63 @@
 # Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
-require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # An Oracle Autonomous Database.
+  # Details to create an Oracle Autonomous Database.
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
-  class Database::Models::AutonomousDatabaseSummary # rubocop:disable Metrics/LineLength
-    LIFECYCLE_STATE_ENUM = [
-      LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
-      LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
-      LIFECYCLE_STATE_STOPPING = 'STOPPING'.freeze,
-      LIFECYCLE_STATE_STOPPED = 'STOPPED'.freeze,
-      LIFECYCLE_STATE_STARTING = 'STARTING'.freeze,
-      LIFECYCLE_STATE_TERMINATING = 'TERMINATING'.freeze,
-      LIFECYCLE_STATE_TERMINATED = 'TERMINATED'.freeze,
-      LIFECYCLE_STATE_UNAVAILABLE = 'UNAVAILABLE'.freeze,
-      LIFECYCLE_STATE_RESTORE_IN_PROGRESS = 'RESTORE_IN_PROGRESS'.freeze,
-      LIFECYCLE_STATE_RESTORE_FAILED = 'RESTORE_FAILED'.freeze,
-      LIFECYCLE_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
-      LIFECYCLE_STATE_SCALE_IN_PROGRESS = 'SCALE_IN_PROGRESS'.freeze,
-      LIFECYCLE_STATE_AVAILABLE_NEEDS_ATTENTION = 'AVAILABLE_NEEDS_ATTENTION'.freeze,
-      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+  # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
+  class Database::Models::CreateAutonomousDatabaseBase # rubocop:disable Metrics/LineLength
+    DB_WORKLOAD_ENUM = [
+      DB_WORKLOAD_OLTP = 'OLTP'.freeze,
+      DB_WORKLOAD_DW = 'DW'.freeze
     ].freeze
 
     LICENSE_MODEL_ENUM = [
       LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
-      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze,
-      LICENSE_MODEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
     ].freeze
 
-    DB_WORKLOAD_ENUM = [
-      DB_WORKLOAD_OLTP = 'OLTP'.freeze,
-      DB_WORKLOAD_DW = 'DW'.freeze,
-      DB_WORKLOAD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    SOURCE_ENUM = [
+      SOURCE_NONE = 'NONE'.freeze,
+      SOURCE_DATABASE = 'DATABASE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Database.
-    # @return [String]
-    attr_accessor :id
-
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment of the autonomous database.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The current state of the database.
-    # @return [String]
-    attr_reader :lifecycle_state
-
-    # Information about the current lifecycle state.
-    # @return [String]
-    attr_accessor :lifecycle_details
-
-    # **[Required]** The database name.
+    # **[Required]** The database name. The name must begin with an alphabetic character and can contain a maximum of 14 alphanumeric characters. Special characters are not permitted. The database name must be unique in the tenancy.
     # @return [String]
     attr_accessor :db_name
 
-    # **[Required]** The number of CPU cores to be made available to the database.
+    # **[Required]** The number of CPU Cores to be made available to the database.
     # @return [Integer]
     attr_accessor :cpu_core_count
 
-    # **[Required]** The quantity of data in the database, in terabytes.
+    # The autonomous database workload type.
+    # @return [String]
+    attr_reader :db_workload
+
+    # **[Required]** The size, in terabytes, of the data volume that will be created and attached to the database. This storage can later be scaled up if needed.
+    #
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
 
-    # The date and time the database was created.
-    # @return [DateTime]
-    attr_accessor :time_created
+    # **[Required]** The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing.
+    # @return [String]
+    attr_accessor :admin_password
 
     # The user-friendly name for the Autonomous Database. The name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # The URL of the Service Console for the Autonomous Database.
-    # @return [String]
-    attr_accessor :service_console_url
-
-    # The connection string used to connect to the Autonomous Database. The username for the Service Console is ADMIN. Use the password you entered when creating the Autonomous Database for the password value.
-    # @return [OCI::Database::Models::AutonomousDatabaseConnectionStrings]
-    attr_accessor :connection_strings
-
     # The Oracle license model that applies to the Oracle Autonomous Database. The default is BRING_YOUR_OWN_LICENSE.
     #
     # @return [String]
     attr_reader :license_model
-
-    # The amount of storage that has been used, in terabytes.
-    # @return [Integer]
-    attr_accessor :used_data_storage_size_in_tbs
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -108,35 +75,26 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A valid Oracle Database version for Autonomous Database.
+    # The source of the database: Use NONE for creating a new Autonomous Database. Use DATABASE for creating a new Autonomous Database by cloning an existing Autonomous Database.
+    #
     # @return [String]
-    attr_accessor :db_version
-
-    # The Autonomous Database workload type.
-    # @return [String]
-    attr_reader :db_workload
+    attr_reader :source
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'id': :'id',
         'compartment_id': :'compartmentId',
-        'lifecycle_state': :'lifecycleState',
-        'lifecycle_details': :'lifecycleDetails',
         'db_name': :'dbName',
         'cpu_core_count': :'cpuCoreCount',
+        'db_workload': :'dbWorkload',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
-        'time_created': :'timeCreated',
+        'admin_password': :'adminPassword',
         'display_name': :'displayName',
-        'service_console_url': :'serviceConsoleUrl',
-        'connection_strings': :'connectionStrings',
         'license_model': :'licenseModel',
-        'used_data_storage_size_in_tbs': :'usedDataStorageSizeInTBs',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'db_version': :'dbVersion',
-        'db_workload': :'dbWorkload'
+        'source': :'source'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -145,26 +103,36 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'id': :'String',
         'compartment_id': :'String',
-        'lifecycle_state': :'String',
-        'lifecycle_details': :'String',
         'db_name': :'String',
         'cpu_core_count': :'Integer',
+        'db_workload': :'String',
         'data_storage_size_in_tbs': :'Integer',
-        'time_created': :'DateTime',
+        'admin_password': :'String',
         'display_name': :'String',
-        'service_console_url': :'String',
-        'connection_strings': :'OCI::Database::Models::AutonomousDatabaseConnectionStrings',
         'license_model': :'String',
-        'used_data_storage_size_in_tbs': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'db_version': :'String',
-        'db_workload': :'String'
+        'source': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+
+
+    # Given the hash representation of a subtype of this class,
+    # use the info in the hash to return the class of the subtype.
+    def self.get_subtype(object_hash)
+      type = object_hash[:'source'] # rubocop:disable Style/SymbolLiteral
+
+      return 'OCI::Database::Models::CreateAutonomousDatabaseCloneDetails' if type == 'DATABASE'
+      return 'OCI::Database::Models::CreateAutonomousDatabaseDetails' if type == 'NONE'
+
+      # TODO: Log a warning when the subtype is not found.
+      'OCI::Database::Models::CreateAutonomousDatabaseBase'
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -172,48 +140,28 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
-    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
-    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [String] :service_console_url The value to assign to the {#service_console_url} property
-    # @option attributes [OCI::Database::Models::AutonomousDatabaseConnectionStrings] :connection_strings The value to assign to the {#connection_strings} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
-    # @option attributes [Integer] :used_data_storage_size_in_tbs The value to assign to the {#used_data_storage_size_in_tbs} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :db_version The value to assign to the {#db_version} property
-    # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
+    # @option attributes [String] :source The value to assign to the {#source} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.id = attributes[:'id'] if attributes[:'id']
-
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
-
-      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
-
-      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
-
-      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
-
-      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
-
-      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
-
-      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
       self.db_name = attributes[:'dbName'] if attributes[:'dbName']
 
@@ -227,17 +175,23 @@ module OCI
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
 
+      self.db_workload = attributes[:'dbWorkload'] if attributes[:'dbWorkload']
+
+      raise 'You cannot provide both :dbWorkload and :db_workload' if attributes.key?(:'dbWorkload') && attributes.key?(:'db_workload')
+
+      self.db_workload = attributes[:'db_workload'] if attributes[:'db_workload']
+
       self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
 
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
 
-      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
+      self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
 
-      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
+      raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
 
-      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+      self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -245,29 +199,11 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.service_console_url = attributes[:'serviceConsoleUrl'] if attributes[:'serviceConsoleUrl']
-
-      raise 'You cannot provide both :serviceConsoleUrl and :service_console_url' if attributes.key?(:'serviceConsoleUrl') && attributes.key?(:'service_console_url')
-
-      self.service_console_url = attributes[:'service_console_url'] if attributes[:'service_console_url']
-
-      self.connection_strings = attributes[:'connectionStrings'] if attributes[:'connectionStrings']
-
-      raise 'You cannot provide both :connectionStrings and :connection_strings' if attributes.key?(:'connectionStrings') && attributes.key?(:'connection_strings')
-
-      self.connection_strings = attributes[:'connection_strings'] if attributes[:'connection_strings']
-
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
       raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
 
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
-
-      self.used_data_storage_size_in_tbs = attributes[:'usedDataStorageSizeInTBs'] if attributes[:'usedDataStorageSizeInTBs']
-
-      raise 'You cannot provide both :usedDataStorageSizeInTBs and :used_data_storage_size_in_tbs' if attributes.key?(:'usedDataStorageSizeInTBs') && attributes.key?(:'used_data_storage_size_in_tbs')
-
-      self.used_data_storage_size_in_tbs = attributes[:'used_data_storage_size_in_tbs'] if attributes[:'used_data_storage_size_in_tbs']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -281,64 +217,40 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
-      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
-
-      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
-
-      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
-
-      self.db_workload = attributes[:'dbWorkload'] if attributes[:'dbWorkload']
-
-      raise 'You cannot provide both :dbWorkload and :db_workload' if attributes.key?(:'dbWorkload') && attributes.key?(:'db_workload')
-
-      self.db_workload = attributes[:'db_workload'] if attributes[:'db_workload']
+      self.source = attributes[:'source'] if attributes[:'source']
+      self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] lifecycle_state Object to be assigned
-    def lifecycle_state=(lifecycle_state)
-      # rubocop:disable Style/ConditionalAssignment
-      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
-        # rubocop: disable Metrics/LineLength
-        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
-        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
-      else
-        @lifecycle_state = lifecycle_state
-      end
-      # rubocop:enable Style/ConditionalAssignment
+    # @param [Object] db_workload Object to be assigned
+    def db_workload=(db_workload)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'db_workload': this must be one of the values in DB_WORKLOAD_ENUM." if db_workload && !DB_WORKLOAD_ENUM.include?(db_workload)
+
+      # rubocop: enable Metrics/LineLength
+      @db_workload = db_workload
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] license_model Object to be assigned
     def license_model=(license_model)
-      # rubocop:disable Style/ConditionalAssignment
-      if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
-        # rubocop: disable Metrics/LineLength
-        OCI.logger.debug("Unknown value for 'license_model' [" + license_model + "]. Mapping to 'LICENSE_MODEL_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
-        @license_model = LICENSE_MODEL_UNKNOWN_ENUM_VALUE
-      else
-        @license_model = license_model
-      end
-      # rubocop:enable Style/ConditionalAssignment
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
+
+      # rubocop: enable Metrics/LineLength
+      @license_model = license_model
     end
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] db_workload Object to be assigned
-    def db_workload=(db_workload)
-      # rubocop:disable Style/ConditionalAssignment
-      if db_workload && !DB_WORKLOAD_ENUM.include?(db_workload)
-        # rubocop: disable Metrics/LineLength
-        OCI.logger.debug("Unknown value for 'db_workload' [" + db_workload + "]. Mapping to 'DB_WORKLOAD_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
-        @db_workload = DB_WORKLOAD_UNKNOWN_ENUM_VALUE
-      else
-        @db_workload = db_workload
-      end
-      # rubocop:enable Style/ConditionalAssignment
+    # @param [Object] source Object to be assigned
+    def source=(source)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'source': this must be one of the values in SOURCE_ENUM." if source && !SOURCE_ENUM.include?(source)
+
+      # rubocop: enable Metrics/LineLength
+      @source = source
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -350,23 +262,17 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        id == other.id &&
         compartment_id == other.compartment_id &&
-        lifecycle_state == other.lifecycle_state &&
-        lifecycle_details == other.lifecycle_details &&
         db_name == other.db_name &&
         cpu_core_count == other.cpu_core_count &&
+        db_workload == other.db_workload &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
-        time_created == other.time_created &&
+        admin_password == other.admin_password &&
         display_name == other.display_name &&
-        service_console_url == other.service_console_url &&
-        connection_strings == other.connection_strings &&
         license_model == other.license_model &&
-        used_data_storage_size_in_tbs == other.used_data_storage_size_in_tbs &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        db_version == other.db_version &&
-        db_workload == other.db_workload
+        source == other.source
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -382,7 +288,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, db_version, db_workload].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

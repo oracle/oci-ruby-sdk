@@ -5,7 +5,9 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Container Engine for Kubernetes API
+  # API for the Container Engine for Kubernetes service. Use this API to build, deploy,
+  # and manage cloud-native applications. For more information, see
+  # [Overview of Container Engine for Kubernetes](/iaas/Content/ContEng/Concepts/contengoverview.htm).
   class ContainerEngine::ContainerEngineClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -94,7 +96,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :ContainerEngineClient) + '/20180222'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://containerengine.{region}.{secondLevelDomain}') + '/20180222'
       logger.info "ContainerEngineClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -786,9 +788,12 @@ module OCI
     # @option opts [Array<String>] :lifecycle_state A cluster lifecycle state to filter on. Can have multiple parameters of this name.
     #   Allowed values are: CREATING, ACTIVE, FAILED, DELETING, DELETED, UPDATING
     # @option opts [String] :name The name to filter on.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The optional order in which to sort the results.
     # @option opts [String] :sort_by The optional field to sort the results by.
@@ -874,9 +879,12 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :cluster_id The OCID of the cluster.
     # @option opts [String] :name The name to filter on.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The optional order in which to sort the results.
     # @option opts [String] :sort_by The optional field to sort the results by.
@@ -1072,9 +1080,12 @@ module OCI
     #   Allowed values are: CLUSTER, NODEPOOL
     # @option opts [Array<String>] :status A work request status to filter on. Can have multiple parameters of this name.
     #   Allowed values are: ACCEPTED, IN_PROGRESS, FAILED, SUCCEEDED, CANCELING, CANCELED
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The optional order in which to sort the results.
     # @option opts [String] :sort_by The optional field to sort the results by.

@@ -22,6 +22,10 @@ module OCI
     # @return [String]
     attr_accessor :kubernetes_version
 
+    # A list of key/value pairs to add to each underlying OCI instance in the node pool.
+    # @return [Hash<String, String>]
+    attr_accessor :node_metadata
+
     # **[Required]** The name of the image running on the nodes in the node pool.
     # @return [String]
     attr_accessor :node_image_name
@@ -54,6 +58,7 @@ module OCI
         'cluster_id': :'clusterId',
         'name': :'name',
         'kubernetes_version': :'kubernetesVersion',
+        'node_metadata': :'nodeMetadata',
         'node_image_name': :'nodeImageName',
         'node_shape': :'nodeShape',
         'initial_node_labels': :'initialNodeLabels',
@@ -72,6 +77,7 @@ module OCI
         'cluster_id': :'String',
         'name': :'String',
         'kubernetes_version': :'String',
+        'node_metadata': :'Hash<String, String>',
         'node_image_name': :'String',
         'node_shape': :'String',
         'initial_node_labels': :'Array<OCI::ContainerEngine::Models::KeyValue>',
@@ -92,6 +98,7 @@ module OCI
     # @option attributes [String] :cluster_id The value to assign to the {#cluster_id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
+    # @option attributes [Hash<String, String>] :node_metadata The value to assign to the {#node_metadata} property
     # @option attributes [String] :node_image_name The value to assign to the {#node_image_name} property
     # @option attributes [String] :node_shape The value to assign to the {#node_shape} property
     # @option attributes [Array<OCI::ContainerEngine::Models::KeyValue>] :initial_node_labels The value to assign to the {#initial_node_labels} property
@@ -123,6 +130,12 @@ module OCI
       raise 'You cannot provide both :kubernetesVersion and :kubernetes_version' if attributes.key?(:'kubernetesVersion') && attributes.key?(:'kubernetes_version')
 
       self.kubernetes_version = attributes[:'kubernetes_version'] if attributes[:'kubernetes_version']
+
+      self.node_metadata = attributes[:'nodeMetadata'] if attributes[:'nodeMetadata']
+
+      raise 'You cannot provide both :nodeMetadata and :node_metadata' if attributes.key?(:'nodeMetadata') && attributes.key?(:'node_metadata')
+
+      self.node_metadata = attributes[:'node_metadata'] if attributes[:'node_metadata']
 
       self.node_image_name = attributes[:'nodeImageName'] if attributes[:'nodeImageName']
 
@@ -176,6 +189,7 @@ module OCI
         cluster_id == other.cluster_id &&
         name == other.name &&
         kubernetes_version == other.kubernetes_version &&
+        node_metadata == other.node_metadata &&
         node_image_name == other.node_image_name &&
         node_shape == other.node_shape &&
         initial_node_labels == other.initial_node_labels &&
@@ -197,7 +211,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cluster_id, name, kubernetes_version, node_image_name, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids].hash
+      [compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_name, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
