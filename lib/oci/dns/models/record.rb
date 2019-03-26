@@ -4,7 +4,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A DNS resource record. For more information about DNS records, see [RFC 1034](https://tools.ietf.org/html/rfc1034#section-3.6).
+  # A DNS resource record. For more information, see
+  # [Supported DNS Resource Record Types](https://docs.cloud.oracle.com/iaas/Content/DNS/Reference/supporteddnsresource.htm).
+  #
   class Dns::Models::Record # rubocop:disable Metrics/LineLength
     # The fully qualified domain name where the record can be located.
     #

@@ -7,10 +7,12 @@ require 'logger'
 module OCI
   # Pre-authenticated requests provide a way to let users access a bucket or an object without having their own credentials.
   # When you create a pre-authenticated request, a unique URL is generated. Users in your organization, partners, or third
-  # parties can use this URL to access the targets identified in the pre-authenticated request. See [Managing Access to Buckets and Objects](https://docs.cloud.oracle.com/Content/Object/Tasks/managingaccess.htm).
+  # parties can use this URL to access the targets identified in the pre-authenticated request.
+  # See [Using Pre-Authenticated Requests](https://docs.cloud.oracle.com/Content/Object/Tasks/usingpreauthenticatedrequests.htm).
   #
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator.
-  # If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+  # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized, talk to an
+  # administrator. If you are an administrator who needs to write policies to give users access, see
+  # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::PreauthenticatedRequest # rubocop:disable Metrics/LineLength
     ACCESS_TYPE_ENUM = [
@@ -33,9 +35,8 @@ module OCI
     # @return [String]
     attr_accessor :access_uri
 
-    # The name of the object that is being granted access to by the pre-authenticated request. This can be null and
-    # if so, the pre-authenticated request grants access to the entire bucket. Avoid entering confidential information.
-    # Example: test/object1.log
+    # The name of the object that is being granted access to by the pre-authenticated request. Avoid entering confidential
+    # information. The object name can be null and if so, the pre-authenticated request grants access to the entire bucket.
     #
     # @return [String]
     attr_accessor :object_name
@@ -44,7 +45,8 @@ module OCI
     # @return [String]
     attr_reader :access_type
 
-    # **[Required]** The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/rfc/rfc3339). After this date the pre-authenticated request will no longer be valid.
+    # **[Required]** The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/rfc/rfc3339). After
+    # this date the pre-authenticated request will no longer be valid.
     #
     # @return [DateTime]
     attr_accessor :time_expires

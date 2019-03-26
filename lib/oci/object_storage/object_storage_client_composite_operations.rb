@@ -27,11 +27,11 @@ module OCI
     # Calls {OCI::ObjectStorage::ObjectStorageClient#copy_object} and then waits for the {OCI::ObjectStorage::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
-    # @param [OCI::ObjectStorage::Models::CopyObjectDetails] copy_object_details The source and destination for object to be copied.
+    # @param [OCI::ObjectStorage::Models::CopyObjectDetails] copy_object_details The source and destination of the object to be copied.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ObjectStorage::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ObjectStorage::ObjectStorageClient#copy_object}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

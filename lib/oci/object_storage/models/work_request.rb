@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A description of workRequest status
+  # A description of workRequest status.
   class ObjectStorage::Models::WorkRequest # rubocop:disable Metrics/LineLength
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_COPY_OBJECT = 'COPY_OBJECT'.freeze,
@@ -22,11 +22,11 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # type of the work request
+    # The type of work request.
     # @return [String]
     attr_reader :operation_type
 
-    # status of current work request.
+    # The status of the specified work request.
     # @return [String]
     attr_reader :status
 
@@ -34,10 +34,10 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The ocid of the compartment that contains the work request. Work requests should be scoped to
+    # The OCID of the compartment that contains the work request. Work requests should be scoped to
     # the same compartment as the resource the work request affects. If the work request affects multiple resources,
     # and those resources are not in the same compartment, it is up to the service team to pick the primary
-    # resource whose compartment should be used
+    # resource whose compartment should be used.
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -45,23 +45,24 @@ module OCI
     # @return [Array<OCI::ObjectStorage::Models::WorkRequestResource>]
     attr_accessor :resources
 
-    # Percentage of the request completed.
+    # Percentage of the work request completed.
     # @return [Float]
     attr_accessor :percent_complete
 
-    # The date and time the request was created, as described in
+    # The date and time the work request was created, as described in
     # [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
     #
     # @return [DateTime]
     attr_accessor :time_accepted
 
-    # The date and time the request was started, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339),
-    # section 14.29.
+    # The date and time the work request was started, as described in
+    # [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
     #
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The date and time the object was finished, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+    # The date and time the work request was finished, as described in
+    # [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
     #
     # @return [DateTime]
     attr_accessor :time_finished

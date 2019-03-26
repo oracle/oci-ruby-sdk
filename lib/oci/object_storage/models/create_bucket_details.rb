@@ -4,8 +4,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
-  # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
+  # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized,
+  # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::CreateBucketDetails # rubocop:disable Metrics/LineLength
@@ -20,8 +20,8 @@ module OCI
       STORAGE_TIER_ARCHIVE = 'Archive'.freeze
     ].freeze
 
-    # **[Required]** The name of the bucket. Valid characters are uppercase or lowercase letters,
-    # numbers, and dashes. Bucket names must be unique within the namespace. Avoid entering confidential information.
+    # **[Required]** The name of the bucket. Valid characters are uppercase or lowercase letters, numbers, and dashes.
+    # Bucket names must be unique within an Object Storage namespace. Avoid entering confidential information.
     # example: Example: my-new-bucket1
     #
     # @return [String]
@@ -66,7 +66,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of a KMS key id used to call KMS to generate data key, decrypt the encrypted data key
+    # The OCID of a KMS key id used to call KMS to generate the data key or decrypt the encrypted data key.
     # @return [String]
     attr_accessor :kms_key_id
 

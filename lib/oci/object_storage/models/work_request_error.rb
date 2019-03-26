@@ -6,17 +6,17 @@ require 'date'
 module OCI
   # WorkRequestError model.
   class ObjectStorage::Models::WorkRequestError # rubocop:disable Metrics/LineLength
-    # A machine-usable code for the error that occured. Error codes are listed on
-    # (https://docs.cloud.oracle.com/Content/API/References/apierrors.htm)
+    # A machine-usable code for the error that occurred. For the list of error codes,
+    # see [API Errors](https://docs.cloud.oracle.com/Content/API/References/apierrors.htm).
     #
     # @return [String]
     attr_accessor :code
 
-    # A human readable description of the issue encountered.
+    # A human-readable description of the issue that produced the error.
     # @return [String]
     attr_accessor :message
 
-    # The time the error happened
+    # The time the error occurred.
     # @return [DateTime]
     attr_accessor :timestamp
 

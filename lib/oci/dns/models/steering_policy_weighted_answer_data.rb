@@ -6,9 +6,14 @@ require 'date'
 module OCI
   # SteeringPolicyWeightedAnswerData model.
   class Dns::Models::SteeringPolicyWeightedAnswerData # rubocop:disable Metrics/LineLength
+    # An expression that is used to select a set of answers that match a condition. For example, answers with matching pool properties.
+    #
     # @return [String]
     attr_accessor :answer_condition
 
+    # **[Required]** The weight assigned to the set of selected answers. Answers with a higher weight will be served
+    # more frequently. Answers can be given a value between `0` and `255`.
+    #
     # @return [Integer]
     attr_accessor :value
 

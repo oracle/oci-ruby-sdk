@@ -18,19 +18,19 @@ module OCI
       ACTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The status that a work request can present
+    # The status of the work request.
     # @return [String]
     attr_reader :action_type
 
-    # The resource type the work request is affects.
+    # The resource type the work request affects.
     # @return [String]
     attr_accessor :entity_type
 
-    # The identifier of the resource the work request affects.
+    # The resource type identifier.
     # @return [String]
     attr_accessor :identifier
 
-    # The URI path that the user can do a GET on to access the resource metadata
+    # The URI path that you can use for a GET request to access the resource metadata.
     # @return [String]
     attr_accessor :entity_uri
 

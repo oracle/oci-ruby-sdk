@@ -4,8 +4,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
-  # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
+  # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized,
+  # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::RenameObjectDetails # rubocop:disable Metrics/LineLength
@@ -17,15 +17,15 @@ module OCI
     # @return [String]
     attr_accessor :new_name
 
-    # The if-match entity tag of the source object.
+    # The if-match entity tag (ETag) of the source object.
     # @return [String]
     attr_accessor :src_obj_if_match_e_tag
 
-    # The if-match entity tag of the new object.
+    # The if-match entity tag (ETag) of the new object.
     # @return [String]
     attr_accessor :new_obj_if_match_e_tag
 
-    # The if-none-match entity tag of the new object.
+    # The if-none-match entity tag (ETag) of the new object.
     # @return [String]
     attr_accessor :new_obj_if_none_match_e_tag
 

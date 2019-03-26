@@ -9,8 +9,8 @@ module OCI
   # The compartment has policies that indicate what actions a user can perform on a bucket and all the objects in the bucket. For more
   # information, see [Managing Buckets](https://docs.cloud.oracle.com/Content/Object/Tasks/managingbuckets.htm).
   #
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
-  # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
+  # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized,
+  # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::Bucket # rubocop:disable Metrics/LineLength
@@ -27,7 +27,7 @@ module OCI
       STORAGE_TIER_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The namespace in which the bucket lives.
+    # **[Required]** The Object Storage namespace in which the bucket lives.
     # @return [String]
     attr_accessor :namespace
 
@@ -53,7 +53,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The entity tag for the bucket.
+    # **[Required]** The entity tag (ETag) for the bucket.
     # @return [String]
     attr_accessor :etag
 
@@ -66,10 +66,10 @@ module OCI
     # @return [String]
     attr_reader :public_access_type
 
-    # The type of storage tier of this bucket.
-    # A bucket is set to 'Standard' tier by default, which means the bucket will be put in the standard storage tier.
-    # When 'Archive' tier type is set explicitly, the bucket is put in the archive storage tier. The 'storageTier'
-    # property is immutable after bucket is created.
+    # The storage tier type assigned to the bucket. A bucket is set to 'Standard' tier by default, which means
+    # objects uploaded or copied to the bucket will be in the standard storage tier. When the 'Archive' tier type
+    # is set explicitly for a bucket, objects uploaded or copied to the bucket will be stored in archive storage.
+    # The 'storageTier' property is immutable after bucket is created.
     #
     # @return [String]
     attr_reader :storage_tier
@@ -88,11 +88,12 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of a KMS key id used to call KMS to generate data key, decrypt the encrypted data key
+    # The OCID of a KMS key id used to call KMS to generate data key or decrypt the encrypted data key.
+    #
     # @return [String]
     attr_accessor :kms_key_id
 
-    # The entity tag for the live object lifecycle policy on the bucket.
+    # The entity tag (ETag) for the live object lifecycle policy on the bucket.
     # @return [String]
     attr_accessor :object_lifecycle_policy_etag
 
@@ -102,7 +103,7 @@ module OCI
     # @return [Integer]
     attr_accessor :approximate_count
 
-    # The approximate total size of all objects in the bucket. Size statistics are reported periodically. You will
+    # The approximate total size in bytes of all objects in the bucket. Size statistics are reported periodically. You will
     # see a lag between what is displayed and the actual size of the bucket.
     #
     # @return [Integer]
