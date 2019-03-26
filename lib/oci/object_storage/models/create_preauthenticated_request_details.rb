@@ -13,11 +13,13 @@ module OCI
       ACCESS_TYPE_ANY_OBJECT_WRITE = 'AnyObjectWrite'.freeze
     ].freeze
 
-    # **[Required]** A user-specified name for the pre-authenticated request. Helpful for management purposes.
+    # **[Required]** A user-specified name for the pre-authenticated request. Names can be helpful in managing pre-authenticated requests.
     # @return [String]
     attr_accessor :name
 
-    # The name of object that is being granted access to by the pre-authenticated request. This can be null and if it is, the pre-authenticated request grants access to the entire bucket.
+    # The name of the object that is being granted access to by the pre-authenticated request. Avoid entering confidential
+    # information. The object name can be null and if so, the pre-authenticated request grants access to the entire bucket.
+    #
     # @return [String]
     attr_accessor :object_name
 
@@ -25,7 +27,8 @@ module OCI
     # @return [String]
     attr_reader :access_type
 
-    # **[Required]** The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/rfc/rfc3339). After this date the pre-authenticated request will no longer be valid.
+    # **[Required]** The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+    # After this date the pre-authenticated request will no longer be valid.
     #
     # @return [DateTime]
     attr_accessor :time_expires

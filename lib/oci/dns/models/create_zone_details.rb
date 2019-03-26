@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # The body for defining a new zone.
   #
-  # *Warning:* Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Dns::Models::CreateZoneDetails # rubocop:disable Metrics/LineLength
     ZONE_TYPE_ENUM = [
@@ -27,15 +27,20 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # Simple key-value pair that is applied without any predefined name, type, or scope.
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    # Example: `{\"bar-key\": \"value\"}`
+    #
+    #
+    # **Example:** `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Usage of predefined tag keys. These predefined keys are scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    #
+    # **Example:** `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

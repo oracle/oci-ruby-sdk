@@ -4,8 +4,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
-  # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
+  # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized,
+  # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::UpdateBucketDetails # rubocop:disable Metrics/LineLength
@@ -15,7 +15,7 @@ module OCI
       PUBLIC_ACCESS_TYPE_OBJECT_READ_WITHOUT_LIST = 'ObjectReadWithoutList'.freeze
     ].freeze
 
-    # The namespace in which the bucket lives.
+    # The Object Storage namespace in which the bucket lives.
     # @return [String]
     attr_accessor :namespace
 
@@ -56,9 +56,9 @@ module OCI
     attr_accessor :defined_tags
 
     # A KMS key OCID that will be associated with the given bucket. If it is empty the Update operation will
-    # actually remove the KMS key, if there is one, from the given bucket. Please note, the old kms key should
+    # actually remove the KMS key, if there is one, from the given bucket. Note that the old kms key should
     # still be enbaled in KMS otherwise all the objects in the bucket encrypted with the old KMS key will no
-    # longer accessible.
+    # longer be accessible.
     #
     # @return [String]
     attr_accessor :kms_key_id

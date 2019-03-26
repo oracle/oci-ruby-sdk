@@ -4,12 +4,12 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
-  # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
+  # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized,
+  # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::BucketSummary # rubocop:disable Metrics/LineLength
-    # **[Required]** The namespace in which the bucket lives.
+    # **[Required]** The Object Storage namespace in which the bucket lives.
     # @return [String]
     attr_accessor :namespace
 
@@ -31,7 +31,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The entity tag for the bucket.
+    # **[Required]** The entity tag (ETag) for the bucket.
     # @return [String]
     attr_accessor :etag
 

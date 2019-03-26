@@ -4,8 +4,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A filter that compares object names to a set of object name prefixes to determine if a rule applies to a
-  # given object.
+  # A filter that compares object names to a set of prefixes or patterns to determine if a rule applies to a
+  # given object. The filter can contain include glob patterns, exclude glob patterns and inclusion prefixes.
+  # The inclusion prefixes property is kept for backward compatibility. It is recommended to use inclusion patterns
+  # instead of prefixes. Exclusions take precedence over inclusions.
   #
   class ObjectStorage::Models::ObjectNameFilter # rubocop:disable Metrics/LineLength
     # An array of object name prefixes that the rule will apply to. An empty array means to include all objects.
@@ -13,11 +15,61 @@ module OCI
     # @return [Array<String>]
     attr_accessor :inclusion_prefixes
 
+    # An array of glob patterns to match the object names to include. An empty array includes all objects in the
+    # bucket. Exclusion patterns take precedence over inclusion patterns.
+    # A Glob pattern is a sequence of characters to match text. Any character that appears in the pattern, other
+    # than the special pattern characters described below, matches itself.
+    #     Glob patterns must be between 1 and 1024 characters.
+    #
+    #     The special pattern characters have the following meanings:
+    #
+    #     \\           Escapes the following character
+    #     *           Matches any string of characters.
+    #     ?           Matches any single character .
+    #     [...]       Matches a group of characters. A group of characters can be:
+    #                     A set of characters, for example: [Zafg9@]. This matches any character in the brackets.
+    #                     A range of characters, for example: [a-z]. This matches any character in the range.
+    #                         [a-f] is equivalent to [abcdef].
+    #                         For character ranges only the CHARACTER-CHARACTER pattern is supported.
+    #                             [ab-yz] is not valid
+    #                             [a-mn-z] is not valid
+    #                         Character ranges can not start with ^ or :
+    #                         To include a '-' in the range, make it the first or last character.
+    #
+    # @return [Array<String>]
+    attr_accessor :inclusion_patterns
+
+    # An array of glob patterns to match the object names to exclude. An empty array is ignored. Exclusion
+    # patterns take precedence over inclusion patterns.
+    # A Glob pattern is a sequence of characters to match text. Any character that appears in the pattern, other
+    # than the special pattern characters described below, matches itself.
+    #     Glob patterns must be between 1 and 1024 characters.
+    #
+    #     The special pattern characters have the following meanings:
+    #
+    #     \\           Escapes the following character
+    #     *           Matches any string of characters.
+    #     ?           Matches any single character .
+    #     [...]       Matches a group of characters. A group of characters can be:
+    #                     A set of characters, for example: [Zafg9@]. This matches any character in the brackets.
+    #                     A range of characters, for example: [a-z]. This matches any character in the range.
+    #                         [a-f] is equivalent to [abcdef].
+    #                         For character ranges only the CHARACTER-CHARACTER pattern is supported.
+    #                             [ab-yz] is not valid
+    #                             [a-mn-z] is not valid
+    #                         Character ranges can not start with ^ or :
+    #                         To include a '-' in the range, make it the first or last character.
+    #
+    # @return [Array<String>]
+    attr_accessor :exclusion_patterns
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'inclusion_prefixes': :'inclusionPrefixes'
+        'inclusion_prefixes': :'inclusionPrefixes',
+        'inclusion_patterns': :'inclusionPatterns',
+        'exclusion_patterns': :'exclusionPatterns'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -26,7 +78,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'inclusion_prefixes': :'Array<String>'
+        'inclusion_prefixes': :'Array<String>',
+        'inclusion_patterns': :'Array<String>',
+        'exclusion_patterns': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,6 +92,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<String>] :inclusion_prefixes The value to assign to the {#inclusion_prefixes} property
+    # @option attributes [Array<String>] :inclusion_patterns The value to assign to the {#inclusion_patterns} property
+    # @option attributes [Array<String>] :exclusion_patterns The value to assign to the {#exclusion_patterns} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -49,6 +105,18 @@ module OCI
       raise 'You cannot provide both :inclusionPrefixes and :inclusion_prefixes' if attributes.key?(:'inclusionPrefixes') && attributes.key?(:'inclusion_prefixes')
 
       self.inclusion_prefixes = attributes[:'inclusion_prefixes'] if attributes[:'inclusion_prefixes']
+
+      self.inclusion_patterns = attributes[:'inclusionPatterns'] if attributes[:'inclusionPatterns']
+
+      raise 'You cannot provide both :inclusionPatterns and :inclusion_patterns' if attributes.key?(:'inclusionPatterns') && attributes.key?(:'inclusion_patterns')
+
+      self.inclusion_patterns = attributes[:'inclusion_patterns'] if attributes[:'inclusion_patterns']
+
+      self.exclusion_patterns = attributes[:'exclusionPatterns'] if attributes[:'exclusionPatterns']
+
+      raise 'You cannot provide both :exclusionPatterns and :exclusion_patterns' if attributes.key?(:'exclusionPatterns') && attributes.key?(:'exclusion_patterns')
+
+      self.exclusion_patterns = attributes[:'exclusion_patterns'] if attributes[:'exclusion_patterns']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -62,7 +130,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        inclusion_prefixes == other.inclusion_prefixes
+        inclusion_prefixes == other.inclusion_prefixes &&
+        inclusion_patterns == other.inclusion_patterns &&
+        exclusion_patterns == other.exclusion_patterns
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -78,7 +148,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [inclusion_prefixes].hash
+      [inclusion_prefixes, inclusion_patterns, exclusion_patterns].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

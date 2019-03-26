@@ -6,10 +6,12 @@ require 'date'
 module OCI
   # SteeringPolicyFilterAnswerData model.
   class Dns::Models::SteeringPolicyFilterAnswerData # rubocop:disable Metrics/LineLength
+    # An expression that is used to select a set of answers that match a condition. For example, answers with matching pool properties.
+    #
     # @return [String]
     attr_accessor :answer_condition
 
-    # Keep the answer if the value is `true`.
+    # Keeps the answer only if the value is `true`.
     # @return [BOOLEAN]
     attr_accessor :should_keep
 

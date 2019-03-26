@@ -6,12 +6,12 @@ require 'date'
 module OCI
   # RestoreObjectsDetails model.
   class ObjectStorage::Models::RestoreObjectsDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** An object which is in archive-tier storage and needs to be restored.
+    # **[Required]** An object that is in an archive storage tier and needs to be restored.
     # @return [String]
     attr_accessor :object_name
 
     # The number of hours for which this object will be restored.
-    # By default objects will be restored for 24 hours. Duration can be configured using the hours parameter.
+    # By default objects will be restored for 24 hours. You can instead configure the duration using the hours parameter.
     #
     # @return [Integer]
     attr_accessor :hours

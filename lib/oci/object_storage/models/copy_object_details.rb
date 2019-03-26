@@ -4,47 +4,56 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
-  # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
+  # The parameters required by Object Storage to process a request to copy an object to another bucket.
+  #
+  # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized,
+  # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::CopyObjectDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The name of the object to be copied
+    # **[Required]** The name of the object to be copied.
     # @return [String]
     attr_accessor :source_object_name
 
-    # The entity tag to match the target object.
+    # The entity tag (ETag) to match against that of the source object. Used to confirm that the source object
+    # with a given name is the version of that object storing a specified ETag.
+    #
     # @return [String]
     attr_accessor :source_object_if_match_e_tag
 
-    # **[Required]** The destination region object will be copied to. Please specify name of the region, for example \"us-ashburn-1\".
+    # **[Required]** The destination region the object will be copied to, for example \"us-ashburn-1\".
     # @return [String]
     attr_accessor :destination_region
 
-    # **[Required]** The destination namespace object will be copied to.
+    # **[Required]** The destination Object Storage namespace the object will be copied to.
     # @return [String]
     attr_accessor :destination_namespace
 
-    # **[Required]** The destination bucket object will be copied to.
+    # **[Required]** The destination bucket the object will be copied to.
     # @return [String]
     attr_accessor :destination_bucket
 
-    # **[Required]** The destination name for the copy object.
+    # **[Required]** The name of the destination object resulting from the copy operation.
     # @return [String]
     attr_accessor :destination_object_name
 
-    # The entity tag to match the target object.
+    # The entity tag (ETag) to match against that of the destination object (an object intended to be overwritten).
+    # Used to confirm that the destination object stored under a given name is the version of that object
+    # storing a specified entity tag.
+    #
     # @return [String]
     attr_accessor :destination_object_if_match_e_tag
 
-    # The entity tag to not match the target object.
+    # The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail
+    # if the object already exists in the destination bucket.
+    #
     # @return [String]
     attr_accessor :destination_object_if_none_match_e_tag
 
     # Arbitrary string keys and values for the user-defined metadata for the object. Keys must be in
-    # \"opc-meta-*\" format. Avoid entering confidential information. If user enter value in this field, the value
-    # will become the object metadata for destination Object. If no value pass in, the destination object will have
-    # the exact object metadata as source object.
+    # \"opc-meta-*\" format. Avoid entering confidential information. Metadata key-value pairs entered
+    # in this field are assigned to the destination object. If you enter no metadata values, the destination
+    # object will inherit any existing metadata values associated with the source object.
     #
     # @return [Hash<String, String>]
     attr_accessor :destination_object_metadata

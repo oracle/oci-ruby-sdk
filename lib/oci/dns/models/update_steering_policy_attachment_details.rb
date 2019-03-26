@@ -5,9 +5,13 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # The body for updating a steering policy attachment.
+  #
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  #
   class Dns::Models::UpdateSteeringPolicyAttachmentDetails # rubocop:disable Metrics/LineLength
     # A user-friendly name for the steering policy attachment.
-    # Does not have to be unique, and it's changeable.
+    # Does not have to be unique and can be changed.
     # Avoid entering confidential information.
     #
     # @return [String]

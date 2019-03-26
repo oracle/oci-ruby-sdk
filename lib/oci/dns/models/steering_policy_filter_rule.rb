@@ -7,13 +7,22 @@ require_relative 'steering_policy_rule'
 module OCI
   # SteeringPolicyFilterRule model.
   class Dns::Models::SteeringPolicyFilterRule < Dns::Models::SteeringPolicyRule # rubocop:disable Metrics/LineLength
+    # An array of `caseConditions`. A rule may optionally include a sequence of cases defining alternate
+    # configurations for how it should behave during processing for any given DNS query. When a rule has
+    # no sequence of `cases`, it is always evaluated with the same configuration during processing. When
+    # a rule has an empty sequence of `cases`, it is always ignored during processing. When a rule has a
+    # non-empty sequence of `cases`, its behavior during processing is configured by the first matching
+    # `case` in the sequence. When a rule has no matching cases the rule is ignored. A rule case with no
+    # `caseCondition` always matches. A rule case with a `caseCondition` matches only when that expression
+    # evaluates to true for the given query.
+    #
     # @return [Array<OCI::Dns::Models::SteeringPolicyFilterRuleCase>]
     attr_accessor :cases
 
     # Defines a default set of answer conditions and values that are applied to an answer when
-    # `cases` is not defined for the rule or a matching case does not have any matching
-    # `answerCondition`s in its `answerData`. `defaultAnswerData` is **not** applied if `cases` is
-    # defined and there are no matching cases.
+    # `cases` is not defined for the rule, or a matching case does not have any matching
+    # `answerCondition`s in its `answerData`. `defaultAnswerData` is not applied if `cases` is
+    # defined and there are no matching cases. In this scenario, the next rule will be processed.
     #
     # @return [Array<OCI::Dns::Models::SteeringPolicyFilterAnswerData>]
     attr_accessor :default_answer_data

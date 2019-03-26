@@ -4,18 +4,18 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A NamespaceMetadata is a map for storing namespace and defaultS3CompartmentId, defaultSwiftCompartmentId.
+  # NamespaceMetadata maps a namespace string to defaultS3CompartmentId and defaultSwiftCompartmentId values.
   #
   class ObjectStorage::Models::NamespaceMetadata # rubocop:disable Metrics/LineLength
-    # **[Required]** The namespace to which the metadata belongs.
+    # **[Required]** The Object Storage namespace to which the metadata belongs.
     # @return [String]
     attr_accessor :namespace
 
-    # **[Required]** The default compartment ID for an S3 client.
+    # **[Required]** If the field is set, specifies the default compartment assignment for the Amazon S3 Compatibility API.
     # @return [String]
     attr_accessor :default_s3_compartment_id
 
-    # **[Required]** The default compartment ID for a Swift client.
+    # **[Required]** If the field is set, specifies the default compartment assignment for the Swift API.
     # @return [String]
     attr_accessor :default_swift_compartment_id
 

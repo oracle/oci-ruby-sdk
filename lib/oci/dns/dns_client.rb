@@ -109,7 +109,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new steering policy in the specified compartment.
+    # Creates a new steering policy in the specified compartment. For more information on
+    # creating policies with templates, see [Traffic Management API Guide](https://docs.cloud.oracle.com/iaas/Content/TrafficManagement/Concepts/trafficmanagementapi.htm).
     #
     # @param [OCI::Dns::Models::CreateSteeringPolicyDetails] create_steering_policy_details Details for creating a new steering policy.
     # @param [Hash] opts the optional parameters
@@ -169,9 +170,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new attachment between a steering policy and a domain.
+    # Creates a new attachment between a steering policy and a domain, giving the
+    # policy permission to answer queries for the specified domain. A steering policy must
+    # be attached to a domain for the policy to answer DNS queries for that domain.
+    #
     # For the purposes of access control, the attachment is automatically placed
-    # into the same compartment as the containing zone of the domain.
+    # into the same compartment as the domain's zone.
     #
     # @param [OCI::Dns::Models::CreateSteeringPolicyAttachmentDetails] create_steering_policy_attachment_details Details for creating a new steering policy attachment.
     # @param [Hash] opts the optional parameters
@@ -430,7 +434,8 @@ module OCI
 
     # Deletes the specified steering policy.
     # A `204` response indicates that the delete has been successful.
-    # Deletion will fail if the policy is attached to any zones.
+    # Deletion will fail if the policy is attached to any zones. To detach a
+    # policy from a zone, see `DeleteSteeringPolicyAttachment`.
     #
     # @param [String] steering_policy_id The OCID of the target steering policy.
     # @param [Hash] opts the optional parameters
@@ -1123,7 +1128,7 @@ module OCI
     #   (case-insensitive) contains the provided value.
     #
     # @option opts [String] :health_check_monitor_id Search by health check monitor OCID.
-    #   Will match any resource whose health check monitor id matches the provided value.
+    #   Will match any resource whose health check monitor ID matches the provided value.
     #
     # @option opts [DateTime] :time_created_greater_than_or_equal_to An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created on or after the indicated time.
@@ -1131,11 +1136,11 @@ module OCI
     # @option opts [DateTime] :time_created_less_than An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created before the indicated time.
     #
-    # @option opts [String] :template Search by template type.
+    # @option opts [String] :template Search by steering template type.
     #   Will match any resource whose template type matches the provided value.
     #
     # @option opts [String] :lifecycle_state The state of a resource.
-    # @option opts [String] :sort_by The field by which to sort steering policies. (default to timeCreated)
+    # @option opts [String] :sort_by The field by which to sort steering policies. If unspecified, defaults to `timeCreated`. (default to timeCreated)
     #   Allowed values are: displayName, timeCreated, template
     # @option opts [String] :sort_order The order to sort the resources.
     #
@@ -1222,10 +1227,10 @@ module OCI
     # @option opts [String] :id The OCID of a resource.
     # @option opts [String] :display_name The displayName of a resource.
     # @option opts [String] :steering_policy_id Search by steering policy OCID.
-    #   Will match any resource whose steering policy id matches the provided value.
+    #   Will match any resource whose steering policy ID matches the provided value.
     #
     # @option opts [String] :zone_id Search by zone OCID.
-    #   Will match any resource whose zone id matches the provided value.
+    #   Will match any resource whose zone ID matches the provided value.
     #
     # @option opts [String] :domain Search by domain.
     #   Will match any record whose domain (case-insensitive) equals the provided value.
@@ -1240,7 +1245,7 @@ module OCI
     #   all returned resources were created before the indicated time.
     #
     # @option opts [String] :lifecycle_state The state of a resource.
-    # @option opts [String] :sort_by The field by which to sort steering policy attachments. (default to timeCreated)
+    # @option opts [String] :sort_by The field by which to sort steering policy attachments. If unspecified, defaults to `timeCreated`. (default to timeCreated)
     #   Allowed values are: displayName, timeCreated, domainName
     # @option opts [String] :sort_order The order to sort the resources.
     #
@@ -1420,7 +1425,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates records in the specified zone at a domain. You can update one record or all records for the specified zone depending on the changes provided in the request body. You can also add or remove records using this function.
+    # Updates records in the specified zone at a domain. You can update
+    # one record or all records for the specified zone depending on the changes
+    # provided in the request body. You can also add or remove records using this
+    # function.
+    #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [OCI::Dns::Models::PatchDomainRecordsDetails] patch_domain_records_details Operations describing how to modify the collection of records.
@@ -1794,7 +1803,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified steering policy with your new information.
+    # Updates the configuration of the specified steering policy.
     #
     # @param [String] steering_policy_id The OCID of the target steering policy.
     # @param [OCI::Dns::Models::UpdateSteeringPolicyDetails] update_steering_policy_details New data for the steering policy.

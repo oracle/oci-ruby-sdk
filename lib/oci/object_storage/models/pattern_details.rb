@@ -4,27 +4,63 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized,
-  # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
-  # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+  # Specifying inclusion and exclusion patterns.
   #
-  class ObjectStorage::Models::CommitMultipartUploadDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The part numbers and entity tags (ETags) for the parts to be committed.
-    # @return [Array<OCI::ObjectStorage::Models::CommitMultipartUploadPartDetails>]
-    attr_accessor :parts_to_commit
-
-    # The part numbers for the parts to be excluded from the completed object.
-    # Each part created for this upload must be in either partsToExclude or partsToCommit, but cannot be in both.
+  class ObjectStorage::Models::PatternDetails # rubocop:disable Metrics/LineLength
+    # An array of glob patterns to match the object names to include. An empty array includes all objects in the
+    # bucket. Exclusion patterns take precedence over inclusion patterns.
+    # A Glob pattern is a sequence of characters to match text. Any character that appears in the pattern, other
+    # than the special pattern characters described below, matches itself.
+    #     Glob patterns must be between 1 and 1024 characters.
     #
-    # @return [Array<Integer>]
-    attr_accessor :parts_to_exclude
+    #     The special pattern characters have the following meanings:
+    #
+    #     \\           Escapes the following character
+    #     *           Matches any string of characters.
+    #     ?           Matches any single character .
+    #     [...]       Matches a group of characters. A group of characters can be:
+    #                     A set of characters, for example: [Zafg9@]. This matches any character in the brackets.
+    #                     A range of characters, for example: [a-z]. This matches any character in the range.
+    #                         [a-f] is equivalent to [abcdef].
+    #                         For character ranges only the CHARACTER-CHARACTER pattern is supported.
+    #                             [ab-yz] is not valid
+    #                             [a-mn-z] is not valid
+    #                         Character ranges can not start with ^ or :
+    #                         To include a '-' in the range, make it the first or last character.
+    #
+    # @return [Array<String>]
+    attr_accessor :inclusion_patterns
+
+    # An array of glob patterns to match the object names to exclude. An empty array is ignored. Exclusion
+    # patterns take precedence over inclusion patterns.
+    # A Glob pattern is a sequence of characters to match text. Any character that appears in the pattern, other
+    # than the special pattern characters described below, matches itself.
+    #     Glob patterns must be between 1 and 1024 characters.
+    #
+    #     The special pattern characters have the following meanings:
+    #
+    #     \\           Escapes the following character
+    #     *           Matches any string of characters.
+    #     ?           Matches any single character .
+    #     [...]       Matches a group of characters. A group of characters can be:
+    #                     A set of characters, for example: [Zafg9@]. This matches any character in the brackets.
+    #                     A range of characters, for example: [a-z]. This matches any character in the range.
+    #                         [a-f] is equivalent to [abcdef].
+    #                         For character ranges only the CHARACTER-CHARACTER pattern is supported.
+    #                             [ab-yz] is not valid
+    #                             [a-mn-z] is not valid
+    #                         Character ranges can not start with ^ or :
+    #                         To include a '-' in the range, make it the first or last character.
+    #
+    # @return [Array<String>]
+    attr_accessor :exclusion_patterns
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'parts_to_commit': :'partsToCommit',
-        'parts_to_exclude': :'partsToExclude'
+        'inclusion_patterns': :'inclusionPatterns',
+        'exclusion_patterns': :'exclusionPatterns'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -33,8 +69,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'parts_to_commit': :'Array<OCI::ObjectStorage::Models::CommitMultipartUploadPartDetails>',
-        'parts_to_exclude': :'Array<Integer>'
+        'inclusion_patterns': :'Array<String>',
+        'exclusion_patterns': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,25 +81,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Array<OCI::ObjectStorage::Models::CommitMultipartUploadPartDetails>] :parts_to_commit The value to assign to the {#parts_to_commit} property
-    # @option attributes [Array<Integer>] :parts_to_exclude The value to assign to the {#parts_to_exclude} property
+    # @option attributes [Array<String>] :inclusion_patterns The value to assign to the {#inclusion_patterns} property
+    # @option attributes [Array<String>] :exclusion_patterns The value to assign to the {#exclusion_patterns} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.parts_to_commit = attributes[:'partsToCommit'] if attributes[:'partsToCommit']
+      self.inclusion_patterns = attributes[:'inclusionPatterns'] if attributes[:'inclusionPatterns']
 
-      raise 'You cannot provide both :partsToCommit and :parts_to_commit' if attributes.key?(:'partsToCommit') && attributes.key?(:'parts_to_commit')
+      raise 'You cannot provide both :inclusionPatterns and :inclusion_patterns' if attributes.key?(:'inclusionPatterns') && attributes.key?(:'inclusion_patterns')
 
-      self.parts_to_commit = attributes[:'parts_to_commit'] if attributes[:'parts_to_commit']
+      self.inclusion_patterns = attributes[:'inclusion_patterns'] if attributes[:'inclusion_patterns']
 
-      self.parts_to_exclude = attributes[:'partsToExclude'] if attributes[:'partsToExclude']
+      self.exclusion_patterns = attributes[:'exclusionPatterns'] if attributes[:'exclusionPatterns']
 
-      raise 'You cannot provide both :partsToExclude and :parts_to_exclude' if attributes.key?(:'partsToExclude') && attributes.key?(:'parts_to_exclude')
+      raise 'You cannot provide both :exclusionPatterns and :exclusion_patterns' if attributes.key?(:'exclusionPatterns') && attributes.key?(:'exclusion_patterns')
 
-      self.parts_to_exclude = attributes[:'parts_to_exclude'] if attributes[:'parts_to_exclude']
+      self.exclusion_patterns = attributes[:'exclusion_patterns'] if attributes[:'exclusion_patterns']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -77,8 +113,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        parts_to_commit == other.parts_to_commit &&
-        parts_to_exclude == other.parts_to_exclude
+        inclusion_patterns == other.inclusion_patterns &&
+        exclusion_patterns == other.exclusion_patterns
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -94,7 +130,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [parts_to_commit, parts_to_exclude].hash
+      [inclusion_patterns, exclusion_patterns].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

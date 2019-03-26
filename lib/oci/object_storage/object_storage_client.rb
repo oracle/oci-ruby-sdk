@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The Object and Archive Storage APIs for managing buckets and objects.
+  # Common set of Object Storage and Archive Storage APIs for managing buckets, objects, and related resources.
   class ObjectStorage::ObjectStorageClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -110,7 +110,7 @@ module OCI
 
     # Aborts an in-progress multipart upload and deletes all parts that have been uploaded.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -174,7 +174,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancel a work request.
+    # Cancels a work request.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -227,9 +227,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Commits a multipart upload, which involves checking part numbers and ETags of the parts, to create an aggregate object.
+    # Commits a multipart upload, which involves checking part numbers and entity tags (ETags) of the parts, to create an aggregate object.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -237,15 +237,16 @@ module OCI
     #   Example: `test/object1.log`
     #
     # @param [String] upload_id The upload ID for a multipart upload.
-    # @param [OCI::ObjectStorage::Models::CommitMultipartUploadDetails] commit_multipart_upload_details The part numbers and ETags for the parts you want to commit.
+    # @param [OCI::ObjectStorage::Models::CommitMultipartUploadDetails] commit_multipart_upload_details The part numbers and entity tags (ETags) for the parts you want to commit.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
-    # @option opts [String] :if_none_match The entity tag to avoid matching. The only valid value is '*', which indicates that the request should fail if the object already exists.
-    #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
+    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
+    #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
@@ -303,12 +304,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create a request for copy object within or cross region
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # Creates a request to copy an object within a region or to another region.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
-    # @param [OCI::ObjectStorage::Models::CopyObjectDetails] copy_object_details The source and destination for object to be copied.
+    # @param [OCI::ObjectStorage::Models::CopyObjectDetails] copy_object_details The source and destination of the object to be copied.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -362,9 +364,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a bucket in the given namespace with a bucket name and optional user-defined metadata.
+    # Creates a bucket in the given namespace with a bucket name and optional user-defined metadata. Avoid entering
+    # confidential information in bucket names.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [OCI::ObjectStorage::Models::CreateBucketDetails] create_bucket_details Request object for creating a bucket.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -420,7 +423,7 @@ module OCI
 
     # Starts a new multipart upload to a specific object in the given bucket in the given namespace.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -428,11 +431,12 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
-    # @option opts [String] :if_none_match The entity tag to avoid matching. The only valid value is '*', which indicates that the request should fail if the object already exists.
-    #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
+    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
+    #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::MultipartUpload MultipartUpload}
@@ -489,7 +493,7 @@ module OCI
 
     # Creates a pre-authenticated request specific to the bucket.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -548,16 +552,18 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a bucket if it is already empty. If the bucket is not empty, use {#delete_object delete_object} first.
+    # Deletes a bucket if the bucket is already empty. If the bucket is not empty, use
+    # {#delete_object delete_object} first. You also cannot
+    # delete a bucket that has a pre-authenticated request associated with that bucket.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
@@ -612,7 +618,7 @@ module OCI
 
     # Deletes an object.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -622,7 +628,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
@@ -679,7 +685,7 @@ module OCI
 
     # Deletes the object lifecycle policy for the bucket.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -687,7 +693,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
     # @return [Response] A Response object with data of type nil
@@ -740,7 +746,7 @@ module OCI
 
 
     # Deletes the pre-authenticated request for the bucket.
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -801,25 +807,26 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the current representation of the given bucket in the given namespace.
+    # Gets the current representation of the given bucket in the given Object Storage namespace.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
-    # @option opts [String] :if_none_match The entity tag to avoid matching. The only valid value is '*', which indicates that the request should fail if the object already exists.
-    #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
+    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
+    #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [Array<String>] :fields Bucket summary includes the 'namespace', 'name', 'compartmentId', 'createdBy', 'timeCreated',
-    #   and 'etag' fields. This parameter can also include 'approximateCount' (Approximate number of objects) and 'approximateSize'
-    #   (total approximate size in bytes of all objects). For example 'approximateCount,approximateSize'
+    #   and 'etag' fields. This parameter can also include 'approximateCount' (approximate number of objects) and 'approximateSize'
+    #   (total approximate size in bytes of all objects). For example 'approximateCount,approximateSize'.
     #
     #   Allowed values are: approximateCount, approximateSize
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::Bucket Bucket}
@@ -884,7 +891,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the name of the namespace for the user making the request.
+    # Each Oracle Cloud Infrastructure tenant is assigned one unique and uneditable Object Storage namespace. The namespace
+    # is a system-generated string assigned during account creation. For some older tenancies, the namespace string may be
+    # the tenancy name in all lower-case letters. You cannot edit a namespace.
+    #
+    # GetNamespace returns the name of the Object Storage namespace for the user making the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -935,12 +946,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get the metadata for the namespace, which contains defaultS3CompartmentId and defaultSwiftCompartmentId.
-    # Any user with the NAMESPACE_READ permission will be able to see the current metadata. If you're not authorized,
-    # talk to an administrator. If you're an administrator who needs to write
-    # policies to give users access, see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+    # Gets the metadata for the Object Storage namespace, which contains defaultS3CompartmentId and
+    # defaultSwiftCompartmentId.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # Any user with the NAMESPACE_READ permission will be able to see the current metadata. If you are
+    # not authorized, talk to an administrator. If you are an administrator who needs to write policies
+    # to give users access, see
+    # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -994,7 +1008,7 @@ module OCI
 
     # Gets the metadata and body of an object.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -1004,11 +1018,12 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
-    # @option opts [String] :if_none_match The entity tag to avoid matching. The only valid value is '*', which indicates that the request should fail if the object already exists.
-    #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
+    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
+    #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :range Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/rfc/rfc7233), section 2.1.
@@ -1116,7 +1131,7 @@ module OCI
 
     # Gets the object lifecycle policy for the bucket.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -1174,7 +1189,7 @@ module OCI
 
 
     # Gets the pre-authenticated request for the bucket.
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -1236,7 +1251,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the status of the work request with the given ID.
+    # Gets the status of the work request for the given ID.
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1289,20 +1304,21 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Efficiently checks to see if a bucket exists and gets the current ETag for the bucket.
+    # Efficiently checks to see if a bucket exists and gets the current entity tag (ETag) for the bucket.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
-    # @option opts [String] :if_none_match The entity tag to avoid matching. The only valid value is '*', which indicates that the request should fail if the object already exists.
-    #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
+    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
+    #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
@@ -1355,9 +1371,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the user-defined metadata and entity tag for an object.
+    # Gets the user-defined metadata and entity tag (ETag) for an object.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -1367,11 +1383,12 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
-    # @option opts [String] :if_none_match The entity tag to avoid matching. The only valid value is '*', which indicates that the request should fail if the object already exists.
-    #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
+    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
+    #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
@@ -1426,14 +1443,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of all `BucketSummary`s in a compartment. A `BucketSummary` contains only summary fields for the bucket
+    # Gets a list of all BucketSummary items in a compartment. A BucketSummary contains only summary fields for the bucket
     # and does not contain fields like the user-defined metadata.
     #
-    # To use this and other API operations, you must be authorized in an IAM policy. If you're not authorized,
-    # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
+    # To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized,
+    # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
     # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] compartment_id The ID of the compartment in which to list buckets.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1510,7 +1527,7 @@ module OCI
 
     # Lists the parts of an in-progress multipart upload.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -1579,9 +1596,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all in-progress multipart uploads for the given bucket in the given namespace.
+    # Lists all of the in-progress multipart uploads for the given bucket in the given Object Storage namespace.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -1644,11 +1661,11 @@ module OCI
 
     # Lists the objects in a bucket.
     #
-    # To use this and other API operations, you must be authorized in an IAM policy. If you're not authorized,
-    # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
+    # To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized,
+    # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
     # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -1728,7 +1745,7 @@ module OCI
 
     # Lists pre-authenticated requests for the bucket.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -1963,9 +1980,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new object or overwrites an existing one.
+    # Creates a new object or overwrites an existing one. See [Special Instructions for Object Storage
+    # PUT](https://docs.cloud.oracle.com/Content/API/Concepts/signingrequests.htm#ObjectStoragePut) for request signature requirements.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -1977,11 +1995,12 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :content_length The content length of the body.
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
-    # @option opts [String] :if_none_match The entity tag to avoid matching. The only valid value is '*', which indicates that the request should fail if the object already exists.
-    #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
+    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
+    #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :expect 100-continue (default to 100-continue)
@@ -2058,7 +2077,7 @@ module OCI
 
     # Creates or replaces the object lifecycle policy for the bucket.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -2067,11 +2086,12 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
-    # @option opts [String] :if_none_match The entity tag to avoid matching. The only valid value is '*', which indicates that the request should fail if the object already exists.
-    #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
+    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
+    #   part, this is the entity tag of the target part.
     #
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ObjectLifecyclePolicy ObjectLifecyclePolicy}
     def put_object_lifecycle_policy(namespace_name, bucket_name, put_object_lifecycle_policy_details, opts = {})
@@ -2125,9 +2145,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Rename an object from source key to target key in the given namespace.
+    # Rename an object in the given Object Storage namespace.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -2185,10 +2205,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Restore one or more objects specified by the objectName parameter.
+    # Restores one or more objects specified by the objectName parameter.
     # By default objects will be restored for 24 hours. Duration can be configured using the hours parameter.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -2248,7 +2268,7 @@ module OCI
 
     # Performs a partial or full update of a bucket's user-defined metadata.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -2256,7 +2276,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
@@ -2311,12 +2331,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change the default Swift/S3 compartmentId of user's namespace into the user-defined compartmentId. Upon doing
-    # this, all subsequent bucket creations will use the new default compartment, but no previously created
-    # buckets will be modified. A user must have the NAMESPACE_UPDATE permission to make changes to the default
-    # compartments for S3 and Swift.
+    # By default, buckets created using the Amazon S3 Compatibility API or the Swift API are created in the root
+    # compartment of the Oracle Cloud Infrastructure tenancy.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # You can change the default Swift/Amazon S3 compartmentId designation to a different compartmentId. All
+    # subsequent bucket creations will use the new default compartment, but no previously created
+    # buckets will be modified. A user must have NAMESPACE_UPDATE permission to make changes to the default
+    # compartments for Amazon S3 and Swift.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [OCI::ObjectStorage::Models::UpdateNamespaceMetadataDetails] update_namespace_metadata_details Request object for update NamespaceMetadata.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2372,7 +2395,7 @@ module OCI
 
     # Uploads a single part of a multipart upload.
     #
-    # @param [String] namespace_name The top-level namespace used for the request.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
@@ -2381,17 +2404,18 @@ module OCI
     #
     # @param [String] upload_id The upload ID for a multipart upload.
     # @param [Integer] upload_part_num The part number that identifies the object part currently being uploaded.
-    # @param [String, IO] upload_part_body The part being uploaded to the Object Storage Service.
+    # @param [String, IO] upload_part_body The part being uploaded to the Object Storage service.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :content_length The content length of the body.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :if_match The entity tag to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
-    # @option opts [String] :if_none_match The entity tag to avoid matching. The only valid value is '*', which indicates that the request should fail if the object already exists.
-    #   For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
+    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
+    #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :expect 100-continue (default to 100-continue)
     # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body.

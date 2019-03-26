@@ -5,23 +5,17 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Configuration for sorting and/or filtering the list of remaining candidate answers, subject to
-  # rule type and the values of type-specific parameters and/or data associated with answers.
+  # The configuration of the sorting and filtering behaviors in a steering policy. Rules can
+  # filter and sort answers based on weight, priority, endpoint health, and other data.
+  #
   #
   # A rule may optionally include a sequence of cases, each with an optional `caseCondition`
-  # expression.  If it does, the first case with a matching `caseCondition` or with no
-  # `caseCondition` at all is used to set rule parameter values and/or answer-associated data,
-  # and the rule will be ignored during processing of any request that does not match any case.
-  # Rules without a sequence of cases are processed unconditionally, and rules with an _empty_
-  # sequence of cases are **ignored** unconditionally.
+  # expression. Cases allow a sequence of conditions to be defined that will apply different
+  # parameters to the rule when the conditions are met. For more information about cases,
+  # see [Traffic Management API Guide](https://docs.cloud.oracle.com/iaas/Content/TrafficManagement/Concepts/trafficmanagementapi.htm).
   #
-  # Data is associated with answers one-by-one in a similar fashion\u2014for each answer, the first
-  # answerData item with a matching `answerCondition` or with no `answerCondition` at all is used
-  # to associate data with the answer, and the absence of any such item associates with the answer
-  # a default value.  Rule-level default answer data is always processed, but case-level answer
-  # data will override it on a per-answer basis.
   #
-  # To prevent empty responses, any attempt to filter away all answers is suppressed at runtime.
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Dns::Models::SteeringPolicyRule # rubocop:disable Metrics/LineLength
@@ -34,22 +28,32 @@ module OCI
       RULE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Your description of the rule's purpose and/or behavior.
+    # A user-defined description of the rule's purpose or behavior.
     # @return [String]
     attr_accessor :description
 
     # **[Required]** The type of a rule determines its sorting/filtering behavior.
-    # - FILTER rules filter the list of answers (e.g., to remove those with hosts that are down
-    #   for maintenance). Answers remain if and only if their associated data is `true`.
-    # - HEALTH rules remove answers from the list if their `rdata` matches a target in the
+    # * `FILTER` - Filters the list of answers based on their defined boolean data. Answers remain
+    #   only if their `shouldKeep` value is `true`.
+    #
+    #
+    # * `HEALTH` - Removes answers from the list if their `rdata` matches a target in the
     #   health check monitor referenced by the steering policy and the target is reported down.
-    # - WEIGHTED rules probabilistically move answers with greater associated integer data to
-    #   the beginning of the list.
-    # - PRIORITY rules sort answers by associated integer data, moving those with the lowest
-    #   values to the beginning of the list without changing the relative order of those with
-    #   the same value.
-    # - LIMIT rules filter away answers that are too far down the list. Parameter \"count\"
-    #   specifies how many answers to keep.
+    #
+    #
+    # * `WEIGHTED` - Uses a number between 0 and 255 to determine how often an answer will be served
+    #   in relation to other answers. Anwers with a higher weight will be served more frequently.
+    #
+    #
+    # * `PRIORITY` - Uses a defined rank value of answers to determine which answer to serve,
+    #   moving those with the lowest values to the beginning of the list without changing the
+    #   relative order of those with the same value. Answers can be given a value between `0` and `255`.
+    #
+    #
+    # * `LIMIT` - Filters answers that are too far down the list. Parameter `defaultCount`
+    #   specifies how many answers to keep. **Example:** If `defaultCount` has a value of `2` and
+    #   there are five answers left, when the `LIMIT` rule is processed, only the first two answers
+    #   will remain in the list.
     #
     # @return [String]
     attr_reader :rule_type

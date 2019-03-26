@@ -6,9 +6,15 @@ require 'date'
 module OCI
   # SteeringPolicyPriorityAnswerData model.
   class Dns::Models::SteeringPolicyPriorityAnswerData # rubocop:disable Metrics/LineLength
+    # An expression that is used to select a set of answers that match a condition. For example, answers with matching pool properties.
+    #
     # @return [String]
     attr_accessor :answer_condition
 
+    # **[Required]** The rank assigned to the set of answers that match the expression in `answerCondition`.
+    # Answers with the lowest values move to the beginning of the list without changing the
+    # relative order of those with the same value. Answers can be given a value between `0` and `255`.
+    #
     # @return [Integer]
     attr_accessor :value
 

@@ -5,10 +5,12 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # An attachment between a steering policy and a domain.
-  # An attachment occludes all records at its domain that are of a covered rtype, constructing
-  # DNS responses from its steering policy rather than from those domain records.
-  # A domain can have at most one attachment covering any given rtype.
+  # An attachment between a steering policy and a domain. An attachment constructs
+  # DNS responses using its steering policy instead of the records at its defined domain.
+  # Only records of the policy's covered rtype are blocked at the domain.
+  # A domain can have a maximum of one attachment covering any given rtype.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Dns::Models::SteeringPolicyAttachment # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -31,7 +33,7 @@ module OCI
     attr_accessor :domain_name
 
     # A user-friendly name for the steering policy attachment.
-    # Does not have to be unique, and it's changeable.
+    # Does not have to be unique and can be changed.
     # Avoid entering confidential information.
     #
     # @return [String]
@@ -56,8 +58,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The date and time the resource was created in \"YYYY-MM-ddThh:mmZ\" format
-    # with a Z offset, as defined by RFC 3339.
+    # The date and time the resource was created, expressed in RFC 3339 timestamp format.
     #
     # **Example:** `2016-07-22T17:23:59:60Z`
     #
