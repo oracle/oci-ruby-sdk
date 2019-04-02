@@ -42,7 +42,7 @@ module OCI
     def initialize(config: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
       raise 'A fully qualified endpoint URL must be defined' unless endpoint
 
-      @endpoint = endpoint + '/20180608'
+      @endpoint = endpoint + '/'
 
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
@@ -98,7 +98,7 @@ module OCI
 
       raise "Missing the required parameter 'decrypt_data_details' when calling decrypt." if decrypt_data_details.nil?
 
-      path = '/decrypt'
+      path = '/20180608/decrypt'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -156,7 +156,7 @@ module OCI
 
       raise "Missing the required parameter 'encrypt_data_details' when calling encrypt." if encrypt_data_details.nil?
 
-      path = '/encrypt'
+      path = '/20180608/encrypt'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -212,7 +212,7 @@ module OCI
 
       raise "Missing the required parameter 'generate_key_details' when calling generate_data_encryption_key." if generate_key_details.nil?
 
-      path = '/generateDataEncryptionKey'
+      path = '/20180608/generateDataEncryptionKey'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf

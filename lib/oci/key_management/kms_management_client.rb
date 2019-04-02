@@ -42,7 +42,7 @@ module OCI
     def initialize(config: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
       raise 'A fully qualified endpoint URL must be defined' unless endpoint
 
-      @endpoint = endpoint + '/20180608'
+      @endpoint = endpoint + '/'
 
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
@@ -104,7 +104,7 @@ module OCI
 
       raise "Missing the required parameter 'create_key_details' when calling create_key." if create_key_details.nil?
 
-      path = '/keys'
+      path = '/20180608/keys'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -146,7 +146,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Generates new cryptographic material for a key. Key must be in an `ENABLED` state to be
+    # Generates new cryptographic material for a key. The key must be in an `ENABLED` state to be
     # rotated.
     #
     # @param [String] key_id The OCID of the key.
@@ -171,7 +171,7 @@ module OCI
       raise "Missing the required parameter 'key_id' when calling create_key_version." if key_id.nil?
       raise "Parameter value for 'key_id' must not be blank" if OCI::Internal::Util.blank_string?(key_id)
 
-      path = '/keys/{keyId}/keyVersions'.sub('{keyId}', key_id.to_s)
+      path = '/20180608/keys/{keyId}/keyVersions'.sub('{keyId}', key_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -244,7 +244,7 @@ module OCI
       raise "Missing the required parameter 'key_id' when calling disable_key." if key_id.nil?
       raise "Parameter value for 'key_id' must not be blank" if OCI::Internal::Util.blank_string?(key_id)
 
-      path = '/keys/{keyId}/actions/disable'.sub('{keyId}', key_id.to_s)
+      path = '/20180608/keys/{keyId}/actions/disable'.sub('{keyId}', key_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -318,7 +318,7 @@ module OCI
       raise "Missing the required parameter 'key_id' when calling enable_key." if key_id.nil?
       raise "Parameter value for 'key_id' must not be blank" if OCI::Internal::Util.blank_string?(key_id)
 
-      path = '/keys/{keyId}/actions/enable'.sub('{keyId}', key_id.to_s)
+      path = '/20180608/keys/{keyId}/actions/enable'.sub('{keyId}', key_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -378,7 +378,7 @@ module OCI
       raise "Missing the required parameter 'key_id' when calling get_key." if key_id.nil?
       raise "Parameter value for 'key_id' must not be blank" if OCI::Internal::Util.blank_string?(key_id)
 
-      path = '/keys/{keyId}'.sub('{keyId}', key_id.to_s)
+      path = '/20180608/keys/{keyId}'.sub('{keyId}', key_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -438,7 +438,7 @@ module OCI
       raise "Parameter value for 'key_id' must not be blank" if OCI::Internal::Util.blank_string?(key_id)
       raise "Parameter value for 'key_version_id' must not be blank" if OCI::Internal::Util.blank_string?(key_version_id)
 
-      path = '/keys/{keyId}/keyVersions/{keyVersionId}'.sub('{keyId}', key_id.to_s).sub('{keyVersionId}', key_version_id.to_s)
+      path = '/20180608/keys/{keyId}/keyVersions/{keyVersionId}'.sub('{keyId}', key_id.to_s).sub('{keyVersionId}', key_version_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -516,7 +516,7 @@ module OCI
       end
       raise "Parameter value for 'key_id' must not be blank" if OCI::Internal::Util.blank_string?(key_id)
 
-      path = '/keys/{keyId}/keyVersions'.sub('{keyId}', key_id.to_s)
+      path = '/20180608/keys/{keyId}/keyVersions'.sub('{keyId}', key_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -597,7 +597,7 @@ module OCI
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
       end
 
-      path = '/keys'
+      path = '/20180608/keys'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -643,8 +643,8 @@ module OCI
 
 
     # Updates the properties of a key. Specifically, you can update the
-    # `displayName` , `freeformTags`, and `definedTags` properties. Furthermore,
-    # the key must in an `ACTIVE` or `CREATING` state.
+    # `displayName`, `freeformTags`, and `definedTags` properties. Furthermore,
+    # the key must in an `ACTIVE` or `CREATING` state to be updated.
     #
     # @param [String] key_id The OCID of the key.
     # @param [OCI::KeyManagement::Models::UpdateKeyDetails] update_key_details UpdateKeyDetails
@@ -669,7 +669,7 @@ module OCI
       raise "Missing the required parameter 'update_key_details' when calling update_key." if update_key_details.nil?
       raise "Parameter value for 'key_id' must not be blank" if OCI::Internal::Util.blank_string?(key_id)
 
-      path = '/keys/{keyId}'.sub('{keyId}', key_id.to_s)
+      path = '/20180608/keys/{keyId}'.sub('{keyId}', key_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf

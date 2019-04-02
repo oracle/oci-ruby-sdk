@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.5.5 - 2019-04-02
+### Added
+- Support for provider service key names on virtual circuits in the FastConnect service
+- Support for customer reference names on cross connects and cross connect groups in the FastConnect service
+
 ## 2.5.4 - 2019-03-26
 ### Added
 - Support for glob patterns and exclusions for object lifecycle management in the Object Storage service

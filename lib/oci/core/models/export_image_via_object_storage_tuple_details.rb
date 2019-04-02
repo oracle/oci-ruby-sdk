@@ -7,15 +7,15 @@ require_relative 'export_image_details'
 module OCI
   # ExportImageViaObjectStorageTupleDetails model.
   class Core::Models::ExportImageViaObjectStorageTupleDetails < Core::Models::ExportImageDetails # rubocop:disable Metrics/LineLength
-    # The Object Storage bucket to export the image to.
+    # **[Required]** The Object Storage bucket to export the image to.
     # @return [String]
     attr_accessor :bucket_name
 
-    # The Object Storage namespace to export the image to.
+    # **[Required]** The Object Storage namespace to export the image to.
     # @return [String]
     attr_accessor :namespace_name
 
-    # The Object Storage object name for the exported image.
+    # **[Required]** The Object Storage object name for the exported image.
     # @return [String]
     attr_accessor :object_name
 

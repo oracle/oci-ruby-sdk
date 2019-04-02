@@ -4,37 +4,35 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Update a CrossConnect
+  # A provider service key and its details. A provider service key is an identifier for a provider's
+  # virtual circuit.
   #
-  class Core::Models::UpdateCrossConnectDetails # rubocop:disable Metrics/LineLength
-    # A user-friendly name. Does not have to be unique, and it's changeable.
-    # Avoid entering confidential information.
+  class Core::Models::FastConnectProviderServiceKey # rubocop:disable Metrics/LineLength
+    # The name of the service key offered by the provider.
     #
     # @return [String]
-    attr_accessor :display_name
+    attr_accessor :name
 
-    # Set to true to activate the cross-connect. You activate it after the physical cabling
-    # is complete, and you've confirmed the cross-connect's light levels are good and your side
-    # of the interface is up. Activation indicates to Oracle that the physical connection is ready.
+    # The provisioned data rate of the connection.  To get a list of the
+    # available bandwidth levels (that is, shapes), see
+    # {#list_fast_connect_provider_virtual_circuit_bandwidth_shapes list_fast_connect_provider_virtual_circuit_bandwidth_shapes}.
     #
-    # Example: `true`
-    #
-    # @return [BOOLEAN]
-    attr_accessor :is_active
-
-    # A reference name or identifier for the physical fiber connection that this cross-connect
-    # uses.
+    # Example: `10 Gbps`
     #
     # @return [String]
-    attr_accessor :customer_reference_name
+    attr_accessor :bandwidth_shape_name
+
+    # The provider's peering location.
+    # @return [String]
+    attr_accessor :peering_location
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'display_name': :'displayName',
-        'is_active': :'isActive',
-        'customer_reference_name': :'customerReferenceName'
+        'name': :'name',
+        'bandwidth_shape_name': :'bandwidthShapeName',
+        'peering_location': :'peeringLocation'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,9 +41,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'display_name': :'String',
-        'is_active': :'BOOLEAN',
-        'customer_reference_name': :'String'
+        'name': :'String',
+        'bandwidth_shape_name': :'String',
+        'peering_location': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -56,32 +54,28 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [BOOLEAN] :is_active The value to assign to the {#is_active} property
-    # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
+    # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :bandwidth_shape_name The value to assign to the {#bandwidth_shape_name} property
+    # @option attributes [String] :peering_location The value to assign to the {#peering_location} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+      self.name = attributes[:'name'] if attributes[:'name']
 
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+      self.bandwidth_shape_name = attributes[:'bandwidthShapeName'] if attributes[:'bandwidthShapeName']
 
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+      raise 'You cannot provide both :bandwidthShapeName and :bandwidth_shape_name' if attributes.key?(:'bandwidthShapeName') && attributes.key?(:'bandwidth_shape_name')
 
-      self.is_active = attributes[:'isActive'] unless attributes[:'isActive'].nil?
+      self.bandwidth_shape_name = attributes[:'bandwidth_shape_name'] if attributes[:'bandwidth_shape_name']
 
-      raise 'You cannot provide both :isActive and :is_active' if attributes.key?(:'isActive') && attributes.key?(:'is_active')
+      self.peering_location = attributes[:'peeringLocation'] if attributes[:'peeringLocation']
 
-      self.is_active = attributes[:'is_active'] unless attributes[:'is_active'].nil?
+      raise 'You cannot provide both :peeringLocation and :peering_location' if attributes.key?(:'peeringLocation') && attributes.key?(:'peering_location')
 
-      self.customer_reference_name = attributes[:'customerReferenceName'] if attributes[:'customerReferenceName']
-
-      raise 'You cannot provide both :customerReferenceName and :customer_reference_name' if attributes.key?(:'customerReferenceName') && attributes.key?(:'customer_reference_name')
-
-      self.customer_reference_name = attributes[:'customer_reference_name'] if attributes[:'customer_reference_name']
+      self.peering_location = attributes[:'peering_location'] if attributes[:'peering_location']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -95,9 +89,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        display_name == other.display_name &&
-        is_active == other.is_active &&
-        customer_reference_name == other.customer_reference_name
+        name == other.name &&
+        bandwidth_shape_name == other.bandwidth_shape_name &&
+        peering_location == other.peering_location
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -113,7 +107,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, is_active, customer_reference_name].hash
+      [name, bandwidth_shape_name, peering_location].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

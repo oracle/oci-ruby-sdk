@@ -435,7 +435,7 @@ module OCI
     #
     # When importing an image based on the Object Storage URL, use
     # {#image_source_via_object_storage_uri_details image_source_via_object_storage_uri_details}.
-    # See [Object Storage URLs](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [pre-authenticated requests](https://docs.cloud.oracle.com/Content/Object/Tasks/managingaccess.htm#pre-auth)
+    # See [Object Storage URLs](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [Using Pre-Authenticated Requests](https://docs.cloud.oracle.com/Content/Object/Tasks/usingpreauthenticatedrequests.htm)
     # for constructing URLs for image import/export.
     #
     # For more information about importing exported images, see
@@ -979,7 +979,7 @@ module OCI
     # To perform an image export, you need write access to the Object Storage bucket for the image,
     # see [Let Users Write Objects to Object Storage Buckets](https://docs.cloud.oracle.com/Content/Identity/Concepts/commonpolicies.htm#Let4).
     #
-    # See [Object Storage URLs](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [pre-authenticated requests](https://docs.cloud.oracle.com/Content/Object/Tasks/managingaccess.htm#pre-auth)
+    # See [Object Storage URLs](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [Using Pre-Authenticated Requests](https://docs.cloud.oracle.com/Content/Object/Tasks/usingpreauthenticatedrequests.htm)
     # for constructing URLs for image import/export.
     #
     # @param [String] image_id The OCID of the image.

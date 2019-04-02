@@ -4,11 +4,11 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Details for scheduling Vault deletion
+  # Details for scheduling vault deletion
   class KeyManagement::Models::ScheduleVaultDeletionDetails # rubocop:disable Metrics/LineLength
-    # An optional property to indicate the deletion time of the Vault.
-    # The time format should comply with RFC-3339 standards. This time must be between 7 to 30 days from the time
-    # when the request is received. If the property is missing, it will be set to 30 days from request time by default.
+    # An optional property to indicate the deletion time of the vault, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339)
+    # timestamp format. The specified time must be between 7 and 30 days from the time
+    # when the request is received. If this property is missing, it will be set to 30 days from the time of the request by default.
     #
     # @return [DateTime]
     attr_accessor :time_of_deletion

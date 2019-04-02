@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # DecryptedData model.
   class KeyManagement::Models::DecryptedData # rubocop:disable Metrics/LineLength
-    # **[Required]** The decrypted data, in the form of a base64-encoded value.
+    # **[Required]** The decrypted data, expressed as a base64-encoded value.
     # @return [String]
     attr_accessor :plaintext
 

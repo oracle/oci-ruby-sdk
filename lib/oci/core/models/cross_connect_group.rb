@@ -50,6 +50,12 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # A reference name or identifier for the physical fiber connection that this cross-connect
+    # group uses.
+    #
+    # @return [String]
+    attr_accessor :customer_reference_name
+
     # The date and time the cross-connect group was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
@@ -65,6 +71,7 @@ module OCI
         'display_name': :'displayName',
         'id': :'id',
         'lifecycle_state': :'lifecycleState',
+        'customer_reference_name': :'customerReferenceName',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -78,6 +85,7 @@ module OCI
         'display_name': :'String',
         'id': :'String',
         'lifecycle_state': :'String',
+        'customer_reference_name': :'String',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -93,6 +101,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -119,6 +128,12 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.customer_reference_name = attributes[:'customerReferenceName'] if attributes[:'customerReferenceName']
+
+      raise 'You cannot provide both :customerReferenceName and :customer_reference_name' if attributes.key?(:'customerReferenceName') && attributes.key?(:'customer_reference_name')
+
+      self.customer_reference_name = attributes[:'customer_reference_name'] if attributes[:'customer_reference_name']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -157,6 +172,7 @@ module OCI
         display_name == other.display_name &&
         id == other.id &&
         lifecycle_state == other.lifecycle_state &&
+        customer_reference_name == other.customer_reference_name &&
         time_created == other.time_created
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -173,7 +189,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, id, lifecycle_state, time_created].hash
+      [compartment_id, display_name, id, lifecycle_state, customer_reference_name, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

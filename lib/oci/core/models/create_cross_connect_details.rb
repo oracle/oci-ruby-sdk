@@ -52,6 +52,12 @@ module OCI
     # @return [String]
     attr_accessor :port_speed_shape_name
 
+    # A reference name or identifier for the physical fiber connection that this cross-connect
+    # uses.
+    #
+    # @return [String]
+    attr_accessor :customer_reference_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -62,7 +68,8 @@ module OCI
         'far_cross_connect_or_cross_connect_group_id': :'farCrossConnectOrCrossConnectGroupId',
         'location_name': :'locationName',
         'near_cross_connect_or_cross_connect_group_id': :'nearCrossConnectOrCrossConnectGroupId',
-        'port_speed_shape_name': :'portSpeedShapeName'
+        'port_speed_shape_name': :'portSpeedShapeName',
+        'customer_reference_name': :'customerReferenceName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -77,7 +84,8 @@ module OCI
         'far_cross_connect_or_cross_connect_group_id': :'String',
         'location_name': :'String',
         'near_cross_connect_or_cross_connect_group_id': :'String',
-        'port_speed_shape_name': :'String'
+        'port_speed_shape_name': :'String',
+        'customer_reference_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -95,6 +103,7 @@ module OCI
     # @option attributes [String] :location_name The value to assign to the {#location_name} property
     # @option attributes [String] :near_cross_connect_or_cross_connect_group_id The value to assign to the {#near_cross_connect_or_cross_connect_group_id} property
     # @option attributes [String] :port_speed_shape_name The value to assign to the {#port_speed_shape_name} property
+    # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -142,6 +151,12 @@ module OCI
       raise 'You cannot provide both :portSpeedShapeName and :port_speed_shape_name' if attributes.key?(:'portSpeedShapeName') && attributes.key?(:'port_speed_shape_name')
 
       self.port_speed_shape_name = attributes[:'port_speed_shape_name'] if attributes[:'port_speed_shape_name']
+
+      self.customer_reference_name = attributes[:'customerReferenceName'] if attributes[:'customerReferenceName']
+
+      raise 'You cannot provide both :customerReferenceName and :customer_reference_name' if attributes.key?(:'customerReferenceName') && attributes.key?(:'customer_reference_name')
+
+      self.customer_reference_name = attributes[:'customer_reference_name'] if attributes[:'customer_reference_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -161,7 +176,8 @@ module OCI
         far_cross_connect_or_cross_connect_group_id == other.far_cross_connect_or_cross_connect_group_id &&
         location_name == other.location_name &&
         near_cross_connect_or_cross_connect_group_id == other.near_cross_connect_or_cross_connect_group_id &&
-        port_speed_shape_name == other.port_speed_shape_name
+        port_speed_shape_name == other.port_speed_shape_name &&
+        customer_reference_name == other.customer_reference_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -177,7 +193,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cross_connect_group_id, display_name, far_cross_connect_or_cross_connect_group_id, location_name, near_cross_connect_or_cross_connect_group_id, port_speed_shape_name].hash
+      [compartment_id, cross_connect_group_id, display_name, far_cross_connect_or_cross_connect_group_id, location_name, near_cross_connect_or_cross_connect_group_id, port_speed_shape_name, customer_reference_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
