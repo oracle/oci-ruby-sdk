@@ -79,7 +79,7 @@ module OCI
     # @return [String]
     attr_accessor :volume_id
 
-    # Whether the enable encryption in transit for the PV volume attachment is on or not.
+    # Whether in-transit encryption for the data volume's paravirtualized attachment is enabled or not.
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 

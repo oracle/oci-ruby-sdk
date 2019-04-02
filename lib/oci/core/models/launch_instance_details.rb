@@ -202,7 +202,7 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # Whether to enable encryption in transit for the PV boot volume attachment. Defaults to false.
+    # Whether to enable in-transit encryption for the data volume's paravirtualized attachment. The default value is false.
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 

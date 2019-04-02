@@ -7,7 +7,7 @@ require_relative 'attach_volume_details'
 module OCI
   # AttachParavirtualizedVolumeDetails model.
   class Core::Models::AttachParavirtualizedVolumeDetails < Core::Models::AttachVolumeDetails # rubocop:disable Metrics/LineLength
-    # Whether to enable encryption in transit for the PV data volume attachment. Defaults to false.
+    # Whether to enable in-transit encryption for the data volume's paravirtualized attachment. The default value is false.
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 

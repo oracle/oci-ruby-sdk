@@ -3488,6 +3488,63 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # Gets the specified provider service key's information.
+    #
+    # @param [String] provider_service_id The OCID of the provider service.
+    # @param [String] provider_service_key_name The provider service key name.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::FastConnectProviderServiceKey FastConnectProviderServiceKey}
+    def get_fast_connect_provider_service_key(provider_service_id, provider_service_key_name, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_fast_connect_provider_service_key.' if logger
+
+      raise "Missing the required parameter 'provider_service_id' when calling get_fast_connect_provider_service_key." if provider_service_id.nil?
+      raise "Missing the required parameter 'provider_service_key_name' when calling get_fast_connect_provider_service_key." if provider_service_key_name.nil?
+      raise "Parameter value for 'provider_service_id' must not be blank" if OCI::Internal::Util.blank_string?(provider_service_id)
+      raise "Parameter value for 'provider_service_key_name' must not be blank" if OCI::Internal::Util.blank_string?(provider_service_key_name)
+
+      path = '/fastConnectProviderServices/{providerServiceId}/providerServiceKeys/{providerServiceKeyName}'.sub('{providerServiceId}', provider_service_id.to_s).sub('{providerServiceKeyName}', provider_service_key_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_fast_connect_provider_service_key') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::FastConnectProviderServiceKey'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
     # Gets the specified internet gateway's information.
     # @param [String] ig_id The OCID of the internet gateway.
     # @param [Hash] opts the optional parameters

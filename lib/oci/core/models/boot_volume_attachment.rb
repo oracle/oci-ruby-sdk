@@ -61,7 +61,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # Whether the enable encryption in transit for the PV volume attachment is on or not.
+    # Whether in-transit encryption for the boot volume's paravirtualized attachment is enabled or not.
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 

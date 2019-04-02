@@ -76,7 +76,7 @@ module OCI
       @retry_config = retry_config
 
       if endpoint
-        @endpoint = endpoint + '/20180608'
+        @endpoint = endpoint + '/'
       else
         region ||= config.region
         region ||= signer.region if signer.respond_to?(:region)
@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :KmsVaultClient) + '/20180608'
+      @endpoint = OCI::Regions.get_service_endpoint(@region, :KmsVaultClient) + '/'
       logger.info "KmsVaultClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -108,8 +108,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancels the scheduled deletion of the specified Vault, which must be in PendingDeletion
-    # state. The Vault and all Keys in it will be moved back to their previous states before
+    # Cancels the scheduled deletion of the specified vault. Canceling a scheduled deletion
+    # restores the vault and all keys in it to the respective states they were in before
     # the deletion was scheduled.
     #
     # @param [String] vault_id The OCID of the vault.
@@ -140,7 +140,7 @@ module OCI
       raise "Missing the required parameter 'vault_id' when calling cancel_vault_deletion." if vault_id.nil?
       raise "Parameter value for 'vault_id' must not be blank" if OCI::Internal::Util.blank_string?(vault_id)
 
-      path = '/vaults/{vaultId}/actions/cancelDeletion'.sub('{vaultId}', vault_id.to_s)
+      path = '/20180608/vaults/{vaultId}/actions/cancelDeletion'.sub('{vaultId}', vault_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -186,7 +186,7 @@ module OCI
     # Creates a new vault. The type of vault you create determines key
     # placement, pricing, and available options. Options include storage
     # isolation, a dedicated service endpoint instead of a shared service
-    # endpoint for API calls, and a dedicated HSM or a multitenant HSM.
+    # endpoint for API calls, and a dedicated hardware security module (HSM) or a multitenant HSM.
     #
     # @param [OCI::KeyManagement::Models::CreateVaultDetails] create_vault_details CreateVaultDetails
     # @param [Hash] opts the optional parameters
@@ -209,7 +209,7 @@ module OCI
 
       raise "Missing the required parameter 'create_vault_details' when calling create_vault." if create_vault_details.nil?
 
-      path = '/vaults'
+      path = '/20180608/vaults'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -268,7 +268,7 @@ module OCI
       raise "Missing the required parameter 'vault_id' when calling get_vault." if vault_id.nil?
       raise "Parameter value for 'vault_id' must not be blank" if OCI::Internal::Util.blank_string?(vault_id)
 
-      path = '/vaults/{vaultId}'.sub('{vaultId}', vault_id.to_s)
+      path = '/20180608/vaults/{vaultId}'.sub('{vaultId}', vault_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -308,7 +308,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists vaults in the specified compartment.
+    # Lists the vaults in the specified compartment.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
@@ -345,7 +345,7 @@ module OCI
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
       end
 
-      path = '/vaults'
+      path = '/20180608/vaults'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -390,8 +390,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Schedules the deletion of the specified Vault. The Vault and all Keys in it
-    # will be moved to PendingDeletion state and deleted after the retention period.
+    # Schedules the deletion of the specified vault. This sets the state of the vault and all keys in it
+    # to `PENDING_DELETION` and then deletes them after the retention period ends.
     #
     # @param [String] vault_id The OCID of the vault.
     # @param [OCI::KeyManagement::Models::ScheduleVaultDeletionDetails] schedule_vault_deletion_details ScheduleVaultDeletionDetails
@@ -423,7 +423,7 @@ module OCI
       raise "Missing the required parameter 'schedule_vault_deletion_details' when calling schedule_vault_deletion." if schedule_vault_deletion_details.nil?
       raise "Parameter value for 'vault_id' must not be blank" if OCI::Internal::Util.blank_string?(vault_id)
 
-      path = '/vaults/{vaultId}/actions/scheduleDeletion'.sub('{vaultId}', vault_id.to_s)
+      path = '/20180608/vaults/{vaultId}/actions/scheduleDeletion'.sub('{vaultId}', vault_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -467,8 +467,8 @@ module OCI
 
 
     # Updates the properties of a vault. Specifically, you can update the
-    # `displayName` , `freeformTags`, and `definedTags` properties. Furthermore,
-    # the vault must be in an `ACTIVE` or `CREATING` state.
+    # `displayName`, `freeformTags`, and `definedTags` properties. Furthermore,
+    # the vault must be in an `ACTIVE` or `CREATING` state to be updated.
     #
     # @param [String] vault_id The OCID of the vault.
     # @param [OCI::KeyManagement::Models::UpdateVaultDetails] update_vault_details UpdateVaultDetails
@@ -493,7 +493,7 @@ module OCI
       raise "Missing the required parameter 'update_vault_details' when calling update_vault." if update_vault_details.nil?
       raise "Parameter value for 'vault_id' must not be blank" if OCI::Internal::Util.blank_string?(vault_id)
 
-      path = '/vaults/{vaultId}'.sub('{vaultId}', vault_id.to_s)
+      path = '/20180608/vaults/{vaultId}'.sub('{vaultId}', vault_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf

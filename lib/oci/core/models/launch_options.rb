@@ -80,7 +80,7 @@ module OCI
     # @return [String]
     attr_reader :remote_data_volume_type
 
-    # Whether to enable encryption in transit for the PV boot volume attachment. Defaults to false.
+    # Whether to enable in-transit encryption for the boot volume's paravirtualized attachment. The default value is false.
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 

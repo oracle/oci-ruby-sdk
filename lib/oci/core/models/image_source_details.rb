@@ -12,8 +12,8 @@ module OCI
       SOURCE_IMAGE_TYPE_VMDK = 'VMDK'.freeze
     ].freeze
 
-    # The format of the image to be imported.  Exported Oracle images are QCOW2.  Only monolithic
-    # images are supported.
+    # The format of the image to be imported.  Only monolithic
+    # images are supported. This attribute is not used for exported Oracle images with the OCI image format.
     #
     # @return [String]
     attr_reader :source_image_type

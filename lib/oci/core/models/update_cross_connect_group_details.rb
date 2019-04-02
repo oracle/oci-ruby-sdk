@@ -12,11 +12,18 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # A reference name or identifier for the physical fiber connection that this cross-connect
+    # group uses.
+    #
+    # @return [String]
+    attr_accessor :customer_reference_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'display_name': :'displayName'
+        'display_name': :'displayName',
+        'customer_reference_name': :'customerReferenceName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +32,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'display_name': :'String'
+        'display_name': :'String',
+        'customer_reference_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,6 +45,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -48,6 +57,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.customer_reference_name = attributes[:'customerReferenceName'] if attributes[:'customerReferenceName']
+
+      raise 'You cannot provide both :customerReferenceName and :customer_reference_name' if attributes.key?(:'customerReferenceName') && attributes.key?(:'customer_reference_name')
+
+      self.customer_reference_name = attributes[:'customer_reference_name'] if attributes[:'customer_reference_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -61,7 +76,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        display_name == other.display_name
+        display_name == other.display_name &&
+        customer_reference_name == other.customer_reference_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -77,7 +93,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name].hash
+      [display_name, customer_reference_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

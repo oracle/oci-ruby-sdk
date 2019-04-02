@@ -73,6 +73,12 @@ module OCI
     # @return [String]
     attr_accessor :port_speed_shape_name
 
+    # A reference name or identifier for the physical fiber connection that this cross-connect
+    # uses.
+    #
+    # @return [String]
+    attr_accessor :customer_reference_name
+
     # The date and time the cross-connect was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
@@ -92,6 +98,7 @@ module OCI
         'location_name': :'locationName',
         'port_name': :'portName',
         'port_speed_shape_name': :'portSpeedShapeName',
+        'customer_reference_name': :'customerReferenceName',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -109,6 +116,7 @@ module OCI
         'location_name': :'String',
         'port_name': :'String',
         'port_speed_shape_name': :'String',
+        'customer_reference_name': :'String',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -128,6 +136,7 @@ module OCI
     # @option attributes [String] :location_name The value to assign to the {#location_name} property
     # @option attributes [String] :port_name The value to assign to the {#port_name} property
     # @option attributes [String] :port_speed_shape_name The value to assign to the {#port_speed_shape_name} property
+    # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -179,6 +188,12 @@ module OCI
 
       self.port_speed_shape_name = attributes[:'port_speed_shape_name'] if attributes[:'port_speed_shape_name']
 
+      self.customer_reference_name = attributes[:'customerReferenceName'] if attributes[:'customerReferenceName']
+
+      raise 'You cannot provide both :customerReferenceName and :customer_reference_name' if attributes.key?(:'customerReferenceName') && attributes.key?(:'customer_reference_name')
+
+      self.customer_reference_name = attributes[:'customer_reference_name'] if attributes[:'customer_reference_name']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -220,6 +235,7 @@ module OCI
         location_name == other.location_name &&
         port_name == other.port_name &&
         port_speed_shape_name == other.port_speed_shape_name &&
+        customer_reference_name == other.customer_reference_name &&
         time_created == other.time_created
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -236,7 +252,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cross_connect_group_id, display_name, id, lifecycle_state, location_name, port_name, port_speed_shape_name, time_created].hash
+      [compartment_id, cross_connect_group_id, display_name, id, lifecycle_state, location_name, port_name, port_speed_shape_name, customer_reference_name, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

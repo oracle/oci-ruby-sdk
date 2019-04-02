@@ -70,6 +70,11 @@ module OCI
     # @return [String]
     attr_reader :provider_state
 
+    # The service key name offered by the provider (if the customer is connecting via a provider).
+    #
+    # @return [String]
+    attr_accessor :provider_service_key_name
+
     # Provider-supplied reference information about this virtual circuit.
     # Relevant only if the customer is using FastConnect via a provider.
     #
@@ -88,6 +93,7 @@ module OCI
         'display_name': :'displayName',
         'gateway_id': :'gatewayId',
         'provider_state': :'providerState',
+        'provider_service_key_name': :'providerServiceKeyName',
         'reference_comment': :'referenceComment'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -103,6 +109,7 @@ module OCI
         'display_name': :'String',
         'gateway_id': :'String',
         'provider_state': :'String',
+        'provider_service_key_name': :'String',
         'reference_comment': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -120,6 +127,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :gateway_id The value to assign to the {#gateway_id} property
     # @option attributes [String] :provider_state The value to assign to the {#provider_state} property
+    # @option attributes [String] :provider_service_key_name The value to assign to the {#provider_service_key_name} property
     # @option attributes [String] :reference_comment The value to assign to the {#reference_comment} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -163,6 +171,12 @@ module OCI
 
       self.provider_state = attributes[:'provider_state'] if attributes[:'provider_state']
 
+      self.provider_service_key_name = attributes[:'providerServiceKeyName'] if attributes[:'providerServiceKeyName']
+
+      raise 'You cannot provide both :providerServiceKeyName and :provider_service_key_name' if attributes.key?(:'providerServiceKeyName') && attributes.key?(:'provider_service_key_name')
+
+      self.provider_service_key_name = attributes[:'provider_service_key_name'] if attributes[:'provider_service_key_name']
+
       self.reference_comment = attributes[:'referenceComment'] if attributes[:'referenceComment']
 
       raise 'You cannot provide both :referenceComment and :reference_comment' if attributes.key?(:'referenceComment') && attributes.key?(:'reference_comment')
@@ -197,6 +211,7 @@ module OCI
         display_name == other.display_name &&
         gateway_id == other.gateway_id &&
         provider_state == other.provider_state &&
+        provider_service_key_name == other.provider_service_key_name &&
         reference_comment == other.reference_comment
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
@@ -213,7 +228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, cross_connect_mappings, customer_bgp_asn, display_name, gateway_id, provider_state, reference_comment].hash
+      [bandwidth_shape_name, cross_connect_mappings, customer_bgp_asn, display_name, gateway_id, provider_state, provider_service_key_name, reference_comment].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

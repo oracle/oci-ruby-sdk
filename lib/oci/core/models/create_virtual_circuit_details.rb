@@ -63,6 +63,11 @@ module OCI
     # @return [String]
     attr_accessor :provider_service_id
 
+    # The service key name offered by the provider (if the customer is connecting via a provider).
+    #
+    # @return [String]
+    attr_accessor :provider_service_key_name
+
     # Deprecated. Instead use `providerServiceId`.
     # To get a list of the provider names, see
     # {#list_fast_connect_provider_services list_fast_connect_provider_services}.
@@ -102,6 +107,7 @@ module OCI
         'gateway_id': :'gatewayId',
         'provider_name': :'providerName',
         'provider_service_id': :'providerServiceId',
+        'provider_service_key_name': :'providerServiceKeyName',
         'provider_service_name': :'providerServiceName',
         'public_prefixes': :'publicPrefixes',
         'region': :'region',
@@ -122,6 +128,7 @@ module OCI
         'gateway_id': :'String',
         'provider_name': :'String',
         'provider_service_id': :'String',
+        'provider_service_key_name': :'String',
         'provider_service_name': :'String',
         'public_prefixes': :'Array<OCI::Core::Models::CreateVirtualCircuitPublicPrefixDetails>',
         'region': :'String',
@@ -144,6 +151,7 @@ module OCI
     # @option attributes [String] :gateway_id The value to assign to the {#gateway_id} property
     # @option attributes [String] :provider_name The value to assign to the {#provider_name} property
     # @option attributes [String] :provider_service_id The value to assign to the {#provider_service_id} property
+    # @option attributes [String] :provider_service_key_name The value to assign to the {#provider_service_key_name} property
     # @option attributes [String] :provider_service_name The value to assign to the {#provider_service_name} property
     # @option attributes [Array<OCI::Core::Models::CreateVirtualCircuitPublicPrefixDetails>] :public_prefixes The value to assign to the {#public_prefixes} property
     # @option attributes [String] :region The value to assign to the {#region} property
@@ -202,6 +210,12 @@ module OCI
 
       self.provider_service_id = attributes[:'provider_service_id'] if attributes[:'provider_service_id']
 
+      self.provider_service_key_name = attributes[:'providerServiceKeyName'] if attributes[:'providerServiceKeyName']
+
+      raise 'You cannot provide both :providerServiceKeyName and :provider_service_key_name' if attributes.key?(:'providerServiceKeyName') && attributes.key?(:'provider_service_key_name')
+
+      self.provider_service_key_name = attributes[:'provider_service_key_name'] if attributes[:'provider_service_key_name']
+
       self.provider_service_name = attributes[:'providerServiceName'] if attributes[:'providerServiceName']
 
       raise 'You cannot provide both :providerServiceName and :provider_service_name' if attributes.key?(:'providerServiceName') && attributes.key?(:'provider_service_name')
@@ -248,6 +262,7 @@ module OCI
         gateway_id == other.gateway_id &&
         provider_name == other.provider_name &&
         provider_service_id == other.provider_service_id &&
+        provider_service_key_name == other.provider_service_key_name &&
         provider_service_name == other.provider_service_name &&
         public_prefixes == other.public_prefixes &&
         region == other.region &&
@@ -267,7 +282,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, compartment_id, cross_connect_mappings, customer_bgp_asn, display_name, gateway_id, provider_name, provider_service_id, provider_service_name, public_prefixes, region, type].hash
+      [bandwidth_shape_name, compartment_id, cross_connect_mappings, customer_bgp_asn, display_name, gateway_id, provider_name, provider_service_id, provider_service_key_name, provider_service_name, public_prefixes, region, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

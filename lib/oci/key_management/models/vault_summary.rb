@@ -23,7 +23,7 @@ module OCI
       VAULT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment that contains this vault.
+    # **[Required]** The OCID of the compartment that contains a particular vault.
     # @return [String]
     attr_accessor :compartment_id
 
