@@ -103,6 +103,45 @@ module OCI
       @api_client.config.logger
     end
 
+    # rubocop:disable Metrics/AbcSize
+
+    # Adds a shape to the compaytible shapes list for the image.
+    #
+    # @param [String] image_id The OCID of the image.
+    # @param [String] shape_name Shape name.
+    def add_image_shape_compatibility_entry(image_id, shape_name, opts = {})
+      operation_name = 'ComputeClient#add_image_shape_compatibility_entry'
+      logger.debug("Calling operation #{operation_name}.") if logger
+
+      raise "Missing the required parameter 'image_id' when calling #{operation_name}." if image_id.nil? || image_id.empty?
+      raise "Missing the required parameter 'shape_name' when calling #{operation_name}." if shape_name.nil? || shape_name.empty?
+
+      path = "/images/#{image_id}/shapes/#{shape_name}"
+      query_params = {}
+      operation_signing_strategy = :standard
+      body = {}
+
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: operation_name) do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          body: body,
+          operation_signing_strategy: operation_signing_strategy,
+          return_type: 'String'
+        )
+      end
+    end
+
+    # rubocop:enable Metrics/AbcSize
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
