@@ -361,7 +361,7 @@ module OCI
             response.body
           end
         end
-      rescue StandardError => err
+      rescue StandardError => e
         # Unfortunately, catching StandardError is the surest way to capture all the errors originating from Net::HTTP
         code_from_response = if !response_ref.nil?
                                response_ref.code.to_i
@@ -370,7 +370,7 @@ module OCI
                              end
 
         raise Errors::NetworkError.new(
-          err.message,
+          e.message,
           code_from_response,
           request_made: request,
           response_received: response_ref
