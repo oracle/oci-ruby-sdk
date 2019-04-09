@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'vcr', '~> 4.0'
   s.add_development_dependency 'yard', '~> 0.9', '>= 0.9.12'
   s.add_development_dependency 'os', '~> 1.0'
-  s.add_development_dependency 'rubocop', '~> 0', '>= 0.55'
+  s.add_development_dependency 'rubocop', '>= 0.55', '<= 0.67.1'
   s.add_development_dependency 'mocha', '~> 1.7'
   s.add_development_dependency 'nokogiri', '~> 1.9'
   s.add_development_dependency 'rspec', '~> 3.8'

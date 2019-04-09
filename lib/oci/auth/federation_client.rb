@@ -134,8 +134,8 @@ module OCI
           raise "No token received in the response from auth service: #{raw_body}" unless parsed_response.key?('token')
 
           @security_token = OCI::Auth::SecurityTokenContainer.new(parsed_response['token'])
-        rescue JSON::ParserError => ex
-          raise "Unable to parse response from Auth Service [#{ex}]: #{raw_body}"
+        rescue JSON::ParserError => e
+          raise "Unable to parse response from Auth Service [#{e}]: #{raw_body}"
         end
 
         @security_token.security_token

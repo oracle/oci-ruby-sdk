@@ -120,8 +120,8 @@ def delete_remote_peering_connection(vcn_client, region_short_name, remote_peeri
               .wait_until(:lifecycle_state,
                           OCI::Core::Models::RemotePeeringConnection::LIFECYCLE_STATE_TERMINATED,
                           max_wait_seconds: MAX_WAIT_TIME_SECONDS)
-  rescue OCI::Errors::ServiceError => error
-    raise unless error.status_code == 404
+  rescue OCI::Errors::ServiceError => e
+    raise unless e.status_code == 404
   end
   puts "    Deleted Remote Peering Connection: #{remote_peering_connection.id}"
 end

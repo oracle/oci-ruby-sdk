@@ -225,6 +225,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type nil
     def delete_sender(sender_id, opts = {})
@@ -244,6 +248,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -640,6 +645,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
     def update_sender(sender_id, update_sender_details, opts = {})
@@ -660,6 +669,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 

@@ -265,9 +265,9 @@ module OCI
                   upload_stdin(stdin_io_wrapper) if stdin?(@manifest[:object_io_or_file_path])
 
                   nil
-                rescue => error
+                rescue => e
                   pending_parts.clear! # Stop any futher processing on error
-                  error
+                  e
                 end
               end
 
