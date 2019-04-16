@@ -3488,10 +3488,15 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the specified provider service key's information.
+    # Gets the specified provider service key's information. Use this operation to validate a
+    # provider service key. An invalid key returns a 404 error.
     #
     # @param [String] provider_service_id The OCID of the provider service.
-    # @param [String] provider_service_key_name The provider service key name.
+    # @param [String] provider_service_key_name The provider service key that the provider gives you when you set up a virtual circuit connection
+    #   from the provider to Oracle Cloud Infrastructure. You can set up that connection and get your
+    #   provider service key at the provider's website or portal. For the portal location, see the `description`
+    #   attribute of the {FastConnectProviderService}.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5778,7 +5783,6 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :ip_address An IP address.
-    #
     #   Example: `10.0.3.3`
     #
     # @option opts [String] :subnet_id The OCID of the subnet.

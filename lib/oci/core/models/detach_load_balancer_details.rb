@@ -6,11 +6,11 @@ require 'date'
 module OCI
   # Represents a load balancer that is to be detached from an instance pool.
   class Core::Models::DetachLoadBalancerDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the load balancer to detach from the pool.
+    # **[Required]** The OCID of the load balancer to detach from the instance pool.
     # @return [String]
     attr_accessor :load_balancer_id
 
-    # **[Required]** The name of the backend set on the load balancer to detach from the pool.
+    # **[Required]** The name of the backend set on the load balancer to detach from the instance pool.
     # @return [String]
     attr_accessor :backend_set_name
 

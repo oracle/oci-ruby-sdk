@@ -23,7 +23,7 @@ module OCI
     # @return [String]
     attr_accessor :instance_pool_id
 
-    # **[Required]** The OCID of the load balancer attached to the pool.
+    # **[Required]** The OCID of the load balancer attached to the instance pool.
     # @return [String]
     attr_accessor :load_balancer_id
 
@@ -35,11 +35,11 @@ module OCI
     # @return [Integer]
     attr_accessor :port
 
-    # **[Required]** Indicates which vnic on each instance in the pool should be used to associate with the load balancer. possible values are \"PrimaryVnic\" or the displayName of one of the secondary VNICs on the instance configuration that is associated to the instance pool.
+    # **[Required]** Indicates which VNIC on each instance in the instance pool should be used to associate with the load balancer. Possible values are \"PrimaryVnic\" or the displayName of one of the secondary VNICs on the instance configuration that is associated with the instance pool.
     # @return [String]
     attr_accessor :vnic_selection
 
-    # **[Required]** The status of the interaction between the pool and the load balancer.
+    # **[Required]** The status of the interaction between the instance pool and the load balancer.
     # @return [String]
     attr_reader :lifecycle_state
 

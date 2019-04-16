@@ -340,7 +340,7 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#create_tag_default} and then waits for the {OCI::Identity::Models::TagDefault} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Identity::Models::CreateTagDefaultDetails] create_tag_default_details Request object for creating a new Tag Default.
+    # @param [OCI::Identity::Models::CreateTagDefaultDetails] create_tag_default_details Request object for creating a new tag default.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagDefault#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#create_tag_default}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -627,7 +627,7 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#delete_tag_default} and then waits for the {OCI::Identity::Models::TagDefault} acted upon
     # to enter the given state(s).
     #
-    # @param [String] tag_default_id The OCID of the Tag Default.
+    # @param [String] tag_default_id The OCID of the tag default.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagDefault#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#delete_tag_default}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -988,8 +988,8 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#update_tag_default} and then waits for the {OCI::Identity::Models::TagDefault} acted upon
     # to enter the given state(s).
     #
-    # @param [String] tag_default_id The OCID of the Tag Default.
-    # @param [OCI::Identity::Models::UpdateTagDefaultDetails] update_tag_default_details Request object for updating a Tag Default.
+    # @param [String] tag_default_id The OCID of the tag default.
+    # @param [OCI::Identity::Models::UpdateTagDefaultDetails] update_tag_default_details Request object for updating a tag default.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagDefault#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#update_tag_default}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

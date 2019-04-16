@@ -37,7 +37,7 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
-    # The autonomous database workload type.
+    # The autonomous database workload type. OLTP indicates an Autonomous Transaction Processing database and DW indicates an Autonomous Data Warehouse. The default is OLTP.
     # @return [String]
     attr_reader :db_workload
 

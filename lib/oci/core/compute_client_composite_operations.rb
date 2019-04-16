@@ -341,7 +341,7 @@ module OCI
     # Calls {OCI::Core::ComputeClient#delete_instance_console_connection} and then waits for the {OCI::Core::Models::InstanceConsoleConnection} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_console_connection_id The OCID of the intance console connection
+    # @param [String] instance_console_connection_id The OCID of the instance console connection.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstanceConsoleConnection#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#delete_instance_console_connection}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

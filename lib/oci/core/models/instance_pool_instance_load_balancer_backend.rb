@@ -15,7 +15,7 @@ module OCI
       BACKEND_HEALTH_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the load balancer attached to the pool.
+    # **[Required]** The OCID of the load balancer attached to the instance pool.
     # @return [String]
     attr_accessor :load_balancer_id
 

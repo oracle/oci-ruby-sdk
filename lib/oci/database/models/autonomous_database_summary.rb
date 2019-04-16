@@ -24,6 +24,7 @@ module OCI
       LIFECYCLE_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_SCALE_IN_PROGRESS = 'SCALE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_AVAILABLE_NEEDS_ATTENTION = 'AVAILABLE_NEEDS_ATTENTION'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -112,9 +113,13 @@ module OCI
     # @return [String]
     attr_accessor :db_version
 
-    # The Autonomous Database workload type.
+    # The Autonomous Database workload type. OLTP indicates an Autonomous Transaction Processing database and DW indicates an Autonomous Data Warehouse database.
     # @return [String]
     attr_reader :db_workload
+
+    # The client IP access control list (ACL). Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet.
+    # @return [Array<String>]
+    attr_accessor :whitelisted_ips
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -136,7 +141,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'db_version': :'dbVersion',
-        'db_workload': :'dbWorkload'
+        'db_workload': :'dbWorkload',
+        'whitelisted_ips': :'whitelistedIps'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -161,7 +167,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'db_version': :'String',
-        'db_workload': :'String'
+        'db_workload': :'String',
+        'whitelisted_ips': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -189,6 +196,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
+    # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -292,6 +300,12 @@ module OCI
       raise 'You cannot provide both :dbWorkload and :db_workload' if attributes.key?(:'dbWorkload') && attributes.key?(:'db_workload')
 
       self.db_workload = attributes[:'db_workload'] if attributes[:'db_workload']
+
+      self.whitelisted_ips = attributes[:'whitelistedIps'] if attributes[:'whitelistedIps']
+
+      raise 'You cannot provide both :whitelistedIps and :whitelisted_ips' if attributes.key?(:'whitelistedIps') && attributes.key?(:'whitelisted_ips')
+
+      self.whitelisted_ips = attributes[:'whitelisted_ips'] if attributes[:'whitelisted_ips']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -366,7 +380,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         db_version == other.db_version &&
-        db_workload == other.db_workload
+        db_workload == other.db_workload &&
+        whitelisted_ips == other.whitelisted_ips
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -382,7 +397,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, db_version, db_workload].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, db_version, db_workload, whitelisted_ips].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

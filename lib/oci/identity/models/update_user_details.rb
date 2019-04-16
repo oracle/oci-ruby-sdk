@@ -10,7 +10,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # The email you assign to the user. Has to be unique across the tenancy.
+    # The email address you assign to the user. Has to be unique across the tenancy.
     # @return [String]
     attr_accessor :email
 

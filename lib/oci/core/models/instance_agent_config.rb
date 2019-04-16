@@ -43,10 +43,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.is_monitoring_disabled = attributes[:'isMonitoringDisabled'] unless attributes[:'isMonitoringDisabled'].nil?
+      self.is_monitoring_disabled = false if is_monitoring_disabled.nil? && !attributes.key?(:'isMonitoringDisabled') # rubocop:disable Style/StringLiterals
 
       raise 'You cannot provide both :isMonitoringDisabled and :is_monitoring_disabled' if attributes.key?(:'isMonitoringDisabled') && attributes.key?(:'is_monitoring_disabled')
 
       self.is_monitoring_disabled = attributes[:'is_monitoring_disabled'] unless attributes[:'is_monitoring_disabled'].nil?
+      self.is_monitoring_disabled = false if is_monitoring_disabled.nil? && !attributes.key?(:'isMonitoringDisabled') && !attributes.key?(:'is_monitoring_disabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral

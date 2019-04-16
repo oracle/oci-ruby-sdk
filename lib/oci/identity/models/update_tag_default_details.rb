@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # UpdateTagDefaultDetails model.
   class Identity::Models::UpdateTagDefaultDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The default value for the Tag Definition. This will be applied to all resources created in the Compartment.
+    # **[Required]** The default value for the tag definition. This will be applied to all resources created in the Compartment.
     #
     # @return [String]
     attr_accessor :value

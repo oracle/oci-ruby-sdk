@@ -27,7 +27,8 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The subnet's availability domain.
+    # The subnet's availability domain. This attribute will be null if this is a regional subnet
+    # instead of an AD-specific subnet. Oracle recommends creating regional subnets.
     #
     # Example: `Uocm:PHX-AD-1`
     #

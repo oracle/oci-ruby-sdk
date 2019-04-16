@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Details to create an Oracle Autonomous Data Warehouse.
+  # **Deprecated.** See {#create_autonomous_database_details create_autonomous_database_details} for reference information about creating an Oracle Autonomous Data Warehouse.
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #

@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Connection strings to connect to an Oracle Autonomous Data Warehouse.
+  # **Deprecated.** For information about connection strings to connect to an Oracle Autonomous Data Warehouse, see {#autonomous_database_connection_strings autonomous_database_connection_strings}.
   #
   class Database::Models::AutonomousDataWarehouseConnectionStrings # rubocop:disable Metrics/LineLength
     # The High database service provides the highest level of resources to each SQL statement resulting in the highest performance, but supports the fewest number of concurrent SQL statements.

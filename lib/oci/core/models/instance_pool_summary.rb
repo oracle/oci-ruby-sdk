@@ -31,7 +31,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the instance configuration associated to the intance pool.
+    # **[Required]** The OCID of the instance configuration associated with the instance pool.
     # @return [String]
     attr_accessor :instance_configuration_id
 

@@ -6,6 +6,11 @@ require 'date'
 module OCI
   # UpdateIPSecConnectionDetails model.
   class Core::Models::UpdateIPSecConnectionDetails # rubocop:disable Metrics/LineLength
+    CPE_LOCAL_IDENTIFIER_TYPE_ENUM = [
+      CPE_LOCAL_IDENTIFIER_TYPE_IP_ADDRESS = 'IP_ADDRESS'.freeze,
+      CPE_LOCAL_IDENTIFIER_TYPE_HOSTNAME = 'HOSTNAME'.freeze
+    ].freeze
+
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -29,13 +34,41 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # Your identifier for your CPE device. Can be either an IP address or a hostname (specifically, the
+    # fully qualified domain name (FQDN)). The type of identifier you provide here must correspond
+    # to the value for `cpeLocalIdentifierType`.
+    #
+    # Example IP address: `10.0.3.3`
+    #
+    # Example hostname: `cpe.example.com`
+    #
+    # @return [String]
+    attr_accessor :cpe_local_identifier
+
+    # The type of identifier for your CPE device. The value you provide here must correspond to the value
+    # for `cpeLocalIdentifier`.
+    #
+    # @return [String]
+    attr_reader :cpe_local_identifier_type
+
+    # Static routes to the CPE. If you provide this attribute, it replaces the entire current set of
+    # static routes. A static route's CIDR must not be a multicast address or class E address.
+    #
+    # Example: `10.0.1.0/24`
+    #
+    # @return [Array<String>]
+    attr_accessor :static_routes
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'cpe_local_identifier': :'cpeLocalIdentifier',
+        'cpe_local_identifier_type': :'cpeLocalIdentifierType',
+        'static_routes': :'staticRoutes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -46,7 +79,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'cpe_local_identifier': :'String',
+        'cpe_local_identifier_type': :'String',
+        'static_routes': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -60,6 +96,9 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :cpe_local_identifier The value to assign to the {#cpe_local_identifier} property
+    # @option attributes [String] :cpe_local_identifier_type The value to assign to the {#cpe_local_identifier_type} property
+    # @option attributes [Array<String>] :static_routes The value to assign to the {#static_routes} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -83,9 +122,37 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.cpe_local_identifier = attributes[:'cpeLocalIdentifier'] if attributes[:'cpeLocalIdentifier']
+
+      raise 'You cannot provide both :cpeLocalIdentifier and :cpe_local_identifier' if attributes.key?(:'cpeLocalIdentifier') && attributes.key?(:'cpe_local_identifier')
+
+      self.cpe_local_identifier = attributes[:'cpe_local_identifier'] if attributes[:'cpe_local_identifier']
+
+      self.cpe_local_identifier_type = attributes[:'cpeLocalIdentifierType'] if attributes[:'cpeLocalIdentifierType']
+
+      raise 'You cannot provide both :cpeLocalIdentifierType and :cpe_local_identifier_type' if attributes.key?(:'cpeLocalIdentifierType') && attributes.key?(:'cpe_local_identifier_type')
+
+      self.cpe_local_identifier_type = attributes[:'cpe_local_identifier_type'] if attributes[:'cpe_local_identifier_type']
+
+      self.static_routes = attributes[:'staticRoutes'] if attributes[:'staticRoutes']
+
+      raise 'You cannot provide both :staticRoutes and :static_routes' if attributes.key?(:'staticRoutes') && attributes.key?(:'static_routes')
+
+      self.static_routes = attributes[:'static_routes'] if attributes[:'static_routes']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] cpe_local_identifier_type Object to be assigned
+    def cpe_local_identifier_type=(cpe_local_identifier_type)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'cpe_local_identifier_type': this must be one of the values in CPE_LOCAL_IDENTIFIER_TYPE_ENUM." if cpe_local_identifier_type && !CPE_LOCAL_IDENTIFIER_TYPE_ENUM.include?(cpe_local_identifier_type)
+
+      # rubocop: enable Metrics/LineLength
+      @cpe_local_identifier_type = cpe_local_identifier_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -98,7 +165,10 @@ module OCI
       self.class == other.class &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        cpe_local_identifier == other.cpe_local_identifier &&
+        cpe_local_identifier_type == other.cpe_local_identifier_type &&
+        static_routes == other.static_routes
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -114,7 +184,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [defined_tags, display_name, freeform_tags, cpe_local_identifier, cpe_local_identifier_type, static_routes].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 
