@@ -108,7 +108,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Attach load balancer to the instance pool.
+    # Attach a load balancer to the instance pool.
     #
     # @param [String] instance_pool_id The OCID of the instance pool.
     # @param [OCI::Core::Models::AttachLoadBalancerDetails] attach_load_balancer_details Load balancer being attached

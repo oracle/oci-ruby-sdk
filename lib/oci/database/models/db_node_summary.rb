@@ -49,7 +49,7 @@ module OCI
     # @return [String]
     attr_accessor :hostname
 
-    # The name of the fault domain the instance is contained in.
+    # The name of the Fault Domain the instance is contained in.
     # @return [String]
     attr_accessor :fault_domain
 

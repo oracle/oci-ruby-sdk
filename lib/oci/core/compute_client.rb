@@ -734,7 +734,7 @@ module OCI
 
 
     # Deletes the specified instance console connection.
-    # @param [String] instance_console_connection_id The OCID of the intance console connection
+    # @param [String] instance_console_connection_id The OCID of the instance console connection.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1487,7 +1487,7 @@ module OCI
 
 
     # Gets the specified instance console connection's information.
-    # @param [String] instance_console_connection_id The OCID of the intance console connection
+    # @param [String] instance_console_connection_id The OCID of the instance console connection.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

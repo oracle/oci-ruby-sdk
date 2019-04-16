@@ -19,11 +19,11 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the instance pool
+    # **[Required]** The OCID of the instance pool.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing the instance pool
+    # **[Required]** The OCID of the compartment containing the instance pool.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -48,7 +48,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The OCID of the instance configuration associated to the intance pool.
+    # **[Required]** The OCID of the instance configuration associated with the instance pool.
     # @return [String]
     attr_accessor :instance_configuration_id
 

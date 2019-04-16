@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # A document that summarizes the default value for a Tag Definition for all resource types created in a Compartment.
+  # Summary information for the specified tag default.
   #
   class Identity::Models::TagDefaultSummary # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [
@@ -13,31 +13,31 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the Tag Default.
+    # **[Required]** The OCID of the tag default.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the Compartment. The Tag Default will apply to any resource contained in this Compartment.
+    # **[Required]** The OCID of the compartment. The tag default will apply to all new resources that are created in the compartment.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The OCID of the Tag Namespace that contains the Tag Definition.
+    # **[Required]** The OCID of the tag namespace that contains the tag definition.
     #
     # @return [String]
     attr_accessor :tag_namespace_id
 
-    # **[Required]** The OCID of the Tag Definition. The Tag Default will always assign a default value for this Tag Definition.
+    # **[Required]** The OCID of the tag definition. The tag default will always assign a default value for this tag definition.
     #
     # @return [String]
     attr_accessor :tag_definition_id
 
-    # **[Required]** The name used in the Tag Definition. This field is informational in the context of the Tag Default.
+    # **[Required]** The name used in the tag definition. This field is informational in the context of the tag default.
     #
     # @return [String]
     attr_accessor :tag_definition_name
 
-    # **[Required]** The default value for the Tag Definition. This will be applied to all resources created in the Compartment.
+    # **[Required]** The default value for the tag definition. This will be applied to all new resources created in the compartment.
     #
     # @return [String]
     attr_accessor :value
@@ -49,7 +49,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The tag default's current state. After creating a tagdefault, make sure its `lifecycleState` is ACTIVE before using it.
+    # The tag default's current state. After creating a `TagDefault`, make sure its `lifecycleState` is ACTIVE before using it.
     #
     # @return [String]
     attr_reader :lifecycle_state

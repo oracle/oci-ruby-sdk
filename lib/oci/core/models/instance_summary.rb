@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # Condensed instance data when listing instances in an instance pool.
   class Core::Models::InstanceSummary # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the instance
+    # **[Required]** The OCID of the instance.
     # @return [String]
     attr_accessor :id
 
@@ -52,7 +52,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The load balancer backends configured for the instance pool instance.
+    # The load balancer backends that are configured for the instance pool instance.
     #
     # @return [Array<OCI::Core::Models::InstancePoolInstanceLoadBalancerBackend>]
     attr_accessor :load_balancer_backends

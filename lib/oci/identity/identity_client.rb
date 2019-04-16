@@ -536,7 +536,7 @@ module OCI
     # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # You must also specify a *name* for the dynamic group, which must be unique across all dynamic groups in your
-    # tenancy, and cannot be changed. Note that this name has to be also unique accross all groups in your tenancy.
+    # tenancy, and cannot be changed. Note that this name has to be also unique across all groups in your tenancy.
     # You can use this name or the OCID when writing policies that apply to the dynamic group. For more information
     # about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
     #
@@ -1300,9 +1300,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Tag Default in the specified Compartment for the specified Tag Definition.
+    # Creates a new tag default in the specified compartment for the specified tag definition.
     #
-    # @param [OCI::Identity::Models::CreateTagDefaultDetails] create_tag_default_details Request object for creating a new Tag Default.
+    # @param [OCI::Identity::Models::CreateTagDefaultDetails] create_tag_default_details Request object for creating a new tag default.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2230,9 +2230,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the the specified Tag Default.
+    # Deletes the the specified tag default.
     #
-    # @param [String] tag_default_id The OCID of the Tag Default.
+    # @param [String] tag_default_id The OCID of the tag default.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2911,9 +2911,9 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Retrieves the specified Tag Default.
+    # Retrieves the specified tag default.
     #
-    # @param [String] tag_default_id The OCID of the Tag Default.
+    # @param [String] tag_default_id The OCID of the tag default.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4344,7 +4344,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the Tag Defaults for Tag Definitions in the specified Compartment.
+    # Lists the tag defaults for tag definitions in the specified compartment.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -4357,7 +4357,7 @@ module OCI
     #
     # @option opts [String] :compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
-    # @option opts [String] :tag_definition_id The OCID of the Tag Definition.
+    # @option opts [String] :tag_definition_id The OCID of the tag definition.
     #
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
@@ -5570,10 +5570,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the the specified Tag Default. You can presently update the following fields: `value`.
+    # Updates the the specified tag default. You can update the following field: `value`.
     #
-    # @param [String] tag_default_id The OCID of the Tag Default.
-    # @param [OCI::Identity::Models::UpdateTagDefaultDetails] update_tag_default_details Request object for updating a Tag Default.
+    # @param [String] tag_default_id The OCID of the tag default.
+    # @param [OCI::Identity::Models::UpdateTagDefaultDetails] update_tag_default_details Request object for updating a tag default.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

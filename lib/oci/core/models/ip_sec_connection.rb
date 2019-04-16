@@ -8,7 +8,7 @@ module OCI
   # A connection between a DRG and CPE. This connection consists of multiple IPSec
   # tunnels. Creating this connection is one of the steps required when setting up
   # an IPSec VPN. For more information, see
-  # [Overview of the Networking Service](https://docs.cloud.oracle.com/Content/Network/Concepts/overview.htm).
+  # [IPSec VPN](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPsec.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
@@ -26,11 +26,17 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    CPE_LOCAL_IDENTIFIER_TYPE_ENUM = [
+      CPE_LOCAL_IDENTIFIER_TYPE_IP_ADDRESS = 'IP_ADDRESS'.freeze,
+      CPE_LOCAL_IDENTIFIER_TYPE_HOSTNAME = 'HOSTNAME'.freeze,
+      CPE_LOCAL_IDENTIFIER_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the compartment containing the IPSec connection.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The OCID of the CPE.
+    # **[Required]** The OCID of the {Cpe} object.
     # @return [String]
     attr_accessor :cpe_id
 
@@ -69,6 +75,26 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # Your identifier for your CPE device. Can be either an IP address or a hostname (specifically,
+    # the fully qualified domain name (FQDN)). The type of identifier here must correspond
+    # to the value for `cpeLocalIdentifierType`.
+    #
+    # If you don't provide a value when creating the IPSec connection, the `ipAddress` attribute
+    # for the {Cpe} object specified by `cpeId` is used as the `cpeLocalIdentifier`.
+    #
+    # Example IP address: `10.0.3.3`
+    #
+    # Example hostname: `cpe.example.com`
+    #
+    # @return [String]
+    attr_accessor :cpe_local_identifier
+
+    # The type of identifier for your CPE device. The value here must correspond to the value
+    # for `cpeLocalIdentifier`.
+    #
+    # @return [String]
+    attr_reader :cpe_local_identifier_type
+
     # **[Required]** Static routes to the CPE. At least one route must be included. The CIDR must not be a
     # multicast address or class E address.
     #
@@ -96,6 +122,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'lifecycle_state': :'lifecycleState',
+        'cpe_local_identifier': :'cpeLocalIdentifier',
+        'cpe_local_identifier_type': :'cpeLocalIdentifierType',
         'static_routes': :'staticRoutes',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
@@ -114,6 +142,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'lifecycle_state': :'String',
+        'cpe_local_identifier': :'String',
+        'cpe_local_identifier_type': :'String',
         'static_routes': :'Array<String>',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -134,6 +164,8 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :cpe_local_identifier The value to assign to the {#cpe_local_identifier} property
+    # @option attributes [String] :cpe_local_identifier_type The value to assign to the {#cpe_local_identifier_type} property
     # @option attributes [Array<String>] :static_routes The value to assign to the {#static_routes} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
@@ -186,6 +218,18 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.cpe_local_identifier = attributes[:'cpeLocalIdentifier'] if attributes[:'cpeLocalIdentifier']
+
+      raise 'You cannot provide both :cpeLocalIdentifier and :cpe_local_identifier' if attributes.key?(:'cpeLocalIdentifier') && attributes.key?(:'cpe_local_identifier')
+
+      self.cpe_local_identifier = attributes[:'cpe_local_identifier'] if attributes[:'cpe_local_identifier']
+
+      self.cpe_local_identifier_type = attributes[:'cpeLocalIdentifierType'] if attributes[:'cpeLocalIdentifierType']
+
+      raise 'You cannot provide both :cpeLocalIdentifierType and :cpe_local_identifier_type' if attributes.key?(:'cpeLocalIdentifierType') && attributes.key?(:'cpe_local_identifier_type')
+
+      self.cpe_local_identifier_type = attributes[:'cpe_local_identifier_type'] if attributes[:'cpe_local_identifier_type']
+
       self.static_routes = attributes[:'staticRoutes'] if attributes[:'staticRoutes']
 
       raise 'You cannot provide both :staticRoutes and :static_routes' if attributes.key?(:'staticRoutes') && attributes.key?(:'static_routes')
@@ -216,6 +260,21 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] cpe_local_identifier_type Object to be assigned
+    def cpe_local_identifier_type=(cpe_local_identifier_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if cpe_local_identifier_type && !CPE_LOCAL_IDENTIFIER_TYPE_ENUM.include?(cpe_local_identifier_type)
+        # rubocop: disable Metrics/LineLength
+        OCI.logger.debug("Unknown value for 'cpe_local_identifier_type' [" + cpe_local_identifier_type + "]. Mapping to 'CPE_LOCAL_IDENTIFIER_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        # rubocop: enable Metrics/LineLength
+        @cpe_local_identifier_type = CPE_LOCAL_IDENTIFIER_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @cpe_local_identifier_type = cpe_local_identifier_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
 
@@ -233,6 +292,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         lifecycle_state == other.lifecycle_state &&
+        cpe_local_identifier == other.cpe_local_identifier &&
+        cpe_local_identifier_type == other.cpe_local_identifier_type &&
         static_routes == other.static_routes &&
         time_created == other.time_created
     end
@@ -250,7 +311,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cpe_id, defined_tags, display_name, drg_id, freeform_tags, id, lifecycle_state, static_routes, time_created].hash
+      [compartment_id, cpe_id, defined_tags, display_name, drg_id, freeform_tags, id, lifecycle_state, cpe_local_identifier, cpe_local_identifier_type, static_routes, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

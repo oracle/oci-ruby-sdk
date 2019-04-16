@@ -27,7 +27,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The OCID of the instance configuration associated to the intance pool.
+    # The OCID of the instance configuration associated with the instance pool.
     # @return [String]
     attr_accessor :instance_configuration_id
 

@@ -56,7 +56,11 @@ module OCI
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # A description of the service offered by the provider.
+    # The location of the provider's website or portal. This portal is where you can get information
+    # about the provider service, create a virtual circuit connection from the provider to Oracle
+    # Cloud Infrastructure, and retrieve your provider service key for that virtual circuit connection.
+    #
+    # Example: `https://example.com`
     #
     # @return [String]
     attr_accessor :description

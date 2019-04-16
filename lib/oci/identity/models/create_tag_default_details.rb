@@ -6,17 +6,17 @@ require 'date'
 module OCI
   # CreateTagDefaultDetails model.
   class Identity::Models::CreateTagDefaultDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the Compartment. The Tag Default will apply to any resource contained in this Compartment.
+    # **[Required]** The OCID of the compartment. The tag default will be applied to all new resources created in this compartment.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The OCID of the Tag Definition. The Tag Default will always assign a default value for this Tag Definition.
+    # **[Required]** The OCID of the tag definition. The tag default will always assign a default value for this tag definition.
     #
     # @return [String]
     attr_accessor :tag_definition_id
 
-    # **[Required]** The default value for the Tag Definition. This will be applied to all resources created in the Compartment.
+    # **[Required]** The default value for the tag definition. This will be applied to all new resources created in the compartment.
     #
     # @return [String]
     attr_accessor :value

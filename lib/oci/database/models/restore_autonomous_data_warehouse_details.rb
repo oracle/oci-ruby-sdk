@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # Details to restore an Oracle Autonomous Data Warehouse.
+  # **Deprecated.** See {#restore_autonomous_database_details restore_autonomous_database_details} for reference information about restoring an Autonomous Data Warehouse.
   #
   class Database::Models::RestoreAutonomousDataWarehouseDetails # rubocop:disable Metrics/LineLength
     # **[Required]** The time to restore the database to.

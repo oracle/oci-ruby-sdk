@@ -9,6 +9,11 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::UpdateAutonomousDatabaseDetails # rubocop:disable Metrics/LineLength
+    LICENSE_MODEL_ENUM = [
+      LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
+      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
+    ].freeze
+
     # The number of CPU cores to be made available to the database.
     # @return [Integer]
     attr_accessor :cpu_core_count
@@ -42,6 +47,15 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The new Oracle license model that applies to the Oracle Autonomous Transaction Processing database.
+    #
+    # @return [String]
+    attr_reader :license_model
+
+    # The client IP access control list (ACL). Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet. To delete all the existing white listed IP\u2019s, use an array with a single empty string entry.
+    # @return [Array<String>]
+    attr_accessor :whitelisted_ips
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -51,7 +65,9 @@ module OCI
         'display_name': :'displayName',
         'admin_password': :'adminPassword',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'license_model': :'licenseModel',
+        'whitelisted_ips': :'whitelistedIps'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -65,7 +81,9 @@ module OCI
         'display_name': :'String',
         'admin_password': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'license_model': :'String',
+        'whitelisted_ips': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,6 +100,8 @@ module OCI
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -123,9 +143,31 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
+
+      raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
+
+      self.license_model = attributes[:'license_model'] if attributes[:'license_model']
+
+      self.whitelisted_ips = attributes[:'whitelistedIps'] if attributes[:'whitelistedIps']
+
+      raise 'You cannot provide both :whitelistedIps and :whitelisted_ips' if attributes.key?(:'whitelistedIps') && attributes.key?(:'whitelisted_ips')
+
+      self.whitelisted_ips = attributes[:'whitelisted_ips'] if attributes[:'whitelisted_ips']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license_model Object to be assigned
+    def license_model=(license_model)
+      # rubocop: disable Metrics/LineLength
+      raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
+
+      # rubocop: enable Metrics/LineLength
+      @license_model = license_model
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -141,7 +183,9 @@ module OCI
         display_name == other.display_name &&
         admin_password == other.admin_password &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        license_model == other.license_model &&
+        whitelisted_ips == other.whitelisted_ips
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
 
@@ -157,7 +201,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, data_storage_size_in_tbs, display_name, admin_password, freeform_tags, defined_tags].hash
+      [cpu_core_count, data_storage_size_in_tbs, display_name, admin_password, freeform_tags, defined_tags, license_model, whitelisted_ips].hash
     end
     # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
 

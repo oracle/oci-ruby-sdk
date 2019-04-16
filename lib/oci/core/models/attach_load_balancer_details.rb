@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # Represents a load balancer that is to be attached to an instance pool.
   class Core::Models::AttachLoadBalancerDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the load balancer to attach to the pool.
+    # **[Required]** The OCID of the load balancer to attach to the instance pool.
     # @return [String]
     attr_accessor :load_balancer_id
 
@@ -18,7 +18,7 @@ module OCI
     # @return [Integer]
     attr_accessor :port
 
-    # **[Required]** Indicates which vnic on each instance in the pool should be used to associate with the load balancer. possible values are \"PrimaryVnic\" or the displayName of one of the secondary VNICs on the instance configuration that is associated to the instance pool.
+    # **[Required]** Indicates which VNIC on each instance in the pool should be used to associate with the load balancer. Possible values are \"PrimaryVnic\" or the displayName of one of the secondary VNICs on the instance configuration that is associated with the instance pool.
     # @return [String]
     attr_accessor :vnic_selection
 

@@ -56,7 +56,7 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
-    # List of the fault domains in which this DB system is provisioned.
+    # List of the Fault Domains in which this DB system is provisioned.
     # @return [Array<String>]
     attr_accessor :fault_domains
 

@@ -36,7 +36,8 @@ module OCI
   # supply string values using the API.
   #
   class Core::Models::PrivateIp # rubocop:disable Metrics/LineLength
-    # The private IP's availability domain.
+    # The private IP's availability domain. This attribute will be null if this is a *secondary*
+    # private IP assigned to a VNIC that is in a *regional* subnet.
     #
     # Example: `Uocm:PHX-AD-1`
     #

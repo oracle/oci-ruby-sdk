@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # An Oracle Autonomous Data Warehouse.
+  # **Deprecated.** See {AutonomousDatabase} for reference information about Autonomous Databases with the warehouse workload type.
   #
   class Database::Models::AutonomousDataWarehouse # rubocop:disable Metrics/LineLength
     LIFECYCLE_STATE_ENUM = [

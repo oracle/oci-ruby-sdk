@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
-  # An Autonomous Data Warehouse backup.
+  # **Deprecated.** See {AutonomousDatabaseBackup} for reference information about Autonomous Data Warehouse backups.
   #
   class Database::Models::AutonomousDataWarehouseBackup # rubocop:disable Metrics/LineLength
     TYPE_ENUM = [

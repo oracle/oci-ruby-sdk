@@ -177,7 +177,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Autonomous Data Warehouse.
+    # **Deprecated.** To create a new Autonomous Data Warehouse, use the {#create_autonomous_database create_autonomous_database} operation and specify `DW` as the workload type.
     #
     # @param [OCI::Database::Models::CreateAutonomousDataWarehouseDetails] create_autonomous_data_warehouse_details Request to create a new Autonomous Data Warehouse.
     # @param [Hash] opts the optional parameters
@@ -236,7 +236,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Autonomous Data Warehouse backup for the specified database based on the provided request parameters.
+    # **Deprecated.** To create a new Autonomous Data Warehouse backup for a specified database, use the {#create_autonomous_database_backup create_autonomous_database_backup} operation.
     #
     # @param [OCI::Database::Models::CreateAutonomousDataWarehouseBackupDetails] create_autonomous_data_warehouse_backup_details Request to create a new Autonomous Data Warehouse backup.
     # @param [Hash] opts the optional parameters
@@ -751,7 +751,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified Autonomous Data Warehouse.
+    # **Deprecated.** To delete an Autonomous Data Warehouse, use the {#delete_autonomous_database delete_autonomous_database} operation.
     #
     # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -1045,7 +1045,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates and downloads a wallet for the specified Autonomous Data Warehouse.
+    # **Deprecated.** To create and download a wallet for an Autonomous Data Warehouse, use the {#generate_autonomous_database_wallet generate_autonomous_database_wallet} operation.
     #
     # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::GenerateAutonomousDataWarehouseWalletDetails] generate_autonomous_data_warehouse_wallet_details Request to create a new Autonomous Data Warehouse wallet.
@@ -1156,10 +1156,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates and downloads a wallet for the specified Autonomous Transaction Processing database.
+    # Creates and downloads a wallet for the specified Autonomous Database.
     #
     # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::GenerateAutonomousDatabaseWalletDetails] generate_autonomous_database_wallet_details Request to create a new Autonomous Transaction Processing database wallet.
+    # @param [OCI::Database::Models::GenerateAutonomousDatabaseWalletDetails] generate_autonomous_database_wallet_details Request to create a new Autonomous Database wallet.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1268,7 +1268,7 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the details of the specified Autonomous Data Warehouse.
+    # **Deprecated.** To get the details of an Autonomous Data Warehouse, use the {#get_autonomous_database get_autonomous_database} operation.
     #
     # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -1322,7 +1322,8 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets information about the specified Autonomous Data Warehouse backup.
+    # **Deprecated.** To get information about a specified Autonomous Data Warehouse backup, use the {#get_autonomous_database_backup get_autonomous_database_backup} operation.
+    #
     # @param [String] autonomous_data_warehouse_backup_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse backup.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2209,7 +2210,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of Autonomous Data Warehouse backups based on either the `autonomousDataWarehouseId` or `compartmentId` specified as a query parameter.
+    # **Deprecated.** To get a list of Autonomous Data Warehouse backups, use the {#list_autonomous_database_backups list_autonomous_database_backups} operation.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2291,7 +2292,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of Autonomous Data Warehouses.
+    # **Deprecated.** To get a list of Autonomous Data Warehouses, use the {#list_autonomous_databases list_autonomous_databases} operation and specify `DW` as the workload type.
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -3390,7 +3391,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Restores an Autonomous Data Warehouse based on the provided request parameters.
+    # **Deprecated.** To restore an Autonomous Data Warehouse, use the {#restore_autonomous_database restore_autonomous_database} operation.
     #
     # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::RestoreAutonomousDataWarehouseDetails] restore_autonomous_data_warehouse_details Request to perform an Autonomous Data Warehouse restore.
@@ -3567,7 +3568,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Starts the specified autonomous Data Warehouse.
+    # **Deprecated.** To start an Autonomous Data Warehouse, use the {#start_autonomous_database start_autonomous_database} operation.
     #
     # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -3681,7 +3682,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Stops the specified Autonomous Data Warehouse.
+    # **Deprecated.** To stop an Autonomous Data Warehouse, use the {#stop_autonomous_database stop_autonomous_database} operation.
     #
     # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -3918,7 +3919,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified Autonomous Data Warehouse with a new CPU core count and size.
+    # **Deprecated.** To update the CPU core count and storage size of an Autonomous Data Warehouse, use the {#update_autonomous_database update_autonomous_database} operation.
     #
     # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::UpdateAutonomousDataWarehouseDetails] update_autonomous_data_warehouse_details Request to update the properties of an Autonomous Data Warehouse.
