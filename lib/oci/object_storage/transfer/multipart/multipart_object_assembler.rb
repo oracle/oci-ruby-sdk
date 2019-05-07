@@ -518,16 +518,16 @@ module OCI
 
                 # Use full jitter on networking errors (as hopefully they are short-lived/intermittent)
                 sleep(get_full_jitter_sleep_time_millis(attempt) / 1000.0)
-              rescue OCI::Errors::ServiceError => svc_err
+              rescue OCI::Errors::ServiceError => e
                 raise if try >= @max_attempts # Short-circuit if we're already on our last attempt
 
                 # For internal server errors, use full jitter as it's hopefully intermittent
-                sleep(get_full_jitter_sleep_time_millis(attempt) / 1000.0) if svc_err.status >= 500 || svc_err.status == -1
+                sleep(get_full_jitter_sleep_time_millis(attempt) / 1000.0) if e.status >= 500 || e.status == -1
 
                 # For throttles and consistency errors, use equal jitter as this guarantees some sleep time
                 # between attempts (full jitter doesn't because we get a value across the range 0 to something, i.e.
                 # it is possible to get a very small sleep time)
-                if svc_err.status == 429 || (svc_err.status == 409 && svc_err.code == 'ConcurrentObjectUpdate')
+                if e.status == 429 || (e.status == 409 && e.code == 'ConcurrentObjectUpdate')
                   sleep(get_equal_jitter_sleep_time_millis(attempt) / 1000.0)
                 end
 

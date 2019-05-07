@@ -26,7 +26,7 @@ module OCI
     attr_accessor :subnet_id
 
     # **[Required]** The IP address of the health check status report provider. This identifier helps you differentiate same-subnet
-    # (private) load balancers that report health check status.
+    # load balancers that report health check status.
     #
     # Example: `10.0.0.7`
     #

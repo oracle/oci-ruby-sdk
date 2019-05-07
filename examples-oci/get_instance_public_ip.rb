@@ -44,10 +44,10 @@ if instance
               OCI::Core::Models::GetPublicIpByPrivateIpIdDetails.new(private_ip_id: private_ip.id)
             ).data
             public_ip_addresses << public_ip.ip_address
-          rescue OCI::Errors::ServiceError => error
+          rescue OCI::Errors::ServiceError => e
             # A 404 indicates that there is no public IP for the given private IP
             puts "No public IP found for private IP #{private_ip.id} (#{private_ip.ip_address})" if error.status_code == 404
-            puts "Error retrieving public IP for private IP #{private_ip.id} (#{private_ip.ip_address}): #{error}" \
+            puts "Error retrieving public IP for private IP #{private_ip.id} (#{private_ip.ip_address}): #{e}" \
               if error.status_code != 404
           end
         end
