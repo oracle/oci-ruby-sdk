@@ -135,8 +135,8 @@ def delete_drg_attachment(vcn_client, region_short_name, drg_attachment)
               .wait_until(:lifecycle_state,
                           OCI::Core::Models::DrgAttachment::LIFECYCLE_STATE_DETACHED,
                           max_wait_seconds: MAX_WAIT_TIME_SECONDS)
-  rescue OCI::Errors::ServiceError => error
-    raise error unless error.status_code == 404
+  rescue OCI::Errors::ServiceError => e
+    raise e unless e.status_code == 404
   end
   puts "    Deleted DRG Attachment: #{drg_attachment.id}"
 end
@@ -150,8 +150,8 @@ def delete_drg(vcn_client, region_short_name, drg)
               .wait_until(:lifecycle_state,
                           OCI::Core::Models::Drg::LIFECYCLE_STATE_TERMINATED,
                           max_wait_seconds: MAX_WAIT_TIME_SECONDS)
-  rescue OCI::Errors::ServiceError => error
-    raise unless error.status_code == 404
+  rescue OCI::Errors::ServiceError => e
+    raise e unless e.status_code == 404
   end
   puts "    Deleted DRG: #{drg.id}"
 end
@@ -165,8 +165,8 @@ def delete_vcn(vcn_client, region_short_name, vcn)
               .wait_until(:lifecycle_state,
                           OCI::Core::Models::Vcn::LIFECYCLE_STATE_TERMINATED,
                           max_wait_seconds: MAX_WAIT_TIME_SECONDS)
-  rescue OCI::Errors::ServiceError => error
-    raise unless error.status_code == 404
+  rescue OCI::Errors::ServiceError => e
+    raise e unless e.status_code == 404
   end
   puts "    Deleted VCN: #{vcn.id}"
 end
@@ -226,8 +226,8 @@ begin
                   .wait_until(:peering_status,
                               OCI::Core::Models::RemotePeeringConnection::PEERING_STATUS_REVOKED,
                               max_wait_seconds: MAX_WAIT_TIME_SECONDS)
-rescue OCI::Errors::ServiceError => error
-  raise unless error.status_code == 404
+rescue OCI::Errors::ServiceError => e
+  raise e unless e.status_code == 404
 end
 
 # Delete the rest of the VCN in IAD

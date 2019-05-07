@@ -6,7 +6,7 @@ require_relative 'rule'
 # rubocop:disable Lint/UnneededCopDisableDirective
 module OCI
   # An object that represents the action of adding a header to a response.
-  # This rule applies only to HTTP or HTTP2 listeners.
+  # This rule applies only to HTTP listeners.
   #
   # **NOTES:**
   #

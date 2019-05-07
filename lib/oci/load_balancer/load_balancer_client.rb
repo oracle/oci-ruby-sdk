@@ -591,7 +591,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new rule set associated with the specified load balancer.
+    # Creates a new rule set associated with the specified load balancer. For more information, see
+    # [Managing Rule Sets](https://docs.cloud.oracle.com/Content/Balance/Tasks/managingrulesets.htm).
     #
     # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
     # @param [OCI::LoadBalancer::Models::CreateRuleSetDetails] create_rule_set_details The configuration details for the rule set to create.
