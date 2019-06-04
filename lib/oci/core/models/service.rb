@@ -2,28 +2,46 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Information about a service that is accessible through a service gateway.
+  # An object that represents one or multiple Oracle services that you can enable for a
+  # {ServiceGateway}. In the User Guide topic
+  # [Access to Oracle Services: Service Gateway](https://docs.cloud.oracle.com/Content/Network/Tasks/servicegateway.htm), the
+  # term *service CIDR label* is used to refer to the string that represents the regional public
+  # IP address ranges of the Oracle service or services covered by a given `Service` object. That
+  # unique string is the value of the `Service` object's `cidrBlock` attribute.
   #
-  class Core::Models::Service # rubocop:disable Metrics/LineLength
-    # **[Required]** A string that represents the public endpoints for the service. When you set up a route rule
-    # to route traffic to the service gateway, use this value as the destination CIDR block for
-    # the rule. See {RouteTable}.
+  class Core::Models::Service
+    # **[Required]** A string that represents the regional public IP address ranges for the Oracle service or
+    # services covered by this `Service` object. Also known as the `Service` object's *service
+    # CIDR label*.
+    #
+    # When you set up a route rule to route traffic to the service gateway, use this value as the
+    # rule's destination. See {RouteTable}. Also, when you set up
+    # a security list rule to cover traffic with the service gateway, use the `cidrBlock` value
+    # as the rule's destination (for an egress rule) or the source (for an ingress rule).
+    # See {SecurityList}.
+    #
+    # Example: `oci-phx-objectstorage`
     #
     # @return [String]
     attr_accessor :cidr_block
 
-    # **[Required]** Description of the service.
+    # **[Required]** Description of the Oracle service or services covered by this `Service` object.
+    #
+    # Example: `OCI PHX Object Storage`
     #
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The service's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The `Service` object's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** Name of the service. This name can change and is not guaranteed to be unique.
+    # **[Required]** Name of the `Service` object. This name can change and is not guaranteed to be unique.
+    #
+    # Example: `OCI PHX Object Storage`
+    #
     # @return [String]
     attr_accessor :name
 
@@ -52,7 +70,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -80,9 +98,9 @@ module OCI
       self.name = attributes[:'name'] if attributes[:'name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -96,7 +114,7 @@ module OCI
         id == other.id &&
         name == other.name
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -104,7 +122,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -112,7 +130,7 @@ module OCI
     def hash
       [cidr_block, description, id, name].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -185,4 +203,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

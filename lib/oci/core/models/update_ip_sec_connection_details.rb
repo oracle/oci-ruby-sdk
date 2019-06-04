@@ -2,17 +2,17 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # UpdateIPSecConnectionDetails model.
-  class Core::Models::UpdateIPSecConnectionDetails # rubocop:disable Metrics/LineLength
+  class Core::Models::UpdateIPSecConnectionDetails
     CPE_LOCAL_IDENTIFIER_TYPE_ENUM = [
       CPE_LOCAL_IDENTIFIER_TYPE_IP_ADDRESS = 'IP_ADDRESS'.freeze,
       CPE_LOCAL_IDENTIFIER_TYPE_HOSTNAME = 'HOSTNAME'.freeze
     ].freeze
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -26,8 +26,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -37,6 +36,9 @@ module OCI
     # Your identifier for your CPE device. Can be either an IP address or a hostname (specifically, the
     # fully qualified domain name (FQDN)). The type of identifier you provide here must correspond
     # to the value for `cpeLocalIdentifierType`.
+    #
+    # For information about why you'd provide this value, see
+    # [If Your CPE Is Behind a NAT Device](https://docs.cloud.oracle.com/Content/Network/Tasks/overviewIPsec.htm#nat).
     #
     # Example IP address: `10.0.3.3`
     #
@@ -88,7 +90,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -142,19 +144,17 @@ module OCI
       self.static_routes = attributes[:'static_routes'] if attributes[:'static_routes']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] cpe_local_identifier_type Object to be assigned
     def cpe_local_identifier_type=(cpe_local_identifier_type)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'cpe_local_identifier_type': this must be one of the values in CPE_LOCAL_IDENTIFIER_TYPE_ENUM." if cpe_local_identifier_type && !CPE_LOCAL_IDENTIFIER_TYPE_ENUM.include?(cpe_local_identifier_type)
 
-      # rubocop: enable Metrics/LineLength
       @cpe_local_identifier_type = cpe_local_identifier_type
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -170,7 +170,7 @@ module OCI
         cpe_local_identifier_type == other.cpe_local_identifier_type &&
         static_routes == other.static_routes
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -178,7 +178,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -186,7 +186,7 @@ module OCI
     def hash
       [defined_tags, display_name, freeform_tags, cpe_local_identifier, cpe_local_identifier_type, static_routes].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -259,4 +259,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

@@ -2,10 +2,10 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # CreateVaultDetails model.
-  class KeyManagement::Models::CreateVaultDetails # rubocop:disable Metrics/LineLength
+  class KeyManagement::Models::CreateVaultDetails
     VAULT_TYPE_ENUM = [
       VAULT_TYPE_VIRTUAL_PRIVATE = 'VIRTUAL_PRIVATE'.freeze
     ].freeze
@@ -65,7 +65,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -112,19 +112,17 @@ module OCI
       self.vault_type = attributes[:'vault_type'] if attributes[:'vault_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] vault_type Object to be assigned
     def vault_type=(vault_type)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'vault_type': this must be one of the values in VAULT_TYPE_ENUM." if vault_type && !VAULT_TYPE_ENUM.include?(vault_type)
 
-      # rubocop: enable Metrics/LineLength
       @vault_type = vault_type
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -139,7 +137,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         vault_type == other.vault_type
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -147,7 +145,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -155,7 +153,7 @@ module OCI
     def hash
       [compartment_id, defined_tags, display_name, freeform_tags, vault_type].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -228,4 +226,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

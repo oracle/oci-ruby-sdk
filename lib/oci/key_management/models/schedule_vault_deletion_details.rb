@@ -2,10 +2,10 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Details for scheduling vault deletion
-  class KeyManagement::Models::ScheduleVaultDeletionDetails # rubocop:disable Metrics/LineLength
+  class KeyManagement::Models::ScheduleVaultDeletionDetails
     # An optional property to indicate the deletion time of the vault, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339)
     # timestamp format. The specified time must be between 7 and 30 days from the time
     # when the request is received. If this property is missing, it will be set to 30 days from the time of the request by default.
@@ -32,7 +32,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -51,9 +51,9 @@ module OCI
       self.time_of_deletion = attributes[:'time_of_deletion'] if attributes[:'time_of_deletion']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -64,7 +64,7 @@ module OCI
       self.class == other.class &&
         time_of_deletion == other.time_of_deletion
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -72,7 +72,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -80,7 +80,7 @@ module OCI
     def hash
       [time_of_deletion].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -153,4 +153,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

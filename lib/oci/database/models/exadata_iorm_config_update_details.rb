@@ -2,11 +2,11 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # IORM Setting details for this Exadata System to be updated
   #
-  class Database::Models::ExadataIormConfigUpdateDetails # rubocop:disable Metrics/LineLength
+  class Database::Models::ExadataIormConfigUpdateDetails
     OBJECTIVE_ENUM = [
       OBJECTIVE_LOW_LATENCY = 'LOW_LATENCY'.freeze,
       OBJECTIVE_HIGH_THROUGHPUT = 'HIGH_THROUGHPUT'.freeze,
@@ -48,7 +48,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -70,19 +70,17 @@ module OCI
       self.db_plans = attributes[:'db_plans'] if attributes[:'db_plans']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] objective Object to be assigned
     def objective=(objective)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'objective': this must be one of the values in OBJECTIVE_ENUM." if objective && !OBJECTIVE_ENUM.include?(objective)
 
-      # rubocop: enable Metrics/LineLength
       @objective = objective
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -94,7 +92,7 @@ module OCI
         objective == other.objective &&
         db_plans == other.db_plans
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -102,7 +100,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -110,7 +108,7 @@ module OCI
     def hash
       [objective, db_plans].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -183,4 +181,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

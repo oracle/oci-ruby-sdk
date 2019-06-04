@@ -2,17 +2,17 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # CreateServiceGatewayDetails model.
-  class Core::Models::CreateServiceGatewayDetails # rubocop:disable Metrics/LineLength
-    # **[Required]** The [OCID] (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)  of the compartment to contain the service gateway.
+  class Core::Models::CreateServiceGatewayDetails
+    # **[Required]** The [OCID] (https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment to contain the service gateway.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -26,15 +26,23 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** List of the service OCIDs. These are the services that will be enabled on the service gateway. This list can be empty.
+    # **[Required]** List of the OCIDs of the {Service} objects to
+    # enable for the service gateway. This list can be empty if you don't want to enable any
+    # `Service` objects when you create the gateway. You can enable a `Service`
+    # object later by using either {#attach_service_id attach_service_id}
+    # or {#update_service_gateway update_service_gateway}.
+    #
+    # For each enabled `Service`, make sure there's a route rule with the `Service` object's `cidrBlock`
+    # as the rule's destination and the service gateway as the rule's target. See
+    # {RouteTable}.
+    #
     # @return [Array<OCI::Core::Models::ServiceIdRequestDetails>]
     attr_accessor :services
 
@@ -71,7 +79,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -121,9 +129,9 @@ module OCI
       self.vcn_id = attributes[:'vcn_id'] if attributes[:'vcn_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -139,7 +147,7 @@ module OCI
         services == other.services &&
         vcn_id == other.vcn_id
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -147,7 +155,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -155,7 +163,7 @@ module OCI
     def hash
       [compartment_id, defined_tags, display_name, freeform_tags, services, vcn_id].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -228,4 +236,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

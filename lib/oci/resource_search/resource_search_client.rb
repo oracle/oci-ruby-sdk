@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :ResourceSearchClient) + '/20180409'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://query.{region}.{secondLevelDomain}') + '/20180409'
       logger.info "ResourceSearchClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 

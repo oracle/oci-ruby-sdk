@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.5.8**
+**Version 2.5.9**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -28,6 +28,7 @@ The Ruby SDK supports the following services:
 * Search
 * Streaming
 * Web Application Acceleration and Security
+* Work Requests
 
 **Licensing:** This SDK and sample is dual licensed under the Universal Permissive License 1.0 and the Apache License.
 

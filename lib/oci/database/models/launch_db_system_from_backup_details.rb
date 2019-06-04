@@ -3,10 +3,10 @@
 require 'date'
 require_relative 'launch_db_system_base'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # LaunchDbSystemFromBackupDetails model.
-  class Database::Models::LaunchDbSystemFromBackupDetails < Database::Models::LaunchDbSystemBase # rubocop:disable Metrics/LineLength
+  class Database::Models::LaunchDbSystemFromBackupDetails < Database::Models::LaunchDbSystemBase
     DATABASE_EDITION_ENUM = [
       DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
       DATABASE_EDITION_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
@@ -111,7 +111,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -174,39 +174,33 @@ module OCI
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] database_edition Object to be assigned
     def database_edition=(database_edition)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'database_edition': this must be one of the values in DATABASE_EDITION_ENUM." if database_edition && !DATABASE_EDITION_ENUM.include?(database_edition)
 
-      # rubocop: enable Metrics/LineLength
       @database_edition = database_edition
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] disk_redundancy Object to be assigned
     def disk_redundancy=(disk_redundancy)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'disk_redundancy': this must be one of the values in DISK_REDUNDANCY_ENUM." if disk_redundancy && !DISK_REDUNDANCY_ENUM.include?(disk_redundancy)
 
-      # rubocop: enable Metrics/LineLength
       @disk_redundancy = disk_redundancy
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] license_model Object to be assigned
     def license_model=(license_model)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
 
-      # rubocop: enable Metrics/LineLength
       @license_model = license_model
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -240,7 +234,7 @@ module OCI
         disk_redundancy == other.disk_redundancy &&
         license_model == other.license_model
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -248,7 +242,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -256,7 +250,7 @@ module OCI
     def hash
       [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, shape, time_zone, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, db_home, database_edition, disk_redundancy, license_model].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -329,4 +323,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

@@ -2,12 +2,12 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # UpdateImageDetails model.
-  class Core::Models::UpdateImageDetails # rubocop:disable Metrics/LineLength
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+  class Core::Models::UpdateImageDetails
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -23,13 +23,26 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
+
+    # Operating system
+    #
+    # Example: `Oracle Linux`
+    #
+    # @return [String]
+    attr_accessor :operating_system
+
+    # Operating system version
+    #
+    # Example: `7.4`
+    #
+    # @return [String]
+    attr_accessor :operating_system_version
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -37,7 +50,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'operating_system': :'operatingSystem',
+        'operating_system_version': :'operatingSystemVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,13 +63,15 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'operating_system': :'String',
+        'operating_system_version': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -62,6 +79,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :operating_system The value to assign to the {#operating_system} property
+    # @option attributes [String] :operating_system_version The value to assign to the {#operating_system_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -85,11 +104,23 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.operating_system = attributes[:'operatingSystem'] if attributes[:'operatingSystem']
+
+      raise 'You cannot provide both :operatingSystem and :operating_system' if attributes.key?(:'operatingSystem') && attributes.key?(:'operating_system')
+
+      self.operating_system = attributes[:'operating_system'] if attributes[:'operating_system']
+
+      self.operating_system_version = attributes[:'operatingSystemVersion'] if attributes[:'operatingSystemVersion']
+
+      raise 'You cannot provide both :operatingSystemVersion and :operating_system_version' if attributes.key?(:'operatingSystemVersion') && attributes.key?(:'operating_system_version')
+
+      self.operating_system_version = attributes[:'operating_system_version'] if attributes[:'operating_system_version']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -100,9 +131,11 @@ module OCI
       self.class == other.class &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        operating_system == other.operating_system &&
+        operating_system_version == other.operating_system_version
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -110,15 +143,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [defined_tags, display_name, freeform_tags, operating_system, operating_system_version].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -191,4 +224,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

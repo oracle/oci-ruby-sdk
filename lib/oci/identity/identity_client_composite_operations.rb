@@ -337,6 +337,47 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Identity::IdentityClient#create_tag} and then waits for the {OCI::Identity::Models::Tag} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [OCI::Identity::Models::CreateTagDetails] create_tag_details Request object for creating a new tag in the specified tag namespace.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::Tag#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#create_tag}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Identity::Models::Tag}
+    def create_tag_and_wait_for_state(tag_namespace_id, create_tag_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_tag(tag_namespace_id, create_tag_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_tag(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Identity::IdentityClient#create_tag_default} and then waits for the {OCI::Identity::Models::TagDefault} acted upon
     # to enter the given state(s).
     #
@@ -358,6 +399,45 @@ module OCI
 
       begin
         waiter_result = @service_client.get_tag_default(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Identity::IdentityClient#create_tag_namespace} and then waits for the {OCI::Identity::Models::TagNamespace} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::Identity::Models::CreateTagNamespaceDetails] create_tag_namespace_details Request object for creating a new tag namespace.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagNamespace#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#create_tag_namespace}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Identity::Models::TagNamespace}
+    def create_tag_namespace_and_wait_for_state(create_tag_namespace_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_tag_namespace(create_tag_namespace_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_tag_namespace(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -624,6 +704,58 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Identity::IdentityClient#delete_tag} and then waits for the {OCI::Identity::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [String] tag_name The name of the tag.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#delete_tag}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Identity::Models::WorkRequest}
+    def delete_tag_and_wait_for_state(tag_namespace_id, tag_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.delete_tag(tag_namespace_id, tag_name, base_operation_opts)
+      use_util = OCI::Identity::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Identity::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Identity::IdentityClient#delete_tag_default} and then waits for the {OCI::Identity::Models::TagDefault} acted upon
     # to enter the given state(s).
     #
@@ -638,6 +770,47 @@ module OCI
     def delete_tag_default_and_wait_for_state(tag_default_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       initial_get_result = @service_client.get_tag_default(tag_default_id)
       operation_result = @service_client.delete_tag_default(tag_default_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Identity::IdentityClient#delete_tag_namespace} and then waits for the {OCI::Identity::Models::TagNamespace} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagNamespace#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#delete_tag_namespace}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_tag_namespace_and_wait_for_state(tag_namespace_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_tag_namespace(tag_namespace_id)
+      operation_result = @service_client.delete_tag_namespace(tag_namespace_id, base_operation_opts)
 
       return operation_result if wait_for_states.empty?
 
@@ -985,6 +1158,49 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Identity::IdentityClient#update_tag} and then waits for the {OCI::Identity::Models::Tag} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [String] tag_name The name of the tag.
+    #
+    # @param [OCI::Identity::Models::UpdateTagDetails] update_tag_details Request object for updating a tag.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::Tag#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#update_tag}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Identity::Models::Tag}
+    def update_tag_and_wait_for_state(tag_namespace_id, tag_name, update_tag_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_tag(tag_namespace_id, tag_name, update_tag_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_tag(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Identity::IdentityClient#update_tag_default} and then waits for the {OCI::Identity::Models::TagDefault} acted upon
     # to enter the given state(s).
     #
@@ -1007,6 +1223,47 @@ module OCI
 
       begin
         waiter_result = @service_client.get_tag_default(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Identity::IdentityClient#update_tag_namespace} and then waits for the {OCI::Identity::Models::TagNamespace} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [OCI::Identity::Models::UpdateTagNamespaceDetails] update_tag_namespace_details Request object for updating a namespace.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagNamespace#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#update_tag_namespace}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Identity::Models::TagNamespace}
+    def update_tag_namespace_and_wait_for_state(tag_namespace_id, update_tag_namespace_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_tag_namespace(tag_namespace_id, update_tag_namespace_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_tag_namespace(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200

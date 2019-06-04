@@ -2,21 +2,29 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Backup Options
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
-  class Database::Models::DbBackupConfig # rubocop:disable Metrics/LineLength
+  class Database::Models::DbBackupConfig
     # If set to true, configures automatic backups. If you previously used RMAN or dbcli to configure backups and then you switch to using the Console or the API for backups, a new backup configuration is created and associated with your database. This means that you can no longer rely on your previously configured unmanaged backups to work.
     # @return [BOOLEAN]
     attr_accessor :auto_backup_enabled
+
+    # Number of days between the current and the earliest point of recoverability covered by automatic backups.
+    # This value applies to automatic backups only. After a new automatic backup has been created, Oracle removes old automatic backups that are created before the window.
+    # When the value is updated, it is applied to all existing automatic backups.
+    #
+    # @return [Integer]
+    attr_accessor :recovery_window_in_days
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'auto_backup_enabled': :'autoBackupEnabled'
+        'auto_backup_enabled': :'autoBackupEnabled',
+        'recovery_window_in_days': :'recoveryWindowInDays'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,18 +33,20 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'auto_backup_enabled': :'BOOLEAN'
+        'auto_backup_enabled': :'BOOLEAN',
+        'recovery_window_in_days': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :auto_backup_enabled The value to assign to the {#auto_backup_enabled} property
+    # @option attributes [Integer] :recovery_window_in_days The value to assign to the {#recovery_window_in_days} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -48,11 +58,17 @@ module OCI
       raise 'You cannot provide both :autoBackupEnabled and :auto_backup_enabled' if attributes.key?(:'autoBackupEnabled') && attributes.key?(:'auto_backup_enabled')
 
       self.auto_backup_enabled = attributes[:'auto_backup_enabled'] unless attributes[:'auto_backup_enabled'].nil?
+
+      self.recovery_window_in_days = attributes[:'recoveryWindowInDays'] if attributes[:'recoveryWindowInDays']
+
+      raise 'You cannot provide both :recoveryWindowInDays and :recovery_window_in_days' if attributes.key?(:'recoveryWindowInDays') && attributes.key?(:'recovery_window_in_days')
+
+      self.recovery_window_in_days = attributes[:'recovery_window_in_days'] if attributes[:'recovery_window_in_days']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -61,9 +77,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        auto_backup_enabled == other.auto_backup_enabled
+        auto_backup_enabled == other.auto_backup_enabled &&
+        recovery_window_in_days == other.recovery_window_in_days
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -71,15 +88,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [auto_backup_enabled].hash
+      [auto_backup_enabled, recovery_window_in_days].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -152,4 +169,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The challenge settings if `action` is set to `BLOCK`.
-  class Waas::Models::BlockChallengeSettings # rubocop:disable Metrics/LineLength
+  class Waas::Models::BlockChallengeSettings
     BLOCK_ACTION_ENUM = [
       BLOCK_ACTION_SET_RESPONSE_CODE = 'SET_RESPONSE_CODE'.freeze,
       BLOCK_ACTION_SHOW_ERROR_PAGE = 'SHOW_ERROR_PAGE'.freeze,
@@ -85,7 +85,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -160,16 +160,14 @@ module OCI
       self.captcha_submit_label = attributes[:'captcha_submit_label'] if attributes[:'captcha_submit_label']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] block_action Object to be assigned
     def block_action=(block_action)
       # rubocop:disable Style/ConditionalAssignment
       if block_action && !BLOCK_ACTION_ENUM.include?(block_action)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'block_action' [" + block_action + "]. Mapping to 'BLOCK_ACTION_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @block_action = BLOCK_ACTION_UNKNOWN_ENUM_VALUE
       else
         @block_action = block_action
@@ -177,7 +175,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -196,7 +194,7 @@ module OCI
         captcha_footer == other.captcha_footer &&
         captcha_submit_label == other.captcha_submit_label
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -204,7 +202,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -212,7 +210,7 @@ module OCI
     def hash
       [block_action, block_response_code, block_error_page_message, block_error_page_description, block_error_page_code, captcha_title, captcha_header, captcha_footer, captcha_submit_label].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -285,4 +283,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

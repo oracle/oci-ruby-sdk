@@ -2,14 +2,14 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The configuration details for creating a Data Guard association between databases.
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
-  class Database::Models::CreateDataGuardAssociationDetails # rubocop:disable Metrics/LineLength
+  class Database::Models::CreateDataGuardAssociationDetails
     PROTECTION_MODE_ENUM = [
       PROTECTION_MODE_MAXIMUM_AVAILABILITY = 'MAXIMUM_AVAILABILITY'.freeze,
       PROTECTION_MODE_MAXIMUM_PERFORMANCE = 'MAXIMUM_PERFORMANCE'.freeze,
@@ -92,7 +92,7 @@ module OCI
       }
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
 
     # Given the hash representation of a subtype of this class,
@@ -106,10 +106,10 @@ module OCI
       # TODO: Log a warning when the subtype is not found.
       'OCI::Database::Models::CreateDataGuardAssociationDetails'
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -149,29 +149,25 @@ module OCI
       self.creation_type = attributes[:'creation_type'] if attributes[:'creation_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] protection_mode Object to be assigned
     def protection_mode=(protection_mode)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'protection_mode': this must be one of the values in PROTECTION_MODE_ENUM." if protection_mode && !PROTECTION_MODE_ENUM.include?(protection_mode)
 
-      # rubocop: enable Metrics/LineLength
       @protection_mode = protection_mode
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] transport_type Object to be assigned
     def transport_type=(transport_type)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'transport_type': this must be one of the values in TRANSPORT_TYPE_ENUM." if transport_type && !TRANSPORT_TYPE_ENUM.include?(transport_type)
 
-      # rubocop: enable Metrics/LineLength
       @transport_type = transport_type
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -185,7 +181,7 @@ module OCI
         transport_type == other.transport_type &&
         creation_type == other.creation_type
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -193,7 +189,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -201,7 +197,7 @@ module OCI
     def hash
       [database_admin_password, protection_mode, transport_type, creation_type].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -274,4 +270,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

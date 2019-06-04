@@ -3,13 +3,13 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A public IP prefix and its details. With a public virtual circuit, the customer
   # specifies the customer-owned public IP prefixes to advertise across the connection.
   # For more information, see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
   #
-  class Core::Models::VirtualCircuitPublicPrefix # rubocop:disable Metrics/LineLength
+  class Core::Models::VirtualCircuitPublicPrefix
     VERIFICATION_STATE_ENUM = [
       VERIFICATION_STATE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
       VERIFICATION_STATE_COMPLETED = 'COMPLETED'.freeze,
@@ -51,7 +51,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -77,16 +77,14 @@ module OCI
       self.verification_state = attributes[:'verification_state'] if attributes[:'verification_state']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] verification_state Object to be assigned
     def verification_state=(verification_state)
       # rubocop:disable Style/ConditionalAssignment
       if verification_state && !VERIFICATION_STATE_ENUM.include?(verification_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'verification_state' [" + verification_state + "]. Mapping to 'VERIFICATION_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @verification_state = VERIFICATION_STATE_UNKNOWN_ENUM_VALUE
       else
         @verification_state = verification_state
@@ -94,7 +92,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -106,7 +104,7 @@ module OCI
         cidr_block == other.cidr_block &&
         verification_state == other.verification_state
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -114,7 +112,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -122,7 +120,7 @@ module OCI
     def hash
       [cidr_block, verification_state].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -195,4 +193,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

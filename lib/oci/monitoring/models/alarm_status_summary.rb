@@ -3,7 +3,7 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A summary of properties for the specified alarm and its current evaluation status.
   # For information about alarms, see [Alarms Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#AlarmsOverview).
@@ -16,7 +16,7 @@ module OCI
   # [About the API](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm). For information about available SDKs and tools, see
   # [SDKS and Other Tools](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/sdks.htm).
   #
-  class Monitoring::Models::AlarmStatusSummary # rubocop:disable Metrics/LineLength
+  class Monitoring::Models::AlarmStatusSummary
     SEVERITY_ENUM = [
       SEVERITY_CRITICAL = 'CRITICAL'.freeze,
       SEVERITY_ERROR = 'ERROR'.freeze,
@@ -99,7 +99,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -137,16 +137,14 @@ module OCI
       self.suppression = attributes[:'suppression'] if attributes[:'suppression']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] severity Object to be assigned
     def severity=(severity)
       # rubocop:disable Style/ConditionalAssignment
       if severity && !SEVERITY_ENUM.include?(severity)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'severity' [" + severity + "]. Mapping to 'SEVERITY_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @severity = SEVERITY_UNKNOWN_ENUM_VALUE
       else
         @severity = severity
@@ -159,9 +157,7 @@ module OCI
     def status=(status)
       # rubocop:disable Style/ConditionalAssignment
       if status && !STATUS_ENUM.include?(status)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'status' [" + status + "]. Mapping to 'STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @status = STATUS_UNKNOWN_ENUM_VALUE
       else
         @status = status
@@ -169,7 +165,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -185,7 +181,7 @@ module OCI
         status == other.status &&
         suppression == other.suppression
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -193,7 +189,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -201,7 +197,7 @@ module OCI
     def hash
       [id, display_name, severity, timestamp_triggered, status, suppression].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -274,4 +270,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

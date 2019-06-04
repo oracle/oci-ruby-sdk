@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Database model.
-  class Database::Models::Database # rubocop:disable Metrics/LineLength
+  class Database::Models::Database
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
@@ -140,7 +140,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -257,16 +257,14 @@ module OCI
       self.connection_strings = attributes[:'connection_strings'] if attributes[:'connection_strings']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
       if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
@@ -274,7 +272,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -300,7 +298,7 @@ module OCI
         defined_tags == other.defined_tags &&
         connection_strings == other.connection_strings
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -308,7 +306,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -316,7 +314,7 @@ module OCI
     def hash
       [id, compartment_id, character_set, ncharacter_set, db_home_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, db_backup_config, freeform_tags, defined_tags, connection_strings].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -389,4 +387,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

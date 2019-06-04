@@ -3,7 +3,7 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # NFS export options applied to a specified set of
   # clients. Only governs access through the associated
@@ -11,7 +11,7 @@ module OCI
   # export (on the same or different mount target) will be governed
   # by that export's export options.
   #
-  class FileStorage::Models::ClientOptions # rubocop:disable Metrics/LineLength
+  class FileStorage::Models::ClientOptions
     ACCESS_ENUM = [
       ACCESS_READ_WRITE = 'READ_WRITE'.freeze,
       ACCESS_READ_ONLY = 'READ_ONLY'.freeze,
@@ -101,7 +101,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -147,16 +147,14 @@ module OCI
       self.anonymous_gid = attributes[:'anonymous_gid'] if attributes[:'anonymous_gid']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] access Object to be assigned
     def access=(access)
       # rubocop:disable Style/ConditionalAssignment
       if access && !ACCESS_ENUM.include?(access)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'access' [" + access + "]. Mapping to 'ACCESS_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @access = ACCESS_UNKNOWN_ENUM_VALUE
       else
         @access = access
@@ -169,9 +167,7 @@ module OCI
     def identity_squash=(identity_squash)
       # rubocop:disable Style/ConditionalAssignment
       if identity_squash && !IDENTITY_SQUASH_ENUM.include?(identity_squash)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'identity_squash' [" + identity_squash + "]. Mapping to 'IDENTITY_SQUASH_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @identity_squash = IDENTITY_SQUASH_UNKNOWN_ENUM_VALUE
       else
         @identity_squash = identity_squash
@@ -179,7 +175,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -195,7 +191,7 @@ module OCI
         anonymous_uid == other.anonymous_uid &&
         anonymous_gid == other.anonymous_gid
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -203,7 +199,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -211,7 +207,7 @@ module OCI
     def hash
       [source, require_privileged_source_port, access, identity_squash, anonymous_uid, anonymous_gid].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -284,4 +280,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

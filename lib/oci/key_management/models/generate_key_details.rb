@@ -2,10 +2,10 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # GenerateKeyDetails model.
-  class KeyManagement::Models::GenerateKeyDetails # rubocop:disable Metrics/LineLength
+  class KeyManagement::Models::GenerateKeyDetails
     # Information that can be used to provide an encryption context for the
     # encrypted data. The length of the string representation of the associatedData
     # must be fewer than 4096 characters.
@@ -25,6 +25,12 @@ module OCI
     # @return [OCI::KeyManagement::Models::KeyShape]
     attr_accessor :key_shape
 
+    # Information that can be used to provide context for audit logging. It is a map that contains any addtional
+    # data the users may have and will be added to the audit logs (if audit logging is enabled)
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :logging_context
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -32,7 +38,8 @@ module OCI
         'associated_data': :'associatedData',
         'include_plaintext_key': :'includePlaintextKey',
         'key_id': :'keyId',
-        'key_shape': :'keyShape'
+        'key_shape': :'keyShape',
+        'logging_context': :'loggingContext'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,13 +51,14 @@ module OCI
         'associated_data': :'Hash<String, String>',
         'include_plaintext_key': :'BOOLEAN',
         'key_id': :'String',
-        'key_shape': :'OCI::KeyManagement::Models::KeyShape'
+        'key_shape': :'OCI::KeyManagement::Models::KeyShape',
+        'logging_context': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -59,6 +67,7 @@ module OCI
     # @option attributes [BOOLEAN] :include_plaintext_key The value to assign to the {#include_plaintext_key} property
     # @option attributes [String] :key_id The value to assign to the {#key_id} property
     # @option attributes [OCI::KeyManagement::Models::KeyShape] :key_shape The value to assign to the {#key_shape} property
+    # @option attributes [Hash<String, String>] :logging_context The value to assign to the {#logging_context} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -88,11 +97,17 @@ module OCI
       raise 'You cannot provide both :keyShape and :key_shape' if attributes.key?(:'keyShape') && attributes.key?(:'key_shape')
 
       self.key_shape = attributes[:'key_shape'] if attributes[:'key_shape']
+
+      self.logging_context = attributes[:'loggingContext'] if attributes[:'loggingContext']
+
+      raise 'You cannot provide both :loggingContext and :logging_context' if attributes.key?(:'loggingContext') && attributes.key?(:'logging_context')
+
+      self.logging_context = attributes[:'logging_context'] if attributes[:'logging_context']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -104,9 +119,10 @@ module OCI
         associated_data == other.associated_data &&
         include_plaintext_key == other.include_plaintext_key &&
         key_id == other.key_id &&
-        key_shape == other.key_shape
+        key_shape == other.key_shape &&
+        logging_context == other.logging_context
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -114,15 +130,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [associated_data, include_plaintext_key, key_id, key_shape].hash
+      [associated_data, include_plaintext_key, key_id, key_shape, logging_context].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -195,4 +211,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

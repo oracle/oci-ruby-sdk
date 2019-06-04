@@ -2,13 +2,13 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The body for defining a new zone.
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
-  class Dns::Models::CreateZoneDetails # rubocop:disable Metrics/LineLength
+  class Dns::Models::CreateZoneDetails
     ZONE_TYPE_ENUM = [
       ZONE_TYPE_PRIMARY = 'PRIMARY'.freeze,
       ZONE_TYPE_SECONDARY = 'SECONDARY'.freeze
@@ -80,7 +80,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -130,19 +130,17 @@ module OCI
       self.external_masters = attributes[:'external_masters'] if attributes[:'external_masters']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] zone_type Object to be assigned
     def zone_type=(zone_type)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'zone_type': this must be one of the values in ZONE_TYPE_ENUM." if zone_type && !ZONE_TYPE_ENUM.include?(zone_type)
 
-      # rubocop: enable Metrics/LineLength
       @zone_type = zone_type
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -158,7 +156,7 @@ module OCI
         defined_tags == other.defined_tags &&
         external_masters == other.external_masters
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -166,7 +164,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -174,7 +172,7 @@ module OCI
     def hash
       [name, zone_type, compartment_id, freeform_tags, defined_tags, external_masters].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -247,4 +245,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

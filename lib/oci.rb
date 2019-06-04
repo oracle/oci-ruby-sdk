@@ -39,6 +39,7 @@ require 'oci/resource_manager/resource_manager'
 require 'oci/autoscaling/autoscaling'
 require 'oci/ons/ons'
 require 'oci/budget/budget'
+require 'oci/work_requests/work_requests'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

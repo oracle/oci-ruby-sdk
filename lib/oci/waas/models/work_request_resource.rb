@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The resource on which the work request is operating.
-  class Waas::Models::WorkRequestResource # rubocop:disable Metrics/LineLength
+  class Waas::Models::WorkRequestResource
     ACTION_TYPE_ENUM = [
       ACTION_TYPE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
       ACTION_TYPE_CREATED = 'CREATED'.freeze,
@@ -58,7 +58,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -94,16 +94,14 @@ module OCI
       self.entity_uri = attributes[:'entity_uri'] if attributes[:'entity_uri']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] action_type Object to be assigned
     def action_type=(action_type)
       # rubocop:disable Style/ConditionalAssignment
       if action_type && !ACTION_TYPE_ENUM.include?(action_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'action_type' [" + action_type + "]. Mapping to 'ACTION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @action_type = ACTION_TYPE_UNKNOWN_ENUM_VALUE
       else
         @action_type = action_type
@@ -111,7 +109,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -125,7 +123,7 @@ module OCI
         identifier == other.identifier &&
         entity_uri == other.entity_uri
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -133,7 +131,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -141,7 +139,7 @@ module OCI
     def hash
       [action_type, entity_type, identifier, entity_uri].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -214,4 +212,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

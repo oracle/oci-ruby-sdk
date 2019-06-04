@@ -3,12 +3,12 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The Letter of Authority for the cross-connect. You must submit this letter when
   # requesting cabling for the cross-connect at the FastConnect location.
   #
-  class Core::Models::LetterOfAuthority # rubocop:disable Metrics/LineLength
+  class Core::Models::LetterOfAuthority
     CIRCUIT_TYPE_ENUM = [
       CIRCUIT_TYPE_SINGLE_MODE_LC = 'Single_mode_LC'.freeze,
       CIRCUIT_TYPE_SINGLE_MODE_SC = 'Single_mode_SC'.freeze,
@@ -78,7 +78,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -139,16 +139,14 @@ module OCI
       self.time_issued = attributes[:'time_issued'] if attributes[:'time_issued']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] circuit_type Object to be assigned
     def circuit_type=(circuit_type)
       # rubocop:disable Style/ConditionalAssignment
       if circuit_type && !CIRCUIT_TYPE_ENUM.include?(circuit_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'circuit_type' [" + circuit_type + "]. Mapping to 'CIRCUIT_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @circuit_type = CIRCUIT_TYPE_UNKNOWN_ENUM_VALUE
       else
         @circuit_type = circuit_type
@@ -156,7 +154,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -173,7 +171,7 @@ module OCI
         time_expires == other.time_expires &&
         time_issued == other.time_issued
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -181,7 +179,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -189,7 +187,7 @@ module OCI
     def hash
       [authorized_entity_name, circuit_type, cross_connect_id, facility_location, port_name, time_expires, time_issued].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -262,4 +260,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

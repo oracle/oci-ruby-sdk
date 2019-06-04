@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Threshold model.
-  class Autoscaling::Models::Threshold # rubocop:disable Metrics/LineLength
+  class Autoscaling::Models::Threshold
     OPERATOR_ENUM = [
       OPERATOR_GT = 'GT'.freeze,
       OPERATOR_GTE = 'GTE'.freeze,
@@ -15,11 +15,8 @@ module OCI
       OPERATOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Support for the following operators
-    # GT  - Greater than
-    # GTE - Greater than equal to
-    # LT  - Less than
-    # LTE - Less than equal to
+    # **[Required]** The comparison operator to use. Options are greater than (`GT`), greater than or equal to
+    # (`GTE`), less than (`LT`), and less than or equal to (`LTE`).
     #
     # @return [String]
     attr_reader :operator
@@ -49,7 +46,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -67,16 +64,14 @@ module OCI
       self.value = attributes[:'value'] if attributes[:'value']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] operator Object to be assigned
     def operator=(operator)
       # rubocop:disable Style/ConditionalAssignment
       if operator && !OPERATOR_ENUM.include?(operator)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'operator' [" + operator + "]. Mapping to 'OPERATOR_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @operator = OPERATOR_UNKNOWN_ENUM_VALUE
       else
         @operator = operator
@@ -84,7 +79,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -96,7 +91,7 @@ module OCI
         operator == other.operator &&
         value == other.value
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -104,7 +99,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -112,7 +107,7 @@ module OCI
     def hash
       [operator, value].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -185,4 +180,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

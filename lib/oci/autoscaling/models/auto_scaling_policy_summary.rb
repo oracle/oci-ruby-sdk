@@ -2,21 +2,21 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # AutoScalingPolicySummary model.
-  class Autoscaling::Models::AutoScalingPolicySummary # rubocop:disable Metrics/LineLength
-    # **[Required]** The ID of the policy that is assigned after creation
+  # Summary information for an autoscaling policy.
+  #
+  class Autoscaling::Models::AutoScalingPolicySummary
+    # **[Required]** The ID of the autoscaling policy that is assigned after creation.
     # @return [String]
     attr_accessor :id
 
-    # A user-friendly name for the Policy. Does not have to be unique, and it's changeable. Avoid entering
-    # confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Indicates type of Policy
+    # **[Required]** The type of autoscaling policy.
     # @return [String]
     attr_accessor :policy_type
 
@@ -43,7 +43,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -72,9 +72,9 @@ module OCI
       self.policy_type = attributes[:'policy_type'] if attributes[:'policy_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -87,7 +87,7 @@ module OCI
         display_name == other.display_name &&
         policy_type == other.policy_type
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -95,7 +95,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -103,7 +103,7 @@ module OCI
     def hash
       [id, display_name, policy_type].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -176,4 +176,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

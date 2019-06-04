@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Represents the load balancer Backend that is configured for an instance pool instance.
-  class Core::Models::InstancePoolInstanceLoadBalancerBackend # rubocop:disable Metrics/LineLength
+  class Core::Models::InstancePoolInstanceLoadBalancerBackend
     BACKEND_HEALTH_STATUS_ENUM = [
       BACKEND_HEALTH_STATUS_OK = 'OK'.freeze,
       BACKEND_HEALTH_STATUS_WARNING = 'WARNING'.freeze,
@@ -56,7 +56,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -96,16 +96,14 @@ module OCI
       self.backend_health_status = attributes[:'backend_health_status'] if attributes[:'backend_health_status']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] backend_health_status Object to be assigned
     def backend_health_status=(backend_health_status)
       # rubocop:disable Style/ConditionalAssignment
       if backend_health_status && !BACKEND_HEALTH_STATUS_ENUM.include?(backend_health_status)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'backend_health_status' [" + backend_health_status + "]. Mapping to 'BACKEND_HEALTH_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @backend_health_status = BACKEND_HEALTH_STATUS_UNKNOWN_ENUM_VALUE
       else
         @backend_health_status = backend_health_status
@@ -113,7 +111,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -127,7 +125,7 @@ module OCI
         backend_name == other.backend_name &&
         backend_health_status == other.backend_health_status
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -135,7 +133,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -143,7 +141,7 @@ module OCI
     def hash
       [load_balancer_id, backend_set_name, backend_name, backend_health_status].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -216,4 +214,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

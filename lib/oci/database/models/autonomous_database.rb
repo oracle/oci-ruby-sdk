@@ -3,11 +3,11 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # An Oracle Autonomous Database.
   #
-  class Database::Models::AutonomousDatabase # rubocop:disable Metrics/LineLength
+  class Database::Models::AutonomousDatabase
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
@@ -119,6 +119,11 @@ module OCI
     # @return [Array<String>]
     attr_accessor :whitelisted_ips
 
+    # Indicates if auto scaling is enabled for the Autonomous Database CPU core count.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_scaling_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -140,7 +145,8 @@ module OCI
         'defined_tags': :'definedTags',
         'db_version': :'dbVersion',
         'db_workload': :'dbWorkload',
-        'whitelisted_ips': :'whitelistedIps'
+        'whitelisted_ips': :'whitelistedIps',
+        'is_auto_scaling_enabled': :'isAutoScalingEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -166,13 +172,14 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'db_version': :'String',
         'db_workload': :'String',
-        'whitelisted_ips': :'Array<String>'
+        'whitelisted_ips': :'Array<String>',
+        'is_auto_scaling_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -195,6 +202,7 @@ module OCI
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
+    # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -301,18 +309,22 @@ module OCI
       raise 'You cannot provide both :whitelistedIps and :whitelisted_ips' if attributes.key?(:'whitelistedIps') && attributes.key?(:'whitelisted_ips')
 
       self.whitelisted_ips = attributes[:'whitelisted_ips'] if attributes[:'whitelisted_ips']
+
+      self.is_auto_scaling_enabled = attributes[:'isAutoScalingEnabled'] unless attributes[:'isAutoScalingEnabled'].nil?
+
+      raise 'You cannot provide both :isAutoScalingEnabled and :is_auto_scaling_enabled' if attributes.key?(:'isAutoScalingEnabled') && attributes.key?(:'is_auto_scaling_enabled')
+
+      self.is_auto_scaling_enabled = attributes[:'is_auto_scaling_enabled'] unless attributes[:'is_auto_scaling_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
       if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
@@ -325,9 +337,7 @@ module OCI
     def license_model=(license_model)
       # rubocop:disable Style/ConditionalAssignment
       if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'license_model' [" + license_model + "]. Mapping to 'LICENSE_MODEL_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @license_model = LICENSE_MODEL_UNKNOWN_ENUM_VALUE
       else
         @license_model = license_model
@@ -340,9 +350,7 @@ module OCI
     def db_workload=(db_workload)
       # rubocop:disable Style/ConditionalAssignment
       if db_workload && !DB_WORKLOAD_ENUM.include?(db_workload)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'db_workload' [" + db_workload + "]. Mapping to 'DB_WORKLOAD_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @db_workload = DB_WORKLOAD_UNKNOWN_ENUM_VALUE
       else
         @db_workload = db_workload
@@ -350,7 +358,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -376,9 +384,10 @@ module OCI
         defined_tags == other.defined_tags &&
         db_version == other.db_version &&
         db_workload == other.db_workload &&
-        whitelisted_ips == other.whitelisted_ips
+        whitelisted_ips == other.whitelisted_ips &&
+        is_auto_scaling_enabled == other.is_auto_scaling_enabled
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -386,15 +395,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, db_version, db_workload, whitelisted_ips].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, time_created, display_name, service_console_url, connection_strings, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, db_version, db_workload, whitelisted_ips, is_auto_scaling_enabled].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -467,4 +476,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

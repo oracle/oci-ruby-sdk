@@ -67,7 +67,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#create_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Core::Models::CreateInstancePoolDetails] create_instance_pool_details Instance Pool creation details
+    # @param [OCI::Core::Models::CreateInstancePoolDetails] create_instance_pool_details Instance pool creation details
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#create_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

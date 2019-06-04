@@ -3,13 +3,13 @@
 require 'date'
 require_relative 'create_data_guard_association_details'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The configuration details for creating a Data Guard association for a bare metal DB system database. A standby database will be created in the DB system you specify.
   #
   # To create a Data Guard association for a database in a virtual machine DB system, use the {#create_data_guard_association_with_new_db_system_details create_data_guard_association_with_new_db_system_details} subtype.
   #
-  class Database::Models::CreateDataGuardAssociationToExistingDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails # rubocop:disable Metrics/LineLength
+  class Database::Models::CreateDataGuardAssociationToExistingDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system in which to create the standby database.
     # You must supply this value if creationType is `ExistingDbSystem`.
     #
@@ -43,7 +43,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -69,9 +69,9 @@ module OCI
       self.peer_db_system_id = attributes[:'peer_db_system_id'] if attributes[:'peer_db_system_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -86,7 +86,7 @@ module OCI
         creation_type == other.creation_type &&
         peer_db_system_id == other.peer_db_system_id
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -94,7 +94,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -102,7 +102,7 @@ module OCI
     def hash
       [database_admin_password, protection_mode, transport_type, creation_type, peer_db_system_id].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -175,4 +175,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

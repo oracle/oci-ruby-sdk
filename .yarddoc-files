@@ -20,6 +20,7 @@ lib/oci/resource_manager/resource_manager.rb
 lib/oci/resource_search/resource_search.rb
 lib/oci/streaming/streaming.rb
 lib/oci/waas/waas.rb
+lib/oci/work_requests/work_requests.rb
 lib/
 -
 LICENSE.txt

@@ -3,10 +3,10 @@
 require 'date'
 require_relative 'image_source_details'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # ImageSourceViaObjectStorageTupleDetails model.
-  class Core::Models::ImageSourceViaObjectStorageTupleDetails < Core::Models::ImageSourceDetails # rubocop:disable Metrics/LineLength
+  class Core::Models::ImageSourceViaObjectStorageTupleDetails < Core::Models::ImageSourceDetails
     # **[Required]** The Object Storage bucket for the image.
     # @return [String]
     attr_accessor :bucket_name
@@ -23,6 +23,8 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'operating_system': :'operatingSystem',
+        'operating_system_version': :'operatingSystemVersion',
         'source_image_type': :'sourceImageType',
         'source_type': :'sourceType',
         'bucket_name': :'bucketName',
@@ -36,6 +38,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'operating_system': :'String',
+        'operating_system_version': :'String',
         'source_image_type': :'String',
         'source_type': :'String',
         'bucket_name': :'String',
@@ -46,11 +50,13 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :operating_system The value to assign to the {OCI::Core::Models::ImageSourceDetails#operating_system #operating_system} proprety
+    # @option attributes [String] :operating_system_version The value to assign to the {OCI::Core::Models::ImageSourceDetails#operating_system_version #operating_system_version} proprety
     # @option attributes [String] :source_image_type The value to assign to the {OCI::Core::Models::ImageSourceDetails#source_image_type #source_image_type} proprety
     # @option attributes [String] :bucket_name The value to assign to the {#bucket_name} property
     # @option attributes [String] :namespace_name The value to assign to the {#namespace_name} property
@@ -84,9 +90,9 @@ module OCI
       self.object_name = attributes[:'object_name'] if attributes[:'object_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -95,13 +101,15 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        operating_system == other.operating_system &&
+        operating_system_version == other.operating_system_version &&
         source_image_type == other.source_image_type &&
         source_type == other.source_type &&
         bucket_name == other.bucket_name &&
         namespace_name == other.namespace_name &&
         object_name == other.object_name
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -109,15 +117,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_image_type, source_type, bucket_name, namespace_name, object_name].hash
+      [operating_system, operating_system_version, source_image_type, source_type, bucket_name, namespace_name, object_name].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -190,4 +198,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

@@ -3,12 +3,12 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A mapping between a destination IP address range and a virtual device to route matching
   # packets to (a target).
   #
-  class Core::Models::RouteRule # rubocop:disable Metrics/LineLength
+  class Core::Models::RouteRule
     DESTINATION_TYPE_ENUM = [
       DESTINATION_TYPE_CIDR_BLOCK = 'CIDR_BLOCK'.freeze,
       DESTINATION_TYPE_SERVICE_CIDR_BLOCK = 'SERVICE_CIDR_BLOCK'.freeze,
@@ -20,6 +20,7 @@ module OCI
     #
     # A destination IP address range in CIDR notation. Matching packets will
     # be routed to the indicated network entity (the target).
+    #
     #
     # Example: `0.0.0.0/0`
     #
@@ -34,8 +35,8 @@ module OCI
     #   * IP address range in CIDR notation. For example: `192.168.1.0/24`
     #
     #   * The `cidrBlock` value for a {Service}, if you're
-    #     setting up a route rule for traffic destined for a particular service through
-    #     a service gateway. For example: `oci-phx-objectstorage`
+    #     setting up a route rule for traffic destined for a particular `Service` through
+    #     a service gateway. For example: `oci-phx-objectstorage`.
     #
     # @return [String]
     attr_accessor :destination
@@ -46,7 +47,7 @@ module OCI
     #
     #   * `SERVICE_CIDR_BLOCK`: If the rule's `destination` is the `cidrBlock` value for a
     #     {Service} (the rule is for traffic destined for a
-    #     particular service through a service gateway).
+    #     particular `Service` through a service gateway).
     #
     # @return [String]
     attr_reader :destination_type
@@ -83,7 +84,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -121,16 +122,14 @@ module OCI
       self.network_entity_id = attributes[:'network_entity_id'] if attributes[:'network_entity_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] destination_type Object to be assigned
     def destination_type=(destination_type)
       # rubocop:disable Style/ConditionalAssignment
       if destination_type && !DESTINATION_TYPE_ENUM.include?(destination_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'destination_type' [" + destination_type + "]. Mapping to 'DESTINATION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @destination_type = DESTINATION_TYPE_UNKNOWN_ENUM_VALUE
       else
         @destination_type = destination_type
@@ -138,7 +137,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -152,7 +151,7 @@ module OCI
         destination_type == other.destination_type &&
         network_entity_id == other.network_entity_id
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -160,7 +159,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -168,7 +167,7 @@ module OCI
     def hash
       [cidr_block, destination, destination_type, network_entity_id].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -241,4 +240,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

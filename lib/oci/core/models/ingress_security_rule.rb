@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A rule for allowing inbound IP packets.
-  class Core::Models::IngressSecurityRule # rubocop:disable Metrics/LineLength
+  class Core::Models::IngressSecurityRule
     SOURCE_TYPE_ENUM = [
       SOURCE_TYPE_CIDR_BLOCK = 'CIDR_BLOCK'.freeze,
       SOURCE_TYPE_SERVICE_CIDR_BLOCK = 'SERVICE_CIDR_BLOCK'.freeze,
@@ -50,8 +50,8 @@ module OCI
     #   * IP address range in CIDR notation. For example: `192.168.1.0/24`
     #
     #   * The `cidrBlock` value for a {Service}, if you're
-    #     setting up a security list rule for traffic coming from a particular service through
-    #     a service gateway. For example: `oci-phx-objectstorage`
+    #     setting up a security list rule for traffic coming from a particular `Service` through
+    #     a service gateway. For example: `oci-phx-objectstorage`.
     #
     # @return [String]
     attr_accessor :source
@@ -62,7 +62,7 @@ module OCI
     #
     #   * `SERVICE_CIDR_BLOCK`: If the rule's `source` is the `cidrBlock` value for a
     #     {Service} (the rule is for traffic coming from a
-    #     particular service through a service gateway).
+    #     particular `Service` through a service gateway).
     #
     # @return [String]
     attr_reader :source_type
@@ -110,7 +110,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -165,16 +165,14 @@ module OCI
       self.udp_options = attributes[:'udp_options'] if attributes[:'udp_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] source_type Object to be assigned
     def source_type=(source_type)
       # rubocop:disable Style/ConditionalAssignment
       if source_type && !SOURCE_TYPE_ENUM.include?(source_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'source_type' [" + source_type + "]. Mapping to 'SOURCE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @source_type = SOURCE_TYPE_UNKNOWN_ENUM_VALUE
       else
         @source_type = source_type
@@ -182,7 +180,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -199,7 +197,7 @@ module OCI
         tcp_options == other.tcp_options &&
         udp_options == other.udp_options
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -207,7 +205,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -215,7 +213,7 @@ module OCI
     def hash
       [icmp_options, is_stateless, protocol, source, source_type, tcp_options, udp_options].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -288,4 +286,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

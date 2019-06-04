@@ -2,11 +2,11 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # An array of metric objects containing raw metric data points to be posted to the Monitoring service.
   #
-  class Monitoring::Models::PostMetricDataDetails # rubocop:disable Metrics/LineLength
+  class Monitoring::Models::PostMetricDataDetails
     BATCH_ATOMICITY_ENUM = [
       BATCH_ATOMICITY_ATOMIC = 'ATOMIC'.freeze,
       BATCH_ATOMICITY_NON_ATOMIC = 'NON_ATOMIC'.freeze
@@ -50,7 +50,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -78,19 +78,17 @@ module OCI
       self.batch_atomicity = "NON_ATOMIC" if batch_atomicity.nil? && !attributes.key?(:'batchAtomicity') && !attributes.key?(:'batch_atomicity') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] batch_atomicity Object to be assigned
     def batch_atomicity=(batch_atomicity)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'batch_atomicity': this must be one of the values in BATCH_ATOMICITY_ENUM." if batch_atomicity && !BATCH_ATOMICITY_ENUM.include?(batch_atomicity)
 
-      # rubocop: enable Metrics/LineLength
       @batch_atomicity = batch_atomicity
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -102,7 +100,7 @@ module OCI
         metric_data == other.metric_data &&
         batch_atomicity == other.batch_atomicity
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -110,7 +108,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -118,7 +116,7 @@ module OCI
     def hash
       [metric_data, batch_atomicity].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -191,4 +189,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

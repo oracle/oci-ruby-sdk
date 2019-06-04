@@ -3,11 +3,11 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Information about a single backend server health check result reported by a load balancer.
   #
-  class LoadBalancer::Models::HealthCheckResult # rubocop:disable Metrics/LineLength
+  class LoadBalancer::Models::HealthCheckResult
     HEALTH_CHECK_STATUS_ENUM = [
       HEALTH_CHECK_STATUS_OK = 'OK'.freeze,
       HEALTH_CHECK_STATUS_INVALID_STATUS_CODE = 'INVALID_STATUS_CODE'.freeze,
@@ -70,7 +70,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -106,16 +106,14 @@ module OCI
       self.health_check_status = attributes[:'health_check_status'] if attributes[:'health_check_status']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] health_check_status Object to be assigned
     def health_check_status=(health_check_status)
       # rubocop:disable Style/ConditionalAssignment
       if health_check_status && !HEALTH_CHECK_STATUS_ENUM.include?(health_check_status)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'health_check_status' [" + health_check_status + "]. Mapping to 'HEALTH_CHECK_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @health_check_status = HEALTH_CHECK_STATUS_UNKNOWN_ENUM_VALUE
       else
         @health_check_status = health_check_status
@@ -123,7 +121,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -137,7 +135,7 @@ module OCI
         timestamp == other.timestamp &&
         health_check_status == other.health_check_status
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -145,7 +143,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -153,7 +151,7 @@ module OCI
     def hash
       [subnet_id, source_ip_address, timestamp, health_check_status].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -226,4 +224,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

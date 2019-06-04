@@ -2,11 +2,11 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # See Instance launch details - {LaunchInstanceDetails}
   #
-  class Core::Models::InstanceConfigurationLaunchInstanceDetails # rubocop:disable Metrics/LineLength
+  class Core::Models::InstanceConfigurationLaunchInstanceDetails
     # The availability domain of the instance.
     #
     # Example: `Uocm:PHX-AD-1`
@@ -24,8 +24,8 @@ module OCI
     # @return [OCI::Core::Models::InstanceConfigurationCreateVnicDetails]
     attr_accessor :create_vnic_details
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -48,8 +48,7 @@ module OCI
     attr_accessor :extended_metadata
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -160,6 +159,24 @@ module OCI
     # @return [OCI::Core::Models::InstanceConfigurationInstanceSourceDetails]
     attr_accessor :source_details
 
+    # A fault domain is a grouping of hardware and infrastructure within an availability domain.
+    # Each availability domain contains three fault domains. Fault domains let you distribute your
+    # instances so that they are not on the same physical hardware within a single availability domain.
+    # A hardware failure or Compute hardware maintenance that affects one fault domain does not affect
+    # instances in other fault domains.
+    #
+    # If you do not specify the fault domain, the system selects one for you. To change the fault
+    # domain for an instance, terminate it and launch a new instance in the preferred fault domain.
+    #
+    # To get a list of fault domains, use the
+    # {#list_fault_domains list_fault_domains} operation in the
+    # Identity and Access Management Service API.
+    #
+    # Example: `FAULT-DOMAIN-1`
+    #
+    # @return [String]
+    attr_accessor :fault_domain
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -174,7 +191,8 @@ module OCI
         'ipxe_script': :'ipxeScript',
         'metadata': :'metadata',
         'shape': :'shape',
-        'source_details': :'sourceDetails'
+        'source_details': :'sourceDetails',
+        'fault_domain': :'faultDomain'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -193,13 +211,14 @@ module OCI
         'ipxe_script': :'String',
         'metadata': :'Hash<String, String>',
         'shape': :'String',
-        'source_details': :'OCI::Core::Models::InstanceConfigurationInstanceSourceDetails'
+        'source_details': :'OCI::Core::Models::InstanceConfigurationInstanceSourceDetails',
+        'fault_domain': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -215,6 +234,7 @@ module OCI
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [OCI::Core::Models::InstanceConfigurationInstanceSourceDetails] :source_details The value to assign to the {#source_details} property
+    # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -278,11 +298,17 @@ module OCI
       raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
 
       self.source_details = attributes[:'source_details'] if attributes[:'source_details']
+
+      self.fault_domain = attributes[:'faultDomain'] if attributes[:'faultDomain']
+
+      raise 'You cannot provide both :faultDomain and :fault_domain' if attributes.key?(:'faultDomain') && attributes.key?(:'fault_domain')
+
+      self.fault_domain = attributes[:'fault_domain'] if attributes[:'fault_domain']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -301,9 +327,10 @@ module OCI
         ipxe_script == other.ipxe_script &&
         metadata == other.metadata &&
         shape == other.shape &&
-        source_details == other.source_details
+        source_details == other.source_details &&
+        fault_domain == other.fault_domain
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -311,15 +338,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, freeform_tags, ipxe_script, metadata, shape, source_details].hash
+      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, freeform_tags, ipxe_script, metadata, shape, source_details, fault_domain].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -392,4 +419,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

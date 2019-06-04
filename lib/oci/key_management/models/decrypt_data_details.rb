@@ -2,10 +2,10 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # DecryptDataDetails model.
-  class KeyManagement::Models::DecryptDataDetails # rubocop:disable Metrics/LineLength
+  class KeyManagement::Models::DecryptDataDetails
     # Information that can be used to provide an encryption context for the
     # encrypted data. The length of the string representation of the associatedData
     # must be fewer than 4096 characters.
@@ -21,13 +21,20 @@ module OCI
     # @return [String]
     attr_accessor :key_id
 
+    # Information that can be used to provide context for audit logging. It is a map that contains any addtional
+    # data the users may have and will be added to the audit logs (if audit logging is enabled)
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :logging_context
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'associated_data': :'associatedData',
         'ciphertext': :'ciphertext',
-        'key_id': :'keyId'
+        'key_id': :'keyId',
+        'logging_context': :'loggingContext'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,13 +45,14 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'associated_data': :'Hash<String, String>',
         'ciphertext': :'String',
-        'key_id': :'String'
+        'key_id': :'String',
+        'logging_context': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -52,6 +60,7 @@ module OCI
     # @option attributes [Hash<String, String>] :associated_data The value to assign to the {#associated_data} property
     # @option attributes [String] :ciphertext The value to assign to the {#ciphertext} property
     # @option attributes [String] :key_id The value to assign to the {#key_id} property
+    # @option attributes [Hash<String, String>] :logging_context The value to assign to the {#logging_context} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -71,11 +80,17 @@ module OCI
       raise 'You cannot provide both :keyId and :key_id' if attributes.key?(:'keyId') && attributes.key?(:'key_id')
 
       self.key_id = attributes[:'key_id'] if attributes[:'key_id']
+
+      self.logging_context = attributes[:'loggingContext'] if attributes[:'loggingContext']
+
+      raise 'You cannot provide both :loggingContext and :logging_context' if attributes.key?(:'loggingContext') && attributes.key?(:'logging_context')
+
+      self.logging_context = attributes[:'logging_context'] if attributes[:'logging_context']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -86,9 +101,10 @@ module OCI
       self.class == other.class &&
         associated_data == other.associated_data &&
         ciphertext == other.ciphertext &&
-        key_id == other.key_id
+        key_id == other.key_id &&
+        logging_context == other.logging_context
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -96,15 +112,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [associated_data, ciphertext, key_id].hash
+      [associated_data, ciphertext, key_id, logging_context].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -177,4 +193,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength
