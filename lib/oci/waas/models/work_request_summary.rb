@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The summarized details of a work request.
-  class Waas::Models::WorkRequestSummary # rubocop:disable Metrics/LineLength
+  class Waas::Models::WorkRequestSummary
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_WAAS_POLICY = 'CREATE_WAAS_POLICY'.freeze,
       OPERATION_TYPE_UPDATE_WAAS_POLICY = 'UPDATE_WAAS_POLICY'.freeze,
@@ -96,7 +96,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -159,16 +159,14 @@ module OCI
       self.time_finished = attributes[:'time_finished'] if attributes[:'time_finished']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] operation_type Object to be assigned
     def operation_type=(operation_type)
       # rubocop:disable Style/ConditionalAssignment
       if operation_type && !OPERATION_TYPE_ENUM.include?(operation_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'operation_type' [" + operation_type + "]. Mapping to 'OPERATION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @operation_type = OPERATION_TYPE_UNKNOWN_ENUM_VALUE
       else
         @operation_type = operation_type
@@ -181,9 +179,7 @@ module OCI
     def status=(status)
       # rubocop:disable Style/ConditionalAssignment
       if status && !STATUS_ENUM.include?(status)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'status' [" + status + "]. Mapping to 'STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @status = STATUS_UNKNOWN_ENUM_VALUE
       else
         @status = status
@@ -191,7 +187,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -210,7 +206,7 @@ module OCI
         time_started == other.time_started &&
         time_finished == other.time_finished
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -218,7 +214,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -226,7 +222,7 @@ module OCI
     def hash
       [id, operation_type, status, compartment_id, resources, percent_complete, time_accepted, time_started, time_finished].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -299,4 +295,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

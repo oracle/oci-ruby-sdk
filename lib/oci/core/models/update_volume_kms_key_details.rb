@@ -2,14 +2,13 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # UpdateVolumeKmsKeyDetails model.
-  class Core::Models::UpdateVolumeKmsKeyDetails # rubocop:disable Metrics/LineLength
-    # The new kms key which will be used to protect the specific volume.
-    # This key has to be a valid kms key ocid, and user must have key delegation policy to allow them to access this key.
-    # Even if this new kms key is the same as the previous kms key id, block storage service will use it to regenerate a new volume encryption key.
-    # Example: `{\"kmsKeyId\": \"ocid1.key.region1.sea.afnl2n7daag4s.abzwkljs6uevhlgcznhmh7oiatyrxngrywc3tje3uk3g77hzmewqiieuk75f\"}`
+  class Core::Models::UpdateVolumeKmsKeyDetails
+    # The OCID of the new KMS key which will be used to protect the specified volume.
+    # This key has to be a valid KMS key OCID, and the user must have key delegation policy to allow them to access this key.
+    # Even if the new KMS key is the same as the previous KMS key ID, the Block Volume service will use it to regenerate a new volume encryption key.
     #
     # @return [String]
     attr_accessor :kms_key_id
@@ -33,7 +32,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -52,9 +51,9 @@ module OCI
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -65,7 +64,7 @@ module OCI
       self.class == other.class &&
         kms_key_id == other.kms_key_id
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -73,7 +72,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -81,7 +80,7 @@ module OCI
     def hash
       [kms_key_id].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -154,4 +153,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

@@ -3,11 +3,24 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A connection between a DRG and CPE. This connection consists of multiple IPSec
   # tunnels. Creating this connection is one of the steps required when setting up
-  # an IPSec VPN. For more information, see
+  # an IPSec VPN.
+  #
+  # **Important:**  Each tunnel in an IPSec connection can use either static routing or BGP dynamic
+  # routing (see the {IPSecConnectionTunnel} object's
+  # `routing` attribute). Originally only static routing was supported and
+  # every IPSec connection was required to have at least one static route configured.
+  # To maintain backward compatibility in the API when support for BPG dynamic routing was introduced,
+  # the API accepts an empty list of static routes if you configure both of the IPSec tunnels to use
+  # BGP dynamic routing. If you switch a tunnel's routing from `BGP` to `STATIC`, you must first
+  # ensure that the IPSec connection is configured with at least one valid CIDR block static route.
+  # Oracle uses the IPSec connection's static routes when routing a tunnel's traffic *only*
+  # if that tunnel's `routing` attribute = `STATIC`. Otherwise the static routes are ignored.
+  #
+  # For more information about the workflow for setting up an IPSec connection, see
   # [IPSec VPN](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPsec.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
@@ -17,7 +30,7 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
   #
-  class Core::Models::IPSecConnection # rubocop:disable Metrics/LineLength
+  class Core::Models::IPSecConnection
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
@@ -40,8 +53,8 @@ module OCI
     # @return [String]
     attr_accessor :cpe_id
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -59,8 +72,7 @@ module OCI
     attr_accessor :drg_id
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -82,6 +94,9 @@ module OCI
     # If you don't provide a value when creating the IPSec connection, the `ipAddress` attribute
     # for the {Cpe} object specified by `cpeId` is used as the `cpeLocalIdentifier`.
     #
+    # For information about why you'd provide this value, see
+    # [If Your CPE Is Behind a NAT Device](https://docs.cloud.oracle.com/Content/Network/Tasks/overviewIPsec.htm#nat).
+    #
     # Example IP address: `10.0.3.3`
     #
     # Example hostname: `cpe.example.com`
@@ -95,8 +110,14 @@ module OCI
     # @return [String]
     attr_reader :cpe_local_identifier_type
 
-    # **[Required]** Static routes to the CPE. At least one route must be included. The CIDR must not be a
+    # **[Required]** Static routes to the CPE. The CIDR must not be a
     # multicast address or class E address.
+    #
+    # Used for routing a given IPSec tunnel's traffic only if the tunnel
+    # is using static routing. If you configure at least one tunnel to use static routing, then
+    # you must provide at least one valid static route. If you configure both
+    # tunnels to use BGP dynamic routing, you can provide an empty list for the static routes.
+    #
     #
     # Example: `10.0.1.0/24`
     #
@@ -151,7 +172,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -243,16 +264,14 @@ module OCI
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
       if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
@@ -265,9 +284,7 @@ module OCI
     def cpe_local_identifier_type=(cpe_local_identifier_type)
       # rubocop:disable Style/ConditionalAssignment
       if cpe_local_identifier_type && !CPE_LOCAL_IDENTIFIER_TYPE_ENUM.include?(cpe_local_identifier_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'cpe_local_identifier_type' [" + cpe_local_identifier_type + "]. Mapping to 'CPE_LOCAL_IDENTIFIER_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @cpe_local_identifier_type = CPE_LOCAL_IDENTIFIER_TYPE_UNKNOWN_ENUM_VALUE
       else
         @cpe_local_identifier_type = cpe_local_identifier_type
@@ -275,7 +292,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -297,7 +314,7 @@ module OCI
         static_routes == other.static_routes &&
         time_created == other.time_created
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -305,7 +322,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -313,7 +330,7 @@ module OCI
     def hash
       [compartment_id, cpe_id, defined_tags, display_name, drg_id, freeform_tags, id, lifecycle_state, cpe_local_identifier, cpe_local_identifier_type, static_routes, time_created].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -386,4 +403,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

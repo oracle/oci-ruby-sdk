@@ -2,10 +2,10 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # CreateIPSecConnectionDetails model.
-  class Core::Models::CreateIPSecConnectionDetails # rubocop:disable Metrics/LineLength
+  class Core::Models::CreateIPSecConnectionDetails
     CPE_LOCAL_IDENTIFIER_TYPE_ENUM = [
       CPE_LOCAL_IDENTIFIER_TYPE_IP_ADDRESS = 'IP_ADDRESS'.freeze,
       CPE_LOCAL_IDENTIFIER_TYPE_HOSTNAME = 'HOSTNAME'.freeze
@@ -19,8 +19,8 @@ module OCI
     # @return [String]
     attr_accessor :cpe_id
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -36,8 +36,7 @@ module OCI
     attr_accessor :drg_id
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -50,6 +49,9 @@ module OCI
     #
     # If you don't provide a value, the `ipAddress` attribute for the {Cpe}
     # object specified by `cpeId` is used as the `cpeLocalIdentifier`.
+    #
+    # For information about why you'd provide this value, see
+    # [If Your CPE Is Behind a NAT Device](https://docs.cloud.oracle.com/Content/Network/Tasks/overviewIPsec.htm#nat).
     #
     # Example IP address: `10.0.3.3`
     #
@@ -64,13 +66,27 @@ module OCI
     # @return [String]
     attr_reader :cpe_local_identifier_type
 
-    # **[Required]** Static routes to the CPE. At least one route must be included. A static route's CIDR must not be a
+    # **[Required]** Static routes to the CPE. A static route's CIDR must not be a
     # multicast address or class E address.
+    #
+    # Used for routing a given IPSec tunnel's traffic only if the tunnel
+    # is using static routing. If you configure at least one tunnel to use static routing, then
+    # you must provide at least one valid static route. If you configure both
+    # tunnels to use BGP dynamic routing, you can provide an empty list for the static routes.
+    # For more information, see the important note in {IPSecConnection}.
+    #
     #
     # Example: `10.0.1.0/24`
     #
     # @return [Array<String>]
     attr_accessor :static_routes
+
+    # Information for creating the individual tunnels in the IPSec connection. You can provide a
+    # maximum of 2 `tunnelConfiguration` objects in the array (one for each of the
+    # two tunnels).
+    #
+    # @return [Array<OCI::Core::Models::CreateIPSecConnectionTunnelDetails>]
+    attr_accessor :tunnel_configuration
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -84,7 +100,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'cpe_local_identifier': :'cpeLocalIdentifier',
         'cpe_local_identifier_type': :'cpeLocalIdentifierType',
-        'static_routes': :'staticRoutes'
+        'static_routes': :'staticRoutes',
+        'tunnel_configuration': :'tunnelConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -101,13 +118,14 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'cpe_local_identifier': :'String',
         'cpe_local_identifier_type': :'String',
-        'static_routes': :'Array<String>'
+        'static_routes': :'Array<String>',
+        'tunnel_configuration': :'Array<OCI::Core::Models::CreateIPSecConnectionTunnelDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -121,6 +139,7 @@ module OCI
     # @option attributes [String] :cpe_local_identifier The value to assign to the {#cpe_local_identifier} property
     # @option attributes [String] :cpe_local_identifier_type The value to assign to the {#cpe_local_identifier_type} property
     # @option attributes [Array<String>] :static_routes The value to assign to the {#static_routes} property
+    # @option attributes [Array<OCI::Core::Models::CreateIPSecConnectionTunnelDetails>] :tunnel_configuration The value to assign to the {#tunnel_configuration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -180,21 +199,25 @@ module OCI
       raise 'You cannot provide both :staticRoutes and :static_routes' if attributes.key?(:'staticRoutes') && attributes.key?(:'static_routes')
 
       self.static_routes = attributes[:'static_routes'] if attributes[:'static_routes']
+
+      self.tunnel_configuration = attributes[:'tunnelConfiguration'] if attributes[:'tunnelConfiguration']
+
+      raise 'You cannot provide both :tunnelConfiguration and :tunnel_configuration' if attributes.key?(:'tunnelConfiguration') && attributes.key?(:'tunnel_configuration')
+
+      self.tunnel_configuration = attributes[:'tunnel_configuration'] if attributes[:'tunnel_configuration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] cpe_local_identifier_type Object to be assigned
     def cpe_local_identifier_type=(cpe_local_identifier_type)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'cpe_local_identifier_type': this must be one of the values in CPE_LOCAL_IDENTIFIER_TYPE_ENUM." if cpe_local_identifier_type && !CPE_LOCAL_IDENTIFIER_TYPE_ENUM.include?(cpe_local_identifier_type)
 
-      # rubocop: enable Metrics/LineLength
       @cpe_local_identifier_type = cpe_local_identifier_type
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -211,9 +234,10 @@ module OCI
         freeform_tags == other.freeform_tags &&
         cpe_local_identifier == other.cpe_local_identifier &&
         cpe_local_identifier_type == other.cpe_local_identifier_type &&
-        static_routes == other.static_routes
+        static_routes == other.static_routes &&
+        tunnel_configuration == other.tunnel_configuration
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -221,15 +245,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cpe_id, defined_tags, display_name, drg_id, freeform_tags, cpe_local_identifier, cpe_local_identifier_type, static_routes].hash
+      [compartment_id, cpe_id, defined_tags, display_name, drg_id, freeform_tags, cpe_local_identifier, cpe_local_identifier_type, static_routes, tunnel_configuration].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -302,4 +326,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

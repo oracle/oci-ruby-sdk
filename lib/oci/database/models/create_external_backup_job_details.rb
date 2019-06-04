@@ -2,10 +2,10 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # CreateExternalBackupJobDetails model.
-  class Database::Models::CreateExternalBackupJobDetails # rubocop:disable Metrics/LineLength
+  class Database::Models::CreateExternalBackupJobDetails
     DATABASE_MODE_ENUM = [
       DATABASE_MODE_SI = 'SI'.freeze,
       DATABASE_MODE_RAC = 'RAC'.freeze
@@ -109,7 +109,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -205,29 +205,25 @@ module OCI
       self.database_edition = attributes[:'database_edition'] if attributes[:'database_edition']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] database_mode Object to be assigned
     def database_mode=(database_mode)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'database_mode': this must be one of the values in DATABASE_MODE_ENUM." if database_mode && !DATABASE_MODE_ENUM.include?(database_mode)
 
-      # rubocop: enable Metrics/LineLength
       @database_mode = database_mode
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] database_edition Object to be assigned
     def database_edition=(database_edition)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'database_edition': this must be one of the values in DATABASE_EDITION_ENUM." if database_edition && !DATABASE_EDITION_ENUM.include?(database_edition)
 
-      # rubocop: enable Metrics/LineLength
       @database_edition = database_edition
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -249,7 +245,7 @@ module OCI
         database_mode == other.database_mode &&
         database_edition == other.database_edition
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -257,7 +253,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -265,7 +261,7 @@ module OCI
     def hash
       [availability_domain, compartment_id, display_name, db_version, db_name, db_unique_name, pdb_name, external_database_identifier, character_set, ncharacter_set, database_mode, database_edition].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -338,4 +334,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

@@ -2,17 +2,19 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A resource that the AutoScalingConfiguration manages. The only supported type is 'instancePool'
+  # A resource that is managed by an autoscaling configuration. The only supported type is \"instancePool.\"
+  #
+  # Each instance pool can have one autoscaling configuration.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
-  class Autoscaling::Models::Resource # rubocop:disable Metrics/LineLength
-    # **[Required]** Indicates type of derived class
+  class Autoscaling::Models::Resource
+    # **[Required]** The type of resource.
     # @return [String]
     attr_accessor :type
 
-    # **[Required]** The OCID of resource that the AutoScalingConfiguration will manage.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the resource that is managed by the autoscaling configuration.
     #
     # @return [String]
     attr_accessor :id
@@ -37,7 +39,7 @@ module OCI
       }
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
 
     # Given the hash representation of a subtype of this class,
@@ -50,10 +52,10 @@ module OCI
       # TODO: Log a warning when the subtype is not found.
       'OCI::Autoscaling::Models::Resource'
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -71,9 +73,9 @@ module OCI
       self.id = attributes[:'id'] if attributes[:'id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -85,7 +87,7 @@ module OCI
         type == other.type &&
         id == other.id
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -93,7 +95,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -101,7 +103,7 @@ module OCI
     def hash
       [type, id].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -174,4 +176,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

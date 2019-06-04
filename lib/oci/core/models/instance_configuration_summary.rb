@@ -2,11 +2,11 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Instance Configuration Summary
   #
-  class Core::Models::InstanceConfigurationSummary # rubocop:disable Metrics/LineLength
+  class Core::Models::InstanceConfigurationSummary
     # **[Required]** The OCID of the compartment containing the instance configuration.
     #
     # @return [String]
@@ -27,6 +27,22 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -34,7 +50,9 @@ module OCI
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'id': :'id',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'defined_tags': :'definedTags',
+        'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -46,13 +64,15 @@ module OCI
         'compartment_id': :'String',
         'display_name': :'String',
         'id': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -61,6 +81,8 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -86,11 +108,23 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -102,9 +136,11 @@ module OCI
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         id == other.id &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        defined_tags == other.defined_tags &&
+        freeform_tags == other.freeform_tags
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -112,15 +148,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, id, time_created].hash
+      [compartment_id, display_name, id, time_created, defined_tags, freeform_tags].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -193,4 +229,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

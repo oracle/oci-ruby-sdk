@@ -2,14 +2,14 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Details to create an Oracle Autonomous Database.
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
-  class Database::Models::CreateAutonomousDatabaseBase # rubocop:disable Metrics/LineLength
+  class Database::Models::CreateAutonomousDatabaseBase
     DB_WORKLOAD_ENUM = [
       DB_WORKLOAD_OLTP = 'OLTP'.freeze,
       DB_WORKLOAD_DW = 'DW'.freeze
@@ -59,6 +59,11 @@ module OCI
     # @return [String]
     attr_reader :license_model
 
+    # Indicates if auto scaling is enabled for the Autonomous Database CPU core count. The default value is false.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_scaling_enabled
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -92,6 +97,7 @@ module OCI
         'admin_password': :'adminPassword',
         'display_name': :'displayName',
         'license_model': :'licenseModel',
+        'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'source': :'source'
@@ -111,6 +117,7 @@ module OCI
         'admin_password': :'String',
         'display_name': :'String',
         'license_model': :'String',
+        'is_auto_scaling_enabled': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'source': :'String'
@@ -118,7 +125,7 @@ module OCI
       }
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
 
     # Given the hash representation of a subtype of this class,
@@ -132,10 +139,10 @@ module OCI
       # TODO: Log a warning when the subtype is not found.
       'OCI::Database::Models::CreateAutonomousDatabaseBase'
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -148,6 +155,7 @@ module OCI
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :source The value to assign to the {#source} property
@@ -205,6 +213,14 @@ module OCI
 
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
 
+      self.is_auto_scaling_enabled = attributes[:'isAutoScalingEnabled'] unless attributes[:'isAutoScalingEnabled'].nil?
+      self.is_auto_scaling_enabled = false if is_auto_scaling_enabled.nil? && !attributes.key?(:'isAutoScalingEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isAutoScalingEnabled and :is_auto_scaling_enabled' if attributes.key?(:'isAutoScalingEnabled') && attributes.key?(:'is_auto_scaling_enabled')
+
+      self.is_auto_scaling_enabled = attributes[:'is_auto_scaling_enabled'] unless attributes[:'is_auto_scaling_enabled'].nil?
+      self.is_auto_scaling_enabled = false if is_auto_scaling_enabled.nil? && !attributes.key?(:'isAutoScalingEnabled') && !attributes.key?(:'is_auto_scaling_enabled') # rubocop:disable Style/StringLiterals
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -221,39 +237,33 @@ module OCI
       self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] db_workload Object to be assigned
     def db_workload=(db_workload)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'db_workload': this must be one of the values in DB_WORKLOAD_ENUM." if db_workload && !DB_WORKLOAD_ENUM.include?(db_workload)
 
-      # rubocop: enable Metrics/LineLength
       @db_workload = db_workload
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] license_model Object to be assigned
     def license_model=(license_model)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
 
-      # rubocop: enable Metrics/LineLength
       @license_model = license_model
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] source Object to be assigned
     def source=(source)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'source': this must be one of the values in SOURCE_ENUM." if source && !SOURCE_ENUM.include?(source)
 
-      # rubocop: enable Metrics/LineLength
       @source = source
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -270,11 +280,12 @@ module OCI
         admin_password == other.admin_password &&
         display_name == other.display_name &&
         license_model == other.license_model &&
+        is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         source == other.source
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -282,15 +293,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, freeform_tags, defined_tags, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, is_auto_scaling_enabled, freeform_tags, defined_tags, source].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -363,4 +374,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

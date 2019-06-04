@@ -448,8 +448,9 @@ module OCI
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @option opts [String] :lifecycle_state The current state of a sender.
     # @option opts [String] :email_address The email address of the approved sender.
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous
-    #   GET request.
+    # @option opts [String] :page For list pagination. The value of the opc-next-page response header from the previous \"List\" call.
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
     #   paginated \"List\" call. `1` is the minimum, `1000` is the maximum. For important details about
@@ -557,8 +558,9 @@ module OCI
     #
     #   **Example:** 2016-12-19T16:39:57.600Z
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous
-    #   GET request.
+    # @option opts [String] :page For list pagination. The value of the opc-next-page response header from the previous \"List\" call.
+    #   For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
     #   paginated \"List\" call. `1` is the minimum, `1000` is the maximum. For important details about

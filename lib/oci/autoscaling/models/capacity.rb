@@ -2,20 +2,23 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Capacity boundaries for the pool
+  # Capacity limits for the instance pool.
   #
-  class Autoscaling::Models::Capacity # rubocop:disable Metrics/LineLength
-    # **[Required]** The maximum size the pool is allowed to increase to
+  class Autoscaling::Models::Capacity
+    # **[Required]** The maximum number of instances the instance pool is allowed to increase to (scale out).
     # @return [Integer]
     attr_accessor :max
 
-    # **[Required]** The minimum size the pool is allowed to decrease to
+    # **[Required]** The minimum number of instances the instance pool is allowed to decrease to (scale in).
     # @return [Integer]
     attr_accessor :min
 
-    # **[Required]** The initial size of the pool
+    # **[Required]** The initial number of instances to launch in the instance pool immediately after autoscaling is
+    # enabled. After autoscaling retrieves performance metrics, the number of instances is automatically adjusted from this
+    # initial number to a number that is based on the limits that you set.
+    #
     # @return [Integer]
     attr_accessor :initial
 
@@ -42,7 +45,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -63,9 +66,9 @@ module OCI
       self.initial = attributes[:'initial'] if attributes[:'initial']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -78,7 +81,7 @@ module OCI
         min == other.min &&
         initial == other.initial
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -86,7 +89,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -94,7 +97,7 @@ module OCI
     def hash
       [max, min, initial].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -167,4 +170,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

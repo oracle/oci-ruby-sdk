@@ -2,13 +2,13 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # An extension of the existing record resource, describing either a
   # precondition, an add, or a remove. Preconditions check all fields,
   # including read-only data like `recordHash` and `rrsetVersion`.
   #
-  class Dns::Models::RecordOperation # rubocop:disable Metrics/LineLength
+  class Dns::Models::RecordOperation
     OPERATION_ENUM = [
       OPERATION_REQUIRE = 'REQUIRE'.freeze,
       OPERATION_PROHIBIT = 'PROHIBIT'.freeze,
@@ -113,7 +113,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -162,19 +162,17 @@ module OCI
       self.operation = "ADD" if operation.nil? && !attributes.key?(:'operation') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] operation Object to be assigned
     def operation=(operation)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'operation': this must be one of the values in OPERATION_ENUM." if operation && !OPERATION_ENUM.include?(operation)
 
-      # rubocop: enable Metrics/LineLength
       @operation = operation
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -192,7 +190,7 @@ module OCI
         ttl == other.ttl &&
         operation == other.operation
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -200,7 +198,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -208,7 +206,7 @@ module OCI
     def hash
       [domain, record_hash, is_protected, rdata, rrset_version, rtype, ttl, operation].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -281,4 +279,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

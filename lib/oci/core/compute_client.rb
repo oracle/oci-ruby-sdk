@@ -5,7 +5,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # APIs for Networking Service, Compute Service, and Block Volume Service.
+  # API covering the [Networking](/iaas/Content/Network/Concepts/overview.htm),
+  # [Compute](/iaas/Content/Compute/Concepts/computeoverview.htm), and
+  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services. Use this API
+  # to manage resources such as virtual cloud networks (VCNs), compute instances, and
+  # block storage volumes.
   class Core::ComputeClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -568,7 +572,7 @@ module OCI
 
     # Delete a subscription for a listing resource version for a compartment.
     # @param [String] listing_id The OCID of the listing.
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [String] resource_version Listing Resource Version.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2024,7 +2028,7 @@ module OCI
 
 
     # Lists subscriptions for a compartment.
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2120,7 +2124,7 @@ module OCI
     #
     #   Example: `Uocm:PHX-AD-1`
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2190,7 +2194,7 @@ module OCI
 
     # Lists the console history metadata for the specified compartment or instance.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2298,7 +2302,7 @@ module OCI
     #
     # The order of images returned may change when new images are released.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2410,7 +2414,7 @@ module OCI
     #
     # For more information about console access, see [Accessing the Console](https://docs.cloud.oracle.com/Content/Compute/References/serialconsole.htm).
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2575,7 +2579,7 @@ module OCI
     # You can filter the results by specifying an instance name (the list will include all the identically-named
     # instances in the compartment).
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2679,7 +2683,7 @@ module OCI
     # Lists the shapes that can be used to launch an instance within the specified compartment. You can
     # filter the list by compatibility with a specific image.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2752,7 +2756,7 @@ module OCI
     # resides in the same compartment as the attached instance. The list can be
     # filtered by instance, VNIC, or availability domain.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2829,7 +2833,7 @@ module OCI
     # Currently, the only supported volume attachment type are {IScsiVolumeAttachment} and
     # {ParavirtualizedVolumeAttachment}.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

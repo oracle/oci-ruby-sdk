@@ -4,13 +4,13 @@ require 'date'
 require 'logger'
 require_relative 'dhcp_option'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # DHCP option for specifying how DNS (hostname resolution) is handled in the subnets in the VCN.
   # For more information, see
   # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/Content/Network/Concepts/dns.htm).
   #
-  class Core::Models::DhcpDnsOption < Core::Models::DhcpOption # rubocop:disable Metrics/LineLength
+  class Core::Models::DhcpDnsOption < Core::Models::DhcpOption
     SERVER_TYPE_ENUM = [
       SERVER_TYPE_VCN_LOCAL = 'VcnLocal'.freeze,
       SERVER_TYPE_VCN_LOCAL_PLUS_INTERNET = 'VcnLocalPlusInternet'.freeze,
@@ -66,7 +66,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -96,16 +96,14 @@ module OCI
       self.server_type = attributes[:'server_type'] if attributes[:'server_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] server_type Object to be assigned
     def server_type=(server_type)
       # rubocop:disable Style/ConditionalAssignment
       if server_type && !SERVER_TYPE_ENUM.include?(server_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'server_type' [" + server_type + "]. Mapping to 'SERVER_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @server_type = SERVER_TYPE_UNKNOWN_ENUM_VALUE
       else
         @server_type = server_type
@@ -113,7 +111,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -126,7 +124,7 @@ module OCI
         custom_dns_servers == other.custom_dns_servers &&
         server_type == other.server_type
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -134,7 +132,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -142,7 +140,7 @@ module OCI
     def hash
       [type, custom_dns_servers, server_type].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -215,4 +213,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

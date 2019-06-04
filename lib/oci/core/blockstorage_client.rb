@@ -5,7 +5,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # APIs for Networking Service, Compute Service, and Block Volume Service.
+  # API covering the [Networking](/iaas/Content/Network/Concepts/overview.htm),
+  # [Compute](/iaas/Content/Compute/Concepts/computeoverview.htm), and
+  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services. Use this API
+  # to manage resources such as virtual cloud networks (VCNs), compute instances, and
+  # block storage volumes.
   class Core::BlockstorageClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -731,7 +735,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Remove kms for the specific boot volume. If the volume doesn't use KMS, then do nothing.
+    # Removes the KMS key for the specified boot volume.
     #
     # @param [String] boot_volume_id The OCID of the boot volume.
     # @param [Hash] opts the optional parameters
@@ -1068,7 +1072,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Remove kms for the specific volume. If the volume doesn't use KMS, then do nothing.
+    # Removes the KMS key for the specified volume.
     #
     # @param [String] volume_id The OCID of the volume.
     # @param [Hash] opts the optional parameters
@@ -1230,7 +1234,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets kms key id for the specified boot volume.
+    # Gets the KMS key ID for the specified boot volume.
     #
     # @param [String] boot_volume_id The OCID of the boot volume.
     # @param [Hash] opts the optional parameters
@@ -1671,7 +1675,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets kms key id for the specified volume.
+    # Gets the KMS key ID for the specified volume.
     #
     # @param [String] volume_id The OCID of the volume.
     # @param [Hash] opts the optional parameters
@@ -1730,7 +1734,7 @@ module OCI
 
     # Lists the boot volume backups in the specified compartment. You can filter the results by boot volume.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1834,7 +1838,7 @@ module OCI
     #
     #   Example: `Uocm:PHX-AD-1`
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1962,7 +1966,7 @@ module OCI
 
     # Lists the volume backups in the specified compartment. You can filter the results by volume.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2066,7 +2070,7 @@ module OCI
     # Lists the volume group backups in the specified compartment. You can filter the results by volume group.
     # For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2160,7 +2164,7 @@ module OCI
     # Lists the volume groups in the specified compartment and availability domain.
     # For more information, see [Volume Groups](https://docs.cloud.oracle.com/Content/Block/Concepts/volumegroups.htm).
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2262,7 +2266,7 @@ module OCI
 
     # Lists the volumes in the specified compartment and availability domain.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2483,10 +2487,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update kms key id for the specific volume.
+    # Updates the KMS key ID for the specified volume.
     #
     # @param [String] boot_volume_id The OCID of the boot volume.
-    # @param [OCI::Core::Models::UpdateBootVolumeKmsKeyDetails] update_boot_volume_kms_key_details Update kms key id for the specific boot volume.
+    # @param [OCI::Core::Models::UpdateBootVolumeKmsKeyDetails] update_boot_volume_kms_key_details Updates the KMS key ID for the specified boot volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2784,10 +2788,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update kms key id for the specific volume.
+    # Updates the KMS key ID for the specified volume.
     #
     # @param [String] volume_id The OCID of the volume.
-    # @param [OCI::Core::Models::UpdateVolumeKmsKeyDetails] update_volume_kms_key_details Update kms key id for the specific volume.
+    # @param [OCI::Core::Models::UpdateVolumeKmsKeyDetails] update_volume_kms_key_details Update the KMS key ID for the specified volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

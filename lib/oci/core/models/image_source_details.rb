@@ -2,15 +2,21 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # ImageSourceDetails model.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
-  class Core::Models::ImageSourceDetails # rubocop:disable Metrics/LineLength
+  class Core::Models::ImageSourceDetails
     SOURCE_IMAGE_TYPE_ENUM = [
       SOURCE_IMAGE_TYPE_QCOW2 = 'QCOW2'.freeze,
       SOURCE_IMAGE_TYPE_VMDK = 'VMDK'.freeze
     ].freeze
+
+    # @return [String]
+    attr_accessor :operating_system
+
+    # @return [String]
+    attr_accessor :operating_system_version
 
     # The format of the image to be imported.  Only monolithic
     # images are supported. This attribute is not used for exported Oracle images with the OCI image format.
@@ -28,6 +34,8 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'operating_system': :'operatingSystem',
+        'operating_system_version': :'operatingSystemVersion',
         'source_image_type': :'sourceImageType',
         'source_type': :'sourceType'
         # rubocop:enable Style/SymbolLiteral
@@ -38,13 +46,15 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'operating_system': :'String',
+        'operating_system_version': :'String',
         'source_image_type': :'String',
         'source_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
 
     # Given the hash representation of a subtype of this class,
@@ -58,14 +68,16 @@ module OCI
       # TODO: Log a warning when the subtype is not found.
       'OCI::Core::Models::ImageSourceDetails'
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :operating_system The value to assign to the {#operating_system} property
+    # @option attributes [String] :operating_system_version The value to assign to the {#operating_system_version} property
     # @option attributes [String] :source_image_type The value to assign to the {#source_image_type} property
     # @option attributes [String] :source_type The value to assign to the {#source_type} property
     def initialize(attributes = {})
@@ -73,6 +85,18 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.operating_system = attributes[:'operatingSystem'] if attributes[:'operatingSystem']
+
+      raise 'You cannot provide both :operatingSystem and :operating_system' if attributes.key?(:'operatingSystem') && attributes.key?(:'operating_system')
+
+      self.operating_system = attributes[:'operating_system'] if attributes[:'operating_system']
+
+      self.operating_system_version = attributes[:'operatingSystemVersion'] if attributes[:'operatingSystemVersion']
+
+      raise 'You cannot provide both :operatingSystemVersion and :operating_system_version' if attributes.key?(:'operatingSystemVersion') && attributes.key?(:'operating_system_version')
+
+      self.operating_system_version = attributes[:'operating_system_version'] if attributes[:'operating_system_version']
 
       self.source_image_type = attributes[:'sourceImageType'] if attributes[:'sourceImageType']
 
@@ -87,19 +111,17 @@ module OCI
       self.source_type = attributes[:'source_type'] if attributes[:'source_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] source_image_type Object to be assigned
     def source_image_type=(source_image_type)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'source_image_type': this must be one of the values in SOURCE_IMAGE_TYPE_ENUM." if source_image_type && !SOURCE_IMAGE_TYPE_ENUM.include?(source_image_type)
 
-      # rubocop: enable Metrics/LineLength
       @source_image_type = source_image_type
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -108,10 +130,12 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        operating_system == other.operating_system &&
+        operating_system_version == other.operating_system_version &&
         source_image_type == other.source_image_type &&
         source_type == other.source_type
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -119,15 +143,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_image_type, source_type].hash
+      [operating_system, operating_system_version, source_image_type, source_type].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -200,4 +224,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

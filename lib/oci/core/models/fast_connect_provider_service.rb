@@ -3,12 +3,12 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A service offering from a supported provider. For more information,
   # see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
   #
-  class Core::Models::FastConnectProviderService # rubocop:disable Metrics/LineLength
+  class Core::Models::FastConnectProviderService
     PRIVATE_PEERING_BGP_MANAGEMENT_ENUM = [
       PRIVATE_PEERING_BGP_MANAGEMENT_CUSTOMER_MANAGED = 'CUSTOMER_MANAGED'.freeze,
       PRIVATE_PEERING_BGP_MANAGEMENT_PROVIDER_MANAGED = 'PROVIDER_MANAGED'.freeze,
@@ -162,7 +162,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -246,16 +246,14 @@ module OCI
       self.type = attributes[:'type'] if attributes[:'type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] private_peering_bgp_management Object to be assigned
     def private_peering_bgp_management=(private_peering_bgp_management)
       # rubocop:disable Style/ConditionalAssignment
       if private_peering_bgp_management && !PRIVATE_PEERING_BGP_MANAGEMENT_ENUM.include?(private_peering_bgp_management)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'private_peering_bgp_management' [" + private_peering_bgp_management + "]. Mapping to 'PRIVATE_PEERING_BGP_MANAGEMENT_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @private_peering_bgp_management = PRIVATE_PEERING_BGP_MANAGEMENT_UNKNOWN_ENUM_VALUE
       else
         @private_peering_bgp_management = private_peering_bgp_management
@@ -268,9 +266,7 @@ module OCI
     def public_peering_bgp_management=(public_peering_bgp_management)
       # rubocop:disable Style/ConditionalAssignment
       if public_peering_bgp_management && !PUBLIC_PEERING_BGP_MANAGEMENT_ENUM.include?(public_peering_bgp_management)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'public_peering_bgp_management' [" + public_peering_bgp_management + "]. Mapping to 'PUBLIC_PEERING_BGP_MANAGEMENT_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @public_peering_bgp_management = PUBLIC_PEERING_BGP_MANAGEMENT_UNKNOWN_ENUM_VALUE
       else
         @public_peering_bgp_management = public_peering_bgp_management
@@ -290,9 +286,7 @@ module OCI
             if SUPPORTED_VIRTUAL_CIRCUIT_TYPES_ENUM.include?(item)
               item
             else
-              # rubocop: disable Metrics/LineLength
               OCI.logger.debug("Unknown value for 'supported_virtual_circuit_types' [#{item}]. Mapping to 'SUPPORTED_VIRTUAL_CIRCUIT_TYPES_UNKNOWN_ENUM_VALUE'") if OCI.logger
-              # rubocop: enable Metrics/LineLength
               SUPPORTED_VIRTUAL_CIRCUIT_TYPES_UNKNOWN_ENUM_VALUE
             end
           end
@@ -305,9 +299,7 @@ module OCI
     def customer_asn_management=(customer_asn_management)
       # rubocop:disable Style/ConditionalAssignment
       if customer_asn_management && !CUSTOMER_ASN_MANAGEMENT_ENUM.include?(customer_asn_management)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'customer_asn_management' [" + customer_asn_management + "]. Mapping to 'CUSTOMER_ASN_MANAGEMENT_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @customer_asn_management = CUSTOMER_ASN_MANAGEMENT_UNKNOWN_ENUM_VALUE
       else
         @customer_asn_management = customer_asn_management
@@ -320,9 +312,7 @@ module OCI
     def provider_service_key_management=(provider_service_key_management)
       # rubocop:disable Style/ConditionalAssignment
       if provider_service_key_management && !PROVIDER_SERVICE_KEY_MANAGEMENT_ENUM.include?(provider_service_key_management)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'provider_service_key_management' [" + provider_service_key_management + "]. Mapping to 'PROVIDER_SERVICE_KEY_MANAGEMENT_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @provider_service_key_management = PROVIDER_SERVICE_KEY_MANAGEMENT_UNKNOWN_ENUM_VALUE
       else
         @provider_service_key_management = provider_service_key_management
@@ -335,9 +325,7 @@ module OCI
     def bandwith_shape_management=(bandwith_shape_management)
       # rubocop:disable Style/ConditionalAssignment
       if bandwith_shape_management && !BANDWITH_SHAPE_MANAGEMENT_ENUM.include?(bandwith_shape_management)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'bandwith_shape_management' [" + bandwith_shape_management + "]. Mapping to 'BANDWITH_SHAPE_MANAGEMENT_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @bandwith_shape_management = BANDWITH_SHAPE_MANAGEMENT_UNKNOWN_ENUM_VALUE
       else
         @bandwith_shape_management = bandwith_shape_management
@@ -350,9 +338,7 @@ module OCI
     def type=(type)
       # rubocop:disable Style/ConditionalAssignment
       if type && !TYPE_ENUM.include?(type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'type' [" + type + "]. Mapping to 'TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @type = TYPE_UNKNOWN_ENUM_VALUE
       else
         @type = type
@@ -360,7 +346,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -382,7 +368,7 @@ module OCI
         required_total_cross_connects == other.required_total_cross_connects &&
         type == other.type
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -390,7 +376,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -398,7 +384,7 @@ module OCI
     def hash
       [description, id, private_peering_bgp_management, provider_name, provider_service_name, public_peering_bgp_management, supported_virtual_circuit_types, customer_asn_management, provider_service_key_management, bandwith_shape_management, required_total_cross_connects, type].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -471,4 +457,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

@@ -2,38 +2,56 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # AutoScalingConfigurationSummary model.
-  class Autoscaling::Models::AutoScalingConfigurationSummary # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the compartment containing the AutoScalingConfiguration.
+  # Summary information for an autoscaling configuration.
+  #
+  class Autoscaling::Models::AutoScalingConfigurationSummary
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the autoscaling configuration.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # A user-friendly name for the AutoScalingConfiguration. Does not have to be unique, and it's changeable.
-    # Avoid entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the AutoScalingConfiguration
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
     # @return [String]
     attr_accessor :id
 
-    # The minimum period of time between scaling actions. The default is 300 seconds.
+    # The minimum period of time to wait between scaling actions. The cooldown period gives the system time to stabilize
+    # before rescaling. The minimum value is 300 seconds, which is also the default.
     #
     # @return [Integer]
     attr_accessor :cool_down_in_seconds
 
-    # If the AutoScalingConfiguration is enabled
+    # Whether the autoscaling configuration is enabled.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
     # @return [OCI::Autoscaling::Models::Resource]
     attr_accessor :resource
 
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
     # **[Required]** The date and time the AutoScalingConfiguration was created, in the format defined by RFC3339.
+    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
@@ -49,6 +67,8 @@ module OCI
         'cool_down_in_seconds': :'coolDownInSeconds',
         'is_enabled': :'isEnabled',
         'resource': :'resource',
+        'defined_tags': :'definedTags',
+        'freeform_tags': :'freeformTags',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -64,13 +84,15 @@ module OCI
         'cool_down_in_seconds': :'Integer',
         'is_enabled': :'BOOLEAN',
         'resource': :'OCI::Autoscaling::Models::Resource',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'freeform_tags': :'Hash<String, String>',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -81,6 +103,8 @@ module OCI
     # @option attributes [Integer] :cool_down_in_seconds The value to assign to the {#cool_down_in_seconds} property
     # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     # @option attributes [OCI::Autoscaling::Models::Resource] :resource The value to assign to the {#resource} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -116,6 +140,18 @@ module OCI
 
       self.resource = attributes[:'resource'] if attributes[:'resource']
 
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -123,9 +159,9 @@ module OCI
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -140,9 +176,11 @@ module OCI
         cool_down_in_seconds == other.cool_down_in_seconds &&
         is_enabled == other.is_enabled &&
         resource == other.resource &&
+        defined_tags == other.defined_tags &&
+        freeform_tags == other.freeform_tags &&
         time_created == other.time_created
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -150,15 +188,15 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, id, cool_down_in_seconds, is_enabled, resource, time_created].hash
+      [compartment_id, display_name, id, cool_down_in_seconds, is_enabled, resource, defined_tags, freeform_tags, time_created].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -231,4 +269,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

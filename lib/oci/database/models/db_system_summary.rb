@@ -3,7 +3,7 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The Database Service supports several types of DB systems, ranging in size, price, and performance. For details about each type of system, see:
   #
@@ -23,7 +23,7 @@ module OCI
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
-  class Database::Models::DbSystemSummary # rubocop:disable Metrics/LineLength
+  class Database::Models::DbSystemSummary
     DATABASE_EDITION_ENUM = [
       DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
       DATABASE_EDITION_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
@@ -315,7 +315,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -538,16 +538,14 @@ module OCI
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] database_edition Object to be assigned
     def database_edition=(database_edition)
       # rubocop:disable Style/ConditionalAssignment
       if database_edition && !DATABASE_EDITION_ENUM.include?(database_edition)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'database_edition' [" + database_edition + "]. Mapping to 'DATABASE_EDITION_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @database_edition = DATABASE_EDITION_UNKNOWN_ENUM_VALUE
       else
         @database_edition = database_edition
@@ -560,9 +558,7 @@ module OCI
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
       if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
@@ -575,9 +571,7 @@ module OCI
     def disk_redundancy=(disk_redundancy)
       # rubocop:disable Style/ConditionalAssignment
       if disk_redundancy && !DISK_REDUNDANCY_ENUM.include?(disk_redundancy)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'disk_redundancy' [" + disk_redundancy + "]. Mapping to 'DISK_REDUNDANCY_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @disk_redundancy = DISK_REDUNDANCY_UNKNOWN_ENUM_VALUE
       else
         @disk_redundancy = disk_redundancy
@@ -590,9 +584,7 @@ module OCI
     def license_model=(license_model)
       # rubocop:disable Style/ConditionalAssignment
       if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'license_model' [" + license_model + "]. Mapping to 'LICENSE_MODEL_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @license_model = LICENSE_MODEL_UNKNOWN_ENUM_VALUE
       else
         @license_model = license_model
@@ -600,7 +592,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -643,7 +635,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -651,7 +643,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -659,7 +651,7 @@ module OCI
     def hash
       [id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, shape, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -732,4 +724,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

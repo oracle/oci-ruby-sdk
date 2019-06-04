@@ -2,31 +2,34 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A Policy defines the rules and actions of an AutoScalingConfiguration. The only supported type is 'threshold'
+  # Autoscaling policies define the criteria that trigger autoscaling actions and the actions to take.
+  #
+  # An autoscaling policy is part of an autoscaling configuration. For more information, see
+  # [Autoscaling](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/autoscalinginstancepools.htm).
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
-  class Autoscaling::Models::AutoScalingPolicy # rubocop:disable Metrics/LineLength
-    # **[Required]** The capacity requirements of the Policy
+  class Autoscaling::Models::AutoScalingPolicy
+    # **[Required]** The capacity requirements of the autoscaling policy.
     # @return [OCI::Autoscaling::Models::Capacity]
     attr_accessor :capacity
 
-    # The ID of the policy that is assigned after creation
+    # The ID of the autoscaling policy that is assigned after creation.
     # @return [String]
     attr_accessor :id
 
-    # A user-friendly name for the Policy. Does not have to be unique, and it's changeable. Avoid entering
-    # confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Indicates type of Policy
+    # **[Required]** The type of autoscaling policy.
     # @return [String]
     attr_accessor :policy_type
 
-    # **[Required]** The date and time the AutoScalingConfiguration was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the autoscaling configuration was created, in the format defined by RFC3339.
+    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
@@ -58,7 +61,7 @@ module OCI
       }
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
 
     # Given the hash representation of a subtype of this class,
@@ -71,10 +74,10 @@ module OCI
       # TODO: Log a warning when the subtype is not found.
       'OCI::Autoscaling::Models::AutoScalingPolicy'
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -113,9 +116,9 @@ module OCI
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -130,7 +133,7 @@ module OCI
         policy_type == other.policy_type &&
         time_created == other.time_created
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -138,7 +141,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -146,7 +149,7 @@ module OCI
     def hash
       [capacity, id, display_name, policy_type, time_created].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -219,4 +222,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

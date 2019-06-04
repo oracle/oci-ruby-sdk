@@ -2,13 +2,13 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # To use any of the API operations, you must be authorized in an IAM policy. If you are not authorized,
   # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
-  class ObjectStorage::Models::UpdateBucketDetails # rubocop:disable Metrics/LineLength
+  class ObjectStorage::Models::UpdateBucketDetails
     PUBLIC_ACCESS_TYPE_ENUM = [
       PUBLIC_ACCESS_TYPE_NO_PUBLIC_ACCESS = 'NoPublicAccess'.freeze,
       PUBLIC_ACCESS_TYPE_OBJECT_READ = 'ObjectRead'.freeze,
@@ -96,7 +96,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -152,19 +152,17 @@ module OCI
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] public_access_type Object to be assigned
     def public_access_type=(public_access_type)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'public_access_type': this must be one of the values in PUBLIC_ACCESS_TYPE_ENUM." if public_access_type && !PUBLIC_ACCESS_TYPE_ENUM.include?(public_access_type)
 
-      # rubocop: enable Metrics/LineLength
       @public_access_type = public_access_type
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -182,7 +180,7 @@ module OCI
         defined_tags == other.defined_tags &&
         kms_key_id == other.kms_key_id
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -190,7 +188,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -198,7 +196,7 @@ module OCI
     def hash
       [namespace, compartment_id, name, metadata, public_access_type, freeform_tags, defined_tags, kms_key_id].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -271,4 +269,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

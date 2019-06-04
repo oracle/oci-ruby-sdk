@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Listing Resource Version
-  class Core::Models::AppCatalogListingResourceVersion # rubocop:disable Metrics/LineLength
+  class Core::Models::AppCatalogListingResourceVersion
     ALLOWED_ACTIONS_ENUM = [
       ALLOWED_ACTIONS_SNAPSHOT = 'SNAPSHOT'.freeze,
       ALLOWED_ACTIONS_BOOT_VOLUME_DETACH = 'BOOT_VOLUME_DETACH'.freeze,
@@ -96,7 +96,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -164,7 +164,7 @@ module OCI
       self.allowed_actions = attributes[:'allowed_actions'] if attributes[:'allowed_actions']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] allowed_actions Object to be assigned
@@ -178,9 +178,7 @@ module OCI
             if ALLOWED_ACTIONS_ENUM.include?(item)
               item
             else
-              # rubocop: disable Metrics/LineLength
               OCI.logger.debug("Unknown value for 'allowed_actions' [#{item}]. Mapping to 'ALLOWED_ACTIONS_UNKNOWN_ENUM_VALUE'") if OCI.logger
-              # rubocop: enable Metrics/LineLength
               ALLOWED_ACTIONS_UNKNOWN_ENUM_VALUE
             end
           end
@@ -188,7 +186,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -206,7 +204,7 @@ module OCI
         accessible_ports == other.accessible_ports &&
         allowed_actions == other.allowed_actions
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -214,7 +212,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -222,7 +220,7 @@ module OCI
     def hash
       [listing_id, time_published, listing_resource_id, listing_resource_version, available_regions, compatible_shapes, accessible_ports, allowed_actions].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -295,4 +293,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength
