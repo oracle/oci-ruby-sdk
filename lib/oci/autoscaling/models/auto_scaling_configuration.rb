@@ -2,11 +2,13 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # AutoScalingConfiguration model.
-  class Autoscaling::Models::AutoScalingConfiguration # rubocop:disable Metrics/LineLength
-    # **[Required]** The OCID of the compartment containing the AutoScalingConfiguration.
+  # An autoscaling configuration allows you to dynamically scale the resources in a Compute instance pool.
+  # For more information, see [Autoscaling](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/autoscalinginstancepools.htm).
+  #
+  class Autoscaling::Models::AutoScalingConfiguration
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the autoscaling configuration.
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -19,8 +21,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name for the AutoScalingConfiguration. Does not have to be unique, and it's changeable.
-    # Avoid entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
@@ -33,16 +34,17 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The OCID of the AutoScalingConfiguration
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
     # @return [String]
     attr_accessor :id
 
-    # The minimum period of time between scaling actions. The default is 300 seconds.
+    # The minimum period of time to wait between scaling actions. The cooldown period gives the system time to stabilize
+    # before rescaling. The minimum value is 300 seconds, which is also the default.
     #
     # @return [Integer]
     attr_accessor :cool_down_in_seconds
 
-    # If the AutoScalingConfiguration is enabled
+    # Whether the autoscaling configuration is enabled.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
@@ -50,12 +52,16 @@ module OCI
     # @return [OCI::Autoscaling::Models::Resource]
     attr_accessor :resource
 
-    # **[Required]** AutoScalingConfiguration policy definitions
+    # **[Required]** Autoscaling policy definitions for the autoscaling configuration. An autoscaling policy defines the criteria that
+    # trigger autoscaling actions and the actions to take.
+    #
+    # Each autoscaling configuration can have one autoscaling policy.
     #
     # @return [Array<OCI::Autoscaling::Models::AutoScalingPolicy>]
     attr_accessor :policies
 
     # **[Required]** The date and time the AutoScalingConfiguration was created, in the format defined by RFC3339.
+    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
@@ -98,7 +104,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -168,9 +174,9 @@ module OCI
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -190,7 +196,7 @@ module OCI
         policies == other.policies &&
         time_created == other.time_created
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -198,7 +204,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -206,7 +212,7 @@ module OCI
     def hash
       [compartment_id, defined_tags, display_name, freeform_tags, id, cool_down_in_seconds, is_enabled, resource, policies, time_created].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -279,4 +285,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

@@ -2,11 +2,15 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Please see {CreateVnicDetails}
+  # Contains the properties of the VNIC for an instance configuration. See {CreateVnicDetails}
+  # and [Instance Configurations](https://docs.cloud.oracle.com/Content/Compute/Concepts/instancemanagement.htm#config) for more information.
   #
-  class Core::Models::InstanceConfigurationCreateVnicDetails # rubocop:disable Metrics/LineLength
+  class Core::Models::InstanceConfigurationCreateVnicDetails
+    # Whether the VNIC should be assigned a public IP address. See the `assignPublicIp` attribute of {CreateVnicDetails}
+    # for more information.
+    #
     # @return [BOOLEAN]
     attr_accessor :assign_public_ip
 
@@ -16,15 +20,27 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # The hostname for the VNIC's primary private IP.
+    # See the `hostnameLabel` attribute of {CreateVnicDetails} for more information.
+    #
     # @return [String]
     attr_accessor :hostname_label
 
+    # A private IP address of your choice to assign to the VNIC.
+    # See the `privateIp` attribute of {CreateVnicDetails} for more information.
+    #
     # @return [String]
     attr_accessor :private_ip
 
+    # Whether the source/destination check is disabled on the VNIC.
+    # See the `skipSourceDestCheck` attribute of {CreateVnicDetails} for more information.
+    #
     # @return [BOOLEAN]
     attr_accessor :skip_source_dest_check
 
+    # The OCID of the subnet to create the VNIC in.
+    # See the `subnetId` attribute of {CreateVnicDetails} for more information.
+    #
     # @return [String]
     attr_accessor :subnet_id
 
@@ -57,7 +73,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -111,9 +127,9 @@ module OCI
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -129,7 +145,7 @@ module OCI
         skip_source_dest_check == other.skip_source_dest_check &&
         subnet_id == other.subnet_id
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -137,7 +153,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -145,7 +161,7 @@ module OCI
     def hash
       [assign_public_ip, display_name, hostname_label, private_ip, skip_source_dest_check, subnet_id].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -218,4 +234,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

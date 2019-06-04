@@ -10,6 +10,8 @@ module OCI
 end
 
 # Require models
+require 'oci/file_storage/models/change_file_system_compartment_details'
+require 'oci/file_storage/models/change_mount_target_compartment_details'
 require 'oci/file_storage/models/client_options'
 require 'oci/file_storage/models/create_export_details'
 require 'oci/file_storage/models/create_file_system_details'

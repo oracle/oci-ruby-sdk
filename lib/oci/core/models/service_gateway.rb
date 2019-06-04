@@ -3,15 +3,15 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Represents a router that connects the edge of a VCN with public Oracle Cloud Infrastructure
-  # services such as Object Storage. Traffic leaving the VCN and destined for a supported public
-  # service (see {#list_services list_services}) is routed through the
-  # service gateway and does not traverse the internet. The instances in the VCN do not need to
-  # have public IP addresses nor be in a public subnet. The VCN does not need an internet gateway
+  # Represents a router that lets your VCN privately access specific Oracle services such as Object
+  # Storage without exposing the VCN to the public internet. Traffic leaving the VCN and destined
+  # for a supported Oracle service (see {#list_services list_services}) is
+  # routed through the service gateway and does not traverse the internet. The instances in the VCN
+  # do not need to have public IP addresses nor be in a public subnet. The VCN does not need an internet gateway
   # for this traffic. For more information, see
-  # [Access to Object Storage: Service Gateway](https://docs.cloud.oracle.com/Content/Network/Tasks/servicegateway.htm).
+  # [Access to Oracle Services: Service Gateway](https://docs.cloud.oracle.com/Content/Network/Tasks/servicegateway.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
@@ -20,7 +20,7 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
   #
-  class Core::Models::ServiceGateway # rubocop:disable Metrics/LineLength
+  class Core::Models::ServiceGateway
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
@@ -43,8 +43,8 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -58,8 +58,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see
-    # [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -67,6 +66,7 @@ module OCI
     attr_accessor :freeform_tags
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the service gateway.
+    #
     # @return [String]
     attr_accessor :id
 
@@ -74,9 +74,10 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** List of the services enabled on this service gateway. The list can be empty.
-    # You can enable a particular service by using
-    # {#attach_service_id attach_service_id}.
+    # **[Required]** List of the {Service} objects enabled for this service gateway.
+    # The list can be empty. You can enable a particular `Service` by using
+    # {#attach_service_id attach_service_id} or
+    # {#update_service_gateway update_service_gateway}.
     #
     # @return [Array<OCI::Core::Models::ServiceIdResponseDetails>]
     attr_accessor :services
@@ -131,7 +132,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -207,16 +208,14 @@ module OCI
       self.vcn_id = attributes[:'vcn_id'] if attributes[:'vcn_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
       if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
@@ -224,7 +223,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -244,7 +243,7 @@ module OCI
         time_created == other.time_created &&
         vcn_id == other.vcn_id
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -252,7 +251,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -260,7 +259,7 @@ module OCI
     def hash
       [block_traffic, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, services, time_created, vcn_id].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -333,4 +332,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

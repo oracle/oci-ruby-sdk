@@ -3,7 +3,7 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # For use with Oracle Cloud Infrastructure FastConnect.
   #
@@ -28,7 +28,7 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
   #
-  class Core::Models::VirtualCircuit # rubocop:disable Metrics/LineLength
+  class Core::Models::VirtualCircuit
     BGP_MANAGEMENT_ENUM = [
       BGP_MANAGEMENT_CUSTOMER_MANAGED = 'CUSTOMER_MANAGED'.freeze,
       BGP_MANAGEMENT_PROVIDER_MANAGED = 'PROVIDER_MANAGED'.freeze,
@@ -266,7 +266,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -420,16 +420,14 @@ module OCI
       self.type = attributes[:'type'] if attributes[:'type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] bgp_management Object to be assigned
     def bgp_management=(bgp_management)
       # rubocop:disable Style/ConditionalAssignment
       if bgp_management && !BGP_MANAGEMENT_ENUM.include?(bgp_management)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'bgp_management' [" + bgp_management + "]. Mapping to 'BGP_MANAGEMENT_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @bgp_management = BGP_MANAGEMENT_UNKNOWN_ENUM_VALUE
       else
         @bgp_management = bgp_management
@@ -442,9 +440,7 @@ module OCI
     def bgp_session_state=(bgp_session_state)
       # rubocop:disable Style/ConditionalAssignment
       if bgp_session_state && !BGP_SESSION_STATE_ENUM.include?(bgp_session_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'bgp_session_state' [" + bgp_session_state + "]. Mapping to 'BGP_SESSION_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @bgp_session_state = BGP_SESSION_STATE_UNKNOWN_ENUM_VALUE
       else
         @bgp_session_state = bgp_session_state
@@ -457,9 +453,7 @@ module OCI
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
       if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
@@ -472,9 +466,7 @@ module OCI
     def provider_state=(provider_state)
       # rubocop:disable Style/ConditionalAssignment
       if provider_state && !PROVIDER_STATE_ENUM.include?(provider_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'provider_state' [" + provider_state + "]. Mapping to 'PROVIDER_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @provider_state = PROVIDER_STATE_UNKNOWN_ENUM_VALUE
       else
         @provider_state = provider_state
@@ -487,9 +479,7 @@ module OCI
     def service_type=(service_type)
       # rubocop:disable Style/ConditionalAssignment
       if service_type && !SERVICE_TYPE_ENUM.include?(service_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'service_type' [" + service_type + "]. Mapping to 'SERVICE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @service_type = SERVICE_TYPE_UNKNOWN_ENUM_VALUE
       else
         @service_type = service_type
@@ -502,9 +492,7 @@ module OCI
     def type=(type)
       # rubocop:disable Style/ConditionalAssignment
       if type && !TYPE_ENUM.include?(type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'type' [" + type + "]. Mapping to 'TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @type = TYPE_UNKNOWN_ENUM_VALUE
       else
         @type = type
@@ -512,7 +500,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -544,7 +532,7 @@ module OCI
         time_created == other.time_created &&
         type == other.type
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -552,7 +540,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -560,7 +548,7 @@ module OCI
     def hash
       [bandwidth_shape_name, bgp_management, bgp_session_state, compartment_id, cross_connect_mappings, customer_bgp_asn, display_name, gateway_id, id, lifecycle_state, oracle_bgp_asn, provider_name, provider_service_id, provider_service_key_name, provider_service_name, provider_state, public_prefixes, reference_comment, region, service_type, time_created, type].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -633,4 +621,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

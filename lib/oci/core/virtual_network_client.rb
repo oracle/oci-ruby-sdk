@@ -5,7 +5,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # APIs for Networking Service, Compute Service, and Block Volume Service.
+  # API covering the [Networking](/iaas/Content/Network/Concepts/overview.htm),
+  # [Compute](/iaas/Content/Compute/Concepts/computeoverview.htm), and
+  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services. Use this API
+  # to manage resources such as virtual cloud networks (VCNs), compute instances, and
+  # block storage volumes.
   class Core::VirtualNetworkClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -108,16 +112,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Enables the specified service on the specified gateway. In other words, enables the service
-    # gateway to send traffic to the specified service. You must also set up a route rule with the
-    # service's `cidrBlock` as the rule's destination CIDR and the gateway as the rule's target.
-    # See {RouteTable}.
+    # Adds the specified {Service} to the list of enabled
+    # `Service` objects for the specified gateway. You must also set up a route rule with the
+    # `cidrBlock` of the `Service` as the rule's destination and the service gateway as the rule's
+    # target. See {RouteTable}.
     #
-    # **Note:** The `AttachServiceId` operation is an easy way to enable an individual service on
+    # **Note:** The `AttachServiceId` operation is an easy way to add an individual `Service` to
     # the service gateway. Compare it with
-    # {#update_service_gateway update_service_gateway}, which also
-    # lets you enable an individual service. However, with `UpdateServiceGateway`, you must specify
-    # the *entire* list of services you want enabled on the service gateway.
+    # {#update_service_gateway update_service_gateway}, which replaces
+    # the entire existing list of enabled `Service` objects with the list that you provide in the
+    # `Update` call.
     #
     # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::ServiceIdRequestDetails] attach_service_details ServiceId of Service to be attached to a service gateway.
@@ -930,8 +934,11 @@ module OCI
     # Creates a new IPSec connection between the specified DRG and CPE. For more information, see
     # [IPSec VPNs](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPsec.htm).
     #
-    # In the request, you must include at least one static route to the CPE object (you're allowed a maximum
-    # of 10). For example: 10.0.8.0/16.
+    # If you configure at least one tunnel to use static routing, then in the request you must provide
+    # at least one valid static route (you're allowed a maximum of 10). For example: 10.0.0.0/16.
+    # If you configure both tunnels to use BGP dynamic routing, you can provide an empty list for
+    # the static routes. For more information, see the important note in
+    # {IPSecConnection}.
     #
     # For the purposes of access control, you must provide the OCID of the compartment where you want the
     # IPSec connection to reside. Notice that the IPSec connection doesn't have to be in the same compartment
@@ -945,14 +952,14 @@ module OCI
     # It does not have to be unique, and you can change it. Avoid entering confidential information.
     #
     # After creating the IPSec connection, you need to configure your on-premises router
-    # with tunnel-specific information returned by
-    # {#get_ip_sec_connection_device_config get_ip_sec_connection_device_config}.
-    # For each tunnel, that operation gives you the IP address of Oracle's VPN headend and the shared secret
+    # with tunnel-specific information. For tunnel status and the required configuration information, see:
+    #
+    #   * {IPSecConnectionTunnel}
+    #   * {IPSecConnectionTunnelSharedSecret}
+    #
+    # For each tunnel, you need the IP address of Oracle's VPN headend and the shared secret
     # (that is, the pre-shared key). For more information, see
     # [Configuring Your On-Premises Router for an IPSec VPN](https://docs.cloud.oracle.com/Content/Network/Tasks/configuringCPE.htm).
-    #
-    # To get the status of the tunnels (whether they're up or down), use
-    # {#get_ip_sec_connection_device_status get_ip_sec_connection_device_status}.
     #
     # @param [OCI::Core::Models::CreateIPSecConnectionDetails] create_ip_sec_connection_details Details for creating an `IPSecConnection`.
     # @param [Hash] opts the optional parameters
@@ -2822,7 +2829,7 @@ module OCI
     # operation. The VCN's `lifecycleState` will change to TERMINATING temporarily until the VCN is completely
     # removed.
     #
-    # @param [String] vcn_id The OCID of the VCN.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2936,19 +2943,18 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Disables the specified service on the specified gateway. In other words, stops the service
-    # gateway from sending traffic to the specified service. You do not need to remove any route
-    # rules that specify this service's `cidrBlock` as the destination CIDR. However, consider
-    # removing the rules if your intent is to permanently disable use of the service through this
+    # Removes the specified {Service} from the list of enabled
+    # `Service` objects for the specified gateway. You do not need to remove any route
+    # rules that specify this `Service` object's `cidrBlock` as the destination CIDR. However, consider
+    # removing the rules if your intent is to permanently disable use of the `Service` through this
     # service gateway.
     #
-    # **Note:** The `DetachServiceId` operation is an easy way to disable an individual service on
+    # **Note:** The `DetachServiceId` operation is an easy way to remove an individual `Service` from
     # the service gateway. Compare it with
-    # {#update_service_gateway update_service_gateway}, which also
-    # lets you disable an individual service. However, with `UpdateServiceGateway`, you must specify
-    # the *entire* list of services you want enabled on the service gateway. `UpdateServiceGateway`
-    # also lets you block all traffic through the service gateway without having to disable each of
-    # the individual services.
+    # {#update_service_gateway update_service_gateway}, which replaces
+    # the entire existing list of enabled `Service` objects with the list that you provide in the
+    # `Update` call. `UpdateServiceGateway` also lets you block all traffic through the service
+    # gateway without having to remove each of the individual `Service` objects.
     #
     # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::ServiceIdRequestDetails] detach_service_details ServiceId of Service to be detached from a service gateway.
@@ -3605,7 +3611,7 @@ module OCI
 
     # Gets the specified IPSec connection's basic information, including the static routes for the
     # on-premises router. If you want the status of the connection (whether it's up or down), use
-    # {#get_ip_sec_connection_device_status get_ip_sec_connection_device_status}.
+    # {#get_ip_sec_connection_tunnel get_ip_sec_connection_tunnel}.
     #
     # @param [String] ipsc_id The OCID of the IPSec connection.
     # @param [Hash] opts the optional parameters
@@ -3659,8 +3665,10 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the configuration information for the specified IPSec connection. For each tunnel, the
-    # response includes the IP address of Oracle's VPN headend and the shared secret.
+    # Deprecated. To get tunnel information, instead use:
+    #
+    # * {#get_ip_sec_connection_tunnel get_ip_sec_connection_tunnel}
+    # * {#get_ip_sec_connection_tunnel_shared_secret get_ip_sec_connection_tunnel_shared_secret}
     #
     # @param [String] ipsc_id The OCID of the IPSec connection.
     # @param [Hash] opts the optional parameters
@@ -3714,7 +3722,8 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the status of the specified IPSec connection (whether it's up or down).
+    # Deprecated. To get the tunnel status, instead use
+    # {#get_ip_sec_connection_tunnel get_ip_sec_connection_tunnel}.
     #
     # @param [String] ipsc_id The OCID of the IPSec connection.
     # @param [Hash] opts the optional parameters
@@ -3753,6 +3762,123 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::IPSecConnectionDeviceStatus'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets the specified tunnel's information. The resulting object does not include the tunnel's
+    # shared secret (pre-shared key). To retrieve that, use
+    # {#get_ip_sec_connection_tunnel_shared_secret get_ip_sec_connection_tunnel_shared_secret}.
+    #
+    # @param [String] ipsc_id The OCID of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionTunnel IPSecConnectionTunnel}
+    def get_ip_sec_connection_tunnel(ipsc_id, tunnel_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_ip_sec_connection_tunnel.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling get_ip_sec_connection_tunnel." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling get_ip_sec_connection_tunnel." if tunnel_id.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_ip_sec_connection_tunnel') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::IPSecConnectionTunnel'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets the specified tunnel's shared secret (pre-shared key). To get other information
+    # about the tunnel, use {#get_ip_sec_connection_tunnel get_ip_sec_connection_tunnel}.
+    #
+    # @param [String] ipsc_id The OCID of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionTunnelSharedSecret IPSecConnectionTunnelSharedSecret}
+    def get_ip_sec_connection_tunnel_shared_secret(ipsc_id, tunnel_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_ip_sec_connection_tunnel_shared_secret.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling get_ip_sec_connection_tunnel_shared_secret." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling get_ip_sec_connection_tunnel_shared_secret." if tunnel_id.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}/sharedSecret'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_ip_sec_connection_tunnel_shared_secret') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::IPSecConnectionTunnelSharedSecret'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -4275,7 +4401,7 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the specified service's information.
+    # Gets the specified {Service} object.
     #
     # @param [String] service_id The service's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -4436,7 +4562,7 @@ module OCI
 
 
     # Gets the specified VCN's information.
-    # @param [String] vcn_id The OCID of the VCN.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4651,7 +4777,7 @@ module OCI
 
     # Lists the customer-premises equipment objects (CPEs) in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4715,7 +4841,7 @@ module OCI
 
     # Lists the cross-connect groups in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4814,7 +4940,7 @@ module OCI
     # Lists the available FastConnect locations for cross-connect installation. You need
     # this information so you can specify your desired location when you create a cross-connect.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4879,7 +5005,7 @@ module OCI
     # Lists the cross-connects in the specified compartment. You can filter the list
     # by specifying the OCID of a cross-connect group.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4981,7 +5107,7 @@ module OCI
     # so you can specify your desired port speed (that is, shape) when you create a
     # cross-connect.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5047,8 +5173,8 @@ module OCI
     # The response includes the default set of options that automatically comes with each VCN,
     # plus any other sets you've created.
     #
-    # @param [String] compartment_id The OCID of the compartment.
-    # @param [String] vcn_id The OCID of the VCN.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5149,11 +5275,11 @@ module OCI
     # Lists the `DrgAttachment` objects for the specified compartment. You can filter the
     # results by VCN or DRG.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :vcn_id The OCID of the VCN.
+    # @option opts [String] :vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @option opts [String] :drg_id The OCID of the DRG.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
@@ -5217,7 +5343,7 @@ module OCI
 
     # Lists the DRGs in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5287,7 +5413,7 @@ module OCI
     #
     # For more information, see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5418,8 +5544,8 @@ module OCI
 
     # Lists the internet gateways in the specified VCN and the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
-    # @param [String] vcn_id The OCID of the VCN.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5517,10 +5643,74 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the tunnel information for the specified IPSec connection.
+    #
+    # @param [String] ipsc_id The OCID of the IPSec connection.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::IPSecConnectionTunnel IPSecConnectionTunnel}>
+    def list_ip_sec_connection_tunnels(ipsc_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#list_ip_sec_connection_tunnels.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling list_ip_sec_connection_tunnels." if ipsc_id.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels'.sub('{ipscId}', ipsc_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#list_ip_sec_connection_tunnels') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::IPSecConnectionTunnel>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the IPSec connections for the specified compartment. You can filter the
     # results by DRG or CPE.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5589,8 +5779,8 @@ module OCI
     # Lists the local peering gateways (LPGs) for the specified VCN and compartment
     # (the LPG's compartment).
     #
-    # @param [String] compartment_id The OCID of the compartment.
-    # @param [String] vcn_id The OCID of the VCN.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5657,11 +5847,11 @@ module OCI
     # Lists the NAT gateways in the specified compartment. You may optionally specify a VCN OCID
     # to filter the results by VCN.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :vcn_id The OCID of the VCN.
+    # @option opts [String] :vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
@@ -5869,7 +6059,7 @@ module OCI
     #   Ephemeral public IPs that are assigned to private IPs have `scope` = `AVAILABILITY_DOMAIN`.
     #
     #   Allowed values are: REGION, AVAILABILITY_DOMAIN
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5952,7 +6142,7 @@ module OCI
     # Lists the remote peering connections (RPCs) for the specified DRG and compartment
     # (the RPC's compartment).
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -6020,8 +6210,8 @@ module OCI
     # includes the default route table that automatically comes with each VCN, plus any route tables
     # you've created.
     #
-    # @param [String] compartment_id The OCID of the compartment.
-    # @param [String] vcn_id The OCID of the VCN.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -6121,8 +6311,8 @@ module OCI
 
     # Lists the security lists in the specified VCN and compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
-    # @param [String] vcn_id The OCID of the VCN.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -6223,11 +6413,11 @@ module OCI
     # Lists the service gateways in the specified compartment. You may optionally specify a VCN OCID
     # to filter the results by VCN.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :vcn_id The OCID of the VCN.
+    # @option opts [String] :vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
@@ -6318,7 +6508,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the available services that you can access through a service gateway in this region.
+    # Lists the available {Service} objects that you can enable for a
+    # service gateway in this region.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -6381,8 +6572,8 @@ module OCI
 
     # Lists the subnets in the specified VCN and the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
-    # @param [String] vcn_id The OCID of the VCN.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -6482,7 +6673,7 @@ module OCI
 
     # Lists the virtual cloud networks (VCNs) in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -6580,7 +6771,7 @@ module OCI
 
     # The deprecated operation lists available bandwidth levels for virtual circuits. For the compartment ID, provide the OCID of your tenancy (the root compartment).
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -6705,7 +6896,7 @@ module OCI
 
     # Lists the virtual circuits in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -7223,8 +7414,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the display name or tags for the specified IPSec connection.
-    # Avoid entering confidential information.
+    # Updates the specified IPSec connection.
+    #
+    # To update an individual IPSec tunnel's attributes, use
+    # {#update_ip_sec_connection_tunnel update_ip_sec_connection_tunnel}.
     #
     # @param [String] ipsc_id The OCID of the IPSec connection.
     # @param [OCI::Core::Models::UpdateIPSecConnectionDetails] update_ip_sec_connection_details Details object for updating a IPSec connection.
@@ -7270,6 +7463,147 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::IPSecConnection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the specified tunnel. This operation lets you change tunnel attributes such as the
+    # routing type (BGP dynamic routing or static routing). Here are some important notes:
+    #
+    #   * If you change the tunnel's routing type or BGP session configuration, the tunnel will go
+    #     down while it's reprovisioned.
+    #
+    #   * If you want to switch the tunnel's `routing` from `STATIC` to `BGP`, make sure the tunnel's
+    #     BGP session configuration attributes have been set ({#bgp_session_info bgp_session_info}).
+    #
+    #   * If you want to switch the tunnel's `routing` from `BGP` to `STATIC`, make sure the
+    #     {IPSecConnection} already has at least one valid CIDR
+    #     static route.
+    #
+    # @param [String] ipsc_id The OCID of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [OCI::Core::Models::UpdateIPSecConnectionTunnelDetails] update_ip_sec_connection_tunnel_details Details object for updating a IPSecConnection tunnel's details.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionTunnel IPSecConnectionTunnel}
+    def update_ip_sec_connection_tunnel(ipsc_id, tunnel_id, update_ip_sec_connection_tunnel_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#update_ip_sec_connection_tunnel.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling update_ip_sec_connection_tunnel." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling update_ip_sec_connection_tunnel." if tunnel_id.nil?
+      raise "Missing the required parameter 'update_ip_sec_connection_tunnel_details' when calling update_ip_sec_connection_tunnel." if update_ip_sec_connection_tunnel_details.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_ip_sec_connection_tunnel_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#update_ip_sec_connection_tunnel') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::IPSecConnectionTunnel'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the shared secret (pre-shared key) for the specified tunnel.
+    #
+    # **Important:** If you change the shared secret, the tunnel will go down while it's reprovisioned.
+    #
+    # @param [String] ipsc_id The OCID of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [OCI::Core::Models::UpdateIPSecConnectionTunnelSharedSecretDetails] update_ip_sec_connection_tunnel_shared_secret_details Details object for updating a IPSec connection tunnel's sharedSecret.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionTunnelSharedSecret IPSecConnectionTunnelSharedSecret}
+    def update_ip_sec_connection_tunnel_shared_secret(ipsc_id, tunnel_id, update_ip_sec_connection_tunnel_shared_secret_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#update_ip_sec_connection_tunnel_shared_secret.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling update_ip_sec_connection_tunnel_shared_secret." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling update_ip_sec_connection_tunnel_shared_secret." if tunnel_id.nil?
+      raise "Missing the required parameter 'update_ip_sec_connection_tunnel_shared_secret_details' when calling update_ip_sec_connection_tunnel_shared_secret." if update_ip_sec_connection_tunnel_shared_secret_details.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}/sharedSecret'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_ip_sec_connection_tunnel_shared_secret_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#update_ip_sec_connection_tunnel_shared_secret') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::IPSecConnectionTunnelSharedSecret'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -7871,7 +8205,7 @@ module OCI
 
     # Updates the specified VCN.
     #
-    # @param [String] vcn_id The OCID of the VCN.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [OCI::Core::Models::UpdateVcnDetails] update_vcn_details Details object for updating a VCN.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

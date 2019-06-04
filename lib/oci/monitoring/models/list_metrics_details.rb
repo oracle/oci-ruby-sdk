@@ -2,14 +2,14 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The request details for retrieving metric definitions. Specify optional properties to filter the returned results.
   # Use an asterisk (\"\\*\") as a wildcard character, placed anywhere in the string.
   # For example, to search for all metrics with names that begin with \"disk\", specify \"name\" as \"disk\\*\".
   # If no properties are specified, then all metric definitions within the request scope are returned.
   #
-  class Monitoring::Models::ListMetricsDetails # rubocop:disable Metrics/LineLength
+  class Monitoring::Models::ListMetricsDetails
     SORT_BY_ENUM = [
       SORT_BY_NAMESPACE = 'NAMESPACE'.freeze,
       SORT_BY_NAME = 'NAME'.freeze
@@ -95,7 +95,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -141,29 +141,25 @@ module OCI
       self.sort_order = attributes[:'sort_order'] if attributes[:'sort_order']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] sort_by Object to be assigned
     def sort_by=(sort_by)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'sort_by': this must be one of the values in SORT_BY_ENUM." if sort_by && !SORT_BY_ENUM.include?(sort_by)
 
-      # rubocop: enable Metrics/LineLength
       @sort_by = sort_by
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] sort_order Object to be assigned
     def sort_order=(sort_order)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'sort_order': this must be one of the values in SORT_ORDER_ENUM." if sort_order && !SORT_ORDER_ENUM.include?(sort_order)
 
-      # rubocop: enable Metrics/LineLength
       @sort_order = sort_order
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -179,7 +175,7 @@ module OCI
         sort_by == other.sort_by &&
         sort_order == other.sort_order
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -187,7 +183,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -195,7 +191,7 @@ module OCI
     def hash
       [name, namespace, dimension_filters, group_by, sort_by, sort_order].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -268,4 +264,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

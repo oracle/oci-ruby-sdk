@@ -5,7 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Auto Scaling API spec
+  # APIs for dynamically scaling Compute resources to meet application requirements.
+  # For information about the Compute service, see [Overview of the Compute Service](/Content/Compute/Concepts/computeoverview.htm).
   class Autoscaling::AutoScalingClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -108,8 +109,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create an AutoScalingConfiguration
-    # @param [OCI::Autoscaling::Models::CreateAutoScalingConfigurationDetails] create_auto_scaling_configuration_details AutoScalingConfiguration creation details
+    # Creates an autoscaling configuration.
+    # @param [OCI::Autoscaling::Models::CreateAutoScalingConfigurationDetails] create_auto_scaling_configuration_details Creation details for an autoscaling configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -168,9 +169,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create a Policy for AutoScalingConfiguration
-    # @param [String] auto_scaling_configuration_id The OCID of the auto scaling configuration.
-    # @param [OCI::Autoscaling::Models::CreateAutoScalingPolicyDetails] create_auto_scaling_policy_details AutoScalingConfiguration Policy creation details
+    # Creates an autoscaling policy for the specified autoscaling configuration.
+    #
+    # @param [String] auto_scaling_configuration_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
+    # @param [OCI::Autoscaling::Models::CreateAutoScalingPolicyDetails] create_auto_scaling_policy_details Creation details for an autoscaling policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -231,8 +233,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes an AutoScalingConfiguration
-    # @param [String] auto_scaling_configuration_id The OCID of the auto scaling configuration.
+    # Deletes an autoscaling configuration.
+    # @param [String] auto_scaling_configuration_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -288,9 +290,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes an AutoScalingConfiguration Policy
-    # @param [String] auto_scaling_configuration_id The OCID of the auto scaling configuration.
-    # @param [String] auto_scaling_policy_id The ID of the auto scaling configuration policy.
+    # Deletes an autoscaling policy for the specified autoscaling configuration.
+    # @param [String] auto_scaling_configuration_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
+    # @param [String] auto_scaling_policy_id The ID of the autoscaling policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -348,8 +350,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get AutoScalingConfiguration
-    # @param [String] auto_scaling_configuration_id The OCID of the auto scaling configuration.
+    # Gets information about the specified autoscaling configuration.
+    # @param [String] auto_scaling_configuration_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -401,9 +403,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get Policy from a specific AutoScalingConfiguration
-    # @param [String] auto_scaling_configuration_id The OCID of the auto scaling configuration.
-    # @param [String] auto_scaling_policy_id The ID of the auto scaling configuration policy.
+    # Gets information about the specified autoscaling policy in the specified autoscaling configuration.
+    # @param [String] auto_scaling_configuration_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
+    # @param [String] auto_scaling_policy_id The ID of the autoscaling policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -457,7 +459,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists AutoScalingConfigurations in the specific compartment.
+    # Lists autoscaling configurations in the specifed compartment.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
@@ -469,11 +471,11 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
     # @option opts [String] :opc_request_id
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. For information about pagination, see
-    #   [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return in a paginated \"List\" call. For important details
+    #   about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call. For information about
-    #   pagination, see [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
@@ -544,20 +546,20 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists Policies in an AutoScalingConfiguration.
+    # Lists the autoscaling policies in the specified autoscaling configuration.
     #
-    # @param [String] auto_scaling_configuration_id The OCID of the auto scaling configuration.
+    # @param [String] auto_scaling_configuration_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
     # @option opts [String] :opc_request_id
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. For information about pagination, see
-    #   [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return in a paginated \"List\" call. For important details
+    #   about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call. For information about
-    #   pagination, see [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
@@ -628,9 +630,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates an AutoScalingConfiguration
-    # @param [String] auto_scaling_configuration_id The OCID of the auto scaling configuration.
-    # @param [OCI::Autoscaling::Models::UpdateAutoScalingConfigurationDetails] update_auto_scaling_configuration_details AutoScalingConfiguration update details
+    # Updates certain fields on the specified autoscaling configuration, such as the name, the cooldown period,
+    # and whether the autoscaling configuration is enabled.
+    #
+    # @param [String] auto_scaling_configuration_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
+    # @param [OCI::Autoscaling::Models::UpdateAutoScalingConfigurationDetails] update_auto_scaling_configuration_details Update details for an autoscaling configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -696,10 +700,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates a Policy in the specific AutoScalingConfiguration
-    # @param [String] auto_scaling_configuration_id The OCID of the auto scaling configuration.
-    # @param [String] auto_scaling_policy_id The ID of the auto scaling configuration policy.
-    # @param [OCI::Autoscaling::Models::UpdateAutoScalingPolicyDetails] update_auto_scaling_policy_details AutoScalingConfiguration Policy update details
+    # Updates an autoscaling policy in the specified autoscaling configuration.
+    # @param [String] auto_scaling_configuration_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
+    # @param [String] auto_scaling_policy_id The ID of the autoscaling policy.
+    # @param [OCI::Autoscaling::Models::UpdateAutoScalingPolicyDetails] update_auto_scaling_policy_details Update details for an autoscaling policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # DataGuardAssociation model.
-  class Database::Models::DataGuardAssociation # rubocop:disable Metrics/LineLength
+  class Database::Models::DataGuardAssociation
     ROLE_ENUM = [
       ROLE_PRIMARY = 'PRIMARY'.freeze,
       ROLE_STANDBY = 'STANDBY'.freeze,
@@ -169,7 +169,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -275,16 +275,14 @@ module OCI
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] role Object to be assigned
     def role=(role)
       # rubocop:disable Style/ConditionalAssignment
       if role && !ROLE_ENUM.include?(role)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'role' [" + role + "]. Mapping to 'ROLE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @role = ROLE_UNKNOWN_ENUM_VALUE
       else
         @role = role
@@ -297,9 +295,7 @@ module OCI
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
       if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
@@ -312,9 +308,7 @@ module OCI
     def peer_role=(peer_role)
       # rubocop:disable Style/ConditionalAssignment
       if peer_role && !PEER_ROLE_ENUM.include?(peer_role)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'peer_role' [" + peer_role + "]. Mapping to 'PEER_ROLE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @peer_role = PEER_ROLE_UNKNOWN_ENUM_VALUE
       else
         @peer_role = peer_role
@@ -327,9 +321,7 @@ module OCI
     def protection_mode=(protection_mode)
       # rubocop:disable Style/ConditionalAssignment
       if protection_mode && !PROTECTION_MODE_ENUM.include?(protection_mode)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'protection_mode' [" + protection_mode + "]. Mapping to 'PROTECTION_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @protection_mode = PROTECTION_MODE_UNKNOWN_ENUM_VALUE
       else
         @protection_mode = protection_mode
@@ -342,9 +334,7 @@ module OCI
     def transport_type=(transport_type)
       # rubocop:disable Style/ConditionalAssignment
       if transport_type && !TRANSPORT_TYPE_ENUM.include?(transport_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'transport_type' [" + transport_type + "]. Mapping to 'TRANSPORT_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @transport_type = TRANSPORT_TYPE_UNKNOWN_ENUM_VALUE
       else
         @transport_type = transport_type
@@ -352,7 +342,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -377,7 +367,7 @@ module OCI
         transport_type == other.transport_type &&
         time_created == other.time_created
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -385,7 +375,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -393,7 +383,7 @@ module OCI
     def hash
       [id, database_id, role, lifecycle_state, lifecycle_details, peer_db_system_id, peer_db_home_id, peer_database_id, peer_data_guard_association_id, peer_role, apply_lag, apply_rate, protection_mode, transport_type, time_created].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -466,4 +456,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

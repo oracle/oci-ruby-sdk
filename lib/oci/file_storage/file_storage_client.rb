@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :FileStorageClient) + '/20171215'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://filestorage.{region}.{secondLevelDomain}') + '/20171215'
       logger.info "FileStorageClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -102,6 +102,134 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a file system and its associated snapshots into a different compartment within the same tenancy. For information about moving resources between compartments, see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes)
+    #
+    # @param [String] file_system_id The OCID of the file system.
+    # @param [OCI::FileStorage::Models::ChangeFileSystemCompartmentDetails] change_file_system_compartment_details Details for changing the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_file_system_compartment(file_system_id, change_file_system_compartment_details, opts = {})
+      logger.debug 'Calling operation FileStorageClient#change_file_system_compartment.' if logger
+
+      raise "Missing the required parameter 'file_system_id' when calling change_file_system_compartment." if file_system_id.nil?
+      raise "Missing the required parameter 'change_file_system_compartment_details' when calling change_file_system_compartment." if change_file_system_compartment_details.nil?
+      raise "Parameter value for 'file_system_id' must not be blank" if OCI::Internal::Util.blank_string?(file_system_id)
+
+      path = '/fileSystems/{fileSystemId}/actions/changeCompartment'.sub('{fileSystemId}', file_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_file_system_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'FileStorageClient#change_file_system_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a mount target and its associated export set into a different compartment within the same tenancy. For information about moving resources between compartments, see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes)
+    #
+    # @param [String] mount_target_id The OCID of the mount target.
+    # @param [OCI::FileStorage::Models::ChangeMountTargetCompartmentDetails] change_mount_target_compartment_details Details for changing the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_mount_target_compartment(mount_target_id, change_mount_target_compartment_details, opts = {})
+      logger.debug 'Calling operation FileStorageClient#change_mount_target_compartment.' if logger
+
+      raise "Missing the required parameter 'mount_target_id' when calling change_mount_target_compartment." if mount_target_id.nil?
+      raise "Missing the required parameter 'change_mount_target_compartment_details' when calling change_mount_target_compartment." if change_mount_target_compartment_details.nil?
+      raise "Parameter value for 'mount_target_id' must not be blank" if OCI::Internal::Util.blank_string?(mount_target_id)
+
+      path = '/mountTargets/{mountTargetId}/actions/changeCompartment'.sub('{mountTargetId}', mount_target_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_mount_target_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'FileStorageClient#change_mount_target_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -121,6 +249,9 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Export Export}
     def create_export(create_export_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#create_export.' if logger
@@ -139,6 +270,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -205,6 +337,9 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::FileSystem FileSystem}
     def create_file_system(create_file_system_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#create_file_system.' if logger
@@ -223,6 +358,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -295,6 +431,9 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::MountTarget MountTarget}
     def create_mount_target(create_mount_target_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#create_mount_target.' if logger
@@ -313,6 +452,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -355,6 +495,9 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Snapshot Snapshot}
     def create_snapshot(create_snapshot_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#create_snapshot.' if logger
@@ -373,6 +516,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -414,6 +558,9 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type nil
     def delete_export(export_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#delete_export.' if logger
@@ -433,6 +580,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -474,6 +622,9 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type nil
     def delete_file_system(file_system_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#delete_file_system.' if logger
@@ -493,6 +644,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -533,6 +685,9 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type nil
     def delete_mount_target(mount_target_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#delete_mount_target.' if logger
@@ -552,6 +707,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -591,6 +747,9 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type nil
     def delete_snapshot(snapshot_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#delete_snapshot.' if logger
@@ -610,6 +769,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -635,7 +795,6 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets the specified export's information.
@@ -643,6 +802,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Export Export}
     def get_export(export_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_export.' if logger
@@ -661,6 +823,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -683,12 +846,10 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets the specified export set's information.
@@ -696,6 +857,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::ExportSet ExportSet}
     def get_export_set(export_set_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_export_set.' if logger
@@ -714,6 +878,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -736,12 +901,10 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets the specified file system's information.
@@ -749,6 +912,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::FileSystem FileSystem}
     def get_file_system(file_system_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_file_system.' if logger
@@ -767,6 +933,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -789,12 +956,10 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets the specified mount target's information.
@@ -802,6 +967,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::MountTarget MountTarget}
     def get_mount_target(mount_target_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_mount_target.' if logger
@@ -820,6 +988,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -842,12 +1011,10 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets the specified snapshot's information.
@@ -855,6 +1022,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Snapshot Snapshot}
     def get_snapshot(snapshot_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_snapshot.' if logger
@@ -873,6 +1043,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -895,7 +1066,6 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -948,6 +1118,9 @@ module OCI
     #   ascending and 'desc' is descending.
     #
     #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::ExportSetSummary ExportSetSummary}>
     def list_export_sets(compartment_id, availability_domain, opts = {})
       logger.debug 'Calling operation FileStorageClient#list_export_sets.' if logger
@@ -987,6 +1160,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1057,6 +1231,9 @@ module OCI
     #   ascending and 'desc' is descending.
     #
     #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::ExportSummary ExportSummary}>
     def list_exports(opts = {})
       logger.debug 'Calling operation FileStorageClient#list_exports.' if logger
@@ -1094,6 +1271,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1168,6 +1346,9 @@ module OCI
     #   ascending and 'desc' is descending.
     #
     #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::FileSystemSummary FileSystemSummary}>
     def list_file_systems(compartment_id, availability_domain, opts = {})
       logger.debug 'Calling operation FileStorageClient#list_file_systems.' if logger
@@ -1207,6 +1388,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1282,6 +1464,9 @@ module OCI
     #   ascending and 'desc' is descending.
     #
     #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::MountTargetSummary MountTargetSummary}>
     def list_mount_targets(compartment_id, availability_domain, opts = {})
       logger.debug 'Calling operation FileStorageClient#list_mount_targets.' if logger
@@ -1322,6 +1507,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1382,6 +1568,9 @@ module OCI
     #   ascending and 'desc' is descending.
     #
     #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::SnapshotSummary SnapshotSummary}>
     def list_snapshots(file_system_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#list_snapshots.' if logger
@@ -1413,6 +1602,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1453,6 +1643,9 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Export Export}
     def update_export(export_id, update_export_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_export.' if logger
@@ -1473,6 +1666,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_export_details)
@@ -1513,6 +1707,9 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::ExportSet ExportSet}
     def update_export_set(export_set_id, update_export_set_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_export_set.' if logger
@@ -1533,6 +1730,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_export_set_details)
@@ -1575,6 +1773,9 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::FileSystem FileSystem}
     def update_file_system(file_system_id, update_file_system_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_file_system.' if logger
@@ -1595,6 +1796,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_file_system_details)
@@ -1635,6 +1837,9 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::MountTarget MountTarget}
     def update_mount_target(mount_target_id, update_mount_target_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_mount_target.' if logger
@@ -1655,6 +1860,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_mount_target_details)
@@ -1695,6 +1901,9 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Snapshot Snapshot}
     def update_snapshot(snapshot_id, update_snapshot_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_snapshot.' if logger
@@ -1715,6 +1924,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_snapshot_details)

@@ -3,7 +3,7 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A bucket is a container for storing objects in a compartment within a namespace. A bucket is associated with a single compartment.
   # The compartment has policies that indicate what actions a user can perform on a bucket and all the objects in the bucket. For more
@@ -13,7 +13,7 @@ module OCI
   # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
-  class ObjectStorage::Models::Bucket # rubocop:disable Metrics/LineLength
+  class ObjectStorage::Models::Bucket
     PUBLIC_ACCESS_TYPE_ENUM = [
       PUBLIC_ACCESS_TYPE_NO_PUBLIC_ACCESS = 'NoPublicAccess'.freeze,
       PUBLIC_ACCESS_TYPE_OBJECT_READ = 'ObjectRead'.freeze,
@@ -156,7 +156,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -257,16 +257,14 @@ module OCI
       self.approximate_size = attributes[:'approximate_size'] if attributes[:'approximate_size']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] public_access_type Object to be assigned
     def public_access_type=(public_access_type)
       # rubocop:disable Style/ConditionalAssignment
       if public_access_type && !PUBLIC_ACCESS_TYPE_ENUM.include?(public_access_type)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'public_access_type' [" + public_access_type + "]. Mapping to 'PUBLIC_ACCESS_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @public_access_type = PUBLIC_ACCESS_TYPE_UNKNOWN_ENUM_VALUE
       else
         @public_access_type = public_access_type
@@ -279,9 +277,7 @@ module OCI
     def storage_tier=(storage_tier)
       # rubocop:disable Style/ConditionalAssignment
       if storage_tier && !STORAGE_TIER_ENUM.include?(storage_tier)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'storage_tier' [" + storage_tier + "]. Mapping to 'STORAGE_TIER_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @storage_tier = STORAGE_TIER_UNKNOWN_ENUM_VALUE
       else
         @storage_tier = storage_tier
@@ -289,7 +285,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -314,7 +310,7 @@ module OCI
         approximate_count == other.approximate_count &&
         approximate_size == other.approximate_size
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -322,7 +318,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -330,7 +326,7 @@ module OCI
     def hash
       [namespace, name, compartment_id, metadata, created_by, time_created, etag, public_access_type, storage_tier, freeform_tags, defined_tags, kms_key_id, object_lifecycle_policy_etag, approximate_count, approximate_size].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -403,4 +399,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

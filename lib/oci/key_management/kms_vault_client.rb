@@ -76,7 +76,7 @@ module OCI
       @retry_config = retry_config
 
       if endpoint
-        @endpoint = endpoint + '/'
+        @endpoint = endpoint + '/20180608'
       else
         region ||= config.region
         region ||= signer.region if signer.respond_to?(:region)
@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :KmsVaultClient) + '/'
+      @endpoint = OCI::Regions.get_service_endpoint(@region, :KmsVaultClient) + '/20180608'
       logger.info "KmsVaultClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -140,7 +140,7 @@ module OCI
       raise "Missing the required parameter 'vault_id' when calling cancel_vault_deletion." if vault_id.nil?
       raise "Parameter value for 'vault_id' must not be blank" if OCI::Internal::Util.blank_string?(vault_id)
 
-      path = '/20180608/vaults/{vaultId}/actions/cancelDeletion'.sub('{vaultId}', vault_id.to_s)
+      path = '/vaults/{vaultId}/actions/cancelDeletion'.sub('{vaultId}', vault_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -209,7 +209,7 @@ module OCI
 
       raise "Missing the required parameter 'create_vault_details' when calling create_vault." if create_vault_details.nil?
 
-      path = '/20180608/vaults'
+      path = '/vaults'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -268,7 +268,7 @@ module OCI
       raise "Missing the required parameter 'vault_id' when calling get_vault." if vault_id.nil?
       raise "Parameter value for 'vault_id' must not be blank" if OCI::Internal::Util.blank_string?(vault_id)
 
-      path = '/20180608/vaults/{vaultId}'.sub('{vaultId}', vault_id.to_s)
+      path = '/vaults/{vaultId}'.sub('{vaultId}', vault_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -345,7 +345,7 @@ module OCI
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
       end
 
-      path = '/20180608/vaults'
+      path = '/vaults'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -423,7 +423,7 @@ module OCI
       raise "Missing the required parameter 'schedule_vault_deletion_details' when calling schedule_vault_deletion." if schedule_vault_deletion_details.nil?
       raise "Parameter value for 'vault_id' must not be blank" if OCI::Internal::Util.blank_string?(vault_id)
 
-      path = '/20180608/vaults/{vaultId}/actions/scheduleDeletion'.sub('{vaultId}', vault_id.to_s)
+      path = '/vaults/{vaultId}/actions/scheduleDeletion'.sub('{vaultId}', vault_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -493,7 +493,7 @@ module OCI
       raise "Missing the required parameter 'update_vault_details' when calling update_vault." if update_vault_details.nil?
       raise "Parameter value for 'vault_id' must not be blank" if OCI::Internal::Util.blank_string?(vault_id)
 
-      path = '/20180608/vaults/{vaultId}'.sub('{vaultId}', vault_id.to_s)
+      path = '/vaults/{vaultId}'.sub('{vaultId}', vault_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf

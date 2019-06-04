@@ -95,7 +95,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://iaas.{region}.oraclecloud.com') + '/20170115'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://iaas.{region}.{secondLevelDomain}') + '/20170115'
       logger.info "LoadBalancerClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 

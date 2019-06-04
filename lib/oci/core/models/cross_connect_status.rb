@@ -3,10 +3,10 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The status of the cross-connect.
-  class Core::Models::CrossConnectStatus # rubocop:disable Metrics/LineLength
+  class Core::Models::CrossConnectStatus
     INTERFACE_STATE_ENUM = [
       INTERFACE_STATE_UP = 'UP'.freeze,
       INTERFACE_STATE_DOWN = 'DOWN'.freeze,
@@ -77,7 +77,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -117,16 +117,14 @@ module OCI
       self.light_level_indicator = attributes[:'light_level_indicator'] if attributes[:'light_level_indicator']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] interface_state Object to be assigned
     def interface_state=(interface_state)
       # rubocop:disable Style/ConditionalAssignment
       if interface_state && !INTERFACE_STATE_ENUM.include?(interface_state)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'interface_state' [" + interface_state + "]. Mapping to 'INTERFACE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @interface_state = INTERFACE_STATE_UNKNOWN_ENUM_VALUE
       else
         @interface_state = interface_state
@@ -139,9 +137,7 @@ module OCI
     def light_level_indicator=(light_level_indicator)
       # rubocop:disable Style/ConditionalAssignment
       if light_level_indicator && !LIGHT_LEVEL_INDICATOR_ENUM.include?(light_level_indicator)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'light_level_indicator' [" + light_level_indicator + "]. Mapping to 'LIGHT_LEVEL_INDICATOR_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @light_level_indicator = LIGHT_LEVEL_INDICATOR_UNKNOWN_ENUM_VALUE
       else
         @light_level_indicator = light_level_indicator
@@ -149,7 +145,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -163,7 +159,7 @@ module OCI
         light_level_ind_bm == other.light_level_ind_bm &&
         light_level_indicator == other.light_level_indicator
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -171,7 +167,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -179,7 +175,7 @@ module OCI
     def hash
       [cross_connect_id, interface_state, light_level_ind_bm, light_level_indicator].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -252,4 +248,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

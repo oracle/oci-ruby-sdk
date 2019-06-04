@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :ObjectStorageClient) + '/'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://objectstorage.{region}.{secondLevelDomain}') + '/'
       logger.info "ObjectStorageClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -896,11 +896,16 @@ module OCI
     # the tenancy name in all lower-case letters. You cannot edit a namespace.
     #
     # GetNamespace returns the name of the Object Storage namespace for the user making the request.
+    # If an optional compartmentId query parameter is provided, GetNamespace returns the namespace name of the corresponding
+    # tenancy, provided the user has access to it.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [String] :compartment_id This is an optional field representing the tenancy OCID or the compartment OCID within the tenancy whose Object Storage namespace
+    #   name has to be retrieved.
+    #
     # @return [Response] A Response object with data of type String
     def get_namespace(opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_namespace.' if logger
@@ -912,6 +917,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -2004,7 +2010,12 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :expect 100-continue (default to 100-continue)
-    # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body.
+    # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Object Storage performs an integrity check
+    #   on the body of the HTTP request by computing the MD5 hash for the body and comparing it to the MD5 hash supplied in the header.
+    #   If the two hashes do not match, the object is rejected and an HTTP-400 Unmatched Content MD5 error is returned with the message:
+    #
+    #   \"The computed MD5 of the request body (ACTUAL_MD5) does not match the Content-MD5 header (HEADER_MD5)\"
+    #
     # @option opts [String] :content_type The content type of the object.  Defaults to 'application/octet-stream' if not overridden during the PutObject call.
     # @option opts [String] :content_language The content language of the object.
     # @option opts [String] :content_encoding The content encoding of the object.
@@ -2418,7 +2429,12 @@ module OCI
     #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :expect 100-continue (default to 100-continue)
-    # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body.
+    # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Object Storage performs an integrity check
+    #   on the body of the HTTP request by computing the MD5 hash for the body and comparing it to the MD5 hash supplied in the header.
+    #   If the two hashes do not match, the object is rejected and an HTTP-400 Unmatched Content MD5 error is returned with the message:
+    #
+    #   \"The computed MD5 of the request body (ACTUAL_MD5) does not match the Content-MD5 header (HEADER_MD5)\"
+    #
     # @return [Response] A Response object with data of type nil
     def upload_part(namespace_name, bucket_name, object_name, upload_id, upload_part_num, upload_part_body, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#upload_part.' if logger

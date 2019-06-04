@@ -6,6 +6,7 @@ module OCI
   # Module defining available regions and helper methods to get value service endpoints
   module Regions
     REGION_ENUM = [
+      REGION_AP_SEOUL_1 = 'ap-seoul-1'.freeze,
       REGION_AP_TOKYO_1 = 'ap-tokyo-1'.freeze,
       REGION_CA_TORONTO_1 = 'ca-toronto-1'.freeze,
       REGION_US_PHOENIX_1 = 'us-phoenix-1'.freeze,
@@ -20,6 +21,7 @@ module OCI
     ].freeze
 
     REGION_SHORT_NAMES_TO_LONG_NAMES = {
+      'icn': REGION_AP_SEOUL_1,
       'nrt': REGION_AP_TOKYO_1,
       'yyz': REGION_CA_TORONTO_1,
       'phx': REGION_US_PHOENIX_1,
@@ -30,6 +32,7 @@ module OCI
 
     # --- Start of region realm mapping ---
     REGION_REALM_MAPPING = {
+      'ap-seoul-1': 'oc1'.freeze,
       'ap-tokyo-1': 'oc1'.freeze,
       'ca-toronto-1': 'oc1'.freeze,
       'us-phoenix-1': 'oc1'.freeze,

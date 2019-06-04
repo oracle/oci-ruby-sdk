@@ -3,6 +3,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.5.9 - 2019-06-04
+### Added
+- Support for the Seoul (ICN) region
+- Support for logging context fields on data-plane APIs of the Key Management Service
+- Support for reverse pagination on list operations of the Email service
+- Support for configuring backup retention windows on database backups in the Database service
+- Support for returning tags when listing instance configurations, instance pools, or autoscaling configurations in the Compute Autoscaling service
+- Support for getting the namespace of another tenancy than the caller's tenancy in the Object Storage service
+- Support for BGP dynamic routing and providing pre-shared secrets (PSKs) when establishing tunnels in the Networking service
+- Support for the Work Requests service, and tracking of a number of Core Services operations through work requests
+- Support for emulated volume attachments in Core Services
+- Support for changing the compartment of resources in the File Storage service
+- Support for tags in list operations in the File Storage service
+- Support for returning UI password creation dates in the Identity service
+- Support for autoscaling autonomous databases and autonomous data warehouses in the Database service
+- Support for specifying fault domains as part of instance configurations in the Compute Autoscaling service
+- Support for deleting tag definitions and tag namespaces in the Identity service
+
+### Fixed
+- Support for regions in realms other than oraclecloud.com in the Load Balancing service
+
 ## 2.5.8 - 2019-05-07
 ### Added
 - Support for the Tokyo (NRT) region.

@@ -3,13 +3,13 @@
 require 'date'
 require 'logger'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The results returned by running a ping probe.  All times and durations are
   # returned in milliseconds. All times are relative to the POSIX epoch
   # (1970-01-01T00:00Z).
   #
-  class Healthchecks::Models::PingProbeResultSummary # rubocop:disable Metrics/LineLength
+  class Healthchecks::Models::PingProbeResultSummary
     ERROR_CATEGORY_ENUM = [
       ERROR_CATEGORY_NONE = 'NONE'.freeze,
       ERROR_CATEGORY_DNS = 'DNS'.freeze,
@@ -162,7 +162,7 @@ module OCI
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -268,16 +268,14 @@ module OCI
       self.icmp_code = attributes[:'icmp_code'] if attributes[:'icmp_code']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] error_category Object to be assigned
     def error_category=(error_category)
       # rubocop:disable Style/ConditionalAssignment
       if error_category && !ERROR_CATEGORY_ENUM.include?(error_category)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'error_category' [" + error_category + "]. Mapping to 'ERROR_CATEGORY_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @error_category = ERROR_CATEGORY_UNKNOWN_ENUM_VALUE
       else
         @error_category = error_category
@@ -290,9 +288,7 @@ module OCI
     def protocol=(protocol)
       # rubocop:disable Style/ConditionalAssignment
       if protocol && !PROTOCOL_ENUM.include?(protocol)
-        # rubocop: disable Metrics/LineLength
         OCI.logger.debug("Unknown value for 'protocol' [" + protocol + "]. Mapping to 'PROTOCOL_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        # rubocop: enable Metrics/LineLength
         @protocol = PROTOCOL_UNKNOWN_ENUM_VALUE
       else
         @protocol = protocol
@@ -300,7 +296,7 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -326,7 +322,7 @@ module OCI
         latency_in_ms == other.latency_in_ms &&
         icmp_code == other.icmp_code
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -334,7 +330,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -342,7 +338,7 @@ module OCI
     def hash
       [key, probe_configuration_id, start_time, target, vantage_point_name, is_timed_out, is_healthy, error_category, error_message, protocol, connection, dns, domain_lookup_start, domain_lookup_end, latency_in_ms, icmp_code].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -415,4 +411,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

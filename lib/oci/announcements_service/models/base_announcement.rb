@@ -2,11 +2,11 @@
 
 require 'date'
 
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Incident information that forms the basis of an announcement. Avoid entering confidential information.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
-  class AnnouncementsService::Models::BaseAnnouncement # rubocop:disable Metrics/LineLength
+  class AnnouncementsService::Models::BaseAnnouncement
     ANNOUNCEMENT_TYPE_ENUM = [
       ANNOUNCEMENT_TYPE_ACTION_RECOMMENDED = 'ACTION_RECOMMENDED'.freeze,
       ANNOUNCEMENT_TYPE_ACTION_REQUIRED = 'ACTION_REQUIRED'.freeze,
@@ -149,7 +149,7 @@ module OCI
       }
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
 
     # Given the hash representation of a subtype of this class,
@@ -163,10 +163,10 @@ module OCI
       # TODO: Log a warning when the subtype is not found.
       'OCI::AnnouncementsService::Models::BaseAnnouncement'
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
@@ -267,29 +267,25 @@ module OCI
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength, Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] announcement_type Object to be assigned
     def announcement_type=(announcement_type)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'announcement_type': this must be one of the values in ANNOUNCEMENT_TYPE_ENUM." if announcement_type && !ANNOUNCEMENT_TYPE_ENUM.include?(announcement_type)
 
-      # rubocop: enable Metrics/LineLength
       @announcement_type = announcement_type
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
-      # rubocop: disable Metrics/LineLength
       raise "Invalid value for 'lifecycle_state': this must be one of the values in LIFECYCLE_STATE_ENUM." if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
 
-      # rubocop: enable Metrics/LineLength
       @lifecycle_state = lifecycle_state
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
     # Checks equality by comparing each attribute.
@@ -314,7 +310,7 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
     # @see the `==` method
     # @param [Object] other the other object to be compared
@@ -322,7 +318,7 @@ module OCI
       self == other
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
 
     # Calculates hash code according to all attributes.
@@ -330,7 +326,7 @@ module OCI
     def hash
       [id, type, reference_ticket_number, summary, time_one_title, time_one_value, time_two_title, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated].hash
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/LineLength, Layout/EmptyLines
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
     # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
 
@@ -403,4 +399,4 @@ module OCI
     end
   end
 end
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength
