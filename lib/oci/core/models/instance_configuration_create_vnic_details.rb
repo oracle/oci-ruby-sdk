@@ -26,6 +26,13 @@ module OCI
     # @return [String]
     attr_accessor :hostname_label
 
+    # A list of the OCIDs of the network security groups (NSGs) to add the VNIC to. For more
+    # information about NSGs, see
+    # {NetworkSecurityGroup}.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
     # A private IP address of your choice to assign to the VNIC.
     # See the `privateIp` attribute of {CreateVnicDetails} for more information.
     #
@@ -51,6 +58,7 @@ module OCI
         'assign_public_ip': :'assignPublicIp',
         'display_name': :'displayName',
         'hostname_label': :'hostnameLabel',
+        'nsg_ids': :'nsgIds',
         'private_ip': :'privateIp',
         'skip_source_dest_check': :'skipSourceDestCheck',
         'subnet_id': :'subnetId'
@@ -65,6 +73,7 @@ module OCI
         'assign_public_ip': :'BOOLEAN',
         'display_name': :'String',
         'hostname_label': :'String',
+        'nsg_ids': :'Array<String>',
         'private_ip': :'String',
         'skip_source_dest_check': :'BOOLEAN',
         'subnet_id': :'String'
@@ -81,6 +90,7 @@ module OCI
     # @option attributes [BOOLEAN] :assign_public_ip The value to assign to the {#assign_public_ip} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :hostname_label The value to assign to the {#hostname_label} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     # @option attributes [BOOLEAN] :skip_source_dest_check The value to assign to the {#skip_source_dest_check} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
@@ -107,6 +117,12 @@ module OCI
       raise 'You cannot provide both :hostnameLabel and :hostname_label' if attributes.key?(:'hostnameLabel') && attributes.key?(:'hostname_label')
 
       self.hostname_label = attributes[:'hostname_label'] if attributes[:'hostname_label']
+
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
 
       self.private_ip = attributes[:'privateIp'] if attributes[:'privateIp']
 
@@ -141,6 +157,7 @@ module OCI
         assign_public_ip == other.assign_public_ip &&
         display_name == other.display_name &&
         hostname_label == other.hostname_label &&
+        nsg_ids == other.nsg_ids &&
         private_ip == other.private_ip &&
         skip_source_dest_check == other.skip_source_dest_check &&
         subnet_id == other.subnet_id
@@ -159,7 +176,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [assign_public_ip, display_name, hostname_label, private_ip, skip_source_dest_check, subnet_id].hash
+      [assign_public_ip, display_name, hostname_label, nsg_ids, private_ip, skip_source_dest_check, subnet_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

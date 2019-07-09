@@ -102,6 +102,13 @@ module OCI
     # @return [String]
     attr_accessor :mac_address
 
+    # A list of the OCIDs of the network security groups that the VNIC belongs to. For more
+    # information about NSGs, see
+    # {NetworkSecurityGroup}.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
     # The private IP address of the primary `privateIp` object on the VNIC.
     # The address is within the CIDR of the VNIC's subnet.
     #
@@ -150,6 +157,7 @@ module OCI
         'is_primary': :'isPrimary',
         'lifecycle_state': :'lifecycleState',
         'mac_address': :'macAddress',
+        'nsg_ids': :'nsgIds',
         'private_ip': :'privateIp',
         'public_ip': :'publicIp',
         'skip_source_dest_check': :'skipSourceDestCheck',
@@ -173,6 +181,7 @@ module OCI
         'is_primary': :'BOOLEAN',
         'lifecycle_state': :'String',
         'mac_address': :'String',
+        'nsg_ids': :'Array<String>',
         'private_ip': :'String',
         'public_ip': :'String',
         'skip_source_dest_check': :'BOOLEAN',
@@ -198,6 +207,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_primary The value to assign to the {#is_primary} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :mac_address The value to assign to the {#mac_address} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     # @option attributes [String] :public_ip The value to assign to the {#public_ip} property
     # @option attributes [BOOLEAN] :skip_source_dest_check The value to assign to the {#skip_source_dest_check} property
@@ -265,6 +275,12 @@ module OCI
 
       self.mac_address = attributes[:'mac_address'] if attributes[:'mac_address']
 
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
       self.private_ip = attributes[:'privateIp'] if attributes[:'privateIp']
 
       raise 'You cannot provide both :privateIp and :private_ip' if attributes.key?(:'privateIp') && attributes.key?(:'private_ip')
@@ -330,6 +346,7 @@ module OCI
         is_primary == other.is_primary &&
         lifecycle_state == other.lifecycle_state &&
         mac_address == other.mac_address &&
+        nsg_ids == other.nsg_ids &&
         private_ip == other.private_ip &&
         public_ip == other.public_ip &&
         skip_source_dest_check == other.skip_source_dest_check &&
@@ -350,7 +367,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, hostname_label, id, is_primary, lifecycle_state, mac_address, private_ip, public_ip, skip_source_dest_check, subnet_id, time_created].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, hostname_label, id, is_primary, lifecycle_state, mac_address, nsg_ids, private_ip, public_ip, skip_source_dest_check, subnet_id, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

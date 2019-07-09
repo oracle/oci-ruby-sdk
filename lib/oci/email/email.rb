@@ -10,6 +10,7 @@ module OCI
 end
 
 # Require models
+require 'oci/email/models/change_sender_compartment_details'
 require 'oci/email/models/create_sender_details'
 require 'oci/email/models/create_suppression_details'
 require 'oci/email/models/sender'

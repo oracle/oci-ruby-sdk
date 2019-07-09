@@ -4,16 +4,20 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The configuration details for implementing session persistence. Session persistence enables the Load Balancing
-  # Service to direct any number of requests that originate from a single logical client to a single backend web server.
-  # For more information, see [Session Persistence](https://docs.cloud.oracle.com/Content/Balance/Reference/sessionpersistence.htm).
+  # The configuration details for implementing session persistence based on a user-specified cookie name (application
+  # cookie stickiness).
   #
+  # Session persistence enables the Load Balancing service to direct any number of requests that originate from a single
+  # logical client to a single backend web server. For more information, see
+  # [Session Persistence](https://docs.cloud.oracle.com/Content/Balance/Reference/sessionpersistence.htm).
   #
-  # To disable session persistence on a running load balancer, use the
-  # {#update_backend_set update_backend_set} operation and specify \"null\" for the
+  # To disable application cookie stickiness on a running load balancer, use the
+  # {#update_backend_set update_backend_set} operation and specify `null` for the
   # `SessionPersistenceConfigurationDetails` object.
   #
   # Example: `SessionPersistenceConfigurationDetails: null`
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class LoadBalancer::Models::SessionPersistenceConfigurationDetails
     # **[Required]** The name of the cookie used to detect a session initiated by the backend server. Use '*' to specify

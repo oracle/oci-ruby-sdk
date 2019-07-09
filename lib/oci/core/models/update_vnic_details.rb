@@ -43,6 +43,15 @@ module OCI
     # @return [String]
     attr_accessor :hostname_label
 
+    # A list of the OCIDs of the network security groups (NSGs) to add the VNIC to. Setting this as
+    # an empty array removes the VNIC from all network security groups.
+    #
+    # For more information about NSGs, see
+    # {NetworkSecurityGroup}.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
     # Whether the source/destination check is disabled on the VNIC.
     # Defaults to `false`, which means the check is performed. For information
     # about why you would skip the source/destination check, see
@@ -61,6 +70,7 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'hostname_label': :'hostnameLabel',
+        'nsg_ids': :'nsgIds',
         'skip_source_dest_check': :'skipSourceDestCheck'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -74,6 +84,7 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'hostname_label': :'String',
+        'nsg_ids': :'Array<String>',
         'skip_source_dest_check': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -89,6 +100,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :hostname_label The value to assign to the {#hostname_label} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [BOOLEAN] :skip_source_dest_check The value to assign to the {#skip_source_dest_check} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -120,6 +132,12 @@ module OCI
 
       self.hostname_label = attributes[:'hostname_label'] if attributes[:'hostname_label']
 
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
       self.skip_source_dest_check = attributes[:'skipSourceDestCheck'] unless attributes[:'skipSourceDestCheck'].nil?
 
       raise 'You cannot provide both :skipSourceDestCheck and :skip_source_dest_check' if attributes.key?(:'skipSourceDestCheck') && attributes.key?(:'skip_source_dest_check')
@@ -142,6 +160,7 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         hostname_label == other.hostname_label &&
+        nsg_ids == other.nsg_ids &&
         skip_source_dest_check == other.skip_source_dest_check
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -158,7 +177,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, hostname_label, skip_source_dest_check].hash
+      [defined_tags, display_name, freeform_tags, hostname_label, nsg_ids, skip_source_dest_check].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

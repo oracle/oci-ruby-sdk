@@ -11,6 +11,7 @@ end
 
 # Require models
 require 'oci/resource_manager/models/apply_job_plan_resolution'
+require 'oci/resource_manager/models/change_stack_compartment_details'
 require 'oci/resource_manager/models/config_source'
 require 'oci/resource_manager/models/create_config_source_details'
 require 'oci/resource_manager/models/create_job_details'
@@ -26,6 +27,11 @@ require 'oci/resource_manager/models/update_config_source_details'
 require 'oci/resource_manager/models/update_job_details'
 require 'oci/resource_manager/models/update_stack_details'
 require 'oci/resource_manager/models/update_zip_upload_config_source_details'
+require 'oci/resource_manager/models/work_request'
+require 'oci/resource_manager/models/work_request_error'
+require 'oci/resource_manager/models/work_request_log_entry'
+require 'oci/resource_manager/models/work_request_resource'
+require 'oci/resource_manager/models/work_request_summary'
 require 'oci/resource_manager/models/zip_upload_config_source'
 
 # Require generated clients

@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Instance Configuration Summary
+  # Summary information for an instance configuration.
   #
   class Core::Models::InstanceConfigurationSummary
     # **[Required]** The OCID of the compartment containing the instance configuration.
@@ -12,12 +12,12 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # A user-friendly name for the instance configuration
+    # A user-friendly name for the instance configuration.
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the instance configuration
+    # **[Required]** The OCID of the instance configuration.
     # @return [String]
     attr_accessor :id
 

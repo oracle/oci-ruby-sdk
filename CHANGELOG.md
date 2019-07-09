@@ -3,6 +3,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.5.10 - 2019-07-09
+### Added
+- Support for specifying custom boot volume sizes on instance configurations in the Compute Autoscaling service
+- Support for 'Autonomous Transaction Processing - Dedicated' features, as well as maintenance run and backup operations on autonomous databases, autonomous container databases, and autonomous Exadata infrastructure in the Database service
+- Support for moving service gateway resources across compartments in Core Services
+- Support for moving block storage resources across compartments in Core Services
+- Support for key deletion in the Key Management service
+- Support for moving senders across compartments in the Email service
+- Support for moving NAT gateway resources across compartments in Core Services
+- Support for moving images, instance configurations, and instance pools across compartments in Core Services
+- Support for moving autoscaling configurations across compartments in the Compute Autoscaling service
+- Support for network security groups in the Load Balancing service
+- Support for network security groups in Core Services
+- Support for network security groups on database systems in the Database service
+- Support for creating autonomous transaction processing and autonomous data warehouse previews in the Database service
+- Support for getting the load balancer attachments of instance pools in the Compute service
+- Support for moving resources across compartments in the Resource Manager service
+- Support for moving VCN resources across compartments in the Networking service
+
+### Fixed
+- Fixed a bug where the Streaming service's endpoints in Tokyo, Seoul, and future regions were not reachable from the SDK
+ 
 ## 2.5.9 - 2019-06-04
 ### Added
 - Support for the Seoul (ICN) region

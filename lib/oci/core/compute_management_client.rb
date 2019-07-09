@@ -179,6 +179,160 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves an instance configuration into a different compartment within the same tenancy.
+    # For information about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # **Important:** Most of the properties for an existing instance configuration, including the compartment,
+    # cannot be modified after you create the instance configuration. Although you can move an instance configuration
+    # to a different compartment, you will not be able to use the instance configuration to manage instance pools
+    # in the new compartment. If you want to update an instance configuration to point to a different compartment,
+    # you should instead create a new instance configuration in the target compartment using
+    # [CreateInstanceConfiguration](https://docs.cloud.oracle.com/iaas/api/#/en/iaas/20160918/InstanceConfiguration/CreateInstanceConfiguration).
+    #
+    # @param [String] instance_configuration_id The OCID of the instance configuration.
+    # @param [OCI::Core::Models::ChangeInstanceConfigurationCompartmentDetails] change_instance_configuration_compartment_details Request to change the compartment of given instance configuration.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_instance_configuration_compartment(instance_configuration_id, change_instance_configuration_compartment_details, opts = {})
+      logger.debug 'Calling operation ComputeManagementClient#change_instance_configuration_compartment.' if logger
+
+      raise "Missing the required parameter 'instance_configuration_id' when calling change_instance_configuration_compartment." if instance_configuration_id.nil?
+      raise "Missing the required parameter 'change_instance_configuration_compartment_details' when calling change_instance_configuration_compartment." if change_instance_configuration_compartment_details.nil?
+      raise "Parameter value for 'instance_configuration_id' must not be blank" if OCI::Internal::Util.blank_string?(instance_configuration_id)
+
+      path = '/instanceConfigurations/{instanceConfigurationId}/actions/changeCompartment'.sub('{instanceConfigurationId}', instance_configuration_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_instance_configuration_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeManagementClient#change_instance_configuration_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves an instance pool into a different compartment within the same tenancy. For
+    # information about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # When you move an instance pool to a different compartment, associated resources such as the instances in
+    # the pool, boot volumes, VNICs, and autoscaling configurations are not moved.
+    #
+    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [OCI::Core::Models::ChangeInstancePoolCompartmentDetails] change_instance_pool_compartment_details Request to change the compartment of given instance pool.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_instance_pool_compartment(instance_pool_id, change_instance_pool_compartment_details, opts = {})
+      logger.debug 'Calling operation ComputeManagementClient#change_instance_pool_compartment.' if logger
+
+      raise "Missing the required parameter 'instance_pool_id' when calling change_instance_pool_compartment." if instance_pool_id.nil?
+      raise "Missing the required parameter 'change_instance_pool_compartment_details' when calling change_instance_pool_compartment." if change_instance_pool_compartment_details.nil?
+      raise "Parameter value for 'instance_pool_id' must not be blank" if OCI::Internal::Util.blank_string?(instance_pool_id)
+
+      path = '/instancePools/{instancePoolId}/actions/changeCompartment'.sub('{instancePoolId}', instance_pool_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_instance_pool_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeManagementClient#change_instance_pool_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates an instance configuration
     #
     # @param [OCI::Core::Models::CreateInstanceConfigurationDetails] create_instance_configuration Instance configuration creation details
@@ -510,6 +664,63 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::InstancePool'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets information about a load balancer that is attached to the specified instance pool.
+    #
+    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_load_balancer_attachment_id The OCID of the load balancer attachment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePoolLoadBalancerAttachment InstancePoolLoadBalancerAttachment}
+    def get_instance_pool_load_balancer_attachment(instance_pool_id, instance_pool_load_balancer_attachment_id, opts = {})
+      logger.debug 'Calling operation ComputeManagementClient#get_instance_pool_load_balancer_attachment.' if logger
+
+      raise "Missing the required parameter 'instance_pool_id' when calling get_instance_pool_load_balancer_attachment." if instance_pool_id.nil?
+      raise "Missing the required parameter 'instance_pool_load_balancer_attachment_id' when calling get_instance_pool_load_balancer_attachment." if instance_pool_load_balancer_attachment_id.nil?
+      raise "Parameter value for 'instance_pool_id' must not be blank" if OCI::Internal::Util.blank_string?(instance_pool_id)
+      raise "Parameter value for 'instance_pool_load_balancer_attachment_id' must not be blank" if OCI::Internal::Util.blank_string?(instance_pool_load_balancer_attachment_id)
+
+      path = '/instancePools/{instancePoolId}/loadBalancerAttachments/{instancePoolLoadBalancerAttachmentId}'.sub('{instancePoolId}', instance_pool_id.to_s).sub('{instancePoolLoadBalancerAttachmentId}', instance_pool_load_balancer_attachment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeManagementClient#get_instance_pool_load_balancer_attachment') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::InstancePoolLoadBalancerAttachment'
         )
       end
       # rubocop:enable Metrics/BlockLength

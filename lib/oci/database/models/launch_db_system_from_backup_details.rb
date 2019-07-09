@@ -5,7 +5,8 @@ require_relative 'launch_db_system_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # LaunchDbSystemFromBackupDetails model.
+  # Used for creating a new DB system from a database backup.
+  #
   class Database::Models::LaunchDbSystemFromBackupDetails < Database::Models::LaunchDbSystemBase
     DATABASE_EDITION_ENUM = [
       DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
@@ -56,6 +57,8 @@ module OCI
         'availability_domain': :'availabilityDomain',
         'subnet_id': :'subnetId',
         'backup_subnet_id': :'backupSubnetId',
+        'nsg_ids': :'nsgIds',
+        'backup_network_nsg_ids': :'backupNetworkNsgIds',
         'shape': :'shape',
         'time_zone': :'timeZone',
         'sparse_diskgroup': :'sparseDiskgroup',
@@ -88,6 +91,8 @@ module OCI
         'availability_domain': :'String',
         'subnet_id': :'String',
         'backup_subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
+        'backup_network_nsg_ids': :'Array<String>',
         'shape': :'String',
         'time_zone': :'String',
         'sparse_diskgroup': :'BOOLEAN',
@@ -122,6 +127,8 @@ module OCI
     # @option attributes [String] :availability_domain The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#availability_domain #availability_domain} proprety
     # @option attributes [String] :subnet_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#subnet_id #subnet_id} proprety
     # @option attributes [String] :backup_subnet_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#backup_subnet_id #backup_subnet_id} proprety
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#nsg_ids #nsg_ids} proprety
+    # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#backup_network_nsg_ids #backup_network_nsg_ids} proprety
     # @option attributes [String] :shape The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#shape #shape} proprety
     # @option attributes [String] :time_zone The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#time_zone #time_zone} proprety
     # @option attributes [BOOLEAN] :sparse_diskgroup The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#sparse_diskgroup #sparse_diskgroup} proprety
@@ -215,6 +222,8 @@ module OCI
         availability_domain == other.availability_domain &&
         subnet_id == other.subnet_id &&
         backup_subnet_id == other.backup_subnet_id &&
+        nsg_ids == other.nsg_ids &&
+        backup_network_nsg_ids == other.backup_network_nsg_ids &&
         shape == other.shape &&
         time_zone == other.time_zone &&
         sparse_diskgroup == other.sparse_diskgroup &&
@@ -248,7 +257,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, shape, time_zone, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, db_home, database_edition, disk_redundancy, license_model].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, db_home, database_edition, disk_redundancy, license_model].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

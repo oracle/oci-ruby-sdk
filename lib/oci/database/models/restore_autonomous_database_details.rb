@@ -11,11 +11,23 @@ module OCI
     # @return [DateTime]
     attr_accessor :timestamp
 
+    # Restores using the backup with the System Change Number (SCN) specified.
+    #
+    # @return [String]
+    attr_accessor :database_scn
+
+    # Restores to the last known good state with the least possible data loss.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :latest
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'timestamp': :'timestamp'
+        'timestamp': :'timestamp',
+        'database_scn': :'databaseSCN',
+        'latest': :'latest'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +36,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'timestamp': :'DateTime'
+        'timestamp': :'DateTime',
+        'database_scn': :'String',
+        'latest': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +50,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [DateTime] :timestamp The value to assign to the {#timestamp} property
+    # @option attributes [String] :database_scn The value to assign to the {#database_scn} property
+    # @option attributes [BOOLEAN] :latest The value to assign to the {#latest} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -43,6 +59,14 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.timestamp = attributes[:'timestamp'] if attributes[:'timestamp']
+
+      self.database_scn = attributes[:'databaseSCN'] if attributes[:'databaseSCN']
+
+      raise 'You cannot provide both :databaseSCN and :database_scn' if attributes.key?(:'databaseSCN') && attributes.key?(:'database_scn')
+
+      self.database_scn = attributes[:'database_scn'] if attributes[:'database_scn']
+
+      self.latest = attributes[:'latest'] unless attributes[:'latest'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -56,7 +80,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        timestamp == other.timestamp
+        timestamp == other.timestamp &&
+        database_scn == other.database_scn &&
+        latest == other.latest
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -72,7 +98,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [timestamp].hash
+      [timestamp, database_scn, latest].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

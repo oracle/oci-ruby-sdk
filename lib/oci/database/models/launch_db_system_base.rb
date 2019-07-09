@@ -68,6 +68,19 @@ module OCI
     # @return [String]
     attr_accessor :backup_subnet_id
 
+    # The list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with this DB system.
+    # A maximum of 5 allowed.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
+    # The list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with the backup network of this DB system.
+    # Applicable only to Exadata DB systems.
+    # A maximum of 5 allowed.
+    #
+    # @return [Array<String>]
+    attr_accessor :backup_network_nsg_ids
+
     # **[Required]** The shape of the DB system. The shape determines resources allocated to the DB system.
     # - For virtual machine shapes, the number of CPU cores and memory
     # - For bare metal and Exadata shapes, the number of CPU cores, memory, and storage
@@ -164,7 +177,7 @@ module OCI
     attr_accessor :defined_tags
 
     # The source of the database:
-    #   NONE for creating a new database. DB_BACKUP for creating a new database by restoring from a backup. The default is NONE.
+    # NONE for creating a new database. DB_BACKUP for creating a new database by restoring from a backup. The default is NONE.
     #
     # @return [String]
     attr_reader :source
@@ -179,6 +192,8 @@ module OCI
         'availability_domain': :'availabilityDomain',
         'subnet_id': :'subnetId',
         'backup_subnet_id': :'backupSubnetId',
+        'nsg_ids': :'nsgIds',
+        'backup_network_nsg_ids': :'backupNetworkNsgIds',
         'shape': :'shape',
         'time_zone': :'timeZone',
         'sparse_diskgroup': :'sparseDiskgroup',
@@ -207,6 +222,8 @@ module OCI
         'availability_domain': :'String',
         'subnet_id': :'String',
         'backup_subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
+        'backup_network_nsg_ids': :'Array<String>',
         'shape': :'String',
         'time_zone': :'String',
         'sparse_diskgroup': :'BOOLEAN',
@@ -253,6 +270,8 @@ module OCI
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :backup_subnet_id The value to assign to the {#backup_subnet_id} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
+    # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     # @option attributes [BOOLEAN] :sparse_diskgroup The value to assign to the {#sparse_diskgroup} property
@@ -308,6 +327,18 @@ module OCI
       raise 'You cannot provide both :backupSubnetId and :backup_subnet_id' if attributes.key?(:'backupSubnetId') && attributes.key?(:'backup_subnet_id')
 
       self.backup_subnet_id = attributes[:'backup_subnet_id'] if attributes[:'backup_subnet_id']
+
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
+      self.backup_network_nsg_ids = attributes[:'backupNetworkNsgIds'] if attributes[:'backupNetworkNsgIds']
+
+      raise 'You cannot provide both :backupNetworkNsgIds and :backup_network_nsg_ids' if attributes.key?(:'backupNetworkNsgIds') && attributes.key?(:'backup_network_nsg_ids')
+
+      self.backup_network_nsg_ids = attributes[:'backup_network_nsg_ids'] if attributes[:'backup_network_nsg_ids']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
@@ -404,6 +435,8 @@ module OCI
         availability_domain == other.availability_domain &&
         subnet_id == other.subnet_id &&
         backup_subnet_id == other.backup_subnet_id &&
+        nsg_ids == other.nsg_ids &&
+        backup_network_nsg_ids == other.backup_network_nsg_ids &&
         shape == other.shape &&
         time_zone == other.time_zone &&
         sparse_diskgroup == other.sparse_diskgroup &&
@@ -433,7 +466,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, shape, time_zone, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -94,6 +94,19 @@ module OCI
     # @return [String]
     attr_accessor :backup_subnet_id
 
+    # The list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with this DB system.
+    # A maximum of 5 allowed.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
+    # The list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with the backup network of this DB system.
+    # Applicable only to Exadata DB systems.
+    # A maximum of 5 allowed.
+    #
+    # @return [Array<String>]
+    attr_accessor :backup_network_nsg_ids
+
     # **[Required]** The shape of the DB system. The shape determines resources to allocate to the DB system.
     # - For virtual machine shapes, the number of CPU cores and memory
     # - For bare metal and Exadata shapes, the number of CPU cores, storage, and memory
@@ -243,6 +256,8 @@ module OCI
         'fault_domains': :'faultDomains',
         'subnet_id': :'subnetId',
         'backup_subnet_id': :'backupSubnetId',
+        'nsg_ids': :'nsgIds',
+        'backup_network_nsg_ids': :'backupNetworkNsgIds',
         'shape': :'shape',
         'ssh_public_keys': :'sshPublicKeys',
         'time_zone': :'timeZone',
@@ -284,6 +299,8 @@ module OCI
         'fault_domains': :'Array<String>',
         'subnet_id': :'String',
         'backup_subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
+        'backup_network_nsg_ids': :'Array<String>',
         'shape': :'String',
         'ssh_public_keys': :'Array<String>',
         'time_zone': :'String',
@@ -327,6 +344,8 @@ module OCI
     # @option attributes [Array<String>] :fault_domains The value to assign to the {#fault_domains} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :backup_subnet_id The value to assign to the {#backup_subnet_id} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
+    # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
@@ -396,6 +415,18 @@ module OCI
       raise 'You cannot provide both :backupSubnetId and :backup_subnet_id' if attributes.key?(:'backupSubnetId') && attributes.key?(:'backup_subnet_id')
 
       self.backup_subnet_id = attributes[:'backup_subnet_id'] if attributes[:'backup_subnet_id']
+
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
+      self.backup_network_nsg_ids = attributes[:'backupNetworkNsgIds'] if attributes[:'backupNetworkNsgIds']
+
+      raise 'You cannot provide both :backupNetworkNsgIds and :backup_network_nsg_ids' if attributes.key?(:'backupNetworkNsgIds') && attributes.key?(:'backup_network_nsg_ids')
+
+      self.backup_network_nsg_ids = attributes[:'backup_network_nsg_ids'] if attributes[:'backup_network_nsg_ids']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
@@ -608,6 +639,8 @@ module OCI
         fault_domains == other.fault_domains &&
         subnet_id == other.subnet_id &&
         backup_subnet_id == other.backup_subnet_id &&
+        nsg_ids == other.nsg_ids &&
+        backup_network_nsg_ids == other.backup_network_nsg_ids &&
         shape == other.shape &&
         ssh_public_keys == other.ssh_public_keys &&
         time_zone == other.time_zone &&
@@ -649,7 +682,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, shape, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

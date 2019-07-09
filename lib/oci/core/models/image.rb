@@ -112,7 +112,8 @@ module OCI
     # @return [OCI::Core::Models::InstanceAgentFeatures]
     attr_accessor :agent_features
 
-    # Image size (1 MB = 1048576 bytes)
+    # The boot volume size for an instance launched from this image, (1 MB = 1048576 bytes).
+    # Note this is not the same as the size of the image when it was exported or the actual size of the image.
     #
     # Example: `47694`
     #

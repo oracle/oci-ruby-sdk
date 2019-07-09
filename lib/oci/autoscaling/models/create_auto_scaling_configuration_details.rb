@@ -8,7 +8,6 @@ module OCI
   #
   class Autoscaling::Models::CreateAutoScalingConfigurationDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the autoscaling configuration.
-    # The autoscaling configuration and the instance pool that it manages must be in the same compartment.
     #
     # @return [String]
     attr_accessor :compartment_id

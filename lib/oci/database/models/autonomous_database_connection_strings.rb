@@ -19,6 +19,10 @@ module OCI
     # @return [String]
     attr_accessor :low
 
+    # The database service provides the least level of resources to each SQL statement, but supports the most number of concurrent SQL statements.
+    # @return [String]
+    attr_accessor :dedicated
+
     # Returns all connection strings that can be used to connect to the Autonomous Database.
     # For more information, please see [Predefined Database Service Names for Autonomous Transaction Processing](https://docs.oracle.com/en/cloud/paas/atp-cloud/atpug/connect-predefined.html#GUID-9747539B-FD46-44F1-8FF8-F5AC650F15BE)
     #
@@ -32,6 +36,7 @@ module OCI
         'high': :'high',
         'medium': :'medium',
         'low': :'low',
+        'dedicated': :'dedicated',
         'all_connection_strings': :'allConnectionStrings'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -44,6 +49,7 @@ module OCI
         'high': :'String',
         'medium': :'String',
         'low': :'String',
+        'dedicated': :'String',
         'all_connection_strings': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -58,6 +64,7 @@ module OCI
     # @option attributes [String] :high The value to assign to the {#high} property
     # @option attributes [String] :medium The value to assign to the {#medium} property
     # @option attributes [String] :low The value to assign to the {#low} property
+    # @option attributes [String] :dedicated The value to assign to the {#dedicated} property
     # @option attributes [Hash<String, String>] :all_connection_strings The value to assign to the {#all_connection_strings} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -70,6 +77,8 @@ module OCI
       self.medium = attributes[:'medium'] if attributes[:'medium']
 
       self.low = attributes[:'low'] if attributes[:'low']
+
+      self.dedicated = attributes[:'dedicated'] if attributes[:'dedicated']
 
       self.all_connection_strings = attributes[:'allConnectionStrings'] if attributes[:'allConnectionStrings']
 
@@ -92,6 +101,7 @@ module OCI
         high == other.high &&
         medium == other.medium &&
         low == other.low &&
+        dedicated == other.dedicated &&
         all_connection_strings == other.all_connection_strings
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -108,7 +118,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [high, medium, low, all_connection_strings].hash
+      [high, medium, low, dedicated, all_connection_strings].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

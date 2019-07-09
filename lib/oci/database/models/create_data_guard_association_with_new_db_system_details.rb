@@ -29,6 +29,19 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # The list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with this DB system.
+    # A maximum of 5 allowed.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
+    # The list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with the backup network of this DB system.
+    # Applicable only to Exadata DB systems.
+    # A maximum of 5 allowed.
+    #
+    # @return [Array<String>]
+    attr_accessor :backup_network_nsg_ids
+
     # The hostname for the DB node.
     # @return [String]
     attr_accessor :hostname
@@ -44,6 +57,8 @@ module OCI
         'display_name': :'displayName',
         'availability_domain': :'availabilityDomain',
         'subnet_id': :'subnetId',
+        'nsg_ids': :'nsgIds',
+        'backup_network_nsg_ids': :'backupNetworkNsgIds',
         'hostname': :'hostname'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -60,6 +75,8 @@ module OCI
         'display_name': :'String',
         'availability_domain': :'String',
         'subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
+        'backup_network_nsg_ids': :'Array<String>',
         'hostname': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -77,6 +94,8 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
+    # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -106,6 +125,18 @@ module OCI
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
 
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
+      self.backup_network_nsg_ids = attributes[:'backupNetworkNsgIds'] if attributes[:'backupNetworkNsgIds']
+
+      raise 'You cannot provide both :backupNetworkNsgIds and :backup_network_nsg_ids' if attributes.key?(:'backupNetworkNsgIds') && attributes.key?(:'backup_network_nsg_ids')
+
+      self.backup_network_nsg_ids = attributes[:'backup_network_nsg_ids'] if attributes[:'backup_network_nsg_ids']
+
       self.hostname = attributes[:'hostname'] if attributes[:'hostname']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -127,6 +158,8 @@ module OCI
         display_name == other.display_name &&
         availability_domain == other.availability_domain &&
         subnet_id == other.subnet_id &&
+        nsg_ids == other.nsg_ids &&
+        backup_network_nsg_ids == other.backup_network_nsg_ids &&
         hostname == other.hostname
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -143,7 +176,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_admin_password, protection_mode, transport_type, creation_type, display_name, availability_domain, subnet_id, hostname].hash
+      [database_admin_password, protection_mode, transport_type, creation_type, display_name, availability_domain, subnet_id, nsg_ids, backup_network_nsg_ids, hostname].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

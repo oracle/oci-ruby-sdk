@@ -86,6 +86,11 @@ module OCI
     # @return [Array<String>]
     attr_accessor :subnet_ids
 
+    # The array of NSG [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) in use by this Load Balancer.
+    #
+    # @return [Array<String>]
+    attr_accessor :network_security_group_ids
+
     # @return [Hash<String, OCI::LoadBalancer::Models::Listener>]
     attr_accessor :listeners
 
@@ -133,6 +138,7 @@ module OCI
         'shape_name': :'shapeName',
         'is_private': :'isPrivate',
         'subnet_ids': :'subnetIds',
+        'network_security_group_ids': :'networkSecurityGroupIds',
         'listeners': :'listeners',
         'hostnames': :'hostnames',
         'certificates': :'certificates',
@@ -158,6 +164,7 @@ module OCI
         'shape_name': :'String',
         'is_private': :'BOOLEAN',
         'subnet_ids': :'Array<String>',
+        'network_security_group_ids': :'Array<String>',
         'listeners': :'Hash<String, OCI::LoadBalancer::Models::Listener>',
         'hostnames': :'Hash<String, OCI::LoadBalancer::Models::Hostname>',
         'certificates': :'Hash<String, OCI::LoadBalancer::Models::Certificate>',
@@ -185,6 +192,7 @@ module OCI
     # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
     # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
     # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
+    # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::Listener>] :listeners The value to assign to the {#listeners} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::Hostname>] :hostnames The value to assign to the {#hostnames} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::Certificate>] :certificates The value to assign to the {#certificates} property
@@ -248,6 +256,12 @@ module OCI
       raise 'You cannot provide both :subnetIds and :subnet_ids' if attributes.key?(:'subnetIds') && attributes.key?(:'subnet_ids')
 
       self.subnet_ids = attributes[:'subnet_ids'] if attributes[:'subnet_ids']
+
+      self.network_security_group_ids = attributes[:'networkSecurityGroupIds'] if attributes[:'networkSecurityGroupIds']
+
+      raise 'You cannot provide both :networkSecurityGroupIds and :network_security_group_ids' if attributes.key?(:'networkSecurityGroupIds') && attributes.key?(:'network_security_group_ids')
+
+      self.network_security_group_ids = attributes[:'network_security_group_ids'] if attributes[:'network_security_group_ids']
 
       self.listeners = attributes[:'listeners'] if attributes[:'listeners']
 
@@ -319,6 +333,7 @@ module OCI
         shape_name == other.shape_name &&
         is_private == other.is_private &&
         subnet_ids == other.subnet_ids &&
+        network_security_group_ids == other.network_security_group_ids &&
         listeners == other.listeners &&
         hostnames == other.hostnames &&
         certificates == other.certificates &&
@@ -342,7 +357,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, is_private, subnet_ids, listeners, hostnames, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
+      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, is_private, subnet_ids, network_security_group_ids, listeners, hostnames, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
