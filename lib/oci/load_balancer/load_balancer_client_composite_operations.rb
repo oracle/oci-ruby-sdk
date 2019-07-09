@@ -1179,6 +1179,56 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::LoadBalancer::LoadBalancerClient#update_network_security_groups} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::LoadBalancer::Models::UpdateNetworkSecurityGroupsDetails] update_network_security_groups_details The details for updating the NSGs of the load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer on which update the NSGs.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#update_network_security_groups}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LoadBalancer::Models::WorkRequest}
+    def update_network_security_groups_and_wait_for_state(update_network_security_groups_details, load_balancer_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_network_security_groups(update_network_security_groups_details, load_balancer_id, base_operation_opts)
+      use_util = OCI::LoadBalancer::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::LoadBalancer::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::LoadBalancer::LoadBalancerClient#update_path_route_set} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #

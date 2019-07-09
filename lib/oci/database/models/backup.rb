@@ -10,6 +10,7 @@ module OCI
     TYPE_ENUM = [
       TYPE_INCREMENTAL = 'INCREMENTAL'.freeze,
       TYPE_FULL = 'FULL'.freeze,
+      TYPE_VIRTUAL_FULL = 'VIRTUAL_FULL'.freeze,
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

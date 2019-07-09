@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Condensed InstancePool data when listing instance pools.
+  # Summary information for an instance pool.
   class Core::Models::InstancePoolSummary
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
@@ -19,11 +19,11 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the instance pool
+    # **[Required]** The OCID of the instance pool.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing the instance pool
+    # **[Required]** The OCID of the compartment containing the instance pool.
     # @return [String]
     attr_accessor :compartment_id
 

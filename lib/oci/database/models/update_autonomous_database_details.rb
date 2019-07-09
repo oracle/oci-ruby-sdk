@@ -31,6 +31,13 @@ module OCI
     # @return [String]
     attr_accessor :admin_password
 
+    # New name for this Autonomous Database. It must begin with an alphabetic character and can contain a
+    # maximum of eight alphanumeric characters. Special characters are not permitted. This is valid only
+    # for dedicated databases.
+    #
+    # @return [String]
+    attr_accessor :db_name
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -69,6 +76,7 @@ module OCI
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'display_name': :'displayName',
         'admin_password': :'adminPassword',
+        'db_name': :'dbName',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'license_model': :'licenseModel',
@@ -86,6 +94,7 @@ module OCI
         'data_storage_size_in_tbs': :'Integer',
         'display_name': :'String',
         'admin_password': :'String',
+        'db_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'license_model': :'String',
@@ -105,6 +114,7 @@ module OCI
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
+    # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
@@ -139,6 +149,12 @@ module OCI
       raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
 
       self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
+
+      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
+
+      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
+
+      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -194,6 +210,7 @@ module OCI
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         display_name == other.display_name &&
         admin_password == other.admin_password &&
+        db_name == other.db_name &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         license_model == other.license_model &&
@@ -214,7 +231,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, data_storage_size_in_tbs, display_name, admin_password, freeform_tags, defined_tags, license_model, whitelisted_ips, is_auto_scaling_enabled].hash
+      [cpu_core_count, data_storage_size_in_tbs, display_name, admin_password, db_name, freeform_tags, defined_tags, license_model, whitelisted_ips, is_auto_scaling_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

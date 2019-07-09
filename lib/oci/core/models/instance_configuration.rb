@@ -4,7 +4,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Instance Configuration
+  # An instance configuration is a template that defines the settings to use when creating Compute instances
+  # as part of an instance pool. For more information about instance pools and instance configurations, see
+  # [Managing Compute Instances](https://docs.cloud.oracle.com/Content/Compute/Concepts/instancemanagement.htm).
   #
   class Core::Models::InstanceConfiguration
     # **[Required]** The OCID of the compartment containing the instance configuration.

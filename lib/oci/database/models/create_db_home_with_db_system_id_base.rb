@@ -15,7 +15,7 @@ module OCI
       SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
     # @return [String]
     attr_accessor :db_system_id
 

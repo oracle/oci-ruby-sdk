@@ -61,6 +61,10 @@ Metrics/MethodLength:
     - "lib/oci/load_balancer/util.rb"
     - "lib/oci/waiter.rb"
 
+Metrics/ModuleLength:
+  Exclude:
+    - "lib/oci/regions.rb"
+
 Metrics/ParameterLists:
   CountKeywordArgs: false
   Exclude:
@@ -100,6 +104,11 @@ Style/DateTime:
   Exclude:
     # The rubocop suggestion here would change what type we parse to (Date or Time vs. DateTime) so don't take this change
     - "lib/oci/internal/util.rb"
+
+Style/NumericLiterals:
+  Exclude:
+    - "lib/oci/**/*.rb"
+    - "lib/oci/**/models/*.rb"
 
 Style/RegexpLiteral:
   EnforcedStyle: slashes

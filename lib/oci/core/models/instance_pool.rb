@@ -5,7 +5,10 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Instance Pool
+  # An instance pool is a group of instances within the same region that are created based off of the same
+  # instance configuration. For more information about instance pools and instance configurations, see
+  # [Managing Compute Instances](https://docs.cloud.oracle.com/Content/Compute/Concepts/instancemanagement.htm).
+  #
   class Core::Models::InstancePool
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,

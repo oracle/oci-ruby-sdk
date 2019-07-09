@@ -54,6 +54,11 @@ module OCI
     # @return [Hash<String, OCI::LoadBalancer::Models::BackendSetDetails>]
     attr_accessor :backend_sets
 
+    # The array of NSG [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) to be used by this Load Balancer.
+    #
+    # @return [Array<String>]
+    attr_accessor :network_security_group_ids
+
     # **[Required]** An array of subnet [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @return [Array<String>]
     attr_accessor :subnet_ids
@@ -94,6 +99,7 @@ module OCI
         'listeners': :'listeners',
         'hostnames': :'hostnames',
         'backend_sets': :'backendSets',
+        'network_security_group_ids': :'networkSecurityGroupIds',
         'subnet_ids': :'subnetIds',
         'certificates': :'certificates',
         'path_route_sets': :'pathRouteSets',
@@ -115,6 +121,7 @@ module OCI
         'listeners': :'Hash<String, OCI::LoadBalancer::Models::ListenerDetails>',
         'hostnames': :'Hash<String, OCI::LoadBalancer::Models::HostnameDetails>',
         'backend_sets': :'Hash<String, OCI::LoadBalancer::Models::BackendSetDetails>',
+        'network_security_group_ids': :'Array<String>',
         'subnet_ids': :'Array<String>',
         'certificates': :'Hash<String, OCI::LoadBalancer::Models::CertificateDetails>',
         'path_route_sets': :'Hash<String, OCI::LoadBalancer::Models::PathRouteSetDetails>',
@@ -138,6 +145,7 @@ module OCI
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::ListenerDetails>] :listeners The value to assign to the {#listeners} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::HostnameDetails>] :hostnames The value to assign to the {#hostnames} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::BackendSetDetails>] :backend_sets The value to assign to the {#backend_sets} property
+    # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
     # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::CertificateDetails>] :certificates The value to assign to the {#certificates} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::PathRouteSetDetails>] :path_route_sets The value to assign to the {#path_route_sets} property
@@ -185,6 +193,12 @@ module OCI
       raise 'You cannot provide both :backendSets and :backend_sets' if attributes.key?(:'backendSets') && attributes.key?(:'backend_sets')
 
       self.backend_sets = attributes[:'backend_sets'] if attributes[:'backend_sets']
+
+      self.network_security_group_ids = attributes[:'networkSecurityGroupIds'] if attributes[:'networkSecurityGroupIds']
+
+      raise 'You cannot provide both :networkSecurityGroupIds and :network_security_group_ids' if attributes.key?(:'networkSecurityGroupIds') && attributes.key?(:'network_security_group_ids')
+
+      self.network_security_group_ids = attributes[:'network_security_group_ids'] if attributes[:'network_security_group_ids']
 
       self.subnet_ids = attributes[:'subnetIds'] if attributes[:'subnetIds']
 
@@ -237,6 +251,7 @@ module OCI
         listeners == other.listeners &&
         hostnames == other.hostnames &&
         backend_sets == other.backend_sets &&
+        network_security_group_ids == other.network_security_group_ids &&
         subnet_ids == other.subnet_ids &&
         certificates == other.certificates &&
         path_route_sets == other.path_route_sets &&
@@ -258,7 +273,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, shape_name, is_private, listeners, hostnames, backend_sets, subnet_ids, certificates, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
+      [compartment_id, display_name, shape_name, is_private, listeners, hostnames, backend_sets, network_security_group_ids, subnet_ids, certificates, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

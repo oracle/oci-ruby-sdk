@@ -73,6 +73,12 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # An optional property for the deletion time of the key, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # Example: `2019-04-03T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_of_deletion
+
     # **[Required]** The OCID of the vault that contains this key.
     # @return [String]
     attr_accessor :vault_id
@@ -90,6 +96,7 @@ module OCI
         'key_shape': :'keyShape',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
+        'time_of_deletion': :'timeOfDeletion',
         'vault_id': :'vaultId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -108,6 +115,7 @@ module OCI
         'key_shape': :'OCI::KeyManagement::Models::KeyShape',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
+        'time_of_deletion': :'DateTime',
         'vault_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -128,6 +136,7 @@ module OCI
     # @option attributes [OCI::KeyManagement::Models::KeyShape] :key_shape The value to assign to the {#key_shape} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -185,6 +194,12 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
+      self.time_of_deletion = attributes[:'timeOfDeletion'] if attributes[:'timeOfDeletion']
+
+      raise 'You cannot provide both :timeOfDeletion and :time_of_deletion' if attributes.key?(:'timeOfDeletion') && attributes.key?(:'time_of_deletion')
+
+      self.time_of_deletion = attributes[:'time_of_deletion'] if attributes[:'time_of_deletion']
+
       self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
 
       raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
@@ -225,6 +240,7 @@ module OCI
         key_shape == other.key_shape &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
+        time_of_deletion == other.time_of_deletion &&
         vault_id == other.vault_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -241,7 +257,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, current_key_version, defined_tags, display_name, freeform_tags, id, key_shape, lifecycle_state, time_created, vault_id].hash
+      [compartment_id, current_key_version, defined_tags, display_name, freeform_tags, id, key_shape, lifecycle_state, time_created, time_of_deletion, vault_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

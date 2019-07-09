@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://streams.{region}.streaming.oci.{secondLevelDomain}') + '/20180418'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://streaming.{region}.oci.{secondLevelDomain}') + '/20180418'
       logger.info "StreamClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 

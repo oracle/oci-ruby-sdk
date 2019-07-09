@@ -62,6 +62,11 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
+    # The size of the database in terabytes at the time the backup was taken.
+    #
+    # @return [Float]
+    attr_accessor :database_size_in_tbs
+
     # **[Required]** The current state of the backup.
     # @return [String]
     attr_reader :lifecycle_state
@@ -79,6 +84,7 @@ module OCI
         'time_started': :'timeStarted',
         'time_ended': :'timeEnded',
         'lifecycle_details': :'lifecycleDetails',
+        'database_size_in_tbs': :'databaseSizeInTBs',
         'lifecycle_state': :'lifecycleState'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -97,6 +103,7 @@ module OCI
         'time_started': :'DateTime',
         'time_ended': :'DateTime',
         'lifecycle_details': :'String',
+        'database_size_in_tbs': :'Float',
         'lifecycle_state': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -117,6 +124,7 @@ module OCI
     # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
     # @option attributes [DateTime] :time_ended The value to assign to the {#time_ended} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [Float] :database_size_in_tbs The value to assign to the {#database_size_in_tbs} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -169,6 +177,12 @@ module OCI
       raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
 
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
+
+      self.database_size_in_tbs = attributes[:'databaseSizeInTBs'] if attributes[:'databaseSizeInTBs']
+
+      raise 'You cannot provide both :databaseSizeInTBs and :database_size_in_tbs' if attributes.key?(:'databaseSizeInTBs') && attributes.key?(:'database_size_in_tbs')
+
+      self.database_size_in_tbs = attributes[:'database_size_in_tbs'] if attributes[:'database_size_in_tbs']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -223,6 +237,7 @@ module OCI
         time_started == other.time_started &&
         time_ended == other.time_ended &&
         lifecycle_details == other.lifecycle_details &&
+        database_size_in_tbs == other.database_size_in_tbs &&
         lifecycle_state == other.lifecycle_state
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -239,7 +254,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, autonomous_database_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, lifecycle_state].hash
+      [id, compartment_id, autonomous_database_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, database_size_in_tbs, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

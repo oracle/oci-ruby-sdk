@@ -20,7 +20,10 @@ module OCI
         'admin_password': :'adminPassword',
         'display_name': :'displayName',
         'license_model': :'licenseModel',
+        'is_preview_version_with_service_terms_accepted': :'isPreviewVersionWithServiceTermsAccepted',
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
+        'is_dedicated': :'isDedicated',
+        'autonomous_container_database_id': :'autonomousContainerDatabaseId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'source': :'source'
@@ -40,7 +43,10 @@ module OCI
         'admin_password': :'String',
         'display_name': :'String',
         'license_model': :'String',
+        'is_preview_version_with_service_terms_accepted': :'BOOLEAN',
         'is_auto_scaling_enabled': :'BOOLEAN',
+        'is_dedicated': :'BOOLEAN',
+        'autonomous_container_database_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'source': :'String'
@@ -62,7 +68,10 @@ module OCI
     # @option attributes [String] :admin_password The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#admin_password #admin_password} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#display_name #display_name} proprety
     # @option attributes [String] :license_model The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#license_model #license_model} proprety
+    # @option attributes [BOOLEAN] :is_preview_version_with_service_terms_accepted The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_preview_version_with_service_terms_accepted #is_preview_version_with_service_terms_accepted} proprety
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_auto_scaling_enabled #is_auto_scaling_enabled} proprety
+    # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_dedicated #is_dedicated} proprety
+    # @option attributes [String] :autonomous_container_database_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#autonomous_container_database_id #autonomous_container_database_id} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#defined_tags #defined_tags} proprety
     def initialize(attributes = {})
@@ -92,7 +101,10 @@ module OCI
         admin_password == other.admin_password &&
         display_name == other.display_name &&
         license_model == other.license_model &&
+        is_preview_version_with_service_terms_accepted == other.is_preview_version_with_service_terms_accepted &&
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
+        is_dedicated == other.is_dedicated &&
+        autonomous_container_database_id == other.autonomous_container_database_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         source == other.source
@@ -111,7 +123,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, is_auto_scaling_enabled, freeform_tags, defined_tags, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -301,7 +301,7 @@ module OCI
     # Calls {OCI::Core::ComputeClient#delete_image} and then waits for the {OCI::Core::Models::Image} acted upon
     # to enter the given state(s).
     #
-    # @param [String] image_id The OCID of the image.
+    # @param [String] image_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the image.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::Image#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#delete_image}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -501,7 +501,7 @@ module OCI
     # Calls {OCI::Core::ComputeClient#export_image} and then waits for the {OCI::Core::Models::Image} acted upon
     # to enter the given state(s).
     #
-    # @param [String] image_id The OCID of the image.
+    # @param [String] image_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the image.
     # @param [OCI::Core::Models::ExportImageDetails] export_image_details Details for the image export.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::Image#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#export_image}
@@ -701,7 +701,7 @@ module OCI
     # Calls {OCI::Core::ComputeClient#update_image} and then waits for the {OCI::Core::Models::Image} acted upon
     # to enter the given state(s).
     #
-    # @param [String] image_id The OCID of the image.
+    # @param [String] image_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the image.
     # @param [OCI::Core::Models::UpdateImageDetails] update_image_details Updates the image display name field. Avoid entering confidential information.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::Image#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#update_image}

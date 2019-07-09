@@ -59,10 +59,23 @@ module OCI
     # @return [String]
     attr_reader :license_model
 
+    # If set to true, indicates that an Autonomous Database preview version is being provisioned, and that the preview version's terms of service have been accepted.
+    # @return [BOOLEAN]
+    attr_accessor :is_preview_version_with_service_terms_accepted
+
     # Indicates if auto scaling is enabled for the Autonomous Database CPU core count. The default value is false.
     #
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
+
+    # True if it is dedicated database.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_dedicated
+
+    # The Autonomous Container Database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @return [String]
+    attr_accessor :autonomous_container_database_id
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -97,7 +110,10 @@ module OCI
         'admin_password': :'adminPassword',
         'display_name': :'displayName',
         'license_model': :'licenseModel',
+        'is_preview_version_with_service_terms_accepted': :'isPreviewVersionWithServiceTermsAccepted',
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
+        'is_dedicated': :'isDedicated',
+        'autonomous_container_database_id': :'autonomousContainerDatabaseId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'source': :'source'
@@ -117,7 +133,10 @@ module OCI
         'admin_password': :'String',
         'display_name': :'String',
         'license_model': :'String',
+        'is_preview_version_with_service_terms_accepted': :'BOOLEAN',
         'is_auto_scaling_enabled': :'BOOLEAN',
+        'is_dedicated': :'BOOLEAN',
+        'autonomous_container_database_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'source': :'String'
@@ -155,7 +174,10 @@ module OCI
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [BOOLEAN] :is_preview_version_with_service_terms_accepted The value to assign to the {#is_preview_version_with_service_terms_accepted} property
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
+    # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
+    # @option attributes [String] :autonomous_container_database_id The value to assign to the {#autonomous_container_database_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :source The value to assign to the {#source} property
@@ -213,6 +235,14 @@ module OCI
 
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
 
+      self.is_preview_version_with_service_terms_accepted = attributes[:'isPreviewVersionWithServiceTermsAccepted'] unless attributes[:'isPreviewVersionWithServiceTermsAccepted'].nil?
+      self.is_preview_version_with_service_terms_accepted = false if is_preview_version_with_service_terms_accepted.nil? && !attributes.key?(:'isPreviewVersionWithServiceTermsAccepted') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isPreviewVersionWithServiceTermsAccepted and :is_preview_version_with_service_terms_accepted' if attributes.key?(:'isPreviewVersionWithServiceTermsAccepted') && attributes.key?(:'is_preview_version_with_service_terms_accepted')
+
+      self.is_preview_version_with_service_terms_accepted = attributes[:'is_preview_version_with_service_terms_accepted'] unless attributes[:'is_preview_version_with_service_terms_accepted'].nil?
+      self.is_preview_version_with_service_terms_accepted = false if is_preview_version_with_service_terms_accepted.nil? && !attributes.key?(:'isPreviewVersionWithServiceTermsAccepted') && !attributes.key?(:'is_preview_version_with_service_terms_accepted') # rubocop:disable Style/StringLiterals
+
       self.is_auto_scaling_enabled = attributes[:'isAutoScalingEnabled'] unless attributes[:'isAutoScalingEnabled'].nil?
       self.is_auto_scaling_enabled = false if is_auto_scaling_enabled.nil? && !attributes.key?(:'isAutoScalingEnabled') # rubocop:disable Style/StringLiterals
 
@@ -220,6 +250,18 @@ module OCI
 
       self.is_auto_scaling_enabled = attributes[:'is_auto_scaling_enabled'] unless attributes[:'is_auto_scaling_enabled'].nil?
       self.is_auto_scaling_enabled = false if is_auto_scaling_enabled.nil? && !attributes.key?(:'isAutoScalingEnabled') && !attributes.key?(:'is_auto_scaling_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_dedicated = attributes[:'isDedicated'] unless attributes[:'isDedicated'].nil?
+
+      raise 'You cannot provide both :isDedicated and :is_dedicated' if attributes.key?(:'isDedicated') && attributes.key?(:'is_dedicated')
+
+      self.is_dedicated = attributes[:'is_dedicated'] unless attributes[:'is_dedicated'].nil?
+
+      self.autonomous_container_database_id = attributes[:'autonomousContainerDatabaseId'] if attributes[:'autonomousContainerDatabaseId']
+
+      raise 'You cannot provide both :autonomousContainerDatabaseId and :autonomous_container_database_id' if attributes.key?(:'autonomousContainerDatabaseId') && attributes.key?(:'autonomous_container_database_id')
+
+      self.autonomous_container_database_id = attributes[:'autonomous_container_database_id'] if attributes[:'autonomous_container_database_id']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -280,7 +322,10 @@ module OCI
         admin_password == other.admin_password &&
         display_name == other.display_name &&
         license_model == other.license_model &&
+        is_preview_version_with_service_terms_accepted == other.is_preview_version_with_service_terms_accepted &&
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
+        is_dedicated == other.is_dedicated &&
+        autonomous_container_database_id == other.autonomous_container_database_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         source == other.source
@@ -299,7 +344,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, is_auto_scaling_enabled, freeform_tags, defined_tags, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

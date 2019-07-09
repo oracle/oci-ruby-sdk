@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://streams.{region}.streaming.oci.{secondLevelDomain}') + '/20180418'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://streaming.{region}.oci.{secondLevelDomain}') + '/20180418'
       logger.info "StreamAdminClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -166,7 +166,7 @@ module OCI
 
 
     # Deletes a stream and its content. Stream contents are deleted immediately. The service retains records of the stream itself for 90 days after deletion.
-    # The `lifeCycleState` parameter of the `Stream` object changes to `DELETING` and the stream becomes inaccessible for read or write operations.
+    # The `lifecycleState` parameter of the `Stream` object changes to `DELETING` and the stream becomes inaccessible for read or write operations.
     # To verify that a stream has been deleted, make a {#get_stream get_stream} request. If the call returns the stream's
     # lifecycle state as `DELETED`, then the stream has been deleted. If the call returns a \"404 Not Found\" error, that means all records of the
     # stream have been deleted.

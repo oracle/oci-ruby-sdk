@@ -112,6 +112,348 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Change the compartment of a boot volume backup
+    #
+    # @param [String] boot_volume_backup_id The OCID of the boot volume backup.
+    # @param [OCI::Core::Models::ChangeBootVolumeBackupCompartmentDetails] change_boot_volume_backup_compartment_details Request to change the compartment of given boot volume backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_boot_volume_backup_compartment(boot_volume_backup_id, change_boot_volume_backup_compartment_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#change_boot_volume_backup_compartment.' if logger
+
+      raise "Missing the required parameter 'boot_volume_backup_id' when calling change_boot_volume_backup_compartment." if boot_volume_backup_id.nil?
+      raise "Missing the required parameter 'change_boot_volume_backup_compartment_details' when calling change_boot_volume_backup_compartment." if change_boot_volume_backup_compartment_details.nil?
+      raise "Parameter value for 'boot_volume_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(boot_volume_backup_id)
+
+      path = '/bootVolumeBackups/{bootVolumeBackupId}/actions/changeCompartment'.sub('{bootVolumeBackupId}', boot_volume_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_boot_volume_backup_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#change_boot_volume_backup_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Change the compartment of a boot volume
+    #
+    # @param [String] boot_volume_id The OCID of the boot volume.
+    # @param [OCI::Core::Models::ChangeBootVolumeCompartmentDetails] change_boot_volume_compartment_details Request to change the compartment of given boot volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_boot_volume_compartment(boot_volume_id, change_boot_volume_compartment_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#change_boot_volume_compartment.' if logger
+
+      raise "Missing the required parameter 'boot_volume_id' when calling change_boot_volume_compartment." if boot_volume_id.nil?
+      raise "Missing the required parameter 'change_boot_volume_compartment_details' when calling change_boot_volume_compartment." if change_boot_volume_compartment_details.nil?
+      raise "Parameter value for 'boot_volume_id' must not be blank" if OCI::Internal::Util.blank_string?(boot_volume_id)
+
+      path = '/bootVolumes/{bootVolumeId}/actions/changeCompartment'.sub('{bootVolumeId}', boot_volume_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_boot_volume_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#change_boot_volume_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Change the compartment of a volume backup
+    #
+    # @param [String] volume_backup_id The OCID of the volume backup.
+    # @param [OCI::Core::Models::ChangeVolumeBackupCompartmentDetails] change_volume_backup_compartment_details Request to change the compartment of given volume backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_volume_backup_compartment(volume_backup_id, change_volume_backup_compartment_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#change_volume_backup_compartment.' if logger
+
+      raise "Missing the required parameter 'volume_backup_id' when calling change_volume_backup_compartment." if volume_backup_id.nil?
+      raise "Missing the required parameter 'change_volume_backup_compartment_details' when calling change_volume_backup_compartment." if change_volume_backup_compartment_details.nil?
+      raise "Parameter value for 'volume_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_backup_id)
+
+      path = '/volumeBackups/{volumeBackupId}/actions/changeCompartment'.sub('{volumeBackupId}', volume_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_volume_backup_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#change_volume_backup_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Change the compartment of a volume
+    #
+    # @param [String] volume_id The OCID of the volume.
+    # @param [OCI::Core::Models::ChangeVolumeCompartmentDetails] change_volume_compartment_details Request to change the compartment of given volume.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_volume_compartment(volume_id, change_volume_compartment_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#change_volume_compartment.' if logger
+
+      raise "Missing the required parameter 'volume_id' when calling change_volume_compartment." if volume_id.nil?
+      raise "Missing the required parameter 'change_volume_compartment_details' when calling change_volume_compartment." if change_volume_compartment_details.nil?
+      raise "Parameter value for 'volume_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_id)
+
+      path = '/volumes/{volumeId}/actions/changeCompartment'.sub('{volumeId}', volume_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_volume_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#change_volume_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Change the compartment of a volume group backup
+    #
+    # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
+    # @param [OCI::Core::Models::ChangeVolumeGroupBackupCompartmentDetails] change_volume_group_backup_compartment_details Request to change the compartment of given volume group backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_volume_group_backup_compartment(volume_group_backup_id, change_volume_group_backup_compartment_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#change_volume_group_backup_compartment.' if logger
+
+      raise "Missing the required parameter 'volume_group_backup_id' when calling change_volume_group_backup_compartment." if volume_group_backup_id.nil?
+      raise "Missing the required parameter 'change_volume_group_backup_compartment_details' when calling change_volume_group_backup_compartment." if change_volume_group_backup_compartment_details.nil?
+      raise "Parameter value for 'volume_group_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_backup_id)
+
+      path = '/volumeGroupBackups/{volumeGroupBackupId}/actions/changeCompartment'.sub('{volumeGroupBackupId}', volume_group_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_volume_group_backup_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#change_volume_group_backup_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Change the compartment of a volume group
+    #
+    # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
+    # @param [OCI::Core::Models::ChangeVolumeGroupCompartmentDetails] change_volume_group_compartment_details Request to change the compartment of given volume group.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_volume_group_compartment(volume_group_id, change_volume_group_compartment_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#change_volume_group_compartment.' if logger
+
+      raise "Missing the required parameter 'volume_group_id' when calling change_volume_group_compartment." if volume_group_id.nil?
+      raise "Missing the required parameter 'change_volume_group_compartment_details' when calling change_volume_group_compartment." if change_volume_group_compartment_details.nil?
+      raise "Parameter value for 'volume_group_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_id)
+
+      path = '/volumeGroups/{volumeGroupId}/actions/changeCompartment'.sub('{volumeGroupId}', volume_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_volume_group_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#change_volume_group_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a volume backup copy in specified region. For general information about volume backups,
     # see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumebackups.htm)
     #
