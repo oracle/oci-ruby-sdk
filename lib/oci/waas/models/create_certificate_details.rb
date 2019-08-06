@@ -28,11 +28,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_trust_verification_disabled
 
-    # A simple key-value pair without any defined schema.
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # A key-value pair with a defined schema that restricts the values of tags. These predefined keys are scoped to namespaces.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example:
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 

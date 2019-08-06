@@ -5,7 +5,8 @@ require_relative 'create_db_home_with_db_system_id_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # CreateDbHomeWithDbSystemIdFromBackupDetails model.
+  # Note that a valid `dbSystemId` value must be supplied for the `CreateDbHomeWithDbSystemIdFromBackup` API operation to successfully complete.
+  #
   class Database::Models::CreateDbHomeWithDbSystemIdFromBackupDetails < Database::Models::CreateDbHomeWithDbSystemIdBase
     # This attribute is required.
     # @return [OCI::Database::Models::CreateDatabaseFromBackupDetails]

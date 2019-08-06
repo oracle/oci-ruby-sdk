@@ -68,15 +68,12 @@ module OCI
     # @return [String]
     attr_accessor :backup_subnet_id
 
-    # The list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with this DB system.
-    # A maximum of 5 allowed.
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
 
-    # The list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with the backup network of this DB system.
-    # Applicable only to Exadata DB systems.
-    # A maximum of 5 allowed.
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata DB systems.
     #
     # @return [Array<String>]
     attr_accessor :backup_network_nsg_ids
@@ -125,6 +122,7 @@ module OCI
     #
     # - BM.DenseIO1.36 - Specify a multiple of 2, from 2 to 36.
     # - BM.DenseIO2.52 - Specify a multiple of 2, from 2 to 52.
+    # - Exadata.Base.48 - Specify a multiple of 2, from 0 to 48.
     # - Exadata.Quarter1.84 - Specify a multiple of 2, from 22 to 84.
     # - Exadata.Half1.168 - Specify a multiple of 4, from 44 to 168.
     # - Exadata.Full1.336 - Specify a multiple of 8, from 88 to 336.

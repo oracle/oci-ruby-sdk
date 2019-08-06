@@ -86,6 +86,14 @@ module OCI
     # @return [String]
     attr_accessor :image_id
 
+    # The OCID of the KMS key which is the master encryption key for the boot volume backup.
+    # For more information about the Key Management service and encryption keys, see
+    # [Overview of Key Management](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm) and
+    # [Using Keys](https://docs.cloud.oracle.com/Content/KeyManagement/Tasks/usingkeys.htm).
+    #
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # **[Required]** The current state of a boot volume backup.
     # @return [String]
     attr_reader :lifecycle_state
@@ -132,6 +140,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'image_id': :'imageId',
+        'kms_key_id': :'kmsKeyId',
         'lifecycle_state': :'lifecycleState',
         'size_in_gbs': :'sizeInGBs',
         'source_type': :'sourceType',
@@ -155,6 +164,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'image_id': :'String',
+        'kms_key_id': :'String',
         'lifecycle_state': :'String',
         'size_in_gbs': :'Integer',
         'source_type': :'String',
@@ -180,6 +190,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [String] :source_type The value to assign to the {#source_type} property
@@ -236,6 +247,12 @@ module OCI
       raise 'You cannot provide both :imageId and :image_id' if attributes.key?(:'imageId') && attributes.key?(:'image_id')
 
       self.image_id = attributes[:'image_id'] if attributes[:'image_id']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -334,6 +351,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         image_id == other.image_id &&
+        kms_key_id == other.kms_key_id &&
         lifecycle_state == other.lifecycle_state &&
         size_in_gbs == other.size_in_gbs &&
         source_type == other.source_type &&
@@ -356,7 +374,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [boot_volume_id, compartment_id, defined_tags, display_name, expiration_time, freeform_tags, id, image_id, lifecycle_state, size_in_gbs, source_type, time_created, time_request_received, type, unique_size_in_gbs].hash
+      [boot_volume_id, compartment_id, defined_tags, display_name, expiration_time, freeform_tags, id, image_id, kms_key_id, lifecycle_state, size_in_gbs, source_type, time_created, time_request_received, type, unique_size_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

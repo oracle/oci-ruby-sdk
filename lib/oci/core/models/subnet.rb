@@ -94,6 +94,31 @@ module OCI
     # @return [String]
     attr_accessor :id
 
+    # For an IPv6-enabled subnet, this is the IPv6 CIDR block for the subnet's private IP address
+    # space. The subnet size is always /64.
+    #
+    # Example: `2001:0db8:0123:1111::/64`
+    #
+    # @return [String]
+    attr_accessor :ipv6_cidr_block
+
+    # For an IPv6-enabled subnet, this is the IPv6 CIDR block for the subnet's public IP address
+    # space. The subnet size is always /64. The left 48 bits are inherited from the
+    # `ipv6PublicCidrBlock` of the {Vcn},
+    # and the remaining 16 bits are from the subnet's `ipv6CidrBlock`.
+    #
+    # Example: `2001:0db8:0123:1111::/64`
+    #
+    # @return [String]
+    attr_accessor :ipv6_public_cidr_block
+
+    # For an IPv6-enabled subnet, this is the IPv6 address of the virtual router.
+    #
+    # Example: `2001:0db8:0123:1111:89ab:cdef:1234:5678`
+    #
+    # @return [String]
+    attr_accessor :ipv6_virtual_router_ip
+
     # **[Required]** The subnet's current state.
     # @return [String]
     attr_reader :lifecycle_state
@@ -173,6 +198,9 @@ module OCI
         'dns_label': :'dnsLabel',
         'freeform_tags': :'freeformTags',
         'id': :'id',
+        'ipv6_cidr_block': :'ipv6CidrBlock',
+        'ipv6_public_cidr_block': :'ipv6PublicCidrBlock',
+        'ipv6_virtual_router_ip': :'ipv6VirtualRouterIp',
         'lifecycle_state': :'lifecycleState',
         'prohibit_public_ip_on_vnic': :'prohibitPublicIpOnVnic',
         'route_table_id': :'routeTableId',
@@ -199,6 +227,9 @@ module OCI
         'dns_label': :'String',
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
+        'ipv6_cidr_block': :'String',
+        'ipv6_public_cidr_block': :'String',
+        'ipv6_virtual_router_ip': :'String',
         'lifecycle_state': :'String',
         'prohibit_public_ip_on_vnic': :'BOOLEAN',
         'route_table_id': :'String',
@@ -227,6 +258,9 @@ module OCI
     # @option attributes [String] :dns_label The value to assign to the {#dns_label} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
+    # @option attributes [String] :ipv6_public_cidr_block The value to assign to the {#ipv6_public_cidr_block} property
+    # @option attributes [String] :ipv6_virtual_router_ip The value to assign to the {#ipv6_virtual_router_ip} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [BOOLEAN] :prohibit_public_ip_on_vnic The value to assign to the {#prohibit_public_ip_on_vnic} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
@@ -291,6 +325,24 @@ module OCI
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.id = attributes[:'id'] if attributes[:'id']
+
+      self.ipv6_cidr_block = attributes[:'ipv6CidrBlock'] if attributes[:'ipv6CidrBlock']
+
+      raise 'You cannot provide both :ipv6CidrBlock and :ipv6_cidr_block' if attributes.key?(:'ipv6CidrBlock') && attributes.key?(:'ipv6_cidr_block')
+
+      self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
+
+      self.ipv6_public_cidr_block = attributes[:'ipv6PublicCidrBlock'] if attributes[:'ipv6PublicCidrBlock']
+
+      raise 'You cannot provide both :ipv6PublicCidrBlock and :ipv6_public_cidr_block' if attributes.key?(:'ipv6PublicCidrBlock') && attributes.key?(:'ipv6_public_cidr_block')
+
+      self.ipv6_public_cidr_block = attributes[:'ipv6_public_cidr_block'] if attributes[:'ipv6_public_cidr_block']
+
+      self.ipv6_virtual_router_ip = attributes[:'ipv6VirtualRouterIp'] if attributes[:'ipv6VirtualRouterIp']
+
+      raise 'You cannot provide both :ipv6VirtualRouterIp and :ipv6_virtual_router_ip' if attributes.key?(:'ipv6VirtualRouterIp') && attributes.key?(:'ipv6_virtual_router_ip')
+
+      self.ipv6_virtual_router_ip = attributes[:'ipv6_virtual_router_ip'] if attributes[:'ipv6_virtual_router_ip']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -380,6 +432,9 @@ module OCI
         dns_label == other.dns_label &&
         freeform_tags == other.freeform_tags &&
         id == other.id &&
+        ipv6_cidr_block == other.ipv6_cidr_block &&
+        ipv6_public_cidr_block == other.ipv6_public_cidr_block &&
+        ipv6_virtual_router_ip == other.ipv6_virtual_router_ip &&
         lifecycle_state == other.lifecycle_state &&
         prohibit_public_ip_on_vnic == other.prohibit_public_ip_on_vnic &&
         route_table_id == other.route_table_id &&
@@ -404,7 +459,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, id, lifecycle_state, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, subnet_domain_name, time_created, vcn_id, virtual_router_ip, virtual_router_mac].hash
+      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, id, ipv6_cidr_block, ipv6_public_cidr_block, ipv6_virtual_router_ip, lifecycle_state, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, subnet_domain_name, time_created, vcn_id, virtual_router_ip, virtual_router_mac].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,35 +6,35 @@ require 'date'
 module OCI
   # The Web Application Firewall configuration for the WAAS policy creation.
   class Waas::Models::WafConfigDetails
-    # The access rules applied to the Web Application Firewall. Used for defining custom access policies with the combination of `ALLOW`, `DETECT`, and `BLOCK` rules, based on different criteria.
+    # The access rules applied to the Web Application Firewall. Access rules allow custom content access policies to be defined and `ALLOW`, `DETECT`, or `BLOCK` actions to be taken on a request when specified criteria are met.
     # @return [Array<OCI::Waas::Models::AccessRule>]
     attr_accessor :access_rules
 
-    # The IP address rate limiting settings used to limit the number of requests from an address.
+    # The settings used to limit the number of requests from an IP address.
     # @return [OCI::Waas::Models::AddressRateLimiting]
     attr_accessor :address_rate_limiting
 
-    # A list of CAPTCHA challenge settings. These are used to challenge requests with a CAPTCHA to block bots.
+    # A list of CAPTCHA challenge settings. CAPTCHAs challenge requests to ensure a human is attempting to reach the specified URL and not a bot.
     # @return [Array<OCI::Waas::Models::Captcha>]
     attr_accessor :captchas
 
-    # The device fingerprint challenge settings. Used to detect unique devices based on the device fingerprint information collected in order to block bots.
+    # The device fingerprint challenge settings. Blocks bots based on unique device fingerprint information.
     # @return [OCI::Waas::Models::DeviceFingerprintChallenge]
     attr_accessor :device_fingerprint_challenge
 
-    # The human interaction challenge settings. Used to look for natural human interactions such as mouse movements, time on site, and page scrolling to identify bots.
+    # The human interaction challenge settings. Detects natural human interactions such as mouse movements, time on site, and page scrolling to identify bots.
     # @return [OCI::Waas::Models::HumanInteractionChallenge]
     attr_accessor :human_interaction_challenge
 
-    # The JavaScript challenge settings. Used to challenge requests with a JavaScript challenge and take the action if a browser has no JavaScript support in order to block bots.
+    # The JavaScript challenge settings. Blocks bots by challenging requests from browsers that have no JavaScript support.
     # @return [OCI::Waas::Models::JsChallenge]
     attr_accessor :js_challenge
 
-    # The key in the map of origins referencing the origin used for the Web Application Firewall. The origin must already be included in `Origins`. Required when creating the `WafConfig` resource, but not on update.
+    # The key in the map of origins referencing the origin used for the Web Application Firewall. The origin must already be included in `Origins`. Required when creating the `WafConfig` resource, but is not required upon updating the configuration.
     # @return [String]
     attr_accessor :origin
 
-    # The settings to apply to protection rules.
+    # The settings applied to protection rules.
     # @return [OCI::Waas::Models::ProtectionSettings]
     attr_accessor :protection_settings
 

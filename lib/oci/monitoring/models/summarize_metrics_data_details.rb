@@ -19,6 +19,9 @@ module OCI
     # aggregate. The query must specify a metric, statistic, and interval. Supported values for
     # interval: `1m`-`60m` (also `1h`). You can optionally specify dimensions and grouping functions.
     # Supported grouping functions: `grouping()`, `groupBy()`.
+    #
+    # Construct your query to avoid exceeding limits on returned data. See {MetricData}.
+    #
     # For details about Monitoring Query Language (MQL), see
     # [Monitoring Query Language (MQL) Reference](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Reference/mql.htm).
     # For available dimensions, review the metric definition for the supported service.

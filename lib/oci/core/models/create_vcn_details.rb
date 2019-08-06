@@ -17,6 +17,30 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # If you enable IPv6 for the VCN (see `isIpv6Enabled`), you may optionally provide an IPv6
+    # /48 CIDR block from the supported ranges (see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+    # The addresses in this block will be considered private and cannot be accessed
+    # from the internet. The documentation refers to this as a *custom CIDR* for the VCN.
+    #
+    # If you don't provide a custom CIDR for the VCN, Oracle assigns the VCN's IPv6 /48 CIDR block.
+    #
+    # Regardless of whether you or Oracle assigns the `ipv6CidrBlock`,
+    # Oracle *also* assigns the VCN an IPv6 CIDR block for the VCN's public IP address space
+    # (see the `ipv6PublicCidrBlock` of the {Vcn} object). If you do
+    # not assign a custom CIDR, Oracle uses the *same* Oracle-assigned CIDR for both the private
+    # IP address space (`ipv6CidrBlock` in the `Vcn` object) and the public IP addreses space
+    # (`ipv6PublicCidrBlock` in the `Vcn` object). This means that a given VNIC might use the same
+    # IPv6 IP address for both private and public (internet) communication. You control whether
+    # an IPv6 address can be used for internet communication by using the `isInternetAccessAllowed`
+    # attribute in the {Ipv6} object.
+    #
+    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+    #
+    # Example: `2001:0db8:0123::/48`
+    #
+    # @return [String]
+    attr_accessor :ipv6_cidr_block
+
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -56,16 +80,26 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # Whether IPv6 is enabled for the VCN. Default is `false`. You cannot change this later.
+    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+    #
+    # Example: `true`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_ipv6_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'cidrBlock',
         'compartment_id': :'compartmentId',
+        'ipv6_cidr_block': :'ipv6CidrBlock',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'dns_label': :'dnsLabel',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'is_ipv6_enabled': :'isIpv6Enabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -76,10 +110,12 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'String',
         'compartment_id': :'String',
+        'ipv6_cidr_block': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'dns_label': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'is_ipv6_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -92,10 +128,12 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :dns_label The value to assign to the {#dns_label} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [BOOLEAN] :is_ipv6_enabled The value to assign to the {#is_ipv6_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -113,6 +151,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.ipv6_cidr_block = attributes[:'ipv6CidrBlock'] if attributes[:'ipv6CidrBlock']
+
+      raise 'You cannot provide both :ipv6CidrBlock and :ipv6_cidr_block' if attributes.key?(:'ipv6CidrBlock') && attributes.key?(:'ipv6_cidr_block')
+
+      self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -137,6 +181,12 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.is_ipv6_enabled = attributes[:'isIpv6Enabled'] unless attributes[:'isIpv6Enabled'].nil?
+
+      raise 'You cannot provide both :isIpv6Enabled and :is_ipv6_enabled' if attributes.key?(:'isIpv6Enabled') && attributes.key?(:'is_ipv6_enabled')
+
+      self.is_ipv6_enabled = attributes[:'is_ipv6_enabled'] unless attributes[:'is_ipv6_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -152,10 +202,12 @@ module OCI
       self.class == other.class &&
         cidr_block == other.cidr_block &&
         compartment_id == other.compartment_id &&
+        ipv6_cidr_block == other.ipv6_cidr_block &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         dns_label == other.dns_label &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        is_ipv6_enabled == other.is_ipv6_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -171,7 +223,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, compartment_id, defined_tags, display_name, dns_label, freeform_tags].hash
+      [cidr_block, compartment_id, ipv6_cidr_block, defined_tags, display_name, dns_label, freeform_tags, is_ipv6_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

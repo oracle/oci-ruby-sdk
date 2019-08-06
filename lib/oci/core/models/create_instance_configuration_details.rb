@@ -1,38 +1,13 @@
 # Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
+require_relative 'create_instance_configuration_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An instance configuration that can be used to launch
+  # Create an instance configuration from API input.
   #
-  class Core::Models::CreateInstanceConfigurationDetails
-    # **[Required]** The OCID of the compartment containing the instance configuration.
-    #
-    # @return [String]
-    attr_accessor :compartment_id
-
-    # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
-
-    # A user-friendly name for the instance configuration
-    #
-    # @return [String]
-    attr_accessor :display_name
-
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
+  class Core::Models::CreateInstanceConfigurationDetails < Core::Models::CreateInstanceConfigurationBase
     # This attribute is required.
     # @return [OCI::Core::Models::InstanceConfigurationInstanceDetails]
     attr_accessor :instance_details
@@ -45,6 +20,7 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
+        'source': :'source',
         'instance_details': :'instanceDetails'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -58,6 +34,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
+        'source': :'String',
         'instance_details': :'OCI::Core::Models::InstanceConfigurationInstanceDetails'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -69,40 +46,20 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :compartment_id The value to assign to the {OCI::Core::Models::CreateInstanceConfigurationBase#compartment_id #compartment_id} proprety
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Core::Models::CreateInstanceConfigurationBase#defined_tags #defined_tags} proprety
+    # @option attributes [String] :display_name The value to assign to the {OCI::Core::Models::CreateInstanceConfigurationBase#display_name #display_name} proprety
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Core::Models::CreateInstanceConfigurationBase#freeform_tags #freeform_tags} proprety
     # @option attributes [OCI::Core::Models::InstanceConfigurationInstanceDetails] :instance_details The value to assign to the {#instance_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
+      attributes['source'] = 'NONE'
+
+      super(attributes)
+
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
-
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
-
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
-
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
-
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
-
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
-
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
-
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
-
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
-
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.instance_details = attributes[:'instanceDetails'] if attributes[:'instanceDetails']
 
@@ -126,6 +83,7 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
+        source == other.source &&
         instance_details == other.instance_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -142,7 +100,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, instance_details].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, source, instance_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

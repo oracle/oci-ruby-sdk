@@ -7,7 +7,7 @@ module OCI
   # The configuration details for creating the topic.
   #
   class Ons::Models::CreateTopicDetails
-    # **[Required]** The name of the topic being created. Avoid entering confidential information.
+    # **[Required]** The name of the topic being created. The topic name must be unique across the tenancy. Avoid entering confidential information.
     # @return [String]
     attr_accessor :name
 

@@ -7,6 +7,19 @@ module OCI
   # The set of aggregated data returned for a metric.
   # For information about metrics, see [Metrics Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
   #
+  # Limits information for returned data follows.
+  #
+  # * Data points: 100,000.
+  # * Metric streams* within data points: 2,000.
+  # * Time range returned for 1-hour resolution: 90 days.
+  # * Time range returned for 5-minute resolution: 30 days.
+  # * Time range returned for any other resolution: 7 days.
+  #
+  # *A metric stream is an individual set of aggregated data for a metric, typically specific to a single resource.
+  # Metric streams cannot be aggregated across metric groups.
+  # A metric group is the combination of a given metric, metric namespace, and tenancy for the purpose of determining limits.
+  # For more information about metric-related concepts, see [Monitoring Concepts](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#concepts).
+  #
   class Monitoring::Models::MetricData
     # **[Required]** The reference provided in a metric definition to indicate the source service or
     # application that emitted the metric.
@@ -56,6 +69,7 @@ module OCI
     attr_accessor :resolution
 
     # **[Required]** The list of timestamp-value pairs returned for the specified request. Metric values are rolled up to the start time specified in the request.
+    # For important limits information related to data points, see MetricData Reference at the top of this page.
     #
     # @return [Array<OCI::Monitoring::Models::AggregatedDatapoint>]
     attr_accessor :aggregated_datapoints

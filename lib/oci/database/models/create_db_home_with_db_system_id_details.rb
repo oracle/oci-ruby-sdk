@@ -5,7 +5,8 @@ require_relative 'create_db_home_with_db_system_id_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # CreateDbHomeWithDbSystemIdDetails model.
+  # Note that a valid `dbSystemId` value must be supplied for the `CreateDbHomeWithDbSystemId` API operation to successfully complete.
+  #
   class Database::Models::CreateDbHomeWithDbSystemIdDetails < Database::Models::CreateDbHomeWithDbSystemIdBase
     # **[Required]** A valid Oracle Database version. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
     # @return [String]

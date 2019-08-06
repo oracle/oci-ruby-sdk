@@ -95,7 +95,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :DnsClient) + '/20180115'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://dns.{region}.{secondLevelDomain}') + '/20180115'
       logger.info "DnsClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -103,6 +103,143 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a steering policy into a different compartment. When provided, If-Match is checked against ETag values of the resource.
+    # @param [String] steering_policy_id The OCID of the target steering policy.
+    # @param [OCI::Dns::Models::ChangeSteeringPolicyCompartmentDetails] change_steering_policy_compartment_details Details for moving a steering policy into a different compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_steering_policy_compartment(steering_policy_id, change_steering_policy_compartment_details, opts = {})
+      logger.debug 'Calling operation DnsClient#change_steering_policy_compartment.' if logger
+
+      raise "Missing the required parameter 'steering_policy_id' when calling change_steering_policy_compartment." if steering_policy_id.nil?
+      raise "Missing the required parameter 'change_steering_policy_compartment_details' when calling change_steering_policy_compartment." if change_steering_policy_compartment_details.nil?
+      raise "Parameter value for 'steering_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(steering_policy_id)
+
+      path = '/steeringPolicies/{steeringPolicyId}/actions/changeCompartment'.sub('{steeringPolicyId}', steering_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_steering_policy_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#change_steering_policy_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource.
+    # **Note:** All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
+    # @param [String] zone_id The OCID of the target zone.
+    # @param [OCI::Dns::Models::ChangeZoneCompartmentDetails] change_zone_compartment_details Details for moving a zone into a different compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_zone_compartment(zone_id, change_zone_compartment_details, opts = {})
+      logger.debug 'Calling operation DnsClient#change_zone_compartment.' if logger
+
+      raise "Missing the required parameter 'zone_id' when calling change_zone_compartment." if zone_id.nil?
+      raise "Missing the required parameter 'change_zone_compartment_details' when calling change_zone_compartment." if change_zone_compartment_details.nil?
+      raise "Parameter value for 'zone_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_id)
+
+      path = '/zones/{zoneId}/actions/changeCompartment'.sub('{zoneId}', zone_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_zone_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#change_zone_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists

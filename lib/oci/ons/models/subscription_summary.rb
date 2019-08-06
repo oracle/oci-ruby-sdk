@@ -32,15 +32,19 @@ module OCI
 
     # **[Required]** The endpoint of the subscription. Valid values depend on the protocol.
     # For EMAIL, only an email address is valid. For HTTPS, only a PagerDuty URL is valid. A URL cannot exceed 512 characters.
-    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :endpoint
 
-    # **[Required]** The lifecycle state of the subscription. Default value for a newly created subscription: PENDING.
+    # **[Required]** The lifecycle state of the subscription. The status of a new subscription is PENDING; when confirmed, the subscription status changes to ACTIVE.
     #
     # @return [String]
     attr_reader :lifecycle_state
+
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment for the subscription.
+    #
+    # @return [String]
+    attr_accessor :compartment_id
 
     # The time when this suscription was created.
     # @return [Integer]
@@ -77,6 +81,7 @@ module OCI
         'protocol': :'protocol',
         'endpoint': :'endpoint',
         'lifecycle_state': :'lifecycleState',
+        'compartment_id': :'compartmentId',
         'created_time': :'createdTime',
         'delivery_policy': :'deliveryPolicy',
         'etag': :'etag',
@@ -95,6 +100,7 @@ module OCI
         'protocol': :'String',
         'endpoint': :'String',
         'lifecycle_state': :'String',
+        'compartment_id': :'String',
         'created_time': :'Integer',
         'delivery_policy': :'OCI::Ons::Models::DeliveryPolicy',
         'etag': :'String',
@@ -115,6 +121,7 @@ module OCI
     # @option attributes [String] :protocol The value to assign to the {#protocol} property
     # @option attributes [String] :endpoint The value to assign to the {#endpoint} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Integer] :created_time The value to assign to the {#created_time} property
     # @option attributes [OCI::Ons::Models::DeliveryPolicy] :delivery_policy The value to assign to the {#delivery_policy} property
     # @option attributes [String] :etag The value to assign to the {#etag} property
@@ -139,10 +146,18 @@ module OCI
       self.endpoint = attributes[:'endpoint'] if attributes[:'endpoint']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+      self.lifecycle_state = "PENDING" if lifecycle_state.nil? && !attributes.key?(:'lifecycleState') # rubocop:disable Style/StringLiterals
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+      self.lifecycle_state = "PENDING" if lifecycle_state.nil? && !attributes.key?(:'lifecycleState') && !attributes.key?(:'lifecycle_state') # rubocop:disable Style/StringLiterals
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.created_time = attributes[:'createdTime'] if attributes[:'createdTime']
 
@@ -200,6 +215,7 @@ module OCI
         protocol == other.protocol &&
         endpoint == other.endpoint &&
         lifecycle_state == other.lifecycle_state &&
+        compartment_id == other.compartment_id &&
         created_time == other.created_time &&
         delivery_policy == other.delivery_policy &&
         etag == other.etag &&
@@ -220,7 +236,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, topic_id, protocol, endpoint, lifecycle_state, created_time, delivery_policy, etag, freeform_tags, defined_tags].hash
+      [id, topic_id, protocol, endpoint, lifecycle_state, compartment_id, created_time, delivery_policy, etag, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

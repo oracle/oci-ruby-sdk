@@ -5,8 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use the Notification API to broadcast messages to distributed components by topic, using a publish-subscribe pattern.
-  # For information about managing topics, subscriptions, and messages, see [Notification Overview](/iaas/Content/Notification/Concepts/notificationoverview.htm).
+  # Use the Notifications API to broadcast messages to distributed components by topic, using a publish-subscribe pattern.
+  # For information about managing topics, subscriptions, and messages, see [Notifications Overview](/iaas/Content/Notification/Concepts/notificationoverview.htm).
   class Ons::NotificationControlPlaneClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -95,7 +95,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :NotificationControlPlaneClient) + '/20181201'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://notification.{region}.oraclecloud.com') + '/20181201'
       logger.info "NotificationControlPlaneClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -103,6 +103,81 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a topic into a different compartment within the same tenancy. For information about moving resources
+    # between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+    #
+    # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to move.
+    #
+    # @param [OCI::Ons::Models::ChangeCompartmentDetails] change_topic_compartment_details The configuration details for the move operation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before that due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_topic_compartment(topic_id, change_topic_compartment_details, opts = {})
+      logger.debug 'Calling operation NotificationControlPlaneClient#change_topic_compartment.' if logger
+
+      raise "Missing the required parameter 'topic_id' when calling change_topic_compartment." if topic_id.nil?
+      raise "Missing the required parameter 'change_topic_compartment_details' when calling change_topic_compartment." if change_topic_compartment_details.nil?
+      raise "Parameter value for 'topic_id' must not be blank" if OCI::Internal::Util.blank_string?(topic_id)
+
+      path = '/topics/{topicId}/actions/changeCompartment'.sub('{topicId}', topic_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_topic_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'NotificationControlPlaneClient#change_topic_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -120,7 +195,9 @@ module OCI
     # All Oracle Cloud Infrastructure resources, including topics, get an Oracle-assigned, unique ID called an
     # Oracle Cloud Identifier (OCID). When you create a resource, you can find its OCID in the response. You can also
     # retrieve a resource's OCID by using a List API operation on that resource type, or by viewing the resource in the
-    # Console. Fore more information, see [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # Console. For more information, see [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
     #
     # @param [OCI::Ons::Models::CreateTopicDetails] create_topic_details The topic to create.
     # @param [Hash] opts the optional parameters
@@ -185,6 +262,8 @@ module OCI
 
     # Deletes the specified topic.
     #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+    #
     # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to delete.
     #
     # @param [Hash] opts the optional parameters
@@ -248,6 +327,8 @@ module OCI
     #
     # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to retrieve.
     #
+    #   Transactions Per Minute (TPM) per-tenancy limit for this operation: 120.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -303,6 +384,8 @@ module OCI
 
     # Lists topics in the specified compartment.
     #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 120.
+    #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     #
     # @param [Hash] opts the optional parameters
@@ -312,14 +395,16 @@ module OCI
     #
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
-    # @option opts [String] :page For list pagination. The value of the opc-next-page response header from the previous \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The value of the opc-next-page response header from the previous \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to 10)
-    # @option opts [String] :sort_by The field to sort by. Only one field can be selected for sorting. Default value: TIMECREATED.
+    # @option opts [String] :sort_by The field to sort by. Only one field can be selected for sorting.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, LIFECYCLESTATE
-    # @option opts [String] :sort_order The sort order to use (ascending or descending). Default value: ASC.
+    # @option opts [String] :sort_order The sort order to use (ascending or descending).
     #    (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state Filter returned list by specified lifecycle state. This parameter is case-insensitive.
@@ -394,6 +479,8 @@ module OCI
 
 
     # Updates the specified topic's configuration.
+    #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
     #
     # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to update.
     #

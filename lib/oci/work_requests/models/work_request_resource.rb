@@ -5,7 +5,9 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A resource created or operated on by a work request.
+  # A resource that is created or operated on by an asynchronous operation that is tracked by
+  # a work request.
+  #
   class WorkRequests::Models::WorkRequestResource
     ACTION_TYPE_ENUM = [
       ACTION_TYPE_CREATED = 'CREATED'.freeze,
@@ -16,10 +18,8 @@ module OCI
       ACTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The way in which this resource is affected by the work tracked in the work request.
-    # A resource being created, updated, or deleted will remain in the IN_PROGRESS state until
-    # work is complete for that resource at which point it will transition to CREATED, UPDATED,
-    # or DELETED, respectively.
+    # **[Required]** The way in which this resource was affected by the operation that spawned the work
+    # request.
     #
     # @return [String]
     attr_reader :action_type
@@ -28,11 +28,13 @@ module OCI
     # @return [String]
     attr_accessor :entity_type
 
-    # **[Required]** An OCID or other unique identifier for the resource.
+    # **[Required]** An [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) or other unique identifier for the
+    # resource.
+    #
     # @return [String]
     attr_accessor :identifier
 
-    # The URI path used to access the resource metadata.
+    # The URI path that you can use for a GET request to access the resource metadata.
     # @return [String]
     attr_accessor :entity_uri
 

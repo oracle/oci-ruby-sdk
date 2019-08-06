@@ -20,21 +20,34 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The subscription protocol. Valid values: EMAIL, HTTPS.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated topic.
     #
+    # @return [String]
+    attr_accessor :topic_id
+
     # @return [String]
     attr_accessor :protocol
 
     # **[Required]** The endpoint of the subscription. Valid values depend on the protocol.
     # For EMAIL, only an email address is valid. For HTTPS, only a PagerDuty URL is valid. A URL cannot exceed 512 characters.
-    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :endpoint
 
-    # **[Required]** The lifecycle state of the subscription.
+    # **[Required]** The lifecycle state of the subscription. The status of a new subscription is PENDING; when confirmed, the subscription status changes to ACTIVE.
+    #
     # @return [String]
     attr_reader :lifecycle_state
+
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment for the subscription.
+    #
+    # @return [String]
+    attr_accessor :compartment_id
+
+    # The time when this suscription was created.
+    #
+    # @return [Integer]
+    attr_accessor :created_time
 
     # The delivery policy of the subscription. Stored as a JSON string.
     # @return [String]
@@ -64,9 +77,12 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
+        'topic_id': :'topicId',
         'protocol': :'protocol',
         'endpoint': :'endpoint',
         'lifecycle_state': :'lifecycleState',
+        'compartment_id': :'compartmentId',
+        'created_time': :'createdTime',
         'deliver_policy': :'deliverPolicy',
         'etag': :'etag',
         'freeform_tags': :'freeformTags',
@@ -80,9 +96,12 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
+        'topic_id': :'String',
         'protocol': :'String',
         'endpoint': :'String',
         'lifecycle_state': :'String',
+        'compartment_id': :'String',
+        'created_time': :'Integer',
         'deliver_policy': :'String',
         'etag': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -98,9 +117,12 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :topic_id The value to assign to the {#topic_id} property
     # @option attributes [String] :protocol The value to assign to the {#protocol} property
     # @option attributes [String] :endpoint The value to assign to the {#endpoint} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Integer] :created_time The value to assign to the {#created_time} property
     # @option attributes [String] :deliver_policy The value to assign to the {#deliver_policy} property
     # @option attributes [String] :etag The value to assign to the {#etag} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -113,6 +135,12 @@ module OCI
 
       self.id = attributes[:'id'] if attributes[:'id']
 
+      self.topic_id = attributes[:'topicId'] if attributes[:'topicId']
+
+      raise 'You cannot provide both :topicId and :topic_id' if attributes.key?(:'topicId') && attributes.key?(:'topic_id')
+
+      self.topic_id = attributes[:'topic_id'] if attributes[:'topic_id']
+
       self.protocol = attributes[:'protocol'] if attributes[:'protocol']
 
       self.endpoint = attributes[:'endpoint'] if attributes[:'endpoint']
@@ -124,6 +152,18 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
       self.lifecycle_state = "PENDING" if lifecycle_state.nil? && !attributes.key?(:'lifecycleState') && !attributes.key?(:'lifecycle_state') # rubocop:disable Style/StringLiterals
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.created_time = attributes[:'createdTime'] if attributes[:'createdTime']
+
+      raise 'You cannot provide both :createdTime and :created_time' if attributes.key?(:'createdTime') && attributes.key?(:'created_time')
+
+      self.created_time = attributes[:'created_time'] if attributes[:'created_time']
 
       self.deliver_policy = attributes[:'deliverPolicy'] if attributes[:'deliverPolicy']
 
@@ -171,9 +211,12 @@ module OCI
 
       self.class == other.class &&
         id == other.id &&
+        topic_id == other.topic_id &&
         protocol == other.protocol &&
         endpoint == other.endpoint &&
         lifecycle_state == other.lifecycle_state &&
+        compartment_id == other.compartment_id &&
+        created_time == other.created_time &&
         deliver_policy == other.deliver_policy &&
         etag == other.etag &&
         freeform_tags == other.freeform_tags &&
@@ -193,7 +236,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, protocol, endpoint, lifecycle_state, deliver_policy, etag, freeform_tags, defined_tags].hash
+      [id, topic_id, protocol, endpoint, lifecycle_state, compartment_id, created_time, deliver_policy, etag, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

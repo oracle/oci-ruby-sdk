@@ -112,7 +112,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change the compartment of a boot volume backup
+    # Moves a boot volume backup into a different compartment within the same tenancy.
+    # For information about moving resources between compartments,
+    # see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
     # @param [String] boot_volume_backup_id The OCID of the boot volume backup.
     # @param [OCI::Core::Models::ChangeBootVolumeBackupCompartmentDetails] change_boot_volume_backup_compartment_details Request to change the compartment of given boot volume backup.
@@ -169,7 +171,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change the compartment of a boot volume
+    # Moves a boot volume into a different compartment within the same tenancy.
+    # For information about moving resources between compartments,
+    # see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
     # @param [String] boot_volume_id The OCID of the boot volume.
     # @param [OCI::Core::Models::ChangeBootVolumeCompartmentDetails] change_boot_volume_compartment_details Request to change the compartment of given boot volume.
@@ -226,7 +230,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change the compartment of a volume backup
+    # Moves a volume backup into a different compartment within the same tenancy.
+    # For information about moving resources between compartments,
+    # see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
     # @param [String] volume_backup_id The OCID of the volume backup.
     # @param [OCI::Core::Models::ChangeVolumeBackupCompartmentDetails] change_volume_backup_compartment_details Request to change the compartment of given volume backup.
@@ -283,7 +289,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change the compartment of a volume
+    # Moves a volume into a different compartment within the same tenancy.
+    # For information about moving resources between compartments,
+    # see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
     # @param [String] volume_id The OCID of the volume.
     # @param [OCI::Core::Models::ChangeVolumeCompartmentDetails] change_volume_compartment_details Request to change the compartment of given volume.
@@ -340,7 +348,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change the compartment of a volume group backup
+    # Moves a volume group backup into a different compartment within the same tenancy.
+    # For information about moving resources between compartments,
+    # see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     # @param [OCI::Core::Models::ChangeVolumeGroupBackupCompartmentDetails] change_volume_group_backup_compartment_details Request to change the compartment of given volume group backup.
@@ -397,7 +407,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change the compartment of a volume group
+    # Moves a volume group into a different compartment within the same tenancy.
+    # For information about moving resources between compartments,
+    # see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
     # @param [String] volume_group_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group.
     # @param [OCI::Core::Models::ChangeVolumeGroupCompartmentDetails] change_volume_group_compartment_details Request to change the compartment of given volume group.

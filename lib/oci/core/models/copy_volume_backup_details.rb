@@ -19,12 +19,26 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # The OCID of the KMS key in the destination region which will be the master encryption key
+    # for the copied volume backup.
+    # If you do not specify this attribute the volume backup will be encrypted with the Oracle-provided encryption
+    # key when it is copied to the destination region.
+    #
+    #
+    # For more information about the Key Management service and encryption keys, see
+    # [Overview of Key Management](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm) and
+    # [Using Keys](https://docs.cloud.oracle.com/Content/KeyManagement/Tasks/usingkeys.htm).
+    #
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'destination_region': :'destinationRegion',
-        'display_name': :'displayName'
+        'display_name': :'displayName',
+        'kms_key_id': :'kmsKeyId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -34,7 +48,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'destination_region': :'String',
-        'display_name': :'String'
+        'display_name': :'String',
+        'kms_key_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,6 +62,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :destination_region The value to assign to the {#destination_region} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -64,6 +80,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -78,7 +100,8 @@ module OCI
 
       self.class == other.class &&
         destination_region == other.destination_region &&
-        display_name == other.display_name
+        display_name == other.display_name &&
+        kms_key_id == other.kms_key_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -94,7 +117,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [destination_region, display_name].hash
+      [destination_region, display_name, kms_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

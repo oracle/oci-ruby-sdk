@@ -8,6 +8,10 @@ module OCI
   # For more information on backend set configuration, see
   # [Managing Backend Sets](https://docs.cloud.oracle.com/Content/Balance/Tasks/managingbackendsets.htm).
   #
+  # **Note:** The `sessionPersistenceConfiguration` (application cookie stickiness) and `lbCookieSessionPersistenceConfiguration`
+  # (LB cookie stickiness) attributes are mutually exclusive. To avoid returning an error, configure only one of these two
+  # attributes per backend set.
+  #
   class LoadBalancer::Models::BackendSetDetails
     # **[Required]** The load balancer policy for the backend set. To get a list of available policies, use the
     # {#list_policies list_policies} operation.
@@ -30,6 +34,9 @@ module OCI
     # @return [OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails]
     attr_accessor :session_persistence_configuration
 
+    # @return [OCI::LoadBalancer::Models::LBCookieSessionPersistenceConfigurationDetails]
+    attr_accessor :lb_cookie_session_persistence_configuration
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -38,7 +45,8 @@ module OCI
         'backends': :'backends',
         'health_checker': :'healthChecker',
         'ssl_configuration': :'sslConfiguration',
-        'session_persistence_configuration': :'sessionPersistenceConfiguration'
+        'session_persistence_configuration': :'sessionPersistenceConfiguration',
+        'lb_cookie_session_persistence_configuration': :'lbCookieSessionPersistenceConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,7 +59,8 @@ module OCI
         'backends': :'Array<OCI::LoadBalancer::Models::BackendDetails>',
         'health_checker': :'OCI::LoadBalancer::Models::HealthCheckerDetails',
         'ssl_configuration': :'OCI::LoadBalancer::Models::SSLConfigurationDetails',
-        'session_persistence_configuration': :'OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails'
+        'session_persistence_configuration': :'OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails',
+        'lb_cookie_session_persistence_configuration': :'OCI::LoadBalancer::Models::LBCookieSessionPersistenceConfigurationDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -67,6 +76,7 @@ module OCI
     # @option attributes [OCI::LoadBalancer::Models::HealthCheckerDetails] :health_checker The value to assign to the {#health_checker} property
     # @option attributes [OCI::LoadBalancer::Models::SSLConfigurationDetails] :ssl_configuration The value to assign to the {#ssl_configuration} property
     # @option attributes [OCI::LoadBalancer::Models::SessionPersistenceConfigurationDetails] :session_persistence_configuration The value to assign to the {#session_persistence_configuration} property
+    # @option attributes [OCI::LoadBalancer::Models::LBCookieSessionPersistenceConfigurationDetails] :lb_cookie_session_persistence_configuration The value to assign to the {#lb_cookie_session_persistence_configuration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -94,6 +104,12 @@ module OCI
       raise 'You cannot provide both :sessionPersistenceConfiguration and :session_persistence_configuration' if attributes.key?(:'sessionPersistenceConfiguration') && attributes.key?(:'session_persistence_configuration')
 
       self.session_persistence_configuration = attributes[:'session_persistence_configuration'] if attributes[:'session_persistence_configuration']
+
+      self.lb_cookie_session_persistence_configuration = attributes[:'lbCookieSessionPersistenceConfiguration'] if attributes[:'lbCookieSessionPersistenceConfiguration']
+
+      raise 'You cannot provide both :lbCookieSessionPersistenceConfiguration and :lb_cookie_session_persistence_configuration' if attributes.key?(:'lbCookieSessionPersistenceConfiguration') && attributes.key?(:'lb_cookie_session_persistence_configuration')
+
+      self.lb_cookie_session_persistence_configuration = attributes[:'lb_cookie_session_persistence_configuration'] if attributes[:'lb_cookie_session_persistence_configuration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -111,7 +127,8 @@ module OCI
         backends == other.backends &&
         health_checker == other.health_checker &&
         ssl_configuration == other.ssl_configuration &&
-        session_persistence_configuration == other.session_persistence_configuration
+        session_persistence_configuration == other.session_persistence_configuration &&
+        lb_cookie_session_persistence_configuration == other.lb_cookie_session_persistence_configuration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -127,7 +144,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [policy, backends, health_checker, ssl_configuration, session_persistence_configuration].hash
+      [policy, backends, health_checker, ssl_configuration, session_persistence_configuration, lb_cookie_session_persistence_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

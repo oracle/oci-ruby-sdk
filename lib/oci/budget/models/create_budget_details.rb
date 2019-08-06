@@ -5,16 +5,30 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The create budget details.
+  #
+  # Client should use 'targetType' & 'targets' to specify the target type and list of targets on which the budget is applied.
+  #
+  # For backwards compatibility, 'targetCompartmentId' will still be supported for all existing clients.
+  # However, this is considered deprecreated and all clients be upgraded to use 'targetType' & 'targets'.
+  #
+  # Specifying both 'targetCompartmentId' and 'targets' will cause a Bad Request.
+  #
   class Budget::Models::CreateBudgetDetails
     RESET_PERIOD_ENUM = [
       RESET_PERIOD_MONTHLY = 'MONTHLY'.freeze
+    ].freeze
+
+    TARGET_TYPE_ENUM = [
+      TARGET_TYPE_COMPARTMENT = 'COMPARTMENT'.freeze,
+      TARGET_TYPE_TAG = 'TAG'.freeze
     ].freeze
 
     # **[Required]** The OCID of the compartment
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The OCID of the compartment on which budget is applied
+    # This is DEPRECTAED. Set the target compartment id in targets instead.
+    #
     # @return [String]
     attr_accessor :target_compartment_id
 
@@ -35,6 +49,19 @@ module OCI
     #
     # @return [String]
     attr_reader :reset_period
+
+    # The type of target on which the budget is applied.
+    #
+    # @return [String]
+    attr_reader :target_type
+
+    # The list of targets on which the budget is applied.
+    #   If targetType is \"COMPARTMENT\", targets contains list of compartment OCIDs.
+    #   If targetType is \"TAG\", targets contains list of tag identifiers in the form of \"{tagNamespace}.{tagKey}.{tagValue}\".
+    # Curerntly, the array should contain EXACT ONE item.
+    #
+    # @return [Array<String>]
+    attr_accessor :targets
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -62,6 +89,8 @@ module OCI
         'description': :'description',
         'amount': :'amount',
         'reset_period': :'resetPeriod',
+        'target_type': :'targetType',
+        'targets': :'targets',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -78,6 +107,8 @@ module OCI
         'description': :'String',
         'amount': :'Float',
         'reset_period': :'String',
+        'target_type': :'String',
+        'targets': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -96,6 +127,8 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Float] :amount The value to assign to the {#amount} property
     # @option attributes [String] :reset_period The value to assign to the {#reset_period} property
+    # @option attributes [String] :target_type The value to assign to the {#target_type} property
+    # @option attributes [Array<String>] :targets The value to assign to the {#targets} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -132,6 +165,16 @@ module OCI
 
       self.reset_period = attributes[:'reset_period'] if attributes[:'reset_period']
 
+      self.target_type = attributes[:'targetType'] if attributes[:'targetType']
+      self.target_type = "COMPARTMENT" if target_type.nil? && !attributes.key?(:'targetType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :targetType and :target_type' if attributes.key?(:'targetType') && attributes.key?(:'target_type')
+
+      self.target_type = attributes[:'target_type'] if attributes[:'target_type']
+      self.target_type = "COMPARTMENT" if target_type.nil? && !attributes.key?(:'targetType') && !attributes.key?(:'target_type') # rubocop:disable Style/StringLiterals
+
+      self.targets = attributes[:'targets'] if attributes[:'targets']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -155,6 +198,14 @@ module OCI
       @reset_period = reset_period
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] target_type Object to be assigned
+    def target_type=(target_type)
+      raise "Invalid value for 'target_type': this must be one of the values in TARGET_TYPE_ENUM." if target_type && !TARGET_TYPE_ENUM.include?(target_type)
+
+      @target_type = target_type
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -170,6 +221,8 @@ module OCI
         description == other.description &&
         amount == other.amount &&
         reset_period == other.reset_period &&
+        target_type == other.target_type &&
+        targets == other.targets &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -187,7 +240,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, target_compartment_id, display_name, description, amount, reset_period, freeform_tags, defined_tags].hash
+      [compartment_id, target_compartment_id, display_name, description, amount, reset_period, target_type, targets, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -96,7 +96,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :HealthChecksClient) + '/20180501'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://healthchecks.{region}.oci.{secondLevelDomain}') + '/20180501'
       logger.info "HealthChecksClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -104,6 +104,152 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a monitor into a different compartment. When provided, `If-Match` is checked
+    # against ETag values of the resource.
+    #
+    # @param [String] monitor_id The OCID of a monitor.
+    # @param [OCI::Healthchecks::Models::ChangeHttpMonitorCompartmentDetails] change_http_monitor_compartment_details The details needed to move the monitor.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource,
+    #   set the `if-match` parameter to the value of the etag from a previous GET
+    #   or POST response for that resource.  The resource will be updated or deleted
+    #   only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_http_monitor_compartment(monitor_id, change_http_monitor_compartment_details, opts = {})
+      logger.debug 'Calling operation HealthChecksClient#change_http_monitor_compartment.' if logger
+
+      raise "Missing the required parameter 'monitor_id' when calling change_http_monitor_compartment." if monitor_id.nil?
+      raise "Missing the required parameter 'change_http_monitor_compartment_details' when calling change_http_monitor_compartment." if change_http_monitor_compartment_details.nil?
+      raise "Parameter value for 'monitor_id' must not be blank" if OCI::Internal::Util.blank_string?(monitor_id)
+
+      path = '/httpMonitors/{monitorId}/actions/changeCompartment'.sub('{monitorId}', monitor_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_http_monitor_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'HealthChecksClient#change_http_monitor_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a monitor into a different compartment. When provided, `If-Match` is checked
+    # against ETag values of the resource.
+    #
+    # @param [String] monitor_id The OCID of a monitor.
+    # @param [OCI::Healthchecks::Models::ChangePingMonitorCompartmentDetails] change_ping_monitor_compartment_details The details needed to move the monitor.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource,
+    #   set the `if-match` parameter to the value of the etag from a previous GET
+    #   or POST response for that resource.  The resource will be updated or deleted
+    #   only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_ping_monitor_compartment(monitor_id, change_ping_monitor_compartment_details, opts = {})
+      logger.debug 'Calling operation HealthChecksClient#change_ping_monitor_compartment.' if logger
+
+      raise "Missing the required parameter 'monitor_id' when calling change_ping_monitor_compartment." if monitor_id.nil?
+      raise "Missing the required parameter 'change_ping_monitor_compartment_details' when calling change_ping_monitor_compartment." if change_ping_monitor_compartment_details.nil?
+      raise "Parameter value for 'monitor_id' must not be blank" if OCI::Internal::Util.blank_string?(monitor_id)
+
+      path = '/pingMonitors/{monitorId}/actions/changeCompartment'.sub('{monitorId}', monitor_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_ping_monitor_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'HealthChecksClient#change_ping_monitor_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists

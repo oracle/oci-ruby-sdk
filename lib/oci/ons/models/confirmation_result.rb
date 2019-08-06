@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The confirmation result.
+  # The confirmation details for the specified subscription.
   #
   class Ons::Models::ConfirmationResult
     # **[Required]** The name of the subscribed topic.
@@ -12,27 +12,26 @@ module OCI
     # @return [String]
     attr_accessor :topic_name
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to delete.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic associated with the specified subscription.
     #
     # @return [String]
     attr_accessor :topic_id
 
     # **[Required]** The endpoint of the subscription. Valid values depend on the protocol.
     # For EMAIL, only an email address is valid. For HTTPS, only a PagerDuty URL is valid. A URL cannot exceed 512 characters.
-    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :endpoint
 
-    # **[Required]** The URL user can use to unsubscribe the topic.
+    # **[Required]** The URL for unsubscribing from the topic.
     # @return [String]
     attr_accessor :unsubscribe_url
 
-    # **[Required]** Human readable text which tells the user if the confirmation succeeds.
+    # **[Required]** A human-readable string indicating the status of the subscription confirmation.
     # @return [String]
     attr_accessor :message
 
-    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription specified in the request.
     # @return [String]
     attr_accessor :subscription_id
 

@@ -40,7 +40,7 @@ module OCI
     #
     # Allowed values:
     #
-    #   * An IP address range in CIDR notation. For example: `192.168.1.0/24`
+    #   * An IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
     #
     #   * The `cidrBlock` value for a {Service}, if you're
     #     setting up a security rule for traffic destined for a particular `Service` through
@@ -124,7 +124,7 @@ module OCI
     #
     # Allowed values:
     #
-    #   * An IP address range in CIDR notation. For example: `192.168.1.0/24`
+    #   * An IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
     #
     #   * The `cidrBlock` value for a {Service}, if you're
     #     setting up a security rule for traffic coming from a particular `Service` through

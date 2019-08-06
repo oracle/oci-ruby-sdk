@@ -5,8 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use the Notification API to broadcast messages to distributed components by topic, using a publish-subscribe pattern.
-  # For information about managing topics, subscriptions, and messages, see [Notification Overview](/iaas/Content/Notification/Concepts/notificationoverview.htm).
+  # Use the Notifications API to broadcast messages to distributed components by topic, using a publish-subscribe pattern.
+  # For information about managing topics, subscriptions, and messages, see [Notifications Overview](/iaas/Content/Notification/Concepts/notificationoverview.htm).
   class Ons::NotificationDataPlaneClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -95,7 +95,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :NotificationDataPlaneClient) + '/20181201'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://notification.{region}.oraclecloud.com') + '/20181201'
       logger.info "NotificationDataPlaneClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -109,7 +109,84 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a subscription into a different compartment within the same tenancy. For information about moving
+    # resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+    #
+    # @param [String] subscription_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to move.
+    #
+    # @param [OCI::Ons::Models::ChangeCompartmentDetails] change_subscription_compartment_details The configuration details for the move operation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before that due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_subscription_compartment(subscription_id, change_subscription_compartment_details, opts = {})
+      logger.debug 'Calling operation NotificationDataPlaneClient#change_subscription_compartment.' if logger
+
+      raise "Missing the required parameter 'subscription_id' when calling change_subscription_compartment." if subscription_id.nil?
+      raise "Missing the required parameter 'change_subscription_compartment_details' when calling change_subscription_compartment." if change_subscription_compartment_details.nil?
+      raise "Parameter value for 'subscription_id' must not be blank" if OCI::Internal::Util.blank_string?(subscription_id)
+
+      path = '/subscriptions/{subscriptionId}/actions/changeCompartment'.sub('{subscriptionId}', subscription_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_subscription_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'NotificationDataPlaneClient#change_subscription_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a subscription for the specified topic.
+    #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
     #
     # @param [OCI::Ons::Models::CreateSubscriptionDetails] create_subscription_details The subscription to create.
     # @param [Hash] opts the optional parameters
@@ -174,6 +251,8 @@ module OCI
 
     # Deletes the specified subscription.
     #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+    #
     # @param [String] subscription_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to delete.
     #
     # @param [Hash] opts the optional parameters
@@ -235,7 +314,9 @@ module OCI
 
     # Gets the confirmation details for the specified subscription.
     #
-    # @param [String] id The subscription ID.
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+    #
+    # @param [String] id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to get the confirmation details for.
     #
     # @param [String] token The subscription confirmation token.
     # @param [String] protocol The subscription protocol. Valid values: EMAIL, HTTPS.
@@ -299,6 +380,8 @@ module OCI
 
     # Gets the specified subscription's configuration information.
     #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+    #
     # @param [String] subscription_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to retrieve.
     #
     # @param [Hash] opts the optional parameters
@@ -355,6 +438,8 @@ module OCI
 
 
     # Gets the unsubscription details for the specified subscription.
+    #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
     #
     # @param [String] id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to unsubscribe from.
     #
@@ -420,6 +505,8 @@ module OCI
 
     # Lists the subscriptions in the specified compartment or topic.
     #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+    #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     #
     # @param [Hash] opts the optional parameters
@@ -427,9 +514,11 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :topic_id Return all subscriptions that are subscribed to the given topic OCID. Either this query parameter or the compartmentId query parameter must be set.
     #
-    # @option opts [String] :page For list pagination. The value of the opc-next-page response header from the previous \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The value of the opc-next-page response header from the previous \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to 10)
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
@@ -484,7 +573,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Publishes a message to the specified topic. For more information about publishing messages, see [Publishing Messages](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/publishingmessages.htm).
+    # Publishes a message to the specified topic. Limits information follows.
+    #
+    # Message size limit per request: 64KB.
+    #
+    # Message delivery rate limit per endpoint: 60 messages per minute for HTTPS (PagerDuty) protocol, 10 messages per minute for Email protocol.
+    #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60 per topic.
+    #
+    # For more information about publishing messages, see [Publishing Messages](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/publishingmessages.htm).
     #
     # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic.
     #
@@ -495,7 +592,7 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
-    # @option opts [String] :message_type Type of message body in the request. Default value: JSON.
+    # @option opts [String] :message_type Type of message body in the request.
     #    (default to JSON)
     #   Allowed values are: JSON, RAW_TEXT
     # @return [Response] A Response object with data of type {OCI::Ons::Models::PublishResult PublishResult}
@@ -553,6 +650,8 @@ module OCI
 
     # Resends the confirmation details for the specified subscription.
     #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
+    #
     # @param [String] id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to resend the confirmation for.
     #
     # @param [Hash] opts the optional parameters
@@ -609,6 +708,8 @@ module OCI
 
 
     # Updates the specified subscription's configuration.
+    #
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
     #
     # @param [String] subscription_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to update.
     #

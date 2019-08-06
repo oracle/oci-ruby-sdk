@@ -6,6 +6,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Use the Monitoring API to manage metric queries and alarms for assessing the health, capacity, and performance of your cloud resources.
+  # Endpoints vary by operation. For PostMetric, use the &#x60;telemetry-ingestion&#x60; endpoints; for all other operations, use the &#x60;telemetry&#x60; endpoints.
   # For information about monitoring, see [Monitoring Overview](/iaas/Content/Monitoring/Concepts/monitoringoverview.htm).
   class Monitoring::MonitoringClient
     # Client used to make HTTP requests.
@@ -95,7 +96,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :MonitoringClient) + '/20180401'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://telemetry.{region}.{secondLevelDomain}') + '/20180401'
       logger.info "MonitoringClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -109,7 +110,83 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves an alarm into a different compartment within the same tenancy.
+    #
+    # For information about moving resources between compartments, see [Moving Resources Between Compartments](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
+    #
+    # @param [OCI::Monitoring::Models::ChangeAlarmCompartmentDetails] change_alarm_compartment_details The configuration details for moving an alarm.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Customer part of the request identifier token. If you need to contact Oracle about a particular
+    #   request, please provide the complete request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_alarm_compartment(alarm_id, change_alarm_compartment_details, opts = {})
+      logger.debug 'Calling operation MonitoringClient#change_alarm_compartment.' if logger
+
+      raise "Missing the required parameter 'alarm_id' when calling change_alarm_compartment." if alarm_id.nil?
+      raise "Missing the required parameter 'change_alarm_compartment_details' when calling change_alarm_compartment." if change_alarm_compartment_details.nil?
+      raise "Parameter value for 'alarm_id' must not be blank" if OCI::Internal::Util.blank_string?(alarm_id)
+
+      path = '/alarms/{alarmId}/actions/changeCompartment'.sub('{alarmId}', alarm_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_alarm_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MonitoringClient#change_alarm_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new alarm in the specified compartment.
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
     #
     # @param [OCI::Monitoring::Models::CreateAlarmDetails] create_alarm_details Document for creating an alarm.
     # @param [Hash] opts the optional parameters
@@ -173,12 +250,19 @@ module OCI
 
 
     # Deletes the specified alarm.
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
     # @option opts [String] :opc_request_id Customer part of the request identifier token. If you need to contact Oracle about a particular
     #   request, please provide the complete request ID.
     #
@@ -200,6 +284,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -229,6 +314,9 @@ module OCI
 
 
     # Gets the specified alarm.
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
@@ -286,6 +374,9 @@ module OCI
 
 
     # Get the history of the specified alarm.
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
@@ -305,7 +396,6 @@ module OCI
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
-    #   1 is the minimum, 1000 is the maximum.
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Default: 1000
@@ -377,10 +467,15 @@ module OCI
 
 
     # Lists the alarms for the specified compartment.
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
     #   the root compartment.
+    #
+    #   Example: `ocid1.compartment.oc1..exampleuniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -392,7 +487,6 @@ module OCI
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
-    #   1 is the minimum, 1000 is the maximum.
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Default: 1000
@@ -487,10 +581,15 @@ module OCI
 
 
     # List the status of each alarm in the specified compartment.
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
     #   the root compartment.
+    #
+    #   Example: `ocid1.compartment.oc1..exampleuniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -508,7 +607,6 @@ module OCI
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
-    #   1 is the minimum, 1000 is the maximum.
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Default: 1000
@@ -591,10 +689,15 @@ module OCI
 
     # Returns metric definitions that match the criteria specified in the request. Compartment OCID required.
     # For information about metrics, see [Metrics Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
     #   the root compartment.
+    #
+    #   Example: `ocid1.compartment.oc1..exampleuniqueID`
     #
     # @param [OCI::Monitoring::Models::ListMetricsDetails] list_metrics_details The dimensions used to filter metrics.
     # @param [Hash] opts the optional parameters
@@ -607,7 +710,6 @@ module OCI
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
-    #   1 is the minimum, 1000 is the maximum.
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Default: 1000
@@ -673,6 +775,18 @@ module OCI
 
     # Publishes raw metric data points to the Monitoring service.
     # For more information about publishing metrics, see [Publishing Custom Metrics](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Tasks/publishingcustommetrics.htm).
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Per-call limits information follows.
+    #
+    # * Dimensions per metric group*. Maximum: 20. Minimum: 1.
+    # * Unique metric streams*. Maximum: 50.
+    # * Transactions Per Second (TPS) per-tenancy limit for this operation: 50.
+    #
+    # *A metric group is the combination of a given metric, metric namespace, and tenancy for the purpose of determining limits.
+    # A dimension is a qualifier provided in a metric definition.
+    # A metric stream is an individual set of aggregated data for a metric, typically specific to a resource.
+    # For more information about metric-related concepts, see [Monitoring Concepts](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#concepts).
     #
     # The endpoints for this operation differ from other Monitoring operations. Replace the string `telemetry` with `telemetry-ingestion` in the endpoint, as in the following example:
     #
@@ -733,12 +847,19 @@ module OCI
 
 
     # Removes any existing suppression for the specified alarm.
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
     # @option opts [String] :opc_request_id Customer part of the request identifier token. If you need to contact Oracle about a particular
     #   request, please provide the complete request ID.
     #
@@ -760,6 +881,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
@@ -790,10 +912,15 @@ module OCI
 
     # Returns aggregated data that match the criteria specified in the request. Compartment OCID required.
     # For information on metric queries, see [Building Metric Queries](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Tasks/buildingqueries.htm).
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 10.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
     #   the root compartment.
+    #
+    #   Example: `ocid1.compartment.oc1..exampleuniqueID`
     #
     # @param [OCI::Monitoring::Models::SummarizeMetricsDataDetails] summarize_metrics_data_details The dimensions used to filter for metrics.
     # @param [Hash] opts the optional parameters
@@ -858,6 +985,9 @@ module OCI
 
 
     # Updates the specified alarm.
+    # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
+    #
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
@@ -865,6 +995,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
     # @option opts [String] :opc_request_id Customer part of the request identifier token. If you need to contact Oracle about a particular
     #   request, please provide the complete request ID.
     #
@@ -887,6 +1021,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 

@@ -12,6 +12,12 @@ module OCI
       RESET_PERIOD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    TARGET_TYPE_ENUM = [
+      TARGET_TYPE_COMPARTMENT = 'COMPARTMENT'.freeze,
+      TARGET_TYPE_TAG = 'TAG'.freeze,
+      TARGET_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
@@ -26,7 +32,10 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The OCID of the compartment on which budget is applied
+    # This is DEPRECATED. For backwards compatability, the property will be populated when
+    # targetType is \"COMPARTMENT\" AND targets contains EXACT ONE target compartment ocid.
+    # For all other scenarios, this property will be left empty.
+    #
     # @return [String]
     attr_accessor :target_compartment_id
 
@@ -47,6 +56,18 @@ module OCI
     #
     # @return [String]
     attr_reader :reset_period
+
+    # The type of target on which the budget is applied.
+    #
+    # @return [String]
+    attr_reader :target_type
+
+    # The list of targets on which the budget is applied.
+    #   If targetType is \"COMPARTMENT\", targets contains list of compartment OCIDs.
+    #   If targetType is \"TAG\", targets contains list of tag identifiers in the form of \"{tagNamespace}.{tagKey}.{tagValue}\".
+    #
+    # @return [Array<String>]
+    attr_accessor :targets
 
     # **[Required]** The current state of the budget.
     # @return [String]
@@ -107,6 +128,8 @@ module OCI
         'description': :'description',
         'amount': :'amount',
         'reset_period': :'resetPeriod',
+        'target_type': :'targetType',
+        'targets': :'targets',
         'lifecycle_state': :'lifecycleState',
         'alert_rule_count': :'alertRuleCount',
         'version': :'version',
@@ -132,6 +155,8 @@ module OCI
         'description': :'String',
         'amount': :'Float',
         'reset_period': :'String',
+        'target_type': :'String',
+        'targets': :'Array<String>',
         'lifecycle_state': :'String',
         'alert_rule_count': :'Integer',
         'version': :'Integer',
@@ -159,6 +184,8 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Float] :amount The value to assign to the {#amount} property
     # @option attributes [String] :reset_period The value to assign to the {#reset_period} property
+    # @option attributes [String] :target_type The value to assign to the {#target_type} property
+    # @option attributes [Array<String>] :targets The value to assign to the {#targets} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :alert_rule_count The value to assign to the {#alert_rule_count} property
     # @option attributes [Integer] :version The value to assign to the {#version} property
@@ -204,6 +231,14 @@ module OCI
       raise 'You cannot provide both :resetPeriod and :reset_period' if attributes.key?(:'resetPeriod') && attributes.key?(:'reset_period')
 
       self.reset_period = attributes[:'reset_period'] if attributes[:'reset_period']
+
+      self.target_type = attributes[:'targetType'] if attributes[:'targetType']
+
+      raise 'You cannot provide both :targetType and :target_type' if attributes.key?(:'targetType') && attributes.key?(:'target_type')
+
+      self.target_type = attributes[:'target_type'] if attributes[:'target_type']
+
+      self.targets = attributes[:'targets'] if attributes[:'targets']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -278,6 +313,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] target_type Object to be assigned
+    def target_type=(target_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if target_type && !TARGET_TYPE_ENUM.include?(target_type)
+        OCI.logger.debug("Unknown value for 'target_type' [" + target_type + "]. Mapping to 'TARGET_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @target_type = TARGET_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @target_type = target_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -306,6 +354,8 @@ module OCI
         description == other.description &&
         amount == other.amount &&
         reset_period == other.reset_period &&
+        target_type == other.target_type &&
+        targets == other.targets &&
         lifecycle_state == other.lifecycle_state &&
         alert_rule_count == other.alert_rule_count &&
         version == other.version &&
@@ -331,7 +381,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, target_compartment_id, display_name, description, amount, reset_period, lifecycle_state, alert_rule_count, version, actual_spend, forecasted_spend, time_spend_computed, time_created, time_updated, freeform_tags, defined_tags].hash
+      [id, compartment_id, target_compartment_id, display_name, description, amount, reset_period, target_type, targets, lifecycle_state, alert_rule_count, version, actual_spend, forecasted_spend, time_spend_computed, time_created, time_updated, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
