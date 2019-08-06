@@ -4,13 +4,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A log message from the execution of a work request.
+  # A log message from executing an operation that is tracked by a work request.
   class WorkRequests::Models::WorkRequestLogEntry
     # **[Required]** A human-readable log message.
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The time the log message was written.
+    # **[Required]** The date and time the log message was written.
     # @return [DateTime]
     attr_accessor :timestamp
 

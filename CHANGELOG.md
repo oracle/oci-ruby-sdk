@@ -3,6 +3,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.5.11 - 2019-08-06
+### Added
+- Support for the Functions service
+- Support for the Quotas service
+- Support for moving resources across compartments in the DNS service
+- Support for moving instances across compartments in the Compute service
+- Support for moving keys and vaults across compartments in the Key Management service
+- Support for moving topics and subscriptions across compartments in the Notifications service
+- Support for moving load balancers across compartments in the Load Balancing service
+- Support for specifying permitted REST methods in load balancer rule sets in the Load Balancing service
+- Support for configuring cookie session persistence in backend sets in the Load Balancing service
+- Support for ACL rules in rule sets in the Load Balancing service
+- Support for move compartment tree in the Identity service
+- Support for specifying and returning a KMS key in backup operations in the Block Storage service
+- Support for transit routing in the Networking service
+- Support for moving resources across compartments in the Database service
+- Support for moving resources across compartments in the Health Checks service
+- Support for moving alarms across compartments in the Monitoring service
+- Support for creating instance configurations from running instances in the Compute service
+- Support for setting up budget alerts for cost tracking tags in the Budgets service
+- Support for the Mumbai (BOM) region
+- Support for the Events service
+- Support for moving streams across compartments in the Streaming service
+- Support for moving FastConnect resources across compartments in the Networking service
+- Support for moving policies across compartments in the Web Application Acceleration and Security service
+- Support for tagging FastConnect resources in the Networking service
+- Support for IPv6 load balancers in the Load Balancing service
+- Support for IPv6 on VCN and FastConnect resources in the Networking service
+
 ## 2.5.10 - 2019-07-09
 ### Added
 - Support for specifying custom boot volume sizes on instance configurations in the Compute Autoscaling service

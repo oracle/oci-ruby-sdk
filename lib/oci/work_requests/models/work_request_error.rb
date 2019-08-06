@@ -5,9 +5,9 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An error encountered while executing a work request.
+  # An error encountered while executing an operation that is tracked by a work request.
   class WorkRequests::Models::WorkRequestError
-    # **[Required]** A short error code that defines the error, meant for programmatic parsing.
+    # **[Required]** A machine-usable code for the error that occured.
     # @return [String]
     attr_accessor :code
 
@@ -15,7 +15,7 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The time the error happened.
+    # **[Required]** The date and time the error occurred.
     # @return [DateTime]
     attr_accessor :timestamp
 

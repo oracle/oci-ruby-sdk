@@ -44,11 +44,27 @@ module OCI
     # @return [String]
     attr_accessor :cross_connect_group_id
 
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
 
     # The cross-connect's Oracle ID (OCID).
     # @return [String]
@@ -92,7 +108,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
         'cross_connect_group_id': :'crossConnectGroupId',
+        'defined_tags': :'definedTags',
         'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
         'id': :'id',
         'lifecycle_state': :'lifecycleState',
         'location_name': :'locationName',
@@ -110,7 +128,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
         'cross_connect_group_id': :'String',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'lifecycle_state': :'String',
         'location_name': :'String',
@@ -130,7 +150,9 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :cross_connect_group_id The value to assign to the {#cross_connect_group_id} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :location_name The value to assign to the {#location_name} property
@@ -156,11 +178,23 @@ module OCI
 
       self.cross_connect_group_id = attributes[:'cross_connect_group_id'] if attributes[:'cross_connect_group_id']
 
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.id = attributes[:'id'] if attributes[:'id']
 
@@ -227,7 +261,9 @@ module OCI
       self.class == other.class &&
         compartment_id == other.compartment_id &&
         cross_connect_group_id == other.cross_connect_group_id &&
+        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
         id == other.id &&
         lifecycle_state == other.lifecycle_state &&
         location_name == other.location_name &&
@@ -250,7 +286,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cross_connect_group_id, display_name, id, lifecycle_state, location_name, port_name, port_speed_shape_name, customer_reference_name, time_created].hash
+      [compartment_id, cross_connect_group_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, location_name, port_name, port_speed_shape_name, customer_reference_name, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

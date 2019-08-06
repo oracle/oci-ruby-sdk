@@ -10,6 +10,7 @@ module OCI
 end
 
 # Require models
+require 'oci/streaming/models/change_stream_compartment_details'
 require 'oci/streaming/models/create_cursor_details'
 require 'oci/streaming/models/create_group_cursor_details'
 require 'oci/streaming/models/create_stream_details'

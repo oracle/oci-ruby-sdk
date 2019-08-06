@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The status of a work request.
+  # An asynchronous work request.
   class WorkRequests::Models::WorkRequest
     STATUS_ENUM = [
       STATUS_ACCEPTED = 'ACCEPTED'.freeze,
@@ -25,31 +25,37 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # **[Required]** OCID identifying this work request.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing this work request.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment
+    # that contains the work request.
+    #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The resources affected by this work request.
+    # **[Required]** The resources that are affected by this work request.
     # @return [Array<OCI::WorkRequests::Models::WorkRequestResource>]
     attr_accessor :resources
 
-    # **[Required]** The amount of work done relative to the total amount of work.
+    # **[Required]** The percentage complete of the operation tracked by this work request.
     # @return [Float]
     attr_accessor :percent_complete
 
-    # **[Required]** When the work request was created.
+    # **[Required]** The date and time the work request was created, in the format defined by RFC3339.
     # @return [DateTime]
     attr_accessor :time_accepted
 
-    # When the work request transitioned from ACCEPTED to IN_PROGRESS.
+    # The date and time the work request transitioned from `ACCEPTED` to `IN_PROGRESS`,
+    # in the format defined by RFC3339.
+    #
     # @return [DateTime]
     attr_accessor :time_started
 
-    # When the work request reached a terminal state (FAILED or SUCCEEDED).
+    # The date and time the work request reached a terminal state, either `FAILED` or `SUCCEEDED`.
+    # Format is defined by RFC3339.
+    #
     # @return [DateTime]
     attr_accessor :time_finished
 

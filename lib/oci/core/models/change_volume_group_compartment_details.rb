@@ -4,9 +4,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contains details indicating which compartment the resource should move to
+  # Contains the details for the compartment to move the volume group to.
   class Core::Models::ChangeVolumeGroupCompartmentDetails
-    # **[Required]** The OCID of the new compartment
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment to move the volume group to.
     # @return [String]
     attr_accessor :compartment_id
 

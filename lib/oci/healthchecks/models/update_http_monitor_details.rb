@@ -16,9 +16,11 @@ module OCI
       METHOD_HEAD = 'HEAD'.freeze
     ].freeze
 
+    # A list of targets (hostnames or IP addresses) of the probe.
     # @return [Array<String>]
     attr_accessor :targets
 
+    # A list of names of vantage points from which to execute the probe.
     # @return [Array<String>]
     attr_accessor :vantage_point_names
 

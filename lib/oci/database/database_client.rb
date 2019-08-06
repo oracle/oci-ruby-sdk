@@ -108,6 +108,290 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Move the Autonomous Container Database and its dependent resources to the specified compartment.
+    # For more information about moving Autonomous Container Databases, see
+    # [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move Autonomous Container Database to a different compartment
+    # @param [String] autonomous_container_database_id The Autonomous Container Database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_autonomous_container_database_compartment(change_compartment_details, autonomous_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#change_autonomous_container_database_compartment.' if logger
+
+      raise "Missing the required parameter 'change_compartment_details' when calling change_autonomous_container_database_compartment." if change_compartment_details.nil?
+      raise "Missing the required parameter 'autonomous_container_database_id' when calling change_autonomous_container_database_compartment." if autonomous_container_database_id.nil?
+      raise "Parameter value for 'autonomous_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_container_database_id)
+
+      path = '/autonomousContainerDatabases/{autonomousContainerDatabaseId}/actions/changeCompartment'.sub('{autonomousContainerDatabaseId}', autonomous_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_autonomous_container_database_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Move the Autonomous Database and its dependent resources to the specified compartment.
+    # For more information about moving Autonomous Databases, see
+    # [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move Autonomous Database to a different compartment
+    # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_autonomous_database_compartment(change_compartment_details, autonomous_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#change_autonomous_database_compartment.' if logger
+
+      raise "Missing the required parameter 'change_compartment_details' when calling change_autonomous_database_compartment." if change_compartment_details.nil?
+      raise "Missing the required parameter 'autonomous_database_id' when calling change_autonomous_database_compartment." if autonomous_database_id.nil?
+      raise "Parameter value for 'autonomous_database_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_database_id)
+
+      path = '/autonomousDatabases/{autonomousDatabaseId}/actions/changeCompartment'.sub('{autonomousDatabaseId}', autonomous_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_autonomous_database_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Move the Autonomous Exadata Infrastructure and its dependent resources to the specified compartment.
+    # For more information about moving Autonomous Exadata Infrastructures, see
+    # [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move Autonomous Exadata Infrastructure to a different compartment
+    # @param [String] autonomous_exadata_infrastructure_id The Autonomous Exadata Infrastructure  [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_autonomous_exadata_infrastructure_compartment(change_compartment_details, autonomous_exadata_infrastructure_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#change_autonomous_exadata_infrastructure_compartment.' if logger
+
+      raise "Missing the required parameter 'change_compartment_details' when calling change_autonomous_exadata_infrastructure_compartment." if change_compartment_details.nil?
+      raise "Missing the required parameter 'autonomous_exadata_infrastructure_id' when calling change_autonomous_exadata_infrastructure_compartment." if autonomous_exadata_infrastructure_id.nil?
+      raise "Parameter value for 'autonomous_exadata_infrastructure_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_exadata_infrastructure_id)
+
+      path = '/autonomousExadataInfrastructures/{autonomousExadataInfrastructureId}/actions/changeCompartment'.sub('{autonomousExadataInfrastructureId}', autonomous_exadata_infrastructure_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_autonomous_exadata_infrastructure_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Move the DB system and its dependent resources to the specified compartment.
+    # For more information about moving DB systems, see
+    # [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move Db System to a different compartment
+    # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_db_system_compartment(change_compartment_details, db_system_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#change_db_system_compartment.' if logger
+
+      raise "Missing the required parameter 'change_compartment_details' when calling change_db_system_compartment." if change_compartment_details.nil?
+      raise "Missing the required parameter 'db_system_id' when calling change_db_system_compartment." if db_system_id.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/actions/changeCompartment'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_db_system_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Changes the status of the standalone backup resource to `ACTIVE` after the backup is created from the on-premises database and placed in Oracle Cloud Infrastructure Object Storage.
     #
     # **Note:** This API is used by an Oracle Cloud Infrastructure Python script that is packaged with the Oracle Cloud Infrastructure CLI. Oracle recommends that you use the script instead using the API directly. See [Migrating an On-Premises Database to Oracle Cloud Infrastructure by Creating a Backup in the Cloud](https://docs.cloud.oracle.com/Content/Database/Tasks/mig-onprembackup.htm) for more information.
@@ -990,7 +1274,7 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
-    # @option opts [BOOLEAN] :perform_final_backup Whether to perform a final backup of the database or not. Default is false. If you previously used RMAN or dbcli to configure backups and then you switch to using the Console or the API for backups, a new backup configuration is created and associated with your database. This means that you can no longer rely on your previously configured unmanaged backups to work.
+    # @option opts [BOOLEAN] :perform_final_backup Whether to perform a final backup of the database or not. Default is false. If you previously used RMAN or dbcli to configure backups and then you switch to using the Console or the API for backups, a new backup configuration is created and associated with your database. This means that you can no longer rely on your previously configured unmanaged backups to work. (default to false)
     # @return [Response] A Response object with data of type nil
     def delete_db_home(db_home_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_db_home.' if logger
@@ -2494,14 +2778,14 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :autonomous_exadata_infrastructure_id The Autonomous Exadata Infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
     #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :availability_domain A filter to return only resources that match the given availability domain exactly.
@@ -2579,14 +2863,14 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
     #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
@@ -2660,14 +2944,14 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
     #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
@@ -2742,14 +3026,14 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
     #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
@@ -2827,14 +3111,14 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :autonomous_container_database_id The Autonomous Container Database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
     #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :db_workload A filter to return only autonomous database resources that match the specified workload type.
@@ -2912,12 +3196,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of supported Autonomous Database versions.
+    # Gets a list of supported Autonomous Database versions. Note that preview version software is only available for [serverless deployments](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI).
     # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
@@ -2926,7 +3210,7 @@ module OCI
     #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: DBWORKLOAD
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDbPreviewVersionSummary AutonomousDbPreviewVersionSummary}>
     def list_autonomous_db_preview_versions(compartment_id, opts = {})
@@ -2993,7 +3277,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
@@ -3054,14 +3338,14 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
     #     **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :availability_domain A filter to return only resources that match the given availability domain exactly.
@@ -3138,7 +3422,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the database.
     # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::BackupSummary BackupSummary}>
     def list_backups(opts = {})
@@ -3194,7 +3478,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DataGuardAssociationSummary DataGuardAssociationSummary}>
     def list_data_guard_associations(database_id, opts = {})
@@ -3251,11 +3535,11 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DBNAME is ascending. The DBNAME sort order is case sensitive.
     #   Allowed values are: DBNAME, TIMECREATED
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :db_name A filter to return only resources that match the entire database name given. The match is not case sensitive.
@@ -3331,7 +3615,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
     def list_db_home_patch_history_entries(db_home_id, opts = {})
@@ -3387,7 +3671,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
     def list_db_home_patches(db_home_id, opts = {})
@@ -3444,11 +3728,11 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :db_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
@@ -3524,11 +3808,11 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :db_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by Sort by TIMECREATED.  Default order for TIMECREATED is descending.
     #   Allowed values are: TIMECREATED
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbNodeSummary DbNodeSummary}>
@@ -3601,7 +3885,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
     def list_db_system_patch_history_entries(db_system_id, opts = {})
@@ -3657,7 +3941,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
     def list_db_system_patches(db_system_id, opts = {})
@@ -3713,7 +3997,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemShapeSummary DbSystemShapeSummary}>
     def list_db_system_shapes(availability_domain, compartment_id, opts = {})
@@ -3772,15 +4056,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
-    # @option opts [String] :backup_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the backup. Specify a backupId to list only the DB systems that support creating a database using this backup in this compartment.
+    # @option opts [String] :backup_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the backup. Specify a backupId to list only the DB systems or DB homes that support creating a database using this backup in this compartment.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
     #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :availability_domain A filter to return only resources that match the given availability domain exactly.
@@ -3856,7 +4140,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :db_system_shape If provided, filters the results to the set of database versions which are supported for the given shape.
     # @option opts [String] :db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm). If provided, filters the results to the set of database versions which are supported for the DB system.
@@ -3919,14 +4203,14 @@ module OCI
     # @option opts [String] :target_resource_id The target resource ID.
     # @option opts [String] :target_resource_type The type of the target resource.
     # @option opts [String] :maintenance_type The maintenance type.
-    # @option opts [Integer] :limit The maximum number of items to return per page.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIME_SCHEDULED and TIME_ENDED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
     #
     #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIME_SCHEDULED, TIME_ENDED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :availability_domain A filter to return only resources that match the given availability domain exactly.

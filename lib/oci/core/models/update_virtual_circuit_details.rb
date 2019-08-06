@@ -43,6 +43,14 @@ module OCI
     # @return [Integer]
     attr_accessor :customer_bgp_asn
 
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # A user-friendly name. Does not have to be unique.
     # Avoid entering confidential information.
     #
@@ -50,6 +58,14 @@ module OCI
     #
     # @return [String]
     attr_accessor :display_name
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
 
     # The OCID of the {Drg}
     # that this private virtual circuit uses.
@@ -90,7 +106,9 @@ module OCI
         'bandwidth_shape_name': :'bandwidthShapeName',
         'cross_connect_mappings': :'crossConnectMappings',
         'customer_bgp_asn': :'customerBgpAsn',
+        'defined_tags': :'definedTags',
         'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
         'gateway_id': :'gatewayId',
         'provider_state': :'providerState',
         'provider_service_key_name': :'providerServiceKeyName',
@@ -106,7 +124,9 @@ module OCI
         'bandwidth_shape_name': :'String',
         'cross_connect_mappings': :'Array<OCI::Core::Models::CrossConnectMapping>',
         'customer_bgp_asn': :'Integer',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
         'gateway_id': :'String',
         'provider_state': :'String',
         'provider_service_key_name': :'String',
@@ -124,7 +144,9 @@ module OCI
     # @option attributes [String] :bandwidth_shape_name The value to assign to the {#bandwidth_shape_name} property
     # @option attributes [Array<OCI::Core::Models::CrossConnectMapping>] :cross_connect_mappings The value to assign to the {#cross_connect_mappings} property
     # @option attributes [Integer] :customer_bgp_asn The value to assign to the {#customer_bgp_asn} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :gateway_id The value to assign to the {#gateway_id} property
     # @option attributes [String] :provider_state The value to assign to the {#provider_state} property
     # @option attributes [String] :provider_service_key_name The value to assign to the {#provider_service_key_name} property
@@ -153,11 +175,23 @@ module OCI
 
       self.customer_bgp_asn = attributes[:'customer_bgp_asn'] if attributes[:'customer_bgp_asn']
 
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.gateway_id = attributes[:'gatewayId'] if attributes[:'gatewayId']
 
@@ -206,7 +240,9 @@ module OCI
         bandwidth_shape_name == other.bandwidth_shape_name &&
         cross_connect_mappings == other.cross_connect_mappings &&
         customer_bgp_asn == other.customer_bgp_asn &&
+        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
         gateway_id == other.gateway_id &&
         provider_state == other.provider_state &&
         provider_service_key_name == other.provider_service_key_name &&
@@ -226,7 +262,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, cross_connect_mappings, customer_bgp_asn, display_name, gateway_id, provider_state, provider_service_key_name, reference_comment].hash
+      [bandwidth_shape_name, cross_connect_mappings, customer_bgp_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_state, provider_service_key_name, reference_comment].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

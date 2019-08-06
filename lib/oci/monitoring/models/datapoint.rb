@@ -23,7 +23,7 @@ module OCI
 
     # The number of occurrences of the associated value in the set of data.
     #
-    # Optional. Default is 1.
+    # Default is 1. Value must be greater than zero.
     #
     # @return [Integer]
     attr_accessor :count

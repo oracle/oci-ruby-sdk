@@ -33,6 +33,18 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The OCID of the route table the service gateway will use.
+    #
+    # If you don't specify a route table here, the service gateway is created without an associated route
+    # table. The Networking service does NOT automatically associate the attached VCN's default route table
+    # with the service gateway.
+    #
+    # For information about why you would associate a route table with a service gateway, see
+    # [Transit Routing: Private Access to Oracle Services Network](https://docs.cloud.oracle.com/Content/Network/Tasks/transitroutingoracleservices.htm).
+    #
+    # @return [String]
+    attr_accessor :route_table_id
+
     # **[Required]** List of the OCIDs of the {Service} objects to
     # enable for the service gateway. This list can be empty if you don't want to enable any
     # `Service` objects when you create the gateway. You can enable a `Service`
@@ -58,6 +70,7 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
+        'route_table_id': :'routeTableId',
         'services': :'services',
         'vcn_id': :'vcnId'
         # rubocop:enable Style/SymbolLiteral
@@ -72,6 +85,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
+        'route_table_id': :'String',
         'services': :'Array<OCI::Core::Models::ServiceIdRequestDetails>',
         'vcn_id': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -88,6 +102,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [Array<OCI::Core::Models::ServiceIdRequestDetails>] :services The value to assign to the {#services} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     def initialize(attributes = {})
@@ -120,6 +135,12 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
+      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+
+      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+
+      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+
       self.services = attributes[:'services'] if attributes[:'services']
 
       self.vcn_id = attributes[:'vcnId'] if attributes[:'vcnId']
@@ -144,6 +165,7 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
+        route_table_id == other.route_table_id &&
         services == other.services &&
         vcn_id == other.vcn_id
     end
@@ -161,7 +183,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, services, vcn_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, route_table_id, services, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

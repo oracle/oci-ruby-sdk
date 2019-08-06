@@ -78,6 +78,17 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # Use this to enable IPv6 addressing for this subnet. The VCN must be enabled for IPv6.
+    # You can't change this subnet characteristic later. All subnets are /64 in size. The subnet
+    # portion of the IPv6 address is the fourth hextet from the left (1111 in the following example).
+    #
+    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+    #
+    # Example: `2001:0db8:0123:1111::/64`
+    #
+    # @return [String]
+    attr_accessor :ipv6_cidr_block
+
     # Whether VNICs within this subnet can have public IP addresses.
     # Defaults to false, which means VNICs created in this subnet will
     # automatically be assigned public IP addresses unless specified
@@ -87,6 +98,8 @@ module OCI
     # subnet cannot have public IP addresses (that is, it's a private
     # subnet).
     #
+    # For IPv6, if `prohibitPublicIpOnVnic` is set to `true`, internet access is not allowed for any
+    # IPv6s assigned to VNICs in the subnet.
     #
     # Example: `true`
     #
@@ -123,6 +136,7 @@ module OCI
         'display_name': :'displayName',
         'dns_label': :'dnsLabel',
         'freeform_tags': :'freeformTags',
+        'ipv6_cidr_block': :'ipv6CidrBlock',
         'prohibit_public_ip_on_vnic': :'prohibitPublicIpOnVnic',
         'route_table_id': :'routeTableId',
         'security_list_ids': :'securityListIds',
@@ -143,6 +157,7 @@ module OCI
         'display_name': :'String',
         'dns_label': :'String',
         'freeform_tags': :'Hash<String, String>',
+        'ipv6_cidr_block': :'String',
         'prohibit_public_ip_on_vnic': :'BOOLEAN',
         'route_table_id': :'String',
         'security_list_ids': :'Array<String>',
@@ -165,6 +180,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :dns_label The value to assign to the {#dns_label} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
     # @option attributes [BOOLEAN] :prohibit_public_ip_on_vnic The value to assign to the {#prohibit_public_ip_on_vnic} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [Array<String>] :security_list_ids The value to assign to the {#security_list_ids} property
@@ -223,6 +239,12 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
+      self.ipv6_cidr_block = attributes[:'ipv6CidrBlock'] if attributes[:'ipv6CidrBlock']
+
+      raise 'You cannot provide both :ipv6CidrBlock and :ipv6_cidr_block' if attributes.key?(:'ipv6CidrBlock') && attributes.key?(:'ipv6_cidr_block')
+
+      self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
+
       self.prohibit_public_ip_on_vnic = attributes[:'prohibitPublicIpOnVnic'] unless attributes[:'prohibitPublicIpOnVnic'].nil?
 
       raise 'You cannot provide both :prohibitPublicIpOnVnic and :prohibit_public_ip_on_vnic' if attributes.key?(:'prohibitPublicIpOnVnic') && attributes.key?(:'prohibit_public_ip_on_vnic')
@@ -267,6 +289,7 @@ module OCI
         display_name == other.display_name &&
         dns_label == other.dns_label &&
         freeform_tags == other.freeform_tags &&
+        ipv6_cidr_block == other.ipv6_cidr_block &&
         prohibit_public_ip_on_vnic == other.prohibit_public_ip_on_vnic &&
         route_table_id == other.route_table_id &&
         security_list_ids == other.security_list_ids &&
@@ -286,7 +309,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, vcn_id].hash
+      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, ipv6_cidr_block, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

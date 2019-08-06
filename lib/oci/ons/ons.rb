@@ -11,6 +11,7 @@ end
 
 # Require models
 require 'oci/ons/models/backoff_retry_policy'
+require 'oci/ons/models/change_compartment_details'
 require 'oci/ons/models/confirmation_result'
 require 'oci/ons/models/create_subscription_details'
 require 'oci/ons/models/create_topic_details'

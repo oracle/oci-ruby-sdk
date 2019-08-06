@@ -224,6 +224,126 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves certificate into a different compartment. When provided, If-Match is checked against ETag values of the certificate.
+    # @param [String] certificate_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SSL certificate used in the WAAS policy. This number is generated when the certificate is added to the policy.
+    # @param [OCI::Waas::Models::ChangeCertificateCompartmentDetails] change_certificate_compartment_details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @return [Response] A Response object with data of type nil
+    def change_certificate_compartment(certificate_id, change_certificate_compartment_details, opts = {})
+      logger.debug 'Calling operation WaasClient#change_certificate_compartment.' if logger
+
+      raise "Missing the required parameter 'certificate_id' when calling change_certificate_compartment." if certificate_id.nil?
+      raise "Missing the required parameter 'change_certificate_compartment_details' when calling change_certificate_compartment." if change_certificate_compartment_details.nil?
+      raise "Parameter value for 'certificate_id' must not be blank" if OCI::Internal::Util.blank_string?(certificate_id)
+
+      path = '/certificates/{certificateId}/actions/changeCompartment'.sub('{certificateId}', certificate_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_certificate_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#change_certificate_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves WAAS policy into a different compartment. When provided, If-Match is checked against ETag values of the WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [OCI::Waas::Models::ChangeWaasPolicyCompartmentDetails] change_waas_policy_compartment_details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @return [Response] A Response object with data of type nil
+    def change_waas_policy_compartment(waas_policy_id, change_waas_policy_compartment_details, opts = {})
+      logger.debug 'Calling operation WaasClient#change_waas_policy_compartment.' if logger
+
+      raise "Missing the required parameter 'waas_policy_id' when calling change_waas_policy_compartment." if waas_policy_id.nil?
+      raise "Missing the required parameter 'change_waas_policy_compartment_details' when calling change_waas_policy_compartment." if change_waas_policy_compartment_details.nil?
+      raise "Parameter value for 'waas_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(waas_policy_id)
+
+      path = '/waasPolicies/{waasPolicyId}/actions/changeCompartment'.sub('{waasPolicyId}', waas_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_waas_policy_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#change_waas_policy_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Allows an SSL certificate to be added to a WAAS policy. The Web Application Firewall terminates SSL connections to inspect requests in runtime, and then re-encrypts requests before sending them to the origin for fulfillment.
     #
     # For more information, see [WAF Settings](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/wafsettings.htm).
@@ -1322,7 +1442,7 @@ module OCI
 
     # Gets the list of good bots defined in the Web Application Firewall configuration for a WAAS policy.
     #
-    # The list is sorted ascending by `key`.
+    # The list is sorted by `key`, in ascending order.
     #
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
@@ -1380,8 +1500,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of protection rules in the Web Application Firewall configuration for a WAAS policy, including currently defined rules and recommended rules.
-    # The list is sorted ascending by `key`.
+    # Gets the list of available protection rules for a WAAS policy. Use the `GetWafConfig` operation to view a list of currently configured protection rules for the Web Application Firewall, or use the `ListRecommendations` operation to get a list of recommended protection rules for the Web Application Firewall.
+    # The list is sorted by `key`, in ascending order.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1456,7 +1576,7 @@ module OCI
     # Gets the list of recommended Web Application Firewall protection rules.
     #
     # Use the `POST /waasPolicies/{waasPolicyId}/actions/acceptWafConfigRecommendations` method to accept recommended Web Application Firewall protection rules. For more information, see [WAF Protection Rules](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/wafprotectionrules.htm).
-    # The list is sorted ascending by `key`.
+    # The list is sorted by `key`, in ascending order.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1521,8 +1641,8 @@ module OCI
 
 
     # Gets the list of available web application threat intelligence feeds
-    # and the actions set for each feed. The list is sorted ascending by
-    # `key`.
+    # and the actions set for each feed. The list is sorted by `key`,
+    # in ascending order.
     #
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
@@ -1661,7 +1781,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the number of blocked requests by a Web Application Firewall feature in five minute blocks, in ascending order by `timeObserved`.
+    # Gets the number of blocked requests by a Web Application Firewall feature in five minute blocks, sorted by `timeObserved` in ascending order (starting from oldest data).
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1736,8 +1856,8 @@ module OCI
 
 
     # Gets structured Web Application Firewall event logs for a WAAS
-    # policy. The list is sorted by the `timeObserved` starting from the
-    # oldest recorded event (ascending).
+    # policy. Sorted by the `timeObserved` in ascending order (starting from the
+    # oldest recorded event).
     #
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
@@ -1868,7 +1988,7 @@ module OCI
 
     # Gets the number of requests managed by a Web Application Firewall
     # over a specified period of time, including blocked requests. Sorted
-    # by `timeObserved` with oldest requests first (ascending).
+    # by `timeObserved` in ascending order (starting from oldest requests).
     #
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
@@ -1931,7 +2051,7 @@ module OCI
 
 
     # Gets the Web Application Firewall traffic data for a WAAS policy.
-    # Sorted by `timeObserved` with oldest data points first (ascending).
+    # Sorted by `timeObserved` in ascending order (starting from oldest data).
     #
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
@@ -2125,11 +2245,14 @@ module OCI
 
 
     # Updates the list of access rules in the Web Application Firewall configuration for a specified WAAS policy. Access rules allow explicit actions to be defined and executed for requests that meet various conditions. A rule action can be set to allow, detect, or block requests. The detect setting allows the request to pass through the Web Application Firewall and is tagged with a `DETECT` flag in the Web Application Firewall's log.
+    #
     # This operation can create, delete, update, and/or reorder access rules depending on the structure of the request body.
-    # Updating an existing access rule can be accomplished by changing the properties of the access rule object with a non-empty `key` property in the list.
-    # Reordering of access rules can be accomplished by changing the order of the access rules in the list when updating.
-    # Creating an access rule can be accomplished by adding a new access rule object to the list without a `key` property. A `key` will be generated for the new access rule upon update.
-    # Deleting an access rule can be accomplished by removing the existing access rule object from the list. Any existing access rule with a `key` that is not present in the list of access rules sent in the request will be deleted.
+    #
+    # Access rules can be updated by changing the properties of the access rule object with the rule's key specified in the key field. Access rules can be reordered by changing the order of the access rules in the list when updating.
+    #
+    # Access rules can be created by adding a new access rule object to the list without a `key` property specified. A `key` will be generated for the new access rule upon update.
+    #
+    # Any existing access rules that are not specified with a `key` in the list of access rules will be deleted upon update.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::AccessRule>] access_rules
     # @param [Hash] opts the optional parameters
@@ -2191,9 +2314,11 @@ module OCI
 
     # Updates the list of CAPTCHA challenges in the Web Application Firewall configuration for a WAAS policy.
     # This operation can create, update, or delete CAPTCHAs depending on the structure of the request body.
-    # Updating an existing CAPTCHA can be accomplished by changing the properties of the CAPTCHA object with a non-empty `key` property in the list.
-    # Creating a CAPTCHA can be accomplished by adding a new CAPTCHA object to the list without a `key` property. A `key` will be generated for the new CAPTCHA upon update.
-    # Deleting a CAPTCHA can be accomplished by removing the existing CAPTCHA object from the list. Any existing CAPTCHA with a `key` that is not present in the list of CAPTCHAs sent in the request will be deleted.
+    # CAPTCHA challenges can be updated by changing the properties of the CAPTCHA object with the rule's key specified in the key field. CAPTCHA challenges can be reordered by changing the order of the CAPTCHA challenges in the list when updating.
+    #
+    # CAPTCHA challenges can be created by adding a new access rule object to the list without a `key` property specified. A `key` will be generated for the new CAPTCHA challenges upon update.
+    #
+    # Any existing CAPTCHA challenges that are not specified with a `key` in the list of CAPTCHA challenges will be deleted upon update.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::Captcha>] captchas A list of CAPTCHA details.
     # @param [Hash] opts the optional parameters
@@ -2375,7 +2500,7 @@ module OCI
 
     # Updates the list of good bots in the Web Application Firewall configuration for a policy. Only the fields specified in the request body will be updated, all other configuration properties will remain unchanged.
     #
-    # Good bots allows you to manage access for bots from known providers, such as Google or Baidu. For more information about good bots, please see [Bot Management](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/botmanagement.htm).
+    # Good bots allows you to manage access for bots from known providers, such as Google or Baidu. For more information about good bots, see [Bot Management](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/botmanagement.htm).
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::GoodBot>] good_bots
     # @param [Hash] opts the optional parameters
@@ -2617,7 +2742,7 @@ module OCI
 
     # Updates the action for each specified protection rule. Requests can either be allowed, blocked, or trigger an alert if they meet the parameters of an applied rule. For more information on protection rules, see [WAF Protection Rules](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/wafprotectionrules.htm).
     # This operation can update or disable protection rules depending on the structure of the request body.
-    # Updating an existing protection rule can be accomplished by changing the properties of the protection rule object with a non-empty `key` property in the list.
+    # Protection rules can be updated by changing the properties of the protection rule object with the rule's key specified in the key field.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::ProtectionRuleAction>] protection_rules
     # @param [Hash] opts the optional parameters
@@ -2790,7 +2915,7 @@ module OCI
 
 
     # Updates the details of a WAAS policy, including origins and tags. Only the fields specified in the request body will be updated; all other properties will remain unchanged.
-    # To update platform provided resources such as `GoodBots`, `ProtectionRules`, and `ThreatFeeds` first retrieve the list of available resources with the related list operation such as `GetThreatFeeds` or `GetProtectionRules`.
+    # To update platform provided resources such as `GoodBots`, `ProtectionRules`, and `ThreatFeeds`, first retrieve the list of available resources with the related list operation such as `GetThreatFeeds` or `GetProtectionRules`.
     # The returned list will contain objects with `key` properties that can be used to update the resource during the `UpdateWaasPolicy` request.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::UpdateWaasPolicyDetails] update_waas_policy_details The details of the WAAS policy to update.
@@ -2913,8 +3038,8 @@ module OCI
 
     # Updates the Web Application Firewall configuration for a specified WAAS policy.
     #
-    # To update platform provided resources such as `GoodBots`, `ProtectionRules`, and `ThreatFeeds`
-    # first retrieve the list of available resources with the related list operation such as
+    # To update platform provided resources such as `GoodBots`, `ProtectionRules`, and `ThreatFeeds`,
+    # first retrieve the list of available resources with the related list operation, such as
     # `GetThreatFeeds` or `GetProtectionRules`.
     #
     # The returned list will contain objects with `key` properties that can be used to update the
@@ -2980,11 +3105,14 @@ module OCI
 
 
     # Updates the list of IP addresses that bypass the Web Application Firewall for a WAAS policy. Supports both single IP addresses or subnet masks (CIDR notation).
+    #
     # This operation can create, delete, update, and/or reorder whitelists depending on the structure of the request body.
-    # Updating an existing whitelist can be accomplished by changing the properties of the whitelist object with a non-empty `key` property in the list.
-    # Reordering of whitelists can be accomplished by changing the order of the whitelists in the list when updating.
-    # Creating a whitelist can be accomplished by adding a new whitelist object to the list without a `key` property. A `key` will be generated for the new whitelist upon update.
-    # Deleting a whitelist can be accomplished by removing the existing whitelist object from the list. Any existing whitelist with a `key` that is not present in the list of whitelists sent in the request will be deleted.
+    #
+    # Whitelists can be updated by changing the properties of the whitelist object with the rule's key specified in the `key` field. Whitelists can be reordered by changing the order of the whitelists in the list of objects when updating.
+    #
+    # Whitelists can be created by adding a new whitelist object to the list without a `key` property specified. A `key` will be generated for the new whitelist upon update.
+    #
+    # Whitelists can be deleted by removing the existing whitelist object from the list. Any existing whitelists that are not specified with a `key` in the list of access rules will be deleted upon update.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::Whitelist>] whitelists
     # @param [Hash] opts the optional parameters

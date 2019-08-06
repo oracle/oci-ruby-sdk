@@ -10,6 +10,8 @@ module OCI
 end
 
 # Require models
+require 'oci/key_management/models/change_key_compartment_details'
+require 'oci/key_management/models/change_vault_compartment_details'
 require 'oci/key_management/models/create_key_details'
 require 'oci/key_management/models/create_vault_details'
 require 'oci/key_management/models/decrypt_data_details'

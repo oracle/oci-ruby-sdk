@@ -8,10 +8,13 @@ lib/oci/core/core.rb
 lib/oci/database/database.rb
 lib/oci/dns/dns.rb
 lib/oci/email/email.rb
+lib/oci/events/events.rb
 lib/oci/file_storage/file_storage.rb
+lib/oci/functions/functions.rb
 lib/oci/healthchecks/healthchecks.rb
 lib/oci/identity/identity.rb
 lib/oci/key_management/key_management.rb
+lib/oci/limits/limits.rb
 lib/oci/load_balancer/load_balancer.rb
 lib/oci/monitoring/monitoring.rb
 lib/oci/object_storage/object_storage.rb

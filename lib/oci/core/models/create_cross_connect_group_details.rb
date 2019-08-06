@@ -10,6 +10,14 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
@@ -22,13 +30,23 @@ module OCI
     # @return [String]
     attr_accessor :customer_reference_name
 
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
+        'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'customer_reference_name': :'customerReferenceName'
+        'customer_reference_name': :'customerReferenceName',
+        'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,8 +56,10 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'customer_reference_name': :'String'
+        'customer_reference_name': :'String',
+        'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,8 +71,10 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -65,6 +87,12 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
@@ -76,6 +104,12 @@ module OCI
       raise 'You cannot provide both :customerReferenceName and :customer_reference_name' if attributes.key?(:'customerReferenceName') && attributes.key?(:'customer_reference_name')
 
       self.customer_reference_name = attributes[:'customer_reference_name'] if attributes[:'customer_reference_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -90,8 +124,10 @@ module OCI
 
       self.class == other.class &&
         compartment_id == other.compartment_id &&
+        defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        customer_reference_name == other.customer_reference_name
+        customer_reference_name == other.customer_reference_name &&
+        freeform_tags == other.freeform_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -107,7 +143,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, customer_reference_name].hash
+      [compartment_id, defined_tags, display_name, customer_reference_name, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

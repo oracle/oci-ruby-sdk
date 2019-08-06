@@ -15,7 +15,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The name of the topic. Avoid entering confidential information.
+    # **[Required]** The name of the topic.
     #
     # @return [String]
     attr_accessor :name
@@ -35,7 +35,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The description of the topic. Avoid entering confidential information.
+    # The description of the topic.
     # @return [String]
     attr_accessor :description
 

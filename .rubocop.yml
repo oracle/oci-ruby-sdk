@@ -123,3 +123,9 @@ Style/RescueStandardError:
 Layout/TrailingBlankLines:
   Exclude:
     - "lib/oci/*/util.rb"
+
+Lint/UnneededDisable:
+  Enabled: false
+
+Lint/UnneededCopDisableDirective:
+  Enabled: false

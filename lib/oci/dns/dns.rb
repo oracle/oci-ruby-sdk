@@ -10,6 +10,8 @@ module OCI
 end
 
 # Require models
+require 'oci/dns/models/change_steering_policy_compartment_details'
+require 'oci/dns/models/change_zone_compartment_details'
 require 'oci/dns/models/create_steering_policy_attachment_details'
 require 'oci/dns/models/create_steering_policy_details'
 require 'oci/dns/models/create_zone_details'

@@ -74,6 +74,13 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # The OCID of the route table the service gateway is using. For information about why you
+    # would associate a route table with a service gateway, see
+    # [Transit Routing: Private Access to Oracle Services Network](https://docs.cloud.oracle.com/Content/Network/Tasks/transitroutingoracleservices.htm).
+    #
+    # @return [String]
+    attr_accessor :route_table_id
+
     # **[Required]** List of the {Service} objects enabled for this service gateway.
     # The list can be empty. You can enable a particular `Service` by using
     # {#attach_service_id attach_service_id} or
@@ -106,6 +113,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'lifecycle_state': :'lifecycleState',
+        'route_table_id': :'routeTableId',
         'services': :'services',
         'time_created': :'timeCreated',
         'vcn_id': :'vcnId'
@@ -124,6 +132,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'lifecycle_state': :'String',
+        'route_table_id': :'String',
         'services': :'Array<OCI::Core::Models::ServiceIdResponseDetails>',
         'time_created': :'DateTime',
         'vcn_id': :'String'
@@ -144,6 +153,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [Array<OCI::Core::Models::ServiceIdResponseDetails>] :services The value to assign to the {#services} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
@@ -193,6 +203,12 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+
+      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+
+      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+
       self.services = attributes[:'services'] if attributes[:'services']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
@@ -239,6 +255,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         lifecycle_state == other.lifecycle_state &&
+        route_table_id == other.route_table_id &&
         services == other.services &&
         time_created == other.time_created &&
         vcn_id == other.vcn_id
@@ -257,7 +274,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [block_traffic, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, services, time_created, vcn_id].hash
+      [block_traffic, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, route_table_id, services, time_created, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

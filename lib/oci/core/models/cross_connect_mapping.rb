@@ -30,6 +30,10 @@ module OCI
   # peering information. There's one exception: for a public virtual circuit, Oracle
   # specifies the BGP IPv4 addresses.
   #
+  # Every `CrossConnectMapping` must have BGP IPv4 peering addresses. BGP IPv6 peering
+  # addresses are optional. If BGP IPv6 addresses are provided, the customer can
+  # exchange IPv6 routes with Oracle.
+  #
   class Core::Models::CrossConnectMapping
     # The key for BGP MD5 authentication. Only applicable if your system
     # requires MD5 authentication. If empty or not set (null), that
@@ -71,6 +75,31 @@ module OCI
     # @return [String]
     attr_accessor :oracle_bgp_peering_ip
 
+    # The BGP IPv6 address for the router on the other end of the BGP session from
+    # Oracle. Specified by the owner of that router. If the session goes from Oracle
+    # to a customer, this is the BGP IPv6 address of the customer's edge router. If the
+    # session goes from Oracle to a provider, this is the BGP IPv6 address of the
+    # provider's edge router. Only subnet masks from /64 up to /127 are allowed.
+    #
+    # There's one exception: for a public virtual circuit, Oracle specifies the BGP IPv6 addresses.
+    #
+    # Example: `2001:db8::1/64`
+    #
+    # @return [String]
+    attr_accessor :customer_bgp_peering_ipv6
+
+    # The IPv6 address for Oracle's end of the BGP session.  Only subnet masks from /64 up to /127 are allowed.
+    # If the session goes from Oracle to a customer's edge router,
+    # the customer specifies this information. If the session goes from Oracle to
+    # a provider's edge router, the provider specifies this.
+    #
+    # There's one exception: for a public virtual circuit, Oracle specifies the BGP IPv6 addresses.
+    #
+    # Example: `2001:db8::2/64`
+    #
+    # @return [String]
+    attr_accessor :oracle_bgp_peering_ipv6
+
     # The number of the specific VLAN (on the cross-connect or cross-connect group)
     # that is assigned to this virtual circuit. Specified by the owner of the cross-connect
     # or cross-connect group (the customer if the customer is colocated with Oracle, or
@@ -89,6 +118,8 @@ module OCI
         'cross_connect_or_cross_connect_group_id': :'crossConnectOrCrossConnectGroupId',
         'customer_bgp_peering_ip': :'customerBgpPeeringIp',
         'oracle_bgp_peering_ip': :'oracleBgpPeeringIp',
+        'customer_bgp_peering_ipv6': :'customerBgpPeeringIpv6',
+        'oracle_bgp_peering_ipv6': :'oracleBgpPeeringIpv6',
         'vlan': :'vlan'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -102,6 +133,8 @@ module OCI
         'cross_connect_or_cross_connect_group_id': :'String',
         'customer_bgp_peering_ip': :'String',
         'oracle_bgp_peering_ip': :'String',
+        'customer_bgp_peering_ipv6': :'String',
+        'oracle_bgp_peering_ipv6': :'String',
         'vlan': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -117,6 +150,8 @@ module OCI
     # @option attributes [String] :cross_connect_or_cross_connect_group_id The value to assign to the {#cross_connect_or_cross_connect_group_id} property
     # @option attributes [String] :customer_bgp_peering_ip The value to assign to the {#customer_bgp_peering_ip} property
     # @option attributes [String] :oracle_bgp_peering_ip The value to assign to the {#oracle_bgp_peering_ip} property
+    # @option attributes [String] :customer_bgp_peering_ipv6 The value to assign to the {#customer_bgp_peering_ipv6} property
+    # @option attributes [String] :oracle_bgp_peering_ipv6 The value to assign to the {#oracle_bgp_peering_ipv6} property
     # @option attributes [Integer] :vlan The value to assign to the {#vlan} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -148,6 +183,18 @@ module OCI
 
       self.oracle_bgp_peering_ip = attributes[:'oracle_bgp_peering_ip'] if attributes[:'oracle_bgp_peering_ip']
 
+      self.customer_bgp_peering_ipv6 = attributes[:'customerBgpPeeringIpv6'] if attributes[:'customerBgpPeeringIpv6']
+
+      raise 'You cannot provide both :customerBgpPeeringIpv6 and :customer_bgp_peering_ipv6' if attributes.key?(:'customerBgpPeeringIpv6') && attributes.key?(:'customer_bgp_peering_ipv6')
+
+      self.customer_bgp_peering_ipv6 = attributes[:'customer_bgp_peering_ipv6'] if attributes[:'customer_bgp_peering_ipv6']
+
+      self.oracle_bgp_peering_ipv6 = attributes[:'oracleBgpPeeringIpv6'] if attributes[:'oracleBgpPeeringIpv6']
+
+      raise 'You cannot provide both :oracleBgpPeeringIpv6 and :oracle_bgp_peering_ipv6' if attributes.key?(:'oracleBgpPeeringIpv6') && attributes.key?(:'oracle_bgp_peering_ipv6')
+
+      self.oracle_bgp_peering_ipv6 = attributes[:'oracle_bgp_peering_ipv6'] if attributes[:'oracle_bgp_peering_ipv6']
+
       self.vlan = attributes[:'vlan'] if attributes[:'vlan']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -166,6 +213,8 @@ module OCI
         cross_connect_or_cross_connect_group_id == other.cross_connect_or_cross_connect_group_id &&
         customer_bgp_peering_ip == other.customer_bgp_peering_ip &&
         oracle_bgp_peering_ip == other.oracle_bgp_peering_ip &&
+        customer_bgp_peering_ipv6 == other.customer_bgp_peering_ipv6 &&
+        oracle_bgp_peering_ipv6 == other.oracle_bgp_peering_ipv6 &&
         vlan == other.vlan
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -182,7 +231,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bgp_md5_auth_key, cross_connect_or_cross_connect_group_id, customer_bgp_peering_ip, oracle_bgp_peering_ip, vlan].hash
+      [bgp_md5_auth_key, cross_connect_or_cross_connect_group_id, customer_bgp_peering_ip, oracle_bgp_peering_ip, customer_bgp_peering_ipv6, oracle_bgp_peering_ipv6, vlan].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

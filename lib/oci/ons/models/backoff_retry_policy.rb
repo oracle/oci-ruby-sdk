@@ -13,11 +13,11 @@ module OCI
       POLICY_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The maximum retry duration in milliseconds.
+    # **[Required]** The maximum retry duration in milliseconds. Default value is `7200000` (2 hours).
     # @return [Integer]
     attr_accessor :max_retry_duration
 
-    # **[Required]** The type of delivery policy. Default value: EXPONENTIAL.
+    # **[Required]** The type of delivery policy.
     #
     # @return [String]
     attr_reader :policy_type

@@ -4,13 +4,15 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A list of Web Application Firewall log entries. Each entry is a JSON object whose fields vary based on log type. Logs record what rules and countermeasures are triggered by requests and are used as a basis to move request handling into block mode.
+  # A list of Web Application Firewall log entries. Each entry is a JSON object, including a timestamp property and other fields varying based on log type. Logs record what rules and countermeasures are triggered by requests and are used as a basis to move request handling into block mode. For more information about WAF logs, see [WAF Logs](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/waflogs.htm).
   class Waas::Models::WafLog
-    # The action taken on the request.
+    # The action taken on the request, either `ALLOW`, `DETECT`, or `BLOCK`.
     # @return [String]
     attr_accessor :action
 
-    # The CAPTCHA action taken on the request.
+    # The CAPTCHA action taken on the request, `ALLOW` or `BLOCK`. For more information about
+    # CAPTCHAs, see `UpdateCaptchas`.
+    #
     # @return [String]
     attr_accessor :captcha_action
 
@@ -30,19 +32,23 @@ module OCI
     # @return [String]
     attr_accessor :client_address
 
-    # The name of the country where the request was made.
+    # The name of the country where the request originated.
     # @return [String]
     attr_accessor :country_name
 
-    # The `User-Agent` header value of the request.
+    # The value of the request's `User-Agent` header field.
     # @return [String]
     attr_accessor :user_agent
 
-    # The domain where the request was sent.
+    # The `Host` header data of the request.
+    #
     # @return [String]
     attr_accessor :domain
 
-    # A map of protection rule keys to detection message details.
+    # A map of protection rule keys to detection message details. Detections are
+    # requests that matched the criteria of a protection rule but the rule's
+    # action was set to `DETECT`.
+    #
     # @return [Hash<String, String>]
     attr_accessor :protection_rule_detections
 
@@ -54,7 +60,7 @@ module OCI
     # @return [String]
     attr_accessor :request_url
 
-    # The map of header names to values of the request sent to the origin.
+    # The map of the request's header names to their respective values.
     # @return [Hash<String, String>]
     attr_accessor :http_headers
 
@@ -70,11 +76,15 @@ module OCI
     # @return [Integer]
     attr_accessor :response_size
 
-    # The incident key that matched the request.
+    # The incident key of a request. An incident key is generated for
+    # each request processed by the Web Application Firewall and is used to
+    # idenitfy blocked requests in applicable logs.
+    #
     # @return [String]
     attr_accessor :incident_key
 
-    # TODO: what is this? MD5 hash of the request? SHA1?
+    # The hashed signature of the device's fingerprint. For more information,
+    # see `DeviceFingerPrintChallenge`.
     #
     # @return [String]
     attr_accessor :fingerprint
@@ -83,31 +93,43 @@ module OCI
     # @return [String]
     attr_accessor :device
 
-    # The ISO 3166-1 country code of the request.
+    # ISO 3166-1 alpha-2 code of the country from which the request originated.
+    # For a list of codes, see [ISO's website](https://www.iso.org/obp/ui/#search/code/).
+    #
     # @return [String]
     attr_accessor :country_code
 
-    # A map of header names to values of the original request.
+    # A map of header names to values of the request sent to the origin, including any headers
+    # appended by the Web Application Firewall.
+    #
     # @return [Hash<String, String>]
     attr_accessor :request_headers
 
-    # The `ThreatFeed` key that matched the request.
+    # The `ThreatFeed` key that matched the request. For more information about
+    # threat feeds, see `UpdateThreatFeeds`.
+    #
     # @return [String]
     attr_accessor :threat_feed_key
 
-    # The `AccessRule` key that matched the request.
+    # The `AccessRule` key that matched the request. For more information about
+    # access rules, see `UpdateAccessRules`.
+    #
     # @return [String]
     attr_accessor :access_rule_key
 
-    # The `AddressRateLimiting` key that matched the request.
+    # The `AddressRateLimiting` key that matched the request. For more information
+    # about address rate limiting, see `UpdateWafAddressRateLimiting`.
+    #
     # @return [String]
     attr_accessor :address_rate_limiting_key
 
-    # The `Date` header value of the request.
+    # The date and time the Web Application Firewall processed the request and logged it.
+    #
     # @return [String]
     attr_accessor :timestamp
 
-    # The type of log of the request.
+    # The type of log of the request. For more about log types, see [WAF Logs](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/waflogs.htm).
+    #
     # @return [String]
     attr_accessor :log_type
 
@@ -115,8 +137,7 @@ module OCI
     # @return [String]
     attr_accessor :origin_address
 
-    # The amount of time it took the origin server to respond to the request.
-    # TODO: determine unit of time and example
+    # The amount of time it took the origin server to respond to the request, in seconds.
     #
     # @return [String]
     attr_accessor :origin_response_time

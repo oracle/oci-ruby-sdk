@@ -54,21 +54,22 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The Oracle license model that applies to the Oracle Autonomous Database. The default is BRING_YOUR_OWN_LICENSE.
+    # The Oracle license model that applies to the Oracle Autonomous Database. The default is BRING_YOUR_OWN_LICENSE. Note that when provisioning an Autonomous Database using the [dedicated deployment](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm) option, this attribute must be null.
     #
     # @return [String]
     attr_reader :license_model
 
-    # If set to true, indicates that an Autonomous Database preview version is being provisioned, and that the preview version's terms of service have been accepted.
+    # If set to true, indicates that an Autonomous Database preview version is being provisioned, and that the preview version's terms of service have been accepted. Note that preview version software is only available for [serverless deployments](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI).
+    #
     # @return [BOOLEAN]
     attr_accessor :is_preview_version_with_service_terms_accepted
 
-    # Indicates if auto scaling is enabled for the Autonomous Database CPU core count. The default value is false.
+    # Indicates if auto scaling is enabled for the Autonomous Database CPU core count. The default value is false. Note that auto scaling is available for [serverless deployments](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
     #
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
 
-    # True if it is dedicated database.
+    # True if the database uses the [dedicated deployment](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm) option.
     #
     # @return [BOOLEAN]
     attr_accessor :is_dedicated

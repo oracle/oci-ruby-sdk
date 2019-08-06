@@ -183,6 +183,9 @@ module OCI
     # For information about moving resources between compartments, see
     # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
+    # When you move an instance configuration to a different compartment, associated resources such as
+    # instance pools are not moved.
+    #
     # **Important:** Most of the properties for an existing instance configuration, including the compartment,
     # cannot be modified after you create the instance configuration. Although you can move an instance configuration
     # to a different compartment, you will not be able to use the instance configuration to manage instance pools
@@ -335,7 +338,7 @@ module OCI
 
     # Creates an instance configuration
     #
-    # @param [OCI::Core::Models::CreateInstanceConfigurationDetails] create_instance_configuration Instance configuration creation details
+    # @param [OCI::Core::Models::CreateInstanceConfigurationBase] create_instance_configuration Instance configuration creation details
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

@@ -9,6 +9,11 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class LoadBalancer::Models::CreateLoadBalancerDetails
+    IP_MODE_ENUM = [
+      IP_MODE_IPV4 = 'IPV4'.freeze,
+      IP_MODE_IPV6 = 'IPV6'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment in which to create the load balancer.
     # @return [String]
     attr_accessor :compartment_id
@@ -44,6 +49,17 @@ module OCI
     #
     # @return [BOOLEAN]
     attr_accessor :is_private
+
+    # Whether the load balancer has an IPv4 or IPv6 IP address.
+    #
+    # If \"IPV4\", the service assigns an IPv4 address and the load balancer supports IPv4 traffic.
+    #
+    # If \"IPV6\", the service assigns an IPv6 address and the load balancer supports IPv6 traffic.
+    #
+    # Example: \"ipMode\":\"IPV6\"
+    #
+    # @return [String]
+    attr_reader :ip_mode
 
     # @return [Hash<String, OCI::LoadBalancer::Models::ListenerDetails>]
     attr_accessor :listeners
@@ -96,6 +112,7 @@ module OCI
         'display_name': :'displayName',
         'shape_name': :'shapeName',
         'is_private': :'isPrivate',
+        'ip_mode': :'ipMode',
         'listeners': :'listeners',
         'hostnames': :'hostnames',
         'backend_sets': :'backendSets',
@@ -118,6 +135,7 @@ module OCI
         'display_name': :'String',
         'shape_name': :'String',
         'is_private': :'BOOLEAN',
+        'ip_mode': :'String',
         'listeners': :'Hash<String, OCI::LoadBalancer::Models::ListenerDetails>',
         'hostnames': :'Hash<String, OCI::LoadBalancer::Models::HostnameDetails>',
         'backend_sets': :'Hash<String, OCI::LoadBalancer::Models::BackendSetDetails>',
@@ -142,6 +160,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
     # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
+    # @option attributes [String] :ip_mode The value to assign to the {#ip_mode} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::ListenerDetails>] :listeners The value to assign to the {#listeners} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::HostnameDetails>] :hostnames The value to assign to the {#hostnames} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::BackendSetDetails>] :backend_sets The value to assign to the {#backend_sets} property
@@ -183,6 +202,14 @@ module OCI
 
       self.is_private = attributes[:'is_private'] unless attributes[:'is_private'].nil?
       self.is_private = false if is_private.nil? && !attributes.key?(:'isPrivate') && !attributes.key?(:'is_private') # rubocop:disable Style/StringLiterals
+
+      self.ip_mode = attributes[:'ipMode'] if attributes[:'ipMode']
+      self.ip_mode = "IPV4" if ip_mode.nil? && !attributes.key?(:'ipMode') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :ipMode and :ip_mode' if attributes.key?(:'ipMode') && attributes.key?(:'ip_mode')
+
+      self.ip_mode = attributes[:'ip_mode'] if attributes[:'ip_mode']
+      self.ip_mode = "IPV4" if ip_mode.nil? && !attributes.key?(:'ipMode') && !attributes.key?(:'ip_mode') # rubocop:disable Style/StringLiterals
 
       self.listeners = attributes[:'listeners'] if attributes[:'listeners']
 
@@ -235,6 +262,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] ip_mode Object to be assigned
+    def ip_mode=(ip_mode)
+      raise "Invalid value for 'ip_mode': this must be one of the values in IP_MODE_ENUM." if ip_mode && !IP_MODE_ENUM.include?(ip_mode)
+
+      @ip_mode = ip_mode
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -248,6 +283,7 @@ module OCI
         display_name == other.display_name &&
         shape_name == other.shape_name &&
         is_private == other.is_private &&
+        ip_mode == other.ip_mode &&
         listeners == other.listeners &&
         hostnames == other.hostnames &&
         backend_sets == other.backend_sets &&
@@ -273,7 +309,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, shape_name, is_private, listeners, hostnames, backend_sets, network_security_group_ids, subnet_ids, certificates, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
+      [compartment_id, display_name, shape_name, is_private, ip_mode, listeners, hostnames, backend_sets, network_security_group_ids, subnet_ids, certificates, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -5,7 +5,12 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the work requests API
+  # Many of the API operations that you use to create and configure Compute resources do not take effect
+  # immediately. In these cases, the operation spawns an asynchronous workflow to fulfill the request.
+  # Work requests provide visibility into the status of these in-progress, long-running workflows.
+  #
+  # For more information about work requests and the operations that spawn work requests, see
+  # [Viewing the State of a Compute Work Request](/iaas/Content/Compute/Tasks/viewingworkrequestcompute.htm).
   class WorkRequests::WorkRequestClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -108,8 +113,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return the given work request.
-    # @param [String] work_request_id The OCID of the work request.
+    # Gets the details of a work request.
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -163,15 +168,19 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of errors for a given work request.
+    # Gets the errors for a work request.
     #
-    # @param [String] work_request_id The OCID of the work request.
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the
+    #   previous \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
@@ -233,15 +242,19 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of logs for a given work request.
+    # Gets the logs for a work request.
     #
-    # @param [String] work_request_id The OCID of the work request.
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the
+    #   previous \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
@@ -303,16 +316,20 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the work requests in a given compartment or for a given resource.
+    # Lists the work requests in a compartment or for a specified resource.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :resource_id The OCID of the resource.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [String] :resource_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the resource.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the
+    #   previous \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.

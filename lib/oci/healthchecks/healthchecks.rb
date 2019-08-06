@@ -10,6 +10,8 @@ module OCI
 end
 
 # Require models
+require 'oci/healthchecks/models/change_http_monitor_compartment_details'
+require 'oci/healthchecks/models/change_ping_monitor_compartment_details'
 require 'oci/healthchecks/models/connection'
 require 'oci/healthchecks/models/create_http_monitor_details'
 require 'oci/healthchecks/models/create_on_demand_http_probe_details'

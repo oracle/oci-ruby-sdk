@@ -548,7 +548,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of all Budgets in a compartment.
+    # Gets a list of Budgets in a compartment.
+    #
+    # By default, ListBudgets returns budgets of 'COMPARTMENT' target type and the budget records with only ONE target compartment OCID.
+    #
+    # To list ALL budgets, set the targetType query parameter to ALL.
+    # Example:
+    #   'targetType=ALL'
+    #
+    # Additional targetTypes would be available in future releases. Clients should ignore new targetType
+    # or upgrade to latest version of client SDK to handle new targetType.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -567,6 +576,12 @@ module OCI
     #
     #   Example: `My new resource`
     #
+    # @option opts [String] :target_type The type of target to filter by.
+    #     * ALL - List all budgets
+    #     * COMPARTMENT - List all budgets with targetType == \"COMPARTMENT\"
+    #     * TAG - List all budgets with targetType == \"TAG\"
+    #    (default to )
+    #   Allowed values are: ALL, COMPARTMENT, TAG
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Budget::Models::BudgetSummary BudgetSummary}>
     def list_budgets(compartment_id, opts = {})
@@ -586,6 +601,10 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Budget::Models::LIFECYCLE_STATE_ENUM.'
       end
 
+      if opts[:target_type] && !%w[ALL COMPARTMENT TAG].include?(opts[:target_type])
+        raise 'Invalid value for "target_type", must be one of ALL, COMPARTMENT, TAG.'
+      end
+
       path = '/budgets'
       operation_signing_strategy = :standard
 
@@ -599,6 +618,7 @@ module OCI
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:targetType] = opts[:target_type] if opts[:target_type]
 
       # Header Params
       header_params = {}

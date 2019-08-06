@@ -40,6 +40,9 @@ require 'oci/autoscaling/autoscaling'
 require 'oci/ons/ons'
 require 'oci/budget/budget'
 require 'oci/work_requests/work_requests'
+require 'oci/limits/limits'
+require 'oci/functions/functions'
+require 'oci/events/events'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI
