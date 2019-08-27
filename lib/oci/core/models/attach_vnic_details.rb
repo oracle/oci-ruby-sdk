@@ -12,6 +12,7 @@ module OCI
     attr_accessor :create_vnic_details
 
     # A user-friendly name for the attachment. Does not have to be unique, and it cannot be changed.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name

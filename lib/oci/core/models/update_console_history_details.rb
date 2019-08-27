@@ -15,6 +15,7 @@ module OCI
     attr_accessor :defined_tags
 
     # A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name

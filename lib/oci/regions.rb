@@ -10,10 +10,12 @@ module OCI
       REGION_AP_SEOUL_1 = 'ap-seoul-1'.freeze,
       REGION_AP_TOKYO_1 = 'ap-tokyo-1'.freeze,
       REGION_CA_TORONTO_1 = 'ca-toronto-1'.freeze,
+      REGION_EU_FRANKFURT_1 = 'eu-frankfurt-1'.freeze,
+      REGION_EU_ZURICH_1 = 'eu-zurich-1'.freeze,
+      REGION_SA_SAOPAULO_1 = 'sa-saopaulo-1'.freeze,
+      REGION_UK_LONDON_1 = 'uk-london-1'.freeze,
       REGION_US_PHOENIX_1 = 'us-phoenix-1'.freeze,
       REGION_US_ASHBURN_1 = 'us-ashburn-1'.freeze,
-      REGION_EU_FRANKFURT_1 = 'eu-frankfurt-1'.freeze,
-      REGION_UK_LONDON_1 = 'uk-london-1'.freeze,
       REGION_US_LANGLEY_1 = 'us-langley-1'.freeze,
       REGION_US_LUKE_1 = 'us-luke-1'.freeze,
       REGION_US_GOV_ASHBURN_1 = 'us-gov-ashburn-1'.freeze,
@@ -23,13 +25,15 @@ module OCI
 
     REGION_SHORT_NAMES_TO_LONG_NAMES = {
       'bom': REGION_AP_MUMBAI_1,
-      'icn': REGION_AP_SEOUL_1,
-      'nrt': REGION_AP_TOKYO_1,
-      'yyz': REGION_CA_TORONTO_1,
-      'phx': REGION_US_PHOENIX_1,
-      'iad': REGION_US_ASHBURN_1,
       'fra': REGION_EU_FRANKFURT_1,
-      'lhr': REGION_UK_LONDON_1
+      'gru': REGION_SA_SAOPAULO_1,
+      'iad': REGION_US_ASHBURN_1,
+      'icn': REGION_AP_SEOUL_1,
+      'lhr': REGION_UK_LONDON_1,
+      'nrt': REGION_AP_TOKYO_1,
+      'phx': REGION_US_PHOENIX_1,
+      'yyz': REGION_CA_TORONTO_1,
+      'zrh': REGION_EU_ZURICH_1
     }.freeze
 
     # --- Start of region realm mapping ---
@@ -38,10 +42,12 @@ module OCI
       'ap-seoul-1': 'oc1'.freeze,
       'ap-tokyo-1': 'oc1'.freeze,
       'ca-toronto-1': 'oc1'.freeze,
+      'eu-frankfurt-1': 'oc1'.freeze,
+      'eu-zurich-1': 'oc1'.freeze,
+      'sa-saopaulo-1': 'oc1'.freeze,
+      'uk-london-1': 'oc1'.freeze,
       'us-phoenix-1': 'oc1'.freeze,
       'us-ashburn-1': 'oc1'.freeze,
-      'eu-frankfurt-1': 'oc1'.freeze,
-      'uk-london-1': 'oc1'.freeze,
       'us-langley-1': 'oc2'.freeze,
       'us-luke-1': 'oc2'.freeze,
       'us-gov-ashburn-1': 'oc3'.freeze,

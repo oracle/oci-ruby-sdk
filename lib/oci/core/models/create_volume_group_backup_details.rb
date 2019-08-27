@@ -23,7 +23,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name for the volume group backup. Does not have to be unique and it's changeable.
+    # A user-friendly name for the volume group backup. Does not have
+    # to be unique and it's changeable. Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 

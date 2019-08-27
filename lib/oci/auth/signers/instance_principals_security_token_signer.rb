@@ -70,7 +70,12 @@ module OCI
             @leaf_certificate_retriever.certificate
           )
 
-          raw_region = Net::HTTP.get(URI(GET_REGION_URL)).strip.downcase
+          uri = URI(GET_REGION_URL)
+          raw_region_client = Net::HTTP.new(uri.hostname, uri.port)
+          raw_region = nil
+          raw_region_client.request(OCI::Auth::Util.get_metadata_request(GET_REGION_URL, 'get')) do |response|
+            raw_region = response.body.strip.downcase
+          end
           symbolised_raw_region = raw_region.to_sym
           @region = if OCI::Regions::REGION_SHORT_NAMES_TO_LONG_NAMES.key?(symbolised_raw_region)
                       OCI::Regions::REGION_SHORT_NAMES_TO_LONG_NAMES[symbolised_raw_region]

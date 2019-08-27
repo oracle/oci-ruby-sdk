@@ -17,6 +17,15 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
+    # Resource group to assign to the metric. A resource group is a custom string that can be used as a filter. Only one resource group can be applied per metric.
+    # A valid resourceGroup value starts with an alphabetical character and includes only alphanumeric characters, periods (.), underscores (_), hyphens (-), and dollar signs ($).
+    # Avoid entering confidential information.
+    #
+    # Example: `frontend-fleet`
+    #
+    # @return [String]
+    attr_accessor :resource_group
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to use for metrics.
     #
     # @return [String]
@@ -61,6 +70,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'namespace': :'namespace',
+        'resource_group': :'resourceGroup',
         'compartment_id': :'compartmentId',
         'name': :'name',
         'dimensions': :'dimensions',
@@ -75,6 +85,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'namespace': :'String',
+        'resource_group': :'String',
         'compartment_id': :'String',
         'name': :'String',
         'dimensions': :'Hash<String, String>',
@@ -91,6 +102,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :namespace The value to assign to the {#namespace} property
+    # @option attributes [String] :resource_group The value to assign to the {#resource_group} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Hash<String, String>] :dimensions The value to assign to the {#dimensions} property
@@ -103,6 +115,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.namespace = attributes[:'namespace'] if attributes[:'namespace']
+
+      self.resource_group = attributes[:'resourceGroup'] if attributes[:'resourceGroup']
+
+      raise 'You cannot provide both :resourceGroup and :resource_group' if attributes.key?(:'resourceGroup') && attributes.key?(:'resource_group')
+
+      self.resource_group = attributes[:'resource_group'] if attributes[:'resource_group']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -131,6 +149,7 @@ module OCI
 
       self.class == other.class &&
         namespace == other.namespace &&
+        resource_group == other.resource_group &&
         compartment_id == other.compartment_id &&
         name == other.name &&
         dimensions == other.dimensions &&
@@ -151,7 +170,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, compartment_id, name, dimensions, metadata, datapoints].hash
+      [namespace, resource_group, compartment_id, name, dimensions, metadata, datapoints].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

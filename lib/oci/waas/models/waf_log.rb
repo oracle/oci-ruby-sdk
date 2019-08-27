@@ -125,7 +125,7 @@ module OCI
 
     # The date and time the Web Application Firewall processed the request and logged it.
     #
-    # @return [String]
+    # @return [DateTime]
     attr_accessor :timestamp
 
     # The type of log of the request. For more about log types, see [WAF Logs](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/waflogs.htm).
@@ -206,7 +206,7 @@ module OCI
         'threat_feed_key': :'String',
         'access_rule_key': :'String',
         'address_rate_limiting_key': :'String',
-        'timestamp': :'String',
+        'timestamp': :'DateTime',
         'log_type': :'String',
         'origin_address': :'String',
         'origin_response_time': :'String'
@@ -244,7 +244,7 @@ module OCI
     # @option attributes [String] :threat_feed_key The value to assign to the {#threat_feed_key} property
     # @option attributes [String] :access_rule_key The value to assign to the {#access_rule_key} property
     # @option attributes [String] :address_rate_limiting_key The value to assign to the {#address_rate_limiting_key} property
-    # @option attributes [String] :timestamp The value to assign to the {#timestamp} property
+    # @option attributes [DateTime] :timestamp The value to assign to the {#timestamp} property
     # @option attributes [String] :log_type The value to assign to the {#log_type} property
     # @option attributes [String] :origin_address The value to assign to the {#origin_address} property
     # @option attributes [String] :origin_response_time The value to assign to the {#origin_response_time} property

@@ -40,6 +40,11 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The OCID of KMS key used to encrypt the encryption keys associated with this file system.
+    #
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -48,7 +53,8 @@ module OCI
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'kms_key_id': :'kmsKeyId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,7 +67,8 @@ module OCI
         'compartment_id': :'String',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'kms_key_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -77,6 +84,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -112,6 +120,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -129,7 +143,8 @@ module OCI
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        kms_key_id == other.kms_key_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -145,7 +160,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, display_name, freeform_tags, defined_tags].hash
+      [availability_domain, compartment_id, display_name, freeform_tags, defined_tags, kms_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

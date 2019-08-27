@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # APIs for managing Compartment Resource Quotas.
+  # APIs that interact with the resource limits of a specific resource type
   class Limits::QuotasClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -76,7 +76,7 @@ module OCI
       @retry_config = retry_config
 
       if endpoint
-        @endpoint = endpoint + '/20181025'
+        @endpoint = endpoint + '/'
       else
         region ||= config.region
         region ||= signer.region if signer.respond_to?(:region)
@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://limits.{region}.oci.{secondLevelDomain}') + '/20181025'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://limits.{region}.oci.{secondLevelDomain}') + '/'
       logger.info "QuotasClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -128,7 +128,7 @@ module OCI
 
       raise "Missing the required parameter 'create_quota_details' when calling create_quota." if create_quota_details.nil?
 
-      path = '/quotas/'
+      path = '/20181025/quotas/'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -189,7 +189,7 @@ module OCI
       raise "Missing the required parameter 'quota_id' when calling delete_quota." if quota_id.nil?
       raise "Parameter value for 'quota_id' must not be blank" if OCI::Internal::Util.blank_string?(quota_id)
 
-      path = '/quotas/{quotaId}'.sub('{quotaId}', quota_id.to_s)
+      path = '/20181025/quotas/{quotaId}'.sub('{quotaId}', quota_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -244,7 +244,7 @@ module OCI
       raise "Missing the required parameter 'quota_id' when calling get_quota." if quota_id.nil?
       raise "Parameter value for 'quota_id' must not be blank" if OCI::Internal::Util.blank_string?(quota_id)
 
-      path = '/quotas/{quotaId}'.sub('{quotaId}', quota_id.to_s)
+      path = '/20181025/quotas/{quotaId}'.sub('{quotaId}', quota_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -293,14 +293,15 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 25)
     # @option opts [String] :name name
     # @option opts [String] :lifecycle_state Filters returned quotas based on whether the given state.
     #   Allowed values are: ACTIVE
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. By default it will be ascending.
+    #    (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Time created is default ordered as descending. Display name is default ordered as ascending.
-    #
+    #    (default to NAME)
     #   Allowed values are: NAME, TIMECREATED
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
@@ -323,7 +324,7 @@ module OCI
         raise 'Invalid value for "sort_by", must be one of NAME, TIMECREATED.'
       end
 
-      path = '/quotas/'
+      path = '/20181025/quotas/'
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -391,7 +392,7 @@ module OCI
       raise "Missing the required parameter 'update_quota_details' when calling update_quota." if update_quota_details.nil?
       raise "Parameter value for 'quota_id' must not be blank" if OCI::Internal::Util.blank_string?(quota_id)
 
-      path = '/quotas/{quotaId}'.sub('{quotaId}', quota_id.to_s)
+      path = '/20181025/quotas/{quotaId}'.sub('{quotaId}', quota_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf

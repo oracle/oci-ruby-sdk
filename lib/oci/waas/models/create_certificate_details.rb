@@ -17,6 +17,17 @@ module OCI
     attr_accessor :display_name
 
     # **[Required]** The data of the SSL certificate.
+    #
+    #
+    # **Note:** Many SSL certificate providers require an intermediate certificate chain to ensure a trusted status.
+    # If your SSL certificate requires an intermediate certificate chain, please append the intermediate certificate
+    # key in the `certificateData` field after the leaf certificate issued by the SSL certificate provider. If you
+    # are unsure if your certificate requires an intermediate certificate chain, see your certificate
+    # provider's documentation.
+    #
+    #
+    # The example below shows an intermediate certificate appended to a leaf certificate.
+    #
     # @return [String]
     attr_accessor :certificate_data
 
@@ -24,15 +35,23 @@ module OCI
     # @return [String]
     attr_accessor :private_key_data
 
-    # Set to true if the SSL certificate is self-signed.
+    # Set to `true` if the SSL certificate is self-signed.
     # @return [BOOLEAN]
     attr_accessor :is_trust_verification_disabled
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example:
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 

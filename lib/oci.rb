@@ -43,6 +43,7 @@ require 'oci/work_requests/work_requests'
 require 'oci/limits/limits'
 require 'oci/functions/functions'
 require 'oci/events/events'
+require 'oci/dts/dts'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

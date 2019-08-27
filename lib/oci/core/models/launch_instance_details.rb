@@ -25,6 +25,11 @@ module OCI
     # @return [OCI::Core::Models::CreateVnicDetails]
     attr_accessor :create_vnic_details
 
+    # The OCID of dedicated VM host.
+    #
+    # @return [String]
+    attr_accessor :dedicated_vm_host_id
+
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -212,6 +217,7 @@ module OCI
         'availability_domain': :'availabilityDomain',
         'compartment_id': :'compartmentId',
         'create_vnic_details': :'createVnicDetails',
+        'dedicated_vm_host_id': :'dedicatedVmHostId',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'extended_metadata': :'extendedMetadata',
@@ -237,6 +243,7 @@ module OCI
         'availability_domain': :'String',
         'compartment_id': :'String',
         'create_vnic_details': :'OCI::Core::Models::CreateVnicDetails',
+        'dedicated_vm_host_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'extended_metadata': :'Hash<String, Object>',
@@ -264,6 +271,7 @@ module OCI
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [OCI::Core::Models::CreateVnicDetails] :create_vnic_details The value to assign to the {#create_vnic_details} property
+    # @option attributes [String] :dedicated_vm_host_id The value to assign to the {#dedicated_vm_host_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, Object>] :extended_metadata The value to assign to the {#extended_metadata} property
@@ -301,6 +309,12 @@ module OCI
       raise 'You cannot provide both :createVnicDetails and :create_vnic_details' if attributes.key?(:'createVnicDetails') && attributes.key?(:'create_vnic_details')
 
       self.create_vnic_details = attributes[:'create_vnic_details'] if attributes[:'create_vnic_details']
+
+      self.dedicated_vm_host_id = attributes[:'dedicatedVmHostId'] if attributes[:'dedicatedVmHostId']
+
+      raise 'You cannot provide both :dedicatedVmHostId and :dedicated_vm_host_id' if attributes.key?(:'dedicatedVmHostId') && attributes.key?(:'dedicated_vm_host_id')
+
+      self.dedicated_vm_host_id = attributes[:'dedicated_vm_host_id'] if attributes[:'dedicated_vm_host_id']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -393,6 +407,7 @@ module OCI
         availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
         create_vnic_details == other.create_vnic_details &&
+        dedicated_vm_host_id == other.dedicated_vm_host_id &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         extended_metadata == other.extended_metadata &&
@@ -422,7 +437,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, metadata, agent_config, shape, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
+      [availability_domain, compartment_id, create_vnic_details, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, metadata, agent_config, shape, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

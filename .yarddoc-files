@@ -7,6 +7,7 @@ lib/oci/container_engine/container_engine.rb
 lib/oci/core/core.rb
 lib/oci/database/database.rb
 lib/oci/dns/dns.rb
+lib/oci/dts/dts.rb
 lib/oci/email/email.rb
 lib/oci/events/events.rb
 lib/oci/file_storage/file_storage.rb

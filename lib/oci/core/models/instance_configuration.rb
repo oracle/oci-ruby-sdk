@@ -4,12 +4,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An instance configuration is a template that defines the settings to use when creating Compute instances
-  # as part of an instance pool. For more information about instance pools and instance configurations, see
+  # An instance configuration is a template that defines the settings to use when creating Compute instances.
+  # For more information about instance configurations, see
   # [Managing Compute Instances](https://docs.cloud.oracle.com/Content/Compute/Concepts/instancemanagement.htm).
   #
   class Core::Models::InstanceConfiguration
-    # **[Required]** The OCID of the compartment containing the instance configuration.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment
+    # containing the instance configuration.
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -22,7 +23,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name for the instance configuration
+    # A user-friendly name for the instance configuration.
     #
     # @return [String]
     attr_accessor :display_name
@@ -35,20 +36,22 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The OCID of the instance configuration
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance configuration.
     # @return [String]
     attr_accessor :id
 
     # @return [OCI::Core::Models::InstanceConfigurationInstanceDetails]
     attr_accessor :instance_details
 
-    # The required details when using the {#launch_instance_configuration launch_instance_configuration} operation.
-    # These attributes are optional when using the {#create_instance_configuration create_instance_configuration} operation.
+    # Parameters that were not specified when the instance configuration was created, but that
+    # are required to launch an instance from the instance configuration. See the
+    # {#launch_instance_configuration launch_instance_configuration} operation.
     #
     # @return [Array<String>]
     attr_accessor :deferred_fields
 
     # **[Required]** The date and time the instance configuration was created, in the format defined by RFC3339.
+    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]

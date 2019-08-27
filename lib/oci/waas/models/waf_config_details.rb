@@ -34,6 +34,18 @@ module OCI
     # @return [String]
     attr_accessor :origin
 
+    # A list of caching rules applied to the web application.
+    # @return [Array<OCI::Waas::Models::CachingRule>]
+    attr_accessor :caching_rules
+
+    # A list of the custom protection rule OCIDs and their actions.
+    # @return [Array<OCI::Waas::Models::CustomProtectionRuleSetting>]
+    attr_accessor :custom_protection_rules
+
+    # The list of origin group references that provide support for additional origin servers. A list of combined unique origin servers from `origin` and `originGroups` will be used.
+    # @return [Array<String>]
+    attr_accessor :origin_groups
+
     # The settings applied to protection rules.
     # @return [OCI::Waas::Models::ProtectionSettings]
     attr_accessor :protection_settings
@@ -53,6 +65,9 @@ module OCI
         'human_interaction_challenge': :'humanInteractionChallenge',
         'js_challenge': :'jsChallenge',
         'origin': :'origin',
+        'caching_rules': :'cachingRules',
+        'custom_protection_rules': :'customProtectionRules',
+        'origin_groups': :'originGroups',
         'protection_settings': :'protectionSettings',
         'whitelists': :'whitelists'
         # rubocop:enable Style/SymbolLiteral
@@ -70,6 +85,9 @@ module OCI
         'human_interaction_challenge': :'OCI::Waas::Models::HumanInteractionChallenge',
         'js_challenge': :'OCI::Waas::Models::JsChallenge',
         'origin': :'String',
+        'caching_rules': :'Array<OCI::Waas::Models::CachingRule>',
+        'custom_protection_rules': :'Array<OCI::Waas::Models::CustomProtectionRuleSetting>',
+        'origin_groups': :'Array<String>',
         'protection_settings': :'OCI::Waas::Models::ProtectionSettings',
         'whitelists': :'Array<OCI::Waas::Models::Whitelist>'
         # rubocop:enable Style/SymbolLiteral
@@ -89,6 +107,9 @@ module OCI
     # @option attributes [OCI::Waas::Models::HumanInteractionChallenge] :human_interaction_challenge The value to assign to the {#human_interaction_challenge} property
     # @option attributes [OCI::Waas::Models::JsChallenge] :js_challenge The value to assign to the {#js_challenge} property
     # @option attributes [String] :origin The value to assign to the {#origin} property
+    # @option attributes [Array<OCI::Waas::Models::CachingRule>] :caching_rules The value to assign to the {#caching_rules} property
+    # @option attributes [Array<OCI::Waas::Models::CustomProtectionRuleSetting>] :custom_protection_rules The value to assign to the {#custom_protection_rules} property
+    # @option attributes [Array<String>] :origin_groups The value to assign to the {#origin_groups} property
     # @option attributes [OCI::Waas::Models::ProtectionSettings] :protection_settings The value to assign to the {#protection_settings} property
     # @option attributes [Array<OCI::Waas::Models::Whitelist>] :whitelists The value to assign to the {#whitelists} property
     def initialize(attributes = {})
@@ -131,6 +152,24 @@ module OCI
 
       self.origin = attributes[:'origin'] if attributes[:'origin']
 
+      self.caching_rules = attributes[:'cachingRules'] if attributes[:'cachingRules']
+
+      raise 'You cannot provide both :cachingRules and :caching_rules' if attributes.key?(:'cachingRules') && attributes.key?(:'caching_rules')
+
+      self.caching_rules = attributes[:'caching_rules'] if attributes[:'caching_rules']
+
+      self.custom_protection_rules = attributes[:'customProtectionRules'] if attributes[:'customProtectionRules']
+
+      raise 'You cannot provide both :customProtectionRules and :custom_protection_rules' if attributes.key?(:'customProtectionRules') && attributes.key?(:'custom_protection_rules')
+
+      self.custom_protection_rules = attributes[:'custom_protection_rules'] if attributes[:'custom_protection_rules']
+
+      self.origin_groups = attributes[:'originGroups'] if attributes[:'originGroups']
+
+      raise 'You cannot provide both :originGroups and :origin_groups' if attributes.key?(:'originGroups') && attributes.key?(:'origin_groups')
+
+      self.origin_groups = attributes[:'origin_groups'] if attributes[:'origin_groups']
+
       self.protection_settings = attributes[:'protectionSettings'] if attributes[:'protectionSettings']
 
       raise 'You cannot provide both :protectionSettings and :protection_settings' if attributes.key?(:'protectionSettings') && attributes.key?(:'protection_settings')
@@ -158,6 +197,9 @@ module OCI
         human_interaction_challenge == other.human_interaction_challenge &&
         js_challenge == other.js_challenge &&
         origin == other.origin &&
+        caching_rules == other.caching_rules &&
+        custom_protection_rules == other.custom_protection_rules &&
+        origin_groups == other.origin_groups &&
         protection_settings == other.protection_settings &&
         whitelists == other.whitelists
     end
@@ -175,7 +217,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [access_rules, address_rate_limiting, captchas, device_fingerprint_challenge, human_interaction_challenge, js_challenge, origin, protection_settings, whitelists].hash
+      [access_rules, address_rate_limiting, captchas, device_fingerprint_challenge, human_interaction_challenge, js_challenge, origin, caching_rules, custom_protection_rules, origin_groups, protection_settings, whitelists].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

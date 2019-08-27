@@ -336,7 +336,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates an instance configuration
+    # Creates an instance configuration. An instance configuration is a template that defines the
+    # settings to use when creating Compute instances.
     #
     # @param [OCI::Core::Models::CreateInstanceConfigurationBase] create_instance_configuration Instance configuration creation details
     # @param [Hash] opts the optional parameters
@@ -738,7 +739,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Launch an instance from an instance configuration
+    # Launches an instance from an instance configuration.
+    #
+    # If the instance configuration does not include all of the parameters that are
+    # required to launch an instance, such as the availability domain and subnet ID, you must
+    # provide these parameters when you launch an instance from the instance configuration.
+    # For more information, see the {InstanceConfiguration}
+    # resource.
     #
     # @param [String] instance_configuration_id The OCID of the instance configuration.
     # @param [OCI::Core::Models::InstanceConfigurationInstanceDetails] instance_configuration Instance configuration Instance Details
@@ -800,7 +807,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the available instanceConfigurations in the specific compartment.
+    # Lists the instance configurations in the specified compartment.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
@@ -1397,7 +1404,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the freeFormTags, definedTags, and display name of an instance configuration.
+    # Updates the free-form tags, defined tags, and display name of an instance configuration.
     # @param [String] instance_configuration_id The OCID of the instance configuration.
     # @param [OCI::Core::Models::UpdateInstanceConfigurationDetails] update_instance_configuration_details Updates the freeFormTags, definedTags, and display name of an instance configuration.
     # @param [Hash] opts the optional parameters

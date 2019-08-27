@@ -180,6 +180,45 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Core::ComputeClient#create_dedicated_vm_host} and then waits for the {OCI::Core::Models::DedicatedVmHost} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::Core::Models::CreateDedicatedVmHostDetails] create_dedicated_vm_host_details The details for creating a new dedicated virtual machine (VM) host.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::DedicatedVmHost#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#create_dedicated_vm_host}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Core::Models::DedicatedVmHost}
+    def create_dedicated_vm_host_and_wait_for_state(create_dedicated_vm_host_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_dedicated_vm_host(create_dedicated_vm_host_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_dedicated_vm_host(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Core::ComputeClient#create_image} and then waits for the {OCI::Core::Models::Image} acted upon
     # to enter the given state(s).
     #
@@ -272,6 +311,46 @@ module OCI
     def delete_console_history_and_wait_for_state(instance_console_history_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       initial_get_result = @service_client.get_console_history(instance_console_history_id)
       operation_result = @service_client.delete_console_history(instance_console_history_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Core::ComputeClient#delete_dedicated_vm_host} and then waits for the {OCI::Core::Models::DedicatedVmHost} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::DedicatedVmHost#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#delete_dedicated_vm_host}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_dedicated_vm_host_and_wait_for_state(dedicated_vm_host_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_dedicated_vm_host(dedicated_vm_host_id)
+      operation_result = @service_client.delete_dedicated_vm_host(dedicated_vm_host_id, base_operation_opts)
 
       return operation_result if wait_for_states.empty?
 
@@ -680,6 +759,46 @@ module OCI
 
       begin
         waiter_result = @service_client.get_console_history(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Core::ComputeClient#update_dedicated_vm_host} and then waits for the {OCI::Core::Models::DedicatedVmHost} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
+    # @param [OCI::Core::Models::UpdateDedicatedVmHostDetails] update_dedicated_vm_host_details Update dedicated VM host details
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::DedicatedVmHost#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#update_dedicated_vm_host}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Core::Models::DedicatedVmHost}
+    def update_dedicated_vm_host_and_wait_for_state(dedicated_vm_host_id, update_dedicated_vm_host_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_dedicated_vm_host(dedicated_vm_host_id, update_dedicated_vm_host_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_dedicated_vm_host(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200

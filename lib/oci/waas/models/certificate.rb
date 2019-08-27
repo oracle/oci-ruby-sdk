@@ -18,15 +18,15 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the certificate.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the certificate.
     # @return [String]
     attr_accessor :id
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the certificate's compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the certificate's compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The user-friendly name of the certificate.
+    # **[Required]** The user-friendly name of the certificate.
     # @return [String]
     attr_accessor :display_name
 
@@ -36,36 +36,49 @@ module OCI
     # @return [OCI::Waas::Models::CertificateSubjectName]
     attr_accessor :subject_name
 
-    # @return [OCI::Waas::Models::CertificateSubjectName]
+    # @return [OCI::Waas::Models::CertificateIssuerName]
     attr_accessor :issuer_name
 
+    # **[Required]** A unique, positive integer assigned by the Certificate Authority (CA). The issuer name and serial number identify a unique certificate.
     # @return [String]
     attr_accessor :serial_number
 
+    # **[Required]** The version of the encoded certificate.
     # @return [Integer]
     attr_accessor :version
 
+    # **[Required]** The identifier for the cryptographic algorithm used by the Certificate Authority (CA) to sign this certificate.
     # @return [String]
     attr_accessor :signature_algorithm
 
+    # **[Required]** The date and time the certificate will become valid, expressed in RFC 3339 timestamp format.
     # @return [DateTime]
     attr_accessor :time_not_valid_before
 
-    # The date and time the certificate will expire, expressed in RFC 3339 timestamp format.
+    # **[Required]** The date and time the certificate will expire, expressed in RFC 3339 timestamp format.
     # @return [DateTime]
     attr_accessor :time_not_valid_after
 
     # @return [OCI::Waas::Models::CertificatePublicKeyInfo]
     attr_accessor :public_key_info
 
+    # Additional attributes associated with users or public keys for managing relationships between Certificate Authorities.
     # @return [Array<OCI::Waas::Models::CertificateExtensions>]
     attr_accessor :extensions
 
-    # A simple key-value pair without any defined schema.
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # A key-value pair with a defined schema that restricts the values of tags. These predefined keys are scoped to namespaces.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
@@ -111,7 +124,7 @@ module OCI
         'display_name': :'String',
         'issued_by': :'String',
         'subject_name': :'OCI::Waas::Models::CertificateSubjectName',
-        'issuer_name': :'OCI::Waas::Models::CertificateSubjectName',
+        'issuer_name': :'OCI::Waas::Models::CertificateIssuerName',
         'serial_number': :'String',
         'version': :'Integer',
         'signature_algorithm': :'String',
@@ -138,7 +151,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :issued_by The value to assign to the {#issued_by} property
     # @option attributes [OCI::Waas::Models::CertificateSubjectName] :subject_name The value to assign to the {#subject_name} property
-    # @option attributes [OCI::Waas::Models::CertificateSubjectName] :issuer_name The value to assign to the {#issuer_name} property
+    # @option attributes [OCI::Waas::Models::CertificateIssuerName] :issuer_name The value to assign to the {#issuer_name} property
     # @option attributes [String] :serial_number The value to assign to the {#serial_number} property
     # @option attributes [Integer] :version The value to assign to the {#version} property
     # @option attributes [String] :signature_algorithm The value to assign to the {#signature_algorithm} property

@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An instance configuration that can be used to launch
+  # Creation details for an instance configuration.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Core::Models::CreateInstanceConfigurationBase
@@ -13,7 +13,8 @@ module OCI
       SOURCE_INSTANCE = 'INSTANCE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment containing the instance configuration.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment
+    # containing the instance configuration.
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -26,7 +27,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name for the instance configuration
+    # A user-friendly name for the instance configuration.  Does not have to be unique,
+    # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
@@ -39,9 +41,17 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The source of the instance configuration:
-    # NONE for creating a new instance configuration from the API input. INSTANCE for creating a new instance
-    # configuration from an existing instance. The default is NONE.
+    # The source of the instance configuration. An instance configuration defines the
+    # settings to use when creating Compute instances, including details
+    # such as the base image, shape, and metadata. You can also specify the associated resources for the
+    # instance, such as block volume attachments and network configuration.
+    #
+    # The following values are supported:
+    #
+    # * `NONE`: Creates an instance configuration using the list of settings that you specify.
+    #
+    # * `INSTANCE`: Creates an instance configuration using an existing instance as a template. The
+    # instance configuration uses the same settings as the instance.
     #
     # @return [String]
     attr_reader :source
