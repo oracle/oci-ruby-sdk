@@ -10,7 +10,12 @@ module OCI
 end
 
 # Require models
+require 'oci/streaming/models/archiver'
+require 'oci/streaming/models/archiver_error'
+require 'oci/streaming/models/archiver_lifecycle_state'
+require 'oci/streaming/models/archiver_start_position'
 require 'oci/streaming/models/change_stream_compartment_details'
+require 'oci/streaming/models/create_archiver_details'
 require 'oci/streaming/models/create_cursor_details'
 require 'oci/streaming/models/create_group_cursor_details'
 require 'oci/streaming/models/create_stream_details'
@@ -24,6 +29,7 @@ require 'oci/streaming/models/put_messages_result'
 require 'oci/streaming/models/put_messages_result_entry'
 require 'oci/streaming/models/stream'
 require 'oci/streaming/models/stream_summary'
+require 'oci/streaming/models/update_archiver_details'
 require 'oci/streaming/models/update_group_details'
 require 'oci/streaming/models/update_stream_details'
 

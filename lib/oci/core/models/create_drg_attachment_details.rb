@@ -20,8 +20,10 @@ module OCI
     # table. The Networking service does NOT automatically associate the attached VCN's default route table
     # with the DRG attachment.
     #
-    # For information about why you would associate a route table with a DRG attachment, see
-    # [Advanced Scenario: Transit Routing](https://docs.cloud.oracle.com/Content/Network/Tasks/transitrouting.htm).
+    # For information about why you would associate a route table with a DRG attachment, see:
+    #
+    #   * [Transit Routing: Access to Multiple VCNs in Same Region](https://docs.cloud.oracle.com/Content/Network/Tasks/transitrouting.htm)
+    #   * [Transit Routing: Private Access to Oracle Services](https://docs.cloud.oracle.com/Content/Network/Tasks/transitroutingoracleservices.htm)
     #
     # @return [String]
     attr_accessor :route_table_id

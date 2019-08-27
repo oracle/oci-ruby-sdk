@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.6.0 - 2019-08-27 
+### Added
+- Support for the Sao Paulo (GRU) region
+- Support for dedicated virtual machine hosts in the Compute service
+- Support for resource groups in metrics and alarms in the Monitoring service
+- Support for the Data Transfer service
+- Support for the Zurich (ZRH) region
+
+### Breaking changes
+- `OCI::Waas::Models::Certificate.issuer_name` type changed from `OCI::Waas::Models::CertificateSubjectName` to `OCI::Waas::Models::CertificateIssuerName`
+- `OCI::Waas::Models::WafLog.timestamp` type changed from `String` to `DateTime`
+- `WORK_REQUEST_OPERATION_TYPES_PURGE_WAAS_POLICY` removed from `OCI::Waas::Models.WORK_REQUEST_OPERATION_TYPES_ENUM`
+- `OPERATION_TYPE_PURGE_WAAS_POLICY` removed from`OCI::Waas::Models::WorkRequestSummary.OPERATION_TYPE_ENUM`
+
 ## 2.5.11 - 2019-08-06
 ### Added
 - Support for the Functions service

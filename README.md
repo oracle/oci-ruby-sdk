@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Ruby SDK
-**Version 2.5.11**
+**Version 2.6.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -13,6 +13,7 @@ The Ruby SDK supports the following services:
 * Compute Autoscaling
 * Container Engine
 * Core Services (which includes Networking, Compute, and Block Volume)
+* Data Transfer 
 * Database
 * Domain Name System
 * Email
@@ -22,6 +23,7 @@ The Ruby SDK supports the following services:
 * Health Checks
 * Identity and Access Management
 * Key Management
+* Limits
 * Load Balancing
 * Monitoring
 * Notification

@@ -94,7 +94,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :WaasClient) + '/20181116'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://waas.{region}.{secondLevelDomain}') + '/20181116'
       logger.info "WaasClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -224,6 +224,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves address list into a different compartment. When provided, If-Match is checked against ETag values of the address list.
+    # @param [String] address_list_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the address list. This number is generated when the address list is added to the compartment.
+    # @param [OCI::Waas::Models::ChangeAddressListCompartmentDetails] change_address_list_compartment_details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @return [Response] A Response object with data of type nil
+    def change_address_list_compartment(address_list_id, change_address_list_compartment_details, opts = {})
+      logger.debug 'Calling operation WaasClient#change_address_list_compartment.' if logger
+
+      raise "Missing the required parameter 'address_list_id' when calling change_address_list_compartment." if address_list_id.nil?
+      raise "Missing the required parameter 'change_address_list_compartment_details' when calling change_address_list_compartment." if change_address_list_compartment_details.nil?
+      raise "Parameter value for 'address_list_id' must not be blank" if OCI::Internal::Util.blank_string?(address_list_id)
+
+      path = '/addressLists/{addressListId}/actions/changeCompartment'.sub('{addressListId}', address_list_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_address_list_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#change_address_list_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves certificate into a different compartment. When provided, If-Match is checked against ETag values of the certificate.
     # @param [String] certificate_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SSL certificate used in the WAAS policy. This number is generated when the certificate is added to the policy.
     # @param [OCI::Waas::Models::ChangeCertificateCompartmentDetails] change_certificate_compartment_details
@@ -263,6 +323,66 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#change_certificate_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves Custom Protection rule into a different compartment. When provided, If-Match is checked against ETag values of the Custom Protection rule.
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
+    # @param [OCI::Waas::Models::ChangeCustomProtectionRuleCompartmentDetails] change_custom_protection_rule_compartment_details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @return [Response] A Response object with data of type nil
+    def change_custom_protection_rule_compartment(custom_protection_rule_id, change_custom_protection_rule_compartment_details, opts = {})
+      logger.debug 'Calling operation WaasClient#change_custom_protection_rule_compartment.' if logger
+
+      raise "Missing the required parameter 'custom_protection_rule_id' when calling change_custom_protection_rule_compartment." if custom_protection_rule_id.nil?
+      raise "Missing the required parameter 'change_custom_protection_rule_compartment_details' when calling change_custom_protection_rule_compartment." if change_custom_protection_rule_compartment_details.nil?
+      raise "Parameter value for 'custom_protection_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(custom_protection_rule_id)
+
+      path = '/customProtectionRules/{customProtectionRuleId}/actions/changeCompartment'.sub('{customProtectionRuleId}', custom_protection_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_custom_protection_rule_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#change_custom_protection_rule_compartment') do
         @api_client.call_api(
           :POST,
           path,
@@ -344,6 +464,63 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates an address list in set compartment and allows it to be used in a WAAS policy.
+    # For more information, see [WAF Settings](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/wafsettings.htm).
+    # @param [OCI::Waas::Models::CreateAddressListDetails] create_address_list_details The details of the address list resource to create.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @return [Response] A Response object with data of type {OCI::Waas::Models::AddressList AddressList}
+    def create_address_list(create_address_list_details, opts = {})
+      logger.debug 'Calling operation WaasClient#create_address_list.' if logger
+
+      raise "Missing the required parameter 'create_address_list_details' when calling create_address_list." if create_address_list_details.nil?
+
+      path = '/addressLists'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_address_list_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#create_address_list') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Waas::Models::AddressList'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Allows an SSL certificate to be added to a WAAS policy. The Web Application Firewall terminates SSL connections to inspect requests in runtime, and then re-encrypts requests before sending them to the origin for fulfillment.
     #
     # For more information, see [WAF Settings](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/wafsettings.htm).
@@ -389,6 +566,62 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Waas::Models::Certificate'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new Custom Protection rule in the specified compartment.
+    # @param [OCI::Waas::Models::CreateCustomProtectionRuleDetails] create_custom_protection_rule_details The details of the Custom Protection rule.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @return [Response] A Response object with data of type {OCI::Waas::Models::CustomProtectionRule CustomProtectionRule}
+    def create_custom_protection_rule(create_custom_protection_rule_details, opts = {})
+      logger.debug 'Calling operation WaasClient#create_custom_protection_rule.' if logger
+
+      raise "Missing the required parameter 'create_custom_protection_rule_details' when calling create_custom_protection_rule." if create_custom_protection_rule_details.nil?
+
+      path = '/customProtectionRules'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_custom_protection_rule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#create_custom_protection_rule') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Waas::Models::CustomProtectionRule'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -469,6 +702,64 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the address list from the compartment if it is not used.
+    # @param [String] address_list_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the address list. This number is generated when the address list is added to the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @return [Response] A Response object with data of type nil
+    def delete_address_list(address_list_id, opts = {})
+      logger.debug 'Calling operation WaasClient#delete_address_list.' if logger
+
+      raise "Missing the required parameter 'address_list_id' when calling delete_address_list." if address_list_id.nil?
+      raise "Parameter value for 'address_list_id' must not be blank" if OCI::Internal::Util.blank_string?(address_list_id)
+
+      path = '/addressLists/{addressListId}'.sub('{addressListId}', address_list_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#delete_address_list') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes an SSL certificate from the WAAS service.
     # @param [String] certificate_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SSL certificate used in the WAAS policy. This number is generated when the certificate is added to the policy.
     # @param [Hash] opts the optional parameters
@@ -506,6 +797,64 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#delete_certificate') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a Custom Protection rule.
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @return [Response] A Response object with data of type nil
+    def delete_custom_protection_rule(custom_protection_rule_id, opts = {})
+      logger.debug 'Calling operation WaasClient#delete_custom_protection_rule.' if logger
+
+      raise "Missing the required parameter 'custom_protection_rule_id' when calling delete_custom_protection_rule." if custom_protection_rule_id.nil?
+      raise "Parameter value for 'custom_protection_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(custom_protection_rule_id)
+
+      path = '/customProtectionRules/{customProtectionRuleId}'.sub('{customProtectionRuleId}', custom_protection_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#delete_custom_protection_rule') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -585,6 +934,59 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the details of an address list.
+    # @param [String] address_list_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the address list. This number is generated when the address list is added to the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @return [Response] A Response object with data of type {OCI::Waas::Models::AddressList AddressList}
+    def get_address_list(address_list_id, opts = {})
+      logger.debug 'Calling operation WaasClient#get_address_list.' if logger
+
+      raise "Missing the required parameter 'address_list_id' when calling get_address_list." if address_list_id.nil?
+      raise "Parameter value for 'address_list_id' must not be blank" if OCI::Internal::Util.blank_string?(address_list_id)
+
+      path = '/addressLists/{addressListId}'.sub('{addressListId}', address_list_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#get_address_list') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Waas::Models::AddressList'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the details of an SSL certificate.
     # @param [String] certificate_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SSL certificate used in the WAAS policy. This number is generated when the certificate is added to the policy.
     # @param [Hash] opts the optional parameters
@@ -625,6 +1027,59 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Waas::Models::Certificate'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the details of a Custom Protection rule.
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @return [Response] A Response object with data of type {OCI::Waas::Models::CustomProtectionRule CustomProtectionRule}
+    def get_custom_protection_rule(custom_protection_rule_id, opts = {})
+      logger.debug 'Calling operation WaasClient#get_custom_protection_rule.' if logger
+
+      raise "Missing the required parameter 'custom_protection_rule_id' when calling get_custom_protection_rule." if custom_protection_rule_id.nil?
+      raise "Parameter value for 'custom_protection_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(custom_protection_rule_id)
+
+      path = '/customProtectionRules/{customProtectionRuleId}'.sub('{customProtectionRuleId}', custom_protection_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#get_custom_protection_rule') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Waas::Models::CustomProtectionRule'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1171,7 +1626,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the currently configured access rules for the Web Application Firewall configration of a specified WAAS policy.
+    # Gets the currently configured access rules for the Web Application Firewall configuration of a specified WAAS policy.
     # The order of the access rules is important. The rules will be checked in the order they are specified and the first matching rule will be used.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
@@ -1216,6 +1671,156 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Waas::Models::AccessRule>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of address lists that can be used in a WAAS policy.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment. This number is generated when the compartment is created.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
+    # @option opts [String] :sort_by The value by which address lists are sorted in a paginated 'List' call. If unspecified, defaults to `timeCreated`.
+    #   Allowed values are: id, name, timeCreated
+    # @option opts [String] :sort_order The value of the sorting direction of resources in a paginated 'List' call. If unspecified, defaults to `DESC`.
+    #   Allowed values are: ASC, DESC
+    # @option opts [Array<String>] :id Filter address lists using a list of address lists OCIDs.
+    # @option opts [Array<String>] :name Filter address lists using a list of names.
+    # @option opts [Array<String>] :lifecycle_state Filter address lists using a list of lifecycle states.
+    #   Allowed values are: CREATING, ACTIVE, FAILED, UPDATING, DELETING, DELETED
+    # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches address lists created on or after the specified date-time.
+    # @option opts [DateTime] :time_created_less_than A filter that matches address lists created before the specified date-time.
+    # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::AddressListSummary AddressListSummary}>
+    def list_address_lists(compartment_id, opts = {})
+      logger.debug 'Calling operation WaasClient#list_address_lists.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_address_lists." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[id name timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of id, name, timeCreated.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+
+      lifecycle_state_allowable_values = %w[CREATING ACTIVE FAILED UPDATING DELETING DELETED]
+      if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+        opts[:lifecycle_state].each do |val_to_check|
+          unless lifecycle_state_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, ACTIVE, FAILED, UPDATING, DELETING, DELETED.'
+          end
+        end
+      end
+
+      path = '/addressLists'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
+      query_params[:name] = OCI::ApiClient.build_collection_params(opts[:name], :multi) if opts[:name] && !opts[:name].empty?
+      query_params[:lifecycleState] = OCI::ApiClient.build_collection_params(opts[:lifecycle_state], :multi) if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+      query_params[:timeCreatedGreaterThanOrEqualTo] = opts[:time_created_greater_than_or_equal_to] if opts[:time_created_greater_than_or_equal_to]
+      query_params[:timeCreatedLessThan] = opts[:time_created_less_than] if opts[:time_created_less_than]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#list_address_lists') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Waas::Models::AddressListSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the currently configured caching rules for the Web Application Firewall configuration of a specified WAAS policy.
+    # The order of the caching rules is important. The rules will be checked in the order they are specified and the first matching rule will be used.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
+    # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::CachingRuleSummary CachingRuleSummary}>
+    def list_caching_rules(waas_policy_id, opts = {})
+      logger.debug 'Calling operation WaasClient#list_caching_rules.' if logger
+
+      raise "Missing the required parameter 'waas_policy_id' when calling list_caching_rules." if waas_policy_id.nil?
+      raise "Parameter value for 'waas_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(waas_policy_id)
+
+      path = '/waasPolicies/{waasPolicyId}/wafConfig/cachingRules'.sub('{waasPolicyId}', waas_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#list_caching_rules') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Waas::Models::CachingRuleSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1306,6 +1911,7 @@ module OCI
     # @option opts [Array<String>] :id Filter certificates using a list of certificates OCIDs.
     # @option opts [Array<String>] :display_name Filter certificates using a list of display names.
     # @option opts [Array<String>] :lifecycle_state Filter certificates using a list of lifecycle states.
+    #   Allowed values are: CREATING, ACTIVE, FAILED, UPDATING, DELETING, DELETED
     # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches certificates created on or after the specified date-time.
     # @option opts [DateTime] :time_created_less_than A filter that matches certificates created before the specified date-time.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::CertificateSummary CertificateSummary}>
@@ -1320,6 +1926,16 @@ module OCI
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+
+      lifecycle_state_allowable_values = %w[CREATING ACTIVE FAILED UPDATING DELETING DELETED]
+      if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+        opts[:lifecycle_state].each do |val_to_check|
+          unless lifecycle_state_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, ACTIVE, FAILED, UPDATING, DELETING, DELETED.'
+          end
+        end
       end
 
       path = '/certificates'
@@ -1359,6 +1975,98 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Waas::Models::CertificateSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of Custom Protection rules.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment. This number is generated when the compartment is created.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
+    # @option opts [String] :sort_by The value by which Custom Protection rules are sorted in a paginated 'List' call. If unspecified, defaults to `timeCreated`.
+    #   Allowed values are: id, compartmentId, displayName, modSecurityRuleId, timeCreated
+    # @option opts [String] :sort_order The value of the sorting direction of resources in a paginated 'List' call. If unspecified, defaults to `DESC`.
+    #   Allowed values are: ASC, DESC
+    # @option opts [Array<String>] :id Filter Custom Protection rules using a list of Custom Protection rules OCIDs.
+    # @option opts [Array<String>] :display_name Filter Custom Protection rules using a list of display names.
+    # @option opts [Array<String>] :lifecycle_state Filter Custom Protection rules using a list of lifecycle states.
+    #   Allowed values are: CREATING, ACTIVE, FAILED, UPDATING, DELETING, DELETED
+    # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches Custom Protection rules created on or after the specified date-time.
+    # @option opts [DateTime] :time_created_less_than A filter that matches Custom Protection rules created before the specified date-time.
+    # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::CustomProtectionRuleSummary CustomProtectionRuleSummary}>
+    def list_custom_protection_rules(compartment_id, opts = {})
+      logger.debug 'Calling operation WaasClient#list_custom_protection_rules.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_custom_protection_rules." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[id compartmentId displayName modSecurityRuleId timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of id, compartmentId, displayName, modSecurityRuleId, timeCreated.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+
+      lifecycle_state_allowable_values = %w[CREATING ACTIVE FAILED UPDATING DELETING DELETED]
+      if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+        opts[:lifecycle_state].each do |val_to_check|
+          unless lifecycle_state_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, ACTIVE, FAILED, UPDATING, DELETING, DELETED.'
+          end
+        end
+      end
+
+      path = '/customProtectionRules'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
+      query_params[:displayName] = OCI::ApiClient.build_collection_params(opts[:display_name], :multi) if opts[:display_name] && !opts[:display_name].empty?
+      query_params[:lifecycleState] = OCI::ApiClient.build_collection_params(opts[:lifecycle_state], :multi) if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+      query_params[:timeCreatedGreaterThanOrEqualTo] = opts[:time_created_greater_than_or_equal_to] if opts[:time_created_greater_than_or_equal_to]
+      query_params[:timeCreatedLessThan] = opts[:time_created_less_than] if opts[:time_created_less_than]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#list_custom_protection_rules') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Waas::Models::CustomProtectionRuleSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1715,6 +2423,7 @@ module OCI
     # @option opts [Array<String>] :id Filter policies using a list of policy OCIDs.
     # @option opts [Array<String>] :display_name Filter policies using a list of display names.
     # @option opts [Array<String>] :lifecycle_state Filter policies using a list of lifecycle states.
+    #   Allowed values are: CREATING, ACTIVE, FAILED, UPDATING, DELETING, DELETED
     # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches policies created on or after the specified date and time.
     # @option opts [DateTime] :time_created_less_than A filter that matches policies created before the specified date-time.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WaasPolicySummary WaasPolicySummary}>
@@ -1729,6 +2438,16 @@ module OCI
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+
+      lifecycle_state_allowable_values = %w[CREATING ACTIVE FAILED UPDATING DELETING DELETED]
+      if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+        opts[:lifecycle_state].each do |val_to_check|
+          unless lifecycle_state_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, ACTIVE, FAILED, UPDATING, DELETING, DELETED.'
+          end
+        end
       end
 
       path = '/waasPolicies'
@@ -1768,6 +2487,78 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Waas::Models::WaasPolicySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of currently configured custom protection rules for a WAAS policy.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
+    # @option opts [Array<String>] :mod_security_rule_id Filter rules using a list of ModSecurity rule IDs.
+    # @option opts [Array<String>] :action Filter rules using a list of actions.
+    #   Allowed values are: DETECT, BLOCK
+    # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WaasPolicyCustomProtectionRuleSummary WaasPolicyCustomProtectionRuleSummary}>
+    def list_waas_policy_custom_protection_rules(waas_policy_id, opts = {})
+      logger.debug 'Calling operation WaasClient#list_waas_policy_custom_protection_rules.' if logger
+
+      raise "Missing the required parameter 'waas_policy_id' when calling list_waas_policy_custom_protection_rules." if waas_policy_id.nil?
+
+
+      action_allowable_values = %w[DETECT BLOCK]
+      if opts[:action] && !opts[:action].empty?
+        opts[:action].each do |val_to_check|
+          unless action_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "action", must be one of DETECT, BLOCK.'
+          end
+        end
+      end
+      raise "Parameter value for 'waas_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(waas_policy_id)
+
+      path = '/waasPolicies/{waasPolicyId}/wafConfig/customProtectionRules'.sub('{waasPolicyId}', waas_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:modSecurityRuleId] = OCI::ApiClient.build_collection_params(opts[:mod_security_rule_id], :multi) if opts[:mod_security_rule_id] && !opts[:mod_security_rule_id].empty?
+      query_params[:action] = OCI::ApiClient.build_collection_params(opts[:action], :multi) if opts[:action] && !opts[:action].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#list_waas_policy_custom_protection_rules') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Waas::Models::WaasPolicyCustomProtectionRuleSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2244,6 +3035,61 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Accepts a list of resources that will get it's cache purged. If resources property is not passed, then the entire cache for Web Application will be purged.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @option opts [OCI::Waas::Models::PurgeCache] :purge_cache
+    # @return [Response] A Response object with data of type nil
+    def purge_cache(waas_policy_id, opts = {})
+      logger.debug 'Calling operation WaasClient#purge_cache.' if logger
+
+      raise "Missing the required parameter 'waas_policy_id' when calling purge_cache." if waas_policy_id.nil?
+      raise "Parameter value for 'waas_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(waas_policy_id)
+
+      path = '/waasPolicies/{waasPolicyId}/actions/purgeCache'.sub('{waasPolicyId}', waas_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(opts[:purge_cache])
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#purge_cache') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the list of access rules in the Web Application Firewall configuration for a specified WAAS policy. Access rules allow explicit actions to be defined and executed for requests that meet various conditions. A rule action can be set to allow, detect, or block requests. The detect setting allows the request to pass through the Web Application Firewall and is tagged with a `DETECT` flag in the Web Application Firewall's log.
     #
     # This operation can create, delete, update, and/or reorder access rules depending on the structure of the request body.
@@ -2291,6 +3137,125 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#update_access_rules') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the details of an address list. Only the fields specified in the request body will be updated; all other properties will remain unchanged.
+    # @param [String] address_list_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the address list. This number is generated when the address list is added to the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @option opts [OCI::Waas::Models::UpdateAddressListDetails] :update_address_list_details The details of the address list to update.
+    # @return [Response] A Response object with data of type {OCI::Waas::Models::AddressList AddressList}
+    def update_address_list(address_list_id, opts = {})
+      logger.debug 'Calling operation WaasClient#update_address_list.' if logger
+
+      raise "Missing the required parameter 'address_list_id' when calling update_address_list." if address_list_id.nil?
+      raise "Parameter value for 'address_list_id' must not be blank" if OCI::Internal::Util.blank_string?(address_list_id)
+
+      path = '/addressLists/{addressListId}'.sub('{addressListId}', address_list_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(opts[:update_address_list_details])
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#update_address_list') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Waas::Models::AddressList'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the configuration for each specified caching rule.
+    # This operation can update or delete caching rules depending on the structure of the request body.
+    # Caching rules can be updated by changing the properties of the caching rule object with the rule's key specified in the key field.
+    # Any existing caching rules that are not specified with a key in the list of access rules will be deleted upon update.
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [Array<OCI::Waas::Models::OCI::Waas::Models::CachingRule>] caching_rules_details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @return [Response] A Response object with data of type nil
+    def update_caching_rules(waas_policy_id, caching_rules_details, opts = {})
+      logger.debug 'Calling operation WaasClient#update_caching_rules.' if logger
+
+      raise "Missing the required parameter 'waas_policy_id' when calling update_caching_rules." if waas_policy_id.nil?
+      raise "Missing the required parameter 'caching_rules_details' when calling update_caching_rules." if caching_rules_details.nil?
+      raise "Parameter value for 'waas_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(waas_policy_id)
+
+      path = '/waasPolicies/{waasPolicyId}/wafConfig/cachingRules'.sub('{waasPolicyId}', waas_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(caching_rules_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#update_caching_rules') do
         @api_client.call_api(
           :PUT,
           path,
@@ -2421,6 +3386,67 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Waas::Models::Certificate'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the details of a Custom Protection rule. Only the fields specified in the request body will be updated; all other properties will remain unchanged.
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
+    # @param [OCI::Waas::Models::UpdateCustomProtectionRuleDetails] update_custom_protection_rule_details The details of the Custom Protection rule to update.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @return [Response] A Response object with data of type {OCI::Waas::Models::CustomProtectionRule CustomProtectionRule}
+    def update_custom_protection_rule(custom_protection_rule_id, update_custom_protection_rule_details, opts = {})
+      logger.debug 'Calling operation WaasClient#update_custom_protection_rule.' if logger
+
+      raise "Missing the required parameter 'custom_protection_rule_id' when calling update_custom_protection_rule." if custom_protection_rule_id.nil?
+      raise "Missing the required parameter 'update_custom_protection_rule_details' when calling update_custom_protection_rule." if update_custom_protection_rule_details.nil?
+      raise "Parameter value for 'custom_protection_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(custom_protection_rule_id)
+
+      path = '/customProtectionRules/{customProtectionRuleId}'.sub('{customProtectionRuleId}', custom_protection_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_custom_protection_rule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#update_custom_protection_rule') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Waas::Models::CustomProtectionRule'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2955,6 +3981,66 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#update_waas_policy') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the action for each specified custom protection rule. Only the `DETECT` and `BLOCK` actions can be set. Disabled rules should not be included in the list. For more information on protection rules, see [WAF Protection Rules](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/wafprotectionrules.htm).
+    # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
+    # @param [Array<OCI::Waas::Models::OCI::Waas::Models::CustomProtectionRuleSetting>] update_custom_protection_rules_details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
+    # @return [Response] A Response object with data of type nil
+    def update_waas_policy_custom_protection_rules(waas_policy_id, update_custom_protection_rules_details, opts = {})
+      logger.debug 'Calling operation WaasClient#update_waas_policy_custom_protection_rules.' if logger
+
+      raise "Missing the required parameter 'waas_policy_id' when calling update_waas_policy_custom_protection_rules." if waas_policy_id.nil?
+      raise "Missing the required parameter 'update_custom_protection_rules_details' when calling update_waas_policy_custom_protection_rules." if update_custom_protection_rules_details.nil?
+      raise "Parameter value for 'waas_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(waas_policy_id)
+
+      path = '/waasPolicies/{waasPolicyId}/wafConfig/customProtectionRules'.sub('{waasPolicyId}', waas_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_custom_protection_rules_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'WaasClient#update_waas_policy_custom_protection_rules') do
         @api_client.call_api(
           :PUT,
           path,

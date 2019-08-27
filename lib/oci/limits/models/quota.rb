@@ -33,7 +33,7 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** An array of one or more quota statements written in the declarative language.
+    # **[Required]** An array of one or more quota statements written in the declarative quota statement language.
     # @return [Array<String>]
     attr_accessor :statements
 

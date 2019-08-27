@@ -5,7 +5,7 @@ require_relative 'create_instance_configuration_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Create an instance configuration from API input.
+  # Details for creating an instance configuration by providing a list of configuration settings.
   #
   class Core::Models::CreateInstanceConfigurationDetails < Core::Models::CreateInstanceConfigurationBase
     # This attribute is required.

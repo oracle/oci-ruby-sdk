@@ -90,6 +90,7 @@ module OCI
 
         leaf_certificate_pem = @leaf_certificate_supplier.certificate_pem
         request_payload = {
+          'payload': 'SERVICE_PRINCIPAL',
           'certificate': OCI::Auth::Util.sanitize_certificate_string(leaf_certificate_pem),
           'publicKey': OCI::Auth::Util.sanitize_certificate_string(@session_key_supplier.key_pair[:public_key].to_pem)
         }
@@ -109,7 +110,7 @@ module OCI
                                                                  fingerprint,
                                                                  @leaf_certificate_supplier.private_key_pem)
 
-        request = Net::HTTP::Post.new(@federation_endpoint)
+        request = OCI::Auth::Util.get_metadata_request(@federation_endpoint, 'post')
         request.body = request_payload.to_json
 
         header_params = {}

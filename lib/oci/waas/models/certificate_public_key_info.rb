@@ -4,14 +4,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # CertificatePublicKeyInfo model.
+  # Information about the public key and the algorithm used by the public key.
   class Waas::Models::CertificatePublicKeyInfo
+    # The algorithm identifier and parameters for the public key.
     # @return [String]
     attr_accessor :algorithm
 
+    # The private key exponent.
     # @return [Integer]
     attr_accessor :exponent
 
+    # The number of bits in a key used by a cryptographic algorithm.
     # @return [Integer]
     attr_accessor :key_size
 

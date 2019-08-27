@@ -5,6 +5,9 @@ module OCI
     # Contains utility methods to support functionality in the {OCI::Auth} module, for example being able
     # to extract information from certificates and scrubbing certificate information for calls to Auth Service
     module Util
+      AUTHORIZATION_HEADER = 'Authorization'.freeze
+      AUTHORIZATION_HEADER_VALUE = 'Bearer Oracle'.freeze
+
       def self.get_tenancy_id_from_certificate(x509_certificate)
         subject_array = x509_certificate.subject.to_a
         subject_array.each do |subject_name|
@@ -29,6 +32,21 @@ module OCI
                    .gsub('-----BEGIN PUBLIC KEY-----', '')
                    .gsub('-----END PUBLIC KEY-----', '')
                    .delete("\n")
+      end
+
+      def self.get_metadata_request(request_url, type)
+        case type
+        when 'post'
+          request = Net::HTTP::Post.new(request_url)
+        when 'get'
+          request = Net::HTTP::Get.new(request_url)
+        when 'put'
+          request = Net::HTTP::Put.new(request_url)
+        else
+          raise "Unknown request-type #{type} provided."
+        end
+        request[AUTHORIZATION_HEADER] = AUTHORIZATION_HEADER_VALUE
+        request
       end
     end
   end

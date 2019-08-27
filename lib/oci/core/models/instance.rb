@@ -50,6 +50,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # The OCID of dedicated VM host.
+    #
+    # @return [String]
+    attr_accessor :dedicated_vm_host_id
+
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -197,6 +202,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
         'compartment_id': :'compartmentId',
+        'dedicated_vm_host_id': :'dedicatedVmHostId',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'extended_metadata': :'extendedMetadata',
@@ -225,6 +231,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
         'compartment_id': :'String',
+        'dedicated_vm_host_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'extended_metadata': :'Hash<String, Object>',
@@ -255,6 +262,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :dedicated_vm_host_id The value to assign to the {#dedicated_vm_host_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, Object>] :extended_metadata The value to assign to the {#extended_metadata} property
@@ -290,6 +298,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.dedicated_vm_host_id = attributes[:'dedicatedVmHostId'] if attributes[:'dedicatedVmHostId']
+
+      raise 'You cannot provide both :dedicatedVmHostId and :dedicated_vm_host_id' if attributes.key?(:'dedicatedVmHostId') && attributes.key?(:'dedicated_vm_host_id')
+
+      self.dedicated_vm_host_id = attributes[:'dedicated_vm_host_id'] if attributes[:'dedicated_vm_host_id']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -423,6 +437,7 @@ module OCI
       self.class == other.class &&
         availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
+        dedicated_vm_host_id == other.dedicated_vm_host_id &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         extended_metadata == other.extended_metadata &&
@@ -456,7 +471,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, time_created, agent_config, time_maintenance_reboot_due].hash
+      [availability_domain, compartment_id, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, time_created, agent_config, time_maintenance_reboot_due].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

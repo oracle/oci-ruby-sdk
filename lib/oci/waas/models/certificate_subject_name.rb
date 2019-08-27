@@ -4,26 +4,33 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # CertificateSubjectName model.
+  # The entity to be secured by the certificate.
   class Waas::Models::CertificateSubjectName
+    # ISO 3166-1 alpha-2 code of the country where the organization is located. For a list of codes, see [ISO's website](https://www.iso.org/obp/ui/#search/code/).
     # @return [String]
     attr_accessor :country
 
+    # The province where the organization is located.
     # @return [String]
     attr_accessor :state_province
 
+    # The city in which the organization is located.
     # @return [String]
     attr_accessor :locality
 
+    # The organization name.
     # @return [String]
     attr_accessor :organization
 
+    # The field to differentiate between divisions within an organization.
     # @return [String]
     attr_accessor :organizational_unit
 
+    # The fully qualified domain name used for DNS lookups of the server.
     # @return [String]
     attr_accessor :common_name
 
+    # The email address of the server's administrator.
     # @return [String]
     attr_accessor :email_address
 

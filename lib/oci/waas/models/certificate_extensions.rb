@@ -6,12 +6,15 @@ require 'date'
 module OCI
   # CertificateExtensions model.
   class Waas::Models::CertificateExtensions
+    # The certificate extension name.
     # @return [String]
     attr_accessor :name
 
+    # The critical flag of the extension. Critical extensions must be processed, non-critical extensions can be ignored.
     # @return [BOOLEAN]
     attr_accessor :is_critical
 
+    # The certificate extension value.
     # @return [String]
     attr_accessor :value
 

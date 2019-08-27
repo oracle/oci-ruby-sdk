@@ -12,7 +12,8 @@ module OCI
   class Monitoring::Models::ListMetricsDetails
     SORT_BY_ENUM = [
       SORT_BY_NAMESPACE = 'NAMESPACE'.freeze,
-      SORT_BY_NAME = 'NAME'.freeze
+      SORT_BY_NAME = 'NAME'.freeze,
+      SORT_BY_RESOURCEGROUP = 'RESOURCEGROUP'.freeze
     ].freeze
 
     SORT_ORDER_ENUM = [
@@ -34,6 +35,15 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
+    # Resource group that you want to use as a filter. The specified resource group must exist in the definition of the posted metric. Only one resource group can be applied per metric.
+    # A valid resourceGroup value starts with an alphabetical character and includes only alphanumeric characters, periods (.), underscores (_), hyphens (-), and dollar signs ($).
+    # Avoid entering confidential information.
+    #
+    # Example: `frontend-fleet`
+    #
+    # @return [String]
+    attr_accessor :resource_group
+
     # Qualifiers that you want to use when searching for metric definitions.
     # Available dimensions vary by metric namespace. Each dimension takes the form of a key-value pair.
     #
@@ -43,7 +53,7 @@ module OCI
     attr_accessor :dimension_filters
 
     # Group metrics by these fields in the response. For example, to list all metric namespaces available
-    # in a compartment, groupBy the \"namespace\" field.
+    #           in a compartment, groupBy the \"namespace\" field. Supported fields: namespace, name, resourceGroup.
     #
     # Example - group by namespace:
     # `[ \"namespace\" ]`
@@ -72,6 +82,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'namespace': :'namespace',
+        'resource_group': :'resourceGroup',
         'dimension_filters': :'dimensionFilters',
         'group_by': :'groupBy',
         'sort_by': :'sortBy',
@@ -86,6 +97,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'namespace': :'String',
+        'resource_group': :'String',
         'dimension_filters': :'Hash<String, String>',
         'group_by': :'Array<String>',
         'sort_by': :'String',
@@ -102,6 +114,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :namespace The value to assign to the {#namespace} property
+    # @option attributes [String] :resource_group The value to assign to the {#resource_group} property
     # @option attributes [Hash<String, String>] :dimension_filters The value to assign to the {#dimension_filters} property
     # @option attributes [Array<String>] :group_by The value to assign to the {#group_by} property
     # @option attributes [String] :sort_by The value to assign to the {#sort_by} property
@@ -115,6 +128,12 @@ module OCI
       self.name = attributes[:'name'] if attributes[:'name']
 
       self.namespace = attributes[:'namespace'] if attributes[:'namespace']
+
+      self.resource_group = attributes[:'resourceGroup'] if attributes[:'resourceGroup']
+
+      raise 'You cannot provide both :resourceGroup and :resource_group' if attributes.key?(:'resourceGroup') && attributes.key?(:'resource_group')
+
+      self.resource_group = attributes[:'resource_group'] if attributes[:'resource_group']
 
       self.dimension_filters = attributes[:'dimensionFilters'] if attributes[:'dimensionFilters']
 
@@ -170,6 +189,7 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         namespace == other.namespace &&
+        resource_group == other.resource_group &&
         dimension_filters == other.dimension_filters &&
         group_by == other.group_by &&
         sort_by == other.sort_by &&
@@ -189,7 +209,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, namespace, dimension_filters, group_by, sort_by, sort_order].hash
+      [name, namespace, resource_group, dimension_filters, group_by, sort_by, sort_order].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

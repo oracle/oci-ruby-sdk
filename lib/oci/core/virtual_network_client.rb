@@ -553,6 +553,140 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a set of DHCP options into a different compartment within the same tenancy. For information
+    # about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # @param [String] dhcp_id The OCID for the set of DHCP options.
+    # @param [OCI::Core::Models::ChangeDhcpOptionsCompartmentDetails] change_dhcp_options_compartment_details Request to change the compartment of a set of DHCP Options.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_dhcp_options_compartment(dhcp_id, change_dhcp_options_compartment_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#change_dhcp_options_compartment.' if logger
+
+      raise "Missing the required parameter 'dhcp_id' when calling change_dhcp_options_compartment." if dhcp_id.nil?
+      raise "Missing the required parameter 'change_dhcp_options_compartment_details' when calling change_dhcp_options_compartment." if change_dhcp_options_compartment_details.nil?
+      raise "Parameter value for 'dhcp_id' must not be blank" if OCI::Internal::Util.blank_string?(dhcp_id)
+
+      path = '/dhcps/{dhcpId}/actions/changeCompartment'.sub('{dhcpId}', dhcp_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_dhcp_options_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#change_dhcp_options_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves an internet gateway into a different compartment within the same tenancy. For information
+    # about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # @param [String] ig_id The OCID of the internet gateway.
+    # @param [OCI::Core::Models::ChangeInternetGatewayCompartmentDetails] change_internet_gateway_compartment_details Request to change the compartment of an internet gateway.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_internet_gateway_compartment(ig_id, change_internet_gateway_compartment_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#change_internet_gateway_compartment.' if logger
+
+      raise "Missing the required parameter 'ig_id' when calling change_internet_gateway_compartment." if ig_id.nil?
+      raise "Missing the required parameter 'change_internet_gateway_compartment_details' when calling change_internet_gateway_compartment." if change_internet_gateway_compartment_details.nil?
+      raise "Parameter value for 'ig_id' must not be blank" if OCI::Internal::Util.blank_string?(ig_id)
+
+      path = '/internetGateways/{igId}/actions/changeCompartment'.sub('{igId}', ig_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_internet_gateway_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#change_internet_gateway_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves an IPSec connection into a different compartment within the same tenancy. For information
     # about moving resources between compartments, see
     # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
@@ -620,6 +754,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a local peering gateway into a different compartment within the same tenancy. For information
+    # about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # @param [String] local_peering_gateway_id The OCID of the local peering gateway.
+    # @param [OCI::Core::Models::ChangeLocalPeeringGatewayCompartmentDetails] change_local_peering_gateway_compartment_details Request to change the compartment of a given local peering gateway.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_local_peering_gateway_compartment(local_peering_gateway_id, change_local_peering_gateway_compartment_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#change_local_peering_gateway_compartment.' if logger
+
+      raise "Missing the required parameter 'local_peering_gateway_id' when calling change_local_peering_gateway_compartment." if local_peering_gateway_id.nil?
+      raise "Missing the required parameter 'change_local_peering_gateway_compartment_details' when calling change_local_peering_gateway_compartment." if change_local_peering_gateway_compartment_details.nil?
+      raise "Parameter value for 'local_peering_gateway_id' must not be blank" if OCI::Internal::Util.blank_string?(local_peering_gateway_id)
+
+      path = '/localPeeringGateways/{localPeeringGatewayId}/actions/changeCompartment'.sub('{localPeeringGatewayId}', local_peering_gateway_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_local_peering_gateway_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#change_local_peering_gateway_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves a NAT gateway into a different compartment within the same tenancy. For information
     # about moving resources between compartments, see
     # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
@@ -666,6 +867,142 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#change_nat_gateway_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a network security group into a different compartment within the same tenancy. For
+    # information about moving resources between compartments, see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # @param [String] network_security_group_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security group.
+    # @param [OCI::Core::Models::ChangeNetworkSecurityGroupCompartmentDetails] change_network_security_group_compartment_details Request to change the compartment of a network security group.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_network_security_group_compartment(network_security_group_id, change_network_security_group_compartment_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#change_network_security_group_compartment.' if logger
+
+      raise "Missing the required parameter 'network_security_group_id' when calling change_network_security_group_compartment." if network_security_group_id.nil?
+      raise "Missing the required parameter 'change_network_security_group_compartment_details' when calling change_network_security_group_compartment." if change_network_security_group_compartment_details.nil?
+      raise "Parameter value for 'network_security_group_id' must not be blank" if OCI::Internal::Util.blank_string?(network_security_group_id)
+
+      path = '/networkSecurityGroups/{networkSecurityGroupId}/actions/changeCompartment'.sub('{networkSecurityGroupId}', network_security_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_network_security_group_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#change_network_security_group_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a public IP into a different compartment within the same tenancy. For information
+    # about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # This operation applies only to reserved public IPs. Ephemeral public IPs always belong to the
+    # same compartment as their VNIC and move accordingly.
+    #
+    # @param [String] public_ip_id The OCID of the public IP.
+    # @param [OCI::Core::Models::ChangePublicIpCompartmentDetails] change_public_ip_compartment_details Request to change the compartment of a Public IP.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_public_ip_compartment(public_ip_id, change_public_ip_compartment_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#change_public_ip_compartment.' if logger
+
+      raise "Missing the required parameter 'public_ip_id' when calling change_public_ip_compartment." if public_ip_id.nil?
+      raise "Missing the required parameter 'change_public_ip_compartment_details' when calling change_public_ip_compartment." if change_public_ip_compartment_details.nil?
+      raise "Parameter value for 'public_ip_id' must not be blank" if OCI::Internal::Util.blank_string?(public_ip_id)
+
+      path = '/publicIps/{publicIpId}/actions/changeCompartment'.sub('{publicIpId}', public_ip_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_public_ip_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#change_public_ip_compartment') do
         @api_client.call_api(
           :POST,
           path,
@@ -4596,65 +4933,6 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # Gets the specified IPv6. You must specify the object's OCID.
-    # Alternatively, you can get the object by using
-    # {#list_ipv6s list_ipv6s}
-    # with the IPv6 address (for example, 2001:0db8:0123:1111:98fe:dcba:9876:4321) and subnet OCID.
-    #
-    # @param [String] ipv6_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the IPv6.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #   If you need to contact Oracle about a particular request, please provide the request ID.
-    #
-    # @return [Response] A Response object with data of type {OCI::Core::Models::Ipv6 Ipv6}
-    def get_ipv6(ipv6_id, opts = {})
-      logger.debug 'Calling operation VirtualNetworkClient#get_ipv6.' if logger
-
-      raise "Missing the required parameter 'ipv6_id' when calling get_ipv6." if ipv6_id.nil?
-      raise "Parameter value for 'ipv6_id' must not be blank" if OCI::Internal::Util.blank_string?(ipv6_id)
-
-      path = '/ipv6/{ipv6Id}'.sub('{ipv6Id}', ipv6_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_ipv6') do
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Core::Models::Ipv6'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
@@ -5051,6 +5329,65 @@ module OCI
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the specified IPv6. You must specify the object's OCID.
+    # Alternatively, you can get the object by using
+    # {#list_ipv6s list_ipv6s}
+    # with the IPv6 address (for example, 2001:0db8:0123:1111:98fe:dcba:9876:4321) and subnet OCID.
+    #
+    # @param [String] ipv6_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the IPv6.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::Ipv6 Ipv6}
+    def get_ipv6(ipv6_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_ipv6.' if logger
+
+      raise "Missing the required parameter 'ipv6_id' when calling get_ipv6." if ipv6_id.nil?
+      raise "Parameter value for 'ipv6_id' must not be blank" if OCI::Internal::Util.blank_string?(ipv6_id)
+
+      path = '/ipv6/{ipv6Id}'.sub('{ipv6Id}', ipv6_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_ipv6') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::Ipv6'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists

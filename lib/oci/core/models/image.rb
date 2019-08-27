@@ -45,6 +45,7 @@ module OCI
 
     # **[Required]** Whether instances launched with this image can be used to create new images.
     # For example, you cannot create an image of an Oracle Database instance.
+    #
     # Example: `true`
     #
     # @return [BOOLEAN]
@@ -60,6 +61,7 @@ module OCI
 
     # A user-friendly name for the image. It does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
+    #
     # You cannot use an Oracle-provided image name as a custom image name.
     #
     # Example: `My custom Oracle Linux image`

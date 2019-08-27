@@ -77,14 +77,18 @@ module OCI
       def refresh
         @refresh_lock.lock
         @certificate_retrieve_http_client.start do
-          @certificate_retrieve_http_client.request(Net::HTTP::Get.new(@certificate_url)) do |response|
+          @certificate_retrieve_http_client.request(
+            OCI::Auth::Util.get_metadata_request(@certificate_url, 'get')
+          ) do |response|
             @certificate_pem = response.body
           end
         end
 
         if @private_key_retrieve_http_client
           @private_key_retrieve_http_client.start do
-            @private_key_retrieve_http_client.request(Net::HTTP::Get.new(@private_key_url)) do |response|
+            @private_key_retrieve_http_client.request(
+              OCI::Auth::Util.get_metadata_request(@private_key_url, 'get')
+            ) do |response|
               @private_key_pem = response.body
               @private_key = OpenSSL::PKey::RSA.new(
                 @private_key_pem,

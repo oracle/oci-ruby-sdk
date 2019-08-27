@@ -55,17 +55,29 @@ module OCI
     # @return [Hash<String, OCI::Waas::Models::Origin>]
     attr_accessor :origins
 
+    # The map of origin groups and their keys used to associate origins to the wafConfig.
+    # @return [Hash<String, OCI::Waas::Models::OriginGroup>]
+    attr_accessor :origin_groups
+
     # @return [OCI::Waas::Models::PolicyConfig]
     attr_accessor :policy_config
 
     # @return [OCI::Waas::Models::WafConfig]
     attr_accessor :waf_config
 
-    # A simple key-value pair without any defined schema.
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # A key-value pair with a defined schema that restricts the values of tags. These predefined keys are scoped to namespaces.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
@@ -82,6 +94,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'origins': :'origins',
+        'origin_groups': :'originGroups',
         'policy_config': :'policyConfig',
         'waf_config': :'wafConfig',
         'freeform_tags': :'freeformTags',
@@ -103,6 +116,7 @@ module OCI
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'origins': :'Hash<String, OCI::Waas::Models::Origin>',
+        'origin_groups': :'Hash<String, OCI::Waas::Models::OriginGroup>',
         'policy_config': :'OCI::Waas::Models::PolicyConfig',
         'waf_config': :'OCI::Waas::Models::WafConfig',
         'freeform_tags': :'Hash<String, String>',
@@ -126,6 +140,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Hash<String, OCI::Waas::Models::Origin>] :origins The value to assign to the {#origins} property
+    # @option attributes [Hash<String, OCI::Waas::Models::OriginGroup>] :origin_groups The value to assign to the {#origin_groups} property
     # @option attributes [OCI::Waas::Models::PolicyConfig] :policy_config The value to assign to the {#policy_config} property
     # @option attributes [OCI::Waas::Models::WafConfig] :waf_config The value to assign to the {#waf_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -173,6 +188,12 @@ module OCI
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
       self.origins = attributes[:'origins'] if attributes[:'origins']
+
+      self.origin_groups = attributes[:'originGroups'] if attributes[:'originGroups']
+
+      raise 'You cannot provide both :originGroups and :origin_groups' if attributes.key?(:'originGroups') && attributes.key?(:'origin_groups')
+
+      self.origin_groups = attributes[:'origin_groups'] if attributes[:'origin_groups']
 
       self.policy_config = attributes[:'policyConfig'] if attributes[:'policyConfig']
 
@@ -232,6 +253,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         origins == other.origins &&
+        origin_groups == other.origin_groups &&
         policy_config == other.policy_config &&
         waf_config == other.waf_config &&
         freeform_tags == other.freeform_tags &&
@@ -251,7 +273,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, domain, additional_domains, cname, lifecycle_state, time_created, origins, policy_config, waf_config, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, domain, additional_domains, cname, lifecycle_state, time_created, origins, origin_groups, policy_config, waf_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -11,6 +11,8 @@ module OCI
       ACTION_ALLOW = 'ALLOW'.freeze,
       ACTION_DETECT = 'DETECT'.freeze,
       ACTION_BLOCK = 'BLOCK'.freeze,
+      ACTION_BYPASS = 'BYPASS'.freeze,
+      ACTION_REDIRECT = 'REDIRECT'.freeze,
       ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -18,6 +20,20 @@ module OCI
       BLOCK_ACTION_SET_RESPONSE_CODE = 'SET_RESPONSE_CODE'.freeze,
       BLOCK_ACTION_SHOW_ERROR_PAGE = 'SHOW_ERROR_PAGE'.freeze,
       BLOCK_ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    BYPASS_CHALLENGES_ENUM = [
+      BYPASS_CHALLENGES_JS_CHALLENGE = 'JS_CHALLENGE'.freeze,
+      BYPASS_CHALLENGES_DEVICE_FINGERPRINT_CHALLENGE = 'DEVICE_FINGERPRINT_CHALLENGE'.freeze,
+      BYPASS_CHALLENGES_HUMAN_INTERACTION_CHALLENGE = 'HUMAN_INTERACTION_CHALLENGE'.freeze,
+      BYPASS_CHALLENGES_CAPTCHA = 'CAPTCHA'.freeze,
+      BYPASS_CHALLENGES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    REDIRECT_RESPONSE_CODE_ENUM = [
+      REDIRECT_RESPONSE_CODE_MOVED_PERMANENTLY = 'MOVED_PERMANENTLY'.freeze,
+      REDIRECT_RESPONSE_CODE_FOUND = 'FOUND'.freeze,
+      REDIRECT_RESPONSE_CODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The unique name of the access rule.
@@ -29,6 +45,18 @@ module OCI
     attr_accessor :criteria
 
     # **[Required]** The action to take when the access criteria are met for a rule. If unspecified, defaults to `ALLOW`.
+    #
+    # - **ALLOW:** Takes no action, just logs the request.
+    #
+    # - **DETECT:** Takes no action, but creates an alert for the request.
+    #
+    # - **BLOCK:** Blocks the request by returning specified response code or showing error page.
+    #
+    # - **BYPASS:** Bypasses some or all challenges.
+    #
+    # - **REDIRECT:** Redirects the request to the specified URL.
+    #
+    # Regardless of action, no further rules are processed once the rule is matched.
     # @return [String]
     attr_reader :action
 
@@ -52,6 +80,30 @@ module OCI
     # @return [String]
     attr_accessor :block_error_page_description
 
+    # The list of challenges to bypass when `action` is set to `BYPASS`. If unspecified or empty, all challenges are bypassed.
+    #
+    # - **JS_CHALLENGE:** Bypasses JavaScript Challenge.
+    #
+    # - **DEVICE_FINGERPRINT_CHALLENGE:** Bypasses Device Fingerprint Challenge.
+    #
+    # - **HUMAN_INTERACTION_CHALLENGE:** Bypasses Human Interaction Challenge.
+    #
+    # - **CAPTCHA:** Bypasses CAPTCHA Challenge.
+    # @return [Array<String>]
+    attr_reader :bypass_challenges
+
+    # The target to which the request should be redirected, represented as a URI reference.
+    # @return [String]
+    attr_accessor :redirect_url
+
+    # The response status code to return when `action` is set to `REDIRECT`.
+    #
+    # - **MOVED_PERMANENTLY:** Used for designating the permanent movement of a page (numerical code - 301).
+    #
+    # - **FOUND:** Used for designating the temporary movement of a page (numerical code - 302).
+    # @return [String]
+    attr_reader :redirect_response_code
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -63,7 +115,10 @@ module OCI
         'block_response_code': :'blockResponseCode',
         'block_error_page_message': :'blockErrorPageMessage',
         'block_error_page_code': :'blockErrorPageCode',
-        'block_error_page_description': :'blockErrorPageDescription'
+        'block_error_page_description': :'blockErrorPageDescription',
+        'bypass_challenges': :'bypassChallenges',
+        'redirect_url': :'redirectUrl',
+        'redirect_response_code': :'redirectResponseCode'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -79,7 +134,10 @@ module OCI
         'block_response_code': :'Integer',
         'block_error_page_message': :'String',
         'block_error_page_code': :'String',
-        'block_error_page_description': :'String'
+        'block_error_page_description': :'String',
+        'bypass_challenges': :'Array<String>',
+        'redirect_url': :'String',
+        'redirect_response_code': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,6 +156,9 @@ module OCI
     # @option attributes [String] :block_error_page_message The value to assign to the {#block_error_page_message} property
     # @option attributes [String] :block_error_page_code The value to assign to the {#block_error_page_code} property
     # @option attributes [String] :block_error_page_description The value to assign to the {#block_error_page_description} property
+    # @option attributes [Array<String>] :bypass_challenges The value to assign to the {#bypass_challenges} property
+    # @option attributes [String] :redirect_url The value to assign to the {#redirect_url} property
+    # @option attributes [String] :redirect_response_code The value to assign to the {#redirect_response_code} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -139,6 +200,26 @@ module OCI
       raise 'You cannot provide both :blockErrorPageDescription and :block_error_page_description' if attributes.key?(:'blockErrorPageDescription') && attributes.key?(:'block_error_page_description')
 
       self.block_error_page_description = attributes[:'block_error_page_description'] if attributes[:'block_error_page_description']
+
+      self.bypass_challenges = attributes[:'bypassChallenges'] if attributes[:'bypassChallenges']
+
+      raise 'You cannot provide both :bypassChallenges and :bypass_challenges' if attributes.key?(:'bypassChallenges') && attributes.key?(:'bypass_challenges')
+
+      self.bypass_challenges = attributes[:'bypass_challenges'] if attributes[:'bypass_challenges']
+
+      self.redirect_url = attributes[:'redirectUrl'] if attributes[:'redirectUrl']
+
+      raise 'You cannot provide both :redirectUrl and :redirect_url' if attributes.key?(:'redirectUrl') && attributes.key?(:'redirect_url')
+
+      self.redirect_url = attributes[:'redirect_url'] if attributes[:'redirect_url']
+
+      self.redirect_response_code = attributes[:'redirectResponseCode'] if attributes[:'redirectResponseCode']
+      self.redirect_response_code = "MOVED_PERMANENTLY" if redirect_response_code.nil? && !attributes.key?(:'redirectResponseCode') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :redirectResponseCode and :redirect_response_code' if attributes.key?(:'redirectResponseCode') && attributes.key?(:'redirect_response_code')
+
+      self.redirect_response_code = attributes[:'redirect_response_code'] if attributes[:'redirect_response_code']
+      self.redirect_response_code = "MOVED_PERMANENTLY" if redirect_response_code.nil? && !attributes.key?(:'redirectResponseCode') && !attributes.key?(:'redirect_response_code') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -169,6 +250,39 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] bypass_challenges Object to be assigned
+    def bypass_challenges=(bypass_challenges)
+      # rubocop:disable Style/ConditionalAssignment
+      if bypass_challenges.nil?
+        @bypass_challenges = nil
+      else
+        @bypass_challenges =
+          bypass_challenges.collect do |item|
+            if BYPASS_CHALLENGES_ENUM.include?(item)
+              item
+            else
+              OCI.logger.debug("Unknown value for 'bypass_challenges' [#{item}]. Mapping to 'BYPASS_CHALLENGES_UNKNOWN_ENUM_VALUE'") if OCI.logger
+              BYPASS_CHALLENGES_UNKNOWN_ENUM_VALUE
+            end
+          end
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] redirect_response_code Object to be assigned
+    def redirect_response_code=(redirect_response_code)
+      # rubocop:disable Style/ConditionalAssignment
+      if redirect_response_code && !REDIRECT_RESPONSE_CODE_ENUM.include?(redirect_response_code)
+        OCI.logger.debug("Unknown value for 'redirect_response_code' [" + redirect_response_code + "]. Mapping to 'REDIRECT_RESPONSE_CODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @redirect_response_code = REDIRECT_RESPONSE_CODE_UNKNOWN_ENUM_VALUE
+      else
+        @redirect_response_code = redirect_response_code
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -185,7 +299,10 @@ module OCI
         block_response_code == other.block_response_code &&
         block_error_page_message == other.block_error_page_message &&
         block_error_page_code == other.block_error_page_code &&
-        block_error_page_description == other.block_error_page_description
+        block_error_page_description == other.block_error_page_description &&
+        bypass_challenges == other.bypass_challenges &&
+        redirect_url == other.redirect_url &&
+        redirect_response_code == other.redirect_response_code
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -201,7 +318,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, criteria, action, block_action, block_response_code, block_error_page_message, block_error_page_code, block_error_page_description].hash
+      [name, criteria, action, block_action, block_response_code, block_error_page_message, block_error_page_code, block_error_page_description, bypass_challenges, redirect_url, redirect_response_code].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

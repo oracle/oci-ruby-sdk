@@ -5,10 +5,11 @@ require_relative 'create_instance_configuration_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Create an instance configuration from an existing instance.
+  # Details for creating an instance configuration using an existing instance as a template.
   #
   class Core::Models::CreateInstanceConfigurationFromInstanceDetails < Core::Models::CreateInstanceConfigurationBase
-    # **[Required]** The ID of the instance that will be used to create instance configuration.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance to use to create the
+    # instance configuration.
     #
     # @return [String]
     attr_accessor :instance_id

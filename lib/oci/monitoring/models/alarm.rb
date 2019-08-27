@@ -76,6 +76,15 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
+    # Resource group specified as a filter for metric data retrieved by the alarm. A resource group is a custom string that can be used as a filter. Only one resource group can be applied per metric.
+    # A valid resourceGroup value starts with an alphabetical character and includes only alphanumeric characters, periods (.), underscores (_), hyphens (-), and dollar signs ($).
+    # Avoid entering confidential information.
+    #
+    # Example: `frontend-fleet`
+    #
+    # @return [String]
+    attr_accessor :resource_group
+
     # **[Required]** The Monitoring Query Language (MQL) expression to evaluate for the alarm. The Alarms feature of
     # the Monitoring service interprets results for each returned time series as Boolean values,
     # where zero represents false and a non-zero value represents true. A true value means that the trigger
@@ -218,6 +227,7 @@ module OCI
         'metric_compartment_id': :'metricCompartmentId',
         'metric_compartment_id_in_subtree': :'metricCompartmentIdInSubtree',
         'namespace': :'namespace',
+        'resource_group': :'resourceGroup',
         'query': :'query',
         'resolution': :'resolution',
         'pending_duration': :'pendingDuration',
@@ -246,6 +256,7 @@ module OCI
         'metric_compartment_id': :'String',
         'metric_compartment_id_in_subtree': :'BOOLEAN',
         'namespace': :'String',
+        'resource_group': :'String',
         'query': :'String',
         'resolution': :'String',
         'pending_duration': :'String',
@@ -276,6 +287,7 @@ module OCI
     # @option attributes [String] :metric_compartment_id The value to assign to the {#metric_compartment_id} property
     # @option attributes [BOOLEAN] :metric_compartment_id_in_subtree The value to assign to the {#metric_compartment_id_in_subtree} property
     # @option attributes [String] :namespace The value to assign to the {#namespace} property
+    # @option attributes [String] :resource_group The value to assign to the {#resource_group} property
     # @option attributes [String] :query The value to assign to the {#query} property
     # @option attributes [String] :resolution The value to assign to the {#resolution} property
     # @option attributes [String] :pending_duration The value to assign to the {#pending_duration} property
@@ -323,6 +335,12 @@ module OCI
       self.metric_compartment_id_in_subtree = attributes[:'metric_compartment_id_in_subtree'] unless attributes[:'metric_compartment_id_in_subtree'].nil?
 
       self.namespace = attributes[:'namespace'] if attributes[:'namespace']
+
+      self.resource_group = attributes[:'resourceGroup'] if attributes[:'resourceGroup']
+
+      raise 'You cannot provide both :resourceGroup and :resource_group' if attributes.key?(:'resourceGroup') && attributes.key?(:'resource_group')
+
+      self.resource_group = attributes[:'resource_group'] if attributes[:'resource_group']
 
       self.query = attributes[:'query'] if attributes[:'query']
 
@@ -428,6 +446,7 @@ module OCI
         metric_compartment_id == other.metric_compartment_id &&
         metric_compartment_id_in_subtree == other.metric_compartment_id_in_subtree &&
         namespace == other.namespace &&
+        resource_group == other.resource_group &&
         query == other.query &&
         resolution == other.resolution &&
         pending_duration == other.pending_duration &&
@@ -457,7 +476,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, metric_compartment_id, metric_compartment_id_in_subtree, namespace, query, resolution, pending_duration, severity, body, destinations, repeat_notification_duration, suppression, is_enabled, freeform_tags, defined_tags, lifecycle_state, time_created, time_updated].hash
+      [id, display_name, compartment_id, metric_compartment_id, metric_compartment_id_in_subtree, namespace, resource_group, query, resolution, pending_duration, severity, body, destinations, repeat_notification_duration, suppression, is_enabled, freeform_tags, defined_tags, lifecycle_state, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

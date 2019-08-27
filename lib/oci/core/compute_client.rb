@@ -366,6 +366,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a dedicated vm host from one compartment to another
+    # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
+    # @param [OCI::Core::Models::ChangeDedicatedVmHostCompartmentDetails] change_dedicated_vm_host_compartment_details Request to change the compartment of a given dedicated vm host.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_dedicated_vm_host_compartment(dedicated_vm_host_id, change_dedicated_vm_host_compartment_details, opts = {})
+      logger.debug 'Calling operation ComputeClient#change_dedicated_vm_host_compartment.' if logger
+
+      raise "Missing the required parameter 'dedicated_vm_host_id' when calling change_dedicated_vm_host_compartment." if dedicated_vm_host_id.nil?
+      raise "Missing the required parameter 'change_dedicated_vm_host_compartment_details' when calling change_dedicated_vm_host_compartment." if change_dedicated_vm_host_compartment_details.nil?
+      raise "Parameter value for 'dedicated_vm_host_id' must not be blank" if OCI::Internal::Util.blank_string?(dedicated_vm_host_id)
+
+      path = '/dedicatedVmHosts/{dedicatedVmHostId}/actions/changeCompartment'.sub('{dedicatedVmHostId}', dedicated_vm_host_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_dedicated_vm_host_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#change_dedicated_vm_host_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves an image into a different compartment within the same tenancy. For information about moving
     # resources between compartments, see
     # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
@@ -559,6 +628,69 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::AppCatalogSubscription'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new dedicated virtual machine (VM) host in the specified compartment and the specified availability domain.
+    #
+    # @param [OCI::Core::Models::CreateDedicatedVmHostDetails] create_dedicated_vm_host_details The details for creating a new dedicated virtual machine (VM) host.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::DedicatedVmHost DedicatedVmHost}
+    def create_dedicated_vm_host(create_dedicated_vm_host_details, opts = {})
+      logger.debug 'Calling operation ComputeClient#create_dedicated_vm_host.' if logger
+
+      raise "Missing the required parameter 'create_dedicated_vm_host_details' when calling create_dedicated_vm_host." if create_dedicated_vm_host_details.nil?
+
+      path = '/dedicatedVmHosts'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_dedicated_vm_host_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#create_dedicated_vm_host') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::DedicatedVmHost'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -808,6 +940,63 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#delete_console_history') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified dedicated virtual machine (VM) host.
+    #
+    # If any VM instances are assigned to the dedicated VM host, it will not be deleted and the service will return a 409 response code.
+    #
+    # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_dedicated_vm_host(dedicated_vm_host_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#delete_dedicated_vm_host.' if logger
+
+      raise "Missing the required parameter 'dedicated_vm_host_id' when calling delete_dedicated_vm_host." if dedicated_vm_host_id.nil?
+      raise "Parameter value for 'dedicated_vm_host_id' must not be blank" if OCI::Internal::Util.blank_string?(dedicated_vm_host_id)
+
+      path = '/dedicatedVmHosts/{dedicatedVmHostId}'.sub('{dedicatedVmHostId}', dedicated_vm_host_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#delete_dedicated_vm_host') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -1517,6 +1706,61 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'String'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets information about the specified dedicated virtual machine (VM) host.
+    # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::DedicatedVmHost DedicatedVmHost}
+    def get_dedicated_vm_host(dedicated_vm_host_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#get_dedicated_vm_host.' if logger
+
+      raise "Missing the required parameter 'dedicated_vm_host_id' when calling get_dedicated_vm_host." if dedicated_vm_host_id.nil?
+      raise "Parameter value for 'dedicated_vm_host_id' must not be blank" if OCI::Internal::Util.blank_string?(dedicated_vm_host_id)
+
+      path = '/dedicatedVmHosts/{dedicatedVmHostId}'.sub('{dedicatedVmHostId}', dedicated_vm_host_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_dedicated_vm_host') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::DedicatedVmHost'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2441,6 +2685,372 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the shapes that can be used to launch a virtual machine (VM) instance on a dedicated VM host within the specified compartment.
+    # You can filter the list by compatibility with a specific dedicated VM host shape.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :availability_domain The name of the availability domain.
+    #
+    #   Example: `Uocm:PHX-AD-1`
+    #
+    # @option opts [String] :dedicated_vm_host_shape Dedicated VM host shape name
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DedicatedVmHostInstanceShapeSummary DedicatedVmHostInstanceShapeSummary}>
+    def list_dedicated_vm_host_instance_shapes(compartment_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#list_dedicated_vm_host_instance_shapes.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_dedicated_vm_host_instance_shapes." if compartment_id.nil?
+
+      path = '/dedicatedVmHostInstanceShapes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:dedicatedVmHostShape] = opts[:dedicated_vm_host_shape] if opts[:dedicated_vm_host_shape]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_dedicated_vm_host_instance_shapes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::DedicatedVmHostInstanceShapeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the list of instances on the dedicated virtual machine (VM) hosts that match the specified criteria.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :availability_domain The name of the availability domain.
+    #
+    #   Example: `Uocm:PHX-AD-1`
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DedicatedVmHostInstanceSummary DedicatedVmHostInstanceSummary}>
+    def list_dedicated_vm_host_instances(compartment_id, dedicated_vm_host_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#list_dedicated_vm_host_instances.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_dedicated_vm_host_instances." if compartment_id.nil?
+      raise "Missing the required parameter 'dedicated_vm_host_id' when calling list_dedicated_vm_host_instances." if dedicated_vm_host_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'dedicated_vm_host_id' must not be blank" if OCI::Internal::Util.blank_string?(dedicated_vm_host_id)
+
+      path = '/dedicatedVmHosts/{dedicatedVmHostId}/instances'.sub('{dedicatedVmHostId}', dedicated_vm_host_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json, application/x-json-stream'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_dedicated_vm_host_instances') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::DedicatedVmHostInstanceSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the shapes that can be used to launch a dedicated virtual machine (VM) host within the specified compartment.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :availability_domain The name of the availability domain.
+    #
+    #   Example: `Uocm:PHX-AD-1`
+    #
+    # @option opts [String] :instance_shape_name Instance shape name
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DedicatedVmHostShapeSummary DedicatedVmHostShapeSummary}>
+    def list_dedicated_vm_host_shapes(compartment_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#list_dedicated_vm_host_shapes.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_dedicated_vm_host_shapes." if compartment_id.nil?
+
+      path = '/dedicatedVmHostShapes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:instanceShapeName] = opts[:instance_shape_name] if opts[:instance_shape_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_dedicated_vm_host_shapes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::DedicatedVmHostShapeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the list of dedicated virtual machine (VM) hosts that match the specified criteria from the specified compartment.
+    #
+    # You can limit the list by specifying a dedicated VM host display name. The list will include all the identically-named
+    # dedicated VM hosts in the compartment.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :availability_domain The name of the availability domain.
+    #
+    #   Example: `Uocm:PHX-AD-1`
+    #
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.
+    #   Allowed values are: CREATING, ACTIVE, UPDATING, DELETING, DELETED, FAILED
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #
+    # @option opts [String] :instance_shape_name Instance shape name
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DedicatedVmHostSummary DedicatedVmHostSummary}>
+    def list_dedicated_vm_hosts(compartment_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#list_dedicated_vm_hosts.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_dedicated_vm_hosts." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !%w[CREATING ACTIVE UPDATING DELETING DELETED FAILED].include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of CREATING, ACTIVE, UPDATING, DELETING, DELETED, FAILED.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      path = '/dedicatedVmHosts'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:instanceShapeName] = opts[:instance_shape_name] if opts[:instance_shape_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json, application/x-json-stream'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_dedicated_vm_hosts') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::DedicatedVmHostSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the available images in the specified compartment, including both
     # [Oracle-provided images](https://docs.cloud.oracle.com/Content/Compute/References/images.htm) and
     # [custom images](https://docs.cloud.oracle.com/Content/Compute/Tasks/managingcustomimages.htm) that have
@@ -3163,6 +3773,78 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::ConsoleHistory'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the displayName, freeformTags, and definedTags attributes for the specified dedicated virtual machine (VM) host.
+    # If an attribute value is not included, it will not be updated.
+    #
+    # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
+    # @param [OCI::Core::Models::UpdateDedicatedVmHostDetails] update_dedicated_vm_host_details Update dedicated VM host details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::DedicatedVmHost DedicatedVmHost}
+    def update_dedicated_vm_host(dedicated_vm_host_id, update_dedicated_vm_host_details, opts = {})
+      logger.debug 'Calling operation ComputeClient#update_dedicated_vm_host.' if logger
+
+      raise "Missing the required parameter 'dedicated_vm_host_id' when calling update_dedicated_vm_host." if dedicated_vm_host_id.nil?
+      raise "Missing the required parameter 'update_dedicated_vm_host_details' when calling update_dedicated_vm_host." if update_dedicated_vm_host_details.nil?
+      raise "Parameter value for 'dedicated_vm_host_id' must not be blank" if OCI::Internal::Util.blank_string?(dedicated_vm_host_id)
+
+      path = '/dedicatedVmHosts/{dedicatedVmHostId}'.sub('{dedicatedVmHostId}', dedicated_vm_host_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_dedicated_vm_host_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#update_dedicated_vm_host') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::DedicatedVmHost'
         )
       end
       # rubocop:enable Metrics/BlockLength

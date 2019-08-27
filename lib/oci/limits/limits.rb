@@ -11,11 +11,16 @@ end
 
 # Require models
 require 'oci/limits/models/create_quota_details'
+require 'oci/limits/models/limit_definition_summary'
+require 'oci/limits/models/limit_value_summary'
 require 'oci/limits/models/quota'
 require 'oci/limits/models/quota_summary'
+require 'oci/limits/models/resource_availability'
+require 'oci/limits/models/service_summary'
 require 'oci/limits/models/update_quota_details'
 
 # Require generated clients
+require 'oci/limits/limits_client'
 require 'oci/limits/quotas_client'
 require 'oci/limits/quotas_client_composite_operations'
 

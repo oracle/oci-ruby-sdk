@@ -10,7 +10,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # An array of quota statements written in the declarative language.
+    # An array of quota statements written in the declarative quota statement language.
     #
     # @return [Array<String>]
     attr_accessor :statements

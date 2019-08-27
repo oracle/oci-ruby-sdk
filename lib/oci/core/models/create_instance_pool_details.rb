@@ -18,7 +18,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The user-friendly name.  Does not have to be unique.
+    # A user-friendly name for the instance pool. Does not have to be unique, and it's
+    # changeable. Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 

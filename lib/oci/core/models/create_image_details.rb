@@ -13,7 +13,7 @@ module OCI
       LAUNCH_MODE_CUSTOM = 'CUSTOM'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment containing the instance you want to use as the basis for the image.
+    # **[Required]** The OCID of the compartment you want the image to be created in.
     # @return [String]
     attr_accessor :compartment_id
 

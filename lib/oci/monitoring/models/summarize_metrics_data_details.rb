@@ -15,6 +15,15 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
+    # Resource group that you want to use as a filter. The specified resource group must exist in the definition of the posted metric. Only one resource group can be applied per metric.
+    # A valid resourceGroup value starts with an alphabetical character and includes only alphanumeric characters, periods (.), underscores (_), hyphens (-), and dollar signs ($).
+    # Avoid entering confidential information.
+    #
+    # Example: `frontend-fleet`
+    #
+    # @return [String]
+    attr_accessor :resource_group
+
     # **[Required]** The Monitoring Query Language (MQL) expression to use when searching for metric data points to
     # aggregate. The query must specify a metric, statistic, and interval. Supported values for
     # interval: `1m`-`60m` (also `1h`). You can optionally specify dimensions and grouping functions.
@@ -66,6 +75,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'namespace': :'namespace',
+        'resource_group': :'resourceGroup',
         'query': :'query',
         'start_time': :'startTime',
         'end_time': :'endTime',
@@ -79,6 +89,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'namespace': :'String',
+        'resource_group': :'String',
         'query': :'String',
         'start_time': :'DateTime',
         'end_time': :'DateTime',
@@ -94,6 +105,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :namespace The value to assign to the {#namespace} property
+    # @option attributes [String] :resource_group The value to assign to the {#resource_group} property
     # @option attributes [String] :query The value to assign to the {#query} property
     # @option attributes [DateTime] :start_time The value to assign to the {#start_time} property
     # @option attributes [DateTime] :end_time The value to assign to the {#end_time} property
@@ -105,6 +117,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.namespace = attributes[:'namespace'] if attributes[:'namespace']
+
+      self.resource_group = attributes[:'resourceGroup'] if attributes[:'resourceGroup']
+
+      raise 'You cannot provide both :resourceGroup and :resource_group' if attributes.key?(:'resourceGroup') && attributes.key?(:'resource_group')
+
+      self.resource_group = attributes[:'resource_group'] if attributes[:'resource_group']
 
       self.query = attributes[:'query'] if attributes[:'query']
 
@@ -135,6 +153,7 @@ module OCI
 
       self.class == other.class &&
         namespace == other.namespace &&
+        resource_group == other.resource_group &&
         query == other.query &&
         start_time == other.start_time &&
         end_time == other.end_time &&
@@ -154,7 +173,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, query, start_time, end_time, resolution].hash
+      [namespace, resource_group, query, start_time, end_time, resolution].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -23,7 +23,7 @@ module OCI
       SOURCE_TYPE_NETWORK_SECURITY_GROUP = 'NETWORK_SECURITY_GROUP'.freeze
     ].freeze
 
-    # An optional description of your choice for the rule.
+    # An optional description of your choice for the rule. Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :description
@@ -34,6 +34,7 @@ module OCI
     # Allowed values:
     #
     #   * An IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
+    #     Note that IPv6 addressing is currently supported only in the Government Cloud.
     #
     #   * The `cidrBlock` value for a {Service}, if you're
     #     setting up a security rule for traffic destined for a particular `Service` through
@@ -103,6 +104,7 @@ module OCI
     # Allowed values:
     #
     #   * An IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
+    #     Note that IPv6 addressing is currently supported only in the Government Cloud.
     #
     #   * The `cidrBlock` value for a {Service}, if you're
     #     setting up a security rule for traffic coming from a particular `Service` through
@@ -123,7 +125,7 @@ module OCI
     #     {Service} (the rule is for traffic coming from a
     #     particular `Service` through a service gateway).
     #
-    #   * `NETWORK_SECURITY_GROUP`: If the rule's `destination` is the OCID of a
+    #   * `NETWORK_SECURITY_GROUP`: If the rule's `source` is the OCID of a
     #     {NetworkSecurityGroup}.
     #
     # @return [String]
