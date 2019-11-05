@@ -12,12 +12,15 @@ module OCI
   # - **Destroy job**. To clean up the infrastructure controlled by the stack, you run a destroy job.
   # A destroy job does not delete the stack or associated job resources,
   # but instead releases the resources managed by the stack.
+  # - **Import_TF_State job**. An import Terraform state job takes a Terraform state file and sets it as the current
+  # state of the stack. This is used to migrate local Terraform environments to Resource Manager.
   #
   class ResourceManager::Models::Job
     OPERATION_ENUM = [
       OPERATION_PLAN = 'PLAN'.freeze,
       OPERATION_APPLY = 'APPLY'.freeze,
       OPERATION_DESTROY = 'DESTROY'.freeze,
+      OPERATION_IMPORT_TF_STATE = 'IMPORT_TF_STATE'.freeze,
       OPERATION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -31,15 +34,15 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The job's OCID.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @return [String]
     attr_accessor :id
 
-    # The OCID of the stack that is associated with the job.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack that is associated with the job.
     # @return [String]
     attr_accessor :stack_id
 
-    # The OCID of the compartment in which the job's associated stack resides.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which the job's associated stack resides.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -51,10 +54,15 @@ module OCI
     # @return [String]
     attr_reader :operation
 
+    # @return [OCI::ResourceManager::Models::JobOperationDetails]
+    attr_accessor :job_operation_details
+
     # @return [OCI::ResourceManager::Models::ApplyJobPlanResolution]
     attr_accessor :apply_job_plan_resolution
 
-    # The plan job OCID that was used (if this was an apply job and was not auto-approved).
+    # Deprecated. Use the property `executionPlanJobId` in `jobOperationDetails` instead.
+    # The plan job [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that was used (if this was an apply job and was not auto-approved).
+    #
     # @return [String]
     attr_accessor :resolved_plan_job_id
 
@@ -107,6 +115,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'operation': :'operation',
+        'job_operation_details': :'jobOperationDetails',
         'apply_job_plan_resolution': :'applyJobPlanResolution',
         'resolved_plan_job_id': :'resolvedPlanJobId',
         'time_created': :'timeCreated',
@@ -130,6 +139,7 @@ module OCI
         'compartment_id': :'String',
         'display_name': :'String',
         'operation': :'String',
+        'job_operation_details': :'OCI::ResourceManager::Models::JobOperationDetails',
         'apply_job_plan_resolution': :'OCI::ResourceManager::Models::ApplyJobPlanResolution',
         'resolved_plan_job_id': :'String',
         'time_created': :'DateTime',
@@ -155,6 +165,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :operation The value to assign to the {#operation} property
+    # @option attributes [OCI::ResourceManager::Models::JobOperationDetails] :job_operation_details The value to assign to the {#job_operation_details} property
     # @option attributes [OCI::ResourceManager::Models::ApplyJobPlanResolution] :apply_job_plan_resolution The value to assign to the {#apply_job_plan_resolution} property
     # @option attributes [String] :resolved_plan_job_id The value to assign to the {#resolved_plan_job_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -192,6 +203,12 @@ module OCI
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
       self.operation = attributes[:'operation'] if attributes[:'operation']
+
+      self.job_operation_details = attributes[:'jobOperationDetails'] if attributes[:'jobOperationDetails']
+
+      raise 'You cannot provide both :jobOperationDetails and :job_operation_details' if attributes.key?(:'jobOperationDetails') && attributes.key?(:'job_operation_details')
+
+      self.job_operation_details = attributes[:'job_operation_details'] if attributes[:'job_operation_details']
 
       self.apply_job_plan_resolution = attributes[:'applyJobPlanResolution'] if attributes[:'applyJobPlanResolution']
 
@@ -292,6 +309,7 @@ module OCI
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         operation == other.operation &&
+        job_operation_details == other.job_operation_details &&
         apply_job_plan_resolution == other.apply_job_plan_resolution &&
         resolved_plan_job_id == other.resolved_plan_job_id &&
         time_created == other.time_created &&
@@ -317,7 +335,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, stack_id, compartment_id, display_name, operation, apply_job_plan_resolution, resolved_plan_job_id, time_created, time_finished, lifecycle_state, failure_details, working_directory, variables, freeform_tags, defined_tags].hash
+      [id, stack_id, compartment_id, display_name, operation, job_operation_details, apply_job_plan_resolution, resolved_plan_job_id, time_created, time_finished, lifecycle_state, failure_details, working_directory, variables, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

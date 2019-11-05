@@ -155,7 +155,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#create_custom_protection_rule} and then waits for the {OCI::Waas::Models::CustomProtectionRule} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Waas::Models::CreateCustomProtectionRuleDetails] create_custom_protection_rule_details The details of the Custom Protection rule.
+    # @param [OCI::Waas::Models::CreateCustomProtectionRuleDetails] create_custom_protection_rule_details The details of the custom protection rule.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::CustomProtectionRule#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#create_custom_protection_rule}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -323,7 +323,7 @@ module OCI
     # Calls {OCI::Waas::WaasClient#delete_custom_protection_rule} and then waits for the {OCI::Waas::Models::CustomProtectionRule} acted upon
     # to enter the given state(s).
     #
-    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the custom protection rule. This number is generated when the custom protection rule is added to the compartment.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::CustomProtectionRule#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#delete_custom_protection_rule}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -689,8 +689,8 @@ module OCI
     # Calls {OCI::Waas::WaasClient#update_custom_protection_rule} and then waits for the {OCI::Waas::Models::CustomProtectionRule} acted upon
     # to enter the given state(s).
     #
-    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
-    # @param [OCI::Waas::Models::UpdateCustomProtectionRuleDetails] update_custom_protection_rule_details The details of the Custom Protection rule to update.
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the custom protection rule. This number is generated when the custom protection rule is added to the compartment.
+    # @param [OCI::Waas::Models::UpdateCustomProtectionRuleDetails] update_custom_protection_rule_details The details of the custom protection rule to update.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Waas::Models::CustomProtectionRule#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Waas::WaasClient#update_custom_protection_rule}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

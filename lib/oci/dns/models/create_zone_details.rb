@@ -1,6 +1,7 @@
 # Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
+require_relative 'create_zone_base_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -8,42 +9,16 @@ module OCI
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
-  class Dns::Models::CreateZoneDetails
+  class Dns::Models::CreateZoneDetails < Dns::Models::CreateZoneBaseDetails
     ZONE_TYPE_ENUM = [
       ZONE_TYPE_PRIMARY = 'PRIMARY'.freeze,
       ZONE_TYPE_SECONDARY = 'SECONDARY'.freeze
     ].freeze
 
-    # **[Required]** The name of the zone.
-    # @return [String]
-    attr_accessor :name
-
-    # **[Required]** The type of the zone. Must be either `PRIMARY` or `SECONDARY`.
+    # The type of the zone. Must be either `PRIMARY` or `SECONDARY`.
     #
     # @return [String]
     attr_reader :zone_type
-
-    # **[Required]** The OCID of the compartment containing the zone.
-    # @return [String]
-    attr_accessor :compartment_id
-
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    #
-    #
-    # **Example:** `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    #
-    #
-    # **Example:** `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
 
     # External master servers for the zone. `externalMasters` becomes a
     # required parameter when the `zoneType` value is `SECONDARY`.
@@ -55,11 +30,12 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'migration_source': :'migrationSource',
         'name': :'name',
-        'zone_type': :'zoneType',
         'compartment_id': :'compartmentId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'zone_type': :'zoneType',
         'external_masters': :'externalMasters'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -69,11 +45,12 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'migration_source': :'String',
         'name': :'String',
-        'zone_type': :'String',
         'compartment_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'zone_type': :'String',
         'external_masters': :'Array<OCI::Dns::Models::ExternalMaster>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -85,43 +62,27 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :name The value to assign to the {OCI::Dns::Models::CreateZoneBaseDetails#name #name} proprety
+    # @option attributes [String] :compartment_id The value to assign to the {OCI::Dns::Models::CreateZoneBaseDetails#compartment_id #compartment_id} proprety
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Dns::Models::CreateZoneBaseDetails#freeform_tags #freeform_tags} proprety
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Dns::Models::CreateZoneBaseDetails#defined_tags #defined_tags} proprety
     # @option attributes [String] :zone_type The value to assign to the {#zone_type} property
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Array<OCI::Dns::Models::ExternalMaster>] :external_masters The value to assign to the {#external_masters} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
+      attributes['migrationSource'] = 'NONE'
+
+      super(attributes)
+
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.name = attributes[:'name'] if attributes[:'name']
 
       self.zone_type = attributes[:'zoneType'] if attributes[:'zoneType']
 
       raise 'You cannot provide both :zoneType and :zone_type' if attributes.key?(:'zoneType') && attributes.key?(:'zone_type')
 
       self.zone_type = attributes[:'zone_type'] if attributes[:'zone_type']
-
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
-
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
-
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
-
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
-
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
-
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
-
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
       self.external_masters = attributes[:'externalMasters'] if attributes[:'externalMasters']
 
@@ -149,11 +110,12 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        migration_source == other.migration_source &&
         name == other.name &&
-        zone_type == other.zone_type &&
         compartment_id == other.compartment_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        zone_type == other.zone_type &&
         external_masters == other.external_masters
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -170,7 +132,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, zone_type, compartment_id, freeform_tags, defined_tags, external_masters].hash
+      [migration_source, name, compartment_id, freeform_tags, defined_tags, zone_type, external_masters].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

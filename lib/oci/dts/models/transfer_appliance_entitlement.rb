@@ -7,20 +7,23 @@ require 'logger'
 module OCI
   # TransferApplianceEntitlement model.
   class Dts::Models::TransferApplianceEntitlement
-    STATUS_ENUM = [
-      STATUS_REQUESTED = 'REQUESTED'.freeze,
-      STATUS_PENDING_SIGNING = 'PENDING_SIGNING'.freeze,
-      STATUS_PENDING_APPROVAL = 'PENDING_APPROVAL'.freeze,
-      STATUS_TERMS_EXPIRED = 'TERMS_EXPIRED'.freeze,
-      STATUS_APPROVED = 'APPROVED'.freeze,
-      STATUS_REJECTED = 'REJECTED'.freeze,
-      STATUS_CANCELLED = 'CANCELLED'.freeze,
-      STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
+
+    # @return [String]
+    attr_accessor :id
 
     # This attribute is required.
     # @return [String]
-    attr_accessor :tenant_id
+    attr_accessor :compartment_id
+
+    # @return [String]
+    attr_accessor :display_name
 
     # @return [String]
     attr_accessor :requestor_name
@@ -30,7 +33,11 @@ module OCI
 
     # This attribute is required.
     # @return [String]
-    attr_reader :status
+    attr_reader :lifecycle_state
+
+    # A property that can contain details on the lifecycle.
+    # @return [String]
+    attr_accessor :lifecycle_state_details
 
     # @return [DateTime]
     attr_accessor :creation_time
@@ -38,16 +45,33 @@ module OCI
     # @return [DateTime]
     attr_accessor :update_time
 
+    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Example: `{\"bar-key\": \"value\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"foo-value\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'tenant_id': :'tenantId',
+        'id': :'id',
+        'compartment_id': :'compartmentId',
+        'display_name': :'displayName',
         'requestor_name': :'requestorName',
         'requestor_email': :'requestorEmail',
-        'status': :'status',
+        'lifecycle_state': :'lifecycleState',
+        'lifecycle_state_details': :'lifecycleStateDetails',
         'creation_time': :'creationTime',
-        'update_time': :'updateTime'
+        'update_time': :'updateTime',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -56,12 +80,17 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'tenant_id': :'String',
+        'id': :'String',
+        'compartment_id': :'String',
+        'display_name': :'String',
         'requestor_name': :'String',
         'requestor_email': :'String',
-        'status': :'String',
+        'lifecycle_state': :'String',
+        'lifecycle_state_details': :'String',
         'creation_time': :'DateTime',
-        'update_time': :'DateTime'
+        'update_time': :'DateTime',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -72,23 +101,36 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :tenant_id The value to assign to the {#tenant_id} property
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :requestor_name The value to assign to the {#requestor_name} property
     # @option attributes [String] :requestor_email The value to assign to the {#requestor_email} property
-    # @option attributes [String] :status The value to assign to the {#status} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_state_details The value to assign to the {#lifecycle_state_details} property
     # @option attributes [DateTime] :creation_time The value to assign to the {#creation_time} property
     # @option attributes [DateTime] :update_time The value to assign to the {#update_time} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.tenant_id = attributes[:'tenantId'] if attributes[:'tenantId']
+      self.id = attributes[:'id'] if attributes[:'id']
 
-      raise 'You cannot provide both :tenantId and :tenant_id' if attributes.key?(:'tenantId') && attributes.key?(:'tenant_id')
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
-      self.tenant_id = attributes[:'tenant_id'] if attributes[:'tenant_id']
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
       self.requestor_name = attributes[:'requestorName'] if attributes[:'requestorName']
 
@@ -102,7 +144,17 @@ module OCI
 
       self.requestor_email = attributes[:'requestor_email'] if attributes[:'requestor_email']
 
-      self.status = attributes[:'status'] if attributes[:'status']
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.lifecycle_state_details = attributes[:'lifecycleStateDetails'] if attributes[:'lifecycleStateDetails']
+
+      raise 'You cannot provide both :lifecycleStateDetails and :lifecycle_state_details' if attributes.key?(:'lifecycleStateDetails') && attributes.key?(:'lifecycle_state_details')
+
+      self.lifecycle_state_details = attributes[:'lifecycle_state_details'] if attributes[:'lifecycle_state_details']
 
       self.creation_time = attributes[:'creationTime'] if attributes[:'creationTime']
 
@@ -115,19 +167,31 @@ module OCI
       raise 'You cannot provide both :updateTime and :update_time' if attributes.key?(:'updateTime') && attributes.key?(:'update_time')
 
       self.update_time = attributes[:'update_time'] if attributes[:'update_time']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] status Object to be assigned
-    def status=(status)
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
-      if status && !STATUS_ENUM.include?(status)
-        OCI.logger.debug("Unknown value for 'status' [" + status + "]. Mapping to 'STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        @status = STATUS_UNKNOWN_ENUM_VALUE
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
-        @status = status
+        @lifecycle_state = lifecycle_state
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -141,12 +205,17 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        tenant_id == other.tenant_id &&
+        id == other.id &&
+        compartment_id == other.compartment_id &&
+        display_name == other.display_name &&
         requestor_name == other.requestor_name &&
         requestor_email == other.requestor_email &&
-        status == other.status &&
+        lifecycle_state == other.lifecycle_state &&
+        lifecycle_state_details == other.lifecycle_state_details &&
         creation_time == other.creation_time &&
-        update_time == other.update_time
+        update_time == other.update_time &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -162,7 +231,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [tenant_id, requestor_name, requestor_email, status, creation_time, update_time].hash
+      [id, compartment_id, display_name, requestor_name, requestor_email, lifecycle_state, lifecycle_state_details, creation_time, update_time, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,13 +1,17 @@
 # Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
-require_relative 'create_db_home_with_db_system_id_base'
+require_relative 'create_db_home_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Note that a valid `dbSystemId` value must be supplied for the `CreateDbHomeWithDbSystemIdFromBackup` API operation to successfully complete.
   #
-  class Database::Models::CreateDbHomeWithDbSystemIdFromBackupDetails < Database::Models::CreateDbHomeWithDbSystemIdBase
+  class Database::Models::CreateDbHomeWithDbSystemIdFromBackupDetails < Database::Models::CreateDbHomeBase
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
+    # @return [String]
+    attr_accessor :db_system_id
+
     # This attribute is required.
     # @return [OCI::Database::Models::CreateDatabaseFromBackupDetails]
     attr_accessor :database
@@ -16,9 +20,9 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'db_system_id': :'dbSystemId',
         'display_name': :'displayName',
         'source': :'source',
+        'db_system_id': :'dbSystemId',
         'database': :'database'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -28,9 +32,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'db_system_id': :'String',
         'display_name': :'String',
         'source': :'String',
+        'db_system_id': :'String',
         'database': :'OCI::Database::Models::CreateDatabaseFromBackupDetails'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -42,8 +46,8 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :db_system_id The value to assign to the {OCI::Database::Models::CreateDbHomeWithDbSystemIdBase#db_system_id #db_system_id} proprety
-    # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::CreateDbHomeWithDbSystemIdBase#display_name #display_name} proprety
+    # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::CreateDbHomeBase#display_name #display_name} proprety
+    # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
     # @option attributes [OCI::Database::Models::CreateDatabaseFromBackupDetails] :database The value to assign to the {#database} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -54,6 +58,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.db_system_id = attributes[:'dbSystemId'] if attributes[:'dbSystemId']
+
+      raise 'You cannot provide both :dbSystemId and :db_system_id' if attributes.key?(:'dbSystemId') && attributes.key?(:'db_system_id')
+
+      self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
 
       self.database = attributes[:'database'] if attributes[:'database']
     end
@@ -69,9 +79,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        db_system_id == other.db_system_id &&
         display_name == other.display_name &&
         source == other.source &&
+        db_system_id == other.db_system_id &&
         database == other.database
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -88,7 +98,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_system_id, display_name, source, database].hash
+      [display_name, source, db_system_id, database].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

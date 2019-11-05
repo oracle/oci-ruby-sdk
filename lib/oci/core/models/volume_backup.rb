@@ -51,6 +51,12 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # System tags for this resource. Each key is predefined and scoped to a namespace.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # **[Required]** A user-friendly name for the volume backup. Does not have to be unique and it's changeable.
     # Avoid entering confidential information.
     #
@@ -147,6 +153,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
+        'system_tags': :'systemTags',
         'display_name': :'displayName',
         'expiration_time': :'expirationTime',
         'freeform_tags': :'freeformTags',
@@ -173,6 +180,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'expiration_time': :'DateTime',
         'freeform_tags': :'Hash<String, String>',
@@ -201,6 +209,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [DateTime] :expiration_time The value to assign to the {#expiration_time} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -234,6 +243,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -376,6 +391,7 @@ module OCI
       self.class == other.class &&
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
+        system_tags == other.system_tags &&
         display_name == other.display_name &&
         expiration_time == other.expiration_time &&
         freeform_tags == other.freeform_tags &&
@@ -407,7 +423,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, expiration_time, freeform_tags, id, kms_key_id, lifecycle_state, size_in_gbs, size_in_mbs, source_type, source_volume_backup_id, time_created, time_request_received, type, unique_size_in_gbs, unique_size_in_mbs, volume_id].hash
+      [compartment_id, defined_tags, system_tags, display_name, expiration_time, freeform_tags, id, kms_key_id, lifecycle_state, size_in_gbs, size_in_mbs, source_type, source_volume_backup_id, time_created, time_request_received, type, unique_size_in_gbs, unique_size_in_mbs, volume_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

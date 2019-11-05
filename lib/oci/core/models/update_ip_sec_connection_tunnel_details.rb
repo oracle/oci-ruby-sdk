@@ -11,6 +11,11 @@ module OCI
       ROUTING_STATIC = 'STATIC'.freeze
     ].freeze
 
+    IKE_VERSION_ENUM = [
+      IKE_VERSION_V1 = 'V1'.freeze,
+      IKE_VERSION_V2 = 'V2'.freeze
+    ].freeze
+
     # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
     # entering confidential information.
     #
@@ -21,6 +26,11 @@ module OCI
     #
     # @return [String]
     attr_reader :routing
+
+    # Internet Key Exchange protocol version.
+    #
+    # @return [String]
+    attr_reader :ike_version
 
     # Information for establishing a BGP session for the IPSec tunnel.
     #
@@ -33,6 +43,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'routing': :'routing',
+        'ike_version': :'ikeVersion',
         'bgp_session_config': :'bgpSessionConfig'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -44,6 +55,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'routing': :'String',
+        'ike_version': :'String',
         'bgp_session_config': :'OCI::Core::Models::UpdateIPSecTunnelBgpSessionDetails'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -57,6 +69,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :routing The value to assign to the {#routing} property
+    # @option attributes [String] :ike_version The value to assign to the {#ike_version} property
     # @option attributes [OCI::Core::Models::UpdateIPSecTunnelBgpSessionDetails] :bgp_session_config The value to assign to the {#bgp_session_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -71,6 +84,12 @@ module OCI
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
       self.routing = attributes[:'routing'] if attributes[:'routing']
+
+      self.ike_version = attributes[:'ikeVersion'] if attributes[:'ikeVersion']
+
+      raise 'You cannot provide both :ikeVersion and :ike_version' if attributes.key?(:'ikeVersion') && attributes.key?(:'ike_version')
+
+      self.ike_version = attributes[:'ike_version'] if attributes[:'ike_version']
 
       self.bgp_session_config = attributes[:'bgpSessionConfig'] if attributes[:'bgpSessionConfig']
 
@@ -89,6 +108,14 @@ module OCI
       @routing = routing
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] ike_version Object to be assigned
+    def ike_version=(ike_version)
+      raise "Invalid value for 'ike_version': this must be one of the values in IKE_VERSION_ENUM." if ike_version && !IKE_VERSION_ENUM.include?(ike_version)
+
+      @ike_version = ike_version
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -100,6 +127,7 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         routing == other.routing &&
+        ike_version == other.ike_version &&
         bgp_session_config == other.bgp_session_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -116,7 +144,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, routing, bgp_session_config].hash
+      [display_name, routing, ike_version, bgp_session_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

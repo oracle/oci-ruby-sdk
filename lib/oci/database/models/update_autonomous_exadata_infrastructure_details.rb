@@ -14,6 +14,11 @@ module OCI
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window_details
 
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -25,8 +30,6 @@ module OCI
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
@@ -36,6 +39,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'maintenance_window_details': :'maintenanceWindowDetails',
+        'nsg_ids': :'nsgIds',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -48,6 +52,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow',
+        'nsg_ids': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -62,6 +67,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -81,6 +87,12 @@ module OCI
       raise 'You cannot provide both :maintenanceWindowDetails and :maintenance_window_details' if attributes.key?(:'maintenanceWindowDetails') && attributes.key?(:'maintenance_window_details')
 
       self.maintenance_window_details = attributes[:'maintenance_window_details'] if attributes[:'maintenance_window_details']
+
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -108,6 +120,7 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         maintenance_window_details == other.maintenance_window_details &&
+        nsg_ids == other.nsg_ids &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -125,7 +138,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, maintenance_window_details, freeform_tags, defined_tags].hash
+      [display_name, maintenance_window_details, nsg_ids, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

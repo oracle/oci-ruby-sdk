@@ -17,6 +17,12 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    IKE_VERSION_ENUM = [
+      IKE_VERSION_V1 = 'V1'.freeze,
+      IKE_VERSION_V2 = 'V2'.freeze,
+      IKE_VERSION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
@@ -57,6 +63,11 @@ module OCI
     # The status of the tunnel based on IPSec protocol characteristics.
     # @return [String]
     attr_reader :status
+
+    # Internet Key Exchange protocol version.
+    #
+    # @return [String]
+    attr_reader :ike_version
 
     # **[Required]** The tunnel's lifecycle state.
     # @return [String]
@@ -101,6 +112,7 @@ module OCI
         'vpn_ip': :'vpnIp',
         'cpe_ip': :'cpeIp',
         'status': :'status',
+        'ike_version': :'ikeVersion',
         'lifecycle_state': :'lifecycleState',
         'display_name': :'displayName',
         'bgp_session_info': :'bgpSessionInfo',
@@ -120,6 +132,7 @@ module OCI
         'vpn_ip': :'String',
         'cpe_ip': :'String',
         'status': :'String',
+        'ike_version': :'String',
         'lifecycle_state': :'String',
         'display_name': :'String',
         'bgp_session_info': :'OCI::Core::Models::BgpSessionInfo',
@@ -141,6 +154,7 @@ module OCI
     # @option attributes [String] :vpn_ip The value to assign to the {#vpn_ip} property
     # @option attributes [String] :cpe_ip The value to assign to the {#cpe_ip} property
     # @option attributes [String] :status The value to assign to the {#status} property
+    # @option attributes [String] :ike_version The value to assign to the {#ike_version} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [OCI::Core::Models::BgpSessionInfo] :bgp_session_info The value to assign to the {#bgp_session_info} property
@@ -174,6 +188,12 @@ module OCI
       self.cpe_ip = attributes[:'cpe_ip'] if attributes[:'cpe_ip']
 
       self.status = attributes[:'status'] if attributes[:'status']
+
+      self.ike_version = attributes[:'ikeVersion'] if attributes[:'ikeVersion']
+
+      raise 'You cannot provide both :ikeVersion and :ike_version' if attributes.key?(:'ikeVersion') && attributes.key?(:'ike_version')
+
+      self.ike_version = attributes[:'ike_version'] if attributes[:'ike_version']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -224,6 +244,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] ike_version Object to be assigned
+    def ike_version=(ike_version)
+      # rubocop:disable Style/ConditionalAssignment
+      if ike_version && !IKE_VERSION_ENUM.include?(ike_version)
+        OCI.logger.debug("Unknown value for 'ike_version' [" + ike_version + "]. Mapping to 'IKE_VERSION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @ike_version = IKE_VERSION_UNKNOWN_ENUM_VALUE
+      else
+        @ike_version = ike_version
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -263,6 +296,7 @@ module OCI
         vpn_ip == other.vpn_ip &&
         cpe_ip == other.cpe_ip &&
         status == other.status &&
+        ike_version == other.ike_version &&
         lifecycle_state == other.lifecycle_state &&
         display_name == other.display_name &&
         bgp_session_info == other.bgp_session_info &&
@@ -284,7 +318,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, id, vpn_ip, cpe_ip, status, lifecycle_state, display_name, bgp_session_info, routing, time_created, time_status_updated].hash
+      [compartment_id, id, vpn_ip, cpe_ip, status, ike_version, lifecycle_state, display_name, bgp_session_info, routing, time_created, time_status_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

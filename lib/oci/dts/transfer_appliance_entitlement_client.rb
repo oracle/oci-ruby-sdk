@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the DTS API
+  # Data Transfer Service API Specification
   class Dts::TransferApplianceEntitlementClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -108,13 +108,20 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create the Transfer Appliance Entitlement that allows customers to use Transfer Appliance
+    # Create the Entitlement to use a Transfer Appliance. It requires some offline process of review and signatures before request is granted.
     # @param [OCI::Dts::Models::CreateTransferApplianceEntitlementDetails] create_transfer_appliance_entitlement_details Creates a Transfer Appliance Entitlement
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token opc retry token
-    # @option opts [String] :opc_request_id opc request id
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferApplianceEntitlement TransferApplianceEntitlement}
     def create_transfer_appliance_entitlement(create_transfer_appliance_entitlement_details, opts = {})
       logger.debug 'Calling operation TransferApplianceEntitlementClient#create_transfer_appliance_entitlement.' if logger
@@ -164,19 +171,27 @@ module OCI
 
 
     # Describes the Transfer Appliance Entitlement in detail
-    # @param [String] tenant_id Tenant Id
+    # @param [String] id Id of the Transfer Appliance Entitlement
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id opc request id
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferApplianceEntitlement TransferApplianceEntitlement}
-    def get_transfer_appliance_entitlement(tenant_id, opts = {})
+    def get_transfer_appliance_entitlement(id, opts = {})
       logger.debug 'Calling operation TransferApplianceEntitlementClient#get_transfer_appliance_entitlement.' if logger
 
-      raise "Missing the required parameter 'tenant_id' when calling get_transfer_appliance_entitlement." if tenant_id.nil?
-      raise "Parameter value for 'tenant_id' must not be blank" if OCI::Internal::Util.blank_string?(tenant_id)
+      raise "Missing the required parameter 'id' when calling get_transfer_appliance_entitlement." if id.nil?
+      raise "Parameter value for 'id' must not be blank" if OCI::Internal::Util.blank_string?(id)
 
-      path = '/transferApplianceEntitlement/{tenantId}'.sub('{tenantId}', tenant_id.to_s)
+      path = '/transferApplianceEntitlement/{id}'.sub('{id}', id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -187,8 +202,10 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 
@@ -203,6 +220,65 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Dts::Models::TransferApplianceEntitlement'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists Transfer Transfer Appliance Entitlement
+    # @param [String] compartment_id compartment id
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :id filtering by Transfer Appliance Entitlement id
+    # @option opts [String] :display_name filtering by displayName
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Dts::Models::TransferApplianceEntitlementSummary TransferApplianceEntitlementSummary}>
+    def list_transfer_appliance_entitlement(compartment_id, opts = {})
+      logger.debug 'Calling operation TransferApplianceEntitlementClient#list_transfer_appliance_entitlement.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_transfer_appliance_entitlement." if compartment_id.nil?
+
+      path = '/transferApplianceEntitlement'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'TransferApplianceEntitlementClient#list_transfer_appliance_entitlement') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Dts::Models::TransferApplianceEntitlementSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength

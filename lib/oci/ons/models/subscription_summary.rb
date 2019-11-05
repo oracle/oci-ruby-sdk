@@ -25,13 +25,15 @@ module OCI
     # @return [String]
     attr_accessor :topic_id
 
-    # **[Required]** The protocol used for the subscription. Valid values: EMAIL, HTTPS.
+    # **[Required]** The protocol used for the subscription.
+    # For information about subscription protocols, see
+    # [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
     #
     # @return [String]
     attr_accessor :protocol
 
-    # **[Required]** The endpoint of the subscription. Valid values depend on the protocol.
-    # For EMAIL, only an email address is valid. For HTTPS, only a PagerDuty URL is valid. A URL cannot exceed 512 characters.
+    # **[Required]** A locator that corresponds to the subscription protocol.
+    # For example, an email address for a subscription that uses the `EMAIL` protocol, or a URL for a subscription that uses an HTTP-based protocol.
     #
     # @return [String]
     attr_accessor :endpoint

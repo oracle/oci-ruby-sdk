@@ -761,11 +761,11 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 100)
     # @option opts [String] :page The value of the `opc-next-page` response header
     #   from the previous \"List\" call.
     #
-    # @option opts [String] :sort_by The field to sort by when listing vantage points.
+    # @option opts [String] :sort_by The field to sort by when listing vantage points. (default to name)
     #   Allowed values are: name, displayName
     # @option opts [String] :sort_order Controls the sort order of results. (default to ASC)
     #   Allowed values are: ASC, DESC
@@ -840,23 +840,24 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 100)
     # @option opts [String] :page The value of the `opc-next-page` response header
     #   from the previous \"List\" call.
     #
-    # @option opts [String] :sort_by The field to sort by when listing monitors.
-    #   Allowed values are: id, displayName
+    # @option opts [String] :sort_by The field to sort by when listing monitors. (default to id)
+    #   Allowed values are: id, displayName, timeCreated
     # @option opts [String] :sort_order Controls the sort order of results. (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :display_name Filters results that exactly match the `displayName` field.
+    # @option opts [String] :home_region Filters results that match the `homeRegion`.
     # @return [Response] A Response object with data of type Array<{OCI::Healthchecks::Models::HttpMonitorSummary HttpMonitorSummary}>
     def list_http_monitors(compartment_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#list_http_monitors.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_http_monitors." if compartment_id.nil?
 
-      if opts[:sort_by] && !%w[id displayName].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of id, displayName.'
+      if opts[:sort_by] && !%w[id displayName timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of id, displayName, timeCreated.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -875,6 +876,7 @@ module OCI
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:homeRegion] = opts[:home_region] if opts[:home_region]
 
       # Header Params
       header_params = {}
@@ -921,7 +923,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 100)
     # @option opts [String] :page The value of the `opc-next-page` response header
     #   from the previous \"List\" call.
     #
@@ -1000,23 +1002,24 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 100)
     # @option opts [String] :page The value of the `opc-next-page` response header
     #   from the previous \"List\" call.
     #
-    # @option opts [String] :sort_by The field to sort by when listing monitors.
-    #   Allowed values are: id, displayName
+    # @option opts [String] :sort_by The field to sort by when listing monitors. (default to id)
+    #   Allowed values are: id, displayName, timeCreated
     # @option opts [String] :sort_order Controls the sort order of results. (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :display_name Filters results that exactly match the `displayName` field.
+    # @option opts [String] :home_region Filters results that match the `homeRegion`.
     # @return [Response] A Response object with data of type Array<{OCI::Healthchecks::Models::PingMonitorSummary PingMonitorSummary}>
     def list_ping_monitors(compartment_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#list_ping_monitors.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_ping_monitors." if compartment_id.nil?
 
-      if opts[:sort_by] && !%w[id displayName].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of id, displayName.'
+      if opts[:sort_by] && !%w[id displayName timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of id, displayName, timeCreated.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -1035,6 +1038,7 @@ module OCI
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:homeRegion] = opts[:home_region] if opts[:home_region]
 
       # Header Params
       header_params = {}
@@ -1085,7 +1089,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 100)
     # @option opts [String] :page The value of the `opc-next-page` response header
     #   from the previous \"List\" call.
     #

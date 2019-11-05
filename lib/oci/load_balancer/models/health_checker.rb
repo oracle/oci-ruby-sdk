@@ -38,7 +38,8 @@ module OCI
     # @return [Integer]
     attr_accessor :return_code
 
-    # The number of retries to attempt before a backend server is considered \"unhealthy\". Defaults to 3.
+    # The number of retries to attempt before a backend server is considered \"unhealthy\". This number also applies
+    # when recovering a server to the \"healthy\" state. Defaults to 3.
     #
     # Example: `3`
     #

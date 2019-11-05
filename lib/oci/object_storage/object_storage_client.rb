@@ -553,8 +553,9 @@ module OCI
 
 
     # Deletes a bucket if the bucket is already empty. If the bucket is not empty, use
-    # {#delete_object delete_object} first. You also cannot
-    # delete a bucket that has a pre-authenticated request associated with that bucket.
+    # {#delete_object delete_object} first. In addition,
+    # you cannot delete a bucket that has a multipart upload in progress or a pre-authenticated
+    # request associated with that bucket.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
@@ -955,7 +956,7 @@ module OCI
     # Gets the metadata for the Object Storage namespace, which contains defaultS3CompartmentId and
     # defaultSwiftCompartmentId.
     #
-    # Any user with the NAMESPACE_READ permission will be able to see the current metadata. If you are
+    # Any user with the OBJECTSTORAGE_NAMESPACE_READ permission will be able to see the current metadata. If you are
     # not authorized, talk to an administrator. If you are an administrator who needs to write policies
     # to give users access, see
     # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
@@ -2156,6 +2157,72 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Reencrypts the data encryption key of the bucket and objects in the bucket. This is an asynchronous call, the
+    # system will start a work request task to reencrypt the data encryption key of the objects and chunks in the bucket.
+    # Only the objects created before the time the API call will be reencrypted. The call can take long time depending
+    # on how many objects in the bucket and how big the objects are. This API will return a work request id, so the user
+    # can use this id to retrieve the status of the work request task.
+    #
+    # A user can update kmsKeyId of the bucket, and then call this API, so the data encryption key of the bucket and
+    # objects in the bucket will be reencryped by the new kmsKeyId. Note that the system doesn't maintain what
+    # ksmKeyId is used to encrypt the object, the user has to maintain the mapping if they want.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def reencrypt_bucket(namespace_name, bucket_name, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#reencrypt_bucket.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling reencrypt_bucket." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling reencrypt_bucket." if bucket_name.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/actions/reencrypt'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#reencrypt_bucket') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Rename an object in the given Object Storage namespace.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.
@@ -2279,6 +2346,10 @@ module OCI
 
     # Performs a partial or full update of a bucket's user-defined metadata.
     #
+    # Use UpdateBucket to move a bucket from one compartment to another within the same tenancy. Supply the compartmentID
+    # of the compartment that you want to move the bucket to. For more information about moving resources between compartments,
+    # see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
     # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
@@ -2347,7 +2418,7 @@ module OCI
     #
     # You can change the default Swift/Amazon S3 compartmentId designation to a different compartmentId. All
     # subsequent bucket creations will use the new default compartment, but no previously created
-    # buckets will be modified. A user must have NAMESPACE_UPDATE permission to make changes to the default
+    # buckets will be modified. A user must have OBJECTSTORAGE_NAMESPACE_UPDATE permission to make changes to the default
     # compartments for Amazon S3 and Swift.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.

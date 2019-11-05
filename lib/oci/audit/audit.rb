@@ -12,6 +12,11 @@ end
 # Require models
 require 'oci/audit/models/audit_event'
 require 'oci/audit/models/configuration'
+require 'oci/audit/models/data'
+require 'oci/audit/models/identity'
+require 'oci/audit/models/request'
+require 'oci/audit/models/response'
+require 'oci/audit/models/state_change'
 require 'oci/audit/models/update_configuration_details'
 
 # Require generated clients

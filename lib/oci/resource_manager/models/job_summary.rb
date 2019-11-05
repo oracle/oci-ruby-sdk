@@ -6,15 +6,15 @@ require 'date'
 module OCI
   # Returns a listing of all of the specified job's properties and their values.
   class ResourceManager::Models::JobSummary
-    # The job's OCID.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @return [String]
     attr_accessor :id
 
-    # OCID of the stack that is associated with the specified job.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack that is associated with the specified job.
     # @return [String]
     attr_accessor :stack_id
 
-    # OCID of the compartment where the stack of the associated job resides.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where the stack of the associated job resides.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -26,10 +26,15 @@ module OCI
     # @return [String]
     attr_accessor :operation
 
+    # @return [OCI::ResourceManager::Models::JobOperationDetailsSummary]
+    attr_accessor :job_operation_details
+
     # @return [OCI::ResourceManager::Models::ApplyJobPlanResolution]
     attr_accessor :apply_job_plan_resolution
 
-    # The plan job OCID that was used (if this was an APPLY job and not auto approved).
+    # Deprecated. Use the property `executionPlanJobId` in `jobOperationDetails` instead.
+    # The plan job [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that was used (if this was an apply job and was not auto-approved).
+    #
     # @return [String]
     attr_accessor :resolved_plan_job_id
 
@@ -75,6 +80,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'operation': :'operation',
+        'job_operation_details': :'jobOperationDetails',
         'apply_job_plan_resolution': :'applyJobPlanResolution',
         'resolved_plan_job_id': :'resolvedPlanJobId',
         'time_created': :'timeCreated',
@@ -95,6 +101,7 @@ module OCI
         'compartment_id': :'String',
         'display_name': :'String',
         'operation': :'String',
+        'job_operation_details': :'OCI::ResourceManager::Models::JobOperationDetailsSummary',
         'apply_job_plan_resolution': :'OCI::ResourceManager::Models::ApplyJobPlanResolution',
         'resolved_plan_job_id': :'String',
         'time_created': :'DateTime',
@@ -117,6 +124,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :operation The value to assign to the {#operation} property
+    # @option attributes [OCI::ResourceManager::Models::JobOperationDetailsSummary] :job_operation_details The value to assign to the {#job_operation_details} property
     # @option attributes [OCI::ResourceManager::Models::ApplyJobPlanResolution] :apply_job_plan_resolution The value to assign to the {#apply_job_plan_resolution} property
     # @option attributes [String] :resolved_plan_job_id The value to assign to the {#resolved_plan_job_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -151,6 +159,12 @@ module OCI
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
       self.operation = attributes[:'operation'] if attributes[:'operation']
+
+      self.job_operation_details = attributes[:'jobOperationDetails'] if attributes[:'jobOperationDetails']
+
+      raise 'You cannot provide both :jobOperationDetails and :job_operation_details' if attributes.key?(:'jobOperationDetails') && attributes.key?(:'job_operation_details')
+
+      self.job_operation_details = attributes[:'job_operation_details'] if attributes[:'job_operation_details']
 
       self.apply_job_plan_resolution = attributes[:'applyJobPlanResolution'] if attributes[:'applyJobPlanResolution']
 
@@ -211,6 +225,7 @@ module OCI
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         operation == other.operation &&
+        job_operation_details == other.job_operation_details &&
         apply_job_plan_resolution == other.apply_job_plan_resolution &&
         resolved_plan_job_id == other.resolved_plan_job_id &&
         time_created == other.time_created &&
@@ -233,7 +248,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, stack_id, compartment_id, display_name, operation, apply_job_plan_resolution, resolved_plan_job_id, time_created, time_finished, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, stack_id, compartment_id, display_name, operation, job_operation_details, apply_job_plan_resolution, resolved_plan_job_id, time_created, time_finished, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

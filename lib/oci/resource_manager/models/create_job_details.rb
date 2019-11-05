@@ -7,7 +7,7 @@ module OCI
   # Defines the requirements and properties of a job to create and run against the specified stack.
   #
   class ResourceManager::Models::CreateJobDetails
-    # **[Required]** OCID of the stack that is associated with the current job.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack that is associated with the current job.
     # @return [String]
     attr_accessor :stack_id
 
@@ -15,9 +15,12 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Terraform-specific operation to execute.
+    # Terraform-specific operation to execute.
     # @return [String]
     attr_accessor :operation
+
+    # @return [OCI::ResourceManager::Models::CreateJobOperationDetails]
+    attr_accessor :job_operation_details
 
     # @return [OCI::ResourceManager::Models::ApplyJobPlanResolution]
     attr_accessor :apply_job_plan_resolution
@@ -43,6 +46,7 @@ module OCI
         'stack_id': :'stackId',
         'display_name': :'displayName',
         'operation': :'operation',
+        'job_operation_details': :'jobOperationDetails',
         'apply_job_plan_resolution': :'applyJobPlanResolution',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -57,6 +61,7 @@ module OCI
         'stack_id': :'String',
         'display_name': :'String',
         'operation': :'String',
+        'job_operation_details': :'OCI::ResourceManager::Models::CreateJobOperationDetails',
         'apply_job_plan_resolution': :'OCI::ResourceManager::Models::ApplyJobPlanResolution',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -73,6 +78,7 @@ module OCI
     # @option attributes [String] :stack_id The value to assign to the {#stack_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :operation The value to assign to the {#operation} property
+    # @option attributes [OCI::ResourceManager::Models::CreateJobOperationDetails] :job_operation_details The value to assign to the {#job_operation_details} property
     # @option attributes [OCI::ResourceManager::Models::ApplyJobPlanResolution] :apply_job_plan_resolution The value to assign to the {#apply_job_plan_resolution} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -95,6 +101,12 @@ module OCI
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
       self.operation = attributes[:'operation'] if attributes[:'operation']
+
+      self.job_operation_details = attributes[:'jobOperationDetails'] if attributes[:'jobOperationDetails']
+
+      raise 'You cannot provide both :jobOperationDetails and :job_operation_details' if attributes.key?(:'jobOperationDetails') && attributes.key?(:'job_operation_details')
+
+      self.job_operation_details = attributes[:'job_operation_details'] if attributes[:'job_operation_details']
 
       self.apply_job_plan_resolution = attributes[:'applyJobPlanResolution'] if attributes[:'applyJobPlanResolution']
 
@@ -129,6 +141,7 @@ module OCI
         stack_id == other.stack_id &&
         display_name == other.display_name &&
         operation == other.operation &&
+        job_operation_details == other.job_operation_details &&
         apply_job_plan_resolution == other.apply_job_plan_resolution &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -147,7 +160,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [stack_id, display_name, operation, apply_job_plan_resolution, freeform_tags, defined_tags].hash
+      [stack_id, display_name, operation, job_operation_details, apply_job_plan_resolution, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

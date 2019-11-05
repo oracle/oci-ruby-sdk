@@ -4,10 +4,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contains details indicating which compartment the resource should move to
+  # Specifies the compartment to move the dedicated virtual machine host to.
   class Core::Models::ChangeDedicatedVmHostCompartmentDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment
-    # into which the resource should be moved.
+    # to move the dedicated virtual machine host to.
     #
     # @return [String]
     attr_accessor :compartment_id

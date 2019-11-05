@@ -22,6 +22,45 @@ module OCI
       PERIOD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    OFFSET_TYPE_ENUM = [
+      OFFSET_TYPE_STRUCTURED = 'STRUCTURED'.freeze,
+      OFFSET_TYPE_NUMERIC_SECONDS = 'NUMERIC_SECONDS'.freeze,
+      OFFSET_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    DAY_OF_WEEK_ENUM = [
+      DAY_OF_WEEK_MONDAY = 'MONDAY'.freeze,
+      DAY_OF_WEEK_TUESDAY = 'TUESDAY'.freeze,
+      DAY_OF_WEEK_WEDNESDAY = 'WEDNESDAY'.freeze,
+      DAY_OF_WEEK_THURSDAY = 'THURSDAY'.freeze,
+      DAY_OF_WEEK_FRIDAY = 'FRIDAY'.freeze,
+      DAY_OF_WEEK_SATURDAY = 'SATURDAY'.freeze,
+      DAY_OF_WEEK_SUNDAY = 'SUNDAY'.freeze,
+      DAY_OF_WEEK_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    MONTH_ENUM = [
+      MONTH_JANUARY = 'JANUARY'.freeze,
+      MONTH_FEBRUARY = 'FEBRUARY'.freeze,
+      MONTH_MARCH = 'MARCH'.freeze,
+      MONTH_APRIL = 'APRIL'.freeze,
+      MONTH_MAY = 'MAY'.freeze,
+      MONTH_JUNE = 'JUNE'.freeze,
+      MONTH_JULY = 'JULY'.freeze,
+      MONTH_AUGUST = 'AUGUST'.freeze,
+      MONTH_SEPTEMBER = 'SEPTEMBER'.freeze,
+      MONTH_OCTOBER = 'OCTOBER'.freeze,
+      MONTH_NOVEMBER = 'NOVEMBER'.freeze,
+      MONTH_DECEMBER = 'DECEMBER'.freeze,
+      MONTH_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    TIME_ZONE_ENUM = [
+      TIME_ZONE_UTC = 'UTC'.freeze,
+      TIME_ZONE_REGIONAL_DATA_CENTER_TIME = 'REGIONAL_DATA_CENTER_TIME'.freeze,
+      TIME_ZONE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The type of backup to create.
     # @return [String]
     attr_reader :backup_type
@@ -34,9 +73,33 @@ module OCI
     # @return [String]
     attr_reader :period
 
+    # Indicates how offset is defined. If value is `STRUCTURED`, then `hourOfDay`, `dayOfWeek`, `dayOfMonth`, and `month` fields are used and `offsetSeconds` will be ignored in requests and users should ignore its value from the respones. `hourOfDay` is applicable for periods `ONE_DAY`, `ONE_WEEK`, `ONE_MONTH` and `ONE_YEAR`. `dayOfWeek` is applicable for period `ONE_WEEK`. `dayOfMonth` is applicable for periods `ONE_MONTH` and `ONE_YEAR`. 'month' is applicable for period 'ONE_YEAR'. They will be ignored in the requests for inapplicable periods. If value is `NUMERIC_SECONDS`, then `offsetSeconds` will be used for both requests and responses and the structured fields will be ignored in the requests and users should ignore their values from the respones. For clients using older versions of Apis and not sending `offsetType` in their requests, the behaviour is just like `NUMERIC_SECONDS`.
+    # @return [String]
+    attr_reader :offset_type
+
+    # The hour of the day to schedule the backup
+    # @return [Integer]
+    attr_accessor :hour_of_day
+
+    # The day of the week to schedule the backup
+    # @return [String]
+    attr_reader :day_of_week
+
+    # The day of the month to schedule the backup
+    # @return [Integer]
+    attr_accessor :day_of_month
+
+    # The month of the year to schedule the backup
+    # @return [String]
+    attr_reader :month
+
     # **[Required]** How long, in seconds, backups created by this schedule should be kept until being automatically deleted.
     # @return [Integer]
     attr_accessor :retention_seconds
+
+    # Specifies what time zone is the schedule in
+    # @return [String]
+    attr_reader :time_zone
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -45,7 +108,13 @@ module OCI
         'backup_type': :'backupType',
         'offset_seconds': :'offsetSeconds',
         'period': :'period',
-        'retention_seconds': :'retentionSeconds'
+        'offset_type': :'offsetType',
+        'hour_of_day': :'hourOfDay',
+        'day_of_week': :'dayOfWeek',
+        'day_of_month': :'dayOfMonth',
+        'month': :'month',
+        'retention_seconds': :'retentionSeconds',
+        'time_zone': :'timeZone'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,7 +126,13 @@ module OCI
         'backup_type': :'String',
         'offset_seconds': :'Integer',
         'period': :'String',
-        'retention_seconds': :'Integer'
+        'offset_type': :'String',
+        'hour_of_day': :'Integer',
+        'day_of_week': :'String',
+        'day_of_month': :'Integer',
+        'month': :'String',
+        'retention_seconds': :'Integer',
+        'time_zone': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -71,7 +146,13 @@ module OCI
     # @option attributes [String] :backup_type The value to assign to the {#backup_type} property
     # @option attributes [Integer] :offset_seconds The value to assign to the {#offset_seconds} property
     # @option attributes [String] :period The value to assign to the {#period} property
+    # @option attributes [String] :offset_type The value to assign to the {#offset_type} property
+    # @option attributes [Integer] :hour_of_day The value to assign to the {#hour_of_day} property
+    # @option attributes [String] :day_of_week The value to assign to the {#day_of_week} property
+    # @option attributes [Integer] :day_of_month The value to assign to the {#day_of_month} property
+    # @option attributes [String] :month The value to assign to the {#month} property
     # @option attributes [Integer] :retention_seconds The value to assign to the {#retention_seconds} property
+    # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -92,11 +173,45 @@ module OCI
 
       self.period = attributes[:'period'] if attributes[:'period']
 
+      self.offset_type = attributes[:'offsetType'] if attributes[:'offsetType']
+
+      raise 'You cannot provide both :offsetType and :offset_type' if attributes.key?(:'offsetType') && attributes.key?(:'offset_type')
+
+      self.offset_type = attributes[:'offset_type'] if attributes[:'offset_type']
+
+      self.hour_of_day = attributes[:'hourOfDay'] if attributes[:'hourOfDay']
+
+      raise 'You cannot provide both :hourOfDay and :hour_of_day' if attributes.key?(:'hourOfDay') && attributes.key?(:'hour_of_day')
+
+      self.hour_of_day = attributes[:'hour_of_day'] if attributes[:'hour_of_day']
+
+      self.day_of_week = attributes[:'dayOfWeek'] if attributes[:'dayOfWeek']
+
+      raise 'You cannot provide both :dayOfWeek and :day_of_week' if attributes.key?(:'dayOfWeek') && attributes.key?(:'day_of_week')
+
+      self.day_of_week = attributes[:'day_of_week'] if attributes[:'day_of_week']
+
+      self.day_of_month = attributes[:'dayOfMonth'] if attributes[:'dayOfMonth']
+
+      raise 'You cannot provide both :dayOfMonth and :day_of_month' if attributes.key?(:'dayOfMonth') && attributes.key?(:'day_of_month')
+
+      self.day_of_month = attributes[:'day_of_month'] if attributes[:'day_of_month']
+
+      self.month = attributes[:'month'] if attributes[:'month']
+
       self.retention_seconds = attributes[:'retentionSeconds'] if attributes[:'retentionSeconds']
 
       raise 'You cannot provide both :retentionSeconds and :retention_seconds' if attributes.key?(:'retentionSeconds') && attributes.key?(:'retention_seconds')
 
       self.retention_seconds = attributes[:'retention_seconds'] if attributes[:'retention_seconds']
+
+      self.time_zone = attributes[:'timeZone'] if attributes[:'timeZone']
+      self.time_zone = "UTC" if time_zone.nil? && !attributes.key?(:'timeZone') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :timeZone and :time_zone' if attributes.key?(:'timeZone') && attributes.key?(:'time_zone')
+
+      self.time_zone = attributes[:'time_zone'] if attributes[:'time_zone']
+      self.time_zone = "UTC" if time_zone.nil? && !attributes.key?(:'timeZone') && !attributes.key?(:'time_zone') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -127,6 +242,58 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] offset_type Object to be assigned
+    def offset_type=(offset_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if offset_type && !OFFSET_TYPE_ENUM.include?(offset_type)
+        OCI.logger.debug("Unknown value for 'offset_type' [" + offset_type + "]. Mapping to 'OFFSET_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @offset_type = OFFSET_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @offset_type = offset_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] day_of_week Object to be assigned
+    def day_of_week=(day_of_week)
+      # rubocop:disable Style/ConditionalAssignment
+      if day_of_week && !DAY_OF_WEEK_ENUM.include?(day_of_week)
+        OCI.logger.debug("Unknown value for 'day_of_week' [" + day_of_week + "]. Mapping to 'DAY_OF_WEEK_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @day_of_week = DAY_OF_WEEK_UNKNOWN_ENUM_VALUE
+      else
+        @day_of_week = day_of_week
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] month Object to be assigned
+    def month=(month)
+      # rubocop:disable Style/ConditionalAssignment
+      if month && !MONTH_ENUM.include?(month)
+        OCI.logger.debug("Unknown value for 'month' [" + month + "]. Mapping to 'MONTH_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @month = MONTH_UNKNOWN_ENUM_VALUE
+      else
+        @month = month
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] time_zone Object to be assigned
+    def time_zone=(time_zone)
+      # rubocop:disable Style/ConditionalAssignment
+      if time_zone && !TIME_ZONE_ENUM.include?(time_zone)
+        OCI.logger.debug("Unknown value for 'time_zone' [" + time_zone + "]. Mapping to 'TIME_ZONE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @time_zone = TIME_ZONE_UNKNOWN_ENUM_VALUE
+      else
+        @time_zone = time_zone
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -139,7 +306,13 @@ module OCI
         backup_type == other.backup_type &&
         offset_seconds == other.offset_seconds &&
         period == other.period &&
-        retention_seconds == other.retention_seconds
+        offset_type == other.offset_type &&
+        hour_of_day == other.hour_of_day &&
+        day_of_week == other.day_of_week &&
+        day_of_month == other.day_of_month &&
+        month == other.month &&
+        retention_seconds == other.retention_seconds &&
+        time_zone == other.time_zone
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -155,7 +328,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backup_type, offset_seconds, period, retention_seconds].hash
+      [backup_type, offset_seconds, period, offset_type, hour_of_day, day_of_week, day_of_month, month, retention_seconds, time_zone].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

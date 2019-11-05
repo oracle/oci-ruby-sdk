@@ -22,6 +22,16 @@ module OCI
     # @return [String]
     attr_accessor :results_url
 
+    # The region where updates must be made and where results must be fetched from.
+    #
+    # @return [String]
+    attr_accessor :home_region
+
+    # The RFC 3339-formatted creation date and time of the probe.
+    #
+    # @return [DateTime]
+    attr_accessor :time_created
+
     # The OCID of the compartment.
     # @return [String]
     attr_accessor :compartment_id
@@ -64,6 +74,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
         'results_url': :'resultsUrl',
+        'home_region': :'homeRegion',
+        'time_created': :'timeCreated',
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'interval_in_seconds': :'intervalInSeconds',
@@ -81,6 +93,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
         'results_url': :'String',
+        'home_region': :'String',
+        'time_created': :'DateTime',
         'compartment_id': :'String',
         'display_name': :'String',
         'interval_in_seconds': :'Integer',
@@ -100,6 +114,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :results_url The value to assign to the {#results_url} property
+    # @option attributes [String] :home_region The value to assign to the {#home_region} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Integer] :interval_in_seconds The value to assign to the {#interval_in_seconds} property
@@ -120,6 +136,18 @@ module OCI
       raise 'You cannot provide both :resultsUrl and :results_url' if attributes.key?(:'resultsUrl') && attributes.key?(:'results_url')
 
       self.results_url = attributes[:'results_url'] if attributes[:'results_url']
+
+      self.home_region = attributes[:'homeRegion'] if attributes[:'homeRegion']
+
+      raise 'You cannot provide both :homeRegion and :home_region' if attributes.key?(:'homeRegion') && attributes.key?(:'home_region')
+
+      self.home_region = attributes[:'home_region'] if attributes[:'home_region']
+
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
+
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
+
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -188,6 +216,8 @@ module OCI
       self.class == other.class &&
         id == other.id &&
         results_url == other.results_url &&
+        home_region == other.home_region &&
+        time_created == other.time_created &&
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         interval_in_seconds == other.interval_in_seconds &&
@@ -210,7 +240,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, results_url, compartment_id, display_name, interval_in_seconds, is_enabled, freeform_tags, defined_tags, protocol].hash
+      [id, results_url, home_region, time_created, compartment_id, display_name, interval_in_seconds, is_enabled, freeform_tags, defined_tags, protocol].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -44,6 +44,10 @@ require 'oci/limits/limits'
 require 'oci/functions/functions'
 require 'oci/events/events'
 require 'oci/dts/dts'
+require 'oci/oce/oce'
+require 'oci/oda/oda'
+require 'oci/integration/integration'
+require 'oci/analytics/analytics'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

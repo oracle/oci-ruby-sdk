@@ -6,11 +6,14 @@ require 'date'
 module OCI
   # The properties that define a request to create a cluster kubeconfig.
   class ContainerEngine::Models::CreateClusterKubeconfigContentDetails
-    # The version of the kubeconfig token.
+    # The version of the kubeconfig token. Supported values 1.0.0 and 2.0.0
+    #
     # @return [String]
     attr_accessor :token_version
 
     # The desired expiration, in seconds, to use for the kubeconfig token.
+    # Important Note, expiration field is only honored for token version 1.0.0
+    #
     # @return [Integer]
     attr_accessor :expiration
 

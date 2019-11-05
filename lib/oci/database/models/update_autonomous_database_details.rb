@@ -27,6 +27,11 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # Indicates if this is an Always Free resource. The default value is false. Note that Always Free Autonomous Databases have 1 CPU and 20GB memory. For Always Free databases, memory and CPU cannot be scaled.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_free_tier
+
     # The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing. It must be different from the last four passwords and it must not be a password used within the last 24 hours.
     # @return [String]
     attr_accessor :admin_password
@@ -49,12 +54,10 @@ module OCI
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The new Oracle license model that applies to the Oracle Autonomous Transaction Processing database. Note that when updating an Autonomous Database that uses the [dedicated deployment](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm) option, this attribute must be null.
+    # The Oracle license model that applies to the Oracle Autonomous Database. The default for Autonomous Database using the [shared deployment] is BRING_YOUR_OWN_LICENSE. Note that when provisioning an Autonomous Database using the [dedicated deployment](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm) option, this attribute must be null because the attribute is already set on Autonomous Exadata Infrastructure level.
     #
     # @return [String]
     attr_reader :license_model
@@ -77,6 +80,7 @@ module OCI
         'cpu_core_count': :'cpuCoreCount',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'display_name': :'displayName',
+        'is_free_tier': :'isFreeTier',
         'admin_password': :'adminPassword',
         'db_name': :'dbName',
         'freeform_tags': :'freeformTags',
@@ -95,6 +99,7 @@ module OCI
         'cpu_core_count': :'Integer',
         'data_storage_size_in_tbs': :'Integer',
         'display_name': :'String',
+        'is_free_tier': :'BOOLEAN',
         'admin_password': :'String',
         'db_name': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -115,6 +120,7 @@ module OCI
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {#is_free_tier} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -145,6 +151,14 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.is_free_tier = attributes[:'isFreeTier'] unless attributes[:'isFreeTier'].nil?
+      self.is_free_tier = false if is_free_tier.nil? && !attributes.key?(:'isFreeTier') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isFreeTier and :is_free_tier' if attributes.key?(:'isFreeTier') && attributes.key?(:'is_free_tier')
+
+      self.is_free_tier = attributes[:'is_free_tier'] unless attributes[:'is_free_tier'].nil?
+      self.is_free_tier = false if is_free_tier.nil? && !attributes.key?(:'isFreeTier') && !attributes.key?(:'is_free_tier') # rubocop:disable Style/StringLiterals
 
       self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
 
@@ -211,6 +225,7 @@ module OCI
         cpu_core_count == other.cpu_core_count &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         display_name == other.display_name &&
+        is_free_tier == other.is_free_tier &&
         admin_password == other.admin_password &&
         db_name == other.db_name &&
         freeform_tags == other.freeform_tags &&
@@ -233,7 +248,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, data_storage_size_in_tbs, display_name, admin_password, db_name, freeform_tags, defined_tags, license_model, whitelisted_ips, is_auto_scaling_enabled].hash
+      [cpu_core_count, data_storage_size_in_tbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, license_model, whitelisted_ips, is_auto_scaling_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

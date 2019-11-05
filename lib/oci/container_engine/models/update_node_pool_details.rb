@@ -14,17 +14,33 @@ module OCI
     # @return [String]
     attr_accessor :kubernetes_version
 
-    # The number of nodes to ensure in each subnet.
-    # @return [Integer]
-    attr_accessor :quantity_per_subnet
-
     # A list of key/value pairs to add to nodes after they join the Kubernetes cluster.
     # @return [Array<OCI::ContainerEngine::Models::KeyValue>]
     attr_accessor :initial_node_labels
 
-    # The OCIDs of the subnets in which to place nodes for this node pool.
+    # The number of nodes to have in each subnet specified in the subnetIds property. This property is deprecated,
+    # use nodeConfigDetails instead. If the current value of quantityPerSubnet is greater than 0, you can only
+    # use quantityPerSubnet to scale the node pool. If the current value of quantityPerSubnet is equal to 0 and
+    # the current value of size in nodeConfigDetails is greater than 0, before you can use quantityPerSubnet,
+    # you must first scale the node pool to 0 nodes using nodeConfigDetails.
+    #
+    # @return [Integer]
+    attr_accessor :quantity_per_subnet
+
+    # The OCIDs of the subnets in which to place nodes for this node pool. This property is deprecated,
+    # use nodeConfigDetails instead. Only one of the subnetIds or nodeConfigDetails
+    # properties can be specified.
+    #
     # @return [Array<String>]
     attr_accessor :subnet_ids
+
+    # The configuration of nodes in the node pool. Only one of the subnetIds or nodeConfigDetails
+    # properties should be specified. If the current value of quantityPerSubnet is greater than 0, the node
+    # pool may still be scaled using quantityPerSubnet. Before you can use nodeConfigDetails,
+    # you must first scale the node pool to 0 nodes using quantityPerSubnet.
+    #
+    # @return [OCI::ContainerEngine::Models::UpdateNodePoolNodeConfigDetails]
+    attr_accessor :node_config_details
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -32,9 +48,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'kubernetes_version': :'kubernetesVersion',
-        'quantity_per_subnet': :'quantityPerSubnet',
         'initial_node_labels': :'initialNodeLabels',
-        'subnet_ids': :'subnetIds'
+        'quantity_per_subnet': :'quantityPerSubnet',
+        'subnet_ids': :'subnetIds',
+        'node_config_details': :'nodeConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,9 +62,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'kubernetes_version': :'String',
-        'quantity_per_subnet': :'Integer',
         'initial_node_labels': :'Array<OCI::ContainerEngine::Models::KeyValue>',
-        'subnet_ids': :'Array<String>'
+        'quantity_per_subnet': :'Integer',
+        'subnet_ids': :'Array<String>',
+        'node_config_details': :'OCI::ContainerEngine::Models::UpdateNodePoolNodeConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -60,9 +78,10 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
-    # @option attributes [Integer] :quantity_per_subnet The value to assign to the {#quantity_per_subnet} property
     # @option attributes [Array<OCI::ContainerEngine::Models::KeyValue>] :initial_node_labels The value to assign to the {#initial_node_labels} property
+    # @option attributes [Integer] :quantity_per_subnet The value to assign to the {#quantity_per_subnet} property
     # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
+    # @option attributes [OCI::ContainerEngine::Models::UpdateNodePoolNodeConfigDetails] :node_config_details The value to assign to the {#node_config_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -77,23 +96,29 @@ module OCI
 
       self.kubernetes_version = attributes[:'kubernetes_version'] if attributes[:'kubernetes_version']
 
-      self.quantity_per_subnet = attributes[:'quantityPerSubnet'] if attributes[:'quantityPerSubnet']
-
-      raise 'You cannot provide both :quantityPerSubnet and :quantity_per_subnet' if attributes.key?(:'quantityPerSubnet') && attributes.key?(:'quantity_per_subnet')
-
-      self.quantity_per_subnet = attributes[:'quantity_per_subnet'] if attributes[:'quantity_per_subnet']
-
       self.initial_node_labels = attributes[:'initialNodeLabels'] if attributes[:'initialNodeLabels']
 
       raise 'You cannot provide both :initialNodeLabels and :initial_node_labels' if attributes.key?(:'initialNodeLabels') && attributes.key?(:'initial_node_labels')
 
       self.initial_node_labels = attributes[:'initial_node_labels'] if attributes[:'initial_node_labels']
 
+      self.quantity_per_subnet = attributes[:'quantityPerSubnet'] if attributes[:'quantityPerSubnet']
+
+      raise 'You cannot provide both :quantityPerSubnet and :quantity_per_subnet' if attributes.key?(:'quantityPerSubnet') && attributes.key?(:'quantity_per_subnet')
+
+      self.quantity_per_subnet = attributes[:'quantity_per_subnet'] if attributes[:'quantity_per_subnet']
+
       self.subnet_ids = attributes[:'subnetIds'] if attributes[:'subnetIds']
 
       raise 'You cannot provide both :subnetIds and :subnet_ids' if attributes.key?(:'subnetIds') && attributes.key?(:'subnet_ids')
 
       self.subnet_ids = attributes[:'subnet_ids'] if attributes[:'subnet_ids']
+
+      self.node_config_details = attributes[:'nodeConfigDetails'] if attributes[:'nodeConfigDetails']
+
+      raise 'You cannot provide both :nodeConfigDetails and :node_config_details' if attributes.key?(:'nodeConfigDetails') && attributes.key?(:'node_config_details')
+
+      self.node_config_details = attributes[:'node_config_details'] if attributes[:'node_config_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -109,9 +134,10 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         kubernetes_version == other.kubernetes_version &&
-        quantity_per_subnet == other.quantity_per_subnet &&
         initial_node_labels == other.initial_node_labels &&
-        subnet_ids == other.subnet_ids
+        quantity_per_subnet == other.quantity_per_subnet &&
+        subnet_ids == other.subnet_ids &&
+        node_config_details == other.node_config_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -127,7 +153,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, kubernetes_version, quantity_per_subnet, initial_node_labels, subnet_ids].hash
+      [name, kubernetes_version, initial_node_labels, quantity_per_subnet, subnet_ids, node_config_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

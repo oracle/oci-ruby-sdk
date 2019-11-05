@@ -27,7 +27,7 @@ module OCI
     # @return [String]
     attr_accessor :entity_type
 
-    # **[Required]** An OCID or other unique identifier for the resource.
+    # **[Required]** An [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) or other unique identifier for the resource.
     # @return [String]
     attr_accessor :identifier
 

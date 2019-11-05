@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary information about a Custom Protection rule.
+  # An overview of a custom protection rule.
   class Waas::Models::CustomProtectionRuleSummary
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -17,23 +17,23 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the custom protection rule.
     # @return [String]
     attr_accessor :id
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule's compartment.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the custom protection rule's compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The user-friendly name of the Custom Protection rule.
+    # The user-friendly name of the custom protection rule.
     # @return [String]
     attr_accessor :display_name
 
-    # The list of the ModSecurity rule IDs that apply to this protection rule. For more information about ModSecurity's open source WAF rules, see [Mod Security's documentation](https://www.modsecurity.org/CRS/Documentation/index.html).
+    # The auto-generated ID for the custom protection rule. These IDs are referenced in logs.
     # @return [Array<String>]
     attr_accessor :mod_security_rule_ids
 
-    # The current lifecycle state of the Custom Protection rule.
+    # The current lifecycle state of the custom protection rule.
     # @return [String]
     attr_reader :lifecycle_state
 

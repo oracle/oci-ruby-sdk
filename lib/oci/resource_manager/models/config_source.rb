@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Location of the zip file that contains the Terraform configuration.
+  # Location of the Terraform configuration.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ResourceManager::Models::ConfigSource
@@ -14,7 +14,8 @@ module OCI
       CONFIG_SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The configuration file type.
+    # **[Required]** Specifies the `configSourceType` for uploading the Terraform configuration.
+    # Presently, the .zip file type (`ZIP_UPLOAD`) is the only supported `configSourceType`.
     #
     # @return [String]
     attr_reader :config_source_type

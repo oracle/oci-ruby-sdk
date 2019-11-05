@@ -30,6 +30,11 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_state
 
+    # The version of Terraform specified for the stack. Example: `0.12.x`
+    #
+    # @return [String]
+    attr_accessor :terraform_version
+
     # Free-form tags associated with this resource. Each tag is a key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
@@ -54,6 +59,7 @@ module OCI
         'description': :'description',
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
+        'terraform_version': :'terraformVersion',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -70,6 +76,7 @@ module OCI
         'description': :'String',
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
+        'terraform_version': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -88,6 +95,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :terraform_version The value to assign to the {#terraform_version} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -124,6 +132,12 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.terraform_version = attributes[:'terraformVersion'] if attributes[:'terraformVersion']
+
+      raise 'You cannot provide both :terraformVersion and :terraform_version' if attributes.key?(:'terraformVersion') && attributes.key?(:'terraform_version')
+
+      self.terraform_version = attributes[:'terraform_version'] if attributes[:'terraform_version']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -154,6 +168,7 @@ module OCI
         description == other.description &&
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
+        terraform_version == other.terraform_version &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -171,7 +186,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, time_created, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, description, time_created, lifecycle_state, terraform_version, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

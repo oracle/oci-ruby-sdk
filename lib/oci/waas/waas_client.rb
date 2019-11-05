@@ -224,7 +224,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves address list into a different compartment. When provided, If-Match is checked against ETag values of the address list.
+    # Moves address list into a different compartment. When provided, If-Match
+    # is checked against ETag values of the address list. For information about moving
+    # resources between compartments, see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
     # @param [String] address_list_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the address list. This number is generated when the address list is added to the compartment.
     # @param [OCI::Waas::Models::ChangeAddressListCompartmentDetails] change_address_list_compartment_details
     # @param [Hash] opts the optional parameters
@@ -285,6 +288,8 @@ module OCI
 
 
     # Moves certificate into a different compartment. When provided, If-Match is checked against ETag values of the certificate.
+    # For information about moving resources between compartments, see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
     # @param [String] certificate_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SSL certificate used in the WAAS policy. This number is generated when the certificate is added to the policy.
     # @param [OCI::Waas::Models::ChangeCertificateCompartmentDetails] change_certificate_compartment_details
     # @param [Hash] opts the optional parameters
@@ -344,8 +349,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves Custom Protection rule into a different compartment. When provided, If-Match is checked against ETag values of the Custom Protection rule.
-    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
+    # Moves a custom protection rule into a different compartment within the same tenancy. When provided, If-Match is checked against ETag values of the custom protection rule. For information about moving resources between compartments, see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the custom protection rule. This number is generated when the custom protection rule is added to the compartment.
     # @param [OCI::Waas::Models::ChangeCustomProtectionRuleCompartmentDetails] change_custom_protection_rule_compartment_details
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -405,6 +410,8 @@ module OCI
 
 
     # Moves WAAS policy into a different compartment. When provided, If-Match is checked against ETag values of the WAAS policy.
+    # For information about moving resources between compartments, see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::ChangeWaasPolicyCompartmentDetails] change_waas_policy_compartment_details
     # @param [Hash] opts the optional parameters
@@ -464,8 +471,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates an address list in set compartment and allows it to be used in a WAAS policy.
-    # For more information, see [WAF Settings](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/wafsettings.htm).
+    # Creates an address list in a set compartment and allows it to be used in a WAAS policy and referenced by access rules. Addresses can be IP addresses and CIDR notations.
     # @param [OCI::Waas::Models::CreateAddressListDetails] create_address_list_details The details of the address list resource to create.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -579,8 +585,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Custom Protection rule in the specified compartment.
-    # @param [OCI::Waas::Models::CreateCustomProtectionRuleDetails] create_custom_protection_rule_details The details of the Custom Protection rule.
+    # Creates a new custom protection rule in the specified compartment.
+    #
+    # Custom protection rules allow you to create rules in addition to the rulesets provided by the Web Application Firewall service, including rules from [ModSecurity](https://modsecurity.org/). The syntax for custom rules is based on the ModSecurity syntax. For more information about custom protection rules, see [Custom Protection Rules](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/customprotectionrules.htm).
+    # @param [OCI::Waas::Models::CreateCustomProtectionRuleDetails] create_custom_protection_rule_details The details of the custom protection rule.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -819,7 +827,7 @@ module OCI
 
 
     # Deletes a Custom Protection rule.
-    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the custom protection rule. This number is generated when the custom protection rule is added to the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1040,8 +1048,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the details of a Custom Protection rule.
-    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
+    # Gets the details of a custom protection rule.
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the custom protection rule. This number is generated when the custom protection rule is added to the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1777,7 +1785,7 @@ module OCI
 
 
     # Gets the currently configured caching rules for the Web Application Firewall configuration of a specified WAAS policy.
-    # The order of the caching rules is important. The rules will be checked in the order they are specified and the first matching rule will be used.
+    # The rules are processed in the order they are specified in and the first matching rule will be used when processing a request.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1988,7 +1996,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of Custom Protection rules.
+    # Gets a list of custom protection rules for the specified Web Application Firewall.
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment. This number is generated when the compartment is created.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1996,16 +2004,16 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
-    # @option opts [String] :sort_by The value by which Custom Protection rules are sorted in a paginated 'List' call. If unspecified, defaults to `timeCreated`.
+    # @option opts [String] :sort_by The value by which custom protection rules are sorted in a paginated 'List' call. If unspecified, defaults to `timeCreated`.
     #   Allowed values are: id, compartmentId, displayName, modSecurityRuleId, timeCreated
     # @option opts [String] :sort_order The value of the sorting direction of resources in a paginated 'List' call. If unspecified, defaults to `DESC`.
     #   Allowed values are: ASC, DESC
-    # @option opts [Array<String>] :id Filter Custom Protection rules using a list of Custom Protection rules OCIDs.
-    # @option opts [Array<String>] :display_name Filter Custom Protection rules using a list of display names.
+    # @option opts [Array<String>] :id Filter custom protection rules using a list of custom protection rule OCIDs.
+    # @option opts [Array<String>] :display_name Filter custom protection rules using a list of display names.
     # @option opts [Array<String>] :lifecycle_state Filter Custom Protection rules using a list of lifecycle states.
     #   Allowed values are: CREATING, ACTIVE, FAILED, UPDATING, DELETING, DELETED
     # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches Custom Protection rules created on or after the specified date-time.
-    # @option opts [DateTime] :time_created_less_than A filter that matches Custom Protection rules created before the specified date-time.
+    # @option opts [DateTime] :time_created_less_than A filter that matches custom protection rules created before the specified date-time.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::CustomProtectionRuleSummary CustomProtectionRuleSummary}>
     def list_custom_protection_rules(compartment_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_custom_protection_rules.' if logger
@@ -3035,7 +3043,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Accepts a list of resources that will get it's cache purged. If resources property is not passed, then the entire cache for Web Application will be purged.
+    # Performs a purge of the cache for each specified resource. If no resources are passed, the cache for the entire Web Application Firewall will be purged.
+    # For more information, see [Caching Rules](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/cachingrules.htm#purge).
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3215,9 +3224,12 @@ module OCI
 
 
     # Updates the configuration for each specified caching rule.
-    # This operation can update or delete caching rules depending on the structure of the request body.
-    # Caching rules can be updated by changing the properties of the caching rule object with the rule's key specified in the key field.
-    # Any existing caching rules that are not specified with a key in the list of access rules will be deleted upon update.
+    #
+    # Caching rules WAF policies allow you to selectively cache content on Oracle Cloud Infrastructure's edge servers, such as webpages or certain file types. For more information about caching rules, see [Caching Rules](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/cachingrules.htm).
+    #
+    # This operation can create, delete, update, and/or reorder caching rules depending on the structure of the request body. Caching rules can be updated by changing the properties of the caching rule object with the rule's key specified in the key field. Any existing caching rules that are not specified with a key in the list of access rules will be deleted upon update.
+    #
+    # The order the caching rules are specified in is important. The rules are processed in the order they are specified and the first matching rule will be used when processing a request. Use `ListCachingRules` to view a list of all available caching rules in a compartment.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::CachingRule>] caching_rules_details
     # @param [Hash] opts the optional parameters
@@ -3399,9 +3411,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the details of a Custom Protection rule. Only the fields specified in the request body will be updated; all other properties will remain unchanged.
-    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protection rule. This number is generated when the Custom Protection rule is added to the compartment.
-    # @param [OCI::Waas::Models::UpdateCustomProtectionRuleDetails] update_custom_protection_rule_details The details of the Custom Protection rule to update.
+    # Updates the configuration of a custom protection rule. Only the fields specified in the request body will be updated; all other properties will remain unchanged.
+    # @param [String] custom_protection_rule_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the custom protection rule. This number is generated when the custom protection rule is added to the compartment.
+    # @param [OCI::Waas::Models::UpdateCustomProtectionRuleDetails] update_custom_protection_rule_details The details of the custom protection rule to update.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

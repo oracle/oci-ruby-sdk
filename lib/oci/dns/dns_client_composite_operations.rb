@@ -105,7 +105,7 @@ module OCI
     # Calls {OCI::Dns::DnsClient#create_zone} and then waits for the {OCI::Dns::Models::Zone} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Dns::Models::CreateZoneDetails] create_zone_details Details for creating a new zone.
+    # @param [OCI::Dns::Models::CreateZoneBaseDetails] create_zone_details Details for creating a new zone.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Dns::Models::Zone#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Dns::DnsClient#create_zone}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

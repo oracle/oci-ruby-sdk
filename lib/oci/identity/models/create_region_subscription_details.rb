@@ -13,6 +13,9 @@ module OCI
     # - `IAD`
     # - `FRA`
     # - `LHR`
+    # - `YYZ`
+    # - `NRT`
+    # - `ICN`
     #
     # Example: `PHX`
     #

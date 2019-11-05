@@ -110,6 +110,62 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Adds a shape to the compatible shapes list for the image.
+    # @param [String] image_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the image.
+    # @param [String] shape_name Shape name.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::ImageShapeCompatibilityEntry ImageShapeCompatibilityEntry}
+    def add_image_shape_compatibility_entry(image_id, shape_name, opts = {})
+      logger.debug 'Calling operation ComputeClient#add_image_shape_compatibility_entry.' if logger
+
+      raise "Missing the required parameter 'image_id' when calling add_image_shape_compatibility_entry." if image_id.nil?
+      raise "Missing the required parameter 'shape_name' when calling add_image_shape_compatibility_entry." if shape_name.nil?
+      raise "Parameter value for 'image_id' must not be blank" if OCI::Internal::Util.blank_string?(image_id)
+      raise "Parameter value for 'shape_name' must not be blank" if OCI::Internal::Util.blank_string?(shape_name)
+
+      path = '/images/{imageId}/shapes/{shapeName}'.sub('{imageId}', image_id.to_s).sub('{shapeName}', shape_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#add_image_shape_compatibility_entry') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::ImageShapeCompatibilityEntry'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
     # Attaches the specified boot volume to the specified instance.
@@ -366,9 +422,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a dedicated vm host from one compartment to another
+    # Moves a dedicated virtual machine host from one compartment to another.
     # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
-    # @param [OCI::Core::Models::ChangeDedicatedVmHostCompartmentDetails] change_dedicated_vm_host_compartment_details Request to change the compartment of a given dedicated vm host.
+    # @param [OCI::Core::Models::ChangeDedicatedVmHostCompartmentDetails] change_dedicated_vm_host_compartment_details The request to move the dedicated virtual machine host to a different compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -641,9 +697,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new dedicated virtual machine (VM) host in the specified compartment and the specified availability domain.
+    # Creates a new dedicated virtual machine host in the specified compartment and the specified availability domain.
+    # Dedicated virtual machine hosts enable you to run your Compute virtual machine (VM) instances on dedicated servers
+    # that are a single tenant and not shared with other customers.
+    # For more information, see [Dedicated Virtual Machine Hosts](https://docs.cloud.oracle.com/iaas/Content/Compute/Concepts/dedicatedvmhosts.htm).
     #
-    # @param [OCI::Core::Models::CreateDedicatedVmHostDetails] create_dedicated_vm_host_details The details for creating a new dedicated virtual machine (VM) host.
+    # @param [OCI::Core::Models::CreateDedicatedVmHostDetails] create_dedicated_vm_host_details The details for creating a new dedicated virtual machine host.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -961,9 +1020,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified dedicated virtual machine (VM) host.
+    # Deletes the specified dedicated virtual machine host.
     #
-    # If any VM instances are assigned to the dedicated VM host, it will not be deleted and the service will return a 409 response code.
+    # If any VM instances are assigned to the dedicated virtual machine host,
+    # the delete operation will fail and the service will return a 409 response code.
     #
     # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
     # @param [Hash] opts the optional parameters
@@ -1719,7 +1779,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the specified dedicated virtual machine (VM) host.
+    # Gets information about the specified dedicated virtual machine host.
     # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2685,8 +2745,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the shapes that can be used to launch a virtual machine (VM) instance on a dedicated VM host within the specified compartment.
-    # You can filter the list by compatibility with a specific dedicated VM host shape.
+    # Lists the shapes that can be used to launch a virtual machine instance on a dedicated virtual machine host within the specified compartment.
+    # You can filter the list by compatibility with a specific dedicated virtual machine host shape.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
@@ -2762,7 +2822,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns the list of instances on the dedicated virtual machine (VM) hosts that match the specified criteria.
+    # Returns the list of instances on the dedicated virtual machine hosts that match the specified criteria.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
@@ -2862,7 +2922,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the shapes that can be used to launch a dedicated virtual machine (VM) host within the specified compartment.
+    # Lists the shapes that can be used to launch a dedicated virtual machine host within the specified compartment.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
@@ -2872,7 +2932,7 @@ module OCI
     #
     #   Example: `Uocm:PHX-AD-1`
     #
-    # @option opts [String] :instance_shape_name Instance shape name
+    # @option opts [String] :instance_shape_name The name for the instance's shape.
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
@@ -2938,10 +2998,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns the list of dedicated virtual machine (VM) hosts that match the specified criteria from the specified compartment.
+    # Returns the list of dedicated virtual machine hosts that match the specified criteria in the specified compartment.
     #
-    # You can limit the list by specifying a dedicated VM host display name. The list will include all the identically-named
-    # dedicated VM hosts in the compartment.
+    # You can limit the list by specifying a dedicated virtual machine host display name. The list will include all the identically-named
+    # dedicated virtual machine hosts in the compartment.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
@@ -2955,7 +3015,7 @@ module OCI
     #   Allowed values are: CREATING, ACTIVE, UPDATING, DELETING, DELETED, FAILED
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
-    # @option opts [String] :instance_shape_name Instance shape name
+    # @option opts [String] :instance_shape_name The name for the instance's shape.
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
@@ -3659,6 +3719,61 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Removes a shape from the compatible shapes list for the image.
+    # @param [String] image_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the image.
+    # @param [String] shape_name Shape name.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type nil
+    def remove_image_shape_compatibility_entry(image_id, shape_name, opts = {})
+      logger.debug 'Calling operation ComputeClient#remove_image_shape_compatibility_entry.' if logger
+
+      raise "Missing the required parameter 'image_id' when calling remove_image_shape_compatibility_entry." if image_id.nil?
+      raise "Missing the required parameter 'shape_name' when calling remove_image_shape_compatibility_entry." if shape_name.nil?
+      raise "Parameter value for 'image_id' must not be blank" if OCI::Internal::Util.blank_string?(image_id)
+      raise "Parameter value for 'shape_name' must not be blank" if OCI::Internal::Util.blank_string?(shape_name)
+
+      path = '/images/{imageId}/shapes/{shapeName}'.sub('{imageId}', image_id.to_s).sub('{shapeName}', shape_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#remove_image_shape_compatibility_entry') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
     # Terminates the specified instance. Any attached VNICs and volumes are automatically detached
@@ -3786,7 +3901,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the displayName, freeformTags, and definedTags attributes for the specified dedicated virtual machine (VM) host.
+    # Updates the displayName, freeformTags, and definedTags attributes for the specified dedicated virtual machine host.
     # If an attribute value is not included, it will not be updated.
     #
     # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.

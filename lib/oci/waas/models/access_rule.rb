@@ -56,7 +56,7 @@ module OCI
     #
     # - **REDIRECT:** Redirects the request to the specified URL.
     #
-    # Regardless of action, no further rules are processed once the rule is matched.
+    # Regardless of action, no further rules are processed once a rule is matched.
     # @return [String]
     attr_reader :action
 
@@ -64,7 +64,7 @@ module OCI
     # @return [String]
     attr_reader :block_action
 
-    # The response status code to return when `action` is set to `BLOCK`, `blockAction` is set to `SET_RESPONSE_CODE`, and the access criteria are met. If unspecified, defaults to `403`.
+    # The response status code to return when `action` is set to `BLOCK`, `blockAction` is set to `SET_RESPONSE_CODE`, and the access criteria are met. If unspecified, defaults to `403`. The list of available response codes: `200`, `201`, `202`, `204`, `206`, `300`, `301`, `302`, `303`, `304`, `307`, `400`, `401`, `403`, `404`, `405`, `408`, `409`, `411`, `412`, `413`, `414`, `415`, `416`, `422`, `444`, `499`, `500`, `501`, `502`, `503`, `504`, `507`.
     # @return [Integer]
     attr_accessor :block_response_code
 

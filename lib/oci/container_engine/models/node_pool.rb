@@ -62,6 +62,10 @@ module OCI
     # @return [Array<OCI::ContainerEngine::Models::Node>]
     attr_accessor :nodes
 
+    # The configuration of nodes in the node pool.
+    # @return [OCI::ContainerEngine::Models::NodePoolNodeConfigDetails]
+    attr_accessor :node_config_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -79,7 +83,8 @@ module OCI
         'ssh_public_key': :'sshPublicKey',
         'quantity_per_subnet': :'quantityPerSubnet',
         'subnet_ids': :'subnetIds',
-        'nodes': :'nodes'
+        'nodes': :'nodes',
+        'node_config_details': :'nodeConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -101,7 +106,8 @@ module OCI
         'ssh_public_key': :'String',
         'quantity_per_subnet': :'Integer',
         'subnet_ids': :'Array<String>',
-        'nodes': :'Array<OCI::ContainerEngine::Models::Node>'
+        'nodes': :'Array<OCI::ContainerEngine::Models::Node>',
+        'node_config_details': :'OCI::ContainerEngine::Models::NodePoolNodeConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -126,6 +132,7 @@ module OCI
     # @option attributes [Integer] :quantity_per_subnet The value to assign to the {#quantity_per_subnet} property
     # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
     # @option attributes [Array<OCI::ContainerEngine::Models::Node>] :nodes The value to assign to the {#nodes} property
+    # @option attributes [OCI::ContainerEngine::Models::NodePoolNodeConfigDetails] :node_config_details The value to assign to the {#node_config_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -203,6 +210,12 @@ module OCI
       self.subnet_ids = attributes[:'subnet_ids'] if attributes[:'subnet_ids']
 
       self.nodes = attributes[:'nodes'] if attributes[:'nodes']
+
+      self.node_config_details = attributes[:'nodeConfigDetails'] if attributes[:'nodeConfigDetails']
+
+      raise 'You cannot provide both :nodeConfigDetails and :node_config_details' if attributes.key?(:'nodeConfigDetails') && attributes.key?(:'node_config_details')
+
+      self.node_config_details = attributes[:'node_config_details'] if attributes[:'node_config_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -229,7 +242,8 @@ module OCI
         ssh_public_key == other.ssh_public_key &&
         quantity_per_subnet == other.quantity_per_subnet &&
         subnet_ids == other.subnet_ids &&
-        nodes == other.nodes
+        nodes == other.nodes &&
+        node_config_details == other.node_config_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -245,7 +259,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_id, node_image_name, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, nodes].hash
+      [id, compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_id, node_image_name, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, nodes, node_config_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

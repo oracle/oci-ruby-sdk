@@ -34,6 +34,9 @@ module OCI
     # - `PHX`
     # - `FRA`
     # - `LHR`
+    # - `ICN`
+    # - `YYZ`
+    # - `NRT`
     #
     # @return [String]
     attr_accessor :home_region_key

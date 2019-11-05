@@ -39,7 +39,7 @@ module OCI
       REMOTE_DATA_VOLUME_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Emulation type for volume.
+    # Emulation type for volume.
     # * `ISCSI` - ISCSI attached block storage device. This is the default for Boot Volumes and Remote Block
     # Storage volumes on Oracle provided images.
     # * `SCSI` - Emulated SCSI disk.
@@ -51,7 +51,7 @@ module OCI
     # @return [String]
     attr_reader :boot_volume_type
 
-    # **[Required]** Firmware used to boot VM.  Select the option that matches your operating system.
+    # Firmware used to boot VM.  Select the option that matches your operating system.
     # * `BIOS` - Boot VM using BIOS style firmware.  This is compatible with both 32 bit and 64 bit operating
     # systems that boot using MBR style bootloaders.
     # * `UEFI_64` - Boot VM using UEFI style firmware compatible with 64 bit operating systems.  This is the
@@ -60,7 +60,7 @@ module OCI
     # @return [String]
     attr_reader :firmware
 
-    # **[Required]** Emulation type for the physical network interface card (NIC).
+    # Emulation type for the physical network interface card (NIC).
     # * `E1000` - Emulated Gigabit ethernet controller.  Compatible with Linux e1000 network driver.
     # * `VFIO` - Direct attached Virtual Function network controller. This is the networking type
     # when you launch an instance using hardware-assisted (SR-IOV) networking.
@@ -69,7 +69,7 @@ module OCI
     # @return [String]
     attr_reader :network_type
 
-    # **[Required]** Emulation type for volume.
+    # Emulation type for volume.
     # * `ISCSI` - ISCSI attached block storage device. This is the default for Boot Volumes and Remote Block
     # Storage volumes on Oracle provided images.
     # * `SCSI` - Emulated SCSI disk.

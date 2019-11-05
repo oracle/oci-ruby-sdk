@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Update dedicated VM host details.
+  # Details for updating the dedicated virtual machine host details.
   #
   class Core::Models::UpdateDedicatedVmHostDetails
     # Defined tags for this resource. Each key is predefined and scoped to a

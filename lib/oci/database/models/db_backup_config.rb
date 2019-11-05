@@ -1,6 +1,7 @@
 # Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -8,6 +9,22 @@ module OCI
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're an administrator who needs to write policies to give users access, see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class Database::Models::DbBackupConfig
+    AUTO_BACKUP_WINDOW_ENUM = [
+      AUTO_BACKUP_WINDOW_SLOT_ONE = 'SLOT_ONE'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_TWO = 'SLOT_TWO'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_THREE = 'SLOT_THREE'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_FOUR = 'SLOT_FOUR'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_FIVE = 'SLOT_FIVE'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_SIX = 'SLOT_SIX'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_SEVEN = 'SLOT_SEVEN'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_EIGHT = 'SLOT_EIGHT'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_NINE = 'SLOT_NINE'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_TEN = 'SLOT_TEN'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_ELEVEN = 'SLOT_ELEVEN'.freeze,
+      AUTO_BACKUP_WINDOW_SLOT_TWELVE = 'SLOT_TWELVE'.freeze,
+      AUTO_BACKUP_WINDOW_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # If set to true, configures automatic backups. If you previously used RMAN or dbcli to configure backups and then you switch to using the Console or the API for backups, a new backup configuration is created and associated with your database. This means that you can no longer rely on your previously configured unmanaged backups to work.
     # @return [BOOLEAN]
     attr_accessor :auto_backup_enabled
@@ -19,12 +36,25 @@ module OCI
     # @return [Integer]
     attr_accessor :recovery_window_in_days
 
+    # Time window selected for initiating automatic backup for the database system. There are twelve available two-hour time windows. If no option is selected, a start time between 12:00 AM to 7:00 AM in the region of the database is automatically chosen. For example, if the user selects SLOT_TWO from the enum list, the automatic backup job will start in between 2:00 AM (inclusive) to 4:00 AM (exclusive).
+    #
+    # Example: `SLOT_TWO`
+    #
+    # @return [String]
+    attr_reader :auto_backup_window
+
+    # Backup destination details.
+    # @return [Array<OCI::Database::Models::BackupDestinationDetails>]
+    attr_accessor :backup_destination_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'auto_backup_enabled': :'autoBackupEnabled',
-        'recovery_window_in_days': :'recoveryWindowInDays'
+        'recovery_window_in_days': :'recoveryWindowInDays',
+        'auto_backup_window': :'autoBackupWindow',
+        'backup_destination_details': :'backupDestinationDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -34,7 +64,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'auto_backup_enabled': :'BOOLEAN',
-        'recovery_window_in_days': :'Integer'
+        'recovery_window_in_days': :'Integer',
+        'auto_backup_window': :'String',
+        'backup_destination_details': :'Array<OCI::Database::Models::BackupDestinationDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,6 +79,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :auto_backup_enabled The value to assign to the {#auto_backup_enabled} property
     # @option attributes [Integer] :recovery_window_in_days The value to assign to the {#recovery_window_in_days} property
+    # @option attributes [String] :auto_backup_window The value to assign to the {#auto_backup_window} property
+    # @option attributes [Array<OCI::Database::Models::BackupDestinationDetails>] :backup_destination_details The value to assign to the {#backup_destination_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -64,9 +98,34 @@ module OCI
       raise 'You cannot provide both :recoveryWindowInDays and :recovery_window_in_days' if attributes.key?(:'recoveryWindowInDays') && attributes.key?(:'recovery_window_in_days')
 
       self.recovery_window_in_days = attributes[:'recovery_window_in_days'] if attributes[:'recovery_window_in_days']
+
+      self.auto_backup_window = attributes[:'autoBackupWindow'] if attributes[:'autoBackupWindow']
+
+      raise 'You cannot provide both :autoBackupWindow and :auto_backup_window' if attributes.key?(:'autoBackupWindow') && attributes.key?(:'auto_backup_window')
+
+      self.auto_backup_window = attributes[:'auto_backup_window'] if attributes[:'auto_backup_window']
+
+      self.backup_destination_details = attributes[:'backupDestinationDetails'] if attributes[:'backupDestinationDetails']
+
+      raise 'You cannot provide both :backupDestinationDetails and :backup_destination_details' if attributes.key?(:'backupDestinationDetails') && attributes.key?(:'backup_destination_details')
+
+      self.backup_destination_details = attributes[:'backup_destination_details'] if attributes[:'backup_destination_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] auto_backup_window Object to be assigned
+    def auto_backup_window=(auto_backup_window)
+      # rubocop:disable Style/ConditionalAssignment
+      if auto_backup_window && !AUTO_BACKUP_WINDOW_ENUM.include?(auto_backup_window)
+        OCI.logger.debug("Unknown value for 'auto_backup_window' [" + auto_backup_window + "]. Mapping to 'AUTO_BACKUP_WINDOW_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @auto_backup_window = AUTO_BACKUP_WINDOW_UNKNOWN_ENUM_VALUE
+      else
+        @auto_backup_window = auto_backup_window
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -78,7 +137,9 @@ module OCI
 
       self.class == other.class &&
         auto_backup_enabled == other.auto_backup_enabled &&
-        recovery_window_in_days == other.recovery_window_in_days
+        recovery_window_in_days == other.recovery_window_in_days &&
+        auto_backup_window == other.auto_backup_window &&
+        backup_destination_details == other.backup_destination_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -94,7 +155,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [auto_backup_enabled, recovery_window_in_days].hash
+      [auto_backup_enabled, recovery_window_in_days, auto_backup_window, backup_destination_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

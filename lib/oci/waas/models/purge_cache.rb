@@ -4,9 +4,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The list of resources for cache purge. If a resources property is not provided, the purge targets all resources in a policy.
+  # The list of cached resources to purge. If a resource is not specified, the purge targets all rules in a policy.
   class Waas::Models::PurgeCache
-    # A resource to purge, identified by either a hostless absolute path starting with a single slash (e.g., \"/path/to/resource\") or by a relative path in which the first component will be interpreted as a domain protected by this policy (e.g., \"example.com/path/to/resource\").
+    # A resource to purge, specified by either a hostless absolute path starting with a single slash (Example: `/path/to/resource`) or by a relative path in which the first component will be interpreted as a domain protected by the WAAS policy (Example: `example.com/path/to/resource`).
     # @return [Array<String>]
     attr_accessor :resources
 

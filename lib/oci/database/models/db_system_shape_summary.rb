@@ -15,6 +15,10 @@ module OCI
     # @return [String]
     attr_accessor :name
 
+    # The family of the shape used for the DB system.
+    # @return [String]
+    attr_accessor :shape_family
+
     # Deprecated. Use `name` instead of `shape`.
     # @return [String]
     attr_accessor :shape
@@ -44,6 +48,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
+        'shape_family': :'shapeFamily',
         'shape': :'shape',
         'available_core_count': :'availableCoreCount',
         'minimum_core_count': :'minimumCoreCount',
@@ -59,6 +64,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
+        'shape_family': :'String',
         'shape': :'String',
         'available_core_count': :'Integer',
         'minimum_core_count': :'Integer',
@@ -76,6 +82,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :shape_family The value to assign to the {#shape_family} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [Integer] :available_core_count The value to assign to the {#available_core_count} property
     # @option attributes [Integer] :minimum_core_count The value to assign to the {#minimum_core_count} property
@@ -89,6 +96,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.name = attributes[:'name'] if attributes[:'name']
+
+      self.shape_family = attributes[:'shapeFamily'] if attributes[:'shapeFamily']
+
+      raise 'You cannot provide both :shapeFamily and :shape_family' if attributes.key?(:'shapeFamily') && attributes.key?(:'shape_family')
+
+      self.shape_family = attributes[:'shape_family'] if attributes[:'shape_family']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
@@ -135,6 +148,7 @@ module OCI
 
       self.class == other.class &&
         name == other.name &&
+        shape_family == other.shape_family &&
         shape == other.shape &&
         available_core_count == other.available_core_count &&
         minimum_core_count == other.minimum_core_count &&
@@ -156,7 +170,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, shape, available_core_count, minimum_core_count, core_count_increment, minimum_node_count, maximum_node_count].hash
+      [name, shape_family, shape, available_core_count, minimum_core_count, core_count_increment, minimum_node_count, maximum_node_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

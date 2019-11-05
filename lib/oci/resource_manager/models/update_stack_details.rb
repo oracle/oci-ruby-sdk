@@ -26,6 +26,11 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :variables
 
+    # The version of Terraform to use with the stack. Example: `0.12.x`
+    #
+    # @return [String]
+    attr_accessor :terraform_version
+
     # Free-form tags associated with this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
@@ -48,6 +53,7 @@ module OCI
         'description': :'description',
         'config_source': :'configSource',
         'variables': :'variables',
+        'terraform_version': :'terraformVersion',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -62,6 +68,7 @@ module OCI
         'description': :'String',
         'config_source': :'OCI::ResourceManager::Models::UpdateConfigSourceDetails',
         'variables': :'Hash<String, String>',
+        'terraform_version': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -78,6 +85,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [OCI::ResourceManager::Models::UpdateConfigSourceDetails] :config_source The value to assign to the {#config_source} property
     # @option attributes [Hash<String, String>] :variables The value to assign to the {#variables} property
+    # @option attributes [String] :terraform_version The value to assign to the {#terraform_version} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -101,6 +109,12 @@ module OCI
       self.config_source = attributes[:'config_source'] if attributes[:'config_source']
 
       self.variables = attributes[:'variables'] if attributes[:'variables']
+
+      self.terraform_version = attributes[:'terraformVersion'] if attributes[:'terraformVersion']
+
+      raise 'You cannot provide both :terraformVersion and :terraform_version' if attributes.key?(:'terraformVersion') && attributes.key?(:'terraform_version')
+
+      self.terraform_version = attributes[:'terraform_version'] if attributes[:'terraform_version']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -130,6 +144,7 @@ module OCI
         description == other.description &&
         config_source == other.config_source &&
         variables == other.variables &&
+        terraform_version == other.terraform_version &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -147,7 +162,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, config_source, variables, freeform_tags, defined_tags].hash
+      [display_name, description, config_source, variables, terraform_version, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -5,7 +5,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # UpdateNamespaceMetadataDetails is used to update the NamespaceMetadata. To update NamespaceMetadata, a user
-  # must have NAMESPACE_UPDATE permission.
+  # must have OBJECTSTORAGE_NAMESPACE_UPDATE permission.
   #
   class ObjectStorage::Models::UpdateNamespaceMetadataDetails
     # The updated compartment id for use by an S3 client, if this field is set.

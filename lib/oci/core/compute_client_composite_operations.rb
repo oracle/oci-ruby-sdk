@@ -183,7 +183,7 @@ module OCI
     # Calls {OCI::Core::ComputeClient#create_dedicated_vm_host} and then waits for the {OCI::Core::Models::DedicatedVmHost} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Core::Models::CreateDedicatedVmHostDetails] create_dedicated_vm_host_details The details for creating a new dedicated virtual machine (VM) host.
+    # @param [OCI::Core::Models::CreateDedicatedVmHostDetails] create_dedicated_vm_host_details The details for creating a new dedicated virtual machine host.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::DedicatedVmHost#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#create_dedicated_vm_host}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

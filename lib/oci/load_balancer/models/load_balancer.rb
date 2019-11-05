@@ -86,7 +86,19 @@ module OCI
     # @return [Array<String>]
     attr_accessor :subnet_ids
 
-    # The array of NSG [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) in use by this Load Balancer.
+    # An array of NSG [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with the load
+    # balancer.
+    #
+    # During the load balancer's creation, the service adds the new load balancer to the specified NSGs.
+    #
+    # The benefits of associating the load balancer with NSGs include:
+    #
+    # *  NSGs define network security rules to govern ingress and egress traffic for the load balancer.
+    #
+    # *  The network security rules of other resources can reference the NSGs associated with the load balancer
+    #    to ensure access.
+    #
+    # Example: [\"ocid1.nsg.oc1.phx.unique_ID\"]
     #
     # @return [Array<String>]
     attr_accessor :network_security_group_ids
@@ -122,6 +134,15 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # System tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # System tags can be viewed by users, but can only be created by the system.
+    #
+    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # @return [Hash<String, OCI::LoadBalancer::Models::RuleSet>]
     attr_accessor :rule_sets
 
@@ -146,6 +167,7 @@ module OCI
         'path_route_sets': :'pathRouteSets',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'system_tags': :'systemTags',
         'rule_sets': :'ruleSets'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -172,6 +194,7 @@ module OCI
         'path_route_sets': :'Hash<String, OCI::LoadBalancer::Models::PathRouteSet>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>',
         'rule_sets': :'Hash<String, OCI::LoadBalancer::Models::RuleSet>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -200,6 +223,7 @@ module OCI
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::PathRouteSet>] :path_route_sets The value to assign to the {#path_route_sets} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::RuleSet>] :rule_sets The value to assign to the {#rule_sets} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -293,6 +317,12 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
       self.rule_sets = attributes[:'ruleSets'] if attributes[:'ruleSets']
 
       raise 'You cannot provide both :ruleSets and :rule_sets' if attributes.key?(:'ruleSets') && attributes.key?(:'rule_sets')
@@ -341,6 +371,7 @@ module OCI
         path_route_sets == other.path_route_sets &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        system_tags == other.system_tags &&
         rule_sets == other.rule_sets
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -357,7 +388,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, is_private, subnet_ids, network_security_group_ids, listeners, hostnames, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
+      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, is_private, subnet_ids, network_security_group_ids, listeners, hostnames, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, system_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
