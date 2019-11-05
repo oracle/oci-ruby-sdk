@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The data used to update the address list.
+  # The data used to update the address list: IP addresses and CIDR notations.
   class Waas::Models::UpdateAddressListDetails
     # A unique user-friendly name for the address list.
     # @return [String]

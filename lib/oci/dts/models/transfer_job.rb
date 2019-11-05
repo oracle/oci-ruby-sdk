@@ -26,15 +26,12 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # This attribute is required.
     # @return [String]
     attr_accessor :compartment_id
 
-    # This attribute is required.
     # @return [String]
     attr_accessor :upload_bucket_name
 
-    # This attribute is required.
     # @return [String]
     attr_accessor :display_name
 
@@ -44,7 +41,6 @@ module OCI
     # @return [DateTime]
     attr_accessor :creation_time
 
-    # This attribute is required.
     # @return [String]
     attr_reader :device_type
 

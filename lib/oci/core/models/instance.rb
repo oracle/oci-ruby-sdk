@@ -178,6 +178,12 @@ module OCI
     # @return [OCI::Core::Models::InstanceSourceDetails]
     attr_accessor :source_details
 
+    # System tags for this resource. Each key is predefined and scoped to a namespace.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # **[Required]** The date and time the instance was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
@@ -218,6 +224,7 @@ module OCI
         'region': :'region',
         'shape': :'shape',
         'source_details': :'sourceDetails',
+        'system_tags': :'systemTags',
         'time_created': :'timeCreated',
         'agent_config': :'agentConfig',
         'time_maintenance_reboot_due': :'timeMaintenanceRebootDue'
@@ -247,6 +254,7 @@ module OCI
         'region': :'String',
         'shape': :'String',
         'source_details': :'OCI::Core::Models::InstanceSourceDetails',
+        'system_tags': :'Hash<String, Hash<String, Object>>',
         'time_created': :'DateTime',
         'agent_config': :'OCI::Core::Models::InstanceAgentConfig',
         'time_maintenance_reboot_due': :'DateTime'
@@ -278,6 +286,7 @@ module OCI
     # @option attributes [String] :region The value to assign to the {#region} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [OCI::Core::Models::InstanceSourceDetails] :source_details The value to assign to the {#source_details} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [OCI::Core::Models::InstanceAgentConfig] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [DateTime] :time_maintenance_reboot_due The value to assign to the {#time_maintenance_reboot_due} property
@@ -379,6 +388,12 @@ module OCI
 
       self.source_details = attributes[:'source_details'] if attributes[:'source_details']
 
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -453,6 +468,7 @@ module OCI
         region == other.region &&
         shape == other.shape &&
         source_details == other.source_details &&
+        system_tags == other.system_tags &&
         time_created == other.time_created &&
         agent_config == other.agent_config &&
         time_maintenance_reboot_due == other.time_maintenance_reboot_due
@@ -471,7 +487,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, time_created, agent_config, time_maintenance_reboot_due].hash
+      [availability_domain, compartment_id, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, system_tags, time_created, agent_config, time_maintenance_reboot_due].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

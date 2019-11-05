@@ -65,6 +65,18 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # **[Required]** If you specify that a value is required, a value is set during resource creation (either by the
+    # user creating the resource or another tag defualt). If no value is set, resource creation is
+    # blocked.
+    #
+    # * If the `isRequired` flag is set to \"true\", the value is set during resource creation.
+    # * If the `isRequired` flag is set to \"false\", the value you enter is set during resource creation.
+    #
+    # Example: `false`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_required
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -76,7 +88,8 @@ module OCI
         'tag_definition_name': :'tagDefinitionName',
         'value': :'value',
         'time_created': :'timeCreated',
-        'lifecycle_state': :'lifecycleState'
+        'lifecycle_state': :'lifecycleState',
+        'is_required': :'isRequired'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -92,7 +105,8 @@ module OCI
         'tag_definition_name': :'String',
         'value': :'String',
         'time_created': :'DateTime',
-        'lifecycle_state': :'String'
+        'lifecycle_state': :'String',
+        'is_required': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -111,6 +125,7 @@ module OCI
     # @option attributes [String] :value The value to assign to the {#value} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [BOOLEAN] :is_required The value to assign to the {#is_required} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -156,6 +171,12 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.is_required = attributes[:'isRequired'] unless attributes[:'isRequired'].nil?
+
+      raise 'You cannot provide both :isRequired and :is_required' if attributes.key?(:'isRequired') && attributes.key?(:'is_required')
+
+      self.is_required = attributes[:'is_required'] unless attributes[:'is_required'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -189,7 +210,8 @@ module OCI
         tag_definition_name == other.tag_definition_name &&
         value == other.value &&
         time_created == other.time_created &&
-        lifecycle_state == other.lifecycle_state
+        lifecycle_state == other.lifecycle_state &&
+        is_required == other.is_required
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -205,7 +227,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, tag_namespace_id, tag_definition_id, tag_definition_name, value, time_created, lifecycle_state].hash
+      [id, compartment_id, tag_namespace_id, tag_definition_id, tag_definition_name, value, time_created, lifecycle_state, is_required].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -41,6 +41,10 @@ module OCI
     # @return [String]
     attr_accessor :db_system_id
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VM cluster.
+    # @return [String]
+    attr_accessor :vm_cluster_id
+
     # **[Required]** The Oracle Database version.
     # @return [String]
     attr_accessor :db_version
@@ -59,6 +63,7 @@ module OCI
         'last_patch_history_entry_id': :'lastPatchHistoryEntryId',
         'lifecycle_state': :'lifecycleState',
         'db_system_id': :'dbSystemId',
+        'vm_cluster_id': :'vmClusterId',
         'db_version': :'dbVersion',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
@@ -75,6 +80,7 @@ module OCI
         'last_patch_history_entry_id': :'String',
         'lifecycle_state': :'String',
         'db_system_id': :'String',
+        'vm_cluster_id': :'String',
         'db_version': :'String',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -93,6 +99,7 @@ module OCI
     # @option attributes [String] :last_patch_history_entry_id The value to assign to the {#last_patch_history_entry_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
+    # @option attributes [String] :vm_cluster_id The value to assign to the {#vm_cluster_id} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
@@ -129,6 +136,12 @@ module OCI
       raise 'You cannot provide both :dbSystemId and :db_system_id' if attributes.key?(:'dbSystemId') && attributes.key?(:'db_system_id')
 
       self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
+
+      self.vm_cluster_id = attributes[:'vmClusterId'] if attributes[:'vmClusterId']
+
+      raise 'You cannot provide both :vmClusterId and :vm_cluster_id' if attributes.key?(:'vmClusterId') && attributes.key?(:'vm_cluster_id')
+
+      self.vm_cluster_id = attributes[:'vm_cluster_id'] if attributes[:'vm_cluster_id']
 
       self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
 
@@ -173,6 +186,7 @@ module OCI
         last_patch_history_entry_id == other.last_patch_history_entry_id &&
         lifecycle_state == other.lifecycle_state &&
         db_system_id == other.db_system_id &&
+        vm_cluster_id == other.vm_cluster_id &&
         db_version == other.db_version &&
         time_created == other.time_created
     end
@@ -190,7 +204,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, last_patch_history_entry_id, lifecycle_state, db_system_id, db_version, time_created].hash
+      [id, compartment_id, display_name, last_patch_history_entry_id, lifecycle_state, db_system_id, vm_cluster_id, db_version, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

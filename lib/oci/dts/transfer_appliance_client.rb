@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the DTS API
+  # Data Transfer Service API Specification
   class Dts::TransferApplianceClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -450,15 +450,15 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :lifecycle_state filtering by lifecycleState
-    #   Allowed values are: REQUESTED, ORACLE_PREPARING, SHIPPING, DELIVERED, PREPARING, RETURN_SHIPPED, RETURN_SHIPPED_CANCELLED, ORACLE_RECEIVED, ORACLE_RECEIVED_CANCELLED, PROCESSING, COMPLETE, CUSTOMER_NEVER_RECEIVED, ORACLE_NEVER_RECEIVED, CUSTOMER_LOST, CANCELLED, DELETED, REJECTED, ERROR
+    #   Allowed values are: REQUESTED, ORACLE_PREPARING, SHIPPING, DELIVERED, PREPARING, FINALIZED, RETURN_DELAYED, RETURN_SHIPPED, RETURN_SHIPPED_CANCELLED, ORACLE_RECEIVED, ORACLE_RECEIVED_CANCELLED, PROCESSING, COMPLETE, CUSTOMER_NEVER_RECEIVED, ORACLE_NEVER_RECEIVED, CUSTOMER_LOST, CANCELLED, DELETED, REJECTED, ERROR
     # @return [Response] A Response object with data of type {OCI::Dts::Models::MultipleTransferAppliances MultipleTransferAppliances}
     def list_transfer_appliances(id, opts = {})
       logger.debug 'Calling operation TransferApplianceClient#list_transfer_appliances.' if logger
 
       raise "Missing the required parameter 'id' when calling list_transfer_appliances." if id.nil?
 
-      if opts[:lifecycle_state] && !%w[REQUESTED ORACLE_PREPARING SHIPPING DELIVERED PREPARING RETURN_SHIPPED RETURN_SHIPPED_CANCELLED ORACLE_RECEIVED ORACLE_RECEIVED_CANCELLED PROCESSING COMPLETE CUSTOMER_NEVER_RECEIVED ORACLE_NEVER_RECEIVED CUSTOMER_LOST CANCELLED DELETED REJECTED ERROR].include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of REQUESTED, ORACLE_PREPARING, SHIPPING, DELIVERED, PREPARING, RETURN_SHIPPED, RETURN_SHIPPED_CANCELLED, ORACLE_RECEIVED, ORACLE_RECEIVED_CANCELLED, PROCESSING, COMPLETE, CUSTOMER_NEVER_RECEIVED, ORACLE_NEVER_RECEIVED, CUSTOMER_LOST, CANCELLED, DELETED, REJECTED, ERROR.'
+      if opts[:lifecycle_state] && !%w[REQUESTED ORACLE_PREPARING SHIPPING DELIVERED PREPARING FINALIZED RETURN_DELAYED RETURN_SHIPPED RETURN_SHIPPED_CANCELLED ORACLE_RECEIVED ORACLE_RECEIVED_CANCELLED PROCESSING COMPLETE CUSTOMER_NEVER_RECEIVED ORACLE_NEVER_RECEIVED CUSTOMER_LOST CANCELLED DELETED REJECTED ERROR].include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of REQUESTED, ORACLE_PREPARING, SHIPPING, DELIVERED, PREPARING, FINALIZED, RETURN_DELAYED, RETURN_SHIPPED, RETURN_SHIPPED_CANCELLED, ORACLE_RECEIVED, ORACLE_RECEIVED_CANCELLED, PROCESSING, COMPLETE, CUSTOMER_NEVER_RECEIVED, ORACLE_NEVER_RECEIVED, CUSTOMER_LOST, CANCELLED, DELETED, REJECTED, ERROR.'
       end
       raise "Parameter value for 'id' must not be blank" if OCI::Internal::Util.blank_string?(id)
 

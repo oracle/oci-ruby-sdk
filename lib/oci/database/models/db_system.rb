@@ -97,6 +97,9 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # @return [OCI::Database::Models::DbSystemOptions]
+    attr_accessor :db_system_options
+
     # **[Required]** The public key portion of one or more key pairs used for SSH access to the DB system.
     # @return [Array<String>]
     attr_accessor :ssh_public_keys
@@ -223,8 +226,6 @@ module OCI
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
@@ -243,6 +244,7 @@ module OCI
         'nsg_ids': :'nsgIds',
         'backup_network_nsg_ids': :'backupNetworkNsgIds',
         'shape': :'shape',
+        'db_system_options': :'dbSystemOptions',
         'ssh_public_keys': :'sshPublicKeys',
         'time_zone': :'timeZone',
         'hostname': :'hostname',
@@ -287,6 +289,7 @@ module OCI
         'nsg_ids': :'Array<String>',
         'backup_network_nsg_ids': :'Array<String>',
         'shape': :'String',
+        'db_system_options': :'OCI::Database::Models::DbSystemOptions',
         'ssh_public_keys': :'Array<String>',
         'time_zone': :'String',
         'hostname': :'String',
@@ -333,6 +336,7 @@ module OCI
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [OCI::Database::Models::DbSystemOptions] :db_system_options The value to assign to the {#db_system_options} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
@@ -421,6 +425,12 @@ module OCI
       self.backup_network_nsg_ids = attributes[:'backup_network_nsg_ids'] if attributes[:'backup_network_nsg_ids']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
+
+      self.db_system_options = attributes[:'dbSystemOptions'] if attributes[:'dbSystemOptions']
+
+      raise 'You cannot provide both :dbSystemOptions and :db_system_options' if attributes.key?(:'dbSystemOptions') && attributes.key?(:'db_system_options')
+
+      self.db_system_options = attributes[:'db_system_options'] if attributes[:'db_system_options']
 
       self.ssh_public_keys = attributes[:'sshPublicKeys'] if attributes[:'sshPublicKeys']
 
@@ -635,6 +645,7 @@ module OCI
         nsg_ids == other.nsg_ids &&
         backup_network_nsg_ids == other.backup_network_nsg_ids &&
         shape == other.shape &&
+        db_system_options == other.db_system_options &&
         ssh_public_keys == other.ssh_public_keys &&
         time_zone == other.time_zone &&
         hostname == other.hostname &&
@@ -675,7 +686,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
+      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

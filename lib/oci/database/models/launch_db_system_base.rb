@@ -91,6 +91,9 @@ module OCI
     # @return [String]
     attr_accessor :time_zone
 
+    # @return [OCI::Database::Models::DbSystemOptions]
+    attr_accessor :db_system_options
+
     # If true, Sparse Diskgroup is configured for Exadata dbsystem. If False, Sparse diskgroup is not configured.
     #
     # @return [BOOLEAN]
@@ -169,8 +172,6 @@ module OCI
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
@@ -194,6 +195,7 @@ module OCI
         'backup_network_nsg_ids': :'backupNetworkNsgIds',
         'shape': :'shape',
         'time_zone': :'timeZone',
+        'db_system_options': :'dbSystemOptions',
         'sparse_diskgroup': :'sparseDiskgroup',
         'ssh_public_keys': :'sshPublicKeys',
         'hostname': :'hostname',
@@ -224,6 +226,7 @@ module OCI
         'backup_network_nsg_ids': :'Array<String>',
         'shape': :'String',
         'time_zone': :'String',
+        'db_system_options': :'OCI::Database::Models::DbSystemOptions',
         'sparse_diskgroup': :'BOOLEAN',
         'ssh_public_keys': :'Array<String>',
         'hostname': :'String',
@@ -272,6 +275,7 @@ module OCI
     # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
+    # @option attributes [OCI::Database::Models::DbSystemOptions] :db_system_options The value to assign to the {#db_system_options} property
     # @option attributes [BOOLEAN] :sparse_diskgroup The value to assign to the {#sparse_diskgroup} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
@@ -345,6 +349,12 @@ module OCI
       raise 'You cannot provide both :timeZone and :time_zone' if attributes.key?(:'timeZone') && attributes.key?(:'time_zone')
 
       self.time_zone = attributes[:'time_zone'] if attributes[:'time_zone']
+
+      self.db_system_options = attributes[:'dbSystemOptions'] if attributes[:'dbSystemOptions']
+
+      raise 'You cannot provide both :dbSystemOptions and :db_system_options' if attributes.key?(:'dbSystemOptions') && attributes.key?(:'db_system_options')
+
+      self.db_system_options = attributes[:'db_system_options'] if attributes[:'db_system_options']
 
       self.sparse_diskgroup = attributes[:'sparseDiskgroup'] unless attributes[:'sparseDiskgroup'].nil?
 
@@ -437,6 +447,7 @@ module OCI
         backup_network_nsg_ids == other.backup_network_nsg_ids &&
         shape == other.shape &&
         time_zone == other.time_zone &&
+        db_system_options == other.db_system_options &&
         sparse_diskgroup == other.sparse_diskgroup &&
         ssh_public_keys == other.ssh_public_keys &&
         hostname == other.hostname &&
@@ -464,7 +475,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

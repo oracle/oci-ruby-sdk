@@ -19,7 +19,7 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
-    # The compartmentId for the compartment to which the bucket is targeted to move to.
+    # The compartmentId for the compartment to move the bucket to.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -40,6 +40,12 @@ module OCI
     #
     # @return [String]
     attr_reader :public_access_type
+
+    # A property that determines whether events will be generated for operations on objects in this bucket.
+    # This is false by default.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :object_events_enabled
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -72,6 +78,7 @@ module OCI
         'name': :'name',
         'metadata': :'metadata',
         'public_access_type': :'publicAccessType',
+        'object_events_enabled': :'objectEventsEnabled',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'kms_key_id': :'kmsKeyId'
@@ -88,6 +95,7 @@ module OCI
         'name': :'String',
         'metadata': :'Hash<String, String>',
         'public_access_type': :'String',
+        'object_events_enabled': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'kms_key_id': :'String'
@@ -106,6 +114,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     # @option attributes [String] :public_access_type The value to assign to the {#public_access_type} property
+    # @option attributes [BOOLEAN] :object_events_enabled The value to assign to the {#object_events_enabled} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
@@ -132,6 +141,12 @@ module OCI
       raise 'You cannot provide both :publicAccessType and :public_access_type' if attributes.key?(:'publicAccessType') && attributes.key?(:'public_access_type')
 
       self.public_access_type = attributes[:'public_access_type'] if attributes[:'public_access_type']
+
+      self.object_events_enabled = attributes[:'objectEventsEnabled'] unless attributes[:'objectEventsEnabled'].nil?
+
+      raise 'You cannot provide both :objectEventsEnabled and :object_events_enabled' if attributes.key?(:'objectEventsEnabled') && attributes.key?(:'object_events_enabled')
+
+      self.object_events_enabled = attributes[:'object_events_enabled'] unless attributes[:'object_events_enabled'].nil?
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -176,6 +191,7 @@ module OCI
         name == other.name &&
         metadata == other.metadata &&
         public_access_type == other.public_access_type &&
+        object_events_enabled == other.object_events_enabled &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         kms_key_id == other.kms_key_id
@@ -194,7 +210,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, compartment_id, name, metadata, public_access_type, freeform_tags, defined_tags, kms_key_id].hash
+      [namespace, compartment_id, name, metadata, public_access_type, object_events_enabled, freeform_tags, defined_tags, kms_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

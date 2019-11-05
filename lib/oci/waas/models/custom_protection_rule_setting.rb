@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The OCID and action of a Custom Protection rule.
+  # The OCID and action of a custom protection rule.
   class Waas::Models::CustomProtectionRuleSetting
     ACTION_ENUM = [
       ACTION_DETECT = 'DETECT'.freeze,
@@ -13,11 +13,12 @@ module OCI
       ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Custom Protecion rule.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the custom protection rule.
     # @return [String]
     attr_accessor :id
 
-    # The action to take when the Custom Protection rule is triggered.
+    # The action to take when the custom protection rule is triggered.
+    # `DETECT` - Logs the request when the criteria of the custom protection rule are met. `BLOCK` - Blocks the request when the criteria of the custom protection rule are met.
     # @return [String]
     attr_reader :action
 

@@ -6,11 +6,11 @@ require 'date'
 module OCI
   # OriginGroupOrigins model.
   class Waas::Models::OriginGroupOrigins
-    # The reference string to the origin server.
+    # The IP address or CIDR notation of the origin server.
     # @return [String]
     attr_accessor :origin
 
-    # The weight of the origin used in load balancing. The higher the weight, the larger the proportion of client requests the server receives.
+    # The weight of the origin used in load balancing. Origins with higher weights will receive larger proportions of client requests.
     # @return [Integer]
     attr_accessor :weight
 

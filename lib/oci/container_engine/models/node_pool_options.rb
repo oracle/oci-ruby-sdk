@@ -10,7 +10,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :kubernetes_versions
 
-    # Available Kubernetes versions.
+    # Available image names.
     # @return [Array<String>]
     attr_accessor :images
 

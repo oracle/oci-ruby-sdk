@@ -120,14 +120,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
     #   of a timeout or server error without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated before
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type nil
     def change_steering_policy_compartment(steering_policy_id, change_steering_policy_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_steering_policy_compartment.' if logger
@@ -189,14 +189,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
     #   of a timeout or server error without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated before
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type nil
     def change_zone_compartment(zone_id, change_zone_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_zone_compartment.' if logger
@@ -259,7 +259,7 @@ module OCI
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
     def create_steering_policy(create_steering_policy_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_steering_policy.' if logger
@@ -324,7 +324,7 @@ module OCI
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
     def create_steering_policy_attachment(create_steering_policy_attachment_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_steering_policy_attachment.' if logger
@@ -376,11 +376,11 @@ module OCI
     # query parameter is required if the `Content-Type` header for the
     # request is `text/dns`.
     #
-    # @param [OCI::Dns::Models::CreateZoneDetails] create_zone_details Details for creating a new zone.
+    # @param [OCI::Dns::Models::CreateZoneBaseDetails] create_zone_details Details for creating a new zone.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def create_zone(create_zone_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_zone.' if logger
@@ -438,14 +438,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_domain_records(zone_name_or_id, domain, opts = {})
       logger.debug 'Calling operation DnsClient#delete_domain_records.' if logger
@@ -509,14 +509,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_rr_set(zone_name_or_id, domain, rtype, opts = {})
       logger.debug 'Calling operation DnsClient#delete_rr_set.' if logger
@@ -583,13 +583,13 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_steering_policy(steering_policy_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_steering_policy.' if logger
@@ -649,13 +649,13 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_steering_policy_attachment(steering_policy_attachment_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_steering_policy_attachment.' if logger
@@ -715,14 +715,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_zone(zone_name_or_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_zone.' if logger
@@ -784,26 +784,26 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #
+    #    (default to nil)
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
+    #    (default to nil)
     # @option opts [String] :zone_version The version of the zone for which data is requested.
-    #
+    #    (default to nil)
     # @option opts [String] :rtype Search by record type.
     #   Will match any record whose [type](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4) (case-insensitive) equals the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :sort_by The field by which to sort records. (default to rtype)
     #   Allowed values are: rtype, ttl
     # @option opts [String] :sort_order The order to sort the resources.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to DESC)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def get_domain_records(zone_name_or_id, domain, opts = {})
       logger.debug 'Calling operation DnsClient#get_domain_records.' if logger
@@ -882,19 +882,19 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #
+    #    (default to nil)
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
+    #    (default to nil)
     # @option opts [String] :zone_version The version of the zone for which data is requested.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RRSet RRSet}
     def get_rr_set(zone_name_or_id, domain, rtype, opts = {})
       logger.debug 'Calling operation DnsClient#get_rr_set.' if logger
@@ -961,12 +961,12 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
     def get_steering_policy(steering_policy_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_steering_policy.' if logger
@@ -1025,12 +1025,12 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
     def get_steering_policy_attachment(steering_policy_attachment_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_steering_policy_attachment.' if logger
@@ -1090,13 +1090,13 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def get_zone(zone_name_or_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_zone.' if logger
@@ -1158,32 +1158,32 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #
+    #    (default to nil)
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
+    #    (default to nil)
     # @option opts [String] :zone_version The version of the zone for which data is requested.
-    #
+    #    (default to nil)
     # @option opts [String] :domain Search by domain.
     #   Will match any record whose domain (case-insensitive) equals the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :domain_contains Search by domain.
     #   Will match any record whose domain (case-insensitive) contains the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :rtype Search by record type.
     #   Will match any record whose [type](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4) (case-insensitive) equals the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :sort_by The field by which to sort records. (default to domain)
     #   Allowed values are: domain, rtype, ttl
     # @option opts [String] :sort_order The order to sort the resources.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to DESC)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def get_zone_records(zone_name_or_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_zone_records.' if logger
@@ -1258,29 +1258,29 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
-    # @option opts [String] :id The OCID of a resource.
-    # @option opts [String] :display_name The displayName of a resource.
+    #    (default to nil)
+    # @option opts [String] :id The OCID of a resource. (default to nil)
+    # @option opts [String] :display_name The displayName of a resource. (default to nil)
     # @option opts [String] :display_name_contains The partial displayName of a resource. Will match any resource whose name
     #   (case-insensitive) contains the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :health_check_monitor_id Search by health check monitor OCID.
     #   Will match any resource whose health check monitor ID matches the provided value.
-    #
+    #    (default to nil)
     # @option opts [DateTime] :time_created_greater_than_or_equal_to An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created on or after the indicated time.
-    #
+    #    (default to nil)
     # @option opts [DateTime] :time_created_less_than An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created before the indicated time.
-    #
+    #    (default to nil)
     # @option opts [String] :template Search by steering template type.
     #   Will match any resource whose template type matches the provided value.
-    #
-    # @option opts [String] :lifecycle_state The state of a resource.
+    #    (default to nil)
+    # @option opts [String] :lifecycle_state The state of a resource. (default to ACTIVE)
     # @option opts [String] :sort_by The field by which to sort steering policies. If unspecified, defaults to `timeCreated`. (default to timeCreated)
     #   Allowed values are: displayName, timeCreated, template
     # @option opts [String] :sort_order The order to sort the resources.
-    #
+    #    (default to DESC)
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::SteeringPolicySummary SteeringPolicySummary}>
     def list_steering_policies(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_steering_policies.' if logger
@@ -1360,32 +1360,32 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
-    # @option opts [String] :id The OCID of a resource.
-    # @option opts [String] :display_name The displayName of a resource.
+    #    (default to nil)
+    # @option opts [String] :id The OCID of a resource. (default to nil)
+    # @option opts [String] :display_name The displayName of a resource. (default to nil)
     # @option opts [String] :steering_policy_id Search by steering policy OCID.
     #   Will match any resource whose steering policy ID matches the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :zone_id Search by zone OCID.
     #   Will match any resource whose zone ID matches the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :domain Search by domain.
     #   Will match any record whose domain (case-insensitive) equals the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :domain_contains Search by domain.
     #   Will match any record whose domain (case-insensitive) contains the provided value.
-    #
+    #    (default to nil)
     # @option opts [DateTime] :time_created_greater_than_or_equal_to An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created on or after the indicated time.
-    #
+    #    (default to nil)
     # @option opts [DateTime] :time_created_less_than An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created before the indicated time.
-    #
-    # @option opts [String] :lifecycle_state The state of a resource.
+    #    (default to nil)
+    # @option opts [String] :lifecycle_state The state of a resource. (default to ACTIVE)
     # @option opts [String] :sort_by The field by which to sort steering policy attachments. If unspecified, defaults to `timeCreated`. (default to timeCreated)
     #   Allowed values are: displayName, timeCreated, domainName
     # @option opts [String] :sort_order The order to sort the resources.
-    #
+    #    (default to DESC)
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::SteeringPolicyAttachmentSummary SteeringPolicyAttachmentSummary}>
     def list_steering_policy_attachments(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_steering_policy_attachments.' if logger
@@ -1467,29 +1467,29 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
+    #    (default to nil)
     # @option opts [String] :name A case-sensitive filter for zone names.
     #   Will match any zone with a name that equals the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :name_contains Search by zone name.
     #   Will match any zone whose name (case-insensitive) contains the provided value.
-    #
+    #    (default to nil)
     # @option opts [String] :zone_type Search by zone type, `PRIMARY` or `SECONDARY`.
     #   Will match any zone whose type equals the provided value.
-    #
+    #    (default to nil)
     #   Allowed values are: PRIMARY, SECONDARY
     # @option opts [DateTime] :time_created_greater_than_or_equal_to An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created on or after the indicated time.
-    #
+    #    (default to nil)
     # @option opts [DateTime] :time_created_less_than An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created before the indicated time.
-    #
-    # @option opts [String] :lifecycle_state The state of a resource.
+    #    (default to nil)
+    # @option opts [String] :lifecycle_state The state of a resource. (default to ACTIVE)
     #   Allowed values are: ACTIVE, CREATING, DELETED, DELETING, FAILED
     # @option opts [String] :sort_by The field by which to sort zones. (default to timeCreated)
     #   Allowed values are: name, zoneType, timeCreated
     # @option opts [String] :sort_order The order to sort the resources.
-    #
+    #    (default to DESC)
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ZoneSummary ZoneSummary}>
     def list_zones(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_zones.' if logger
@@ -1578,14 +1578,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def patch_domain_records(zone_name_or_id, domain, patch_domain_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#patch_domain_records.' if logger
@@ -1651,14 +1651,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def patch_rr_set(zone_name_or_id, domain, rtype, patch_rr_set_details, opts = {})
       logger.debug 'Calling operation DnsClient#patch_rr_set.' if logger
@@ -1729,14 +1729,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def patch_zone_records(zone_name_or_id, patch_zone_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#patch_zone_records.' if logger
@@ -1805,14 +1805,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def update_domain_records(zone_name_or_id, domain, update_domain_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_domain_records.' if logger
@@ -1878,14 +1878,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def update_rr_set(zone_name_or_id, domain, rtype, update_rr_set_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_rr_set.' if logger
@@ -1952,13 +1952,13 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
     def update_steering_policy(steering_policy_id, update_steering_policy_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_steering_policy.' if logger
@@ -2020,13 +2020,13 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
     def update_steering_policy_attachment(steering_policy_attachment_id, update_steering_policy_attachment_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_steering_policy_attachment.' if logger
@@ -2090,14 +2090,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def update_zone(zone_name_or_id, update_zone_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_zone.' if logger
@@ -2164,14 +2164,14 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #
+    #    (default to nil)
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    #    (default to nil)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def update_zone_records(zone_name_or_id, update_zone_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_zone_records.' if logger

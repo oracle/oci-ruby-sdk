@@ -484,10 +484,10 @@ module OCI
     #
     # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic to update.
     #
+    # @param [OCI::Ons::Models::TopicAttributesDetails] topic_attributes_details TopicAttributes
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [OCI::Ons::Models::TopicAttributesDetails] :topic_attributes_details TopicAttributes
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
@@ -496,10 +496,11 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Ons::Models::NotificationTopic NotificationTopic}
-    def update_topic(topic_id, opts = {})
+    def update_topic(topic_id, topic_attributes_details, opts = {})
       logger.debug 'Calling operation NotificationControlPlaneClient#update_topic.' if logger
 
       raise "Missing the required parameter 'topic_id' when calling update_topic." if topic_id.nil?
+      raise "Missing the required parameter 'topic_attributes_details' when calling update_topic." if topic_attributes_details.nil?
       raise "Parameter value for 'topic_id' must not be blank" if OCI::Internal::Util.blank_string?(topic_id)
 
       path = '/topics/{topicId}'.sub('{topicId}', topic_id.to_s)
@@ -517,7 +518,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
 
-      post_body = @api_client.object_to_http_body(opts[:topic_attributes_details])
+      post_body = @api_client.object_to_http_body(topic_attributes_details)
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'NotificationControlPlaneClient#update_topic') do

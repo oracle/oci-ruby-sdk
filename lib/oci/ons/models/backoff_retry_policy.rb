@@ -5,7 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The backoff retry portion of the subscription delivery policy.
+  # The backoff retry portion of the subscription delivery policy. For information about retry durations for subscriptions, see
+  # [How Notifications Works](https://docs.cloud.oracle.com/iaas/Content/Notification/Concepts/notificationoverview.htm#how).
   #
   class Ons::Models::BackoffRetryPolicy
     POLICY_TYPE_ENUM = [

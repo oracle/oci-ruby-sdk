@@ -5,7 +5,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the DTS API
+  # Data Transfer Service API Specification
   class Dts::TransferPackageClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]

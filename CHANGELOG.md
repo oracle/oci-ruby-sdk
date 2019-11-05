@@ -3,6 +3,57 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.7.0 - 2019-11-05
+### Added
+- Support for the Sydney (SYD) region
+- Support for managing cluster networks in the Compute Autoscaling service
+- Support for tracking asynchronous operations via work requests in the Database service
+- Support for specifying the `auto_backup_window` field for scheduling backups in the Database service
+- Support for network security groups on autonomous Exadata infrastructure in the Database service
+- Support for Kubernetes secrets encryption in customer clusters, regional subnets, and cluster authentication for instance principals in the Container Engine for Kubernetes service
+- Support for the Oracle Content and Experience service
+- Support for importing state files in the Resource Manager service
+- Support for Exadata Cloud at Customer in the Database service
+- Support for free tier resources and system tags in the Load Balancing service
+- Support for free tier resources and system tags in the Compute service
+- Support for free tier resources and system tags in the Block Storage service
+- Support for free tier and system tags on autonomous databases in the Database service
+- Support for selecting the Terraform version to use in the Resource Manager service
+- Support for bucket re-encryption in the Object Storage service
+- Support for enabling / disabling bucket-level events in the Object Storage service
+- Support for required tags in the Identity service
+- Support for work requests on tagging operations in the Identity service
+- Support for enumerated tag values in the Identity service
+- Support for moving dynamic routing gateway resources across compartments in the Networking service
+- Support for migrating zones from Dyn managed DNS to OCI in the DNS service
+- Support for fast provisioning for virtual machine databases in the Database service
+- Support for the new schema for events in the Audit service
+- Support for entitlements in the Data Transfer service
+- Support for custom scheduled backup policies on volumes in the Block Storage service
+- Support for specifying the network type when launching virtual machine instances in the Compute service
+- Support for Monitoring service integration in the Health Checks service
+- Support for the Digital Assistant service
+- Support for work requests on Instance Pool operations in the Compute service
+- Support for wallet rotation operations on Autonomous Databases in the Database service
+- Support for adding and removing image shape compatibility entries in the Compute service
+- Support for managing redirects in the Web Application Acceleration and Security service
+- Support for migrating zones from the Dyn HTTP Redirect Service to Oracle Cloud Infrastructure in the DNS service
+- Support for the Analytics Cloud service
+- Support for the Integration Cloud service
+- Support for IKE versions in IPSec connections in the Virtual Networking service
+- Support for getting a stack's Terraform state in the Resource Manager service
+
+# Breaking
+- The etag header has been removed from the responses for `NotificationDataPlaneClient.change_subscription_compartment()` and `NotificationControlPlaneClient.change_topic_compartment()`
+- The class `OCI::Database::Models::CreateDbHomeWithDbSystemIdBase` was renamed to `OCI::Database::Models::CreateDbHomeBase` that impacts the following references:
+    - `OCI::Database::DatabaseClient#create_db_home()` positional argument type
+    - `OCI::Database::Models::CreateDbHomeWithDbSystemIdDetails` class extension
+    - `OCI::Database::Models::CreateDbHomeWithDbSystemIdFromBackupDetails` class extension
+- For `OCI::Dts::Models::TransferApplianceEntitlement`:
+	- The `Status` parameter has been removed and replaced with `LifecycleState`
+	- The `tenantId` parameter has been renamed as `id`
+- The Audit service version to support the new schema was increased to 20190901.  Older versions of the SDK will continue to function to support Audit service version 20160918
+
 ## 2.6.0 - 2019-08-27 
 ### Added
 - Support for the Sao Paulo (GRU) region

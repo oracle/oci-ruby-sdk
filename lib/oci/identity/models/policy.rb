@@ -19,6 +19,9 @@ module OCI
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator.
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values
+  # using the API.
+  #
   class Identity::Models::Policy
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,

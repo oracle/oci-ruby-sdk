@@ -28,11 +28,11 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # **[Required]** OCID identifying this work request.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) identifying this work request.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing this work request.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing this work request.
     # @return [String]
     attr_accessor :compartment_id
 

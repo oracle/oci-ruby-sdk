@@ -11,11 +11,24 @@ module OCI
     # @return [String]
     attr_accessor :value
 
+    # If you specify that a value is required, a value is set during resource creation (either by
+    # the user creating the resource or another tag defualt). If no value is set, resource
+    # creation is blocked.
+    #
+    # * If the `isRequired` flag is set to \"true\", the value is set during resource creation.
+    # * If the `isRequired` flag is set to \"false\", the value you enter is set during resource creation.
+    #
+    # Example: `false`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_required
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'value': :'value'
+        'value': :'value',
+        'is_required': :'isRequired'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +37,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'value': :'String'
+        'value': :'String',
+        'is_required': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +50,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :value The value to assign to the {#value} property
+    # @option attributes [BOOLEAN] :is_required The value to assign to the {#is_required} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -43,6 +58,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.value = attributes[:'value'] if attributes[:'value']
+
+      self.is_required = attributes[:'isRequired'] unless attributes[:'isRequired'].nil?
+
+      raise 'You cannot provide both :isRequired and :is_required' if attributes.key?(:'isRequired') && attributes.key?(:'is_required')
+
+      self.is_required = attributes[:'is_required'] unless attributes[:'is_required'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -56,7 +77,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        value == other.value
+        value == other.value &&
+        is_required == other.is_required
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -72,7 +94,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [value].hash
+      [value, is_required].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

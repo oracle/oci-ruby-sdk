@@ -60,6 +60,12 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # System tags for this resource. Each key is predefined and scoped to a namespace.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # **[Required]** The OCID of the volume.
     # @return [String]
     attr_accessor :id
@@ -107,6 +113,7 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
+        'system_tags': :'systemTags',
         'id': :'id',
         'is_hydrated': :'isHydrated',
         'kms_key_id': :'kmsKeyId',
@@ -129,6 +136,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
+        'system_tags': :'Hash<String, Hash<String, Object>>',
         'id': :'String',
         'is_hydrated': :'BOOLEAN',
         'kms_key_id': :'String',
@@ -153,6 +161,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [BOOLEAN] :is_hydrated The value to assign to the {#is_hydrated} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
@@ -197,6 +206,12 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
 
       self.id = attributes[:'id'] if attributes[:'id']
 
@@ -278,6 +293,7 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
+        system_tags == other.system_tags &&
         id == other.id &&
         is_hydrated == other.is_hydrated &&
         kms_key_id == other.kms_key_id &&
@@ -302,7 +318,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, is_hydrated, kms_key_id, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, system_tags, id, is_hydrated, kms_key_id, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

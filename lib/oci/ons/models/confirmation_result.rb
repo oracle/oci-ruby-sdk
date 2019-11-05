@@ -5,6 +5,8 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The confirmation details for the specified subscription.
+  # For information about confirming subscriptions, see
+  # [To confirm a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#confirmSub).
   #
   class Ons::Models::ConfirmationResult
     # **[Required]** The name of the subscribed topic.
@@ -17,8 +19,8 @@ module OCI
     # @return [String]
     attr_accessor :topic_id
 
-    # **[Required]** The endpoint of the subscription. Valid values depend on the protocol.
-    # For EMAIL, only an email address is valid. For HTTPS, only a PagerDuty URL is valid. A URL cannot exceed 512 characters.
+    # **[Required]** A locator that corresponds to the subscription protocol.
+    # For example, an email address for a subscription that uses the `EMAIL` protocol, or a URL for a subscription that uses an HTTP-based protocol.
     #
     # @return [String]
     attr_accessor :endpoint
@@ -31,7 +33,7 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription specified in the request.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription specified in the request.
     # @return [String]
     attr_accessor :subscription_id
 

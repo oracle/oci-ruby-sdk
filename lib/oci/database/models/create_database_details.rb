@@ -18,6 +18,10 @@ module OCI
     # @return [String]
     attr_accessor :db_name
 
+    # The `DB_UNIQUE_NAME` of the Oracle Database being backed up.
+    # @return [String]
+    attr_accessor :db_unique_name
+
     # The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
     # @return [String]
     attr_accessor :pdb_name
@@ -57,8 +61,6 @@ module OCI
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
@@ -67,6 +69,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'db_name': :'dbName',
+        'db_unique_name': :'dbUniqueName',
         'pdb_name': :'pdbName',
         'admin_password': :'adminPassword',
         'character_set': :'characterSet',
@@ -84,6 +87,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'db_name': :'String',
+        'db_unique_name': :'String',
         'pdb_name': :'String',
         'admin_password': :'String',
         'character_set': :'String',
@@ -103,6 +107,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
+    # @option attributes [String] :db_unique_name The value to assign to the {#db_unique_name} property
     # @option attributes [String] :pdb_name The value to assign to the {#pdb_name} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :character_set The value to assign to the {#character_set} property
@@ -122,6 +127,12 @@ module OCI
       raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
 
       self.db_name = attributes[:'db_name'] if attributes[:'db_name']
+
+      self.db_unique_name = attributes[:'dbUniqueName'] if attributes[:'dbUniqueName']
+
+      raise 'You cannot provide both :dbUniqueName and :db_unique_name' if attributes.key?(:'dbUniqueName') && attributes.key?(:'db_unique_name')
+
+      self.db_unique_name = attributes[:'db_unique_name'] if attributes[:'db_unique_name']
 
       self.pdb_name = attributes[:'pdbName'] if attributes[:'pdbName']
 
@@ -192,6 +203,7 @@ module OCI
 
       self.class == other.class &&
         db_name == other.db_name &&
+        db_unique_name == other.db_unique_name &&
         pdb_name == other.pdb_name &&
         admin_password == other.admin_password &&
         character_set == other.character_set &&
@@ -215,7 +227,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_name, pdb_name, admin_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags].hash
+      [db_name, db_unique_name, pdb_name, admin_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

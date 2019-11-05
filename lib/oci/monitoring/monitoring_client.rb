@@ -186,7 +186,9 @@ module OCI
     # Creates a new alarm in the specified compartment.
     # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
     #
-    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+    # This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+    # Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+    # or transactions, per second (TPS) for a given tenancy.
     #
     # @param [OCI::Monitoring::Models::CreateAlarmDetails] create_alarm_details Document for creating an alarm.
     # @param [Hash] opts the optional parameters
@@ -252,7 +254,9 @@ module OCI
     # Deletes the specified alarm.
     # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
     #
-    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+    # This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+    # Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+    # or transactions, per second (TPS) for a given tenancy.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
@@ -316,7 +320,9 @@ module OCI
     # Gets the specified alarm.
     # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
     #
-    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+    # This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+    # Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+    # or transactions, per second (TPS) for a given tenancy.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
@@ -376,7 +382,9 @@ module OCI
     # Get the history of the specified alarm.
     # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
     #
-    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+    # This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+    # Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+    # or transactions, per second (TPS) for a given tenancy.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
@@ -469,7 +477,9 @@ module OCI
     # Lists the alarms for the specified compartment.
     # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
     #
-    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+    # This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+    # Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+    # or transactions, per second (TPS) for a given tenancy.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
@@ -583,7 +593,9 @@ module OCI
     # List the status of each alarm in the specified compartment.
     # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
     #
-    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+    # This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+    # Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+    # or transactions, per second (TPS) for a given tenancy.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
@@ -691,7 +703,7 @@ module OCI
     # For information about metrics, see [Metrics Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#MetricsOverview).
     # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
     #
-    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+    # Transactions Per Second (TPS) per-tenancy limit for this operation: 10.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
     #   resources monitored by the metric that you are searching for. Use tenancyId to search in
@@ -849,7 +861,9 @@ module OCI
     # Removes any existing suppression for the specified alarm.
     # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
     #
-    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+    # This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+    # Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+    # or transactions, per second (TPS) for a given tenancy.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #
@@ -987,7 +1001,9 @@ module OCI
     # Updates the specified alarm.
     # For important limits information, see [Limits on Monitoring](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#Limits).
     #
-    # Transactions Per Second (TPS) per-tenancy limit for this operation: 1.
+    # This call is subject to a Monitoring limit that applies to the total number of requests across all alarm operations.
+    # Monitoring might throttle this call to reject an otherwise valid request when the total rate of alarm operations exceeds 10 requests,
+    # or transactions, per second (TPS) for a given tenancy.
     #
     # @param [String] alarm_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an alarm.
     #

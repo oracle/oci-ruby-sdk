@@ -61,6 +61,27 @@ module OCI
     # @return [String]
     attr_accessor :db_name
 
+    # Indicates if this is an Always Free resource. The default value is false. Note that Always Free Autonomous Databases have 1 CPU and 20GB memory. For Always Free databases, memory and CPU cannot be scaled.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_free_tier
+
+    # System tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
+    # The date and time the Always Free database will be stopped because of inactivity. If this time is reached without any database activity, the database will automatically be put into the STOPPED state.
+    #
+    # @return [DateTime]
+    attr_accessor :time_reclamation_of_free_autonomous_database
+
+    # The date and time the Always Free database will be automatically deleted because of inactivity. If the database is in the STOPPED state and without activity until this time, it will be deleted.
+    #
+    # @return [DateTime]
+    attr_accessor :time_deletion_of_free_autonomous_database
+
     # **[Required]** The number of CPU cores to be made available to the database.
     # @return [Integer]
     attr_accessor :cpu_core_count
@@ -97,7 +118,7 @@ module OCI
     # @return [OCI::Database::Models::AutonomousDatabaseConnectionUrls]
     attr_accessor :connection_urls
 
-    # The Oracle license model that applies to the Oracle Autonomous Database. The default is BRING_YOUR_OWN_LICENSE.
+    # The Oracle license model that applies to the Oracle Autonomous Database. The default for Autonomous Database using the [shared deployment] is BRING_YOUR_OWN_LICENSE. Note that when provisioning an Autonomous Database using the [dedicated deployment](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm) option, this attribute must be null because the attribute is already set on Autonomous Exadata Infrastructure level.
     #
     # @return [String]
     attr_reader :license_model
@@ -116,8 +137,6 @@ module OCI
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
@@ -154,6 +173,10 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'db_name': :'dbName',
+        'is_free_tier': :'isFreeTier',
+        'system_tags': :'systemTags',
+        'time_reclamation_of_free_autonomous_database': :'timeReclamationOfFreeAutonomousDatabase',
+        'time_deletion_of_free_autonomous_database': :'timeDeletionOfFreeAutonomousDatabase',
         'cpu_core_count': :'cpuCoreCount',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'is_dedicated': :'isDedicated',
@@ -185,6 +208,10 @@ module OCI
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'db_name': :'String',
+        'is_free_tier': :'BOOLEAN',
+        'system_tags': :'Hash<String, Hash<String, Object>>',
+        'time_reclamation_of_free_autonomous_database': :'DateTime',
+        'time_deletion_of_free_autonomous_database': :'DateTime',
         'cpu_core_count': :'Integer',
         'data_storage_size_in_tbs': :'Integer',
         'is_dedicated': :'BOOLEAN',
@@ -218,6 +245,10 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
+    # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {#is_free_tier} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
+    # @option attributes [DateTime] :time_reclamation_of_free_autonomous_database The value to assign to the {#time_reclamation_of_free_autonomous_database} property
+    # @option attributes [DateTime] :time_deletion_of_free_autonomous_database The value to assign to the {#time_deletion_of_free_autonomous_database} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
@@ -267,6 +298,32 @@ module OCI
       raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
 
       self.db_name = attributes[:'db_name'] if attributes[:'db_name']
+
+      self.is_free_tier = attributes[:'isFreeTier'] unless attributes[:'isFreeTier'].nil?
+      self.is_free_tier = false if is_free_tier.nil? && !attributes.key?(:'isFreeTier') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isFreeTier and :is_free_tier' if attributes.key?(:'isFreeTier') && attributes.key?(:'is_free_tier')
+
+      self.is_free_tier = attributes[:'is_free_tier'] unless attributes[:'is_free_tier'].nil?
+      self.is_free_tier = false if is_free_tier.nil? && !attributes.key?(:'isFreeTier') && !attributes.key?(:'is_free_tier') # rubocop:disable Style/StringLiterals
+
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
+      self.time_reclamation_of_free_autonomous_database = attributes[:'timeReclamationOfFreeAutonomousDatabase'] if attributes[:'timeReclamationOfFreeAutonomousDatabase']
+
+      raise 'You cannot provide both :timeReclamationOfFreeAutonomousDatabase and :time_reclamation_of_free_autonomous_database' if attributes.key?(:'timeReclamationOfFreeAutonomousDatabase') && attributes.key?(:'time_reclamation_of_free_autonomous_database')
+
+      self.time_reclamation_of_free_autonomous_database = attributes[:'time_reclamation_of_free_autonomous_database'] if attributes[:'time_reclamation_of_free_autonomous_database']
+
+      self.time_deletion_of_free_autonomous_database = attributes[:'timeDeletionOfFreeAutonomousDatabase'] if attributes[:'timeDeletionOfFreeAutonomousDatabase']
+
+      raise 'You cannot provide both :timeDeletionOfFreeAutonomousDatabase and :time_deletion_of_free_autonomous_database' if attributes.key?(:'timeDeletionOfFreeAutonomousDatabase') && attributes.key?(:'time_deletion_of_free_autonomous_database')
+
+      self.time_deletion_of_free_autonomous_database = attributes[:'time_deletion_of_free_autonomous_database'] if attributes[:'time_deletion_of_free_autonomous_database']
 
       self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
 
@@ -432,6 +489,10 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         db_name == other.db_name &&
+        is_free_tier == other.is_free_tier &&
+        system_tags == other.system_tags &&
+        time_reclamation_of_free_autonomous_database == other.time_reclamation_of_free_autonomous_database &&
+        time_deletion_of_free_autonomous_database == other.time_deletion_of_free_autonomous_database &&
         cpu_core_count == other.cpu_core_count &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         is_dedicated == other.is_dedicated &&
@@ -465,7 +526,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, cpu_core_count, data_storage_size_in_tbs, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, db_version, is_preview, db_workload, whitelisted_ips, is_auto_scaling_enabled].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, cpu_core_count, data_storage_size_in_tbs, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, db_version, is_preview, db_workload, whitelisted_ips, is_auto_scaling_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

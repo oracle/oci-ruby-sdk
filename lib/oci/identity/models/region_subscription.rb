@@ -26,6 +26,9 @@ module OCI
     # - `IAD`
     # - `FRA`
     # - `LHR`
+    # - `YYZ`
+    # - `NRT`
+    # - `ICN`
     #
     # @return [String]
     attr_accessor :region_key
@@ -33,10 +36,13 @@ module OCI
     # **[Required]** The region's name.
     #
     # Allowed values are:
-    # - `us-phoenix-1`
-    # - `us-ashburn-1`
+    # - `ap-seoul-1`
+    # - `ap-tokyo-1`
+    # - `ca-toronto-1`
     # - `eu-frankurt-1`
     # - `uk-london-1`
+    # - `us-ashburn-1`
+    # - `us-phoenix-1`
     #
     # @return [String]
     attr_accessor :region_name

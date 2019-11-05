@@ -8,7 +8,8 @@ module OCI
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ResourceManager::Models::CreateConfigSourceDetails
-    # **[Required]** The configuration file type.
+    # **[Required]** Specifies the `configSourceType` for uploading the Terraform configuration.
+    # Presently, the .zip file type (`ZIP_UPLOAD`) is the only supported `configSourceType`.
     #
     # @return [String]
     attr_accessor :config_source_type

@@ -36,6 +36,11 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
     # **[Required]** The shape of the Autonomous Exadata Infrastructure. The shape determines resources allocated to the Autonomous Exadata Infrastructure (CPU cores, memory and storage). To get a list of shapes, use the ListDbSystemShapes operation.
     # @return [String]
     attr_accessor :shape
@@ -66,8 +71,6 @@ module OCI
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
-    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
@@ -79,6 +82,7 @@ module OCI
         'display_name': :'displayName',
         'availability_domain': :'availabilityDomain',
         'subnet_id': :'subnetId',
+        'nsg_ids': :'nsgIds',
         'shape': :'shape',
         'domain': :'domain',
         'license_model': :'licenseModel',
@@ -97,6 +101,7 @@ module OCI
         'display_name': :'String',
         'availability_domain': :'String',
         'subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
         'shape': :'String',
         'domain': :'String',
         'license_model': :'String',
@@ -117,6 +122,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :domain The value to assign to the {#domain} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
@@ -152,6 +158,12 @@ module OCI
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
@@ -205,6 +217,7 @@ module OCI
         display_name == other.display_name &&
         availability_domain == other.availability_domain &&
         subnet_id == other.subnet_id &&
+        nsg_ids == other.nsg_ids &&
         shape == other.shape &&
         domain == other.domain &&
         license_model == other.license_model &&
@@ -226,7 +239,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, availability_domain, subnet_id, shape, domain, license_model, maintenance_window_details, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, availability_domain, subnet_id, nsg_ids, shape, domain, license_model, maintenance_window_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

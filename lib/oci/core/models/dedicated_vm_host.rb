@@ -5,7 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A dedicated virtual machine (VM) host that enables you to host multiple virtual machine instances on a dedicated host that is not shared with other tenancies.
+  # A dedicated virtual machine host that enables you to host multiple VM instances
+  # on a dedicated host that is not shared with other tenancies.
   #
   class Core::Models::DedicatedVmHost
     LIFECYCLE_STATE_ENUM = [
@@ -18,18 +19,18 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The availability domain the dedicated VM host is running in.
+    # **[Required]** The availability domain the dedicated virtual machine host is running in.
     #
     # Example: `Uocm:PHX-AD-1`
     #
     # @return [String]
     attr_accessor :availability_domain
 
-    # **[Required]** The OCID of the compartment that contains the dedicated VM host.
+    # **[Required]** The OCID of the compartment that contains the dedicated virtual machine host.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The shape of the dedicated VM host. The shape determines the number of CPUs and
+    # **[Required]** The dedicated virtual machine host shape. The shape determines the number of CPUs and
     # other resources available for VMs.
     #
     # @return [String]
@@ -51,12 +52,13 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The fault domain for the dedicated VM host's assigned instances. For more information, see Fault Domains.
+    # The fault domain for the dedicated virtual machine host's assigned instances.
+    # For more information, see [Fault Domains](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#fault).
     #
-    # If you do not specify the fault domain, the system selects one for you. To change the fault domain for a dedicated VM host,
-    # delete it and create a new dedicated VM host in the preferred fault domain.
+    # If you do not specify the fault domain, the system selects one for you. To change the fault domain for a dedicated virtual machine host,
+    # delete it, and then create a new dedicated virtual machine host in the preferred fault domain.
     #
-    # To get a list of fault domains, use the ListFaultDomains operation in the Identity and Access Management Service API.
+    # To get a list of fault domains, use the `ListFaultDomains` operation in the [Identity and Access Management Service API](https://docs.cloud.oracle.com/iaas/api/#/en/identity/20160918/).
     #
     # Example: `FAULT-DOMAIN-1`
     #

@@ -9,6 +9,7 @@ module OCI
       REGION_AP_MUMBAI_1 = 'ap-mumbai-1'.freeze,
       REGION_AP_SEOUL_1 = 'ap-seoul-1'.freeze,
       REGION_AP_TOKYO_1 = 'ap-tokyo-1'.freeze,
+      REGION_AP_SYDNEY_1 = 'ap-sydney-1'.freeze,
       REGION_CA_TORONTO_1 = 'ca-toronto-1'.freeze,
       REGION_EU_FRANKFURT_1 = 'eu-frankfurt-1'.freeze,
       REGION_EU_ZURICH_1 = 'eu-zurich-1'.freeze,
@@ -32,6 +33,7 @@ module OCI
       'lhr': REGION_UK_LONDON_1,
       'nrt': REGION_AP_TOKYO_1,
       'phx': REGION_US_PHOENIX_1,
+      'syd': REGION_AP_SYDNEY_1,
       'yyz': REGION_CA_TORONTO_1,
       'zrh': REGION_EU_ZURICH_1
     }.freeze
@@ -40,6 +42,7 @@ module OCI
     REGION_REALM_MAPPING = {
       'ap-mumbai-1': 'oc1'.freeze,
       'ap-seoul-1': 'oc1'.freeze,
+      'ap-sydney-1': 'oc1'.freeze,
       'ap-tokyo-1': 'oc1'.freeze,
       'ca-toronto-1': 'oc1'.freeze,
       'eu-frankfurt-1': 'oc1'.freeze,

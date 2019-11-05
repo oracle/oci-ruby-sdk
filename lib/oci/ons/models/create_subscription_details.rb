@@ -17,19 +17,34 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The protocol to use for delivering messages. Valid values: EMAIL, HTTPS.
+    # **[Required]** The protocol used for the subscription.
+    #
+    # Allowed values:
+    #   * `CUSTOM_HTTPS`
+    #   * `EMAIL`
+    #   * `HTTPS` (deprecated; for PagerDuty endpoints, use `PAGERDUTY`)
+    #   * `PAGERDUTY`
+    #   * `SLACK`
+    #
+    # For information about subscription protocols, see
+    # [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
     #
     # @return [String]
     attr_accessor :protocol
 
-    # **[Required]** The endpoint of the subscription. Valid values depend on the protocol.
-    # For EMAIL, only an email address is valid. For HTTPS, only a PagerDuty URL is valid. A URL cannot exceed 512 characters.
+    # **[Required]** A locator that corresponds to the subscription protocol.
+    # For example, an email address for a subscription that uses the `EMAIL` protocol, or a URL for a subscription that uses an HTTP-based protocol.
+    # HTTP-based protocols use URL endpoints that begin with \"http:\" or \"https:\".
+    # A URL cannot exceed 512 characters.
     # Avoid entering confidential information.
+    #
+    # For protocol-specific endpoint formats and steps to get or create endpoints, see
+    # [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
     #
     # @return [String]
     attr_accessor :endpoint
 
-    # Metadata for the subscription. Avoid entering confidential information.
+    # Metadata for the subscription.
     # @return [String]
     attr_accessor :metadata
 

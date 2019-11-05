@@ -1232,8 +1232,8 @@ module OCI
     # Calls {OCI::LoadBalancer::LoadBalancerClient#update_network_security_groups} and then waits for the {OCI::LoadBalancer::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::LoadBalancer::Models::UpdateNetworkSecurityGroupsDetails] update_network_security_groups_details The details for updating the NSGs of the load balancer.
-    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer on which update the NSGs.
+    # @param [OCI::LoadBalancer::Models::UpdateNetworkSecurityGroupsDetails] update_network_security_groups_details The details for updating the NSGs associated with the specified load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer to update the NSGs for.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LoadBalancer::Models::WorkRequest#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LoadBalancer::LoadBalancerClient#update_network_security_groups}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

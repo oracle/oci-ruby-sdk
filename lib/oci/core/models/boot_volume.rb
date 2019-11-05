@@ -45,6 +45,12 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # System tags for this resource. Each key is predefined and scoped to a namespace.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
@@ -110,6 +116,7 @@ module OCI
         'availability_domain': :'availabilityDomain',
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
+        'system_tags': :'systemTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'id': :'id',
@@ -133,6 +140,7 @@ module OCI
         'availability_domain': :'String',
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
@@ -158,6 +166,7 @@ module OCI
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
@@ -193,6 +202,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -290,6 +305,7 @@ module OCI
         availability_domain == other.availability_domain &&
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
+        system_tags == other.system_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         id == other.id &&
@@ -317,7 +333,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, image_id, is_hydrated, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, kms_key_id].hash
+      [availability_domain, compartment_id, defined_tags, system_tags, display_name, freeform_tags, id, image_id, is_hydrated, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, kms_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

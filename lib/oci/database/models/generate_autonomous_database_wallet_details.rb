@@ -7,6 +7,16 @@ module OCI
   # Details to create and download an Oracle Autonomous Database wallet.
   #
   class Database::Models::GenerateAutonomousDatabaseWalletDetails
+    GENERATE_TYPE_ENUM = [
+      GENERATE_TYPE_ALL = 'ALL'.freeze,
+      GENERATE_TYPE_SINGLE = 'SINGLE'.freeze
+    ].freeze
+
+    # The type of wallet to generate. `SINGLE` is used to generate a wallet for a single database. `ALL` is used to generate wallet for all databases in the region.
+    #
+    # @return [String]
+    attr_reader :generate_type
+
     # **[Required]** The password to encrypt the keys inside the wallet. The password must be at least 8 characters long and must include at least 1 letter and either 1 numeric character or 1 special character.
     # @return [String]
     attr_accessor :password
@@ -15,6 +25,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'generate_type': :'generateType',
         'password': :'password'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -24,6 +35,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'generate_type': :'String',
         'password': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -35,6 +47,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :generate_type The value to assign to the {#generate_type} property
     # @option attributes [String] :password The value to assign to the {#password} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -42,10 +55,26 @@ module OCI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
+      self.generate_type = attributes[:'generateType'] if attributes[:'generateType']
+      self.generate_type = "SINGLE" if generate_type.nil? && !attributes.key?(:'generateType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :generateType and :generate_type' if attributes.key?(:'generateType') && attributes.key?(:'generate_type')
+
+      self.generate_type = attributes[:'generate_type'] if attributes[:'generate_type']
+      self.generate_type = "SINGLE" if generate_type.nil? && !attributes.key?(:'generateType') && !attributes.key?(:'generate_type') # rubocop:disable Style/StringLiterals
+
       self.password = attributes[:'password'] if attributes[:'password']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] generate_type Object to be assigned
+    def generate_type=(generate_type)
+      raise "Invalid value for 'generate_type': this must be one of the values in GENERATE_TYPE_ENUM." if generate_type && !GENERATE_TYPE_ENUM.include?(generate_type)
+
+      @generate_type = generate_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -56,6 +85,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        generate_type == other.generate_type &&
         password == other.password
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -72,7 +102,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [password].hash
+      [generate_type, password].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

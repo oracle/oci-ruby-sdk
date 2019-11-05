@@ -120,6 +120,9 @@ module OCI
     # @return [String]
     attr_accessor :ipxe_script
 
+    # @return [OCI::Core::Models::LaunchOptions]
+    attr_accessor :launch_options
+
     # Custom metadata key/value pairs that you provide, such as the SSH public key
     # required to connect to the instance.
     #
@@ -226,6 +229,7 @@ module OCI
         'hostname_label': :'hostnameLabel',
         'image_id': :'imageId',
         'ipxe_script': :'ipxeScript',
+        'launch_options': :'launchOptions',
         'metadata': :'metadata',
         'agent_config': :'agentConfig',
         'shape': :'shape',
@@ -252,6 +256,7 @@ module OCI
         'hostname_label': :'String',
         'image_id': :'String',
         'ipxe_script': :'String',
+        'launch_options': :'OCI::Core::Models::LaunchOptions',
         'metadata': :'Hash<String, String>',
         'agent_config': :'OCI::Core::Models::LaunchInstanceAgentConfigDetails',
         'shape': :'String',
@@ -280,6 +285,7 @@ module OCI
     # @option attributes [String] :hostname_label The value to assign to the {#hostname_label} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
     # @option attributes [String] :ipxe_script The value to assign to the {#ipxe_script} property
+    # @option attributes [OCI::Core::Models::LaunchOptions] :launch_options The value to assign to the {#launch_options} property
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     # @option attributes [OCI::Core::Models::LaunchInstanceAgentConfigDetails] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
@@ -364,6 +370,12 @@ module OCI
 
       self.ipxe_script = attributes[:'ipxe_script'] if attributes[:'ipxe_script']
 
+      self.launch_options = attributes[:'launchOptions'] if attributes[:'launchOptions']
+
+      raise 'You cannot provide both :launchOptions and :launch_options' if attributes.key?(:'launchOptions') && attributes.key?(:'launch_options')
+
+      self.launch_options = attributes[:'launch_options'] if attributes[:'launch_options']
+
       self.metadata = attributes[:'metadata'] if attributes[:'metadata']
 
       self.agent_config = attributes[:'agentConfig'] if attributes[:'agentConfig']
@@ -416,6 +428,7 @@ module OCI
         hostname_label == other.hostname_label &&
         image_id == other.image_id &&
         ipxe_script == other.ipxe_script &&
+        launch_options == other.launch_options &&
         metadata == other.metadata &&
         agent_config == other.agent_config &&
         shape == other.shape &&
@@ -437,7 +450,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, create_vnic_details, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, metadata, agent_config, shape, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
+      [availability_domain, compartment_id, create_vnic_details, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, launch_options, metadata, agent_config, shape, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

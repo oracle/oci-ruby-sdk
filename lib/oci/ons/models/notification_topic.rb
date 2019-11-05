@@ -5,7 +5,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The properties that define a topic.
+  # The properties that define a topic. For general information about topics, see
+  # [Notifications Overview](https://docs.cloud.oracle.com/iaas/Content/Notification/Concepts/notificationoverview.htm).
   #
   class Ons::Models::NotificationTopic
     LIFECYCLE_STATE_ENUM = [

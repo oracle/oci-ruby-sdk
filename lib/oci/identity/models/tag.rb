@@ -9,6 +9,9 @@ module OCI
   # you can apply them to resources.
   # For more information, see [Managing Tags and Tag Namespaces](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm).
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values
+  # using the API.
+  #
   class Identity::Models::Tag
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
@@ -35,7 +38,8 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The name of the tag. The name must be unique across all tags in the namespace and can't be changed.
+    # **[Required]** The name assigned to the tag during creation. This is the tag key definition.
+    # The name must be unique within the tag namespace and cannot be changed.
     #
     # @return [String]
     attr_accessor :name
@@ -64,7 +68,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_retired
 
-    # The tag's current state. After creating a tag, make sure its `lifecycleState` is ACTIVE before using it. After retiring a tag, make sure its `lifecycleState` is INACTIVE before using it.
+    # The tag's current state. After creating a tag, make sure its `lifecycleState` is ACTIVE before using it. After retiring a tag, make sure its `lifecycleState` is INACTIVE before using it. If you delete a tag, you cannot delete another tag until the deleted tag's `lifecycleState` changes from DELETING to DELETED.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -78,6 +82,15 @@ module OCI
     #
     # @return [BOOLEAN]
     attr_accessor :is_cost_tracking
+
+    # Additional validation rule for values specified for the tag definition.
+    #
+    # If no validator is defined for a tag definition, then any (valid) value will be accepted.
+    #
+    # To clear the validator call the UPDATE operation with DefaultTagDefinitionValidator
+    #
+    # @return [OCI::Identity::Models::BaseTagDefinitionValidator]
+    attr_accessor :validator
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -94,7 +107,8 @@ module OCI
         'is_retired': :'isRetired',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
-        'is_cost_tracking': :'isCostTracking'
+        'is_cost_tracking': :'isCostTracking',
+        'validator': :'validator'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -114,7 +128,8 @@ module OCI
         'is_retired': :'BOOLEAN',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
-        'is_cost_tracking': :'BOOLEAN'
+        'is_cost_tracking': :'BOOLEAN',
+        'validator': :'OCI::Identity::Models::BaseTagDefinitionValidator'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -137,6 +152,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [BOOLEAN] :is_cost_tracking The value to assign to the {#is_cost_tracking} property
+    # @option attributes [OCI::Identity::Models::BaseTagDefinitionValidator] :validator The value to assign to the {#validator} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -202,6 +218,8 @@ module OCI
       raise 'You cannot provide both :isCostTracking and :is_cost_tracking' if attributes.key?(:'isCostTracking') && attributes.key?(:'is_cost_tracking')
 
       self.is_cost_tracking = attributes[:'is_cost_tracking'] unless attributes[:'is_cost_tracking'].nil?
+
+      self.validator = attributes[:'validator'] if attributes[:'validator']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -239,7 +257,8 @@ module OCI
         is_retired == other.is_retired &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
-        is_cost_tracking == other.is_cost_tracking
+        is_cost_tracking == other.is_cost_tracking &&
+        validator == other.validator
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -255,7 +274,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, tag_namespace_id, tag_namespace_name, id, name, description, freeform_tags, defined_tags, is_retired, lifecycle_state, time_created, is_cost_tracking].hash
+      [compartment_id, tag_namespace_id, tag_namespace_name, id, name, description, freeform_tags, defined_tags, is_retired, lifecycle_state, time_created, is_cost_tracking, validator].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

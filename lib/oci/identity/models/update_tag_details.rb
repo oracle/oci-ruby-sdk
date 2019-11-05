@@ -35,6 +35,15 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_cost_tracking
 
+    # Additional validation rule for values specified for the tag definition.
+    #
+    # If no validator is defined for a tag definition, then any (valid) value will be accepted.
+    #
+    # The default value for `validator` is an empty map (no additional validation).
+    #
+    # @return [OCI::Identity::Models::BaseTagDefinitionValidator]
+    attr_accessor :validator
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -43,7 +52,8 @@ module OCI
         'is_retired': :'isRetired',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'is_cost_tracking': :'isCostTracking'
+        'is_cost_tracking': :'isCostTracking',
+        'validator': :'validator'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -56,7 +66,8 @@ module OCI
         'is_retired': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'is_cost_tracking': :'BOOLEAN'
+        'is_cost_tracking': :'BOOLEAN',
+        'validator': :'OCI::Identity::Models::BaseTagDefinitionValidator'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -72,6 +83,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [BOOLEAN] :is_cost_tracking The value to assign to the {#is_cost_tracking} property
+    # @option attributes [OCI::Identity::Models::BaseTagDefinitionValidator] :validator The value to assign to the {#validator} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -103,6 +115,8 @@ module OCI
       raise 'You cannot provide both :isCostTracking and :is_cost_tracking' if attributes.key?(:'isCostTracking') && attributes.key?(:'is_cost_tracking')
 
       self.is_cost_tracking = attributes[:'is_cost_tracking'] unless attributes[:'is_cost_tracking'].nil?
+
+      self.validator = attributes[:'validator'] if attributes[:'validator']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -120,7 +134,8 @@ module OCI
         is_retired == other.is_retired &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        is_cost_tracking == other.is_cost_tracking
+        is_cost_tracking == other.is_cost_tracking &&
+        validator == other.validator
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -136,7 +151,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, is_retired, freeform_tags, defined_tags, is_cost_tracking].hash
+      [description, is_retired, freeform_tags, defined_tags, is_cost_tracking, validator].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

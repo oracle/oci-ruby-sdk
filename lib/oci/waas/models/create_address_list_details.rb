@@ -4,7 +4,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The data used to create a new address list.
+  # The data used to create a new address list of IP addresses and CIDR notations.
   class Waas::Models::CreateAddressListDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment in which to create the address list.
     # @return [String]

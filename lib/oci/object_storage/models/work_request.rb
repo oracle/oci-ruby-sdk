@@ -9,6 +9,7 @@ module OCI
   class ObjectStorage::Models::WorkRequest
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_COPY_OBJECT = 'COPY_OBJECT'.freeze,
+      OPERATION_TYPE_REENCRYPT = 'REENCRYPT'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -34,10 +35,12 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The OCID of the compartment that contains the work request. Work requests should be scoped to
-    # the same compartment as the resource the work request affects. If the work request affects multiple resources,
-    # and those resources are not in the same compartment, it is up to the service team to pick the primary
-    # resource whose compartment should be used.
+    # The OCID of the compartment that contains the work request. Work requests are scoped to the same compartment
+    # as the resource the work request affects.
+    #
+    # If the work request affects multiple resources and those resources are not in the same compartment, the OCID of
+    # the primary resource is used. For example, you can copy an object in a bucket in one compartment to a bucket in
+    # another compartment. In this case, the OCID of the source compartment is used.
     #
     # @return [String]
     attr_accessor :compartment_id

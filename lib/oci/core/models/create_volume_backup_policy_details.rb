@@ -4,37 +4,47 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for creating a database home.
-  #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-  #
-  # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
-  class Database::Models::CreateDbHomeWithDbSystemIdBase
-    SOURCE_ENUM = [
-      SOURCE_NONE = 'NONE'.freeze,
-      SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze
-    ].freeze
-
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
+  # Contains properties for a scheduled backup policy.
+  class Core::Models::CreateVolumeBackupPolicyDetails
+    # **[Required]** The OCID of the compartment that contains the backup policy.
     # @return [String]
-    attr_accessor :db_system_id
+    attr_accessor :compartment_id
 
-    # The user-provided name of the database home.
+    # A user-friendly name for the volume backup policy. Does not have to be unique and it's changeable.
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
-    # The source of database: NONE for creating a new database. DB_BACKUP for creating a new database by restoring from a database backup.
+    # The collection of schedules that this policy will apply.
+    # @return [Array<OCI::Core::Models::VolumeBackupSchedule>]
+    attr_accessor :schedules
+
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
-    # @return [String]
-    attr_reader :source
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'db_system_id': :'dbSystemId',
+        'compartment_id': :'compartmentId',
         'display_name': :'displayName',
-        'source': :'source'
+        'schedules': :'schedules',
+        'defined_tags': :'definedTags',
+        'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,28 +53,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'db_system_id': :'String',
+        'compartment_id': :'String',
         'display_name': :'String',
-        'source': :'String'
+        'schedules': :'Array<OCI::Core::Models::VolumeBackupSchedule>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
-
-
-    # Given the hash representation of a subtype of this class,
-    # use the info in the hash to return the class of the subtype.
-    def self.get_subtype(object_hash)
-      type = object_hash[:'source'] # rubocop:disable Style/SymbolLiteral
-
-      return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdFromBackupDetails' if type == 'DB_BACKUP'
-      return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdDetails' if type == 'NONE'
-
-      # TODO: Log a warning when the subtype is not found.
-      'OCI::Database::Models::CreateDbHomeWithDbSystemIdBase'
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -72,20 +68,22 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [String] :source The value to assign to the {#source} property
+    # @option attributes [Array<OCI::Core::Models::VolumeBackupSchedule>] :schedules The value to assign to the {#schedules} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.db_system_id = attributes[:'dbSystemId'] if attributes[:'dbSystemId']
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
-      raise 'You cannot provide both :dbSystemId and :db_system_id' if attributes.key?(:'dbSystemId') && attributes.key?(:'db_system_id')
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
-      self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -93,19 +91,22 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.source = attributes[:'source'] if attributes[:'source']
-      self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
+      self.schedules = attributes[:'schedules'] if attributes[:'schedules']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] source Object to be assigned
-    def source=(source)
-      raise "Invalid value for 'source': this must be one of the values in SOURCE_ENUM." if source && !SOURCE_ENUM.include?(source)
-
-      @source = source
-    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -116,9 +117,11 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        db_system_id == other.db_system_id &&
+        compartment_id == other.compartment_id &&
         display_name == other.display_name &&
-        source == other.source
+        schedules == other.schedules &&
+        defined_tags == other.defined_tags &&
+        freeform_tags == other.freeform_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -134,7 +137,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_system_id, display_name, source].hash
+      [compartment_id, display_name, schedules, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

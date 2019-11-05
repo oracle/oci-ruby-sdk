@@ -240,6 +240,69 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Assembles tag defaults in the specified compartment and any parent compartments to determine
+    # the tags to apply. Tag defaults from parent compartments do not override tag defaults
+    # referencing the same tag in a compartment lower down the hierarchy. This set of tag defaults
+    # includes all tag defaults from the current compartment back to the root compartment.
+    #
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TagDefaultSummary TagDefaultSummary}>
+    def assemble_effective_tag_set(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#assemble_effective_tag_set.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling assemble_effective_tag_set." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::TagDefaultSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::TagDefaultSummary::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/tagDefaults/actions/assembleEffectiveTagSet'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#assemble_effective_tag_set') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::TagDefaultSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves the specified tag namespace to the specified compartment within the same tenancy.
     #
     # To move the tag namespace, you must have the manage tag-namespaces permission on both compartments.
@@ -1239,6 +1302,11 @@ module OCI
     # It does not have to be unique, and you can change it with
     # {#update_tag update_tag}.
     #
+    # If no 'validator' is set on this tag definition, then any (valid) value can be set for this definedTag.
+    #
+    # If a 'validator' is set on this tag definition, then the only valid values that can be set for this
+    # definedTag those that pass the additional validation imposed by the set 'validator'.
+    #
     # @param [String] tag_namespace_id The OCID of the tag namespace.
     #
     # @param [OCI::Identity::Models::CreateTagDetails] create_tag_details Request object for creating a new tag in the specified tag namespace.
@@ -1301,6 +1369,13 @@ module OCI
 
 
     # Creates a new tag default in the specified compartment for the specified tag definition.
+    #
+    # If you specify that a value is required, a value is set during resource creation (either by
+    # the user creating the resource or another tag defualt). If no value is set, resource creation
+    # is blocked.
+    #
+    # * If the `isRequired` flag is set to \"true\", the value is set during resource creation.
+    # * If the `isRequired` flag is set to \"false\", the value you enter is set during resource creation.
     #
     # @param [OCI::Identity::Models::CreateTagDefaultDetails] create_tag_default_details Request object for creating a new tag default.
     # @param [Hash] opts the optional parameters
@@ -1377,9 +1452,6 @@ module OCI
     # You must also specify a *description* for the namespace.
     # It does not have to be unique, and you can change it with
     # {#update_tag_namespace update_tag_namespace}.
-    #
-    # Tag namespaces cannot be deleted, but they can be retired.
-    # See [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring) for more information.
     #
     # @param [OCI::Identity::Models::CreateTagNamespaceDetails] create_tag_namespace_details Request object for creating a new tag namespace.
     # @param [Hash] opts the optional parameters
@@ -2230,7 +2302,24 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the the specified tag definition.
+    # Deletes the specified tag definition. This operation triggers a process that removes the
+    # tag from all resources in your tenancy.
+    #
+    # These things happen immediately:
+    # \u00A0
+    #   * If the tag was a cost-tracking tag, it no longer counts against your 10 cost-tracking
+    #   tags limit, whether you first disabled it or not.
+    #   * If the tag was used with dynamic groups, none of the rules that contain the tag will
+    #   be evaluated against the tag.
+    #
+    # Once you start the delete operation, the state of the tag changes to DELETING and tag removal
+    # from resources begins. This can take up to 48 hours depending on the number of resources that
+    # were tagged as well as the regions in which those resources reside. When all tags have been
+    # removed, the state changes to DELETED. You cannot restore a deleted tag. Once the deleted tag
+    # changes its state to DELETED, you can use the same tag name again.
+    #
+    # To delete a tag, you must first retire it. Use {#update_tag update_tag}
+    # to retire a tag.
     #
     # @param [String] tag_namespace_id The OCID of the tag namespace.
     #
@@ -2351,8 +2440,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete the specified tag namespace. Only an empty tagnamespace can be deleted.
-    # If the tag namespace you are trying to delete is not empty, please remove tag definitions from it first.
+    # Deletes the specified tag namespace. Only an empty tag namespace can be deleted. To delete
+    # a tag namespace, first delete all its tag definitions.
+    #
+    # Use {#delete_tag delete_tag} to delete a tag definition.
     #
     # @param [String] tag_namespace_id The OCID of the tag namespace.
     #
@@ -3128,6 +3219,61 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Identity::Models::TagNamespace'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets details on a specified work request. The workRequestID is returned in the opc-workrequest-id header
+    # for any asynchronous operation in the Identity and Access Management service.
+    #
+    # @param [String] work_request_id The OCID of the work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::TaggingWorkRequest TaggingWorkRequest}
+    def get_tagging_work_request(work_request_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#get_tagging_work_request.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling get_tagging_work_request." if work_request_id.nil?
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/taggingWorkRequests/{workRequestId}'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#get_tagging_work_request') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::TaggingWorkRequest'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -4663,6 +4809,183 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the errors for a work request.
+    #
+    # @param [String] work_request_id The OCID of the work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestErrorSummary TaggingWorkRequestErrorSummary}>
+    def list_tagging_work_request_errors(work_request_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_tagging_work_request_errors.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling list_tagging_work_request_errors." if work_request_id.nil?
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/taggingWorkRequests/{workRequestId}/errors'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_tagging_work_request_errors') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::TaggingWorkRequestErrorSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the logs for a work request.
+    #
+    # @param [String] work_request_id The OCID of the work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestLogSummary TaggingWorkRequestLogSummary}>
+    def list_tagging_work_request_logs(work_request_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_tagging_work_request_logs.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling list_tagging_work_request_logs." if work_request_id.nil?
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/taggingWorkRequests/{workRequestId}/logs'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_tagging_work_request_logs') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::TaggingWorkRequestLogSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the tagging work requests in compartment.
+    #
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :resource_identifier The identifier of the resource the work request affects.
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestSummary TaggingWorkRequestSummary}>
+    def list_tagging_work_requests(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_tagging_work_requests.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_tagging_work_requests." if compartment_id.nil?
+
+      path = '/taggingWorkRequests/'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:resourceIdentifier] = opts[:resource_identifier] if opts[:resource_identifier]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_tagging_work_requests') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::TaggingWorkRequestSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the tag definitions in the specified tag namespace.
     #
     # @param [String] tag_namespace_id The OCID of the tag namespace.
@@ -4929,7 +5252,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Move the compartment tree to a different parent compartment.
+    # Move the compartment to a different parent compartment in the same tenancy. When you move a
+    # compartment, all its contents (subcompartments and resources) are moved with it. Note that
+    # the `CompartmentId` that you specify in the path is the compartment that you want to move.
+    #
+    # **IMPORTANT**: After you move a compartment to a new parent compartment, the access policies of
+    # the new parent take effect and the policies of the previous parent no longer apply. Ensure that you
+    # are aware of the implications for the compartment contents before you move it. For more
+    # information, see [Moving a Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#MoveCompartment).
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [OCI::Identity::Models::MoveCompartmentDetails] move_compartment_details Request object for moving a compartment.
@@ -5771,7 +6101,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the the specified tag definition. You can update `description`, and `isRetired`.
+    # Updates the specified tag definition.
+    #
+    # Setting a 'validator' will enable enforcement of additional validation on values contained in the specified for
+    # this definedTag. Any values that were previously set will not be changed, but any new value set for the
+    # definedTag must pass validation.
     #
     # @param [String] tag_namespace_id The OCID of the tag namespace.
     #
@@ -5835,7 +6169,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified tag default. You can update the following field: `value`.
+    # Updates the specified tag default. If you specify that a value is required, a value is set
+    # during resource creation (either by the user creating the resource or another tag defualt).
+    # If no value is set, resource creation is blocked.
+    #
+    # * If the `isRequired` flag is set to \"true\", the value is set during resource creation.
+    # * If the `isRequired` flag is set to \"false\", the value you enter is set during resource creation.
     #
     # @param [String] tag_default_id The OCID of the tag default.
     # @param [OCI::Identity::Models::UpdateTagDefaultDetails] update_tag_default_details Request object for updating a tag default.

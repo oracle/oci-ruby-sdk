@@ -4,17 +4,16 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies which plan job provides an execution plan for input to the apply or destroy job.
-  # You can set only one of the three job properties. For destroy jobs, only `isAutoApproved` is permitted.
+  # Deprecated. Use the property `executionPlanStrategy` in `jobOperationDetails` instead.
   #
   class ResourceManager::Models::ApplyJobPlanResolution
-    # OCID that specifies the most recently executed plan job.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) that specifies the most recently executed plan job.
     #
     # @return [String]
     attr_accessor :plan_job_id
 
-    # Specifies whether to use the OCID of the most recently run plan job.
-    # `True` if using the latest job OCID. Must be a plan job that completed successfully.
+    # Specifies whether to use the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the most recently run plan job.
+    # `True` if using the latest job [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be a plan job that completed successfully.
     #
     # @return [BOOLEAN]
     attr_accessor :is_use_latest_job_id

@@ -17,7 +17,7 @@ module OCI
     # @return [String]
     attr_accessor :source_id
 
-    # **[Required]** The clone type.
+    # **[Required]** The Autonomous Database clone type.
     # @return [String]
     attr_reader :clone_type
 
@@ -30,6 +30,7 @@ module OCI
         'cpu_core_count': :'cpuCoreCount',
         'db_workload': :'dbWorkload',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'is_free_tier': :'isFreeTier',
         'admin_password': :'adminPassword',
         'display_name': :'displayName',
         'license_model': :'licenseModel',
@@ -55,6 +56,7 @@ module OCI
         'cpu_core_count': :'Integer',
         'db_workload': :'String',
         'data_storage_size_in_tbs': :'Integer',
+        'is_free_tier': :'BOOLEAN',
         'admin_password': :'String',
         'display_name': :'String',
         'license_model': :'String',
@@ -82,6 +84,7 @@ module OCI
     # @option attributes [Integer] :cpu_core_count The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#cpu_core_count #cpu_core_count} proprety
     # @option attributes [String] :db_workload The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#db_workload #db_workload} proprety
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#data_storage_size_in_tbs #data_storage_size_in_tbs} proprety
+    # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_free_tier #is_free_tier} proprety
     # @option attributes [String] :admin_password The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#admin_password #admin_password} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#display_name #display_name} proprety
     # @option attributes [String] :license_model The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#license_model #license_model} proprety
@@ -140,6 +143,7 @@ module OCI
         cpu_core_count == other.cpu_core_count &&
         db_workload == other.db_workload &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        is_free_tier == other.is_free_tier &&
         admin_password == other.admin_password &&
         display_name == other.display_name &&
         license_model == other.license_model &&
@@ -167,7 +171,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, freeform_tags, defined_tags, source, source_id, clone_type].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, freeform_tags, defined_tags, source, source_id, clone_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

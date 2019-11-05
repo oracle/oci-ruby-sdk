@@ -28,7 +28,8 @@ module OCI
     # @return [Hash<String, OCI::Waas::Models::Origin>]
     attr_accessor :origins
 
-    # The map of origin groups and their keys used to associate origins to the wafConfig.
+    # The map of origin groups and their keys used to associate origins to the `wafConfig`. Origin groups allow you to apply weights to groups of origins for load balancing purposes. Origins with higher weights will receive larger proportions of client requests.
+    # To add additional origins to your WAAS policy, update the `origins` field of a `UpdateWaasPolicy` request.
     # @return [Hash<String, OCI::Waas::Models::OriginGroup>]
     attr_accessor :origin_groups
 

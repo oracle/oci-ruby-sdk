@@ -15,6 +15,9 @@ module OCI
   # talk to an administrator. If you're an administrator who needs to write policies to give users access,
   # see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string
+  # values using the API.
+  #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Identity::Models::IdentityProvider
     LIFECYCLE_STATE_ENUM = [

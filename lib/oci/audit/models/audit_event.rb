@@ -4,126 +4,80 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # AuditEvent model.
+  # All the attributes of an audit event. For more information, see [Viewing Audit Log Events](https://docs.cloud.oracle.com/iaas/Content/Audit/Tasks/viewinglogevents.htm).
+  #
   class Audit::Models::AuditEvent
-    # The OCID of the tenant.
-    # @return [String]
-    attr_accessor :tenant_id
-
-    # The OCID of the compartment.
-    # @return [String]
-    attr_accessor :compartment_id
-
-    # The name of the compartment. This value is the friendly name associated with compartmentId.
-    # This value can change, but the service logs the value that appeared at the time of the audit event.
+    # The type of event that happened.
     #
-    # @return [String]
-    attr_accessor :compartment_name
-
-    # The GUID of the event.
-    # @return [String]
-    attr_accessor :event_id
-
-    # The name of the event.
-    # Example: `LaunchInstance`
+    # The service that produces the event can also add, remove, or change the meaning of a field.
+    # A service implementing these type changes would publish a new version of an `eventType` and
+    # revise the `eventTypeVersion` field.
     #
-    # @return [String]
-    attr_accessor :event_name
-
-    # The source of the event.
-    # @return [String]
-    attr_accessor :event_source
-
-    # The type of the event.
+    # Example: `com.oraclecloud.ComputeApi.GetInstance`
+    #
     # @return [String]
     attr_accessor :event_type
 
+    # The version of the CloudEvents specification. The structure of the envelope follows the
+    # [CloudEvents](https://github.com/cloudevents/spec) industry standard format hosted by the
+    # [Cloud Native Computing Foundation ( CNCF)](https://www.cncf.io/).
+    #
+    # Audit uses version 0.1 specification of the CloudEvents event envelope.
+    #
+    # Example: `0.1`
+    #
+    # @return [String]
+    attr_accessor :cloud_events_version
+
+    # The version of the event type. This version applies to the payload of the event, not the envelope.
+    # Use `cloudEventsVersion` to determine the version of the envelope.
+    #
+    # Example: `2.0`
+    #
+    # @return [String]
+    attr_accessor :event_type_version
+
+    # The source of the event.
+    #
+    # Example: `ComputeApi`
+    #
+    # @return [String]
+    attr_accessor :source
+
+    # The GUID of the event.
+    #
+    # @return [String]
+    attr_accessor :event_id
+
     # The time the event occurred, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    #
+    # Example: `2019-09-18T00:10:59.252Z`
+    #
     # @return [DateTime]
     attr_accessor :event_time
 
-    # The OCID of the user whose action triggered the event.
+    # The content type of the data contained in `data`.
+    #
+    # Example: `application/json`
+    #
     # @return [String]
-    attr_accessor :principal_id
+    attr_accessor :content_type
 
-    # The credential ID of the user. This value is extracted from the HTTP 'Authorization' request header. It consists of the tenantId, userId, and user fingerprint, all delimited by a slash (/).
-    # @return [String]
-    attr_accessor :credential_id
-
-    # The HTTP method of the request.
-    # @return [String]
-    attr_accessor :request_action
-
-    # The opc-request-id of the request.
-    # @return [String]
-    attr_accessor :request_id
-
-    # The user agent of the client that made the request.
-    # @return [String]
-    attr_accessor :request_agent
-
-    # The HTTP header fields and values in the request.
-    # @return [Hash<String, Array<String>>]
-    attr_accessor :request_headers
-
-    # The IP address of the source of the request.
-    # @return [String]
-    attr_accessor :request_origin
-
-    # The query parameter fields and values for the request.
-    # @return [Hash<String, Array<String>>]
-    attr_accessor :request_parameters
-
-    # The resource targeted by the request.
-    # @return [String]
-    attr_accessor :request_resource
-
-    # The headers of the response.
-    # @return [Hash<String, Array<String>>]
-    attr_accessor :response_headers
-
-    # The status code of the response.
-    # @return [String]
-    attr_accessor :response_status
-
-    # The time of the response to the audited request, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
-    # @return [DateTime]
-    attr_accessor :response_time
-
-    # Metadata of interest from the response payload. For example, the OCID of a resource.
-    # @return [Hash<String, Object>]
-    attr_accessor :response_payload
-
-    # The name of the user or service. This value is the friendly name associated with principalId.
-    # @return [String]
-    attr_accessor :user_name
+    # @return [OCI::Audit::Models::Data]
+    attr_accessor :data
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'tenant_id': :'tenantId',
-        'compartment_id': :'compartmentId',
-        'compartment_name': :'compartmentName',
-        'event_id': :'eventId',
-        'event_name': :'eventName',
-        'event_source': :'eventSource',
         'event_type': :'eventType',
+        'cloud_events_version': :'cloudEventsVersion',
+        'event_type_version': :'eventTypeVersion',
+        'source': :'source',
+        'event_id': :'eventId',
         'event_time': :'eventTime',
-        'principal_id': :'principalId',
-        'credential_id': :'credentialId',
-        'request_action': :'requestAction',
-        'request_id': :'requestId',
-        'request_agent': :'requestAgent',
-        'request_headers': :'requestHeaders',
-        'request_origin': :'requestOrigin',
-        'request_parameters': :'requestParameters',
-        'request_resource': :'requestResource',
-        'response_headers': :'responseHeaders',
-        'response_status': :'responseStatus',
-        'response_time': :'responseTime',
-        'response_payload': :'responsePayload',
-        'user_name': :'userName'
+        'content_type': :'contentType',
+        'data': :'data'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -132,28 +86,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'tenant_id': :'String',
-        'compartment_id': :'String',
-        'compartment_name': :'String',
-        'event_id': :'String',
-        'event_name': :'String',
-        'event_source': :'String',
         'event_type': :'String',
+        'cloud_events_version': :'String',
+        'event_type_version': :'String',
+        'source': :'String',
+        'event_id': :'String',
         'event_time': :'DateTime',
-        'principal_id': :'String',
-        'credential_id': :'String',
-        'request_action': :'String',
-        'request_id': :'String',
-        'request_agent': :'String',
-        'request_headers': :'Hash<String, Array<String>>',
-        'request_origin': :'String',
-        'request_parameters': :'Hash<String, Array<String>>',
-        'request_resource': :'String',
-        'response_headers': :'Hash<String, Array<String>>',
-        'response_status': :'String',
-        'response_time': :'DateTime',
-        'response_payload': :'Hash<String, Object>',
-        'user_name': :'String'
+        'content_type': :'String',
+        'data': :'OCI::Audit::Models::Data'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -164,69 +104,19 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :tenant_id The value to assign to the {#tenant_id} property
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :compartment_name The value to assign to the {#compartment_name} property
-    # @option attributes [String] :event_id The value to assign to the {#event_id} property
-    # @option attributes [String] :event_name The value to assign to the {#event_name} property
-    # @option attributes [String] :event_source The value to assign to the {#event_source} property
     # @option attributes [String] :event_type The value to assign to the {#event_type} property
+    # @option attributes [String] :cloud_events_version The value to assign to the {#cloud_events_version} property
+    # @option attributes [String] :event_type_version The value to assign to the {#event_type_version} property
+    # @option attributes [String] :source The value to assign to the {#source} property
+    # @option attributes [String] :event_id The value to assign to the {#event_id} property
     # @option attributes [DateTime] :event_time The value to assign to the {#event_time} property
-    # @option attributes [String] :principal_id The value to assign to the {#principal_id} property
-    # @option attributes [String] :credential_id The value to assign to the {#credential_id} property
-    # @option attributes [String] :request_action The value to assign to the {#request_action} property
-    # @option attributes [String] :request_id The value to assign to the {#request_id} property
-    # @option attributes [String] :request_agent The value to assign to the {#request_agent} property
-    # @option attributes [Hash<String, Array<String>>] :request_headers The value to assign to the {#request_headers} property
-    # @option attributes [String] :request_origin The value to assign to the {#request_origin} property
-    # @option attributes [Hash<String, Array<String>>] :request_parameters The value to assign to the {#request_parameters} property
-    # @option attributes [String] :request_resource The value to assign to the {#request_resource} property
-    # @option attributes [Hash<String, Array<String>>] :response_headers The value to assign to the {#response_headers} property
-    # @option attributes [String] :response_status The value to assign to the {#response_status} property
-    # @option attributes [DateTime] :response_time The value to assign to the {#response_time} property
-    # @option attributes [Hash<String, Object>] :response_payload The value to assign to the {#response_payload} property
-    # @option attributes [String] :user_name The value to assign to the {#user_name} property
+    # @option attributes [String] :content_type The value to assign to the {#content_type} property
+    # @option attributes [OCI::Audit::Models::Data] :data The value to assign to the {#data} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.tenant_id = attributes[:'tenantId'] if attributes[:'tenantId']
-
-      raise 'You cannot provide both :tenantId and :tenant_id' if attributes.key?(:'tenantId') && attributes.key?(:'tenant_id')
-
-      self.tenant_id = attributes[:'tenant_id'] if attributes[:'tenant_id']
-
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
-
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
-
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
-
-      self.compartment_name = attributes[:'compartmentName'] if attributes[:'compartmentName']
-
-      raise 'You cannot provide both :compartmentName and :compartment_name' if attributes.key?(:'compartmentName') && attributes.key?(:'compartment_name')
-
-      self.compartment_name = attributes[:'compartment_name'] if attributes[:'compartment_name']
-
-      self.event_id = attributes[:'eventId'] if attributes[:'eventId']
-
-      raise 'You cannot provide both :eventId and :event_id' if attributes.key?(:'eventId') && attributes.key?(:'event_id')
-
-      self.event_id = attributes[:'event_id'] if attributes[:'event_id']
-
-      self.event_name = attributes[:'eventName'] if attributes[:'eventName']
-
-      raise 'You cannot provide both :eventName and :event_name' if attributes.key?(:'eventName') && attributes.key?(:'event_name')
-
-      self.event_name = attributes[:'event_name'] if attributes[:'event_name']
-
-      self.event_source = attributes[:'eventSource'] if attributes[:'eventSource']
-
-      raise 'You cannot provide both :eventSource and :event_source' if attributes.key?(:'eventSource') && attributes.key?(:'event_source')
-
-      self.event_source = attributes[:'event_source'] if attributes[:'event_source']
 
       self.event_type = attributes[:'eventType'] if attributes[:'eventType']
 
@@ -234,95 +124,39 @@ module OCI
 
       self.event_type = attributes[:'event_type'] if attributes[:'event_type']
 
+      self.cloud_events_version = attributes[:'cloudEventsVersion'] if attributes[:'cloudEventsVersion']
+
+      raise 'You cannot provide both :cloudEventsVersion and :cloud_events_version' if attributes.key?(:'cloudEventsVersion') && attributes.key?(:'cloud_events_version')
+
+      self.cloud_events_version = attributes[:'cloud_events_version'] if attributes[:'cloud_events_version']
+
+      self.event_type_version = attributes[:'eventTypeVersion'] if attributes[:'eventTypeVersion']
+
+      raise 'You cannot provide both :eventTypeVersion and :event_type_version' if attributes.key?(:'eventTypeVersion') && attributes.key?(:'event_type_version')
+
+      self.event_type_version = attributes[:'event_type_version'] if attributes[:'event_type_version']
+
+      self.source = attributes[:'source'] if attributes[:'source']
+
+      self.event_id = attributes[:'eventId'] if attributes[:'eventId']
+
+      raise 'You cannot provide both :eventId and :event_id' if attributes.key?(:'eventId') && attributes.key?(:'event_id')
+
+      self.event_id = attributes[:'event_id'] if attributes[:'event_id']
+
       self.event_time = attributes[:'eventTime'] if attributes[:'eventTime']
 
       raise 'You cannot provide both :eventTime and :event_time' if attributes.key?(:'eventTime') && attributes.key?(:'event_time')
 
       self.event_time = attributes[:'event_time'] if attributes[:'event_time']
 
-      self.principal_id = attributes[:'principalId'] if attributes[:'principalId']
+      self.content_type = attributes[:'contentType'] if attributes[:'contentType']
 
-      raise 'You cannot provide both :principalId and :principal_id' if attributes.key?(:'principalId') && attributes.key?(:'principal_id')
+      raise 'You cannot provide both :contentType and :content_type' if attributes.key?(:'contentType') && attributes.key?(:'content_type')
 
-      self.principal_id = attributes[:'principal_id'] if attributes[:'principal_id']
+      self.content_type = attributes[:'content_type'] if attributes[:'content_type']
 
-      self.credential_id = attributes[:'credentialId'] if attributes[:'credentialId']
-
-      raise 'You cannot provide both :credentialId and :credential_id' if attributes.key?(:'credentialId') && attributes.key?(:'credential_id')
-
-      self.credential_id = attributes[:'credential_id'] if attributes[:'credential_id']
-
-      self.request_action = attributes[:'requestAction'] if attributes[:'requestAction']
-
-      raise 'You cannot provide both :requestAction and :request_action' if attributes.key?(:'requestAction') && attributes.key?(:'request_action')
-
-      self.request_action = attributes[:'request_action'] if attributes[:'request_action']
-
-      self.request_id = attributes[:'requestId'] if attributes[:'requestId']
-
-      raise 'You cannot provide both :requestId and :request_id' if attributes.key?(:'requestId') && attributes.key?(:'request_id')
-
-      self.request_id = attributes[:'request_id'] if attributes[:'request_id']
-
-      self.request_agent = attributes[:'requestAgent'] if attributes[:'requestAgent']
-
-      raise 'You cannot provide both :requestAgent and :request_agent' if attributes.key?(:'requestAgent') && attributes.key?(:'request_agent')
-
-      self.request_agent = attributes[:'request_agent'] if attributes[:'request_agent']
-
-      self.request_headers = attributes[:'requestHeaders'] if attributes[:'requestHeaders']
-
-      raise 'You cannot provide both :requestHeaders and :request_headers' if attributes.key?(:'requestHeaders') && attributes.key?(:'request_headers')
-
-      self.request_headers = attributes[:'request_headers'] if attributes[:'request_headers']
-
-      self.request_origin = attributes[:'requestOrigin'] if attributes[:'requestOrigin']
-
-      raise 'You cannot provide both :requestOrigin and :request_origin' if attributes.key?(:'requestOrigin') && attributes.key?(:'request_origin')
-
-      self.request_origin = attributes[:'request_origin'] if attributes[:'request_origin']
-
-      self.request_parameters = attributes[:'requestParameters'] if attributes[:'requestParameters']
-
-      raise 'You cannot provide both :requestParameters and :request_parameters' if attributes.key?(:'requestParameters') && attributes.key?(:'request_parameters')
-
-      self.request_parameters = attributes[:'request_parameters'] if attributes[:'request_parameters']
-
-      self.request_resource = attributes[:'requestResource'] if attributes[:'requestResource']
-
-      raise 'You cannot provide both :requestResource and :request_resource' if attributes.key?(:'requestResource') && attributes.key?(:'request_resource')
-
-      self.request_resource = attributes[:'request_resource'] if attributes[:'request_resource']
-
-      self.response_headers = attributes[:'responseHeaders'] if attributes[:'responseHeaders']
-
-      raise 'You cannot provide both :responseHeaders and :response_headers' if attributes.key?(:'responseHeaders') && attributes.key?(:'response_headers')
-
-      self.response_headers = attributes[:'response_headers'] if attributes[:'response_headers']
-
-      self.response_status = attributes[:'responseStatus'] if attributes[:'responseStatus']
-
-      raise 'You cannot provide both :responseStatus and :response_status' if attributes.key?(:'responseStatus') && attributes.key?(:'response_status')
-
-      self.response_status = attributes[:'response_status'] if attributes[:'response_status']
-
-      self.response_time = attributes[:'responseTime'] if attributes[:'responseTime']
-
-      raise 'You cannot provide both :responseTime and :response_time' if attributes.key?(:'responseTime') && attributes.key?(:'response_time')
-
-      self.response_time = attributes[:'response_time'] if attributes[:'response_time']
-
-      self.response_payload = attributes[:'responsePayload'] if attributes[:'responsePayload']
-
-      raise 'You cannot provide both :responsePayload and :response_payload' if attributes.key?(:'responsePayload') && attributes.key?(:'response_payload')
-
-      self.response_payload = attributes[:'response_payload'] if attributes[:'response_payload']
-
-      self.user_name = attributes[:'userName'] if attributes[:'userName']
-
-      raise 'You cannot provide both :userName and :user_name' if attributes.key?(:'userName') && attributes.key?(:'user_name')
-
-      self.user_name = attributes[:'user_name'] if attributes[:'user_name']
+      self.data = attributes[:'data'] if attributes[:'data']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -336,28 +170,14 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        tenant_id == other.tenant_id &&
-        compartment_id == other.compartment_id &&
-        compartment_name == other.compartment_name &&
-        event_id == other.event_id &&
-        event_name == other.event_name &&
-        event_source == other.event_source &&
         event_type == other.event_type &&
+        cloud_events_version == other.cloud_events_version &&
+        event_type_version == other.event_type_version &&
+        source == other.source &&
+        event_id == other.event_id &&
         event_time == other.event_time &&
-        principal_id == other.principal_id &&
-        credential_id == other.credential_id &&
-        request_action == other.request_action &&
-        request_id == other.request_id &&
-        request_agent == other.request_agent &&
-        request_headers == other.request_headers &&
-        request_origin == other.request_origin &&
-        request_parameters == other.request_parameters &&
-        request_resource == other.request_resource &&
-        response_headers == other.response_headers &&
-        response_status == other.response_status &&
-        response_time == other.response_time &&
-        response_payload == other.response_payload &&
-        user_name == other.user_name
+        content_type == other.content_type &&
+        data == other.data
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -373,7 +193,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [tenant_id, compartment_id, compartment_name, event_id, event_name, event_source, event_type, event_time, principal_id, credential_id, request_action, request_id, request_agent, request_headers, request_origin, request_parameters, request_resource, response_headers, response_status, response_time, response_payload, user_name].hash
+      [event_type, cloud_events_version, event_type_version, source, event_id, event_time, content_type, data].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

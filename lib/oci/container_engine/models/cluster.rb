@@ -37,6 +37,10 @@ module OCI
     # @return [String]
     attr_accessor :kubernetes_version
 
+    # The OCID of the KMS key to be used as the master encryption key for Kubernetes secret encryption.
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # Optional attributes for the cluster.
     # @return [OCI::ContainerEngine::Models::ClusterCreateOptions]
     attr_accessor :options
@@ -70,6 +74,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'vcn_id': :'vcnId',
         'kubernetes_version': :'kubernetesVersion',
+        'kms_key_id': :'kmsKeyId',
         'options': :'options',
         'metadata': :'metadata',
         'lifecycle_state': :'lifecycleState',
@@ -89,6 +94,7 @@ module OCI
         'compartment_id': :'String',
         'vcn_id': :'String',
         'kubernetes_version': :'String',
+        'kms_key_id': :'String',
         'options': :'OCI::ContainerEngine::Models::ClusterCreateOptions',
         'metadata': :'OCI::ContainerEngine::Models::ClusterMetadata',
         'lifecycle_state': :'String',
@@ -110,6 +116,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [OCI::ContainerEngine::Models::ClusterCreateOptions] :options The value to assign to the {#options} property
     # @option attributes [OCI::ContainerEngine::Models::ClusterMetadata] :metadata The value to assign to the {#metadata} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -143,6 +150,12 @@ module OCI
       raise 'You cannot provide both :kubernetesVersion and :kubernetes_version' if attributes.key?(:'kubernetesVersion') && attributes.key?(:'kubernetes_version')
 
       self.kubernetes_version = attributes[:'kubernetes_version'] if attributes[:'kubernetes_version']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
 
       self.options = attributes[:'options'] if attributes[:'options']
 
@@ -198,6 +211,7 @@ module OCI
         compartment_id == other.compartment_id &&
         vcn_id == other.vcn_id &&
         kubernetes_version == other.kubernetes_version &&
+        kms_key_id == other.kms_key_id &&
         options == other.options &&
         metadata == other.metadata &&
         lifecycle_state == other.lifecycle_state &&
@@ -219,7 +233,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, compartment_id, vcn_id, kubernetes_version, options, metadata, lifecycle_state, lifecycle_details, endpoints, available_kubernetes_upgrades].hash
+      [id, name, compartment_id, vcn_id, kubernetes_version, kms_key_id, options, metadata, lifecycle_state, lifecycle_details, endpoints, available_kubernetes_upgrades].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

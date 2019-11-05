@@ -5,7 +5,10 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for the Audit Service. You can use this API for queries, but not bulk-export operations.
+  # API for the Audit Service. Use this API for compliance monitoring in your tenancy.
+  # For more information, see [Overview of Audit](/iaas/Content/Audit/Concepts/auditoverview.htm).
+  #
+  # **Tip**: This API is good for queries, but not bulk-export operations.
   class Audit::AuditClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -76,7 +79,7 @@ module OCI
       @retry_config = retry_config
 
       if endpoint
-        @endpoint = endpoint + '/20160918'
+        @endpoint = endpoint + '/20190901'
       else
         region ||= config.region
         region ||= signer.region if signer.respond_to?(:region)
@@ -94,7 +97,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :AuditClient) + '/20160918'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://audit.{region}.oraclecloud.com') + '/20190901'
       logger.info "AuditClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -161,22 +164,35 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns all audit events for the specified compartment that were processed within the specified time range.
-    # @param [String] compartment_id The OCID of the compartment.
-    # @param [DateTime] start_time Returns events that were processed at or after this start date and time, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
-    #   For example, a start value of `2017-01-15T11:30:00Z` will retrieve a list of all events processed since 30 minutes after the 11th hour of January 15, 2017, in Coordinated Universal Time (UTC).
-    #   You can specify a value with granularity to the minute. Seconds (and milliseconds, if included) must be set to `0`.
+    # Returns all the audit events processed for the specified compartment within the specified
+    # time range.
     #
-    # @param [DateTime] end_time Returns events that were processed before this end date and time, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format. For example, a start value of `2017-01-01T00:00:00Z` and an end value of `2017-01-02T00:00:00Z` will retrieve a list of all events processed on January 1, 2017.
-    #   Similarly, a start value of `2017-01-01T00:00:00Z` and an end value of `2017-02-01T00:00:00Z` will result in a list of all events processed between January 1, 2017 and January 31, 2017.
-    #   You can specify a value with granularity to the minute. Seconds (and milliseconds, if included) must be set to `0`.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [DateTime] start_time Returns events that were processed at or after this start date and time, expressed in
+    #   [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    #
+    #   For example, a start value of `2017-01-15T11:30:00Z` will retrieve a list of all events processed
+    #   since 30 minutes after the 11th hour of January 15, 2017, in Coordinated Universal Time (UTC).
+    #   You can specify a value with granularity to the minute. Seconds (and milliseconds, if included) must
+    #   be set to `0`.
+    #
+    # @param [DateTime] end_time Returns events that were processed before this end date and time, expressed in
+    #   [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    #
+    #   For example, a start value of `2017-01-01T00:00:00Z` and an end value of `2017-01-02T00:00:00Z`
+    #   will retrieve a list of all events processed on January 1, 2017. Similarly, a start value of
+    #   `2017-01-01T00:00:00Z` and an end value of `2017-02-01T00:00:00Z` will result in a list of all
+    #   events processed between January 1, 2017 and January 31, 2017. You can specify a value with
+    #   granularity to the minute. Seconds (and milliseconds, if included) must be set to `0`.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous list query.
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.
-    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Audit::Models::AuditEvent AuditEvent}>
     def list_events(compartment_id, start_time, end_time, opts = {})

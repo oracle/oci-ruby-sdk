@@ -27,7 +27,7 @@ module OCI
     # Calls {OCI::ResourceManager::ResourceManagerClient#cancel_job} and then waits for the {OCI::ResourceManager::Models::Job} acted upon
     # to enter the given state(s).
     #
-    # @param [String] job_id The job OCID.
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::Job#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#cancel_job}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -67,8 +67,8 @@ module OCI
     # Calls {OCI::ResourceManager::ResourceManagerClient#change_stack_compartment} and then waits for the {OCI::ResourceManager::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] stack_id The stack OCID.
-    # @param [OCI::ResourceManager::Models::ChangeStackCompartmentDetails] change_stack_compartment_details
+    # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
+    # @param [OCI::ResourceManager::Models::ChangeStackCompartmentDetails] change_stack_compartment_details Defines the properties of changeStackCompartment operation.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#change_stack_compartment}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -195,7 +195,7 @@ module OCI
     # Calls {OCI::ResourceManager::ResourceManagerClient#delete_stack} and then waits for the {OCI::ResourceManager::Models::Stack} acted upon
     # to enter the given state(s).
     #
-    # @param [String] stack_id The stack OCID.
+    # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::Stack#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#delete_stack}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -235,7 +235,7 @@ module OCI
     # Calls {OCI::ResourceManager::ResourceManagerClient#update_job} and then waits for the {OCI::ResourceManager::Models::Job} acted upon
     # to enter the given state(s).
     #
-    # @param [String] job_id The job OCID.
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @param [OCI::ResourceManager::Models::UpdateJobDetails] update_job_details Updates properties for the specified job.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::Job#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#update_job}
@@ -275,7 +275,7 @@ module OCI
     # Calls {OCI::ResourceManager::ResourceManagerClient#update_stack} and then waits for the {OCI::ResourceManager::Models::Stack} acted upon
     # to enter the given state(s).
     #
-    # @param [String] stack_id The stack OCID.
+    # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
     # @param [OCI::ResourceManager::Models::UpdateStackDetails] update_stack_details Updated information provided for the stack.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::Stack#lifecycle_state}

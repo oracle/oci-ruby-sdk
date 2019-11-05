@@ -184,7 +184,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a subscription for the specified topic.
+    # Creates a subscription for the specified topic and sends a subscription confirmation URL to the endpoint. The subscription remains in \"Pending\" status until it has been confirmed.
+    # For information about confirming subscriptions, see
+    # [To confirm a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#confirmSub).
     #
     # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
     #
@@ -319,7 +321,17 @@ module OCI
     # @param [String] id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to get the confirmation details for.
     #
     # @param [String] token The subscription confirmation token.
-    # @param [String] protocol The subscription protocol. Valid values: EMAIL, HTTPS.
+    # @param [String] protocol The protocol used for the subscription.
+    #
+    #   Allowed values:
+    #     * `CUSTOM_HTTPS`
+    #     * `EMAIL`
+    #     * `HTTPS` (deprecated; for PagerDuty endpoints, use `PAGERDUTY`)
+    #     * `PAGERDUTY`
+    #     * `SLACK`
+    #
+    #   For information about subscription protocols, see
+    #   [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -444,7 +456,17 @@ module OCI
     # @param [String] id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subscription to unsubscribe from.
     #
     # @param [String] token The subscription confirmation token.
-    # @param [String] protocol The subscription protocol. Valid values: EMAIL, HTTPS.
+    # @param [String] protocol The protocol used for the subscription.
+    #
+    #   Allowed values:
+    #     * `CUSTOM_HTTPS`
+    #     * `EMAIL`
+    #     * `HTTPS` (deprecated; for PagerDuty endpoints, use `PAGERDUTY`)
+    #     * `PAGERDUTY`
+    #     * `SLACK`
+    #
+    #   For information about subscription protocols, see
+    #   [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -577,11 +599,13 @@ module OCI
     #
     # Message size limit per request: 64KB.
     #
-    # Message delivery rate limit per endpoint: 60 messages per minute for HTTPS (PagerDuty) protocol, 10 messages per minute for Email protocol.
+    # Message delivery rate limit per endpoint: 60 messages per minute for HTTP-based protocols, 10 messages per minute for the `EMAIL` protocol.
+    # HTTP-based protocols use URL endpoints that begin with \"http:\" or \"https:\".
     #
     # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60 per topic.
     #
     # For more information about publishing messages, see [Publishing Messages](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/publishingmessages.htm).
+    # For steps to request a limit increase, see [Requesting a Service Limit Increase](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/servicelimits.htm#three).
     #
     # @param [String] topic_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic.
     #

@@ -4,9 +4,14 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # UpdateConfigurationDetails model.
+  # The configuration details for the retention period setting, specified in days. For more
+  # information, see [Setting Audit Log Retention Period](https://docs.cloud.oracle.com/iaas/Content/Audit/Tasks/settingretentionperiod.htm).
+  #
   class Audit::Models::UpdateConfigurationDetails
-    # The retention period days
+    # **[Required]** The retention period setting, specified in days. The minimum is 90, the maximum 365.
+    #
+    # Example: `90`
+    #
     # @return [Integer]
     attr_accessor :retention_period_days
 
