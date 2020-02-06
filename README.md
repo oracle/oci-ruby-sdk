@@ -1,4 +1,7 @@
 # Oracle Cloud Infrastructure Ruby SDK
+
+:warning: This project is in maintenance mode. It is not being actively developed / maintained. Please migrate to one of the other OCI SDKs if you are looking for immediate support in the case that you encounter issues. :warning:
+
 **Version 2.7.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
