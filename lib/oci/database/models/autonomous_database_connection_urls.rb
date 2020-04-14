@@ -1,10 +1,10 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The URLs for accessing Oracle Application Express (APEX) and SQL Developer Web with a browser from a Compute instance within your VCN or that has a direct connection to your VCN. Note that these URLs are provided by the console only for [dedicated deployments](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm).
+  # The URLs for accessing Oracle Application Express (APEX) and SQL Developer Web with a browser from a Compute instance within your VCN or that has a direct connection to your VCN. Note that these URLs are provided by the console only for databases on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm).
   #
   # Example: `{\"sqlDevWebUrl\": \"https://<hostname>/ords...\", \"apexUrl\", \"https://<hostname>/ords...\"}`
   #
@@ -17,12 +17,17 @@ module OCI
     # @return [String]
     attr_accessor :apex_url
 
+    # Oracle Machine Learning user management URL.
+    # @return [String]
+    attr_accessor :machine_learning_user_management_url
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'sql_dev_web_url': :'sqlDevWebUrl',
-        'apex_url': :'apexUrl'
+        'apex_url': :'apexUrl',
+        'machine_learning_user_management_url': :'machineLearningUserManagementUrl'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,7 +37,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'sql_dev_web_url': :'String',
-        'apex_url': :'String'
+        'apex_url': :'String',
+        'machine_learning_user_management_url': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,6 +51,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :sql_dev_web_url The value to assign to the {#sql_dev_web_url} property
     # @option attributes [String] :apex_url The value to assign to the {#apex_url} property
+    # @option attributes [String] :machine_learning_user_management_url The value to assign to the {#machine_learning_user_management_url} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -62,6 +69,12 @@ module OCI
       raise 'You cannot provide both :apexUrl and :apex_url' if attributes.key?(:'apexUrl') && attributes.key?(:'apex_url')
 
       self.apex_url = attributes[:'apex_url'] if attributes[:'apex_url']
+
+      self.machine_learning_user_management_url = attributes[:'machineLearningUserManagementUrl'] if attributes[:'machineLearningUserManagementUrl']
+
+      raise 'You cannot provide both :machineLearningUserManagementUrl and :machine_learning_user_management_url' if attributes.key?(:'machineLearningUserManagementUrl') && attributes.key?(:'machine_learning_user_management_url')
+
+      self.machine_learning_user_management_url = attributes[:'machine_learning_user_management_url'] if attributes[:'machine_learning_user_management_url']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -76,7 +89,8 @@ module OCI
 
       self.class == other.class &&
         sql_dev_web_url == other.sql_dev_web_url &&
-        apex_url == other.apex_url
+        apex_url == other.apex_url &&
+        machine_learning_user_management_url == other.machine_learning_user_management_url
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -92,7 +106,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [sql_dev_web_url, apex_url].hash
+      [sql_dev_web_url, apex_url, machine_learning_user_management_url].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

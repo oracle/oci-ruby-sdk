@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -52,6 +52,24 @@ module OCI
     # @return [String]
     attr_accessor :ip_address
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the CPE's device type.
+    # The Networking service maintains a general list of CPE device types (for example,
+    # Cisco ASA). For each type, Oracle provides CPE configuration content that can help
+    # a network engineer configure the CPE. The OCID uniquely identifies the type of
+    # device. To get the OCIDs for the device types on the list, see
+    # {#list_cpe_device_shapes list_cpe_device_shapes}.
+    #
+    # For information about how to generate CPE configuration content for a
+    # CPE device type, see:
+    #
+    #   * {#get_cpe_device_config_content get_cpe_device_config_content}
+    #   * {#get_ipsec_cpe_device_config_content get_ipsec_cpe_device_config_content}
+    #   * {#get_tunnel_cpe_device_config_content get_tunnel_cpe_device_config_content}
+    #   * {#get_tunnel_cpe_device_config get_tunnel_cpe_device_config}
+    #
+    # @return [String]
+    attr_accessor :cpe_device_shape_id
+
     # The date and time the CPE was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
@@ -69,6 +87,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'ip_address': :'ipAddress',
+        'cpe_device_shape_id': :'cpeDeviceShapeId',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -84,6 +103,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'ip_address': :'String',
+        'cpe_device_shape_id': :'String',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -101,6 +121,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
+    # @option attributes [String] :cpe_device_shape_id The value to assign to the {#cpe_device_shape_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -140,6 +161,12 @@ module OCI
 
       self.ip_address = attributes[:'ip_address'] if attributes[:'ip_address']
 
+      self.cpe_device_shape_id = attributes[:'cpeDeviceShapeId'] if attributes[:'cpeDeviceShapeId']
+
+      raise 'You cannot provide both :cpeDeviceShapeId and :cpe_device_shape_id' if attributes.key?(:'cpeDeviceShapeId') && attributes.key?(:'cpe_device_shape_id')
+
+      self.cpe_device_shape_id = attributes[:'cpe_device_shape_id'] if attributes[:'cpe_device_shape_id']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -164,6 +191,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         ip_address == other.ip_address &&
+        cpe_device_shape_id == other.cpe_device_shape_id &&
         time_created == other.time_created
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -180,7 +208,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, ip_address, time_created].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, ip_address, cpe_device_shape_id, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

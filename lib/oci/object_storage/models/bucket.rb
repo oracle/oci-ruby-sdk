@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -45,11 +45,11 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :metadata
 
-    # **[Required]** The OCID of the user who created the bucket.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the user who created the bucket.
     # @return [String]
     attr_accessor :created_by
 
-    # **[Required]** The date and time the bucket was created, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+    # **[Required]** The date and time the bucket was created, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.29).
     # @return [DateTime]
     attr_accessor :time_created
 
@@ -74,8 +74,9 @@ module OCI
     # @return [String]
     attr_reader :storage_tier
 
-    # A property that determines whether events will be generated for operations on objects in this bucket.
-    # This is false by default.
+    # Whether or not events are emitted for object state changes in this bucket. By default, `objectEventsEnabled` is
+    # set to `false`. Set `objectEventsEnabled` to `true` to emit events for object state changes. For more information
+    # about events, see [Overview of Events](https://docs.cloud.oracle.com/Content/Events/Concepts/eventsoverview.htm).
     #
     # @return [BOOLEAN]
     attr_accessor :object_events_enabled
@@ -94,7 +95,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of a KMS key id used to call KMS to generate data key or decrypt the encrypted data key.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a master encryption key used to call the Key Management
+    # service to generate a data encryption key or to encrypt or decrypt a data encryption key.
     #
     # @return [String]
     attr_accessor :kms_key_id
@@ -115,6 +117,23 @@ module OCI
     # @return [Integer]
     attr_accessor :approximate_size
 
+    # Whether or not this bucket is a replication source. By default, `replicationEnabled` is set to `false`. This will
+    # be set to 'true' when you create a replication policy for the bucket.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :replication_enabled
+
+    # Whether or not this bucket is read only. By default, `isReadOnly` is set to `false`. This will
+    # be set to 'true' when this bucket is configured as a destination in a replication policy.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_read_only
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the bucket.
+    #
+    # @return [String]
+    attr_accessor :id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -134,7 +153,10 @@ module OCI
         'kms_key_id': :'kmsKeyId',
         'object_lifecycle_policy_etag': :'objectLifecyclePolicyEtag',
         'approximate_count': :'approximateCount',
-        'approximate_size': :'approximateSize'
+        'approximate_size': :'approximateSize',
+        'replication_enabled': :'replicationEnabled',
+        'is_read_only': :'isReadOnly',
+        'id': :'id'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -158,7 +180,10 @@ module OCI
         'kms_key_id': :'String',
         'object_lifecycle_policy_etag': :'String',
         'approximate_count': :'Integer',
-        'approximate_size': :'Integer'
+        'approximate_size': :'Integer',
+        'replication_enabled': :'BOOLEAN',
+        'is_read_only': :'BOOLEAN',
+        'id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -185,6 +210,9 @@ module OCI
     # @option attributes [String] :object_lifecycle_policy_etag The value to assign to the {#object_lifecycle_policy_etag} property
     # @option attributes [Integer] :approximate_count The value to assign to the {#approximate_count} property
     # @option attributes [Integer] :approximate_size The value to assign to the {#approximate_size} property
+    # @option attributes [BOOLEAN] :replication_enabled The value to assign to the {#replication_enabled} property
+    # @option attributes [BOOLEAN] :is_read_only The value to assign to the {#is_read_only} property
+    # @option attributes [String] :id The value to assign to the {#id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -270,6 +298,20 @@ module OCI
       raise 'You cannot provide both :approximateSize and :approximate_size' if attributes.key?(:'approximateSize') && attributes.key?(:'approximate_size')
 
       self.approximate_size = attributes[:'approximate_size'] if attributes[:'approximate_size']
+
+      self.replication_enabled = attributes[:'replicationEnabled'] unless attributes[:'replicationEnabled'].nil?
+
+      raise 'You cannot provide both :replicationEnabled and :replication_enabled' if attributes.key?(:'replicationEnabled') && attributes.key?(:'replication_enabled')
+
+      self.replication_enabled = attributes[:'replication_enabled'] unless attributes[:'replication_enabled'].nil?
+
+      self.is_read_only = attributes[:'isReadOnly'] unless attributes[:'isReadOnly'].nil?
+
+      raise 'You cannot provide both :isReadOnly and :is_read_only' if attributes.key?(:'isReadOnly') && attributes.key?(:'is_read_only')
+
+      self.is_read_only = attributes[:'is_read_only'] unless attributes[:'is_read_only'].nil?
+
+      self.id = attributes[:'id'] if attributes[:'id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -324,7 +366,10 @@ module OCI
         kms_key_id == other.kms_key_id &&
         object_lifecycle_policy_etag == other.object_lifecycle_policy_etag &&
         approximate_count == other.approximate_count &&
-        approximate_size == other.approximate_size
+        approximate_size == other.approximate_size &&
+        replication_enabled == other.replication_enabled &&
+        is_read_only == other.is_read_only &&
+        id == other.id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -340,7 +385,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, name, compartment_id, metadata, created_by, time_created, etag, public_access_type, storage_tier, object_events_enabled, freeform_tags, defined_tags, kms_key_id, object_lifecycle_policy_etag, approximate_count, approximate_size].hash
+      [namespace, name, compartment_id, metadata, created_by, time_created, etag, public_access_type, storage_tier, object_events_enabled, freeform_tags, defined_tags, kms_key_id, object_lifecycle_policy_etag, approximate_count, approximate_size, replication_enabled, is_read_only, id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

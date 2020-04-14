@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -239,7 +239,6 @@ module OCI
 
     # Deletes a OceInstance resource by identifier
     # @param [String] oce_instance_id unique OceInstance identifier
-    # @param [OCI::Oce::Models::DeleteOceInstanceDetails] delete_oce_instance_details The information about resource to be deleted.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -251,11 +250,10 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
-    def delete_oce_instance(oce_instance_id, delete_oce_instance_details, opts = {})
+    def delete_oce_instance(oce_instance_id, opts = {})
       logger.debug 'Calling operation OceInstanceClient#delete_oce_instance.' if logger
 
       raise "Missing the required parameter 'oce_instance_id' when calling delete_oce_instance." if oce_instance_id.nil?
-      raise "Missing the required parameter 'delete_oce_instance_details' when calling delete_oce_instance." if delete_oce_instance_details.nil?
       raise "Parameter value for 'oce_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(oce_instance_id)
 
       path = '/oceInstances/{oceInstanceId}'.sub('{oceInstanceId}', oce_instance_id.to_s)
@@ -273,7 +271,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
-      post_body = @api_client.object_to_http_body(delete_oce_instance_details)
+      post_body = nil
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OceInstanceClient#delete_oce_instance') do

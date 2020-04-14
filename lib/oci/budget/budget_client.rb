@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -469,14 +469,13 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 25)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
-    #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by The field to sort by. If not specified, the default is timeCreated.
     #   The default sort order for timeCreated is DESC.
     #   The default sort order for displayName is ASC in alphanumeric order.
-    #
+    #    (default to timeCreated)
     # @option opts [String] :lifecycle_state The current state of the resource to filter by.
     # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
     #
@@ -489,8 +488,8 @@ module OCI
 
       raise "Missing the required parameter 'budget_id' when calling list_alert_rules." if budget_id.nil?
 
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      if opts[:sort_order] && !OCI::Budget::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Budget::Models::SORT_ORDER_ENUM.'
       end
 
       if opts[:sort_by] && !OCI::Budget::Models::SORT_BY_ENUM.include?(opts[:sort_by])
@@ -563,14 +562,13 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 25)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
-    #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by The field to sort by. If not specified, the default is timeCreated.
     #   The default sort order for timeCreated is DESC.
     #   The default sort order for displayName is ASC in alphanumeric order.
-    #
+    #    (default to timeCreated)
     # @option opts [String] :lifecycle_state The current state of the resource to filter by.
     # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
     #
@@ -580,7 +578,7 @@ module OCI
     #     * ALL - List all budgets
     #     * COMPARTMENT - List all budgets with targetType == \"COMPARTMENT\"
     #     * TAG - List all budgets with targetType == \"TAG\"
-    #    (default to )
+    #
     #   Allowed values are: ALL, COMPARTMENT, TAG
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Budget::Models::BudgetSummary BudgetSummary}>
@@ -589,8 +587,8 @@ module OCI
 
       raise "Missing the required parameter 'compartment_id' when calling list_budgets." if compartment_id.nil?
 
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      if opts[:sort_order] && !OCI::Budget::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Budget::Models::SORT_ORDER_ENUM.'
       end
 
       if opts[:sort_by] && !OCI::Budget::Models::SORT_BY_ENUM.include?(opts[:sort_by])

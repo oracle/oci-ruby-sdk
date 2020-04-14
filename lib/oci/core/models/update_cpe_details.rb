@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -28,13 +28,29 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the CPE device type. You can provide
+    # a value if you want to generate CPE device configuration content for IPSec connections
+    # that use this CPE. For a list of possible values, see
+    # {#list_cpe_device_shapes list_cpe_device_shapes}.
+    #
+    # For more information about generating CPE device configuration content, see:
+    #
+    #   * {#get_cpe_device_config_content get_cpe_device_config_content}
+    #   * {#get_ipsec_cpe_device_config_content get_ipsec_cpe_device_config_content}
+    #   * {#get_tunnel_cpe_device_config_content get_tunnel_cpe_device_config_content}
+    #   * {#get_tunnel_cpe_device_config get_tunnel_cpe_device_config}
+    #
+    # @return [String]
+    attr_accessor :cpe_device_shape_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'cpe_device_shape_id': :'cpeDeviceShapeId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,7 +61,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'cpe_device_shape_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -59,6 +76,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :cpe_device_shape_id The value to assign to the {#cpe_device_shape_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -82,6 +100,12 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.cpe_device_shape_id = attributes[:'cpeDeviceShapeId'] if attributes[:'cpeDeviceShapeId']
+
+      raise 'You cannot provide both :cpeDeviceShapeId and :cpe_device_shape_id' if attributes.key?(:'cpeDeviceShapeId') && attributes.key?(:'cpe_device_shape_id')
+
+      self.cpe_device_shape_id = attributes[:'cpe_device_shape_id'] if attributes[:'cpe_device_shape_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -97,7 +121,8 @@ module OCI
       self.class == other.class &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        cpe_device_shape_id == other.cpe_device_shape_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -113,7 +138,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [defined_tags, display_name, freeform_tags, cpe_device_shape_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

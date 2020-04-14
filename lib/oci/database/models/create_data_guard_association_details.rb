@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -63,7 +63,7 @@ module OCI
     # @return [String]
     attr_reader :transport_type
 
-    # **[Required]** Specifies whether to create the peer database in an existing DB system or in a new DB system. `ExistingDbSystem` is not supported for creating Data Guard associations for virtual machine DB system databases.
+    # **[Required]** Specifies whether to create the peer database in an existing DB system or in a new DB system.
     #
     # @return [String]
     attr_accessor :creation_type

@@ -1,14 +1,16 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for scheduling key deletion
+  # Details for scheduling key deletion.
   class KeyManagement::Models::ScheduleKeyDeletionDetails
-    # An optional property to indicate the deletion time of the key, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339)
-    # timestamp format. The specified time must be between 7 and 30 days from the time
-    # when the request is received. If this property is missing, it will be set to 30 days from the time of the request by default.
+    # An optional property to indicate when to delete the vault, expressed in
+    # [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format. The specified
+    # time must be between 7 and 30 days from when the request is received.
+    # If this property is missing, it will be set to 30 days from the time of the request
+    # by default.
     #
     # @return [DateTime]
     attr_accessor :time_of_deletion

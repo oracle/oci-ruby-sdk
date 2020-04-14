@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'attach_volume_details'
@@ -19,6 +19,7 @@ module OCI
         'display_name': :'displayName',
         'instance_id': :'instanceId',
         'is_read_only': :'isReadOnly',
+        'is_shareable': :'isShareable',
         'type': :'type',
         'volume_id': :'volumeId',
         'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
@@ -34,6 +35,7 @@ module OCI
         'display_name': :'String',
         'instance_id': :'String',
         'is_read_only': :'BOOLEAN',
+        'is_shareable': :'BOOLEAN',
         'type': :'String',
         'volume_id': :'String',
         'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
@@ -51,6 +53,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {OCI::Core::Models::AttachVolumeDetails#display_name #display_name} proprety
     # @option attributes [String] :instance_id The value to assign to the {OCI::Core::Models::AttachVolumeDetails#instance_id #instance_id} proprety
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {OCI::Core::Models::AttachVolumeDetails#is_read_only #is_read_only} proprety
+    # @option attributes [BOOLEAN] :is_shareable The value to assign to the {OCI::Core::Models::AttachVolumeDetails#is_shareable #is_shareable} proprety
     # @option attributes [String] :volume_id The value to assign to the {OCI::Core::Models::AttachVolumeDetails#volume_id #volume_id} proprety
     # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
     def initialize(attributes = {})
@@ -85,6 +88,7 @@ module OCI
         display_name == other.display_name &&
         instance_id == other.instance_id &&
         is_read_only == other.is_read_only &&
+        is_shareable == other.is_shareable &&
         type == other.type &&
         volume_id == other.volume_id &&
         is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
@@ -103,7 +107,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [device, display_name, instance_id, is_read_only, type, volume_id, is_pv_encryption_in_transit_enabled].hash
+      [device, display_name, instance_id, is_read_only, is_shareable, type, volume_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

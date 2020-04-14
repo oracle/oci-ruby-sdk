@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -13,7 +13,10 @@ module OCI
       STORAGE_MANAGEMENT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The storage option used in DB system. You can specify either [Automatic Storage Management (ASM)](https://www.oracle.com/pls/topic/lookup?ctx=en/database/oracle/oracle-database/19&id=OSTMG-GUID-BC612D35-5399-4A35-843E-CF76E3D3CDB5) or [Logical Volume Manager (LVM)](https://www.oracle.com/pls/topic/lookup?ctx=en/database/oracle/oracle-database/19&id=ADMIN-GUID-57C50259-9472-4ED0-8818-DB9ABA96EC8E).
+    # The storage option used in DB system.
+    # ASM - Automatic storage management
+    # LVM - Logical Volume management
+    #
     # @return [String]
     attr_reader :storage_management
 
@@ -49,10 +52,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.storage_management = attributes[:'storageManagement'] if attributes[:'storageManagement']
+      self.storage_management = "ASM" if storage_management.nil? && !attributes.key?(:'storageManagement') # rubocop:disable Style/StringLiterals
 
       raise 'You cannot provide both :storageManagement and :storage_management' if attributes.key?(:'storageManagement') && attributes.key?(:'storage_management')
 
       self.storage_management = attributes[:'storage_management'] if attributes[:'storage_management']
+      self.storage_management = "ASM" if storage_management.nil? && !attributes.key?(:'storageManagement') && !attributes.key?(:'storage_management') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral

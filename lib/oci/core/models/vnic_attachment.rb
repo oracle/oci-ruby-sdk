@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -60,7 +60,7 @@ module OCI
     # @return [Integer]
     attr_accessor :nic_index
 
-    # **[Required]** The OCID of the VNIC's subnet.
+    # **[Required]** The OCID of the subnet to create the VNIC in.
     # @return [String]
     attr_accessor :subnet_id
 

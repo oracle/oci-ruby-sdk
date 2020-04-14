@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The `InstanceConsoleConnection` API provides you with console access to virtual machine (VM) instances,
+  # The `InstanceConsoleConnection` API provides you with console access to Compute instances,
   # enabling you to troubleshoot malfunctioning instances remotely.
   #
   # For more information about console access, see

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -114,7 +114,7 @@ module OCI
 
     # Attach a load balancer to the instance pool.
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::AttachLoadBalancerDetails] attach_load_balancer_details Load balancer being attached
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -179,9 +179,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change the compartment of a cluster network.
+    # Moves a cluster network into a different compartment within the same tenancy. For
+    # information about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
-    # @param [String] cluster_network_id The OCID of the cluster network.
+    # When you move a cluster network to a different compartment, associated resources such as the instances
+    # in the cluster network, boot volumes, and VNICs are not moved.
+    #
+    # @param [String] cluster_network_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
     # @param [OCI::Core::Models::ChangeClusterNetworkCompartmentDetails] change_cluster_network_compartment_details Request to change the compartment of given cluster network.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -338,7 +343,7 @@ module OCI
     # When you move an instance pool to a different compartment, associated resources such as the instances in
     # the pool, boot volumes, VNICs, and autoscaling configurations are not moved.
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::ChangeInstancePoolCompartmentDetails] change_instance_pool_compartment_details Request to change the compartment of given instance pool.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -406,7 +411,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create a cluster network.
+    # Creates a cluster network. For more information about cluster networks, see
+    # [Managing Cluster Networks](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/managingclusternetworks.htm).
+    #
     # @param [OCI::Core::Models::CreateClusterNetworkDetails] create_cluster_network_details Cluster network creation details
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -639,7 +646,7 @@ module OCI
 
     # Detach a load balancer from the instance pool.
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::DetachLoadBalancerDetails] detach_load_balancer_details Load balancer being detached
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -705,8 +712,8 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the specified cluster network
-    # @param [String] cluster_network_id The OCID of the cluster network.
+    # Gets information about the specified cluster network.
+    # @param [String] cluster_network_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -812,7 +819,7 @@ module OCI
 
 
     # Gets the specified instance pool
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -866,7 +873,7 @@ module OCI
 
     # Gets information about a load balancer that is attached to the specified instance pool.
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [String] instance_pool_load_balancer_attachment_id The OCID of the load balancer attachment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -988,9 +995,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List the instances in the specified cluster network.
+    # Lists the instances in the specified cluster network.
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
-    # @param [String] cluster_network_id The OCID of the cluster network.
+    # @param [String] cluster_network_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1112,7 +1119,9 @@ module OCI
     #   is case sensitive.
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle
+    #   state. The state value is case-insensitive.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ClusterNetworkSummary ClusterNetworkSummary}>
     def list_cluster_networks(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#list_cluster_networks.' if logger
@@ -1267,7 +1276,7 @@ module OCI
 
     # List the instances in the specified instance pool.
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1458,7 +1467,7 @@ module OCI
     # Performs the reset (power off and power on) action on the specified instance pool,
     # which performs the action on all the instances in the pool.
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1524,7 +1533,7 @@ module OCI
     # Performs the softreset (ACPI shutdown and power on) action on the specified instance pool,
     # which performs the action on all the instances in the pool.
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1590,7 +1599,7 @@ module OCI
     # Performs the start (power on) action on the specified instance pool,
     # which performs the action on all the instances in the pool.
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1656,7 +1665,7 @@ module OCI
     # Performs the stop (power off) action on the specified instance pool,
     # which performs the action on all the instances in the pool.
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1719,8 +1728,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Terminate the specified cluster network.
-    # @param [String] cluster_network_id The OCID of the cluster network.
+    # Terminates the specified cluster network.
+    #
+    # When you delete a cluster network, all of its resources are permanently deleted,
+    # including associated instances and instance pools.
+    #
+    # @param [String] cluster_network_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1775,7 +1788,7 @@ module OCI
 
 
     # Terminate the specified instance pool.
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1829,10 +1842,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update the specified cluster network.
-    # The OCID of the cluster network remains the same.
+    # Updates the specified cluster network. The OCID of the cluster network remains the same.
     #
-    # @param [String] cluster_network_id The OCID of the cluster network.
+    # @param [String] cluster_network_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
     # @param [OCI::Core::Models::UpdateClusterNetworkDetails] update_cluster_network_details Update cluster network
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1964,9 +1976,10 @@ module OCI
 
 
     # Update the specified instance pool.
+    #
     # The OCID of the instance pool remains the same.
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::UpdateInstancePoolDetails] update_instance_pool_details Update instance pool configuration
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

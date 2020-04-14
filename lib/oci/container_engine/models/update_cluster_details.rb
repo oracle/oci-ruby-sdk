@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -14,12 +14,16 @@ module OCI
     # @return [String]
     attr_accessor :kubernetes_version
 
+    # @return [OCI::ContainerEngine::Models::UpdateClusterOptionsDetails]
+    attr_accessor :options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
-        'kubernetes_version': :'kubernetesVersion'
+        'kubernetes_version': :'kubernetesVersion',
+        'options': :'options'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -29,7 +33,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
-        'kubernetes_version': :'String'
+        'kubernetes_version': :'String',
+        'options': :'OCI::ContainerEngine::Models::UpdateClusterOptionsDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,6 +47,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
+    # @option attributes [OCI::ContainerEngine::Models::UpdateClusterOptionsDetails] :options The value to assign to the {#options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -55,6 +61,8 @@ module OCI
       raise 'You cannot provide both :kubernetesVersion and :kubernetes_version' if attributes.key?(:'kubernetesVersion') && attributes.key?(:'kubernetes_version')
 
       self.kubernetes_version = attributes[:'kubernetes_version'] if attributes[:'kubernetes_version']
+
+      self.options = attributes[:'options'] if attributes[:'options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -69,7 +77,8 @@ module OCI
 
       self.class == other.class &&
         name == other.name &&
-        kubernetes_version == other.kubernetes_version
+        kubernetes_version == other.kubernetes_version &&
+        options == other.options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -85,7 +94,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, kubernetes_version].hash
+      [name, kubernetes_version, options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

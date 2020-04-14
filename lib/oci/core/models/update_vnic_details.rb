@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -46,7 +46,8 @@ module OCI
     attr_accessor :hostname_label
 
     # A list of the OCIDs of the network security groups (NSGs) to add the VNIC to. Setting this as
-    # an empty array removes the VNIC from all network security groups.
+    # an empty array removes the VNIC from all network security groups. If the VNIC contains an
+    # vlanId, the value of this field will be ignored.
     #
     # For more information about NSGs, see
     # {NetworkSecurityGroup}.
@@ -55,8 +56,10 @@ module OCI
     attr_accessor :nsg_ids
 
     # Whether the source/destination check is disabled on the VNIC.
-    # Defaults to `false`, which means the check is performed. For information
-    # about why you would skip the source/destination check, see
+    # Defaults to `false`, which means the check is performed. If the VNIC
+    # contains an vlanId, the value of this field will be ignored.
+    #
+    # For information about why you would skip the source/destination check, see
     # [Using a Private IP as a Route Target](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm#privateip).
     #
     # Example: `true`

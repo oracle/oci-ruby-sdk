@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -62,11 +62,11 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # The date and time the Autonomous was created.
+    # The date and time the Autonomous Container Database was created.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** Database Patch model preference.
+    # **[Required]** Database patch model preference.
     # @return [String]
     attr_reader :patch_model
 
@@ -77,6 +77,9 @@ module OCI
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the next maintenance run.
     # @return [String]
     attr_accessor :next_maintenance_run_id
+
+    # @return [OCI::Database::Models::MaintenanceWindow]
+    attr_accessor :maintenance_window
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -114,6 +117,7 @@ module OCI
         'patch_model': :'patchModel',
         'last_maintenance_run_id': :'lastMaintenanceRunId',
         'next_maintenance_run_id': :'nextMaintenanceRunId',
+        'maintenance_window': :'maintenanceWindow',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'availability_domain': :'availabilityDomain',
@@ -137,6 +141,7 @@ module OCI
         'patch_model': :'String',
         'last_maintenance_run_id': :'String',
         'next_maintenance_run_id': :'String',
+        'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'availability_domain': :'String',
@@ -162,6 +167,7 @@ module OCI
     # @option attributes [String] :patch_model The value to assign to the {#patch_model} property
     # @option attributes [String] :last_maintenance_run_id The value to assign to the {#last_maintenance_run_id} property
     # @option attributes [String] :next_maintenance_run_id The value to assign to the {#next_maintenance_run_id} property
+    # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
@@ -230,6 +236,12 @@ module OCI
       raise 'You cannot provide both :nextMaintenanceRunId and :next_maintenance_run_id' if attributes.key?(:'nextMaintenanceRunId') && attributes.key?(:'next_maintenance_run_id')
 
       self.next_maintenance_run_id = attributes[:'next_maintenance_run_id'] if attributes[:'next_maintenance_run_id']
+
+      self.maintenance_window = attributes[:'maintenanceWindow'] if attributes[:'maintenanceWindow']
+
+      raise 'You cannot provide both :maintenanceWindow and :maintenance_window' if attributes.key?(:'maintenanceWindow') && attributes.key?(:'maintenance_window')
+
+      self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -317,6 +329,7 @@ module OCI
         patch_model == other.patch_model &&
         last_maintenance_run_id == other.last_maintenance_run_id &&
         next_maintenance_run_id == other.next_maintenance_run_id &&
+        maintenance_window == other.maintenance_window &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         availability_domain == other.availability_domain &&
@@ -336,7 +349,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, lifecycle_state, lifecycle_details, time_created, patch_model, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags, availability_domain, backup_config].hash
+      [id, compartment_id, display_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, lifecycle_state, lifecycle_details, time_created, patch_model, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, freeform_tags, defined_tags, availability_domain, backup_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

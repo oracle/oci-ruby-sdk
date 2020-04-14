@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -34,12 +34,12 @@ module OCI
     # @return [String]
     attr_reader :access_type
 
-    # **[Required]** The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/rfc/rfc3339). After this date the pre-authenticated request will no longer be valid.
+    # **[Required]** The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/html/rfc3339). After this date the pre-authenticated request will no longer be valid.
     #
     # @return [DateTime]
     attr_accessor :time_expires
 
-    # **[Required]** The date when the pre-authenticated request was created as per [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+    # **[Required]** The date when the pre-authenticated request was created as per [RFC 3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_created

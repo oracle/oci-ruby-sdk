@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -8,7 +8,7 @@ module OCI
   # virtual circuit.
   #
   class Core::Models::FastConnectProviderServiceKey
-    # The service key that the provider gives you when you set up a virtual circuit connection
+    # **[Required]** The service key that the provider gives you when you set up a virtual circuit connection
     # from the provider to Oracle Cloud Infrastructure. Use this value as the `providerServiceKeyName`
     # query parameter for
     # {#get_fast_connect_provider_service_key get_fast_connect_provider_service_key}.

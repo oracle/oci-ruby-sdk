@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -55,6 +55,14 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # A list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with this mount target.
+    # A maximum of 5 is allowed.
+    # Setting this to an empty array after the list is created removes the mount target from all NSGs.
+    # For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
     # Free-form tags for this resource. Each tag is a simple key-value pair
     #  with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -80,6 +88,7 @@ module OCI
         'hostname_label': :'hostnameLabel',
         'ip_address': :'ipAddress',
         'subnet_id': :'subnetId',
+        'nsg_ids': :'nsgIds',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -96,6 +105,7 @@ module OCI
         'hostname_label': :'String',
         'ip_address': :'String',
         'subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -114,6 +124,7 @@ module OCI
     # @option attributes [String] :hostname_label The value to assign to the {#hostname_label} property
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -158,6 +169,12 @@ module OCI
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
 
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -188,6 +205,7 @@ module OCI
         hostname_label == other.hostname_label &&
         ip_address == other.ip_address &&
         subnet_id == other.subnet_id &&
+        nsg_ids == other.nsg_ids &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -205,7 +223,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, display_name, hostname_label, ip_address, subnet_id, freeform_tags, defined_tags].hash
+      [availability_domain, compartment_id, display_name, hostname_label, ip_address, subnet_id, nsg_ids, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

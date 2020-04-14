@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -944,6 +944,144 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new network source in your tenancy.
+    #
+    # You must specify your tenancy's OCID as the compartment ID in the request object (remember that the tenancy
+    # is simply the root compartment). Notice that IAM resources (users, groups, compartments, and some policies)
+    # reside within the tenancy itself, unlike cloud resources such as compute instances, which typically
+    # reside within compartments inside the tenancy. For information about OCIDs, see
+    # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    #
+    # You must also specify a *name* for the network source, which must be unique across all network sources in your
+    # tenancy, and cannot be changed.
+    # You can use this name or the OCID when writing policies that apply to the network source. For more information
+    # about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
+    #
+    # You must also specify a *description* for the network source (although it can be an empty string). It does not
+    # have to be unique, and you can change it anytime with {#update_network_source update_network_source}.
+    #
+    # After you send your request, the new object's `lifecycleState` will temporarily be CREATING. Before using the
+    # object, first make sure its `lifecycleState` has changed to ACTIVE.
+    #
+    # @param [OCI::Identity::Models::CreateNetworkSourceDetails] create_network_source_details Request object for creating a new network source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::NetworkSources NetworkSources}
+    def create_network_source(create_network_source_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#create_network_source.' if logger
+
+      raise "Missing the required parameter 'create_network_source_details' when calling create_network_source." if create_network_source_details.nil?
+
+      path = '/networkSources'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_network_source_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#create_network_source') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::NetworkSources'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates Oauth token for the user
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [OCI::Identity::Models::CreateOAuth2ClientCredentialDetails] create_o_auth2_client_credential_details Request object containing the information required to generate an Oauth token.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::OAuth2ClientCredential OAuth2ClientCredential}
+    def create_o_auth_client_credential(user_id, create_o_auth2_client_credential_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#create_o_auth_client_credential.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling create_o_auth_client_credential." if user_id.nil?
+      raise "Missing the required parameter 'create_o_auth2_client_credential_details' when calling create_o_auth_client_credential." if create_o_auth2_client_credential_details.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+
+      path = '/users/{userId}/oauth2ClientCredentials'.sub('{userId}', user_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_o_auth2_client_credential_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#create_o_auth_client_credential') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::OAuth2ClientCredential'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new Console one-time password for the specified user. For more information about user
     # credentials, see [User Credentials](https://docs.cloud.oracle.com/Content/Identity/Concepts/usercredentials.htm).
     #
@@ -1291,21 +1429,26 @@ module OCI
 
     # Creates a new tag in the specified tag namespace.
     #
-    # You must specify either the OCID or the name of the tag namespace that will contain this tag definition.
+    # The tag requires either the OCID or the name of the tag namespace that will contain this
+    # tag definition.
     #
-    # You must also specify a *name* for the tag, which must be unique across all tags in the tag namespace
+    # You must specify a *name* for the tag, which must be unique across all tags in the tag namespace
     # and cannot be changed. The name can contain any ASCII character except the space (_) or period (.) characters.
     # Names are case insensitive. That means, for example, \"myTag\" and \"mytag\" are not allowed in the same namespace.
     # If you specify a name that's already in use in the tag namespace, a 409 error is returned.
     #
-    # You must also specify a *description* for the tag.
-    # It does not have to be unique, and you can change it with
+    # The tag must have a *description*. It does not have to be unique, and you can change it with
     # {#update_tag update_tag}.
     #
-    # If no 'validator' is set on this tag definition, then any (valid) value can be set for this definedTag.
+    # The tag must have a value type, which is specified with a validator. Tags can use either a
+    # static value or a list of possible values. Static values are entered by a user applying the tag
+    # to a resource. Lists are created by you and the user must apply a value from the list. Lists
+    # are validiated.
     #
-    # If a 'validator' is set on this tag definition, then the only valid values that can be set for this
-    # definedTag those that pass the additional validation imposed by the set 'validator'.
+    # * If no `validator` is set, the user applying the tag to a resource can type in a static
+    # value or leave the tag value empty.
+    # * If a `validator` is set, the user applying the tag to a resource must select from a list
+    # of values that you supply with {#enum_tag_definition_validator enum_tag_definition_validator}.
     #
     # @param [String] tag_namespace_id The OCID of the tag namespace.
     #
@@ -2106,6 +2249,121 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_mfa_totp_device') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified network source
+    #
+    # @param [String] network_source_id The OCID of the network source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_network_source(network_source_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#delete_network_source.' if logger
+
+      raise "Missing the required parameter 'network_source_id' when calling delete_network_source." if network_source_id.nil?
+      raise "Parameter value for 'network_source_id' must not be blank" if OCI::Internal::Util.blank_string?(network_source_id)
+
+      path = '/networkSources/{networkSourceId}'.sub('{networkSourceId}', network_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_network_source') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Delete Oauth token for the user
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [String] oauth2_client_credential_id The ID of the Oauth credential.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_o_auth_client_credential(user_id, oauth2_client_credential_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#delete_o_auth_client_credential.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling delete_o_auth_client_credential." if user_id.nil?
+      raise "Missing the required parameter 'oauth2_client_credential_id' when calling delete_o_auth_client_credential." if oauth2_client_credential_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+      raise "Parameter value for 'oauth2_client_credential_id' must not be blank" if OCI::Internal::Util.blank_string?(oauth2_client_credential_id)
+
+      path = '/users/{userId}/oauth2ClientCredentials/{oauth2ClientCredentialId}'.sub('{userId}', user_id.to_s).sub('{oauth2ClientCredentialId}', oauth2_client_credential_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_o_auth_client_credential') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -2999,6 +3257,60 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Identity::Models::MfaTotpDeviceSummary'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets the specified network source's information.
+    #
+    # @param [String] network_source_id The OCID of the network source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::NetworkSources NetworkSources}
+    def get_network_source(network_source_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#get_network_source.' if logger
+
+      raise "Missing the required parameter 'network_source_id' when calling get_network_source." if network_source_id.nil?
+      raise "Parameter value for 'network_source_id' must not be blank" if OCI::Internal::Util.blank_string?(network_source_id)
+
+      path = '/networkSources/{networkSourceId}'.sub('{networkSourceId}', network_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#get_network_source') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::NetworkSources'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -4390,6 +4702,132 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the network sources in your tenancy. You must specify your tenancy's OCID as the value for
+    # the compartment ID (remember that the tenancy is simply the root compartment).
+    # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
+    #
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::NetworkSourcesSummary NetworkSourcesSummary}>
+    def list_network_sources(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_network_sources.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_network_sources." if compartment_id.nil?
+
+      path = '/networkSources'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_network_sources') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::NetworkSourcesSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List of Oauth tokens for the user
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::OAuth2ClientCredentialSummary OAuth2ClientCredentialSummary}>
+    def list_o_auth_client_credentials(user_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_o_auth_client_credentials.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling list_o_auth_client_credentials." if user_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::OAuth2ClientCredentialSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::OAuth2ClientCredentialSummary::LIFECYCLE_STATE_ENUM.'
+      end
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+
+      path = '/users/{userId}/oauth2ClientCredentials'.sub('{userId}', user_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_o_auth_client_credentials') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::OAuth2ClientCredentialSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the policies in the specified compartment (either the tenancy or another of your compartments).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
     #
@@ -5061,7 +5499,7 @@ module OCI
     # - Similarly, you can limit the results to just the memberships for a given group by specifying a `groupId`.
     # - You can set both the `userId` and `groupId` to determine if the specified user is in the specified group.
     # If the answer is no, the response is an empty list.
-    # - Although`userId` and `groupId` are not indvidually required, you must set one of them.
+    # - Although`userId` and `groupId` are not individually required, you must set one of them.
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -5316,6 +5754,67 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Recover the compartment from DELETED state to ACTIVE state.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::Compartment Compartment}
+    def recover_compartment(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#recover_compartment.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling recover_compartment." if compartment_id.nil?
+      raise "Parameter value for 'compartment_id' must not be blank" if OCI::Internal::Util.blank_string?(compartment_id)
+
+      path = '/compartments/{compartmentId}/actions/recoverCompartment'.sub('{compartmentId}', compartment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#recover_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::Compartment'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5914,6 +6413,126 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the specified network source.
+    # @param [String] network_source_id The OCID of the network source.
+    # @param [OCI::Identity::Models::UpdateNetworkSourceDetails] update_network_source_details Request object for updating a network source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::NetworkSources NetworkSources}
+    def update_network_source(network_source_id, update_network_source_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#update_network_source.' if logger
+
+      raise "Missing the required parameter 'network_source_id' when calling update_network_source." if network_source_id.nil?
+      raise "Missing the required parameter 'update_network_source_details' when calling update_network_source." if update_network_source_details.nil?
+      raise "Parameter value for 'network_source_id' must not be blank" if OCI::Internal::Util.blank_string?(network_source_id)
+
+      path = '/networkSources/{networkSourceId}'.sub('{networkSourceId}', network_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_network_source_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#update_network_source') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::NetworkSources'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates Oauth token for the user
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [String] oauth2_client_credential_id The ID of the Oauth credential.
+    # @param [OCI::Identity::Models::UpdateOAuth2ClientCredentialDetails] update_o_auth2_client_credential_details Request object containing the information required to generate an Oauth token.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::OAuth2ClientCredential OAuth2ClientCredential}
+    def update_o_auth_client_credential(user_id, oauth2_client_credential_id, update_o_auth2_client_credential_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#update_o_auth_client_credential.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling update_o_auth_client_credential." if user_id.nil?
+      raise "Missing the required parameter 'oauth2_client_credential_id' when calling update_o_auth_client_credential." if oauth2_client_credential_id.nil?
+      raise "Missing the required parameter 'update_o_auth2_client_credential_details' when calling update_o_auth_client_credential." if update_o_auth2_client_credential_details.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+      raise "Parameter value for 'oauth2_client_credential_id' must not be blank" if OCI::Internal::Util.blank_string?(oauth2_client_credential_id)
+
+      path = '/users/{userId}/oauth2ClientCredentials/{oauth2ClientCredentialId}'.sub('{userId}', user_id.to_s).sub('{oauth2ClientCredentialId}', oauth2_client_credential_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_o_auth2_client_credential_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#update_o_auth_client_credential') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::OAuth2ClientCredential'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the specified policy. You can update the description or the policy statements themselves.
     #
     # Policy changes take effect typically within 10 seconds.
@@ -6103,9 +6722,14 @@ module OCI
 
     # Updates the specified tag definition.
     #
-    # Setting a 'validator' will enable enforcement of additional validation on values contained in the specified for
-    # this definedTag. Any values that were previously set will not be changed, but any new value set for the
-    # definedTag must pass validation.
+    # Setting `validator` determines the value type. Tags can use either a static value or a
+    # list of possible values. Static values are entered by a user applying the tag to a resource.
+    # Lists are created by you and the user must apply a value from the list. On update, any values
+    # in a list that were previously set do not change, but new values must pass validation. Values
+    # already applied to a resource do not change.
+    #
+    # You cannot remove list values that appear in a TagDefault. To remove a list value that
+    # appears in a TagDefault, first update the TagDefault to use a different value.
     #
     # @param [String] tag_namespace_id The OCID of the tag namespace.
     #
@@ -6242,7 +6866,7 @@ module OCI
     #
     # Updating `isRetired` to 'true' retires the namespace and all the tag definitions in the namespace. Reactivating a
     # namespace (changing `isRetired` from 'true' to 'false') does not reactivate tag definitions.
-    # To reactivate the tag definitions, you must reactivate each one indvidually *after* you reactivate the namespace,
+    # To reactivate the tag definitions, you must reactivate each one individually *after* you reactivate the namespace,
     # using {#update_tag update_tag}. For more information about retiring tag namespaces, see
     # [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
     #

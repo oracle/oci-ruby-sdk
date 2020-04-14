@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -23,7 +23,7 @@ module OCI
     # @return [OCI::Waas::Models::HttpRedirectTarget]
     attr_accessor :target
 
-    # The response code returned for the redirect to the client. reference - https://tools.ietf.org/html/rfc7231#section-6.4
+    # The response code returned for the redirect to the client. For more information, see [RFC 7231](https://tools.ietf.org/html/rfc7231#section-6.4).
     # @return [Integer]
     attr_accessor :response_code
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 # This script provides a basic example of how to use composite operations in the Ruby SDK. Composite operations provide
 # convenience methods for operations which would otherwise need to be chained together.  For example, instead of performing an action

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -31,12 +31,21 @@ module OCI
     # @return [Array<OCI::Core::Models::CrossConnectMapping>]
     attr_accessor :cross_connect_mappings
 
-    # Your BGP ASN (either public or private). Provide this value only if
-    # there's a BGP session that goes from your edge router to Oracle.
-    # Otherwise, leave this empty or null.
+    # Deprecated. Instead use `customerAsn`.
+    # If you specify values for both, the request will be rejected.
     #
     # @return [Integer]
     attr_accessor :customer_bgp_asn
+
+    # Your BGP ASN (either public or private). Provide this value only if
+    # there's a BGP session that goes from your edge router to Oracle.
+    # Otherwise, leave this empty or null.
+    # Can be a 2-byte or 4-byte ASN. Uses \"asplain\" format.
+    #
+    # Example: `12345` (2-byte) or `1587232876` (4-byte)
+    #
+    # @return [Integer]
+    attr_accessor :customer_asn
 
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -119,6 +128,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'cross_connect_mappings': :'crossConnectMappings',
         'customer_bgp_asn': :'customerBgpAsn',
+        'customer_asn': :'customerAsn',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
@@ -142,6 +152,7 @@ module OCI
         'compartment_id': :'String',
         'cross_connect_mappings': :'Array<OCI::Core::Models::CrossConnectMapping>',
         'customer_bgp_asn': :'Integer',
+        'customer_asn': :'Integer',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -167,6 +178,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Array<OCI::Core::Models::CrossConnectMapping>] :cross_connect_mappings The value to assign to the {#cross_connect_mappings} property
     # @option attributes [Integer] :customer_bgp_asn The value to assign to the {#customer_bgp_asn} property
+    # @option attributes [Integer] :customer_asn The value to assign to the {#customer_asn} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -207,6 +219,12 @@ module OCI
       raise 'You cannot provide both :customerBgpAsn and :customer_bgp_asn' if attributes.key?(:'customerBgpAsn') && attributes.key?(:'customer_bgp_asn')
 
       self.customer_bgp_asn = attributes[:'customer_bgp_asn'] if attributes[:'customer_bgp_asn']
+
+      self.customer_asn = attributes[:'customerAsn'] if attributes[:'customerAsn']
+
+      raise 'You cannot provide both :customerAsn and :customer_asn' if attributes.key?(:'customerAsn') && attributes.key?(:'customer_asn')
+
+      self.customer_asn = attributes[:'customer_asn'] if attributes[:'customer_asn']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -290,6 +308,7 @@ module OCI
         compartment_id == other.compartment_id &&
         cross_connect_mappings == other.cross_connect_mappings &&
         customer_bgp_asn == other.customer_bgp_asn &&
+        customer_asn == other.customer_asn &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
@@ -316,7 +335,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, compartment_id, cross_connect_mappings, customer_bgp_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_name, provider_service_id, provider_service_key_name, provider_service_name, public_prefixes, region, type].hash
+      [bandwidth_shape_name, compartment_id, cross_connect_mappings, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_name, provider_service_id, provider_service_key_name, provider_service_name, public_prefixes, region, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

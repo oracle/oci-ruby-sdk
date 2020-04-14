@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -24,6 +24,14 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_read_only
 
+    # Whether the attachment should be created in shareable mode. If an attachment
+    # is created in shareable mode, then other instances can attach the same volume, provided
+    # that they also create their attachments in shareable mode. Only certain volume types can
+    # be attached in shareable mode. Defaults to false if not specified.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_shareable
+
     # **[Required]** The type of volume. The only supported value are \"iscsi\" and \"paravirtualized\".
     # @return [String]
     attr_accessor :type
@@ -40,6 +48,7 @@ module OCI
         'display_name': :'displayName',
         'instance_id': :'instanceId',
         'is_read_only': :'isReadOnly',
+        'is_shareable': :'isShareable',
         'type': :'type',
         'volume_id': :'volumeId'
         # rubocop:enable Style/SymbolLiteral
@@ -54,6 +63,7 @@ module OCI
         'display_name': :'String',
         'instance_id': :'String',
         'is_read_only': :'BOOLEAN',
+        'is_shareable': :'BOOLEAN',
         'type': :'String',
         'volume_id': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -88,6 +98,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :instance_id The value to assign to the {#instance_id} property
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {#is_read_only} property
+    # @option attributes [BOOLEAN] :is_shareable The value to assign to the {#is_shareable} property
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [String] :volume_id The value to assign to the {#volume_id} property
     def initialize(attributes = {})
@@ -116,6 +127,12 @@ module OCI
 
       self.is_read_only = attributes[:'is_read_only'] unless attributes[:'is_read_only'].nil?
 
+      self.is_shareable = attributes[:'isShareable'] unless attributes[:'isShareable'].nil?
+
+      raise 'You cannot provide both :isShareable and :is_shareable' if attributes.key?(:'isShareable') && attributes.key?(:'is_shareable')
+
+      self.is_shareable = attributes[:'is_shareable'] unless attributes[:'is_shareable'].nil?
+
       self.type = attributes[:'type'] if attributes[:'type']
 
       self.volume_id = attributes[:'volumeId'] if attributes[:'volumeId']
@@ -140,6 +157,7 @@ module OCI
         display_name == other.display_name &&
         instance_id == other.instance_id &&
         is_read_only == other.is_read_only &&
+        is_shareable == other.is_shareable &&
         type == other.type &&
         volume_id == other.volume_id
     end
@@ -157,7 +175,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [device, display_name, instance_id, is_read_only, type, volume_id].hash
+      [device, display_name, instance_id, is_read_only, is_shareable, type, volume_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

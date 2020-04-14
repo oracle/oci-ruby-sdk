@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,21 +6,20 @@ require 'date'
 module OCI
   # GeneratedKey model.
   class KeyManagement::Models::GeneratedKey
-    # **[Required]** The encrypted generated data encryption key.
+    # **[Required]** The encrypted data encryption key generated from a master encryption key.
     # @return [String]
     attr_accessor :ciphertext
 
-    # The plaintext generated data encryption key, a base64-encoded
-    # sequence of random bytes, which is included if the
-    # GenerateDataEncryptionKey request includes the \"includePlaintextKey\"
-    # parameter and sets its value to 'true'.
+    # The plaintext data encryption key, a base64-encoded sequence of random bytes, which is
+    # included if the [GenerateDataEncryptionKey](https://docs.cloud.oracle.com/api/#/en/key/release/GeneratedKey/GenerateDataEncryptionKey)
+    # request includes the `includePlaintextKey` parameter and sets its value to \"true\".
     #
     # @return [String]
     attr_accessor :plaintext
 
-    # The checksum of the plaintext generated data encryption key, which
-    # is included if the GenerateDataEncryptionKey request includes the
-    # \"includePlaintextKey parameter and sets its value to 'true'.
+    # The checksum of the plaintext data encryption key, which is included if the
+    # [GenerateDataEncryptionKey](https://docs.cloud.oracle.com/api/#/en/key/release/GeneratedKey/GenerateDataEncryptionKey)
+    # request includes the `includePlaintextKey` parameter and sets its value to \"true\".
     #
     # @return [String]
     attr_accessor :plaintext_checksum

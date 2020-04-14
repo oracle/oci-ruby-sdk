@@ -1,0 +1,527 @@
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+
+require 'date'
+require 'logger'
+
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
+module OCI
+  # A data flow application object.
+  #
+  class DataFlow::Models::Application
+    LANGUAGE_ENUM = [
+      LANGUAGE_SCALA = 'SCALA'.freeze,
+      LANGUAGE_JAVA = 'JAVA'.freeze,
+      LANGUAGE_PYTHON = 'PYTHON'.freeze,
+      LANGUAGE_SQL = 'SQL'.freeze,
+      LANGUAGE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # The arguments passed to the running application as command line arguments.  An argument is
+    # either a plain text or a placeholder. Placeholders are replaced using values from the parameters
+    # map.  Each placeholder specified must be represented in the parameters map else the request
+    # (POST or PUT) will fail with a HTTP 400 status code.  Placeholders are specified as
+    # `Service Api Spec`, where `name` is the name of the parameter.
+    # Example:  `[ \"--input\", \"${input_file}\", \"--name\", \"John Doe\" ]`
+    # If \"input_file\" has a value of \"mydata.xml\", then the value above will be translated to
+    # `--input mydata.xml --name \"John Doe\"`
+    #
+    # @return [Array<String>]
+    attr_accessor :arguments
+
+    # The class for the application.
+    #
+    # @return [String]
+    attr_accessor :class_name
+
+    # The Spark configuration passed to the running process.
+    # See https://spark.apache.org/docs/latest/configuration.html#available-properties
+    # Example: { \"spark.app.name\" : \"My App Name\", \"spark.shuffle.io.maxRetries\" : \"4\" }
+    # Note: Not all Spark properties are permitted to be set.  Attempting to set a property that is
+    # not allowed to be overwritten will cause a 400 status to be returned.
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :configuration
+
+    # **[Required]** The OCID of a compartment.
+    #
+    # @return [String]
+    attr_accessor :compartment_id
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # A user-friendly description.
+    #
+    # @return [String]
+    attr_accessor :description
+
+    # **[Required]** A user-friendly name. This name is not necessarily unique.
+    #
+    # @return [String]
+    attr_accessor :display_name
+
+    # **[Required]** The VM shape for the driver. Sets the driver cores and memory.
+    #
+    # @return [String]
+    attr_accessor :driver_shape
+
+    # **[Required]** The VM shape for the executors. Sets the executor cores and memory.
+    #
+    # @return [String]
+    attr_accessor :executor_shape
+
+    # **[Required]** An Oracle Cloud Infrastructure URI of the file containing the application to execute.
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    #
+    # @return [String]
+    attr_accessor :file_uri
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # **[Required]** The application ID.
+    #
+    # @return [String]
+    attr_accessor :id
+
+    # **[Required]** The Spark language.
+    #
+    # @return [String]
+    attr_reader :language
+
+    # **[Required]** The current state of this application.
+    #
+    # @return [String]
+    attr_reader :lifecycle_state
+
+    # An Oracle Cloud Infrastructure URI of the bucket where the Spark job logs are to be uploaded.
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    #
+    # @return [String]
+    attr_accessor :logs_bucket_uri
+
+    # **[Required]** The number of executor VMs requested.
+    #
+    # @return [Integer]
+    attr_accessor :num_executors
+
+    # **[Required]** The OCID of the user who created the resource.
+    #
+    # @return [String]
+    attr_accessor :owner_principal_id
+
+    # The username of the user who created the resource.  If the username of the owner does not exist,
+    # `null` will be returned and the caller should refer to the ownerPrincipalId value instead.
+    #
+    # @return [String]
+    attr_accessor :owner_user_name
+
+    # An array of name/value pairs used to fill placeholders found in properties like
+    # `Application.arguments`.  The name must be a string of one or more word characters
+    # (a-z, A-Z, 0-9, _).  The value can be a string of 0 or more characters of any kind.
+    # Example:  [ { name: \"iterations\", value: \"10\"}, { name: \"input_file\", value: \"mydata.xml\" }, { name: \"variable_x\", value: \"${x}\"} ]
+    #
+    # @return [Array<OCI::DataFlow::Models::ApplicationParameter>]
+    attr_accessor :parameters
+
+    # **[Required]** The Spark version utilized to run the application.
+    #
+    # @return [String]
+    attr_accessor :spark_version
+
+    # **[Required]** The date and time a application was created, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # Example: `2018-04-03T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_created
+
+    # **[Required]** The date and time a application was updated, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # Example: `2018-04-03T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_updated
+
+    # An Oracle Cloud Infrastructure URI of the bucket to be used as default warehouse directory
+    # for BATCH SQL runs.
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    #
+    # @return [String]
+    attr_accessor :warehouse_bucket_uri
+
+    # Attribute mapping from ruby-style variable name to JSON key.
+    def self.attribute_map
+      {
+        # rubocop:disable Style/SymbolLiteral
+        'arguments': :'arguments',
+        'class_name': :'className',
+        'configuration': :'configuration',
+        'compartment_id': :'compartmentId',
+        'defined_tags': :'definedTags',
+        'description': :'description',
+        'display_name': :'displayName',
+        'driver_shape': :'driverShape',
+        'executor_shape': :'executorShape',
+        'file_uri': :'fileUri',
+        'freeform_tags': :'freeformTags',
+        'id': :'id',
+        'language': :'language',
+        'lifecycle_state': :'lifecycleState',
+        'logs_bucket_uri': :'logsBucketUri',
+        'num_executors': :'numExecutors',
+        'owner_principal_id': :'ownerPrincipalId',
+        'owner_user_name': :'ownerUserName',
+        'parameters': :'parameters',
+        'spark_version': :'sparkVersion',
+        'time_created': :'timeCreated',
+        'time_updated': :'timeUpdated',
+        'warehouse_bucket_uri': :'warehouseBucketUri'
+        # rubocop:enable Style/SymbolLiteral
+      }
+    end
+
+    # Attribute type mapping.
+    def self.swagger_types
+      {
+        # rubocop:disable Style/SymbolLiteral
+        'arguments': :'Array<String>',
+        'class_name': :'String',
+        'configuration': :'Hash<String, String>',
+        'compartment_id': :'String',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'description': :'String',
+        'display_name': :'String',
+        'driver_shape': :'String',
+        'executor_shape': :'String',
+        'file_uri': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'id': :'String',
+        'language': :'String',
+        'lifecycle_state': :'String',
+        'logs_bucket_uri': :'String',
+        'num_executors': :'Integer',
+        'owner_principal_id': :'String',
+        'owner_user_name': :'String',
+        'parameters': :'Array<OCI::DataFlow::Models::ApplicationParameter>',
+        'spark_version': :'String',
+        'time_created': :'DateTime',
+        'time_updated': :'DateTime',
+        'warehouse_bucket_uri': :'String'
+        # rubocop:enable Style/SymbolLiteral
+      }
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+
+    # Initializes the object
+    # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Array<String>] :arguments The value to assign to the {#arguments} property
+    # @option attributes [String] :class_name The value to assign to the {#class_name} property
+    # @option attributes [Hash<String, String>] :configuration The value to assign to the {#configuration} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :driver_shape The value to assign to the {#driver_shape} property
+    # @option attributes [String] :executor_shape The value to assign to the {#executor_shape} property
+    # @option attributes [String] :file_uri The value to assign to the {#file_uri} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :language The value to assign to the {#language} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :logs_bucket_uri The value to assign to the {#logs_bucket_uri} property
+    # @option attributes [Integer] :num_executors The value to assign to the {#num_executors} property
+    # @option attributes [String] :owner_principal_id The value to assign to the {#owner_principal_id} property
+    # @option attributes [String] :owner_user_name The value to assign to the {#owner_user_name} property
+    # @option attributes [Array<OCI::DataFlow::Models::ApplicationParameter>] :parameters The value to assign to the {#parameters} property
+    # @option attributes [String] :spark_version The value to assign to the {#spark_version} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [String] :warehouse_bucket_uri The value to assign to the {#warehouse_bucket_uri} property
+    def initialize(attributes = {})
+      return unless attributes.is_a?(Hash)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.arguments = attributes[:'arguments'] if attributes[:'arguments']
+
+      self.class_name = attributes[:'className'] if attributes[:'className']
+
+      raise 'You cannot provide both :className and :class_name' if attributes.key?(:'className') && attributes.key?(:'class_name')
+
+      self.class_name = attributes[:'class_name'] if attributes[:'class_name']
+
+      self.configuration = attributes[:'configuration'] if attributes[:'configuration']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.description = attributes[:'description'] if attributes[:'description']
+
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.driver_shape = attributes[:'driverShape'] if attributes[:'driverShape']
+
+      raise 'You cannot provide both :driverShape and :driver_shape' if attributes.key?(:'driverShape') && attributes.key?(:'driver_shape')
+
+      self.driver_shape = attributes[:'driver_shape'] if attributes[:'driver_shape']
+
+      self.executor_shape = attributes[:'executorShape'] if attributes[:'executorShape']
+
+      raise 'You cannot provide both :executorShape and :executor_shape' if attributes.key?(:'executorShape') && attributes.key?(:'executor_shape')
+
+      self.executor_shape = attributes[:'executor_shape'] if attributes[:'executor_shape']
+
+      self.file_uri = attributes[:'fileUri'] if attributes[:'fileUri']
+
+      raise 'You cannot provide both :fileUri and :file_uri' if attributes.key?(:'fileUri') && attributes.key?(:'file_uri')
+
+      self.file_uri = attributes[:'file_uri'] if attributes[:'file_uri']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.id = attributes[:'id'] if attributes[:'id']
+
+      self.language = attributes[:'language'] if attributes[:'language']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.logs_bucket_uri = attributes[:'logsBucketUri'] if attributes[:'logsBucketUri']
+
+      raise 'You cannot provide both :logsBucketUri and :logs_bucket_uri' if attributes.key?(:'logsBucketUri') && attributes.key?(:'logs_bucket_uri')
+
+      self.logs_bucket_uri = attributes[:'logs_bucket_uri'] if attributes[:'logs_bucket_uri']
+
+      self.num_executors = attributes[:'numExecutors'] if attributes[:'numExecutors']
+
+      raise 'You cannot provide both :numExecutors and :num_executors' if attributes.key?(:'numExecutors') && attributes.key?(:'num_executors')
+
+      self.num_executors = attributes[:'num_executors'] if attributes[:'num_executors']
+
+      self.owner_principal_id = attributes[:'ownerPrincipalId'] if attributes[:'ownerPrincipalId']
+
+      raise 'You cannot provide both :ownerPrincipalId and :owner_principal_id' if attributes.key?(:'ownerPrincipalId') && attributes.key?(:'owner_principal_id')
+
+      self.owner_principal_id = attributes[:'owner_principal_id'] if attributes[:'owner_principal_id']
+
+      self.owner_user_name = attributes[:'ownerUserName'] if attributes[:'ownerUserName']
+
+      raise 'You cannot provide both :ownerUserName and :owner_user_name' if attributes.key?(:'ownerUserName') && attributes.key?(:'owner_user_name')
+
+      self.owner_user_name = attributes[:'owner_user_name'] if attributes[:'owner_user_name']
+
+      self.parameters = attributes[:'parameters'] if attributes[:'parameters']
+
+      self.spark_version = attributes[:'sparkVersion'] if attributes[:'sparkVersion']
+
+      raise 'You cannot provide both :sparkVersion and :spark_version' if attributes.key?(:'sparkVersion') && attributes.key?(:'spark_version')
+
+      self.spark_version = attributes[:'spark_version'] if attributes[:'spark_version']
+
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
+
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
+
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.warehouse_bucket_uri = attributes[:'warehouseBucketUri'] if attributes[:'warehouseBucketUri']
+
+      raise 'You cannot provide both :warehouseBucketUri and :warehouse_bucket_uri' if attributes.key?(:'warehouseBucketUri') && attributes.key?(:'warehouse_bucket_uri')
+
+      self.warehouse_bucket_uri = attributes[:'warehouse_bucket_uri'] if attributes[:'warehouse_bucket_uri']
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] language Object to be assigned
+    def language=(language)
+      # rubocop:disable Style/ConditionalAssignment
+      if language && !LANGUAGE_ENUM.include?(language)
+        OCI.logger.debug("Unknown value for 'language' [" + language + "]. Mapping to 'LANGUAGE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @language = LANGUAGE_UNKNOWN_ENUM_VALUE
+      else
+        @language = language
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+
+
+    # Checks equality by comparing each attribute.
+    # @param [Object] other the other object to be compared
+    def ==(other)
+      return true if equal?(other)
+
+      self.class == other.class &&
+        arguments == other.arguments &&
+        class_name == other.class_name &&
+        configuration == other.configuration &&
+        compartment_id == other.compartment_id &&
+        defined_tags == other.defined_tags &&
+        description == other.description &&
+        display_name == other.display_name &&
+        driver_shape == other.driver_shape &&
+        executor_shape == other.executor_shape &&
+        file_uri == other.file_uri &&
+        freeform_tags == other.freeform_tags &&
+        id == other.id &&
+        language == other.language &&
+        lifecycle_state == other.lifecycle_state &&
+        logs_bucket_uri == other.logs_bucket_uri &&
+        num_executors == other.num_executors &&
+        owner_principal_id == other.owner_principal_id &&
+        owner_user_name == other.owner_user_name &&
+        parameters == other.parameters &&
+        spark_version == other.spark_version &&
+        time_created == other.time_created &&
+        time_updated == other.time_updated &&
+        warehouse_bucket_uri == other.warehouse_bucket_uri
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+
+    # @see the `==` method
+    # @param [Object] other the other object to be compared
+    def eql?(other)
+      self == other
+    end
+
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
+
+
+    # Calculates hash code according to all attributes.
+    # @return [Fixnum] Hash code
+    def hash
+      [arguments, class_name, configuration, compartment_id, defined_tags, description, display_name, driver_shape, executor_shape, file_uri, freeform_tags, id, language, lifecycle_state, logs_bucket_uri, num_executors, owner_principal_id, owner_user_name, parameters, spark_version, time_created, time_updated, warehouse_bucket_uri].hash
+    end
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
+
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
+
+
+    # Builds the object from hash
+    # @param [Hash] attributes Model attributes in the form of hash
+    # @return [Object] Returns the model itself
+    def build_from_hash(attributes)
+      return nil unless attributes.is_a?(Hash)
+
+      self.class.swagger_types.each_pair do |key, type|
+        if type =~ /^Array<(.*)>/i
+          # check to ensure the input is an array given that the the attribute
+          # is documented as an array but the input is not
+          if attributes[self.class.attribute_map[key]].is_a?(Array)
+            public_method("#{key}=").call(
+              attributes[self.class.attribute_map[key]]
+                .map { |v| OCI::Internal::Util.convert_to_type(Regexp.last_match(1), v) }
+            )
+          end
+        elsif !attributes[self.class.attribute_map[key]].nil?
+          public_method("#{key}=").call(
+            OCI::Internal::Util.convert_to_type(type, attributes[self.class.attribute_map[key]])
+          )
+        end
+        # or else data not found in attributes(hash), not an issue as the data can be optional
+      end
+
+      self
+    end
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
+
+    # Returns the string representation of the object
+    # @return [String] String presentation of the object
+    def to_s
+      to_hash.to_s
+    end
+
+    # Returns the object in the form of hash
+    # @return [Hash] Returns the object in the form of hash
+    def to_hash
+      hash = {}
+      self.class.attribute_map.each_pair do |attr, param|
+        value = public_method(attr).call
+        next if value.nil? && !instance_variable_defined?("@#{attr}")
+
+        hash[param] = _to_hash(value)
+      end
+      hash
+    end
+
+    private
+
+    # Outputs non-array value in the form of hash
+    # For object, use to_hash. Otherwise, just return the value
+    # @param [Object] value Any valid value
+    # @return [Hash] Returns the value in the form of hash
+    def _to_hash(value)
+      if value.is_a?(Array)
+        value.compact.map { |v| _to_hash(v) }
+      elsif value.is_a?(Hash)
+        {}.tap do |hash|
+          value.each { |k, v| hash[k] = _to_hash(v) }
+        end
+      elsif value.respond_to? :to_hash
+        value.to_hash
+      else
+        value
+      end
+    end
+  end
+end
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

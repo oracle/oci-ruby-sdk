@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -92,7 +92,7 @@ module OCI
     # @return [String]
     attr_accessor :image_id
 
-    # The OCID of the KMS key which is the master encryption key for the boot volume backup.
+    # The OCID of the Key Management master encryption assigned to the boot volume backup.
     # For more information about the Key Management service and encryption keys, see
     # [Overview of Key Management](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm) and
     # [Using Keys](https://docs.cloud.oracle.com/Content/KeyManagement/Tasks/usingkeys.htm).
@@ -108,6 +108,10 @@ module OCI
     #
     # @return [Integer]
     attr_accessor :size_in_gbs
+
+    # The OCID of the source boot volume backup.
+    # @return [String]
+    attr_accessor :source_boot_volume_backup_id
 
     # Specifies whether the backup was created manually, or via scheduled backup policy.
     # @return [String]
@@ -150,6 +154,7 @@ module OCI
         'kms_key_id': :'kmsKeyId',
         'lifecycle_state': :'lifecycleState',
         'size_in_gbs': :'sizeInGBs',
+        'source_boot_volume_backup_id': :'sourceBootVolumeBackupId',
         'source_type': :'sourceType',
         'time_created': :'timeCreated',
         'time_request_received': :'timeRequestReceived',
@@ -175,6 +180,7 @@ module OCI
         'kms_key_id': :'String',
         'lifecycle_state': :'String',
         'size_in_gbs': :'Integer',
+        'source_boot_volume_backup_id': :'String',
         'source_type': :'String',
         'time_created': :'DateTime',
         'time_request_received': :'DateTime',
@@ -202,6 +208,7 @@ module OCI
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
+    # @option attributes [String] :source_boot_volume_backup_id The value to assign to the {#source_boot_volume_backup_id} property
     # @option attributes [String] :source_type The value to assign to the {#source_type} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_request_received The value to assign to the {#time_request_received} property
@@ -280,6 +287,12 @@ module OCI
       raise 'You cannot provide both :sizeInGBs and :size_in_gbs' if attributes.key?(:'sizeInGBs') && attributes.key?(:'size_in_gbs')
 
       self.size_in_gbs = attributes[:'size_in_gbs'] if attributes[:'size_in_gbs']
+
+      self.source_boot_volume_backup_id = attributes[:'sourceBootVolumeBackupId'] if attributes[:'sourceBootVolumeBackupId']
+
+      raise 'You cannot provide both :sourceBootVolumeBackupId and :source_boot_volume_backup_id' if attributes.key?(:'sourceBootVolumeBackupId') && attributes.key?(:'source_boot_volume_backup_id')
+
+      self.source_boot_volume_backup_id = attributes[:'source_boot_volume_backup_id'] if attributes[:'source_boot_volume_backup_id']
 
       self.source_type = attributes[:'sourceType'] if attributes[:'sourceType']
 
@@ -370,6 +383,7 @@ module OCI
         kms_key_id == other.kms_key_id &&
         lifecycle_state == other.lifecycle_state &&
         size_in_gbs == other.size_in_gbs &&
+        source_boot_volume_backup_id == other.source_boot_volume_backup_id &&
         source_type == other.source_type &&
         time_created == other.time_created &&
         time_request_received == other.time_request_received &&
@@ -390,7 +404,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [boot_volume_id, compartment_id, defined_tags, system_tags, display_name, expiration_time, freeform_tags, id, image_id, kms_key_id, lifecycle_state, size_in_gbs, source_type, time_created, time_request_received, type, unique_size_in_gbs].hash
+      [boot_volume_id, compartment_id, defined_tags, system_tags, display_name, expiration_time, freeform_tags, id, image_id, kms_key_id, lifecycle_state, size_in_gbs, source_boot_volume_backup_id, source_type, time_created, time_request_received, type, unique_size_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

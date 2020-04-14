@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -31,20 +31,6 @@ module OCI
     # @return [String]
     attr_accessor :vpc_password
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # Example: `{\"Department\": \"Finance\"}`
-    #
-    # @return [Hash<String, String>]
-    attr_accessor :freeform_tags
-
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    #
-    # @return [Hash<String, Hash<String, Object>>]
-    attr_accessor :defined_tags
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -52,9 +38,7 @@ module OCI
         'type': :'type',
         'id': :'id',
         'vpc_user': :'vpcUser',
-        'vpc_password': :'vpcPassword',
-        'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'vpc_password': :'vpcPassword'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,9 +50,7 @@ module OCI
         'type': :'String',
         'id': :'String',
         'vpc_user': :'String',
-        'vpc_password': :'String',
-        'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'vpc_password': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,8 +65,6 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :vpc_user The value to assign to the {#vpc_user} property
     # @option attributes [String] :vpc_password The value to assign to the {#vpc_password} property
-    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
-    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -106,18 +86,6 @@ module OCI
       raise 'You cannot provide both :vpcPassword and :vpc_password' if attributes.key?(:'vpcPassword') && attributes.key?(:'vpc_password')
 
       self.vpc_password = attributes[:'vpc_password'] if attributes[:'vpc_password']
-
-      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
-
-      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
-
-      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
-
-      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
-
-      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
-
-      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -147,9 +115,7 @@ module OCI
         type == other.type &&
         id == other.id &&
         vpc_user == other.vpc_user &&
-        vpc_password == other.vpc_password &&
-        freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        vpc_password == other.vpc_password
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -165,7 +131,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, id, vpc_user, vpc_password, freeform_tags, defined_tags].hash
+      [type, id, vpc_user, vpc_password].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -95,7 +95,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://notification.{region}.oraclecloud.com') + '/20181201'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://notification.{region}.{secondLevelDomain}') + '/20181201'
       logger.info "NotificationControlPlaneClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 

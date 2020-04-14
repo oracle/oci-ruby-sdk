@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -68,7 +68,7 @@ module OCI
     # @return [Integer]
     attr_accessor :version
 
-    # **[Required]** The audience that will received the alert when it triggers.
+    # **[Required]** The audience that will receive the alert when it triggers.
     # @return [String]
     attr_accessor :recipients
 

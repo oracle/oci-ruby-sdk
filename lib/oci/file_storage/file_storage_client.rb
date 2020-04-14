@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The API for the File Storage Service.
+  # API for the File Storage service. Use this API to manage file systems, mount targets, and snapshots. For more information, see [Overview of File Storage](/iaas/Content/File/Concepts/filestorageoverview.htm).
   class FileStorage::FileStorageClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -120,7 +120,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -184,7 +184,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -248,7 +248,7 @@ module OCI
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -314,6 +314,9 @@ module OCI
     # For information about access control and compartments, see
     # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
     #
+    # For information about Network Security Groups access control, see
+    # [Network Security Groups](https://docs.cloud.oracle.com/Content/Network/Concepts/networksecuritygroups.htm).
+    #
     # For information about availability domains, see [Regions and
     # Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm).
     # To get a list of availability domains, use the
@@ -336,7 +339,7 @@ module OCI
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -430,7 +433,7 @@ module OCI
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -494,7 +497,7 @@ module OCI
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -557,7 +560,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -621,7 +624,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -684,7 +687,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -746,7 +749,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -1090,33 +1093,34 @@ module OCI
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
-    #
+    #    (default to 1000)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
+    #    (default to none)
     # @option opts [String] :display_name A user-friendly name. It does not have to be unique, and it is changeable.
     #
     #   Example: `My resource`
-    #
+    #    (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #
+    #    (default to none)
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
     # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
     #   the resouce type.
-    #
+    #    (default to none)
     # @option opts [String] :sort_by The field to sort by. You can provide either value, but not both.
     #   By default, when you sort by time created, results are shown
     #   in descending order. When you sort by display name, results are
     #   shown in ascending order.
-    #
+    #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc', where 'asc' is
-    #   ascending and 'desc' is descending.
-    #
+    #   ascending and 'desc' is descending. The default order is 'desc'
+    #   except for numeric values.
+    #    (default to DESC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
@@ -1196,7 +1200,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id The OCID of the compartment.
+    # @option opts [String] :compartment_id The OCID of the compartment. (default to none)
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
@@ -1205,31 +1209,32 @@ module OCI
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
-    #
+    #    (default to 1000)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
-    # @option opts [String] :export_set_id The OCID of the export set.
-    # @option opts [String] :file_system_id The OCID of the file system.
+    #    (default to none)
+    # @option opts [String] :export_set_id The OCID of the export set. (default to none)
+    # @option opts [String] :file_system_id The OCID of the file system. (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #
+    #    (default to none)
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
     # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
     #   the resouce type.
-    #
+    #    (default to none)
     # @option opts [String] :sort_by The field to sort by. You can provide either value, but not both.
     #   By default, when you sort by time created, results are shown
     #   in descending order. When you sort by path, results are
     #   shown in ascending alphanumeric order.
-    #
+    #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, PATH
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc', where 'asc' is
-    #   ascending and 'desc' is descending.
-    #
+    #   ascending and 'desc' is descending. The default order is 'desc'
+    #   except for numeric values.
+    #    (default to DESC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
@@ -1318,33 +1323,34 @@ module OCI
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
-    #
+    #    (default to 1000)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
+    #    (default to none)
     # @option opts [String] :display_name A user-friendly name. It does not have to be unique, and it is changeable.
     #
     #   Example: `My resource`
-    #
+    #    (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #
+    #    (default to none)
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
     # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
     #   the resouce type.
-    #
+    #    (default to none)
     # @option opts [String] :sort_by The field to sort by. You can provide either value, but not both.
     #   By default, when you sort by time created, results are shown
     #   in descending order. When you sort by display name, results are
     #   shown in ascending order.
-    #
+    #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc', where 'asc' is
-    #   ascending and 'desc' is descending.
-    #
+    #   ascending and 'desc' is descending. The default order is 'desc'
+    #   except for numeric values.
+    #    (default to DESC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
@@ -1435,34 +1441,35 @@ module OCI
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
-    #
+    #    (default to 1000)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
+    #    (default to none)
     # @option opts [String] :display_name A user-friendly name. It does not have to be unique, and it is changeable.
     #
     #   Example: `My resource`
-    #
-    # @option opts [String] :export_set_id The OCID of the export set.
+    #    (default to none)
+    # @option opts [String] :export_set_id The OCID of the export set. (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #
+    #    (default to none)
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
     # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
     #   the resouce type.
-    #
+    #    (default to none)
     # @option opts [String] :sort_by The field to sort by. You can choose either value, but not both.
     #   By default, when you sort by time created, results are shown
     #   in descending order. When you sort by display name, results are
     #   shown in ascending order.
-    #
+    #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc', where 'asc' is
-    #   ascending and 'desc' is descending.
-    #
+    #   ascending and 'desc' is descending. The default order is 'desc'
+    #   except for numeric values.
+    #    (default to DESC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
@@ -1544,29 +1551,30 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
-    #   1 is the minimum, 1000 is the maximum.
+    #   1 is the minimum, 100 is the maximum.
     #
     #   For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    #   Example: `500`
-    #
+    #   Example: `100`
+    #    (default to 100)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
     #   For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
+    #    (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #
+    #    (default to none)
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
     # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
     #   the resouce type.
-    #
+    #    (default to none)
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc', where 'asc' is
-    #   ascending and 'desc' is descending.
-    #
+    #   ascending and 'desc' is descending. The default order is 'desc'
+    #   except for numeric values.
+    #    (default to DESC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
@@ -1642,7 +1650,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -1706,7 +1714,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -1772,7 +1780,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -1836,7 +1844,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -1900,7 +1908,7 @@ module OCI
     #   etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
-    #
+    #    (default to none)
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #

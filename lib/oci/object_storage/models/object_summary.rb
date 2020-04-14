@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -23,9 +23,13 @@ module OCI
     # @return [String]
     attr_accessor :md5
 
-    # The date and time the object was created, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+    # The date and time the object was created, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.29).
     # @return [DateTime]
     attr_accessor :time_created
+
+    # The current entity tag (ETag) for the object.
+    # @return [String]
+    attr_accessor :etag
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -34,7 +38,8 @@ module OCI
         'name': :'name',
         'size': :'size',
         'md5': :'md5',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'etag': :'etag'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -46,7 +51,8 @@ module OCI
         'name': :'String',
         'size': :'Integer',
         'md5': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'etag': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,6 +67,7 @@ module OCI
     # @option attributes [Integer] :size The value to assign to the {#size} property
     # @option attributes [String] :md5 The value to assign to the {#md5} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :etag The value to assign to the {#etag} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -78,6 +85,8 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.etag = attributes[:'etag'] if attributes[:'etag']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -94,7 +103,8 @@ module OCI
         name == other.name &&
         size == other.size &&
         md5 == other.md5 &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        etag == other.etag
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -110,7 +120,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, size, md5, time_created].hash
+      [name, size, md5, time_created, etag].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

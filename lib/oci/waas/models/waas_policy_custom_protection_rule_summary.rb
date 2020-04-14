@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -30,6 +30,9 @@ module OCI
     # @return [Array<String>]
     attr_accessor :mod_security_rule_ids
 
+    # @return [Array<OCI::Waas::Models::ProtectionRuleExclusion>]
+    attr_accessor :exclusions
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -37,7 +40,8 @@ module OCI
         'id': :'id',
         'display_name': :'displayName',
         'action': :'action',
-        'mod_security_rule_ids': :'modSecurityRuleIds'
+        'mod_security_rule_ids': :'modSecurityRuleIds',
+        'exclusions': :'exclusions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,7 +53,8 @@ module OCI
         'id': :'String',
         'display_name': :'String',
         'action': :'String',
-        'mod_security_rule_ids': :'Array<String>'
+        'mod_security_rule_ids': :'Array<String>',
+        'exclusions': :'Array<OCI::Waas::Models::ProtectionRuleExclusion>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,6 +69,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :action The value to assign to the {#action} property
     # @option attributes [Array<String>] :mod_security_rule_ids The value to assign to the {#mod_security_rule_ids} property
+    # @option attributes [Array<OCI::Waas::Models::ProtectionRuleExclusion>] :exclusions The value to assign to the {#exclusions} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -85,6 +91,8 @@ module OCI
       raise 'You cannot provide both :modSecurityRuleIds and :mod_security_rule_ids' if attributes.key?(:'modSecurityRuleIds') && attributes.key?(:'mod_security_rule_ids')
 
       self.mod_security_rule_ids = attributes[:'mod_security_rule_ids'] if attributes[:'mod_security_rule_ids']
+
+      self.exclusions = attributes[:'exclusions'] if attributes[:'exclusions']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -114,7 +122,8 @@ module OCI
         id == other.id &&
         display_name == other.display_name &&
         action == other.action &&
-        mod_security_rule_ids == other.mod_security_rule_ids
+        mod_security_rule_ids == other.mod_security_rule_ids &&
+        exclusions == other.exclusions
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -130,7 +139,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, action, mod_security_rule_ids].hash
+      [id, display_name, action, mod_security_rule_ids, exclusions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

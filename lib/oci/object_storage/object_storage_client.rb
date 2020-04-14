@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -6,6 +6,8 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Common set of Object Storage and Archive Storage APIs for managing buckets, objects, and related resources.
+  # For more information, see [Overview of Object Storage](/Content/Object/Concepts/objectstorageoverview.htm) and
+  # [Overview of Archive Storage](/Content/Archive/Concepts/archivestorageoverview.htm).
   class ObjectStorage::ObjectStorageClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -427,7 +429,7 @@ module OCI
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
-    # @param [OCI::ObjectStorage::Models::CreateMultipartUploadDetails] create_multipart_upload_details Request object for creating a multi-part upload.
+    # @param [OCI::ObjectStorage::Models::CreateMultipartUploadDetails] create_multipart_upload_details Request object for creating a multipart upload.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -539,6 +541,129 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ObjectStorage::Models::PreauthenticatedRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a replication policy for the specified bucket.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [OCI::ObjectStorage::Models::CreateReplicationPolicyDetails] create_replication_policy_details The replication policy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ReplicationPolicy ReplicationPolicy}
+    def create_replication_policy(namespace_name, bucket_name, create_replication_policy_details, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#create_replication_policy.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling create_replication_policy." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling create_replication_policy." if bucket_name.nil?
+      raise "Missing the required parameter 'create_replication_policy_details' when calling create_replication_policy." if create_replication_policy_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/replicationPolicies'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(create_replication_policy_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#create_replication_policy') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::ReplicationPolicy'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new retention rule in the specified bucket. The new rule will take effect typically within 30 seconds.
+    # Note that a maximum of 100 rules are supported on a bucket.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [OCI::ObjectStorage::Models::CreateRetentionRuleDetails] create_retention_rule_details The retention rule to create for the bucket.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRule RetentionRule}
+    def create_retention_rule(namespace_name, bucket_name, create_retention_rule_details, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#create_retention_rule.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling create_retention_rule." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling create_retention_rule." if bucket_name.nil?
+      raise "Missing the required parameter 'create_retention_rule_details' when calling create_retention_rule." if create_retention_rule_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/retentionRules'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(create_retention_rule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#create_retention_rule') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::RetentionRule'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -808,6 +933,131 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the replication policy associated with the source bucket.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [String] replication_id The ID of the replication policy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def delete_replication_policy(namespace_name, bucket_name, replication_id, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#delete_replication_policy.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling delete_replication_policy." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling delete_replication_policy." if bucket_name.nil?
+      raise "Missing the required parameter 'replication_id' when calling delete_replication_policy." if replication_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+      raise "Parameter value for 'replication_id' must not be blank" if OCI::Internal::Util.blank_string?(replication_id)
+
+      path = '/n/{namespaceName}/b/{bucketName}/replicationPolicies/{replicationId}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{replicationId}', replication_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#delete_replication_policy') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified rule. The deletion takes effect typically within 30 seconds.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [String] retention_rule_id The ID of the retention rule.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    #   For uploading a part, this is the entity tag of the target part.
+    #
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def delete_retention_rule(namespace_name, bucket_name, retention_rule_id, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#delete_retention_rule.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling delete_retention_rule." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling delete_retention_rule." if bucket_name.nil?
+      raise "Missing the required parameter 'retention_rule_id' when calling delete_retention_rule." if retention_rule_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+      raise "Parameter value for 'retention_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(retention_rule_id)
+
+      path = '/n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{retentionRuleId}', retention_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#delete_retention_rule') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the current representation of the given bucket in the given Object Storage namespace.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.
@@ -904,8 +1154,8 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :compartment_id This is an optional field representing the tenancy OCID or the compartment OCID within the tenancy whose Object Storage namespace
-    #   name has to be retrieved.
+    # @option opts [String] :compartment_id This is an optional field representing either the tenancy [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) or the compartment
+    #   [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) within the tenancy whose Object Storage namespace is to be retrieved.
     #
     # @return [Response] A Response object with data of type String
     def get_namespace(opts = {})
@@ -1033,7 +1283,7 @@ module OCI
     #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :range Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/rfc/rfc7233), section 2.1.
+    # @option opts [String] :range Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/html/rfc7233#section-2.1).
     #   Note that only a single range of bytes is supported.
     #
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
@@ -1245,6 +1495,129 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ObjectStorage::Models::PreauthenticatedRequestSummary'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get the replication policy.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [String] replication_id The ID of the replication policy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ReplicationPolicy ReplicationPolicy}
+    def get_replication_policy(namespace_name, bucket_name, replication_id, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#get_replication_policy.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling get_replication_policy." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling get_replication_policy." if bucket_name.nil?
+      raise "Missing the required parameter 'replication_id' when calling get_replication_policy." if replication_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+      raise "Parameter value for 'replication_id' must not be blank" if OCI::Internal::Util.blank_string?(replication_id)
+
+      path = '/n/{namespaceName}/b/{bucketName}/replicationPolicies/{replicationId}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{replicationId}', replication_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#get_replication_policy') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::ReplicationPolicy'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get the specified retention rule.
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [String] retention_rule_id The ID of the retention rule.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRule RetentionRule}
+    def get_retention_rule(namespace_name, bucket_name, retention_rule_id, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#get_retention_rule.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling get_retention_rule." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling get_retention_rule." if bucket_name.nil?
+      raise "Missing the required parameter 'retention_rule_id' when calling get_retention_rule." if retention_rule_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+      raise "Parameter value for 'retention_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(retention_rule_id)
+
+      path = '/n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{retentionRuleId}', retention_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#get_retention_rule') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::RetentionRule'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1690,9 +2063,9 @@ module OCI
     #   Note that only '/' is a supported delimiter character at this time.
     #
     # @option opts [String] :fields Object summary in list of objects includes the 'name' field. This parameter can also include 'size'
-    #   (object size in bytes), 'md5', and 'timeCreated' (object creation date and time) fields.
+    #   (object size in bytes), 'etag', 'md5', and 'timeCreated' (object creation date and time) fields.
     #   Value of this parameter should be a comma-separated, case-insensitive list of those field names.
-    #   For example 'name,timeCreated,md5'.
+    #   For example 'name,etag,timeCreated,md5'.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ListObjects ListObjects}
@@ -1802,6 +2175,192 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::ObjectStorage::Models::PreauthenticatedRequestSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List the replication policies associated with a bucket.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::ReplicationPolicySummary ReplicationPolicySummary}>
+    def list_replication_policies(namespace_name, bucket_name, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#list_replication_policies.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_replication_policies." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling list_replication_policies." if bucket_name.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/replicationPolicies'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#list_replication_policies') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::ObjectStorage::Models::ReplicationPolicySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List the replication sources of a destination bucket.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::ReplicationSource ReplicationSource}>
+    def list_replication_sources(namespace_name, bucket_name, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#list_replication_sources.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_replication_sources." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling list_replication_sources." if bucket_name.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/replicationSources'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#list_replication_sources') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::ObjectStorage::Models::ReplicationSource>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List the retention rules for a bucket. The retention rules are sorted based on creation time,
+    # with the most recently created retention rule returned first.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The page at which to start retrieving results.
+    # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRuleCollection RetentionRuleCollection}
+    def list_retention_rules(namespace_name, bucket_name, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#list_retention_rules.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_retention_rules." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling list_retention_rules." if bucket_name.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/retentionRules'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#list_retention_rules') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::RetentionRuleCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1987,8 +2546,72 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new object or overwrites an existing one. See [Special Instructions for Object Storage
-    # PUT](https://docs.cloud.oracle.com/Content/API/Concepts/signingrequests.htm#ObjectStoragePut) for request signature requirements.
+    # Stops replication to the destination bucket and removes the replication policy. When the replication
+    # policy was created, this destination bucket became read-only except for new and changed objects replicated
+    # automatically from the source bucket. MakeBucketWritable removes the replication policy. This bucket is no
+    # longer the target for replication and is now writable, allowing users to make changes to bucket contents.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def make_bucket_writable(namespace_name, bucket_name, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#make_bucket_writable.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling make_bucket_writable." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling make_bucket_writable." if bucket_name.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/actions/makeBucketWritable'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#make_bucket_writable') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new object or overwrites an existing object with the same name. The maximum object size allowed by
+    # PutObject is 50 GiB.
+    #
+    # See [Special Instructions for Object Storage PUT](https://docs.cloud.oracle.com/Content/API/Concepts/signingrequests.htm#ObjectStoragePut)
+    # for request signature requirements.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
@@ -2011,15 +2634,39 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :expect 100-continue (default to 100-continue)
-    # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Object Storage performs an integrity check
-    #   on the body of the HTTP request by computing the MD5 hash for the body and comparing it to the MD5 hash supplied in the header.
-    #   If the two hashes do not match, the object is rejected and an HTTP-400 Unmatched Content MD5 error is returned with the message:
+    # @option opts [String] :content_md5 The optional base-64 header that defines the encoded MD5 hash of the body. If the optional Content-MD5 header is present, Object
+    #   Storage performs an integrity check on the body of the HTTP request by computing the MD5 hash for the body and comparing it to the
+    #   MD5 hash supplied in the header. If the two hashes do not match, the object is rejected and an HTTP-400 Unmatched Content MD5 error
+    #   is returned with the message:
     #
     #   \"The computed MD5 of the request body (ACTUAL_MD5) does not match the Content-MD5 header (HEADER_MD5)\"
     #
-    # @option opts [String] :content_type The content type of the object.  Defaults to 'application/octet-stream' if not overridden during the PutObject call.
-    # @option opts [String] :content_language The content language of the object.
-    # @option opts [String] :content_encoding The content encoding of the object.
+    # @option opts [String] :content_type The optional Content-Type header that defines the standard MIME type format of the object. Content type defaults to
+    #   'application/octet-stream' if not specified in the PutObject call. Specifying values for this header has no effect
+    #   on Object Storage behavior. Programs that read the object determine what to do based on the value provided. For example,
+    #   you could use this header to identify and perform special operations on text only objects.
+    #
+    # @option opts [String] :content_language The optional Content-Language header that defines the content language of the object to upload. Specifying
+    #   values for this header has no effect on Object Storage behavior. Programs that read the object determine what
+    #   to do based on the value provided. For example, you could use this header to identify and differentiate objects
+    #   based on a particular language.
+    #
+    # @option opts [String] :content_encoding The optional Content-Encoding header that defines the content encodings that were applied to the object to
+    #   upload. Specifying values for this header has no effect on Object Storage behavior. Programs that read the
+    #   object determine what to do based on the value provided. For example, you could use this header to determine
+    #   what decoding mechanisms need to be applied to obtain the media-type specified by the Content-Type header of
+    #   the object.
+    #
+    # @option opts [String] :content_disposition The optional Content-Disposition header that defines presentational information for the object to be
+    #   returned in GetObject and HeadObject responses. Specifying values for this header has no effect on Object
+    #   Storage behavior. Programs that read the object determine what to do based on the value provided.
+    #   For example, you could use this header to let users download objects with custom filenames in a browser.
+    #
+    # @option opts [String] :cache_control The optional Cache-Control header that defines the caching behavior value to be returned in GetObject and
+    #   HeadObject responses. Specifying values for this header has no effect on Object Storage behavior. Programs
+    #   that read the object determine what to do based on the value provided.
+    #   For example, you could use this header to identify objects that require caching restrictions.
+    #
     # @option opts [Hash<String, String>] :opc_meta Optional user-defined metadata key and value.
     #   "opc-meta-" will be appended to each Hash key before it is sent to the server.
     # @return [Response] A Response object with data of type nil
@@ -2053,6 +2700,8 @@ module OCI
       header_params[:'content-type'] = opts[:content_type] if opts[:content_type]
       header_params[:'content-language'] = opts[:content_language] if opts[:content_language]
       header_params[:'content-encoding'] = opts[:content_encoding] if opts[:content_encoding]
+      header_params[:'content-disposition'] = opts[:content_disposition] if opts[:content_disposition]
+      header_params[:'cache-control'] = opts[:cache_control] if opts[:cache_control]
       # rubocop:enable Style/NegatedIf
 
       if opts[:opc_meta]
@@ -2157,15 +2806,20 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Reencrypts the data encryption key of the bucket and objects in the bucket. This is an asynchronous call, the
-    # system will start a work request task to reencrypt the data encryption key of the objects and chunks in the bucket.
-    # Only the objects created before the time the API call will be reencrypted. The call can take long time depending
-    # on how many objects in the bucket and how big the objects are. This API will return a work request id, so the user
-    # can use this id to retrieve the status of the work request task.
+    # Re-encrypts the unique data encryption key that encrypts each object written to the bucket by using the most recent
+    # version of the master encryption key assigned to the bucket. (All data encryption keys are encrypted by a master
+    # encryption key. Master encryption keys are assigned to buckets and managed by Oracle by default, but you can assign
+    # a key that you created and control through the Oracle Cloud Infrastructure Key Management service.) The kmsKeyId property
+    # of the bucket determines which master encryption key is assigned to the bucket. If you assigned a different Key Management
+    # master encryption key to the bucket, you can call this API to re-encrypt all data encryption keys with the newly
+    # assigned key. Similarly, you might want to re-encrypt all data encryption keys if the assigned key has been rotated to
+    # a new key version since objects were last added to the bucket. If you call this API and there is no kmsKeyId associated
+    # with the bucket, the call will fail.
     #
-    # A user can update kmsKeyId of the bucket, and then call this API, so the data encryption key of the bucket and
-    # objects in the bucket will be reencryped by the new kmsKeyId. Note that the system doesn't maintain what
-    # ksmKeyId is used to encrypt the object, the user has to maintain the mapping if they want.
+    # Calling this API starts a work request task to re-encrypt the data encryption key of all objects in the bucket. Only
+    # objects created before the time of the API call will be re-encrypted. The call can take a long time, depending on how many
+    # objects are in the bucket and how big they are. This API returns a work request ID that you can use to retrieve the status
+    # of the work request task.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
@@ -2475,6 +3129,74 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the specified retention rule. Rule changes take effect typically within 30 seconds.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [String] retention_rule_id The ID of the retention rule.
+    # @param [OCI::ObjectStorage::Models::UpdateRetentionRuleDetails] update_retention_rule_details Request object for updating the retention rule.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
+    #   For uploading a part, this is the entity tag of the target part.
+    #
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRule RetentionRule}
+    def update_retention_rule(namespace_name, bucket_name, retention_rule_id, update_retention_rule_details, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#update_retention_rule.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling update_retention_rule." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling update_retention_rule." if bucket_name.nil?
+      raise "Missing the required parameter 'retention_rule_id' when calling update_retention_rule." if retention_rule_id.nil?
+      raise "Missing the required parameter 'update_retention_rule_details' when calling update_retention_rule." if update_retention_rule_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+      raise "Parameter value for 'retention_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(retention_rule_id)
+
+      path = '/n/{namespaceName}/b/{bucketName}/retentionRules/{retentionRuleId}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{retentionRuleId}', retention_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_retention_rule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#update_retention_rule') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::RetentionRule'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Uploads a single part of a multipart upload.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.
@@ -2500,9 +3222,10 @@ module OCI
     #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :expect 100-continue (default to 100-continue)
-    # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Object Storage performs an integrity check
-    #   on the body of the HTTP request by computing the MD5 hash for the body and comparing it to the MD5 hash supplied in the header.
-    #   If the two hashes do not match, the object is rejected and an HTTP-400 Unmatched Content MD5 error is returned with the message:
+    # @option opts [String] :content_md5 The optional base-64 header that defines the encoded MD5 hash of the body. If the optional Content-MD5 header is present, Object
+    #   Storage performs an integrity check on the body of the HTTP request by computing the MD5 hash for the body and comparing it to the
+    #   MD5 hash supplied in the header. If the two hashes do not match, the object is rejected and an HTTP-400 Unmatched Content MD5 error
+    #   is returned with the message:
     #
     #   \"The computed MD5 of the request body (ACTUAL_MD5) does not match the Content-MD5 header (HEADER_MD5)\"
     #

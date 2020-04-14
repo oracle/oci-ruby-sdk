@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -86,7 +86,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of KMS key used to encrypt the encryption keys associated with this file system.
+    # The OCID of the KMS key which is the master encryption key for the file system.
     #
     # @return [String]
     attr_accessor :kms_key_id

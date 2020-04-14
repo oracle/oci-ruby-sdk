@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -9,6 +9,10 @@ module OCI
     # OceInstance description
     # @return [String]
     attr_accessor :description
+
+    # Web Application Firewall(WAF) primary domain
+    # @return [String]
+    attr_accessor :waf_primary_domain
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
@@ -27,6 +31,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'description': :'description',
+        'waf_primary_domain': :'wafPrimaryDomain',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -38,6 +43,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'description': :'String',
+        'waf_primary_domain': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -51,6 +57,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :waf_primary_domain The value to assign to the {#waf_primary_domain} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -60,6 +67,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.waf_primary_domain = attributes[:'wafPrimaryDomain'] if attributes[:'wafPrimaryDomain']
+
+      raise 'You cannot provide both :wafPrimaryDomain and :waf_primary_domain' if attributes.key?(:'wafPrimaryDomain') && attributes.key?(:'waf_primary_domain')
+
+      self.waf_primary_domain = attributes[:'waf_primary_domain'] if attributes[:'waf_primary_domain']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -86,6 +99,7 @@ module OCI
 
       self.class == other.class &&
         description == other.description &&
+        waf_primary_domain == other.waf_primary_domain &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -103,7 +117,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, freeform_tags, defined_tags].hash
+      [description, waf_primary_domain, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

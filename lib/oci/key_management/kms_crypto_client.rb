@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -82,7 +82,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Decrypts data using the given DecryptDataDetails resource.
+    # Decrypts data using the given [DecryptDataDetails](https://docs.cloud.oracle.com/api/#/en/key/release/datatypes/DecryptDataDetails) resource.
     #
     # @param [OCI::KeyManagement::Models::DecryptDataDetails] decrypt_data_details DecryptDataDetails
     # @param [Hash] opts the optional parameters
@@ -138,9 +138,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Encrypts data using the given EncryptDataDetails resource.
-    # Plaintext included in the example request is a base64-encoded value
-    # of a UTF-8 string.
+    # Encrypts data using the given [EncryptDataDetails](https://docs.cloud.oracle.com/api/#/en/key/release/datatypes/EncryptDataDetails) resource.
+    # Plaintext included in the example request is a base64-encoded value of a UTF-8 string.
     #
     # @param [OCI::KeyManagement::Models::EncryptDataDetails] encrypt_data_details EncryptDataDetails
     # @param [Hash] opts the optional parameters

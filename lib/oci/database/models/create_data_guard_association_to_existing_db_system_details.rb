@@ -1,13 +1,13 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'create_data_guard_association_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The configuration details for creating a Data Guard association for a bare metal DB system database. A standby database will be created in the DB system you specify.
+  # The configuration details for creating a Data Guard association for a bare metal or Exadata DB system database. For these types of DB system databases, the `creationType` should be `ExistingDbSystem`. A standby database will be created in the DB system you specify.
   #
-  # To create a Data Guard association for a database in a virtual machine DB system, use the {#create_data_guard_association_with_new_db_system_details create_data_guard_association_with_new_db_system_details} subtype.
+  # To create a Data Guard association for a database in a virtual machine DB system, use the {#create_data_guard_association_with_new_db_system_details create_data_guard_association_with_new_db_system_details} subtype instead.
   #
   class Database::Models::CreateDataGuardAssociationToExistingDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system in which to create the standby database.

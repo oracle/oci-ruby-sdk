@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The JavaScript challenge settings. Javascript Challenge is the function to filter abnormal or malicious bots and allow access to real clients.
+  # The JavaScript challenge settings. JavaScript Challenge is the function to filter abnormal or malicious bots and allow access to real clients.
   class Waas::Models::JsChallenge
     ACTION_ENUM = [
       ACTION_DETECT = 'DETECT'.freeze,
@@ -36,6 +36,18 @@ module OCI
     # @return [OCI::Waas::Models::BlockChallengeSettings]
     attr_accessor :challenge_settings
 
+    # When enabled, redirect responses from the origin will also be challenged. This will change HTTP 301/302 responses from origin to HTTP 200 with an HTML body containing JavaScript page redirection.
+    # @return [BOOLEAN]
+    attr_accessor :are_redirects_challenged
+
+    # When defined, the JavaScript Challenge would be applied only for the requests that matched all the listed conditions.
+    # @return [Array<OCI::Waas::Models::AccessRuleCriteria>]
+    attr_accessor :criteria
+
+    # When enabled, the user is identified not only by the IP address but also by an unique additional hash, which prevents blocking visitors with shared IP addresses.
+    # @return [BOOLEAN]
+    attr_accessor :is_nat_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -45,7 +57,10 @@ module OCI
         'failure_threshold': :'failureThreshold',
         'action_expiration_in_seconds': :'actionExpirationInSeconds',
         'set_http_header': :'setHttpHeader',
-        'challenge_settings': :'challengeSettings'
+        'challenge_settings': :'challengeSettings',
+        'are_redirects_challenged': :'areRedirectsChallenged',
+        'criteria': :'criteria',
+        'is_nat_enabled': :'isNatEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -59,7 +74,10 @@ module OCI
         'failure_threshold': :'Integer',
         'action_expiration_in_seconds': :'Integer',
         'set_http_header': :'OCI::Waas::Models::Header',
-        'challenge_settings': :'OCI::Waas::Models::BlockChallengeSettings'
+        'challenge_settings': :'OCI::Waas::Models::BlockChallengeSettings',
+        'are_redirects_challenged': :'BOOLEAN',
+        'criteria': :'Array<OCI::Waas::Models::AccessRuleCriteria>',
+        'is_nat_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -76,6 +94,9 @@ module OCI
     # @option attributes [Integer] :action_expiration_in_seconds The value to assign to the {#action_expiration_in_seconds} property
     # @option attributes [OCI::Waas::Models::Header] :set_http_header The value to assign to the {#set_http_header} property
     # @option attributes [OCI::Waas::Models::BlockChallengeSettings] :challenge_settings The value to assign to the {#challenge_settings} property
+    # @option attributes [BOOLEAN] :are_redirects_challenged The value to assign to the {#are_redirects_challenged} property
+    # @option attributes [Array<OCI::Waas::Models::AccessRuleCriteria>] :criteria The value to assign to the {#criteria} property
+    # @option attributes [BOOLEAN] :is_nat_enabled The value to assign to the {#is_nat_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -113,6 +134,24 @@ module OCI
       raise 'You cannot provide both :challengeSettings and :challenge_settings' if attributes.key?(:'challengeSettings') && attributes.key?(:'challenge_settings')
 
       self.challenge_settings = attributes[:'challenge_settings'] if attributes[:'challenge_settings']
+
+      self.are_redirects_challenged = attributes[:'areRedirectsChallenged'] unless attributes[:'areRedirectsChallenged'].nil?
+      self.are_redirects_challenged = true if are_redirects_challenged.nil? && !attributes.key?(:'areRedirectsChallenged') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :areRedirectsChallenged and :are_redirects_challenged' if attributes.key?(:'areRedirectsChallenged') && attributes.key?(:'are_redirects_challenged')
+
+      self.are_redirects_challenged = attributes[:'are_redirects_challenged'] unless attributes[:'are_redirects_challenged'].nil?
+      self.are_redirects_challenged = true if are_redirects_challenged.nil? && !attributes.key?(:'areRedirectsChallenged') && !attributes.key?(:'are_redirects_challenged') # rubocop:disable Style/StringLiterals
+
+      self.criteria = attributes[:'criteria'] if attributes[:'criteria']
+
+      self.is_nat_enabled = attributes[:'isNatEnabled'] unless attributes[:'isNatEnabled'].nil?
+      self.is_nat_enabled = true if is_nat_enabled.nil? && !attributes.key?(:'isNatEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isNatEnabled and :is_nat_enabled' if attributes.key?(:'isNatEnabled') && attributes.key?(:'is_nat_enabled')
+
+      self.is_nat_enabled = attributes[:'is_nat_enabled'] unless attributes[:'is_nat_enabled'].nil?
+      self.is_nat_enabled = true if is_nat_enabled.nil? && !attributes.key?(:'isNatEnabled') && !attributes.key?(:'is_nat_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -144,7 +183,10 @@ module OCI
         failure_threshold == other.failure_threshold &&
         action_expiration_in_seconds == other.action_expiration_in_seconds &&
         set_http_header == other.set_http_header &&
-        challenge_settings == other.challenge_settings
+        challenge_settings == other.challenge_settings &&
+        are_redirects_challenged == other.are_redirects_challenged &&
+        criteria == other.criteria &&
+        is_nat_enabled == other.is_nat_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -160,7 +202,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_enabled, action, failure_threshold, action_expiration_in_seconds, set_http_header, challenge_settings].hash
+      [is_enabled, action, failure_threshold, action_expiration_in_seconds, set_http_header, challenge_settings, are_redirects_challenged, criteria, is_nat_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -95,7 +95,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://notification.{region}.oraclecloud.com') + '/20181201'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://notification.{region}.{secondLevelDomain}') + '/20181201'
       logger.info "NotificationDataPlaneClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -329,6 +329,7 @@ module OCI
     #     * `HTTPS` (deprecated; for PagerDuty endpoints, use `PAGERDUTY`)
     #     * `PAGERDUTY`
     #     * `SLACK`
+    #     * `ORACLE_FUNCTIONS`
     #
     #   For information about subscription protocols, see
     #   [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
@@ -464,6 +465,7 @@ module OCI
     #     * `HTTPS` (deprecated; for PagerDuty endpoints, use `PAGERDUTY`)
     #     * `PAGERDUTY`
     #     * `SLACK`
+    #     * `ORACLE_FUNCTIONS`
     #
     #   For information about subscription protocols, see
     #   [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
@@ -595,7 +597,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Publishes a message to the specified topic. Limits information follows.
+    # Publishes a message to the specified topic.
+    #
+    # The topic endpoint is required for this operation.
+    # To get the topic endpoint, use {#get_topic get_topic}
+    # and review the `apiEndpoint` value in the response ({NotificationTopic}).
+    #
+    # Limits information follows.
     #
     # Message size limit per request: 64KB.
     #

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -11,7 +11,7 @@ module OCI
     attr_accessor :message
 
     # The date and time the log message was written, as described in
-    # [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+    # [RFC 3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :timestamp

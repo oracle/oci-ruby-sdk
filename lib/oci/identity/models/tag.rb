@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -50,6 +50,7 @@ module OCI
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
@@ -57,7 +58,8 @@ module OCI
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}``
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
@@ -73,6 +75,7 @@ module OCI
     attr_reader :lifecycle_state
 
     # **[Required]** Date and time the tag was created, in the format defined by RFC3339.
+    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
@@ -83,11 +86,16 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_cost_tracking
 
-    # Additional validation rule for values specified for the tag definition.
+    # The tag must have a value type, which is specified with a validator. Tags can use either a
+    # static value or a list of possible values. Static values are entered by a user applying the tag
+    # to a resource. Lists are created by you and the user must apply a value from the list. Lists
+    # are validiated.
     #
-    # If no validator is defined for a tag definition, then any (valid) value will be accepted.
+    # If you use the default validiator (or don't define a validator), the user applying the tag
+    # enters a value. No additional validation is performed.
     #
-    # To clear the validator call the UPDATE operation with DefaultTagDefinitionValidator
+    # To clear the validator, call UpdateTag with
+    # [DefaultTagDefinitionValidator](https://docs.cloud.oracle.com/api/#/en/identity/latest/datatypes/DefaultTagDefinitionValidator).
     #
     # @return [OCI::Identity::Models::BaseTagDefinitionValidator]
     attr_accessor :validator

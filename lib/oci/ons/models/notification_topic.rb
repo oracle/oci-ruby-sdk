@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -62,7 +62,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # **[Required]** The endpoint for managing topic subscriptions or publishing messages to the topic.
+    # **[Required]** The endpoint for managing subscriptions or publishing messages to the topic.
     #
     # @return [String]
     attr_accessor :api_endpoint

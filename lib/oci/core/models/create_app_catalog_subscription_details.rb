@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,19 +6,19 @@ require 'date'
 module OCI
   # details for creating a subscription for a listing resource version.
   class Core::Models::CreateAppCatalogSubscriptionDetails
-    # The compartmentID for the subscription.
+    # **[Required]** The compartmentID for the subscription.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The OCID of the listing.
+    # **[Required]** The OCID of the listing.
     # @return [String]
     attr_accessor :listing_id
 
-    # Listing resource version.
+    # **[Required]** Listing resource version.
     # @return [String]
     attr_accessor :listing_resource_version
 
-    # Oracle TOU link
+    # **[Required]** Oracle TOU link
     # @return [String]
     attr_accessor :oracle_terms_of_use_link
 
@@ -26,13 +26,13 @@ module OCI
     # @return [String]
     attr_accessor :eula_link
 
-    # Date and time the agreements were retrieved, in RFC3339 format.
+    # **[Required]** Date and time the agreements were retrieved, in RFC3339 format.
     # Example: `2018-03-20T12:32:53.532Z`
     #
     # @return [DateTime]
     attr_accessor :time_retrieved
 
-    # A generated signature for this listing resource version retrieved the agreements API.
+    # **[Required]** A generated signature for this listing resource version retrieved the agreements API.
     # @return [String]
     attr_accessor :signature
 

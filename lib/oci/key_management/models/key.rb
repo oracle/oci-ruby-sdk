@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -22,19 +22,20 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment that contains this key.
+    # **[Required]** The OCID of the compartment that contains this master encryption key.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The OCID of the KeyVersion resource used in cryptographic operations. During key rotation, service might be in a transitional state
-    # where this or a newer KeyVersion are used intermittently. The currentKeyVersion field is updated when the service is guaranteed to
-    # use the new KeyVersion for all subsequent encryption operations.
+    # **[Required]** The OCID of the key version used in cryptographic operations. During key rotation, the service might be
+    # in a transitional state where this or a newer key version are used intermittently. The `currentKeyVersion`
+    # field is updated when the service is guaranteed to use the new key version for all subsequent encryption operations.
     #
     # @return [String]
     attr_accessor :current_key_version
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"foo-value\"}}`
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
@@ -45,9 +46,9 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # Simple key-value pair that is applied without any predefined name, type, or scope.
-    # Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
@@ -74,7 +75,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # An optional property for the deletion time of the key, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # An optional property indicating when to delete the key, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
     # Example: `2019-04-03T21:10:29.600Z`
     #
     # @return [DateTime]

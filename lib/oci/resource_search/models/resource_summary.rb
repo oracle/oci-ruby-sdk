@@ -1,10 +1,10 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A resource that exists in the user's cloud network.
+  # A resource that exists in the cloud network that you're querying.
   class ResourceSearch::Models::ResourceSummary
     # **[Required]** The resource type name.
     # @return [String]
@@ -18,7 +18,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # The time this resource was created.
+    # The time that this resource was created.
     # @return [DateTime]
     attr_accessor :time_created
 
@@ -26,7 +26,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The availability domain this resource is located in, if applicable.
+    # The availability domain where this resource exists, if applicable.
     # @return [String]
     attr_accessor :availability_domain
 
@@ -34,17 +34,35 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_state
 
-    # The freeform tags associated with this resource, if any.
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The defined tags associated with this resource, if any.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # Contains search context, such as highlighting, for found resources.
+    # System tags associated with this resource, if any. System tags are set by Oracle Cloud Infrastructure services. Each key is predefined and scoped to namespaces.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+    # Example: `{orcl-cloud: {free-tier-retain: true}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # @return [OCI::ResourceSearch::Models::SearchContext]
     attr_accessor :search_context
+
+    # Additional identifiers to use together in a \"Get\" request for a specified resource, only required for resource types
+    # that explicitly cannot be retrieved by using a single identifier, such as the resource's OCID.
+    #
+    # @return [Hash<String, Object>]
+    attr_accessor :identity_context
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -59,7 +77,9 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'search_context': :'searchContext'
+        'system_tags': :'systemTags',
+        'search_context': :'searchContext',
+        'identity_context': :'identityContext'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -77,7 +97,9 @@ module OCI
         'lifecycle_state': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'search_context': :'OCI::ResourceSearch::Models::SearchContext'
+        'system_tags': :'Hash<String, Hash<String, Object>>',
+        'search_context': :'OCI::ResourceSearch::Models::SearchContext',
+        'identity_context': :'Hash<String, Object>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -97,7 +119,9 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [OCI::ResourceSearch::Models::SearchContext] :search_context The value to assign to the {#search_context} property
+    # @option attributes [Hash<String, Object>] :identity_context The value to assign to the {#identity_context} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -154,11 +178,23 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
       self.search_context = attributes[:'searchContext'] if attributes[:'searchContext']
 
       raise 'You cannot provide both :searchContext and :search_context' if attributes.key?(:'searchContext') && attributes.key?(:'search_context')
 
       self.search_context = attributes[:'search_context'] if attributes[:'search_context']
+
+      self.identity_context = attributes[:'identityContext'] if attributes[:'identityContext']
+
+      raise 'You cannot provide both :identityContext and :identity_context' if attributes.key?(:'identityContext') && attributes.key?(:'identity_context')
+
+      self.identity_context = attributes[:'identity_context'] if attributes[:'identity_context']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -181,7 +217,9 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        search_context == other.search_context
+        system_tags == other.system_tags &&
+        search_context == other.search_context &&
+        identity_context == other.identity_context
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -197,7 +235,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [resource_type, identifier, compartment_id, time_created, display_name, availability_domain, lifecycle_state, freeform_tags, defined_tags, search_context].hash
+      [resource_type, identifier, compartment_id, time_created, display_name, availability_domain, lifecycle_state, freeform_tags, defined_tags, system_tags, search_context, identity_context].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

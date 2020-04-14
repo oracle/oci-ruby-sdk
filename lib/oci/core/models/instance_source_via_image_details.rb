@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'instance_source_details'
@@ -15,7 +15,7 @@ module OCI
     # @return [String]
     attr_accessor :image_id
 
-    # The OCID of the KMS key to be used as the master encryption key for the boot volume.
+    # The OCID of the Key Management key to assign as the master encryption key for the boot volume.
     # @return [String]
     attr_accessor :kms_key_id
 

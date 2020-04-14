@@ -1,10 +1,10 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An HTTP header name and value. You can configure your origin server to only allow requests that contain the custom header values that you specify.
+  # An HTTP header with name and value.
   class Waas::Models::Header
     # **[Required]** The name of the header.
     # @return [String]

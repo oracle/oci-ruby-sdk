@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -31,6 +31,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :can_use_customer_secret_keys
 
+    # Indicates if the user can use OAuth2 credentials and tokens.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :can_use_o_auth2_client_credentials
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -39,7 +44,8 @@ module OCI
         'can_use_api_keys': :'canUseApiKeys',
         'can_use_auth_tokens': :'canUseAuthTokens',
         'can_use_smtp_credentials': :'canUseSmtpCredentials',
-        'can_use_customer_secret_keys': :'canUseCustomerSecretKeys'
+        'can_use_customer_secret_keys': :'canUseCustomerSecretKeys',
+        'can_use_o_auth2_client_credentials': :'canUseOAuth2ClientCredentials'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,7 +58,8 @@ module OCI
         'can_use_api_keys': :'BOOLEAN',
         'can_use_auth_tokens': :'BOOLEAN',
         'can_use_smtp_credentials': :'BOOLEAN',
-        'can_use_customer_secret_keys': :'BOOLEAN'
+        'can_use_customer_secret_keys': :'BOOLEAN',
+        'can_use_o_auth2_client_credentials': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -68,6 +75,7 @@ module OCI
     # @option attributes [BOOLEAN] :can_use_auth_tokens The value to assign to the {#can_use_auth_tokens} property
     # @option attributes [BOOLEAN] :can_use_smtp_credentials The value to assign to the {#can_use_smtp_credentials} property
     # @option attributes [BOOLEAN] :can_use_customer_secret_keys The value to assign to the {#can_use_customer_secret_keys} property
+    # @option attributes [BOOLEAN] :can_use_o_auth2_client_credentials The value to assign to the {#can_use_o_auth2_client_credentials} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -103,6 +111,12 @@ module OCI
       raise 'You cannot provide both :canUseCustomerSecretKeys and :can_use_customer_secret_keys' if attributes.key?(:'canUseCustomerSecretKeys') && attributes.key?(:'can_use_customer_secret_keys')
 
       self.can_use_customer_secret_keys = attributes[:'can_use_customer_secret_keys'] unless attributes[:'can_use_customer_secret_keys'].nil?
+
+      self.can_use_o_auth2_client_credentials = attributes[:'canUseOAuth2ClientCredentials'] unless attributes[:'canUseOAuth2ClientCredentials'].nil?
+
+      raise 'You cannot provide both :canUseOAuth2ClientCredentials and :can_use_o_auth2_client_credentials' if attributes.key?(:'canUseOAuth2ClientCredentials') && attributes.key?(:'can_use_o_auth2_client_credentials')
+
+      self.can_use_o_auth2_client_credentials = attributes[:'can_use_o_auth2_client_credentials'] unless attributes[:'can_use_o_auth2_client_credentials'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -120,7 +134,8 @@ module OCI
         can_use_api_keys == other.can_use_api_keys &&
         can_use_auth_tokens == other.can_use_auth_tokens &&
         can_use_smtp_credentials == other.can_use_smtp_credentials &&
-        can_use_customer_secret_keys == other.can_use_customer_secret_keys
+        can_use_customer_secret_keys == other.can_use_customer_secret_keys &&
+        can_use_o_auth2_client_credentials == other.can_use_o_auth2_client_credentials
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -136,7 +151,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [can_use_console_password, can_use_api_keys, can_use_auth_tokens, can_use_smtp_credentials, can_use_customer_secret_keys].hash
+      [can_use_console_password, can_use_api_keys, can_use_auth_tokens, can_use_smtp_credentials, can_use_customer_secret_keys, can_use_o_auth2_client_credentials].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

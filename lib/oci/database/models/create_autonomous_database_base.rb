@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -22,10 +22,12 @@ module OCI
 
     SOURCE_ENUM = [
       SOURCE_NONE = 'NONE'.freeze,
-      SOURCE_DATABASE = 'DATABASE'.freeze
+      SOURCE_DATABASE = 'DATABASE'.freeze,
+      SOURCE_BACKUP_FROM_ID = 'BACKUP_FROM_ID'.freeze,
+      SOURCE_BACKUP_FROM_TIMESTAMP = 'BACKUP_FROM_TIMESTAMP'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment of the autonomous database.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment of the Autonomous Database.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -33,11 +35,15 @@ module OCI
     # @return [String]
     attr_accessor :db_name
 
-    # **[Required]** The number of CPU Cores to be made available to the database.
+    # **[Required]** The number of OCPU cores to be made available to the database.
     # @return [Integer]
     attr_accessor :cpu_core_count
 
-    # The autonomous database workload type. OLTP indicates an Autonomous Transaction Processing database and DW indicates an Autonomous Data Warehouse. The default is OLTP.
+    # The Autonomous Database workload type. The following values are valid:
+    #
+    # - OLTP - indicates an Autonomous Transaction Processing database
+    # - DW - indicates an Autonomous Data Warehouse database
+    #
     # @return [String]
     attr_reader :db_workload
 
@@ -46,7 +52,7 @@ module OCI
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
 
-    # Indicates if this is an Always Free resource. The default value is false. Note that Always Free Autonomous Databases have 1 CPU and 20GB memory. For Always Free databases, memory and CPU cannot be scaled.
+    # Indicates if this is an Always Free resource. The default value is false. Note that Always Free Autonomous Databases have 1 CPU and 20GB of memory. For Always Free databases, memory and CPU cannot be scaled.
     #
     # @return [BOOLEAN]
     attr_accessor :is_free_tier
@@ -59,22 +65,23 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The Oracle license model that applies to the Oracle Autonomous Database. The default for Autonomous Database using the [shared deployment] is BRING_YOUR_OWN_LICENSE. Note that when provisioning an Autonomous Database using the [dedicated deployment](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm) option, this attribute must be null because the attribute is already set on Autonomous Exadata Infrastructure level.
+    # The Oracle license model that applies to the Oracle Autonomous Database. Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm), this attribute must be null because the attribute is already set at the
+    # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
     #
     # @return [String]
     attr_reader :license_model
 
-    # If set to true, indicates that an Autonomous Database preview version is being provisioned, and that the preview version's terms of service have been accepted. Note that preview version software is only available for [serverless deployments](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI).
+    # If set to `TRUE`, indicates that an Autonomous Database preview version is being provisioned, and that the preview version's terms of service have been accepted. Note that preview version software is only available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI).
     #
     # @return [BOOLEAN]
     attr_accessor :is_preview_version_with_service_terms_accepted
 
-    # Indicates if auto scaling is enabled for the Autonomous Database CPU core count. The default value is false. Note that auto scaling is available for [serverless deployments](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
+    # Indicates if auto scaling is enabled for the Autonomous Database OCPU core count. The default value is `FALSE`. Note that auto scaling is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
     #
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
 
-    # True if the database uses the [dedicated deployment](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm) option.
+    # True if the database is on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm).
     #
     # @return [BOOLEAN]
     attr_accessor :is_dedicated
@@ -82,6 +89,39 @@ module OCI
     # The Autonomous Container Database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @return [String]
     attr_accessor :autonomous_container_database_id
+
+    # The client IP access control list (ACL). This feature is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
+    # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
+    # To add the whitelist VCN specific subnet or IP, use a semicoln ';' as a deliminator to add the VCN specific subnets or IPs.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw;1.1.1.1\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw;1.1.0.0/16\"]`
+    #
+    # @return [Array<String>]
+    attr_accessor :whitelisted_ips
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet the resource is associated with.
+    #
+    # **Subnet Restrictions:**
+    # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
+    # - For Exadata and virtual machine 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.128.0/20.
+    # - For Autonomous Database, setting this will disable public secure access to the database.
+    #
+    # These subnets are used by the Oracle Clusterware private interconnect on the database instance.
+    # Specifying an overlapping subnet will cause the private interconnect to malfunction.
+    # This restriction applies to both the client subnet and the backup subnet.
+    #
+    # @return [String]
+    attr_accessor :subnet_id
+
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # **NsgIds restrictions:**
+    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
+    # The private endpoint label for the resource.
+    # @return [String]
+    attr_accessor :private_endpoint_label
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -97,7 +137,13 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The source of the database: Use NONE for creating a new Autonomous Database. Use DATABASE for creating a new Autonomous Database by cloning an existing Autonomous Database.
+    # A valid Oracle Database version for Autonomous Database.
+    # @return [String]
+    attr_accessor :db_version
+
+    # The source of the database: Use `NONE` for creating a new Autonomous Database. Use `DATABASE` for creating a new Autonomous Database by cloning an existing Autonomous Database.
+    #
+    # For Autonomous Databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), the following cloning options are available: Use `BACKUP_FROM_ID` for creating a new Autonomous Database from a specified backup. Use `BACKUP_FROM_TIMESTAMP` for creating a point-in-time Autonomous Database clone using backups. For more information, see [Cloning an Autonomous Database](https://docs.cloud.oracle.com/Content/Database/Tasks/adbcloning.htm).
     #
     # @return [String]
     attr_reader :source
@@ -119,8 +165,13 @@ module OCI
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'is_dedicated': :'isDedicated',
         'autonomous_container_database_id': :'autonomousContainerDatabaseId',
+        'whitelisted_ips': :'whitelistedIps',
+        'subnet_id': :'subnetId',
+        'nsg_ids': :'nsgIds',
+        'private_endpoint_label': :'privateEndpointLabel',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'db_version': :'dbVersion',
         'source': :'source'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -143,8 +194,13 @@ module OCI
         'is_auto_scaling_enabled': :'BOOLEAN',
         'is_dedicated': :'BOOLEAN',
         'autonomous_container_database_id': :'String',
+        'whitelisted_ips': :'Array<String>',
+        'subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
+        'private_endpoint_label': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'db_version': :'String',
         'source': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -159,6 +215,8 @@ module OCI
       type = object_hash[:'source'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Database::Models::CreateAutonomousDatabaseCloneDetails' if type == 'DATABASE'
+      return 'OCI::Database::Models::CreateAutonomousDatabaseFromBackupDetails' if type == 'BACKUP_FROM_ID'
+      return 'OCI::Database::Models::CreateAutonomousDatabaseFromBackupTimestampDetails' if type == 'BACKUP_FROM_TIMESTAMP'
       return 'OCI::Database::Models::CreateAutonomousDatabaseDetails' if type == 'NONE'
 
       # TODO: Log a warning when the subtype is not found.
@@ -185,8 +243,13 @@ module OCI
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
     # @option attributes [String] :autonomous_container_database_id The value to assign to the {#autonomous_container_database_id} property
+    # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
+    # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
+    # @option attributes [String] :private_endpoint_label The value to assign to the {#private_endpoint_label} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :source The value to assign to the {#source} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -278,6 +341,30 @@ module OCI
 
       self.autonomous_container_database_id = attributes[:'autonomous_container_database_id'] if attributes[:'autonomous_container_database_id']
 
+      self.whitelisted_ips = attributes[:'whitelistedIps'] if attributes[:'whitelistedIps']
+
+      raise 'You cannot provide both :whitelistedIps and :whitelisted_ips' if attributes.key?(:'whitelistedIps') && attributes.key?(:'whitelisted_ips')
+
+      self.whitelisted_ips = attributes[:'whitelisted_ips'] if attributes[:'whitelisted_ips']
+
+      self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
+
+      raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
+
+      self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
+      self.private_endpoint_label = attributes[:'privateEndpointLabel'] if attributes[:'privateEndpointLabel']
+
+      raise 'You cannot provide both :privateEndpointLabel and :private_endpoint_label' if attributes.key?(:'privateEndpointLabel') && attributes.key?(:'private_endpoint_label')
+
+      self.private_endpoint_label = attributes[:'private_endpoint_label'] if attributes[:'private_endpoint_label']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -289,6 +376,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
+
+      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
+
+      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
 
       self.source = attributes[:'source'] if attributes[:'source']
       self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
@@ -342,8 +435,13 @@ module OCI
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         is_dedicated == other.is_dedicated &&
         autonomous_container_database_id == other.autonomous_container_database_id &&
+        whitelisted_ips == other.whitelisted_ips &&
+        subnet_id == other.subnet_id &&
+        nsg_ids == other.nsg_ids &&
+        private_endpoint_label == other.private_endpoint_label &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        db_version == other.db_version &&
         source == other.source
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -360,7 +458,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, freeform_tags, defined_tags, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, whitelisted_ips, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

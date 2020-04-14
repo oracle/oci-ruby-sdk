@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -7,10 +7,29 @@ module OCI
   # The location for where an instance pool will place instances.
   class Core::Models::UpdateInstancePoolPlacementConfigurationDetails
     # **[Required]** The availability domain to place instances.
+    #
     # Example: `Uocm:PHX-AD-1`
     #
     # @return [String]
     attr_accessor :availability_domain
+
+    # The fault domains to place instances.
+    #
+    # If you don't provide any values, the system makes a best effort to distribute
+    # instances across all fault domains based on capacity.
+    #
+    # To distribute the instances evenly across selected fault domains, provide a
+    # set of fault domains. For example, you might want instances to be evenly
+    # distributed if your applications require high availability.
+    #
+    # To get a list of fault domains, use the
+    # {#list_fault_domains list_fault_domains} operation
+    # in the Identity and Access Management Service API.
+    #
+    # Example: `[FAULT-DOMAIN-1, FAULT-DOMAIN-2, FAULT-DOMAIN-3]`
+    #
+    # @return [Array<String>]
+    attr_accessor :fault_domains
 
     # **[Required]** The OCID of the primary subnet to place instances.
     # @return [String]
@@ -25,6 +44,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
+        'fault_domains': :'faultDomains',
         'primary_subnet_id': :'primarySubnetId',
         'secondary_vnic_subnets': :'secondaryVnicSubnets'
         # rubocop:enable Style/SymbolLiteral
@@ -36,6 +56,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
+        'fault_domains': :'Array<String>',
         'primary_subnet_id': :'String',
         'secondary_vnic_subnets': :'Array<OCI::Core::Models::InstancePoolPlacementSecondaryVnicSubnet>'
         # rubocop:enable Style/SymbolLiteral
@@ -49,6 +70,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [Array<String>] :fault_domains The value to assign to the {#fault_domains} property
     # @option attributes [String] :primary_subnet_id The value to assign to the {#primary_subnet_id} property
     # @option attributes [Array<OCI::Core::Models::InstancePoolPlacementSecondaryVnicSubnet>] :secondary_vnic_subnets The value to assign to the {#secondary_vnic_subnets} property
     def initialize(attributes = {})
@@ -62,6 +84,12 @@ module OCI
       raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
 
       self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
+
+      self.fault_domains = attributes[:'faultDomains'] if attributes[:'faultDomains']
+
+      raise 'You cannot provide both :faultDomains and :fault_domains' if attributes.key?(:'faultDomains') && attributes.key?(:'fault_domains')
+
+      self.fault_domains = attributes[:'fault_domains'] if attributes[:'fault_domains']
 
       self.primary_subnet_id = attributes[:'primarySubnetId'] if attributes[:'primarySubnetId']
 
@@ -88,6 +116,7 @@ module OCI
 
       self.class == other.class &&
         availability_domain == other.availability_domain &&
+        fault_domains == other.fault_domains &&
         primary_subnet_id == other.primary_subnet_id &&
         secondary_vnic_subnets == other.secondary_vnic_subnets
     end
@@ -105,7 +134,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, primary_subnet_id, secondary_vnic_subnets].hash
+      [availability_domain, fault_domains, primary_subnet_id, secondary_vnic_subnets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

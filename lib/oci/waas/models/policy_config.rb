@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -96,6 +96,21 @@ module OCI
     # @return [String]
     attr_reader :cipher_group
 
+    # An object that represents a load balancing method and its properties.
+    # @return [OCI::Waas::Models::LoadBalancingMethod]
+    attr_accessor :load_balancing_method
+
+    # ModSecurity is not capable to inspect WebSockets. Therefore paths specified here have WAF disabled if Connection request header from the client has the value Upgrade (case insensitive matching) and Upgrade request header has the value websocket (case insensitive matching). Paths matches if the concatenation of request URL path and query starts with the contents of the one of `websocketPathPrefixes` array value. In All other cases challenges, like JSC, HIC and etc., remain active.
+    # @return [Array<String>]
+    attr_accessor :websocket_path_prefixes
+
+    # SNI stands for Server Name Indication and is an extension of the TLS protocol. It indicates which hostname is being contacted by the browser at the beginning of the 'handshake'-process. This allows a server to connect multiple SSL Certificates to one IP address and port.
+    # @return [BOOLEAN]
+    attr_accessor :is_sni_enabled
+
+    # @return [OCI::Waas::Models::HealthCheck]
+    attr_accessor :health_checks
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -109,7 +124,11 @@ module OCI
         'client_address_header': :'clientAddressHeader',
         'is_cache_control_respected': :'isCacheControlRespected',
         'is_response_buffering_enabled': :'isResponseBufferingEnabled',
-        'cipher_group': :'cipherGroup'
+        'cipher_group': :'cipherGroup',
+        'load_balancing_method': :'loadBalancingMethod',
+        'websocket_path_prefixes': :'websocketPathPrefixes',
+        'is_sni_enabled': :'isSniEnabled',
+        'health_checks': :'healthChecks'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -127,7 +146,11 @@ module OCI
         'client_address_header': :'String',
         'is_cache_control_respected': :'BOOLEAN',
         'is_response_buffering_enabled': :'BOOLEAN',
-        'cipher_group': :'String'
+        'cipher_group': :'String',
+        'load_balancing_method': :'OCI::Waas::Models::LoadBalancingMethod',
+        'websocket_path_prefixes': :'Array<String>',
+        'is_sni_enabled': :'BOOLEAN',
+        'health_checks': :'OCI::Waas::Models::HealthCheck'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -148,6 +171,10 @@ module OCI
     # @option attributes [BOOLEAN] :is_cache_control_respected The value to assign to the {#is_cache_control_respected} property
     # @option attributes [BOOLEAN] :is_response_buffering_enabled The value to assign to the {#is_response_buffering_enabled} property
     # @option attributes [String] :cipher_group The value to assign to the {#cipher_group} property
+    # @option attributes [OCI::Waas::Models::LoadBalancingMethod] :load_balancing_method The value to assign to the {#load_balancing_method} property
+    # @option attributes [Array<String>] :websocket_path_prefixes The value to assign to the {#websocket_path_prefixes} property
+    # @option attributes [BOOLEAN] :is_sni_enabled The value to assign to the {#is_sni_enabled} property
+    # @option attributes [OCI::Waas::Models::HealthCheck] :health_checks The value to assign to the {#health_checks} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -223,6 +250,32 @@ module OCI
 
       self.cipher_group = attributes[:'cipher_group'] if attributes[:'cipher_group']
       self.cipher_group = "DEFAULT" if cipher_group.nil? && !attributes.key?(:'cipherGroup') && !attributes.key?(:'cipher_group') # rubocop:disable Style/StringLiterals
+
+      self.load_balancing_method = attributes[:'loadBalancingMethod'] if attributes[:'loadBalancingMethod']
+
+      raise 'You cannot provide both :loadBalancingMethod and :load_balancing_method' if attributes.key?(:'loadBalancingMethod') && attributes.key?(:'load_balancing_method')
+
+      self.load_balancing_method = attributes[:'load_balancing_method'] if attributes[:'load_balancing_method']
+
+      self.websocket_path_prefixes = attributes[:'websocketPathPrefixes'] if attributes[:'websocketPathPrefixes']
+
+      raise 'You cannot provide both :websocketPathPrefixes and :websocket_path_prefixes' if attributes.key?(:'websocketPathPrefixes') && attributes.key?(:'websocket_path_prefixes')
+
+      self.websocket_path_prefixes = attributes[:'websocket_path_prefixes'] if attributes[:'websocket_path_prefixes']
+
+      self.is_sni_enabled = attributes[:'isSniEnabled'] unless attributes[:'isSniEnabled'].nil?
+      self.is_sni_enabled = false if is_sni_enabled.nil? && !attributes.key?(:'isSniEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isSniEnabled and :is_sni_enabled' if attributes.key?(:'isSniEnabled') && attributes.key?(:'is_sni_enabled')
+
+      self.is_sni_enabled = attributes[:'is_sni_enabled'] unless attributes[:'is_sni_enabled'].nil?
+      self.is_sni_enabled = false if is_sni_enabled.nil? && !attributes.key?(:'isSniEnabled') && !attributes.key?(:'is_sni_enabled') # rubocop:disable Style/StringLiterals
+
+      self.health_checks = attributes[:'healthChecks'] if attributes[:'healthChecks']
+
+      raise 'You cannot provide both :healthChecks and :health_checks' if attributes.key?(:'healthChecks') && attributes.key?(:'health_checks')
+
+      self.health_checks = attributes[:'health_checks'] if attributes[:'health_checks']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -291,7 +344,11 @@ module OCI
         client_address_header == other.client_address_header &&
         is_cache_control_respected == other.is_cache_control_respected &&
         is_response_buffering_enabled == other.is_response_buffering_enabled &&
-        cipher_group == other.cipher_group
+        cipher_group == other.cipher_group &&
+        load_balancing_method == other.load_balancing_method &&
+        websocket_path_prefixes == other.websocket_path_prefixes &&
+        is_sni_enabled == other.is_sni_enabled &&
+        health_checks == other.health_checks
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -307,7 +364,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [certificate_id, is_https_enabled, is_https_forced, tls_protocols, is_origin_compression_enabled, is_behind_cdn, client_address_header, is_cache_control_respected, is_response_buffering_enabled, cipher_group].hash
+      [certificate_id, is_https_enabled, is_https_forced, tls_protocols, is_origin_compression_enabled, is_behind_cdn, client_address_header, is_cache_control_respected, is_response_buffering_enabled, cipher_group, load_balancing_method, websocket_path_prefixes, is_sni_enabled, health_checks].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

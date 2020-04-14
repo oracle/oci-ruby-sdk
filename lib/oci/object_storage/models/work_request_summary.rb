@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -35,8 +35,8 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The OCID of the compartment that contains the work request. Work requests are scoped to the same compartment
-    # as the resource the work request affects.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment that contains the work request. Work
+    # requests are scoped to the same compartment as the resource the work request affects.
     #
     # If the work request affects multiple resources and those resources are not in the same compartment, the OCID of
     # the primary resource is used. For example, you can copy an object in a bucket in one compartment to a bucket in
@@ -53,19 +53,19 @@ module OCI
     attr_accessor :percent_complete
 
     # The date and time the work request was created, as described in
-    # [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+    # [RFC 3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_accepted
 
     # The date and time the work request was started, as described in
-    # [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+    # [RFC 3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_started
 
     # The date and time the work request was finished, as described in
-    # [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+    # [RFC 3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_finished

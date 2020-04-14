@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -87,12 +87,12 @@ module OCI
     # @return [Array<String>]
     attr_accessor :nsg_ids
 
-    # A private IP address of your choice to assign to the VNIC. Must be an
-    # available IP address within the subnet's CIDR. If you don't specify a
-    # value, Oracle automatically assigns a private IP address from the subnet.
-    # This is the VNIC's *primary* private IP address. The value appears in
-    # the {Vnic} object and also the
-    # {PrivateIp} object returned by
+    # A private IP address of your choice to assign to the VNIC. Value is ignored
+    # if a `vlanId` value is specified. Must be an available IP address within
+    # the subnet's CIDR. If you don't specify a value, Oracle automatically assigns
+    # a private IP address from the subnet. This is the VNIC's *primary* private IP
+    # address. The value appears in the {Vnic} object and
+    # also the {PrivateIp} object returned by
     # {#list_private_ips list_private_ips} and
     # {#get_private_ip get_private_ip}.
     #
@@ -114,7 +114,10 @@ module OCI
     # **[Required]** The OCID of the subnet to create the VNIC in. When launching an instance,
     # use this `subnetId` instead of the deprecated `subnetId` in
     # {#launch_instance_details launch_instance_details}.
-    # At least one of them is required; if you provide both, the values must match.
+    # Alternatively, the `vlanId` can be used instead of a `subnetId`.
+    # At least one `subnetId` value is required if this field is populated; if
+    # you provide both, the values must match. If both the `vlanId` and `subnetId`
+    # fields are provided, the launch will fail.
     #
     # @return [String]
     attr_accessor :subnet_id

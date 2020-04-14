@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module ContainerEngine
@@ -11,6 +11,7 @@ end
 
 # Require models
 require 'oci/container_engine/models/add_on_options'
+require 'oci/container_engine/models/admission_controller_options'
 require 'oci/container_engine/models/cluster'
 require 'oci/container_engine/models/cluster_create_options'
 require 'oci/container_engine/models/cluster_endpoints'
@@ -31,8 +32,14 @@ require 'oci/container_engine/models/node_pool_node_config_details'
 require 'oci/container_engine/models/node_pool_options'
 require 'oci/container_engine/models/node_pool_placement_config_details'
 require 'oci/container_engine/models/node_pool_summary'
+require 'oci/container_engine/models/node_source_details'
+require 'oci/container_engine/models/node_source_option'
+require 'oci/container_engine/models/node_source_type'
+require 'oci/container_engine/models/node_source_via_image_details'
+require 'oci/container_engine/models/node_source_via_image_option'
 require 'oci/container_engine/models/sort_order'
 require 'oci/container_engine/models/update_cluster_details'
+require 'oci/container_engine/models/update_cluster_options_details'
 require 'oci/container_engine/models/update_node_pool_details'
 require 'oci/container_engine/models/update_node_pool_node_config_details'
 require 'oci/container_engine/models/work_request'

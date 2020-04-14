@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -20,7 +20,7 @@ module OCI
       STORAGE_TIER_ARCHIVE = 'Archive'.freeze
     ].freeze
 
-    # **[Required]** The name of the bucket. Valid characters are uppercase or lowercase letters, numbers, and dashes.
+    # **[Required]** The name of the bucket. Valid characters are uppercase or lowercase letters, numbers, hyphens, underscores, and periods.
     # Bucket names must be unique within an Object Storage namespace. Avoid entering confidential information.
     # example: Example: my-new-bucket1
     #
@@ -52,8 +52,9 @@ module OCI
     # @return [String]
     attr_reader :storage_tier
 
-    # A property that determines whether events will be generated for operations on objects in this bucket.
-    # This is false by default.
+    # Whether or not events are emitted for object state changes in this bucket. By default, `objectEventsEnabled` is
+    # set to `false`. Set `objectEventsEnabled` to `true` to emit events for object state changes. For more information
+    # about events, see [Overview of Events](https://docs.cloud.oracle.com/Content/Events/Concepts/eventsoverview.htm).
     #
     # @return [BOOLEAN]
     attr_accessor :object_events_enabled
@@ -72,7 +73,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of a KMS key id used to call KMS to generate the data key or decrypt the encrypted data key.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a master encryption key used to call the Key
+    # Management service to generate a data encryption key or to encrypt or decrypt a data encryption key.
+    #
     # @return [String]
     attr_accessor :kms_key_id
 
