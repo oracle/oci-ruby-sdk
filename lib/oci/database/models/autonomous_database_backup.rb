@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -68,6 +68,10 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # Indicates whether the backup can be used to restore the associated Autonomous Database.
+    # @return [BOOLEAN]
+    attr_accessor :is_restorable
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -82,7 +86,8 @@ module OCI
         'time_ended': :'timeEnded',
         'lifecycle_details': :'lifecycleDetails',
         'database_size_in_tbs': :'databaseSizeInTBs',
-        'lifecycle_state': :'lifecycleState'
+        'lifecycle_state': :'lifecycleState',
+        'is_restorable': :'isRestorable'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -101,7 +106,8 @@ module OCI
         'time_ended': :'DateTime',
         'lifecycle_details': :'String',
         'database_size_in_tbs': :'Float',
-        'lifecycle_state': :'String'
+        'lifecycle_state': :'String',
+        'is_restorable': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -123,6 +129,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [Float] :database_size_in_tbs The value to assign to the {#database_size_in_tbs} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [BOOLEAN] :is_restorable The value to assign to the {#is_restorable} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -183,6 +190,14 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.is_restorable = attributes[:'isRestorable'] unless attributes[:'isRestorable'].nil?
+      self.is_restorable = true if is_restorable.nil? && !attributes.key?(:'isRestorable') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isRestorable and :is_restorable' if attributes.key?(:'isRestorable') && attributes.key?(:'is_restorable')
+
+      self.is_restorable = attributes[:'is_restorable'] unless attributes[:'is_restorable'].nil?
+      self.is_restorable = true if is_restorable.nil? && !attributes.key?(:'isRestorable') && !attributes.key?(:'is_restorable') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -232,7 +247,8 @@ module OCI
         time_ended == other.time_ended &&
         lifecycle_details == other.lifecycle_details &&
         database_size_in_tbs == other.database_size_in_tbs &&
-        lifecycle_state == other.lifecycle_state
+        lifecycle_state == other.lifecycle_state &&
+        is_restorable == other.is_restorable
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -248,7 +264,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, autonomous_database_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, database_size_in_tbs, lifecycle_state].hash
+      [id, compartment_id, autonomous_database_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, database_size_in_tbs, lifecycle_state, is_restorable].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

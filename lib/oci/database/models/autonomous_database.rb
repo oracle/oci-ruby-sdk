@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -24,6 +24,7 @@ module OCI
       LIFECYCLE_STATE_AVAILABLE_NEEDS_ATTENTION = 'AVAILABLE_NEEDS_ATTENTION'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_MAINTENANCE_IN_PROGRESS = 'MAINTENANCE_IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_RESTARTING = 'RESTARTING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -39,6 +40,15 @@ module OCI
       DB_WORKLOAD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    DATA_SAFE_STATUS_ENUM = [
+      DATA_SAFE_STATUS_REGISTERING = 'REGISTERING'.freeze,
+      DATA_SAFE_STATUS_REGISTERED = 'REGISTERED'.freeze,
+      DATA_SAFE_STATUS_DEREGISTERING = 'DEREGISTERING'.freeze,
+      DATA_SAFE_STATUS_NOT_REGISTERED = 'NOT_REGISTERED'.freeze,
+      DATA_SAFE_STATUS_FAILED = 'FAILED'.freeze,
+      DATA_SAFE_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Database.
     # @return [String]
     attr_accessor :id
@@ -47,7 +57,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The current state of the database.
+    # **[Required]** The current state of the Autonomous Database.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -59,7 +69,7 @@ module OCI
     # @return [String]
     attr_accessor :db_name
 
-    # Indicates if this is an Always Free resource. The default value is false. Note that Always Free Autonomous Databases have 1 CPU and 20GB memory. For Always Free databases, memory and CPU cannot be scaled.
+    # Indicates if this is an Always Free resource. The default value is false. Note that Always Free Autonomous Databases have 1 CPU and 20GB of memory. For Always Free databases, memory and CPU cannot be scaled.
     #
     # @return [BOOLEAN]
     attr_accessor :is_free_tier
@@ -80,7 +90,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_deletion_of_free_autonomous_database
 
-    # **[Required]** The number of CPU cores to be made available to the database.
+    # **[Required]** The number of OCPU cores to be made available to the database.
     # @return [Integer]
     attr_accessor :cpu_core_count
 
@@ -88,7 +98,7 @@ module OCI
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
 
-    # True if the database uses the [dedicated deployment](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm) option.
+    # True if the database uses [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm).
     #
     # @return [BOOLEAN]
     attr_accessor :is_dedicated
@@ -97,7 +107,7 @@ module OCI
     # @return [String]
     attr_accessor :autonomous_container_database_id
 
-    # The date and time the database was created.
+    # The date and time the Autonomous Database was created.
     # @return [DateTime]
     attr_accessor :time_created
 
@@ -116,7 +126,8 @@ module OCI
     # @return [OCI::Database::Models::AutonomousDatabaseConnectionUrls]
     attr_accessor :connection_urls
 
-    # The Oracle license model that applies to the Oracle Autonomous Database. The default for Autonomous Database using the [shared deployment] is BRING_YOUR_OWN_LICENSE. Note that when provisioning an Autonomous Database using the [dedicated deployment](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm) option, this attribute must be null because the attribute is already set on Autonomous Exadata Infrastructure level.
+    # The Oracle license model that applies to the Oracle Autonomous Database. Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm), this attribute must be null because the attribute is already set at the
+    # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
     #
     # @return [String]
     attr_reader :license_model
@@ -139,6 +150,35 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet the resource is associated with.
+    #
+    # **Subnet Restrictions:**
+    # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
+    # - For Exadata and virtual machine 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.128.0/20.
+    # - For Autonomous Database, setting this will disable public secure access to the database.
+    #
+    # These subnets are used by the Oracle Clusterware private interconnect on the database instance.
+    # Specifying an overlapping subnet will cause the private interconnect to malfunction.
+    # This restriction applies to both the client subnet and the backup subnet.
+    #
+    # @return [String]
+    attr_accessor :subnet_id
+
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # **NsgIds restrictions:**
+    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
+    # The private endpoint for the resource.
+    # @return [String]
+    attr_accessor :private_endpoint
+
+    # The private endpoint label for the resource.
+    # @return [String]
+    attr_accessor :private_endpoint_label
+
     # A valid Oracle Database version for Autonomous Database.
     # @return [String]
     attr_accessor :db_version
@@ -147,20 +187,39 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_preview
 
-    # The Autonomous Database workload type. OLTP indicates an Autonomous Transaction Processing database and DW indicates an Autonomous Data Warehouse database.
+    # The Autonomous Database workload type. The following values are valid:
+    #
+    # - OLTP - indicates an Autonomous Transaction Processing database
+    # - DW - indicates an Autonomous Data Warehouse database
+    #
     # @return [String]
     attr_reader :db_workload
 
-    # The client IP access control list (ACL). This feature is available for [serverless deployments](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
-    # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet.
+    # The client IP access control list (ACL). This feature is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
+    # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
+    #
+    # To add the whitelist VCN specific subnet or IP, use a semicoln ';' as a deliminator to add the VCN specific subnets or IPs.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw;1.1.1.1\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw;1.1.0.0/16\"]`
     #
     # @return [Array<String>]
     attr_accessor :whitelisted_ips
 
-    # Indicates if auto scaling is enabled for the Autonomous Database CPU core count. Note that auto scaling is available for [serverless deployments](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
+    # Indicates if auto scaling is enabled for the Autonomous Database CPU core count. Note that auto scaling is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
     #
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
+
+    # Status of the Data Safe registration for this Autonomous Database.
+    # @return [String]
+    attr_reader :data_safe_status
+
+    # The date and time when maintenance will begin.
+    # @return [DateTime]
+    attr_accessor :time_maintenance_begin
+
+    # The date and time when maintenance will end.
+    # @return [DateTime]
+    attr_accessor :time_maintenance_end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -188,11 +247,18 @@ module OCI
         'used_data_storage_size_in_tbs': :'usedDataStorageSizeInTBs',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'subnet_id': :'subnetId',
+        'nsg_ids': :'nsgIds',
+        'private_endpoint': :'privateEndpoint',
+        'private_endpoint_label': :'privateEndpointLabel',
         'db_version': :'dbVersion',
         'is_preview': :'isPreview',
         'db_workload': :'dbWorkload',
         'whitelisted_ips': :'whitelistedIps',
-        'is_auto_scaling_enabled': :'isAutoScalingEnabled'
+        'is_auto_scaling_enabled': :'isAutoScalingEnabled',
+        'data_safe_status': :'dataSafeStatus',
+        'time_maintenance_begin': :'timeMaintenanceBegin',
+        'time_maintenance_end': :'timeMaintenanceEnd'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -223,11 +289,18 @@ module OCI
         'used_data_storage_size_in_tbs': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
+        'private_endpoint': :'String',
+        'private_endpoint_label': :'String',
         'db_version': :'String',
         'is_preview': :'BOOLEAN',
         'db_workload': :'String',
         'whitelisted_ips': :'Array<String>',
-        'is_auto_scaling_enabled': :'BOOLEAN'
+        'is_auto_scaling_enabled': :'BOOLEAN',
+        'data_safe_status': :'String',
+        'time_maintenance_begin': :'DateTime',
+        'time_maintenance_end': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -260,11 +333,18 @@ module OCI
     # @option attributes [Integer] :used_data_storage_size_in_tbs The value to assign to the {#used_data_storage_size_in_tbs} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
+    # @option attributes [String] :private_endpoint The value to assign to the {#private_endpoint} property
+    # @option attributes [String] :private_endpoint_label The value to assign to the {#private_endpoint_label} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [BOOLEAN] :is_preview The value to assign to the {#is_preview} property
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
+    # @option attributes [String] :data_safe_status The value to assign to the {#data_safe_status} property
+    # @option attributes [DateTime] :time_maintenance_begin The value to assign to the {#time_maintenance_begin} property
+    # @option attributes [DateTime] :time_maintenance_end The value to assign to the {#time_maintenance_end} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -398,6 +478,30 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
+      self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
+
+      raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
+
+      self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
+      self.private_endpoint = attributes[:'privateEndpoint'] if attributes[:'privateEndpoint']
+
+      raise 'You cannot provide both :privateEndpoint and :private_endpoint' if attributes.key?(:'privateEndpoint') && attributes.key?(:'private_endpoint')
+
+      self.private_endpoint = attributes[:'private_endpoint'] if attributes[:'private_endpoint']
+
+      self.private_endpoint_label = attributes[:'privateEndpointLabel'] if attributes[:'privateEndpointLabel']
+
+      raise 'You cannot provide both :privateEndpointLabel and :private_endpoint_label' if attributes.key?(:'privateEndpointLabel') && attributes.key?(:'private_endpoint_label')
+
+      self.private_endpoint_label = attributes[:'private_endpoint_label'] if attributes[:'private_endpoint_label']
+
       self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
 
       raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
@@ -427,6 +531,24 @@ module OCI
       raise 'You cannot provide both :isAutoScalingEnabled and :is_auto_scaling_enabled' if attributes.key?(:'isAutoScalingEnabled') && attributes.key?(:'is_auto_scaling_enabled')
 
       self.is_auto_scaling_enabled = attributes[:'is_auto_scaling_enabled'] unless attributes[:'is_auto_scaling_enabled'].nil?
+
+      self.data_safe_status = attributes[:'dataSafeStatus'] if attributes[:'dataSafeStatus']
+
+      raise 'You cannot provide both :dataSafeStatus and :data_safe_status' if attributes.key?(:'dataSafeStatus') && attributes.key?(:'data_safe_status')
+
+      self.data_safe_status = attributes[:'data_safe_status'] if attributes[:'data_safe_status']
+
+      self.time_maintenance_begin = attributes[:'timeMaintenanceBegin'] if attributes[:'timeMaintenanceBegin']
+
+      raise 'You cannot provide both :timeMaintenanceBegin and :time_maintenance_begin' if attributes.key?(:'timeMaintenanceBegin') && attributes.key?(:'time_maintenance_begin')
+
+      self.time_maintenance_begin = attributes[:'time_maintenance_begin'] if attributes[:'time_maintenance_begin']
+
+      self.time_maintenance_end = attributes[:'timeMaintenanceEnd'] if attributes[:'timeMaintenanceEnd']
+
+      raise 'You cannot provide both :timeMaintenanceEnd and :time_maintenance_end' if attributes.key?(:'timeMaintenanceEnd') && attributes.key?(:'time_maintenance_end')
+
+      self.time_maintenance_end = attributes[:'time_maintenance_end'] if attributes[:'time_maintenance_end']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -470,6 +592,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] data_safe_status Object to be assigned
+    def data_safe_status=(data_safe_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if data_safe_status && !DATA_SAFE_STATUS_ENUM.include?(data_safe_status)
+        OCI.logger.debug("Unknown value for 'data_safe_status' [" + data_safe_status + "]. Mapping to 'DATA_SAFE_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @data_safe_status = DATA_SAFE_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @data_safe_status = data_safe_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -501,11 +636,18 @@ module OCI
         used_data_storage_size_in_tbs == other.used_data_storage_size_in_tbs &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        subnet_id == other.subnet_id &&
+        nsg_ids == other.nsg_ids &&
+        private_endpoint == other.private_endpoint &&
+        private_endpoint_label == other.private_endpoint_label &&
         db_version == other.db_version &&
         is_preview == other.is_preview &&
         db_workload == other.db_workload &&
         whitelisted_ips == other.whitelisted_ips &&
-        is_auto_scaling_enabled == other.is_auto_scaling_enabled
+        is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
+        data_safe_status == other.data_safe_status &&
+        time_maintenance_begin == other.time_maintenance_begin &&
+        time_maintenance_end == other.time_maintenance_end
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -521,7 +663,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, cpu_core_count, data_storage_size_in_tbs, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, db_version, is_preview, db_workload, whitelisted_ips, is_auto_scaling_enabled].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, cpu_core_count, data_storage_size_in_tbs, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, db_version, is_preview, db_workload, whitelisted_ips, is_auto_scaling_enabled, data_safe_status, time_maintenance_begin, time_maintenance_end].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

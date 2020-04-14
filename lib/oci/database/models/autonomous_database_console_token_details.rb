@@ -1,10 +1,10 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The token that allows the OCI Console to access the Autonomous Transaction Processing Service Console.
+  # The token that allows the OCI Console to access the Autonomous Database Service Console.
   class Database::Models::AutonomousDatabaseConsoleTokenDetails
     # The token that allows the OCI Console to access the Autonomous Transaction Processing Service Console.
     # @return [String]

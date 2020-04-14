@@ -1,10 +1,10 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary representation of resources that matched the search criteria.
+  # A summary representation of resources that matched the search criteria.
   class ResourceSearch::Models::ResourceSummaryCollection
     # A list of resources.
     # @return [Array<OCI::ResourceSearch::Models::ResourceSummary>]

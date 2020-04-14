@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -68,6 +68,14 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # A list of Network Security Group [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) associated with this mount target.
+    # A maximum of 5 is allowed.
+    # Setting this to an empty array after the list is created removes the mount target from all NSGs.
+    # For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
     # **[Required]** The date and time the mount target was created, expressed
     # in [RFC 3339](https://tools.ietf.org/rfc/rfc3339) timestamp format.
     #
@@ -104,6 +112,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'private_ip_ids': :'privateIpIds',
         'subnet_id': :'subnetId',
+        'nsg_ids': :'nsgIds',
         'time_created': :'timeCreated',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -124,6 +133,7 @@ module OCI
         'lifecycle_state': :'String',
         'private_ip_ids': :'Array<String>',
         'subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
         'time_created': :'DateTime',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -146,6 +156,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Array<String>] :private_ip_ids The value to assign to the {#private_ip_ids} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -205,6 +216,12 @@ module OCI
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
 
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -257,6 +274,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         private_ip_ids == other.private_ip_ids &&
         subnet_id == other.subnet_id &&
+        nsg_ids == other.nsg_ids &&
         time_created == other.time_created &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -275,7 +293,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, display_name, export_set_id, id, lifecycle_details, lifecycle_state, private_ip_ids, subnet_id, time_created, freeform_tags, defined_tags].hash
+      [availability_domain, compartment_id, display_name, export_set_id, id, lifecycle_details, lifecycle_state, private_ip_ids, subnet_id, nsg_ids, time_created, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

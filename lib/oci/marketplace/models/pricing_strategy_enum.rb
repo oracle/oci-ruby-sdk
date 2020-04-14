@@ -1,0 +1,12 @@
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+
+module OCI
+  module Marketplace::Models
+    PRICING_STRATEGY_ENUM_ENUM = [
+      PRICING_STRATEGY_ENUM_PER_OCPU_LINEAR = 'PER_OCPU_LINEAR'.freeze,
+      PRICING_STRATEGY_ENUM_PER_OCPU_MIN_BILLING = 'PER_OCPU_MIN_BILLING'.freeze,
+      PRICING_STRATEGY_ENUM_PER_INSTANCE = 'PER_INSTANCE'.freeze,
+      PRICING_STRATEGY_ENUM_PER_INSTANCE_MONTHLY_INCLUSIVE = 'PER_INSTANCE_MONTHLY_INCLUSIVE'.freeze
+    ].freeze
+  end
+end

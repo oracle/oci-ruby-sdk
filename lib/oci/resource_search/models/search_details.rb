@@ -1,10 +1,10 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A base request type containing common criteria for searching for resources.
+  # A base request type that contains common criteria for searching for resources.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ResourceSearch::Models::SearchDetails
     MATCHING_CONTEXT_TYPE_ENUM = [
@@ -16,7 +16,7 @@ module OCI
     # @return [String]
     attr_accessor :type
 
-    # The type of matching context returned in the response. If you specify `HIGHLIGHTS`, then the service will highlight fragments in its response. (See ResourceSummary.searchContext and SearchContext for more information.) The default setting is `NONE`.
+    # The type of matching context returned in the response. If you specify `HIGHLIGHTS`, then the service will highlight fragments in its response. (For more information, see ResourceSummary.searchContext and SearchContext.) The default setting is `NONE`.
     #
     # @return [String]
     attr_reader :matching_context_type

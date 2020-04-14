@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -6,7 +6,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The configuration details of an Events rule. For more information, see
-  # [Managing Rules for Events](https://docs.cloud.oracle.com/iaas/Content/Events/Task/managingrulesactions.htm)
+  # [Managing Rules for Events](https://docs.cloud.oracle.com/iaas/Content/Events/Task/managingrules.htm).
   #
   class Events::Models::Rule
     LIFECYCLE_STATE_ENUM = [
@@ -47,7 +47,7 @@ module OCI
     #
     #   For more examples, see
     # [Matching Events with Filters](https://docs.cloud.oracle.com/iaas/Content/Events/Concepts/filterevents.htm).
-    # * For a condition with fileds to match an event, the event must contain all the field names
+    # * For a condition with fields to match an event, the event must contain all the field names
     # listed in the condition. Field names must appear in the condition with the same nesting
     # structure used in the event.
     #
@@ -56,11 +56,6 @@ module OCI
     # * Rules apply to events in the compartment in which you create them and any child compartments.
     # This means that a condition specified by a rule only matches events emitted from resources in
     # the compartment or any of its child compartments.
-    # * The condition is a string value in a JSON object, but numbers in conditions are converted
-    # from strings to numbers before they are evaluated for matches. This means that 100, 100.0 or
-    # 1.0e2 are all considered equal.
-    # * Boolean values are converted to numbers and then evaluated. This means true and True are
-    # considered equal, as are False and false.
     # * Wildcard matching is supported with the asterisk (*) character.
     #
     #   For examples of wildcard matching, see

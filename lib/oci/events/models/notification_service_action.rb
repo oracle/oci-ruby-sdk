@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'action'
@@ -21,6 +21,7 @@ module OCI
         'id': :'id',
         'lifecycle_message': :'lifecycleMessage',
         'lifecycle_state': :'lifecycleState',
+        'is_enabled': :'isEnabled',
         'description': :'description',
         'topic_id': :'topicId'
         # rubocop:enable Style/SymbolLiteral
@@ -35,6 +36,7 @@ module OCI
         'id': :'String',
         'lifecycle_message': :'String',
         'lifecycle_state': :'String',
+        'is_enabled': :'BOOLEAN',
         'description': :'String',
         'topic_id': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -50,6 +52,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {OCI::Events::Models::Action#id #id} proprety
     # @option attributes [String] :lifecycle_message The value to assign to the {OCI::Events::Models::Action#lifecycle_message #lifecycle_message} proprety
     # @option attributes [String] :lifecycle_state The value to assign to the {OCI::Events::Models::Action#lifecycle_state #lifecycle_state} proprety
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {OCI::Events::Models::Action#is_enabled #is_enabled} proprety
     # @option attributes [String] :description The value to assign to the {OCI::Events::Models::Action#description #description} proprety
     # @option attributes [String] :topic_id The value to assign to the {#topic_id} property
     def initialize(attributes = {})
@@ -84,6 +87,7 @@ module OCI
         id == other.id &&
         lifecycle_message == other.lifecycle_message &&
         lifecycle_state == other.lifecycle_state &&
+        is_enabled == other.is_enabled &&
         description == other.description &&
         topic_id == other.topic_id
     end
@@ -101,7 +105,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [action_type, id, lifecycle_message, lifecycle_state, description, topic_id].hash
+      [action_type, id, lifecycle_message, lifecycle_state, is_enabled, description, topic_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

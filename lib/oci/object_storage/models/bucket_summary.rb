@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -23,11 +23,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The OCID of the user who created the bucket.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the user who created the bucket.
     # @return [String]
     attr_accessor :created_by
 
-    # **[Required]** The date and time the bucket was created, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+    # **[Required]** The date and time the bucket was created, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.29).
     # @return [DateTime]
     attr_accessor :time_created
 

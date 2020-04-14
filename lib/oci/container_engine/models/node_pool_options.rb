@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -10,21 +10,29 @@ module OCI
     # @return [Array<String>]
     attr_accessor :kubernetes_versions
 
-    # Available image names.
-    # @return [Array<String>]
-    attr_accessor :images
-
     # Available shapes for nodes.
     # @return [Array<String>]
     attr_accessor :shapes
+
+    # Deprecated. See sources.
+    # When creating a node pool using the `CreateNodePoolDetails` object, only image names contained in this
+    # property can be passed to the `nodeImageName` property.
+    #
+    # @return [Array<String>]
+    attr_accessor :images
+
+    # Available source of the node.
+    # @return [Array<OCI::ContainerEngine::Models::NodeSourceOption>]
+    attr_accessor :sources
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'kubernetes_versions': :'kubernetesVersions',
+        'shapes': :'shapes',
         'images': :'images',
-        'shapes': :'shapes'
+        'sources': :'sources'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -34,8 +42,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'kubernetes_versions': :'Array<String>',
+        'shapes': :'Array<String>',
         'images': :'Array<String>',
-        'shapes': :'Array<String>'
+        'sources': :'Array<OCI::ContainerEngine::Models::NodeSourceOption>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,8 +56,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<String>] :kubernetes_versions The value to assign to the {#kubernetes_versions} property
-    # @option attributes [Array<String>] :images The value to assign to the {#images} property
     # @option attributes [Array<String>] :shapes The value to assign to the {#shapes} property
+    # @option attributes [Array<String>] :images The value to assign to the {#images} property
+    # @option attributes [Array<OCI::ContainerEngine::Models::NodeSourceOption>] :sources The value to assign to the {#sources} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -61,9 +71,11 @@ module OCI
 
       self.kubernetes_versions = attributes[:'kubernetes_versions'] if attributes[:'kubernetes_versions']
 
+      self.shapes = attributes[:'shapes'] if attributes[:'shapes']
+
       self.images = attributes[:'images'] if attributes[:'images']
 
-      self.shapes = attributes[:'shapes'] if attributes[:'shapes']
+      self.sources = attributes[:'sources'] if attributes[:'sources']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -78,8 +90,9 @@ module OCI
 
       self.class == other.class &&
         kubernetes_versions == other.kubernetes_versions &&
+        shapes == other.shapes &&
         images == other.images &&
-        shapes == other.shapes
+        sources == other.sources
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -95,7 +108,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kubernetes_versions, images, shapes].hash
+      [kubernetes_versions, shapes, images, sources].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -36,12 +36,14 @@ module OCI
       # @param [OCI::Auth::UrlBasedCertificateRetriever] leaf_certificate_supplier The certificate which will be used to sign requests to Auth Service
       # @param [Array<OCI::Auth::UrlBasedCertificateRetriever>] intermediate_certificate_suppliers An array of retrievers which can be used to fetch intermediate certificates which can be sent as part of the Auth Service request. If not provided, defaults to an empty array
       # @param [String] cert_bundle_path The full file path to a custom certificate bundle which can be used for SSL verification against the Auth Service endpoint. If not provided (e.g. because a custom bundle is not needed), defaults to nil
-      def initialize(federation_endpoint, tenancy_id, session_key_supplier, leaf_certificate_supplier, intermediate_certificate_suppliers: [], cert_bundle_path: nil)
+      # @param [Hash<String>] additional_auth_params Additional parameters to pass as part of the Auth Service request. If not provided, defaults to an empty hash
+      def initialize(federation_endpoint, tenancy_id, session_key_supplier, leaf_certificate_supplier, intermediate_certificate_suppliers: [], cert_bundle_path: nil, additional_auth_params: {})
         @federation_endpoint = federation_endpoint
         uri = URI(@federation_endpoint)
         @federation_http_client = Net::HTTP.new(uri.hostname, uri.port)
         @federation_http_client.use_ssl = (uri.scheme == 'https')
         @federation_http_client.ca_file = cert_bundle_path if cert_bundle_path
+        @additional_auth_params = additional_auth_params
 
         @tenancy_id = tenancy_id
         @session_key_supplier = session_key_supplier
@@ -90,10 +92,10 @@ module OCI
 
         leaf_certificate_pem = @leaf_certificate_supplier.certificate_pem
         request_payload = {
-          'payload': 'SERVICE_PRINCIPAL',
           'certificate': OCI::Auth::Util.sanitize_certificate_string(leaf_certificate_pem),
           'publicKey': OCI::Auth::Util.sanitize_certificate_string(@session_key_supplier.key_pair[:public_key].to_pem)
         }
+        request_payload.merge! @additional_auth_params
 
         unless @intermediate_certificate_suppliers.empty?
           retrieved_certs = []

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -11,11 +11,17 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_monitoring_disabled
 
+    # Whether the agent running on the instance can run all the available management plugins
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_management_disabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_monitoring_disabled': :'isMonitoringDisabled'
+        'is_monitoring_disabled': :'isMonitoringDisabled',
+        'is_management_disabled': :'isManagementDisabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +30,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_monitoring_disabled': :'BOOLEAN'
+        'is_monitoring_disabled': :'BOOLEAN',
+        'is_management_disabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +43,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :is_monitoring_disabled The value to assign to the {#is_monitoring_disabled} property
+    # @option attributes [BOOLEAN] :is_management_disabled The value to assign to the {#is_management_disabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -49,6 +57,14 @@ module OCI
 
       self.is_monitoring_disabled = attributes[:'is_monitoring_disabled'] unless attributes[:'is_monitoring_disabled'].nil?
       self.is_monitoring_disabled = false if is_monitoring_disabled.nil? && !attributes.key?(:'isMonitoringDisabled') && !attributes.key?(:'is_monitoring_disabled') # rubocop:disable Style/StringLiterals
+
+      self.is_management_disabled = attributes[:'isManagementDisabled'] unless attributes[:'isManagementDisabled'].nil?
+      self.is_management_disabled = false if is_management_disabled.nil? && !attributes.key?(:'isManagementDisabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isManagementDisabled and :is_management_disabled' if attributes.key?(:'isManagementDisabled') && attributes.key?(:'is_management_disabled')
+
+      self.is_management_disabled = attributes[:'is_management_disabled'] unless attributes[:'is_management_disabled'].nil?
+      self.is_management_disabled = false if is_management_disabled.nil? && !attributes.key?(:'isManagementDisabled') && !attributes.key?(:'is_management_disabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -62,7 +78,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        is_monitoring_disabled == other.is_monitoring_disabled
+        is_monitoring_disabled == other.is_monitoring_disabled &&
+        is_management_disabled == other.is_management_disabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -78,7 +95,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_monitoring_disabled].hash
+      [is_monitoring_disabled, is_management_disabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

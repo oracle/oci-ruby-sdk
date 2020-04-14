@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -340,7 +340,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [String] :sort_order The value of the sorting direction of resources in a paginated 'List' call. If unspecified, defaults to `DESC`.
     #   Allowed values are: ASC, DESC

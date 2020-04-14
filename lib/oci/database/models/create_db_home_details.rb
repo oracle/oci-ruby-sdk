@@ -1,15 +1,15 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for creating a database home.
+  # Details for creating a Database Home.
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::CreateDbHomeDetails
-    # The user-provided name of the database home.
+    # The user-provided name of the Database Home.
     # @return [String]
     attr_accessor :display_name
 

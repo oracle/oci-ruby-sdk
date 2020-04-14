@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -1641,7 +1641,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::AccessRule AccessRule}>
     def list_access_rules(waas_policy_id, opts = {})
@@ -1698,7 +1698,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [String] :sort_by The value by which address lists are sorted in a paginated 'List' call. If unspecified, defaults to `timeCreated`.
     #   Allowed values are: id, name, timeCreated
@@ -1791,7 +1791,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::CachingRuleSummary CachingRuleSummary}>
     def list_caching_rules(waas_policy_id, opts = {})
@@ -1853,7 +1853,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::Captcha Captcha}>
     def list_captchas(waas_policy_id, opts = {})
@@ -1910,7 +1910,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [String] :sort_by The value by which certificate summaries are sorted in a paginated 'List' call. If unspecified, defaults to `timeCreated`.
     #   Allowed values are: id, compartmentId, displayName, notValidAfter, timeCreated
@@ -2002,7 +2002,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [String] :sort_by The value by which custom protection rules are sorted in a paginated 'List' call. If unspecified, defaults to `timeCreated`.
     #   Allowed values are: id, compartmentId, displayName, modSecurityRuleId, timeCreated
@@ -2093,7 +2093,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [String] :sort_by The value by which edge node subnets are sorted in a paginated 'List' call. If unspecified, defaults to `timeModified`.
     #   Allowed values are: cidr, region, timeModified
@@ -2165,7 +2165,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::GoodBot GoodBot}>
     def list_good_bots(waas_policy_id, opts = {})
@@ -2223,7 +2223,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [Array<String>] :mod_security_rule_id Filter rules using a list of ModSecurity rule IDs.
     # @option opts [Array<String>] :action Filter rules using a list of actions.
@@ -2300,7 +2300,7 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :recommended_action A filter that matches recommended protection rules based on the selected action. If unspecified, rules with any action type are returned.
     #   Allowed values are: DETECT, BLOCK
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::Recommendation Recommendation}>
     def list_recommendations(waas_policy_id, opts = {})
@@ -2365,7 +2365,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::ThreatFeed ThreatFeed}>
     def list_threat_feeds(waas_policy_id, opts = {})
@@ -2422,7 +2422,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [String] :sort_by The value by which policies are sorted in a paginated 'List' call.  If unspecified, defaults to `timeCreated`.
     #   Allowed values are: id, displayName, timeCreated
@@ -2514,7 +2514,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [Array<String>] :mod_security_rule_id Filter rules using a list of ModSecurity rule IDs.
     # @option opts [Array<String>] :action Filter rules using a list of actions.
@@ -2588,7 +2588,7 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [DateTime] :time_observed_greater_than_or_equal_to A filter that limits returned events to those occurring on or after a date and time, specified in RFC 3339 format. If unspecified, defaults to 30 minutes before receipt of the request.
     # @option opts [DateTime] :time_observed_less_than A filter that limits returned events to those occurring before a date and time, specified in RFC 3339 format.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [Array<String>] :waf_feature Filter stats by the Web Application Firewall feature that triggered the block action. If unspecified, data for all WAF features will be returned.
     #   Allowed values are: PROTECTION_RULES, JS_CHALLENGE, ACCESS_RULES, THREAT_FEEDS, HUMAN_INTERACTION_CHALLENGE, DEVICE_FINGERPRINT_CHALLENGE, CAPTCHA, ADDRESS_RATE_LIMITING
@@ -2663,7 +2663,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `20`. (default to 20)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `20`. (default to 20)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [DateTime] :time_observed_greater_than_or_equal_to A filter that matches log entries where the observed event occurred on or after a date and time specified in RFC 3339 format. If unspecified, defaults to two hours before receipt of the request.
     # @option opts [DateTime] :time_observed_less_than A filter that matches log entries where the observed event occurred before a date and time, specified in RFC 3339 format.
@@ -2678,7 +2678,7 @@ module OCI
     # @option opts [Array<String>] :http_method Filter logs by HTTP method.
     #   Allowed values are: OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     # @option opts [Array<String>] :incident_key Filter logs by incident key.
-    # @option opts [Array<String>] :log_type Filter by log type.
+    # @option opts [Array<String>] :log_type Filter by log type. For more information about WAF logs, see [Logs](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/logs.htm).
     #   Allowed values are: ACCESS, PROTECTION_RULES, JS_CHALLENGE, CAPTCHA, ACCESS_RULES, THREAT_FEEDS, HUMAN_INTERACTION_CHALLENGE, DEVICE_FINGERPRINT_CHALLENGE, ADDRESS_RATE_LIMITING
     # @option opts [Array<String>] :origin_address Filter by origin IP address.
     # @option opts [Array<String>] :referrer Filter by referrer.
@@ -2796,7 +2796,7 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [DateTime] :time_observed_greater_than_or_equal_to A filter that limits returned events to those occurring on or after a date and time, specified in RFC 3339 format. If unspecified, defaults to 30 minutes before receipt of the request.
     # @option opts [DateTime] :time_observed_less_than A filter that limits returned events to those occurring before a date and time, specified in RFC 3339 format.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WafRequest WafRequest}>
     def list_waf_requests(waas_policy_id, opts = {})
@@ -2859,7 +2859,7 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [DateTime] :time_observed_greater_than_or_equal_to A filter that limits returned events to those occurring on or after a date and time, specified in RFC 3339 format. If unspecified, defaults to 30 minutes before receipt of the request.
     # @option opts [DateTime] :time_observed_less_than A filter that limits returned events to those occurring before a date and time, specified in RFC 3339 format.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WafTrafficDatum WafTrafficDatum}>
     def list_waf_traffic(waas_policy_id, opts = {})
@@ -2918,7 +2918,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::Whitelist Whitelist}>
     def list_whitelists(waas_policy_id, opts = {})
@@ -2976,7 +2976,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. In unspecified, defaults to `10`. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @option opts [String] :sort_by The value by which work requests are sorted in a paginated 'List' call. If unspecified, defaults to `timeAccepted`.
     #   Allowed values are: id, status, timeAccepted, timeStarted, timeFinished, operationType
@@ -3296,6 +3296,8 @@ module OCI
     # CAPTCHA challenges can be created by adding a new access rule object to the list without a `key` property specified. A `key` will be generated for the new CAPTCHA challenges upon update.
     #
     # Any existing CAPTCHA challenges that are not specified with a `key` in the list of CAPTCHA challenges will be deleted upon update.
+    #
+    # Query parameters are allowed in CAPTCHA URL.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [Array<OCI::Waas::Models::OCI::Waas::Models::Captcha>] captchas A list of CAPTCHA details.
     # @param [Hash] opts the optional parameters
@@ -3476,7 +3478,7 @@ module OCI
     #
     # The signature is based on a library of attributes detected via JavaScript listeners; the attributes include OS, screen resolution, fonts, UserAgent, IP address, etc. We are constantly making improvements and considering new libraries to include in our DFC build. We can also exclude attributes from the signature as needed.
     #
-    # DFC collects attributes to generate a hashed signature about a client \u2013 if a fingerprint is not possible, then it will result in a block or alert action. Actions can be enforced across multiple devices if they share they have the same fingerprint.
+    # DFC collects attributes to generate a hashed signature about a client - if a fingerprint is not possible, then it will result in a block or alert action. Actions can be enforced across multiple devices if they share they have the same fingerprint.
     # @param [String] waas_policy_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the WAAS policy.
     # @param [OCI::Waas::Models::DeviceFingerprintChallenge] update_device_fingerprint_challenge_details The device fingerprint challenge settings to be updated.
     # @param [Hash] opts the optional parameters
@@ -4202,7 +4204,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the list of IP addresses that bypass the Web Application Firewall for a WAAS policy. Supports both single IP addresses or subnet masks (CIDR notation).
+    # Updates the list of IP addresses that bypass the Web Application Firewall for a WAAS policy. Supports single IP addresses, subnet masks (CIDR notation) and Address Lists.
     #
     # This operation can create, delete, update, and/or reorder whitelists depending on the structure of the request body.
     #

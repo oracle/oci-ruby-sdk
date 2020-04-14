@@ -1,12 +1,13 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'base_tag_definition_validator'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # This is the default validatorType for definedTag. This is same as not setting any value on the validator field.
-  # By default only string value can be set for this definedTag.
+  # Use this validator to clear any existing validator on the tag key definition with the UpdateTag
+  # operation. Using this `validatorType` is the same as not setting any value on the validator field.
+  # The resultant value for `validatorType` returned in the response body is `null`.
   #
   class Identity::Models::DefaultTagDefinitionValidator < Identity::Models::BaseTagDefinitionValidator
     # Attribute mapping from ruby-style variable name to JSON key.

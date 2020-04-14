@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -18,11 +18,19 @@ module OCI
     # @return [Integer]
     attr_accessor :idle_timeout
 
+    # The backend TCP Proxy Protocol version.
+    #
+    # Example: `1`
+    #
+    # @return [Integer]
+    attr_accessor :backend_tcp_proxy_protocol_version
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'idle_timeout': :'idleTimeout'
+        'idle_timeout': :'idleTimeout',
+        'backend_tcp_proxy_protocol_version': :'backendTcpProxyProtocolVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -31,7 +39,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'idle_timeout': :'Integer'
+        'idle_timeout': :'Integer',
+        'backend_tcp_proxy_protocol_version': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,6 +52,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :idle_timeout The value to assign to the {#idle_timeout} property
+    # @option attributes [Integer] :backend_tcp_proxy_protocol_version The value to assign to the {#backend_tcp_proxy_protocol_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -54,6 +64,12 @@ module OCI
       raise 'You cannot provide both :idleTimeout and :idle_timeout' if attributes.key?(:'idleTimeout') && attributes.key?(:'idle_timeout')
 
       self.idle_timeout = attributes[:'idle_timeout'] if attributes[:'idle_timeout']
+
+      self.backend_tcp_proxy_protocol_version = attributes[:'backendTcpProxyProtocolVersion'] if attributes[:'backendTcpProxyProtocolVersion']
+
+      raise 'You cannot provide both :backendTcpProxyProtocolVersion and :backend_tcp_proxy_protocol_version' if attributes.key?(:'backendTcpProxyProtocolVersion') && attributes.key?(:'backend_tcp_proxy_protocol_version')
+
+      self.backend_tcp_proxy_protocol_version = attributes[:'backend_tcp_proxy_protocol_version'] if attributes[:'backend_tcp_proxy_protocol_version']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -67,7 +83,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        idle_timeout == other.idle_timeout
+        idle_timeout == other.idle_timeout &&
+        backend_tcp_proxy_protocol_version == other.backend_tcp_proxy_protocol_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -83,7 +100,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [idle_timeout].hash
+      [idle_timeout, backend_tcp_proxy_protocol_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

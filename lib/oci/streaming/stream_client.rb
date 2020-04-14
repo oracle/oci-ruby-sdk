@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -21,10 +21,6 @@ module OCI
     # @return [OCI::Retry::RetryConfig]
     attr_reader :retry_config
 
-    # The region, which will usually correspond to a value in {OCI::Regions::REGION_ENUM}.
-    # @return [String]
-    attr_reader :region
-
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
 
 
@@ -33,13 +29,7 @@ module OCI
     #   If a config is not specified, then the global OCI.config will be used.
     #
     #   This client is not thread-safe
-    #
-    #   Either a region or an endpoint must be specified.  If an endpoint is specified, it will be used instead of the
-    #     region. A region may be specified in the config or via or the region parameter. If specified in both, then the
-    #     region parameter will be used.
     # @param [Config] config A Config object.
-    # @param [String] region A region used to determine the service endpoint. This will usually
-    #   correspond to a value in {OCI::Regions::REGION_ENUM}, but may be an arbitrary string.
     # @param [String] endpoint The fully qualified endpoint URL
     # @param [OCI::BaseSigner] signer A signer implementation which can be used by this client. If this is not provided then
     #   a signer will be constructed via the provided config. One use case of this parameter is instance principals authentication,
@@ -49,7 +39,11 @@ module OCI
     # @param [OCI::Retry::RetryConfig] retry_config The retry configuration for this service client. This represents the default retry configuration to
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
-    def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
+    def initialize(config: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
+      raise 'A fully qualified endpoint URL must be defined' unless endpoint
+
+      @endpoint = endpoint + '/20180418'
+
       # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
@@ -74,29 +68,9 @@ module OCI
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
-
-      if endpoint
-        @endpoint = endpoint + '/20180418'
-      else
-        region ||= config.region
-        region ||= signer.region if signer.respond_to?(:region)
-        self.region = region
-      end
       logger.info "StreamClient endpoint set to '#{@endpoint}'." if logger
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
-
-    # Set the region that will be used to determine the service endpoint.
-    # This will usually correspond to a value in {OCI::Regions::REGION_ENUM},
-    # but may be an arbitrary string.
-    def region=(new_region)
-      @region = new_region
-
-      raise 'A region must be specified.' unless @region
-
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://streaming.{region}.oci.{secondLevelDomain}') + '/20180418'
-      logger.info "StreamClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
-    end
 
     # @return [Logger] The logger for this client. May be nil.
     def logger
@@ -111,7 +85,8 @@ module OCI
     # Provides a mechanism to manually commit offsets, if not using commit-on-get consumer semantics.
     # This commits offsets assicated with the provided cursor, extends the timeout on each of the affected partitions, and returns an updated cursor.
     #
-    # @param [String] stream_id The OCID of the stream for which the group is committing offsets.
+    # @param [String] stream_id The OCID of the stream.
+    #
     # @param [String] cursor The group-cursor representing the offsets of the group. This cursor is retrieved from the CreateGroupCursor API call.
     #
     # @param [Hash] opts the optional parameters
@@ -171,7 +146,8 @@ module OCI
 
     # Allows long-running processes to extend the timeout on partitions reserved by a consumer instance.
     #
-    # @param [String] stream_id The OCID of the stream for which the group is committing offsets.
+    # @param [String] stream_id The OCID of the stream.
+    #
     # @param [String] cursor The group-cursor representing the offsets of the group. This cursor is retrieved from the CreateGroupCursor API call.
     #
     # @param [Hash] opts the optional parameters
@@ -235,7 +211,8 @@ module OCI
     # on the most recent message allows consumption of only messages that are added to the stream after you create the cursor. Cursors expire
     # five minutes after you receive them from the service.
     #
-    # @param [String] stream_id The OCID of the stream to create a cursor for.
+    # @param [String] stream_id The OCID of the stream.
+    #
     # @param [OCI::Streaming::Models::CreateCursorDetails] create_cursor_details The information used to create the cursor.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -293,7 +270,8 @@ module OCI
 
     # Creates a group-cursor.
     #
-    # @param [String] stream_id The OCID of the stream to create a cursor for.
+    # @param [String] stream_id The OCID of the stream.
+    #
     # @param [OCI::Streaming::Models::CreateGroupCursorDetails] create_group_cursor_details The information used to create the cursor.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -351,7 +329,8 @@ module OCI
 
     # Returns the current state of a consumer group.
     #
-    # @param [String] stream_id The OCID of the stream, on which the group is operating.
+    # @param [String] stream_id The OCID of the stream.
+    #
     # @param [String] group_name The name of the consumer group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -412,7 +391,8 @@ module OCI
     # To get messages, you must first obtain a cursor using the {#create_cursor create_cursor} operation.
     # In the response, retrieve the value of the 'opc-next-cursor' header to pass as a parameter to get the next batch of messages in the stream.
     #
-    # @param [String] stream_id The OCID of the stream to get messages from.
+    # @param [String] stream_id The OCID of the stream.
+    #
     # @param [String] cursor The cursor used to consume the stream.
     #
     # @param [Hash] opts the optional parameters
@@ -479,7 +459,8 @@ module OCI
     # If a message does not contain a key or if the key is null, the service generates a message key for you.
     # The partition ID cannot be passed as a parameter.
     #
-    # @param [String] stream_id The OCID of the stream where you want to put messages.
+    # @param [String] stream_id The OCID of the stream.
+    #
     # @param [OCI::Streaming::Models::PutMessagesDetails] put_messages_details Array of messages to put into the stream.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -537,7 +518,8 @@ module OCI
 
     # Forcefully changes the current location of a group as a whole; reseting processing location of all consumers to a particular location in the stream.
     #
-    # @param [String] stream_id The OCID of the stream, on which the group is operating.
+    # @param [String] stream_id The OCID of the stream.
+    #
     # @param [String] group_name The name of the consumer group.
     # @param [OCI::Streaming::Models::UpdateGroupDetails] update_group_details The information used to modify the group.
     # @param [Hash] opts the optional parameters

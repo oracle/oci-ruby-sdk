@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -41,6 +41,10 @@ module OCI
     # @return [String]
     attr_accessor :home_region_key
 
+    # Url which refers to the UPI IDCS compatibility layer endpoint configured for this Tenant's home region.
+    # @return [String]
+    attr_accessor :upi_idcs_compatibility_layer_endpoint
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
@@ -63,6 +67,7 @@ module OCI
         'name': :'name',
         'description': :'description',
         'home_region_key': :'homeRegionKey',
+        'upi_idcs_compatibility_layer_endpoint': :'upiIdcsCompatibilityLayerEndpoint',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -77,6 +82,7 @@ module OCI
         'name': :'String',
         'description': :'String',
         'home_region_key': :'String',
+        'upi_idcs_compatibility_layer_endpoint': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -93,6 +99,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :home_region_key The value to assign to the {#home_region_key} property
+    # @option attributes [String] :upi_idcs_compatibility_layer_endpoint The value to assign to the {#upi_idcs_compatibility_layer_endpoint} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -112,6 +119,12 @@ module OCI
       raise 'You cannot provide both :homeRegionKey and :home_region_key' if attributes.key?(:'homeRegionKey') && attributes.key?(:'home_region_key')
 
       self.home_region_key = attributes[:'home_region_key'] if attributes[:'home_region_key']
+
+      self.upi_idcs_compatibility_layer_endpoint = attributes[:'upiIdcsCompatibilityLayerEndpoint'] if attributes[:'upiIdcsCompatibilityLayerEndpoint']
+
+      raise 'You cannot provide both :upiIdcsCompatibilityLayerEndpoint and :upi_idcs_compatibility_layer_endpoint' if attributes.key?(:'upiIdcsCompatibilityLayerEndpoint') && attributes.key?(:'upi_idcs_compatibility_layer_endpoint')
+
+      self.upi_idcs_compatibility_layer_endpoint = attributes[:'upi_idcs_compatibility_layer_endpoint'] if attributes[:'upi_idcs_compatibility_layer_endpoint']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -141,6 +154,7 @@ module OCI
         name == other.name &&
         description == other.description &&
         home_region_key == other.home_region_key &&
+        upi_idcs_compatibility_layer_endpoint == other.upi_idcs_compatibility_layer_endpoint &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -158,7 +172,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, description, home_region_key, freeform_tags, defined_tags].hash
+      [id, name, description, home_region_key, upi_idcs_compatibility_layer_endpoint, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

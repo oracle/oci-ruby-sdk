@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -4573,6 +4573,189 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Renders a set of CPE configuration content that can help a network engineer configure the actual
+    # CPE device (for example, a hardware router) represented by the specified {Cpe}
+    # object.
+    #
+    # The rendered content is specific to the type of CPE device (for example, Cisco ASA). Therefore the
+    # {Cpe} must have the CPE's device type specified by the `cpeDeviceShapeId`
+    # attribute. The content optionally includes answers that the customer provides (see
+    # {#update_tunnel_cpe_device_config update_tunnel_cpe_device_config}),
+    # merged with a template of other information specific to the CPE device type.
+    #
+    # The operation returns configuration information for *all* of the
+    # {IPSecConnection} objects that use the specified CPE.
+    # Here are similar operations:
+    #
+    #   * {#get_ipsec_cpe_device_config_content get_ipsec_cpe_device_config_content}
+    #   returns CPE configuration content for all tunnels in a single IPSec connection.
+    #   * {#get_tunnel_cpe_device_config_content get_tunnel_cpe_device_config_content}
+    #   returns CPE configuration content for a specific tunnel within an IPSec connection.
+    #
+    # @param [String] cpe_id The OCID of the CPE.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    def get_cpe_device_config_content(cpe_id, opts = {}, &block)
+      logger.debug 'Calling operation VirtualNetworkClient#get_cpe_device_config_content.' if logger
+
+      raise "Missing the required parameter 'cpe_id' when calling get_cpe_device_config_content." if cpe_id.nil?
+      raise "Parameter value for 'cpe_id' must not be blank" if OCI::Internal::Util.blank_string?(cpe_id)
+
+      path = '/cpes/{cpeId}/cpeConfigContent'.sub('{cpeId}', cpe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'text/plain; charset&#x3D;utf-8'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_cpe_device_config_content') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the detailed information about the specified CPE device type. This might include a set of questions
+    # that are specific to the particular CPE device type. The customer must supply answers to those questions
+    # (see {#update_tunnel_cpe_device_config update_tunnel_cpe_device_config}).
+    # The service merges the answers with a template of other information for the CPE device type. The following
+    # operations return the merged content:
+    #
+    #   * {#get_cpe_device_config_content get_cpe_device_config_content}
+    #   * {#get_ipsec_cpe_device_config_content get_ipsec_cpe_device_config_content}
+    #   * {#get_tunnel_cpe_device_config_content get_tunnel_cpe_device_config_content}
+    #
+    # @param [String] cpe_device_shape_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the CPE device shape.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::CpeDeviceShapeDetail CpeDeviceShapeDetail}
+    def get_cpe_device_shape(cpe_device_shape_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_cpe_device_shape.' if logger
+
+      raise "Missing the required parameter 'cpe_device_shape_id' when calling get_cpe_device_shape." if cpe_device_shape_id.nil?
+      raise "Parameter value for 'cpe_device_shape_id' must not be blank" if OCI::Internal::Util.blank_string?(cpe_device_shape_id)
+
+      path = '/cpeDeviceShapes/{cpeDeviceShapeId}'.sub('{cpeDeviceShapeId}', cpe_device_shape_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_cpe_device_shape') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::CpeDeviceShapeDetail'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
@@ -4941,6 +5124,63 @@ module OCI
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the redundancy status for the specified DRG. For more information, see
+    # [Redundancy Remedies](https://docs.cloud.oracle.com/Content/Network/Troubleshoot/drgredundancy.htm).
+    #
+    # @param [String] drg_id The OCID of the DRG.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::DrgRedundancyStatus DrgRedundancyStatus}
+    def get_drg_redundancy_status(drg_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_drg_redundancy_status.' if logger
+
+      raise "Missing the required parameter 'drg_id' when calling get_drg_redundancy_status." if drg_id.nil?
+      raise "Parameter value for 'drg_id' must not be blank" if OCI::Internal::Util.blank_string?(drg_id)
+
+      path = '/drgs/{drgId}/redundancyStatus'.sub('{drgId}', drg_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_drg_redundancy_status') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::DrgRedundancyStatus'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -5396,6 +5636,126 @@ module OCI
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Renders a set of CPE configuration content for the specified IPSec connection (for all the
+    # tunnels in the connection). The content helps a network engineer configure the actual CPE
+    # device (for example, a hardware router) that the specified IPSec connection terminates on.
+    #
+    # The rendered content is specific to the type of CPE device (for example, Cisco ASA). Therefore the
+    # {Cpe} used by the specified {IPSecConnection}
+    # must have the CPE's device type specified by the `cpeDeviceShapeId` attribute. The content
+    # optionally includes answers that the customer provides (see
+    # {#update_tunnel_cpe_device_config update_tunnel_cpe_device_config}),
+    # merged with a template of other information specific to the CPE device type.
+    #
+    # The operation returns configuration information for all tunnels in the single specified
+    # {IPSecConnection} object. Here are other similar
+    # operations:
+    #
+    #   * {#get_tunnel_cpe_device_config_content get_tunnel_cpe_device_config_content}
+    #   returns CPE configuration content for a specific tunnel within an IPSec connection.
+    #   * {#get_cpe_device_config_content get_cpe_device_config_content}
+    #   returns CPE configuration content for *all* IPSec connections that use a specific CPE.
+    #
+    # @param [String] ipsc_id The OCID of the IPSec connection.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    def get_ipsec_cpe_device_config_content(ipsc_id, opts = {}, &block)
+      logger.debug 'Calling operation VirtualNetworkClient#get_ipsec_cpe_device_config_content.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling get_ipsec_cpe_device_config_content." if ipsc_id.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+
+      path = '/ipsecConnections/{ipscId}/cpeConfigContent'.sub('{ipscId}', ipsc_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'text/plain; charset&#x3D;utf-8'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_ipsec_cpe_device_config_content') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -6186,6 +6546,191 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the set of CPE configuration answers for the tunnel, which the customer provided in
+    # {#update_tunnel_cpe_device_config update_tunnel_cpe_device_config}.
+    # To get the full set of content for the tunnel (any answers merged with the template of other
+    # information specific to the CPE device type), use
+    # {#get_tunnel_cpe_device_config_content get_tunnel_cpe_device_config_content}.
+    #
+    # @param [String] ipsc_id The OCID of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::TunnelCpeDeviceConfig TunnelCpeDeviceConfig}
+    def get_tunnel_cpe_device_config(ipsc_id, tunnel_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_tunnel_cpe_device_config.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling get_tunnel_cpe_device_config." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling get_tunnel_cpe_device_config." if tunnel_id.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}/tunnelDeviceConfig'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_tunnel_cpe_device_config') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::TunnelCpeDeviceConfig'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Renders a set of CPE configuration content for the specified IPSec tunnel. The content helps a
+    # network engineer configure the actual CPE device (for example, a hardware router) that the specified
+    # IPSec tunnel terminates on.
+    #
+    # The rendered content is specific to the type of CPE device (for example, Cisco ASA). Therefore the
+    # {Cpe} used by the specified {IPSecConnection}
+    # must have the CPE's device type specified by the `cpeDeviceShapeId` attribute. The content
+    # optionally includes answers that the customer provides (see
+    # {#update_tunnel_cpe_device_config update_tunnel_cpe_device_config}),
+    # merged with a template of other information specific to the CPE device type.
+    #
+    # The operation returns configuration information for only the specified IPSec tunnel.
+    # Here are other similar operations:
+    #
+    #   * {#get_ipsec_cpe_device_config_content get_ipsec_cpe_device_config_content}
+    #   returns CPE configuration content for all tunnels in a single IPSec connection.
+    #   * {#get_cpe_device_config_content get_cpe_device_config_content}
+    #   returns CPE configuration content for *all* IPSec connections that use a specific CPE.
+    #
+    # @param [String] ipsc_id The OCID of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    def get_tunnel_cpe_device_config_content(ipsc_id, tunnel_id, opts = {}, &block)
+      logger.debug 'Calling operation VirtualNetworkClient#get_tunnel_cpe_device_config_content.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling get_tunnel_cpe_device_config_content." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling get_tunnel_cpe_device_config_content." if tunnel_id.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}/tunnelDeviceConfig/content'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'text/plain; charset&#x3D;utf-8'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_tunnel_cpe_device_config_content') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
@@ -6397,6 +6942,83 @@ module OCI
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the CPE device types that the Networking service provides CPE configuration
+    # content for (example: Cisco ASA). The content helps a network engineer configure
+    # the actual CPE device represented by a {Cpe} object.
+    #
+    # If you want to generate CPE configuration content for one of the returned CPE device types,
+    # ensure that the {Cpe} object's `cpeDeviceShapeId` attribute is set
+    # to the CPE device type's OCID (returned by this operation).
+    #
+    # For information about generating CPE configuration content, see these operations:
+    #
+    #   * {#get_cpe_device_config_content get_cpe_device_config_content}
+    #   * {#get_ipsec_cpe_device_config_content get_ipsec_cpe_device_config_content}
+    #   * {#get_tunnel_cpe_device_config_content get_tunnel_cpe_device_config_content}
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CpeDeviceShapeSummary CpeDeviceShapeSummary}>
+    def list_cpe_device_shapes(opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#list_cpe_device_shapes.' if logger
+
+
+      path = '/cpeDeviceShapes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#list_cpe_device_shapes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::CpeDeviceShapeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -10424,6 +11046,82 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::Subnet'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates or updates the set of CPE configuration answers for the specified tunnel.
+    # The answers correlate to the questions that are specific to the CPE device type (see the
+    # `parameters` attribute of {CpeDeviceShapeDetail}).
+    #
+    # @param [String] ipsc_id The OCID of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [OCI::Core::Models::UpdateTunnelCpeDeviceConfigDetails] update_tunnel_cpe_device_config_details Request to input the tunnel's cpe configuration parameters
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::TunnelCpeDeviceConfig TunnelCpeDeviceConfig}
+    def update_tunnel_cpe_device_config(ipsc_id, tunnel_id, update_tunnel_cpe_device_config_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#update_tunnel_cpe_device_config.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling update_tunnel_cpe_device_config." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling update_tunnel_cpe_device_config." if tunnel_id.nil?
+      raise "Missing the required parameter 'update_tunnel_cpe_device_config_details' when calling update_tunnel_cpe_device_config." if update_tunnel_cpe_device_config_details.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}/tunnelDeviceConfig'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_tunnel_cpe_device_config_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#update_tunnel_cpe_device_config') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::TunnelCpeDeviceConfig'
         )
       end
       # rubocop:enable Metrics/BlockLength

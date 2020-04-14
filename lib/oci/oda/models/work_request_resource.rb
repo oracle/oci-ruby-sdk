@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -12,6 +12,8 @@ module OCI
       RESOURCE_ACTION_DELETE = 'DELETE'.freeze,
       RESOURCE_ACTION_PURGE = 'PURGE'.freeze,
       RESOURCE_ACTION_RECOVER = 'RECOVER'.freeze,
+      RESOURCE_ACTION_STOP = 'STOP'.freeze,
+      RESOURCE_ACTION_START = 'START'.freeze,
       RESOURCE_ACTION_CHANGE_COMPARTMENT = 'CHANGE_COMPARTMENT'.freeze,
       RESOURCE_ACTION_CREATE_ASSOCIATION = 'CREATE_ASSOCIATION'.freeze,
       RESOURCE_ACTION_DELETE_ASSOCIATION = 'DELETE_ASSOCIATION'.freeze,

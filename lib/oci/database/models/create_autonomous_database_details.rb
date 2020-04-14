@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'create_autonomous_database_base'
@@ -25,8 +25,13 @@ module OCI
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'is_dedicated': :'isDedicated',
         'autonomous_container_database_id': :'autonomousContainerDatabaseId',
+        'whitelisted_ips': :'whitelistedIps',
+        'subnet_id': :'subnetId',
+        'nsg_ids': :'nsgIds',
+        'private_endpoint_label': :'privateEndpointLabel',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'db_version': :'dbVersion',
         'source': :'source'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -49,8 +54,13 @@ module OCI
         'is_auto_scaling_enabled': :'BOOLEAN',
         'is_dedicated': :'BOOLEAN',
         'autonomous_container_database_id': :'String',
+        'whitelisted_ips': :'Array<String>',
+        'subnet_id': :'String',
+        'nsg_ids': :'Array<String>',
+        'private_endpoint_label': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'db_version': :'String',
         'source': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -75,8 +85,13 @@ module OCI
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_auto_scaling_enabled #is_auto_scaling_enabled} proprety
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_dedicated #is_dedicated} proprety
     # @option attributes [String] :autonomous_container_database_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#autonomous_container_database_id #autonomous_container_database_id} proprety
+    # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#whitelisted_ips #whitelisted_ips} proprety
+    # @option attributes [String] :subnet_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#subnet_id #subnet_id} proprety
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#nsg_ids #nsg_ids} proprety
+    # @option attributes [String] :private_endpoint_label The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#private_endpoint_label #private_endpoint_label} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#defined_tags #defined_tags} proprety
+    # @option attributes [String] :db_version The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#db_version #db_version} proprety
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -109,8 +124,13 @@ module OCI
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         is_dedicated == other.is_dedicated &&
         autonomous_container_database_id == other.autonomous_container_database_id &&
+        whitelisted_ips == other.whitelisted_ips &&
+        subnet_id == other.subnet_id &&
+        nsg_ids == other.nsg_ids &&
+        private_endpoint_label == other.private_endpoint_label &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        db_version == other.db_version &&
         source == other.source
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -127,7 +147,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, freeform_tags, defined_tags, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, whitelisted_ips, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -51,7 +51,9 @@ module OCI
     # @return [String]
     attr_accessor :infini_band_network_cidr
 
-    # **[Required]** The corporate network proxy for access to the control plane network.
+    # The corporate network proxy for access to the control plane network. Oracle recommends using an HTTPS proxy when possible
+    # for enhanced security.
+    #
     # @return [String]
     attr_accessor :corporate_proxy
 

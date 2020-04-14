@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -29,12 +29,12 @@ module OCI
     # @return [String]
     attr_accessor :field_name
 
-    # Indicates this field is actually an array of the specified field type.
+    # Indicates that this field is actually an array of the specified field type.
     #
     # @return [BOOLEAN]
     attr_accessor :is_array
 
-    # If the field type is `OBJECT`, then this property will provide all the individual properties on the object that can
+    # If the field type is `OBJECT`, then this property will provide all the individual properties of the object that can
     # be queried.
     #
     # @return [Array<OCI::ResourceSearch::Models::QueryableFieldDescription>]

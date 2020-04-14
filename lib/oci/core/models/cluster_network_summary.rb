@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Condensed Cluster Network data when listing cluster networks.
+  # Summary information for a cluster network.
   class Core::Models::ClusterNetworkSummary
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
@@ -19,11 +19,13 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the cluster network.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing the cluster netowrk.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the
+    # cluster netowrk.
+    #
     # @return [String]
     attr_accessor :compartment_id
 
@@ -35,7 +37,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The user-friendly name.  Does not have to be unique.
+    # A user-friendly name for the cluster network. Does not have to be unique, and it's changeable.
+    #
     # @return [String]
     attr_accessor :display_name
 
@@ -56,12 +59,14 @@ module OCI
     attr_reader :lifecycle_state
 
     # **[Required]** The date and time the resource was created, in the format defined by RFC3339.
+    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
     # **[Required]** The date and time the resource was updated, in the format defined by RFC3339.
+    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]

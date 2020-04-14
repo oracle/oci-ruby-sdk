@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -12,6 +12,7 @@ module OCI
       ATTRIBUTE_NAME_SOURCE_IP_ADDRESS = 'SOURCE_IP_ADDRESS'.freeze,
       ATTRIBUTE_NAME_SOURCE_VCN_ID = 'SOURCE_VCN_ID'.freeze,
       ATTRIBUTE_NAME_SOURCE_VCN_IP_ADDRESS = 'SOURCE_VCN_IP_ADDRESS'.freeze,
+      ATTRIBUTE_NAME_PATH = 'PATH'.freeze,
       ATTRIBUTE_NAME_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -47,6 +48,7 @@ module OCI
 
       return 'OCI::LoadBalancer::Models::SourceVcnIdCondition' if type == 'SOURCE_VCN_ID'
       return 'OCI::LoadBalancer::Models::SourceIpAddressCondition' if type == 'SOURCE_IP_ADDRESS'
+      return 'OCI::LoadBalancer::Models::PathMatchCondition' if type == 'PATH'
       return 'OCI::LoadBalancer::Models::SourceVcnIpAddressCondition' if type == 'SOURCE_VCN_IP_ADDRESS'
 
       # TODO: Log a warning when the subtype is not found.

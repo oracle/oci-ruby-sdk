@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -19,7 +19,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The OCID of the KMS key in the destination region which will be the master encryption key
+    # The OCID of the Key Management key in the destination region which will be the master encryption key
     # for the copied volume backup.
     # If you do not specify this attribute the volume backup will be encrypted with the Oracle-provided encryption
     # key when it is copied to the destination region.

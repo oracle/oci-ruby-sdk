@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -31,7 +31,7 @@ module OCI
     # @return [String]
     attr_accessor :upload_id
 
-    # **[Required]** The date and time the upload was created, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+    # **[Required]** The date and time the upload was created, as described in [RFC 2616](https://tools.ietf.org/html/rfc2616#section-14.29).
     # @return [DateTime]
     attr_accessor :time_created
 

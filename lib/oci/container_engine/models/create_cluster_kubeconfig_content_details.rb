@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,13 +6,12 @@ require 'date'
 module OCI
   # The properties that define a request to create a cluster kubeconfig.
   class ContainerEngine::Models::CreateClusterKubeconfigContentDetails
-    # The version of the kubeconfig token. Supported values 1.0.0 and 2.0.0
+    # The version of the kubeconfig token. Supported value 2.0.0
     #
     # @return [String]
     attr_accessor :token_version
 
-    # The desired expiration, in seconds, to use for the kubeconfig token.
-    # Important Note, expiration field is only honored for token version 1.0.0
+    # Deprecated. This field is no longer used.
     #
     # @return [Integer]
     attr_accessor :expiration
@@ -52,12 +51,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.token_version = attributes[:'tokenVersion'] if attributes[:'tokenVersion']
-      self.token_version = "1.0.0" if token_version.nil? && !attributes.key?(:'tokenVersion') # rubocop:disable Style/StringLiterals
+      self.token_version = "2.0.0" if token_version.nil? && !attributes.key?(:'tokenVersion') # rubocop:disable Style/StringLiterals
 
       raise 'You cannot provide both :tokenVersion and :token_version' if attributes.key?(:'tokenVersion') && attributes.key?(:'token_version')
 
       self.token_version = attributes[:'token_version'] if attributes[:'token_version']
-      self.token_version = "1.0.0" if token_version.nil? && !attributes.key?(:'tokenVersion') && !attributes.key?(:'token_version') # rubocop:disable Style/StringLiterals
+      self.token_version = "2.0.0" if token_version.nil? && !attributes.key?(:'tokenVersion') && !attributes.key?(:'token_version') # rubocop:disable Style/StringLiterals
 
       self.expiration = attributes[:'expiration'] if attributes[:'expiration']
     end

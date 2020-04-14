@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -182,6 +182,9 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferJob TransferJob}
     def create_transfer_job(create_transfer_job_details, opts = {})
       logger.debug 'Calling operation TransferJobClient#create_transfer_job.' if logger
@@ -200,6 +203,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -227,7 +231,6 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # deletes a transfer job
@@ -235,6 +238,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type nil
     def delete_transfer_job(id, opts = {})
       logger.debug 'Calling operation TransferJobClient#delete_transfer_job.' if logger
@@ -253,6 +259,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -274,12 +281,10 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Describes a transfer job in detail
@@ -287,6 +292,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferJob TransferJob}
     def get_transfer_job(id, opts = {})
       logger.debug 'Calling operation TransferJobClient#get_transfer_job.' if logger
@@ -305,6 +313,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -327,7 +336,6 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -342,6 +350,19 @@ module OCI
     # @option opts [String] :lifecycle_state filtering by lifecycleState
     #   Allowed values are: INITIATED, PREPARING, ACTIVE, DELETED, CLOSED
     # @option opts [String] :display_name filtering by displayName
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #    (default to 100)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Dts::Models::TransferJobSummary TransferJobSummary}>
     def list_transfer_jobs(compartment_id, opts = {})
       logger.debug 'Calling operation TransferJobClient#list_transfer_jobs.' if logger
@@ -361,11 +382,14 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
 
       # Header Params
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -403,6 +427,9 @@ module OCI
     # @option opts [String] :if_match The entity tag to match. Optional, if set, the update will be successful only if the
     #   object's tag matches the tag specified in the request.
     #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferJob TransferJob}
     def update_transfer_job(id, update_transfer_job_details, opts = {})
       logger.debug 'Calling operation TransferJobClient#update_transfer_job.' if logger
@@ -423,6 +450,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_transfer_job_details)

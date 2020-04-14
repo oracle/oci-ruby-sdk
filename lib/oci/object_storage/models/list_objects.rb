@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -19,7 +19,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :prefixes
 
-    # The name of the object to use in the 'startWith' parameter to obtain the next page of
+    # The name of the object to use in the 'start' parameter to obtain the next page of
     # a truncated ListObjects response. Avoid entering confidential information.
     # Example: test/object1.log
     #

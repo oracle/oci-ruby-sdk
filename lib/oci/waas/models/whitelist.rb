@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -10,16 +10,21 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** A set of IP addresses or CIDR notations to include in the whitelist.
+    # A set of IP addresses or CIDR notations to include in the whitelist.
     # @return [Array<String>]
     attr_accessor :addresses
+
+    # A list of [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of IP address lists to include in the whitelist.
+    # @return [Array<String>]
+    attr_accessor :address_lists
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
-        'addresses': :'addresses'
+        'addresses': :'addresses',
+        'address_lists': :'addressLists'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -29,7 +34,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
-        'addresses': :'Array<String>'
+        'addresses': :'Array<String>',
+        'address_lists': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,6 +48,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Array<String>] :addresses The value to assign to the {#addresses} property
+    # @option attributes [Array<String>] :address_lists The value to assign to the {#address_lists} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -51,6 +58,12 @@ module OCI
       self.name = attributes[:'name'] if attributes[:'name']
 
       self.addresses = attributes[:'addresses'] if attributes[:'addresses']
+
+      self.address_lists = attributes[:'addressLists'] if attributes[:'addressLists']
+
+      raise 'You cannot provide both :addressLists and :address_lists' if attributes.key?(:'addressLists') && attributes.key?(:'address_lists')
+
+      self.address_lists = attributes[:'address_lists'] if attributes[:'address_lists']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -65,7 +78,8 @@ module OCI
 
       self.class == other.class &&
         name == other.name &&
-        addresses == other.addresses
+        addresses == other.addresses &&
+        address_lists == other.address_lists
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -81,7 +95,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, addresses].hash
+      [name, addresses, address_lists].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

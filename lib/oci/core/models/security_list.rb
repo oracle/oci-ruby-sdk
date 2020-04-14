@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -9,7 +9,6 @@ module OCI
   # level, but the rules are applied to the ingress and egress traffic for the individual instances
   # in the subnet. The rules can be stateful or stateless. For more information, see
   # [Security Lists](https://docs.cloud.oracle.com/Content/Network/Concepts/securitylists.htm).
-  #
   # **Note:** Compare security lists to {NetworkSecurityGroup}s,
   # which let you apply a set of security rules to a *specific set of VNICs* instead of an entire
   # subnet. Oracle recommends using network security groups instead of security lists, although you

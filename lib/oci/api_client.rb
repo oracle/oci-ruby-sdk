@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'json'
@@ -265,7 +265,7 @@ module OCI
     # Build the user agent string that also includes the additional_user_agent to be sent with each request.
     def build_user_agent
       agent = self.class.build_user_agent
-      "#{agent} #{config.additional_user_agent}" unless config.nil? || config.additional_user_agent.nil?
+      !config.nil? && !config.additional_user_agent.nil? ? "#{agent} #{config.additional_user_agent}" : agent
     end
 
     private
@@ -633,11 +633,11 @@ module OCI
         begin
           return yield
         rescue OCI::Errors::ServiceError => e
+          @config.logger('Error encountered inside instance_principals_signer_wrapped_call: ' + e.inspect) if @config.logger
           raise if attempt >= (max_attempts - 1) # .times is zero-based
           raise if e.status_code != 401
 
           @signer.refresh_security_token
-          retry
         end
       end
     end

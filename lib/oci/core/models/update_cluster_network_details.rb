@@ -1,10 +1,10 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The data to update a cluster network
+  # The data to update a cluster network.
   class Core::Models::UpdateClusterNetworkDetails
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -14,7 +14,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The user-friendly name.  Does not have to be unique.
+    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
+    # entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # ChangeKeyCompartmentDetails model.
   class KeyManagement::Models::ChangeKeyCompartmentDetails
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment into which the key should be moved.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment to move the key to.
     # @return [String]
     attr_accessor :compartment_id
 

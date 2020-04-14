@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -17,6 +17,7 @@ module OCI
       ACTION_REMOVE_HTTP_RESPONSE_HEADER = 'REMOVE_HTTP_RESPONSE_HEADER'.freeze,
       ACTION_ALLOW = 'ALLOW'.freeze,
       ACTION_CONTROL_ACCESS_USING_HTTP_METHODS = 'CONTROL_ACCESS_USING_HTTP_METHODS'.freeze,
+      ACTION_REDIRECT = 'REDIRECT'.freeze,
       ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -51,6 +52,7 @@ module OCI
       type = object_hash[:'action'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::LoadBalancer::Models::AddHttpRequestHeaderRule' if type == 'ADD_HTTP_REQUEST_HEADER'
+      return 'OCI::LoadBalancer::Models::RedirectRule' if type == 'REDIRECT'
       return 'OCI::LoadBalancer::Models::RemoveHttpRequestHeaderRule' if type == 'REMOVE_HTTP_REQUEST_HEADER'
       return 'OCI::LoadBalancer::Models::ExtendHttpRequestHeaderValueRule' if type == 'EXTEND_HTTP_REQUEST_HEADER_VALUE'
       return 'OCI::LoadBalancer::Models::RemoveHttpResponseHeaderRule' if type == 'REMOVE_HTTP_RESPONSE_HEADER'

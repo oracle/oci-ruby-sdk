@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,11 +6,11 @@ require 'date'
 module OCI
   # CreateVolumeBackupPolicyAssignmentDetails model.
   class Core::Models::CreateVolumeBackupPolicyAssignmentDetails
-    # **[Required]** The OCID of the asset (e.g. a volume) to which to assign the policy.
+    # **[Required]** The OCID of the volume to assign the policy to.
     # @return [String]
     attr_accessor :asset_id
 
-    # **[Required]** The OCID of the volume backup policy to assign to an asset.
+    # **[Required]** The OCID of the volume backup policy to assign to the volume.
     # @return [String]
     attr_accessor :policy_id
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,7 +6,8 @@ require 'date'
 module OCI
   # Represents a load balancer that is to be attached to an instance pool.
   class Core::Models::AttachLoadBalancerDetails
-    # **[Required]** The OCID of the load balancer to attach to the instance pool.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer to attach to the instance pool.
+    #
     # @return [String]
     attr_accessor :load_balancer_id
 

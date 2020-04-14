@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -109,7 +109,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a steering policy into a different compartment. When provided, If-Match is checked against ETag values of the resource.
+    # Moves a steering policy into a different compartment.
     # @param [String] steering_policy_id The OCID of the target steering policy.
     # @param [OCI::Dns::Models::ChangeSteeringPolicyCompartmentDetails] change_steering_policy_compartment_details Details for moving a steering policy into a different compartment.
     # @param [Hash] opts the optional parameters
@@ -127,6 +127,10 @@ module OCI
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
+    #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
     #    (default to nil)
     # @return [Response] A Response object with data of type nil
     def change_steering_policy_compartment(steering_policy_id, change_steering_policy_compartment_details, opts = {})
@@ -149,6 +153,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -177,7 +182,80 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a zone into a different compartment. When provided, If-Match is checked against ETag values of the resource.
+    # Moves a TSIG key into a different compartment.
+    # @param [String] tsig_key_id The OCID of the target TSIG key.
+    # @param [OCI::Dns::Models::ChangeTsigKeyCompartmentDetails] change_tsig_key_compartment_details Details for moving a TSIG key into a different compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #    (default to nil)
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request may be rejected).
+    #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
+    # @return [Response] A Response object with data of type nil
+    def change_tsig_key_compartment(tsig_key_id, change_tsig_key_compartment_details, opts = {})
+      logger.debug 'Calling operation DnsClient#change_tsig_key_compartment.' if logger
+
+      raise "Missing the required parameter 'tsig_key_id' when calling change_tsig_key_compartment." if tsig_key_id.nil?
+      raise "Missing the required parameter 'change_tsig_key_compartment_details' when calling change_tsig_key_compartment." if change_tsig_key_compartment_details.nil?
+      raise "Parameter value for 'tsig_key_id' must not be blank" if OCI::Internal::Util.blank_string?(tsig_key_id)
+
+      path = '/tsigKeys/{tsigKeyId}/actions/changeCompartment'.sub('{tsigKeyId}', tsig_key_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_tsig_key_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#change_tsig_key_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a zone into a different compartment.
     # **Note:** All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
     # @param [String] zone_id The OCID of the target zone.
     # @param [OCI::Dns::Models::ChangeZoneCompartmentDetails] change_zone_compartment_details Details for moving a zone into a different compartment.
@@ -196,6 +274,10 @@ module OCI
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
+    #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
     #    (default to nil)
     # @return [Response] A Response object with data of type nil
     def change_zone_compartment(zone_id, change_zone_compartment_details, opts = {})
@@ -218,6 +300,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -260,6 +343,10 @@ module OCI
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
     def create_steering_policy(create_steering_policy_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_steering_policy.' if logger
@@ -278,6 +365,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -325,6 +413,10 @@ module OCI
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
     def create_steering_policy_attachment(create_steering_policy_attachment_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_steering_policy_attachment.' if logger
@@ -343,6 +435,7 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -372,6 +465,63 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new TSIG key in the specified compartment. There is no
+    # `opc-retry-token` header since TSIG key names must be globally unique.
+    #
+    # @param [OCI::Dns::Models::CreateTsigKeyDetails] create_tsig_key_details Details for creating a new TSIG key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::TsigKey TsigKey}
+    def create_tsig_key(create_tsig_key_details, opts = {})
+      logger.debug 'Calling operation DnsClient#create_tsig_key.' if logger
+
+      raise "Missing the required parameter 'create_tsig_key_details' when calling create_tsig_key." if create_tsig_key_details.nil?
+
+      path = '/tsigKeys'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(create_tsig_key_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#create_tsig_key') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::TsigKey'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new zone in the specified compartment. The `compartmentId`
     # query parameter is required if the `Content-Type` header for the
     # request is `text/dns`.
@@ -380,6 +530,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def create_zone(create_zone_details, opts = {})
@@ -399,6 +553,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_zone_details)
@@ -445,6 +600,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_domain_records(zone_name_or_id, domain, opts = {})
@@ -469,6 +628,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -516,6 +676,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_rr_set(zone_name_or_id, domain, rtype, opts = {})
@@ -542,6 +706,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -590,6 +755,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_steering_policy(steering_policy_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_steering_policy.' if logger
@@ -610,6 +779,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -656,6 +826,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_steering_policy_attachment(steering_policy_attachment_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_steering_policy_attachment.' if logger
@@ -676,12 +850,83 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#delete_steering_policy_attachment') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified TSIG key.
+    #
+    # @param [String] tsig_key_id The OCID of the target TSIG key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #    (default to nil)
+    # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
+    #   conditional on the selected representation's last modification date being
+    #   earlier than or equal to the date provided in the field-value.  This
+    #   field accomplishes the same purpose as If-Match for cases where the user
+    #   agent does not have an entity-tag for the representation.
+    #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
+    # @return [Response] A Response object with data of type nil
+    def delete_tsig_key(tsig_key_id, opts = {})
+      logger.debug 'Calling operation DnsClient#delete_tsig_key.' if logger
+
+      raise "Missing the required parameter 'tsig_key_id' when calling delete_tsig_key." if tsig_key_id.nil?
+      raise "Parameter value for 'tsig_key_id' must not be blank" if OCI::Internal::Util.blank_string?(tsig_key_id)
+
+      path = '/tsigKeys/{tsigKeyId}'.sub('{tsigKeyId}', tsig_key_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#delete_tsig_key') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -722,6 +967,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type nil
     def delete_zone(zone_name_or_id, opts = {})
@@ -744,6 +993,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -789,6 +1039,10 @@ module OCI
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
+    #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
     #    (default to nil)
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
@@ -841,6 +1095,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -888,6 +1143,10 @@ module OCI
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
@@ -923,6 +1182,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -967,6 +1227,10 @@ module OCI
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
     def get_steering_policy(steering_policy_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_steering_policy.' if logger
@@ -987,6 +1251,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1031,6 +1296,10 @@ module OCI
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
     def get_steering_policy_attachment(steering_policy_attachment_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_steering_policy_attachment.' if logger
@@ -1051,6 +1320,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1066,6 +1336,75 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Dns::Models::SteeringPolicyAttachment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets information about the specified TSIG key.
+    #
+    # @param [String] tsig_key_id The OCID of the target TSIG key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
+    #   the absence of any current representation of the target resource, when
+    #   the field-value is `*`, or having a selected representation with an
+    #   entity-tag that does not match any of those listed in the field-value.
+    #    (default to nil)
+    # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
+    #   conditional on the selected representation's modification date being more
+    #   recent than the date provided in the field-value.  Transfer of the
+    #   selected representation's data is avoided if that data has not changed.
+    #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::TsigKey TsigKey}
+    def get_tsig_key(tsig_key_id, opts = {})
+      logger.debug 'Calling operation DnsClient#get_tsig_key.' if logger
+
+      raise "Missing the required parameter 'tsig_key_id' when calling get_tsig_key." if tsig_key_id.nil?
+      raise "Parameter value for 'tsig_key_id' must not be blank" if OCI::Internal::Util.blank_string?(tsig_key_id)
+
+      path = '/tsigKeys/{tsigKeyId}'.sub('{tsigKeyId}', tsig_key_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
+      header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#get_tsig_key') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::TsigKey'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1096,6 +1435,10 @@ module OCI
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def get_zone(zone_name_or_id, opts = {})
@@ -1118,6 +1461,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1163,6 +1507,10 @@ module OCI
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
+    #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
     #    (default to nil)
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
@@ -1221,6 +1569,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1255,6 +1604,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
@@ -1323,6 +1676,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1357,6 +1711,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
@@ -1429,6 +1787,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1457,6 +1816,93 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a list of all TSIG keys in the specified compartment.
+    #
+    # @param [String] compartment_id The OCID of the compartment the resource belongs to.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
+    # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
+    #    (default to 50)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #    (default to nil)
+    # @option opts [String] :id The OCID of a resource. (default to nil)
+    # @option opts [String] :name The name of a resource. (default to nil)
+    # @option opts [String] :lifecycle_state The state of a resource. (default to nil)
+    # @option opts [String] :sort_by The field by which to sort TSIG keys. If unspecified, defaults to `timeCreated`. (default to timeCreated)
+    #   Allowed values are: name, timeCreated
+    # @option opts [String] :sort_order The order to sort the resources.
+    #    (default to DESC)
+    # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::TsigKeySummary TsigKeySummary}>
+    def list_tsig_keys(compartment_id, opts = {})
+      logger.debug 'Calling operation DnsClient#list_tsig_keys.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_tsig_keys." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::Dns::Models::TsigKeySummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Dns::Models::TsigKeySummary::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[name timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of name, timeCreated.'
+      end
+
+      if opts[:sort_order] && !OCI::Dns::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
+      end
+
+      path = '/tsigKeys'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#list_tsig_keys') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Dns::Models::TsigKeySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a list of all zones in the specified compartment. The collection
     # can be filtered by name, time created, and zone type.
     #
@@ -1464,6 +1910,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
@@ -1534,6 +1984,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1585,6 +2036,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def patch_domain_records(zone_name_or_id, domain, patch_domain_records_details, opts = {})
@@ -1610,6 +2065,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(patch_domain_records_details)
@@ -1658,6 +2114,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def patch_rr_set(zone_name_or_id, domain, rtype, patch_rr_set_details, opts = {})
@@ -1685,6 +2145,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(patch_rr_set_details)
@@ -1736,6 +2197,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def patch_zone_records(zone_name_or_id, patch_zone_records_details, opts = {})
@@ -1759,6 +2224,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(patch_zone_records_details)
@@ -1812,6 +2278,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def update_domain_records(zone_name_or_id, domain, update_domain_records_details, opts = {})
@@ -1837,6 +2307,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_domain_records_details)
@@ -1885,6 +2356,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def update_rr_set(zone_name_or_id, domain, rtype, update_rr_set_details, opts = {})
@@ -1912,6 +2387,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_rr_set_details)
@@ -1959,6 +2435,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
     def update_steering_policy(steering_policy_id, update_steering_policy_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_steering_policy.' if logger
@@ -1980,6 +2460,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_steering_policy_details)
@@ -2027,6 +2508,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
     def update_steering_policy_attachment(steering_policy_attachment_id, update_steering_policy_attachment_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_steering_policy_attachment.' if logger
@@ -2048,6 +2533,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_steering_policy_attachment_details)
@@ -2063,6 +2549,79 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Dns::Models::SteeringPolicyAttachment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the specified TSIG key.
+    #
+    # @param [String] tsig_key_id The OCID of the target TSIG key.
+    # @param [OCI::Dns::Models::UpdateTsigKeyDetails] update_tsig_key_details New data for the TSIG key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #    (default to nil)
+    # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
+    #   conditional on the selected representation's last modification date being
+    #   earlier than or equal to the date provided in the field-value.  This
+    #   field accomplishes the same purpose as If-Match for cases where the user
+    #   agent does not have an entity-tag for the representation.
+    #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::TsigKey TsigKey}
+    def update_tsig_key(tsig_key_id, update_tsig_key_details, opts = {})
+      logger.debug 'Calling operation DnsClient#update_tsig_key.' if logger
+
+      raise "Missing the required parameter 'tsig_key_id' when calling update_tsig_key." if tsig_key_id.nil?
+      raise "Missing the required parameter 'update_tsig_key_details' when calling update_tsig_key." if update_tsig_key_details.nil?
+      raise "Parameter value for 'tsig_key_id' must not be blank" if OCI::Internal::Util.blank_string?(tsig_key_id)
+
+      path = '/tsigKeys/{tsigKeyId}'.sub('{tsigKeyId}', tsig_key_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_tsig_key_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#update_tsig_key') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::TsigKey'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2097,6 +2656,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def update_zone(zone_name_or_id, update_zone_details, opts = {})
@@ -2120,6 +2683,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_zone_details)
@@ -2171,6 +2735,10 @@ module OCI
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
     #    (default to nil)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #    (default to nil)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def update_zone_records(zone_name_or_id, update_zone_records_details, opts = {})
@@ -2194,6 +2762,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(update_zone_records_details)

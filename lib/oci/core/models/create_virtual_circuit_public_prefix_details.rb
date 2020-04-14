@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -7,7 +7,7 @@ module OCI
   # CreateVirtualCircuitPublicPrefixDetails model.
   class Core::Models::CreateVirtualCircuitPublicPrefixDetails
     # **[Required]** An individual public IP prefix (CIDR) to add to the public virtual circuit.
-    # Must be /31 or less specific.
+    # All prefix sizes are allowed.
     #
     # @return [String]
     attr_accessor :cidr_block

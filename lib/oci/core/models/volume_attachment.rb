@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -64,6 +64,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_read_only
 
+    # Whether the attachment should be created in shareable mode. If an attachment is created in shareable mode, then other instances can attach the same volume, provided that they also create their attachments in shareable mode. Only certain volume types can be attached in shareable mode. Defaults to false if not specified.
+    # @return [BOOLEAN]
+    attr_accessor :is_shareable
+
     # **[Required]** The current state of the volume attachment.
     # @return [String]
     attr_reader :lifecycle_state
@@ -95,6 +99,7 @@ module OCI
         'id': :'id',
         'instance_id': :'instanceId',
         'is_read_only': :'isReadOnly',
+        'is_shareable': :'isShareable',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'volume_id': :'volumeId',
@@ -115,6 +120,7 @@ module OCI
         'id': :'String',
         'instance_id': :'String',
         'is_read_only': :'BOOLEAN',
+        'is_shareable': :'BOOLEAN',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'volume_id': :'String',
@@ -154,6 +160,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :instance_id The value to assign to the {#instance_id} property
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {#is_read_only} property
+    # @option attributes [BOOLEAN] :is_shareable The value to assign to the {#is_shareable} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :volume_id The value to assign to the {#volume_id} property
@@ -203,6 +210,12 @@ module OCI
       raise 'You cannot provide both :isReadOnly and :is_read_only' if attributes.key?(:'isReadOnly') && attributes.key?(:'is_read_only')
 
       self.is_read_only = attributes[:'is_read_only'] unless attributes[:'is_read_only'].nil?
+
+      self.is_shareable = attributes[:'isShareable'] unless attributes[:'isShareable'].nil?
+
+      raise 'You cannot provide both :isShareable and :is_shareable' if attributes.key?(:'isShareable') && attributes.key?(:'is_shareable')
+
+      self.is_shareable = attributes[:'is_shareable'] unless attributes[:'is_shareable'].nil?
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -261,6 +274,7 @@ module OCI
         id == other.id &&
         instance_id == other.instance_id &&
         is_read_only == other.is_read_only &&
+        is_shareable == other.is_shareable &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         volume_id == other.volume_id &&
@@ -280,7 +294,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled].hash
+      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, is_shareable, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,13 +6,13 @@ require 'date'
 module OCI
   # The secondary VNIC object for the placement configuration for an instance pool.
   class Core::Models::InstancePoolPlacementSecondaryVnicSubnet
-    # The displayName of the vnic. This is also use to match against the Instance Configuration defined
-    # secondary vnic.
+    # The display name of the VNIC. This is also use to match against the instance configuration defined
+    # secondary VNIC.
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The subnet OCID for the secondary vnic
+    # **[Required]** The subnet [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the secondary VNIC.
     # @return [String]
     attr_accessor :subnet_id
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module LoadBalancer
@@ -50,10 +50,13 @@ require 'oci/load_balancer/models/load_balancer_health_summary'
 require 'oci/load_balancer/models/load_balancer_policy'
 require 'oci/load_balancer/models/load_balancer_protocol'
 require 'oci/load_balancer/models/load_balancer_shape'
+require 'oci/load_balancer/models/path_match_condition'
 require 'oci/load_balancer/models/path_match_type'
 require 'oci/load_balancer/models/path_route'
 require 'oci/load_balancer/models/path_route_set'
 require 'oci/load_balancer/models/path_route_set_details'
+require 'oci/load_balancer/models/redirect_rule'
+require 'oci/load_balancer/models/redirect_uri'
 require 'oci/load_balancer/models/remove_http_request_header_rule'
 require 'oci/load_balancer/models/remove_http_response_header_rule'
 require 'oci/load_balancer/models/rule'

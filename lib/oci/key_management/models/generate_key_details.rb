@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,9 +6,9 @@ require 'date'
 module OCI
   # GenerateKeyDetails model.
   class KeyManagement::Models::GenerateKeyDetails
-    # Information that can be used to provide an encryption context for the
-    # encrypted data. The length of the string representation of the associatedData
-    # must be fewer than 4096 characters.
+    # Information that can be used to provide an encryption context for the encrypted data.
+    # The length of the string representation of the associated data must be fewer than 4096
+    # characters.
     #
     # @return [Hash<String, String>]
     attr_accessor :associated_data
@@ -25,8 +25,8 @@ module OCI
     # @return [OCI::KeyManagement::Models::KeyShape]
     attr_accessor :key_shape
 
-    # Information that can be used to provide context for audit logging. It is a map that contains any addtional
-    # data the users may have and will be added to the audit logs (if audit logging is enabled)
+    # Information that provides context for audit logging. You can provide this additional
+    # data by formatting it as key-value pairs to include in audit logs when audit logging is enabled.
     #
     # @return [Hash<String, String>]
     attr_accessor :logging_context

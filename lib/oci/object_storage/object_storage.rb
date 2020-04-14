@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module ObjectStorage
@@ -18,6 +18,9 @@ require 'oci/object_storage/models/copy_object_details'
 require 'oci/object_storage/models/create_bucket_details'
 require 'oci/object_storage/models/create_multipart_upload_details'
 require 'oci/object_storage/models/create_preauthenticated_request_details'
+require 'oci/object_storage/models/create_replication_policy_details'
+require 'oci/object_storage/models/create_retention_rule_details'
+require 'oci/object_storage/models/duration'
 require 'oci/object_storage/models/list_objects'
 require 'oci/object_storage/models/multipart_upload'
 require 'oci/object_storage/models/multipart_upload_part_summary'
@@ -31,9 +34,17 @@ require 'oci/object_storage/models/preauthenticated_request'
 require 'oci/object_storage/models/preauthenticated_request_summary'
 require 'oci/object_storage/models/put_object_lifecycle_policy_details'
 require 'oci/object_storage/models/rename_object_details'
+require 'oci/object_storage/models/replication_policy'
+require 'oci/object_storage/models/replication_policy_summary'
+require 'oci/object_storage/models/replication_source'
 require 'oci/object_storage/models/restore_objects_details'
+require 'oci/object_storage/models/retention_rule'
+require 'oci/object_storage/models/retention_rule_collection'
+require 'oci/object_storage/models/retention_rule_details'
+require 'oci/object_storage/models/retention_rule_summary'
 require 'oci/object_storage/models/update_bucket_details'
 require 'oci/object_storage/models/update_namespace_metadata_details'
+require 'oci/object_storage/models/update_retention_rule_details'
 require 'oci/object_storage/models/work_request'
 require 'oci/object_storage/models/work_request_error'
 require 'oci/object_storage/models/work_request_log_entry'

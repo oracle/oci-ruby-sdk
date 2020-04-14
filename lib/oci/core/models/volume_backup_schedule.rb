@@ -1,11 +1,13 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Defines a chronological recurrence pattern for creating scheduled backups at a particular periodicity.
+  # Defines the backup frequency and retention period for a volume backup policy. For more information,
+  # see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm).
+  #
   class Core::Models::VolumeBackupSchedule
     BACKUP_TYPE_ENUM = [
       BACKUP_TYPE_FULL = 'FULL'.freeze,
@@ -61,39 +63,53 @@ module OCI
       TIME_ZONE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The type of backup to create.
+    # **[Required]** The type of volume backup to create.
     # @return [String]
     attr_reader :backup_type
 
-    # The number of seconds that the backup time should be shifted from the default interval boundaries specified by the period. Backup time = Frequency start time + Offset.
+    # The number of seconds that the volume backup start time should be shifted from the default interval boundaries specified by the period. The volume backup start time is the frequency start time plus the offset.
     # @return [Integer]
     attr_accessor :offset_seconds
 
-    # **[Required]** How often the backup should occur.
+    # **[Required]** The volume backup frequency.
     # @return [String]
     attr_reader :period
 
-    # Indicates how offset is defined. If value is `STRUCTURED`, then `hourOfDay`, `dayOfWeek`, `dayOfMonth`, and `month` fields are used and `offsetSeconds` will be ignored in requests and users should ignore its value from the respones. `hourOfDay` is applicable for periods `ONE_DAY`, `ONE_WEEK`, `ONE_MONTH` and `ONE_YEAR`. `dayOfWeek` is applicable for period `ONE_WEEK`. `dayOfMonth` is applicable for periods `ONE_MONTH` and `ONE_YEAR`. 'month' is applicable for period 'ONE_YEAR'. They will be ignored in the requests for inapplicable periods. If value is `NUMERIC_SECONDS`, then `offsetSeconds` will be used for both requests and responses and the structured fields will be ignored in the requests and users should ignore their values from the respones. For clients using older versions of Apis and not sending `offsetType` in their requests, the behaviour is just like `NUMERIC_SECONDS`.
+    # Indicates how the offset is defined. If value is `STRUCTURED`, then `hourOfDay`, `dayOfWeek`, `dayOfMonth`, and `month` fields are used and `offsetSeconds` will be ignored in requests and users should ignore its value from the responses.
+    #
+    # `hourOfDay` is applicable for periods `ONE_DAY`, `ONE_WEEK`, `ONE_MONTH` and `ONE_YEAR`.
+    #
+    # `dayOfWeek` is applicable for period `ONE_WEEK`.
+    #
+    # `dayOfMonth` is applicable for periods `ONE_MONTH` and `ONE_YEAR`.
+    #
+    # 'month' is applicable for period 'ONE_YEAR'.
+    #
+    # They will be ignored in the requests for inapplicable periods.
+    #
+    # If value is `NUMERIC_SECONDS`, then `offsetSeconds` will be used for both requests and responses and the structured fields will be ignored in the requests and users should ignore their values from the responses.
+    #
+    # For clients using older versions of Apis and not sending `offsetType` in their requests, the behaviour is just like `NUMERIC_SECONDS`.
     # @return [String]
     attr_reader :offset_type
 
-    # The hour of the day to schedule the backup
+    # The hour of the day to schedule the volume backup.
     # @return [Integer]
     attr_accessor :hour_of_day
 
-    # The day of the week to schedule the backup
+    # The day of the week to schedule the volume backup.
     # @return [String]
     attr_reader :day_of_week
 
-    # The day of the month to schedule the backup
+    # The day of the month to schedule the volume backup.
     # @return [Integer]
     attr_accessor :day_of_month
 
-    # The month of the year to schedule the backup
+    # The month of the year to schedule the volume backup.
     # @return [String]
     attr_reader :month
 
-    # **[Required]** How long, in seconds, backups created by this schedule should be kept until being automatically deleted.
+    # **[Required]** How long, in seconds, to keep the volume backups created by this schedule.
     # @return [Integer]
     attr_accessor :retention_seconds
 

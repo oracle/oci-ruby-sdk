@@ -1,11 +1,32 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # KeyVersion model.
   class KeyManagement::Models::KeyVersion
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ENABLING = 'ENABLING'.freeze,
+      LIFECYCLE_STATE_ENABLED = 'ENABLED'.freeze,
+      LIFECYCLE_STATE_DISABLING = 'DISABLING'.freeze,
+      LIFECYCLE_STATE_DISABLED = 'DISABLED'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_PENDING_DELETION = 'PENDING_DELETION'.freeze,
+      LIFECYCLE_STATE_SCHEDULING_DELETION = 'SCHEDULING_DELETION'.freeze,
+      LIFECYCLE_STATE_CANCELLING_DELETION = 'CANCELLING_DELETION'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    ORIGIN_ENUM = [
+      ORIGIN_INTERNAL = 'INTERNAL'.freeze,
+      ORIGIN_EXTERNAL = 'EXTERNAL'.freeze,
+      ORIGIN_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the compartment that contains this key version.
     # @return [String]
     attr_accessor :compartment_id
@@ -18,12 +39,29 @@ module OCI
     # @return [String]
     attr_accessor :key_id
 
+    # The key version's current state.
+    #
+    # Example: `ENABLED`
+    #
+    # @return [String]
+    attr_reader :lifecycle_state
+
+    # The source of the key material. When this value is INTERNAL, OCI KMS created the key material. When this value is EXTERNAL, the key material was imported
+    # @return [String]
+    attr_reader :origin
+
     # **[Required]** The date and time this key version was created, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
     #
     # Example: \"2018-04-03T21:10:29.600Z\"
     #
     # @return [DateTime]
     attr_accessor :time_created
+
+    # An optional property indicating when to delete the key version, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # Example: `2019-04-03T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_of_deletion
 
     # **[Required]** The OCID of the vault that contains this key version.
     # @return [String]
@@ -36,7 +74,10 @@ module OCI
         'compartment_id': :'compartmentId',
         'id': :'id',
         'key_id': :'keyId',
+        'lifecycle_state': :'lifecycleState',
+        'origin': :'origin',
         'time_created': :'timeCreated',
+        'time_of_deletion': :'timeOfDeletion',
         'vault_id': :'vaultId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -49,7 +90,10 @@ module OCI
         'compartment_id': :'String',
         'id': :'String',
         'key_id': :'String',
+        'lifecycle_state': :'String',
+        'origin': :'String',
         'time_created': :'DateTime',
+        'time_of_deletion': :'DateTime',
         'vault_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -64,7 +108,10 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :key_id The value to assign to the {#key_id} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :origin The value to assign to the {#origin} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -86,11 +133,25 @@ module OCI
 
       self.key_id = attributes[:'key_id'] if attributes[:'key_id']
 
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.origin = attributes[:'origin'] if attributes[:'origin']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_of_deletion = attributes[:'timeOfDeletion'] if attributes[:'timeOfDeletion']
+
+      raise 'You cannot provide both :timeOfDeletion and :time_of_deletion' if attributes.key?(:'timeOfDeletion') && attributes.key?(:'time_of_deletion')
+
+      self.time_of_deletion = attributes[:'time_of_deletion'] if attributes[:'time_of_deletion']
 
       self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
 
@@ -100,6 +161,32 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] origin Object to be assigned
+    def origin=(origin)
+      # rubocop:disable Style/ConditionalAssignment
+      if origin && !ORIGIN_ENUM.include?(origin)
+        OCI.logger.debug("Unknown value for 'origin' [" + origin + "]. Mapping to 'ORIGIN_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @origin = ORIGIN_UNKNOWN_ENUM_VALUE
+      else
+        @origin = origin
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -113,7 +200,10 @@ module OCI
         compartment_id == other.compartment_id &&
         id == other.id &&
         key_id == other.key_id &&
+        lifecycle_state == other.lifecycle_state &&
+        origin == other.origin &&
         time_created == other.time_created &&
+        time_of_deletion == other.time_of_deletion &&
         vault_id == other.vault_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -130,7 +220,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, id, key_id, time_created, vault_id].hash
+      [compartment_id, id, key_id, lifecycle_state, origin, time_created, time_of_deletion, vault_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

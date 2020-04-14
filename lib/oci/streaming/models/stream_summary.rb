@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -13,6 +13,7 @@ module OCI
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -35,6 +36,10 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # **[Required]** The OCID of the stream pool that contains the stream.
+    # @return [String]
+    attr_accessor :stream_pool_id
+
     # **[Required]** The current state of the stream.
     # @return [String]
     attr_reader :lifecycle_state
@@ -47,6 +52,8 @@ module OCI
     attr_accessor :time_created
 
     # **[Required]** The endpoint to use when creating the StreamClient to consume or publish messages in the stream.
+    # If the associated stream pool is private, the endpoint is also private and can only be accessed from inside the stream pool's associated subnet.
+    #
     # @return [String]
     attr_accessor :messages_endpoint
 
@@ -73,6 +80,7 @@ module OCI
         'id': :'id',
         'partitions': :'partitions',
         'compartment_id': :'compartmentId',
+        'stream_pool_id': :'streamPoolId',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'messages_endpoint': :'messagesEndpoint',
@@ -90,6 +98,7 @@ module OCI
         'id': :'String',
         'partitions': :'Integer',
         'compartment_id': :'String',
+        'stream_pool_id': :'String',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'messages_endpoint': :'String',
@@ -109,6 +118,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [Integer] :partitions The value to assign to the {#partitions} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :stream_pool_id The value to assign to the {#stream_pool_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :messages_endpoint The value to assign to the {#messages_endpoint} property
@@ -131,6 +141,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.stream_pool_id = attributes[:'streamPoolId'] if attributes[:'streamPoolId']
+
+      raise 'You cannot provide both :streamPoolId and :stream_pool_id' if attributes.key?(:'streamPoolId') && attributes.key?(:'stream_pool_id')
+
+      self.stream_pool_id = attributes[:'stream_pool_id'] if attributes[:'stream_pool_id']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -191,6 +207,7 @@ module OCI
         id == other.id &&
         partitions == other.partitions &&
         compartment_id == other.compartment_id &&
+        stream_pool_id == other.stream_pool_id &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         messages_endpoint == other.messages_endpoint &&
@@ -211,7 +228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, id, partitions, compartment_id, lifecycle_state, time_created, messages_endpoint, freeform_tags, defined_tags].hash
+      [name, id, partitions, compartment_id, stream_pool_id, lifecycle_state, time_created, messages_endpoint, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

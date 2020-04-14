@@ -1,13 +1,13 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'create_data_guard_association_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The configuration details for creating a Data Guard association for a bare metal DB system or virtual machine DB system database. A new DB system will be launched to create the standby database.
+  # The configuration details for creating a Data Guard association for a virtual machine DB system database. For this type of DB system database, the `creationType` should be `NewDbSystem`. A new DB system will be launched to create the standby database.
   #
-  # **NOTE** - You must use this subtype to create a Data Guard association for a database in a virtual machine DB system.
+  # To create a Data Guard association for a database in a bare metal or Exadata DB system, use the {#create_data_guard_association_to_existing_db_system_details create_data_guard_association_to_existing_db_system_details} subtype instead.
   #
   class Database::Models::CreateDataGuardAssociationWithNewDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails
     # The user-friendly name of the DB system that will contain the the standby database. The display name does not have to be unique.
@@ -17,6 +17,14 @@ module OCI
     # The name of the availability domain that the standby database DB system will be located in. For example- \"Uocm:PHX-AD-1\".
     # @return [String]
     attr_accessor :availability_domain
+
+    # The virtual machine DB system shape to launch for the standby database in the Data Guard association. The shape determines the number of CPU cores and the amount of memory available for the DB system.
+    # Only virtual machine shapes are valid options. If you do not supply this parameter, the default shape is the shape of the primary DB system.
+    #
+    # To get a list of all shapes, use the {#list_db_system_shapes list_db_system_shapes} operation.
+    #
+    # @return [String]
+    attr_accessor :shape
 
     # The OCID of the subnet the DB system is associated with.
     # **Subnet Restrictions:**
@@ -29,7 +37,9 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # **NsgIds restrictions:**
+    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -53,6 +63,7 @@ module OCI
         'creation_type': :'creationType',
         'display_name': :'displayName',
         'availability_domain': :'availabilityDomain',
+        'shape': :'shape',
         'subnet_id': :'subnetId',
         'nsg_ids': :'nsgIds',
         'backup_network_nsg_ids': :'backupNetworkNsgIds',
@@ -71,6 +82,7 @@ module OCI
         'creation_type': :'String',
         'display_name': :'String',
         'availability_domain': :'String',
+        'shape': :'String',
         'subnet_id': :'String',
         'nsg_ids': :'Array<String>',
         'backup_network_nsg_ids': :'Array<String>',
@@ -90,6 +102,7 @@ module OCI
     # @option attributes [String] :transport_type The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#transport_type #transport_type} proprety
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
@@ -115,6 +128,8 @@ module OCI
       raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
 
       self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
+
+      self.shape = attributes[:'shape'] if attributes[:'shape']
 
       self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
 
@@ -154,6 +169,7 @@ module OCI
         creation_type == other.creation_type &&
         display_name == other.display_name &&
         availability_domain == other.availability_domain &&
+        shape == other.shape &&
         subnet_id == other.subnet_id &&
         nsg_ids == other.nsg_ids &&
         backup_network_nsg_ids == other.backup_network_nsg_ids &&
@@ -173,7 +189,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_admin_password, protection_mode, transport_type, creation_type, display_name, availability_domain, subnet_id, nsg_ids, backup_network_nsg_ids, hostname].hash
+      [database_admin_password, protection_mode, transport_type, creation_type, display_name, availability_domain, shape, subnet_id, nsg_ids, backup_network_nsg_ids, hostname].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

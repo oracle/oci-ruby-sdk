@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Oracle"]
   s.email       = ["joe.levy@oracle.com"]
-  s.homepage    = "https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/frames.html"
+  s.homepage    = "https://docs.cloud.oracle.com/tools/ruby/latest/frames.html"
   s.summary     = "Oracle Cloud Infrastructure Ruby SDK"
   s.description = "Ruby SDK for Oracle Cloud Infrastructure."
   s.licenses     = ["UPL-1.0", "Apache-2.0"]

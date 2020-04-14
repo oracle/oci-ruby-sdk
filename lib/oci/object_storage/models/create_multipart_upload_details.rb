@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -15,17 +15,46 @@ module OCI
     # @return [String]
     attr_accessor :object
 
-    # The content type of the object to upload.
+    # The optional Content-Type header that defines the standard MIME type format of the object to upload.
+    # Specifying values for this header has no effect on Object Storage behavior. Programs that read the object
+    # determine what to do based on the value provided. For example, you could use this header to identify and
+    # perform special operations on text only objects.
+    #
     # @return [String]
     attr_accessor :content_type
 
-    # The content language of the object to upload.
+    # The optional Content-Language header that defines the content language of the object to upload. Specifying
+    # values for this header has no effect on Object Storage behavior. Programs that read the object determine what
+    # to do based on the value provided. For example, you could use this header to identify and differentiate objects
+    # based on a particular language.
+    #
     # @return [String]
     attr_accessor :content_language
 
-    # The content encoding of the object to upload.
+    # The optional Content-Encoding header that defines the content encodings that were applied to the object to
+    # upload. Specifying values for this header has no effect on Object Storage behavior. Programs that read the
+    # object determine what to do based on the value provided. For example, you could use this header to determine
+    # what decoding mechanisms need to be applied to obtain the media-type specified by the Content-Type header of
+    # the object.
+    #
     # @return [String]
     attr_accessor :content_encoding
+
+    # The optional Content-Disposition header that defines presentational information for the object to be
+    # returned in GetObject and HeadObject responses. Specifying values for this header has no effect on Object
+    # Storage behavior. Programs that read the object determine what to do based on the value provided.
+    # For example, you could use this header to let users download objects with custom filenames in a browser.
+    #
+    # @return [String]
+    attr_accessor :content_disposition
+
+    # The optional Cache-Control header that defines the caching behavior value to be returned in GetObject and
+    # HeadObject responses. Specifying values for this header has no effect on Object Storage behavior. Programs
+    # that read the object determine what to do based on the value provided.
+    # For example, you could use this header to identify objects that require caching restrictions.
+    #
+    # @return [String]
+    attr_accessor :cache_control
 
     # Arbitrary string keys and values for the user-defined metadata for the object.
     # Keys must be in \"opc-meta-*\" format. Avoid entering confidential information.
@@ -41,6 +70,8 @@ module OCI
         'content_type': :'contentType',
         'content_language': :'contentLanguage',
         'content_encoding': :'contentEncoding',
+        'content_disposition': :'contentDisposition',
+        'cache_control': :'cacheControl',
         'metadata': :'metadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -54,6 +85,8 @@ module OCI
         'content_type': :'String',
         'content_language': :'String',
         'content_encoding': :'String',
+        'content_disposition': :'String',
+        'cache_control': :'String',
         'metadata': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -69,6 +102,8 @@ module OCI
     # @option attributes [String] :content_type The value to assign to the {#content_type} property
     # @option attributes [String] :content_language The value to assign to the {#content_language} property
     # @option attributes [String] :content_encoding The value to assign to the {#content_encoding} property
+    # @option attributes [String] :content_disposition The value to assign to the {#content_disposition} property
+    # @option attributes [String] :cache_control The value to assign to the {#cache_control} property
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -96,6 +131,18 @@ module OCI
 
       self.content_encoding = attributes[:'content_encoding'] if attributes[:'content_encoding']
 
+      self.content_disposition = attributes[:'contentDisposition'] if attributes[:'contentDisposition']
+
+      raise 'You cannot provide both :contentDisposition and :content_disposition' if attributes.key?(:'contentDisposition') && attributes.key?(:'content_disposition')
+
+      self.content_disposition = attributes[:'content_disposition'] if attributes[:'content_disposition']
+
+      self.cache_control = attributes[:'cacheControl'] if attributes[:'cacheControl']
+
+      raise 'You cannot provide both :cacheControl and :cache_control' if attributes.key?(:'cacheControl') && attributes.key?(:'cache_control')
+
+      self.cache_control = attributes[:'cache_control'] if attributes[:'cache_control']
+
       self.metadata = attributes[:'metadata'] if attributes[:'metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -114,6 +161,8 @@ module OCI
         content_type == other.content_type &&
         content_language == other.content_language &&
         content_encoding == other.content_encoding &&
+        content_disposition == other.content_disposition &&
+        cache_control == other.cache_control &&
         metadata == other.metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -130,7 +179,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [object, content_type, content_language, content_encoding, metadata].hash
+      [object, content_type, content_language, content_encoding, content_disposition, cache_control, metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

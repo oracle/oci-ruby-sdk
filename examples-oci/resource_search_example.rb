@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 # This example demonstrates how to programatically retrieve resource types and query for resources.
 # When running this example, it is assumed that you already have active VCN resources associated with

@@ -1,11 +1,14 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Cluster Network
+  # A cluster network is a group of high performance computing (HPC) bare metal instances that are connected
+  # with an ultra low latency network. For more information about cluster networks, see
+  # [Managing Cluster Networks](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/managingclusternetworks.htm).
+  #
   class Core::Models::ClusterNetwork
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
@@ -19,11 +22,11 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the cluster network.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing the cluster netowrk.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the cluster netowrk.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -35,7 +38,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The user-friendly name.  Does not have to be unique.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
     # @return [String]
     attr_accessor :display_name
 
@@ -47,11 +50,15 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # the instance pools in the cluster network.
+    # The instance pools in the cluster network.
+    #
+    # Each cluster network can have one instance pool.
+    #
     # @return [Array<OCI::Core::Models::InstancePool>]
     attr_accessor :instance_pools
 
-    # the placement data for the intance pools in the cluster network
+    # The placement configuration for the instance pools in the cluster network.
+    #
     # @return [OCI::Core::Models::ClusterNetworkPlacementConfigurationDetails]
     attr_accessor :placement_configuration
 
@@ -60,12 +67,14 @@ module OCI
     attr_reader :lifecycle_state
 
     # **[Required]** The date and time the resource was created, in the format defined by RFC3339.
+    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
     # **[Required]** The date and time the resource was updated, in the format defined by RFC3339.
+    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]

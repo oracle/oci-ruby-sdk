@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -466,6 +466,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a boot volume backup copy in specified region. For general information about volume backups,
+    # see [Overview of Boot Volume Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/bootvolumebackups.htm)
+    #
+    # @param [String] boot_volume_backup_id The OCID of the boot volume backup.
+    # @param [OCI::Core::Models::CopyBootVolumeBackupDetails] copy_boot_volume_backup_details Request to create a cross-region copy of given boot volume backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeBackup BootVolumeBackup}
+    def copy_boot_volume_backup(boot_volume_backup_id, copy_boot_volume_backup_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#copy_boot_volume_backup.' if logger
+
+      raise "Missing the required parameter 'boot_volume_backup_id' when calling copy_boot_volume_backup." if boot_volume_backup_id.nil?
+      raise "Missing the required parameter 'copy_boot_volume_backup_details' when calling copy_boot_volume_backup." if copy_boot_volume_backup_details.nil?
+      raise "Parameter value for 'boot_volume_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(boot_volume_backup_id)
+
+      path = '/bootVolumeBackups/{bootVolumeBackupId}/actions/copy'.sub('{bootVolumeBackupId}', boot_volume_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(copy_boot_volume_backup_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#copy_boot_volume_backup') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::BootVolumeBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a volume backup copy in specified region. For general information about volume backups,
     # see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumebackups.htm)
     #
@@ -795,7 +862,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new backup policy for the caller.
+    # Creates a new user defined backup policy.
+    #
+    # For more information about Oracle defined backup policies and user defined backup policies,
+    # see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm).
+    #
     # @param [OCI::Core::Models::CreateVolumeBackupPolicyDetails] create_volume_backup_policy_details Request to create a new scheduled backup policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -858,11 +929,11 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Assigns a policy to the specified asset, such as a volume. Note that a given asset can
-    # only have one policy assigned to it; if this method is called for an asset that previously
-    # has a different policy assigned, the prior assignment will be silently deleted.
+    # Assigns a volume backup policy to the specified volume. Note that a given volume can
+    # only have one backup policy assigned to it. If this operation is used for a volume that already
+    # has a different backup policy assigned, the prior backup policy will be silently unassigned.
     #
-    # @param [OCI::Core::Models::CreateVolumeBackupPolicyAssignmentDetails] create_volume_backup_policy_assignment_details Request to assign a specified policy to a particular asset.
+    # @param [OCI::Core::Models::CreateVolumeBackupPolicyAssignmentDetails] create_volume_backup_policy_assignment_details Request to assign a specified policy to a particular volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1151,7 +1222,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Removes the KMS key for the specified boot volume.
+    # Removes the specified boot volume's assigned Key Management encryption key.
     #
     # @param [String] boot_volume_id The OCID of the boot volume.
     # @param [Hash] opts the optional parameters
@@ -1321,7 +1392,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified scheduled backup policy.
+    # Deletes a user defined backup policy.
+    #  For more information about user defined backup policies,
+    #  see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#UserDefinedBackupPolicies).
+    #
+    #  Avoid entering confidential information.
+    #
     # @param [String] policy_id The OCID of the volume backup policy.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1380,7 +1456,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a volume backup policy assignment (i.e. unassigns the policy from an asset).
+    # Deletes a volume backup policy assignment.
     # @param [String] policy_assignment_id The OCID of the volume backup policy assignment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1547,7 +1623,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Removes the KMS key for the specified volume.
+    # Removes the specified volume's assigned Key Management encryption key.
     #
     # @param [String] volume_id The OCID of the volume.
     # @param [Hash] opts the optional parameters
@@ -1709,7 +1785,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the KMS key ID for the specified boot volume.
+    # Gets the Key Management encryption key assigned to the specified boot volume.
     #
     # @param [String] boot_volume_id The OCID of the boot volume.
     # @param [Hash] opts the optional parameters
@@ -1925,9 +2001,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the volume backup policy assignment for the specified asset. Note that the
-    # assetId query parameter is required, and that the returned list will contain at most
-    # one item (since any given asset can only have one policy assigned to it).
+    # Gets the volume backup policy assignment for the specified volume. The
+    # `assetId` query parameter is required, and the returned list will contain at most
+    # one item, since volume can only have one volume backup policy assigned at a time.
     #
     # @param [String] asset_id The OCID of an asset (e.g. a volume).
     # @param [Hash] opts the optional parameters
@@ -2150,7 +2226,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the KMS key ID for the specified volume.
+    # Gets the Key Management encryption key assigned to the specified volume.
     #
     # @param [String] volume_id The OCID of the volume.
     # @param [Hash] opts the optional parameters
@@ -2226,6 +2302,8 @@ module OCI
     #
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
+    # @option opts [String] :source_boot_volume_backup_id A filter to return only resources that originated from the given source boot volume backup.
+    #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
     #   sort order is case sensitive.
@@ -2271,6 +2349,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sourceBootVolumeBackupId] = opts[:source_boot_volume_backup_id] if opts[:source_boot_volume_backup_id]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
@@ -2379,7 +2458,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all volume backup policies available to the caller.
+    # Lists all the volume backup policies available in the specified compartment.
+    #
+    # For more information about Oracle defined backup policies and user defined backup policies,
+    # see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm).
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2393,8 +2476,8 @@ module OCI
     #   call. For important details about how pagination works, see
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :compartment_id The OCID of the compartment to list.
-    #   If no compartment is specified, list the predefined (Gold, Silver, Bronze) backup policies.
+    # @option opts [String] :compartment_id The OCID of the compartment.
+    #   If no compartment is specified, the Oracle defined backup policies are listed.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeBackupPolicy VolumeBackupPolicy}>
     def list_volume_backup_policies(opts = {})
@@ -2966,10 +3049,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the KMS key ID for the specified volume.
+    # Updates the specified volume with a new Key Management master encryption key.
     #
     # @param [String] boot_volume_id The OCID of the boot volume.
-    # @param [OCI::Core::Models::UpdateBootVolumeKmsKeyDetails] update_boot_volume_kms_key_details Updates the KMS key ID for the specified boot volume.
+    # @param [OCI::Core::Models::UpdateBootVolumeKmsKeyDetails] update_boot_volume_kms_key_details Updates the Key Management master encryption key assigned to the specified boot volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3145,8 +3228,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates a volume backup policy.
-    # Avoid entering confidential information.
+    # Updates a user defined backup policy.
+    #  For more information about user defined backup policies,
+    #  see [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#UserDefinedBackupPolicies).
+    #
+    #  Avoid entering confidential information.
     #
     # @param [String] policy_id The OCID of the volume backup policy.
     # @param [OCI::Core::Models::UpdateVolumeBackupPolicyDetails] update_volume_backup_policy_details Update volume backup policy fields
@@ -3339,10 +3425,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the KMS key ID for the specified volume.
+    # Updates the specified volume with a new Key Management master encryption key.
     #
     # @param [String] volume_id The OCID of the volume.
-    # @param [OCI::Core::Models::UpdateVolumeKmsKeyDetails] update_volume_kms_key_details Update the KMS key ID for the specified volume.
+    # @param [OCI::Core::Models::UpdateVolumeKmsKeyDetails] update_volume_kms_key_details Updates the Key Management master encryption key assigned to the specified volume.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

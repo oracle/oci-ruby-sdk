@@ -1,11 +1,13 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'search_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A request containing search filters using the structured search query language.
+  # A request that uses Search's structured query language to specify filter conditions to apply to search results.
+  # For more information about writing queries, see [Search Language Syntax](https://docs.cloud.oracle.com/en-us/iaas/Content/Search/Concepts/querysyntax.htm).
+  #
   class ResourceSearch::Models::StructuredSearchDetails < ResourceSearch::Models::SearchDetails
     # **[Required]** The structured query describing which resources to search for.
     # @return [String]

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -759,6 +759,149 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Oda::Models::WorkRequestSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Starts an inactive Digital Assistant instance. Once active, the instance will be accessible and metering
+    # of requests will be started again.
+    #
+    # @param [String] oda_instance_id Unique Digital Assistant instance identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
+    # @option opts [String] :if_match For optimistic concurrency control in a PUT or DELETE call for
+    #   a Digital Assistant instance, set the `if-match` query parameter
+    #   to the value of the `ETAG` header from a previous GET or POST
+    #   response for that instance. The service updates or deletes the
+    #   instance only if the etag that you provide matches the instance's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so that you can retry the request if there's
+    #   a timeout or server error without the risk of executing that same action again.
+    #
+    #   Retry tokens expire after 24 hours, but they can become invalid before then if there are
+    #   conflicting operations. For example, if an instance was deleted and purged from the system,
+    #   then the service might reject a retry of the original creation request.
+    #
+    # @return [Response] A Response object with data of type nil
+    def start_oda_instance(oda_instance_id, opts = {})
+      logger.debug 'Calling operation OdaClient#start_oda_instance.' if logger
+
+      raise "Missing the required parameter 'oda_instance_id' when calling start_oda_instance." if oda_instance_id.nil?
+      raise "Parameter value for 'oda_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(oda_instance_id)
+
+      path = '/odaInstances/{odaInstanceId}/actions/start'.sub('{odaInstanceId}', oda_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OdaClient#start_oda_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Stops an active Digital Assistant instance. Once inactive, the instance will not be accessible and metering
+    # of requests will be stopped until the instance is started again. Data associated with the instance
+    # is not affected.
+    #
+    # @param [String] oda_instance_id Unique Digital Assistant instance identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
+    # @option opts [String] :if_match For optimistic concurrency control in a PUT or DELETE call for
+    #   a Digital Assistant instance, set the `if-match` query parameter
+    #   to the value of the `ETAG` header from a previous GET or POST
+    #   response for that instance. The service updates or deletes the
+    #   instance only if the etag that you provide matches the instance's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so that you can retry the request if there's
+    #   a timeout or server error without the risk of executing that same action again.
+    #
+    #   Retry tokens expire after 24 hours, but they can become invalid before then if there are
+    #   conflicting operations. For example, if an instance was deleted and purged from the system,
+    #   then the service might reject a retry of the original creation request.
+    #
+    # @return [Response] A Response object with data of type nil
+    def stop_oda_instance(oda_instance_id, opts = {})
+      logger.debug 'Calling operation OdaClient#stop_oda_instance.' if logger
+
+      raise "Missing the required parameter 'oda_instance_id' when calling stop_oda_instance." if oda_instance_id.nil?
+      raise "Parameter value for 'oda_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(oda_instance_id)
+
+      path = '/odaInstances/{odaInstanceId}/actions/stop'.sub('{odaInstanceId}', oda_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OdaClient#stop_oda_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
