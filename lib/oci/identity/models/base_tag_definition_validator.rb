@@ -1,19 +1,21 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Validates a definedTag value. Each validator performs validation steps in addition to the standard validation
-  # for definedTag values (See [Limits on Tags](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Limits).
+  # Validates a definedTag value. Each validator performs validation steps in addition to the standard
+  # validation for definedTag values. For more information, see
+  # [Limits on Tags](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Limits).
   #
-  # If a validator is defined after a value has been set for a definedTag, then any UPDATE operation that attempts
-  # to change the value must pass the additional validation defined by this rule. Previously set values, that would
-  # fail validation, are not updated and it is possible to update other attributes of an OCI resource that contains
-  # a non-valid definedTag.
+  # If you define a validator after a value has been set for a defined tag, then any updates that
+  # attempt to change the value must pass the additional validation defined by the current rule.
+  # Previously set values (even those that would fail the current validation) are not updated. You can
+  # still update other attributes to resources that contain a non-valid defined tag.
   #
-  # To clear the validator call the UPDATE operation with DefaultTagDefinitionValidator.
+  # To clear the validator call UpdateTag with
+  # [DefaultTagDefinitionValidator](https://docs.cloud.oracle.com/api/#/en/identity/latest/datatypes/DefaultTagDefinitionValidator).
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Identity::Models::BaseTagDefinitionValidator
@@ -23,7 +25,7 @@ module OCI
       VALIDATOR_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The primitive that any value set for this definedTag must be parseable as.
+    # **[Required]** Specifies the type of validation: a static value (no validation) or a list.
     #
     # @return [String]
     attr_reader :validator_type

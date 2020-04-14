@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -11,11 +11,17 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_monitoring_supported
 
+    # Whether the agent running on the instance can run all the available management plugins
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_management_supported
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_monitoring_supported': :'isMonitoringSupported'
+        'is_monitoring_supported': :'isMonitoringSupported',
+        'is_management_supported': :'isManagementSupported'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +30,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_monitoring_supported': :'BOOLEAN'
+        'is_monitoring_supported': :'BOOLEAN',
+        'is_management_supported': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +43,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :is_monitoring_supported The value to assign to the {#is_monitoring_supported} property
+    # @option attributes [BOOLEAN] :is_management_supported The value to assign to the {#is_management_supported} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -47,6 +55,12 @@ module OCI
       raise 'You cannot provide both :isMonitoringSupported and :is_monitoring_supported' if attributes.key?(:'isMonitoringSupported') && attributes.key?(:'is_monitoring_supported')
 
       self.is_monitoring_supported = attributes[:'is_monitoring_supported'] unless attributes[:'is_monitoring_supported'].nil?
+
+      self.is_management_supported = attributes[:'isManagementSupported'] unless attributes[:'isManagementSupported'].nil?
+
+      raise 'You cannot provide both :isManagementSupported and :is_management_supported' if attributes.key?(:'isManagementSupported') && attributes.key?(:'is_management_supported')
+
+      self.is_management_supported = attributes[:'is_management_supported'] unless attributes[:'is_management_supported'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +74,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        is_monitoring_supported == other.is_monitoring_supported
+        is_monitoring_supported == other.is_monitoring_supported &&
+        is_management_supported == other.is_management_supported
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +91,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_monitoring_supported].hash
+      [is_monitoring_supported, is_management_supported].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -24,15 +24,15 @@ module OCI
       START_POSITION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Time when the resource was created.
+    # **[Required]** Time when the resource was created.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The state of the stream archiver.
+    # **[Required]** The state of the stream archiver.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The name of the bucket.
+    # **[Required]** The name of the bucket.
     # @return [String]
     attr_accessor :bucket_name
 
@@ -52,7 +52,6 @@ module OCI
     # @return [Integer]
     attr_accessor :batch_rollover_time_in_seconds
 
-    # If an operation failed this property contained the last error occurred.
     # @return [OCI::Streaming::Models::ArchiverError]
     attr_accessor :error
 

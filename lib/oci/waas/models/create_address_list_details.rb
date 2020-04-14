@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -10,7 +10,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** A unique user-friendly name for the address list.
+    # **[Required]** A user-friendly name for the address list.
     # @return [String]
     attr_accessor :display_name
 

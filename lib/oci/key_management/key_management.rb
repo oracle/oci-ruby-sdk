@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module KeyManagement
@@ -20,17 +20,23 @@ require 'oci/key_management/models/encrypt_data_details'
 require 'oci/key_management/models/encrypted_data'
 require 'oci/key_management/models/generate_key_details'
 require 'oci/key_management/models/generated_key'
+require 'oci/key_management/models/import_key_details'
+require 'oci/key_management/models/import_key_version_details'
 require 'oci/key_management/models/key'
 require 'oci/key_management/models/key_shape'
 require 'oci/key_management/models/key_summary'
 require 'oci/key_management/models/key_version'
 require 'oci/key_management/models/key_version_summary'
 require 'oci/key_management/models/schedule_key_deletion_details'
+require 'oci/key_management/models/schedule_key_version_deletion_details'
 require 'oci/key_management/models/schedule_vault_deletion_details'
 require 'oci/key_management/models/update_key_details'
 require 'oci/key_management/models/update_vault_details'
 require 'oci/key_management/models/vault'
 require 'oci/key_management/models/vault_summary'
+require 'oci/key_management/models/vault_usage'
+require 'oci/key_management/models/wrapped_import_key'
+require 'oci/key_management/models/wrapping_key'
 
 # Require generated clients
 require 'oci/key_management/kms_crypto_client'

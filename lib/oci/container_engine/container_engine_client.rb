@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -96,7 +96,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://containerengine.{region}.{secondLevelDomain}') + '/20180222'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://containerengine.{region}.oci.{secondLevelDomain}') + '/20180222'
       logger.info "ContainerEngineClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -565,6 +565,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The OCID of the compartment.
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
     #
@@ -581,6 +582,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -675,6 +677,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The OCID of the compartment.
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
     #
@@ -691,6 +694,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -51,7 +51,8 @@ module OCI
     # Allowed values:
     #
     #   * IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`.
-    #     Note that IPv6 addressing is currently supported only in the Government Cloud.
+    #     Note that IPv6 addressing is currently supported only in certain regions. See
+    #     [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
     #
     #   * The `cidrBlock` value for a {Service}, if you're
     #     setting up a security list rule for traffic coming from a particular `Service` through
@@ -83,6 +84,11 @@ module OCI
     # @return [OCI::Core::Models::UdpOptions]
     attr_accessor :udp_options
 
+    # An optional description of your choice for the rule.
+    #
+    # @return [String]
+    attr_accessor :description
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -93,7 +99,8 @@ module OCI
         'source': :'source',
         'source_type': :'sourceType',
         'tcp_options': :'tcpOptions',
-        'udp_options': :'udpOptions'
+        'udp_options': :'udpOptions',
+        'description': :'description'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -108,7 +115,8 @@ module OCI
         'source': :'String',
         'source_type': :'String',
         'tcp_options': :'OCI::Core::Models::TcpOptions',
-        'udp_options': :'OCI::Core::Models::UdpOptions'
+        'udp_options': :'OCI::Core::Models::UdpOptions',
+        'description': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -126,6 +134,7 @@ module OCI
     # @option attributes [String] :source_type The value to assign to the {#source_type} property
     # @option attributes [OCI::Core::Models::TcpOptions] :tcp_options The value to assign to the {#tcp_options} property
     # @option attributes [OCI::Core::Models::UdpOptions] :udp_options The value to assign to the {#udp_options} property
+    # @option attributes [String] :description The value to assign to the {#description} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -167,6 +176,8 @@ module OCI
       raise 'You cannot provide both :udpOptions and :udp_options' if attributes.key?(:'udpOptions') && attributes.key?(:'udp_options')
 
       self.udp_options = attributes[:'udp_options'] if attributes[:'udp_options']
+
+      self.description = attributes[:'description'] if attributes[:'description']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -199,7 +210,8 @@ module OCI
         source == other.source &&
         source_type == other.source_type &&
         tcp_options == other.tcp_options &&
-        udp_options == other.udp_options
+        udp_options == other.udp_options &&
+        description == other.description
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -215,7 +227,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [icmp_options, is_stateless, protocol, source, source_type, tcp_options, udp_options].hash
+      [icmp_options, is_stateless, protocol, source, source_type, tcp_options, udp_options, description].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

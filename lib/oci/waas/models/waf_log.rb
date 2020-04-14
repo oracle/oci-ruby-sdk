@@ -1,10 +1,10 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A list of Web Application Firewall log entries. Each entry is a JSON object, including a timestamp property and other fields varying based on log type. Logs record what rules and countermeasures are triggered by requests and are used as a basis to move request handling into block mode. For more information about WAF logs, see [WAF Logs](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/waflogs.htm).
+  # A list of Web Application Firewall log entries. Each entry is a JSON object, including a timestamp property and other fields varying based on log type. Logs record what rules and countermeasures are triggered by requests and are used as a basis to move request handling into block mode. For more information about WAF logs, see [Logs](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/logs.htm).
   class Waas::Models::WafLog
     # The action taken on the request, either `ALLOW`, `DETECT`, or `BLOCK`.
     # @return [String]
@@ -128,7 +128,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :timestamp
 
-    # The type of log of the request. For more about log types, see [WAF Logs](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/waflogs.htm).
+    # The type of log of the request. For more about log types, see [Logs](https://docs.cloud.oracle.com/iaas/Content/WAF/Tasks/logs.htm).
     #
     # @return [String]
     attr_accessor :log_type

@@ -1,13 +1,13 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A directory where Oracle Database software is installed. A bare metal DB system can have multiple database homes
-  # and each database home can run a different supported version of Oracle Database. A virtual machine DB system can have only one database home.
-  # For more information, see [Bare Metal and Virtual Machine DB Systems](https://docs.cloud.oracle.com/Content/Database/Concepts/overview.htm).
+  # A directory where Oracle Database software is installed. A bare metal or Exadata DB system can have multiple Database Homes
+  # and each Database Home can run a different supported version of Oracle Database. A virtual machine DB system can have only one Database Home.
+  # For more information, see [Bare Metal and Virtual Machine DB Systems](https://docs.cloud.oracle.com/Content/Database/Concepts/overview.htm) and [Exadata DB Systems](https://docs.cloud.oracle.com/Content/Database/Concepts/exaoverview.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an
   # administrator. If you're an administrator who needs to write policies to give users access,
@@ -26,7 +26,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the database home.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Home.
     # @return [String]
     attr_accessor :id
 
@@ -34,7 +34,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The user-provided name for the database home. The name does not need to be unique.
+    # **[Required]** The user-provided name for the Database Home. The name does not need to be unique.
     # @return [String]
     attr_accessor :display_name
 
@@ -42,7 +42,7 @@ module OCI
     # @return [String]
     attr_accessor :last_patch_history_entry_id
 
-    # **[Required]** The current state of the database home.
+    # **[Required]** The current state of the Database Home.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -58,7 +58,15 @@ module OCI
     # @return [String]
     attr_accessor :db_version
 
-    # The date and time the database home was created.
+    # **[Required]** The location of the Oracle Database Home.
+    # @return [String]
+    attr_accessor :db_home_location
+
+    # Additional information about the current lifecycleState.
+    # @return [String]
+    attr_accessor :lifecycle_details
+
+    # The date and time the Database Home was created.
     # @return [DateTime]
     attr_accessor :time_created
 
@@ -74,6 +82,8 @@ module OCI
         'db_system_id': :'dbSystemId',
         'vm_cluster_id': :'vmClusterId',
         'db_version': :'dbVersion',
+        'db_home_location': :'dbHomeLocation',
+        'lifecycle_details': :'lifecycleDetails',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -91,6 +101,8 @@ module OCI
         'db_system_id': :'String',
         'vm_cluster_id': :'String',
         'db_version': :'String',
+        'db_home_location': :'String',
+        'lifecycle_details': :'String',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -110,6 +122,8 @@ module OCI
     # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
     # @option attributes [String] :vm_cluster_id The value to assign to the {#vm_cluster_id} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
+    # @option attributes [String] :db_home_location The value to assign to the {#db_home_location} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -161,6 +175,18 @@ module OCI
 
       self.db_version = attributes[:'db_version'] if attributes[:'db_version']
 
+      self.db_home_location = attributes[:'dbHomeLocation'] if attributes[:'dbHomeLocation']
+
+      raise 'You cannot provide both :dbHomeLocation and :db_home_location' if attributes.key?(:'dbHomeLocation') && attributes.key?(:'db_home_location')
+
+      self.db_home_location = attributes[:'db_home_location'] if attributes[:'db_home_location']
+
+      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
+
+      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
+
+      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -200,6 +226,8 @@ module OCI
         db_system_id == other.db_system_id &&
         vm_cluster_id == other.vm_cluster_id &&
         db_version == other.db_version &&
+        db_home_location == other.db_home_location &&
+        lifecycle_details == other.lifecycle_details &&
         time_created == other.time_created
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -216,7 +244,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, last_patch_history_entry_id, lifecycle_state, db_system_id, vm_cluster_id, db_version, time_created].hash
+      [id, compartment_id, display_name, last_patch_history_entry_id, lifecycle_state, db_system_id, vm_cluster_id, db_version, db_home_location, lifecycle_details, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

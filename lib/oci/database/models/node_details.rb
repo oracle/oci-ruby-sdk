@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # Node details associated with a network.
   class Database::Models::NodeDetails
-    # The node host name.
+    # **[Required]** The node host name.
     # @return [String]
     attr_accessor :hostname
 

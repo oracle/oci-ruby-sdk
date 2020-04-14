@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -22,12 +22,16 @@ module OCI
     # @return [String]
     attr_reader :action
 
+    # @return [Array<OCI::Waas::Models::ProtectionRuleExclusion>]
+    attr_accessor :exclusions
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
-        'action': :'action'
+        'action': :'action',
+        'exclusions': :'exclusions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,7 +41,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
-        'action': :'String'
+        'action': :'String',
+        'exclusions': :'Array<OCI::Waas::Models::ProtectionRuleExclusion>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,6 +55,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :action The value to assign to the {#action} property
+    # @option attributes [Array<OCI::Waas::Models::ProtectionRuleExclusion>] :exclusions The value to assign to the {#exclusions} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -60,6 +66,8 @@ module OCI
 
       self.action = attributes[:'action'] if attributes[:'action']
       self.action = "DETECT" if action.nil? && !attributes.key?(:'action') # rubocop:disable Style/StringLiterals
+
+      self.exclusions = attributes[:'exclusions'] if attributes[:'exclusions']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -87,7 +95,8 @@ module OCI
 
       self.class == other.class &&
         id == other.id &&
-        action == other.action
+        action == other.action &&
+        exclusions == other.exclusions
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -103,7 +112,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, action].hash
+      [id, action, exclusions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

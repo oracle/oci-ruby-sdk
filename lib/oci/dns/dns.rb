@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module Dns
@@ -11,10 +11,12 @@ end
 
 # Require models
 require 'oci/dns/models/change_steering_policy_compartment_details'
+require 'oci/dns/models/change_tsig_key_compartment_details'
 require 'oci/dns/models/change_zone_compartment_details'
 require 'oci/dns/models/create_migrated_dynect_zone_details'
 require 'oci/dns/models/create_steering_policy_attachment_details'
 require 'oci/dns/models/create_steering_policy_details'
+require 'oci/dns/models/create_tsig_key_details'
 require 'oci/dns/models/create_zone_base_details'
 require 'oci/dns/models/create_zone_details'
 require 'oci/dns/models/dynect_migration_details'
@@ -50,10 +52,13 @@ require 'oci/dns/models/steering_policy_weighted_answer_data'
 require 'oci/dns/models/steering_policy_weighted_rule'
 require 'oci/dns/models/steering_policy_weighted_rule_case'
 require 'oci/dns/models/tsig'
+require 'oci/dns/models/tsig_key'
+require 'oci/dns/models/tsig_key_summary'
 require 'oci/dns/models/update_domain_records_details'
 require 'oci/dns/models/update_rr_set_details'
 require 'oci/dns/models/update_steering_policy_attachment_details'
 require 'oci/dns/models/update_steering_policy_details'
+require 'oci/dns/models/update_tsig_key_details'
 require 'oci/dns/models/update_zone_details'
 require 'oci/dns/models/update_zone_records_details'
 require 'oci/dns/models/zone'

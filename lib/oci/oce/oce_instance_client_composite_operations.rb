@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -127,7 +127,6 @@ module OCI
     # to enter the given state(s).
     #
     # @param [String] oce_instance_id unique OceInstance identifier
-    # @param [OCI::Oce::Models::DeleteOceInstanceDetails] delete_oce_instance_details The information about resource to be deleted.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Oce::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Oce::OceInstanceClient#delete_oce_instance}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -135,8 +134,8 @@ module OCI
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Oce::Models::WorkRequest}
-    def delete_oce_instance_and_wait_for_state(oce_instance_id, delete_oce_instance_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      operation_result = @service_client.delete_oce_instance(oce_instance_id, delete_oce_instance_details, base_operation_opts)
+    def delete_oce_instance_and_wait_for_state(oce_instance_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.delete_oce_instance(oce_instance_id, base_operation_opts)
       use_util = OCI::Oce::Util.respond_to?(:wait_on_work_request)
 
       return operation_result if wait_for_states.empty? && !use_util

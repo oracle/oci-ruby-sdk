@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -17,9 +17,13 @@ module OCI
     # @return [Integer]
     attr_accessor :partitions
 
-    # **[Required]** The OCID of the compartment that contains the stream.
+    # The OCID of the compartment that contains the stream.
     # @return [String]
     attr_accessor :compartment_id
+
+    # The OCID of the stream pool that contains the stream.
+    # @return [String]
+    attr_accessor :stream_pool_id
 
     # The retention period of the stream, in hours. Accepted values are between 24 and 168 (7 days).
     # If not specified, the stream will have a retention period of 24 hours.
@@ -49,6 +53,7 @@ module OCI
         'name': :'name',
         'partitions': :'partitions',
         'compartment_id': :'compartmentId',
+        'stream_pool_id': :'streamPoolId',
         'retention_in_hours': :'retentionInHours',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -63,6 +68,7 @@ module OCI
         'name': :'String',
         'partitions': :'Integer',
         'compartment_id': :'String',
+        'stream_pool_id': :'String',
         'retention_in_hours': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -79,6 +85,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Integer] :partitions The value to assign to the {#partitions} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :stream_pool_id The value to assign to the {#stream_pool_id} property
     # @option attributes [Integer] :retention_in_hours The value to assign to the {#retention_in_hours} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -97,6 +104,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.stream_pool_id = attributes[:'streamPoolId'] if attributes[:'streamPoolId']
+
+      raise 'You cannot provide both :streamPoolId and :stream_pool_id' if attributes.key?(:'streamPoolId') && attributes.key?(:'stream_pool_id')
+
+      self.stream_pool_id = attributes[:'stream_pool_id'] if attributes[:'stream_pool_id']
 
       self.retention_in_hours = attributes[:'retentionInHours'] if attributes[:'retentionInHours']
 
@@ -131,6 +144,7 @@ module OCI
         name == other.name &&
         partitions == other.partitions &&
         compartment_id == other.compartment_id &&
+        stream_pool_id == other.stream_pool_id &&
         retention_in_hours == other.retention_in_hours &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -149,7 +163,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, partitions, compartment_id, retention_in_hours, freeform_tags, defined_tags].hash
+      [name, partitions, compartment_id, stream_pool_id, retention_in_hours, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

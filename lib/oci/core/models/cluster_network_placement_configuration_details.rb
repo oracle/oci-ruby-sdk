@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -7,12 +7,15 @@ module OCI
   # The location for where the instance pools in a cluster network will place instances.
   class Core::Models::ClusterNetworkPlacementConfigurationDetails
     # **[Required]** The availability domain to place instances.
+    #
     # Example: `Uocm:PHX-AD-1`
     #
     # @return [String]
     attr_accessor :availability_domain
 
-    # **[Required]** The OCID of the primary subnet to place instances.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the primary subnet to place
+    # instances.
+    #
     # @return [String]
     attr_accessor :primary_subnet_id
 

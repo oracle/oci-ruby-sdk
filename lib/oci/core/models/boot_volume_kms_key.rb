@@ -1,13 +1,13 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Kms key id associated with this volume.
+  # The Key Management master encryption key associated with this volume.
   #
   class Core::Models::BootVolumeKmsKey
-    # The OCID of the KMS key associated with this volume. If volume is not using KMS, then the `kmsKeyId` will be a null string.
+    # The OCID of the Key Management key assigned to this volume. If the volume is not using Key Management, then the `kmsKeyId` will be a null string.
     #
     # @return [String]
     attr_accessor :kms_key_id

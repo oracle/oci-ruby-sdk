@@ -1,5 +1,5 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
-  VERSION = '2.7.0'.freeze
+  VERSION = '2.8.0'.freeze
 end

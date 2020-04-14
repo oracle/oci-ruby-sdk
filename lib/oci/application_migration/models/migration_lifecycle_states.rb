@@ -1,0 +1,15 @@
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+
+module OCI
+  module ApplicationMigration::Models
+    MIGRATION_LIFECYCLE_STATES_ENUM = [
+      MIGRATION_LIFECYCLE_STATES_CREATING = 'CREATING'.freeze,
+      MIGRATION_LIFECYCLE_STATES_ACTIVE = 'ACTIVE'.freeze,
+      MIGRATION_LIFECYCLE_STATES_INACTIVE = 'INACTIVE'.freeze,
+      MIGRATION_LIFECYCLE_STATES_UPDATING = 'UPDATING'.freeze,
+      MIGRATION_LIFECYCLE_STATES_SUCCEEDED = 'SUCCEEDED'.freeze,
+      MIGRATION_LIFECYCLE_STATES_DELETING = 'DELETING'.freeze,
+      MIGRATION_LIFECYCLE_STATES_DELETED = 'DELETED'.freeze
+    ].freeze
+  end
+end

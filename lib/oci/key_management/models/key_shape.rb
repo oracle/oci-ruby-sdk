@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -9,10 +9,11 @@ module OCI
   class KeyManagement::Models::KeyShape
     ALGORITHM_ENUM = [
       ALGORITHM_AES = 'AES'.freeze,
+      ALGORITHM_RSA = 'RSA'.freeze,
       ALGORITHM_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The algorithm used by a key's KeyVersions to encrypt or decrypt.
+    # **[Required]** The algorithm used by a key's key versions to encrypt or decrypt.
     # @return [String]
     attr_reader :algorithm
 

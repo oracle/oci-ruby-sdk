@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module Oce
@@ -12,7 +12,7 @@ end
 # Require models
 require 'oci/oce/models/change_oce_instance_compartment_details'
 require 'oci/oce/models/create_oce_instance_details'
-require 'oci/oce/models/delete_oce_instance_details'
+require 'oci/oce/models/identity_stripe_details'
 require 'oci/oce/models/oce_instance'
 require 'oci/oce/models/oce_instance_summary'
 require 'oci/oce/models/update_oce_instance_details'

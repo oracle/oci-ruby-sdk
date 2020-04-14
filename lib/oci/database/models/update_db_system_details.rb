@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -39,7 +39,17 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The shape of the DB system. The shape determines resources allocated to the DB system.
+    # - For virtual machine shapes, the number of CPU cores and memory
+    #
+    # To get a list of shapes, use the {#list_db_system_shapes list_db_system_shapes} operation.
+    #
+    # @return [String]
+    attr_accessor :shape
+
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # **NsgIds restrictions:**
+    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -59,6 +69,7 @@ module OCI
         'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'shape': :'shape',
         'nsg_ids': :'nsgIds',
         'backup_network_nsg_ids': :'backupNetworkNsgIds'
         # rubocop:enable Style/SymbolLiteral
@@ -75,6 +86,7 @@ module OCI
         'data_storage_size_in_gbs': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'shape': :'String',
         'nsg_ids': :'Array<String>',
         'backup_network_nsg_ids': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
@@ -93,6 +105,7 @@ module OCI
     # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
     def initialize(attributes = {})
@@ -133,6 +146,8 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
+      self.shape = attributes[:'shape'] if attributes[:'shape']
+
       self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
 
       raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
@@ -163,6 +178,7 @@ module OCI
         data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        shape == other.shape &&
         nsg_ids == other.nsg_ids &&
         backup_network_nsg_ids == other.backup_network_nsg_ids
     end
@@ -180,7 +196,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, version, ssh_public_keys, data_storage_size_in_gbs, freeform_tags, defined_tags, nsg_ids, backup_network_nsg_ids].hash
+      [cpu_core_count, version, ssh_public_keys, data_storage_size_in_gbs, freeform_tags, defined_tags, shape, nsg_ids, backup_network_nsg_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

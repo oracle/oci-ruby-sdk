@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -7,7 +7,7 @@ module OCI
   # EncryptDataDetails model.
   class KeyManagement::Models::EncryptDataDetails
     # Information that can be used to provide an encryption context for the
-    # encrypted data. The length of the string representation of the associatedData
+    # encrypted data. The length of the string representation of the associated data
     # must be fewer than 4096 characters.
     #
     # @return [Hash<String, String>]
@@ -17,8 +17,8 @@ module OCI
     # @return [String]
     attr_accessor :key_id
 
-    # Information that can be used to provide context for audit logging. It is a map that contains any addtional
-    # data the users may have and will be added to the audit logs (if audit logging is enabled)
+    # Information that provides context for audit logging. You can provide this additional
+    # data as key-value pairs to include in the audit logs when audit logging is enabled.
     #
     # @return [Hash<String, String>]
     attr_accessor :logging_context

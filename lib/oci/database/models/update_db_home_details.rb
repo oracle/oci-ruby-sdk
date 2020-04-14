@@ -1,10 +1,10 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Describes the modification parameters for the database home.
+  # Describes the modification parameters for the Database Home.
   #
   class Database::Models::UpdateDbHomeDetails
     # @return [OCI::Database::Models::PatchDetails]

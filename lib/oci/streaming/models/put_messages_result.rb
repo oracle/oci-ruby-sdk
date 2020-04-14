@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -12,7 +12,7 @@ module OCI
     # @return [Integer]
     attr_accessor :failures
 
-    # An array of items representing the result of each message.
+    # **[Required]** An array of items representing the result of each message.
     # The order is guaranteed to be the same as in the `PutMessagesDetails` object.
     # If a message was successfully appended to the stream, the entry includes the `offset`, `partition`, and `timestamp`.
     # If a message failed to be appended to the stream, the entry includes the `error` and `errorMessage`.

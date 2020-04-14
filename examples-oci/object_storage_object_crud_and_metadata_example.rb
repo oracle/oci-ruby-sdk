@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 # This script demonstrates using the ObjectStorageClient to upload, retrieve, delete and apply metadata to objects.
 # This script expects as parameters the bucket where the object operations will be done and the name of target object.

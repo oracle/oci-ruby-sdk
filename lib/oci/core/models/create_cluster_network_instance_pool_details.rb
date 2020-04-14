@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -14,7 +14,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The user-friendly name.  Does not have to be unique.
+    # A user-friendly name. Does not have to be unique. Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
@@ -26,11 +27,17 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The OCID of the instance configuration associated to the instance pool.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance configuration
+    # associated with the instance pool.
+    #
     # @return [String]
     attr_accessor :instance_configuration_id
 
     # **[Required]** The number of instances that should be in the instance pool.
+    #
+    # If the required number of instances is not available or if some instances fail to launch,
+    # the cluster network is not created.
+    #
     # @return [Integer]
     attr_accessor :size
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -37,6 +37,7 @@ module OCI
 
     # The name of the object that is being granted access to by the pre-authenticated request. Avoid entering confidential
     # information. The object name can be null and if so, the pre-authenticated request grants access to the entire bucket.
+    # Example: test/object1.log
     #
     # @return [String]
     attr_accessor :object_name
@@ -45,14 +46,14 @@ module OCI
     # @return [String]
     attr_reader :access_type
 
-    # **[Required]** The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/rfc/rfc3339). After
+    # **[Required]** The expiration date for the pre-authenticated request as per [RFC 3339](https://tools.ietf.org/html/rfc3339). After
     # this date the pre-authenticated request will no longer be valid.
     #
     # @return [DateTime]
     attr_accessor :time_expires
 
     # **[Required]** The date when the pre-authenticated request was created as per specification
-    # [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+    # [RFC 3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_created

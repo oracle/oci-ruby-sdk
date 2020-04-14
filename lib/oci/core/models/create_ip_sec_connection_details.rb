@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -76,7 +76,7 @@ module OCI
     # For more information, see the important note in {IPSecConnection}.
     #
     # The CIDR can be either IPv4 or IPv6. Note that IPv6 addressing is currently supported only
-    # in the Government Cloud.
+    # in certain regions. See [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `10.0.1.0/24`
     #

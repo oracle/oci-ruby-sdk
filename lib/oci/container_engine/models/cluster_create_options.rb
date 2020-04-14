@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -18,13 +18,18 @@ module OCI
     # @return [OCI::ContainerEngine::Models::AddOnOptions]
     attr_accessor :add_ons
 
+    # Configurable cluster admission controllers
+    # @return [OCI::ContainerEngine::Models::AdmissionControllerOptions]
+    attr_accessor :admission_controller_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'service_lb_subnet_ids': :'serviceLbSubnetIds',
         'kubernetes_network_config': :'kubernetesNetworkConfig',
-        'add_ons': :'addOns'
+        'add_ons': :'addOns',
+        'admission_controller_options': :'admissionControllerOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -35,7 +40,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'service_lb_subnet_ids': :'Array<String>',
         'kubernetes_network_config': :'OCI::ContainerEngine::Models::KubernetesNetworkConfig',
-        'add_ons': :'OCI::ContainerEngine::Models::AddOnOptions'
+        'add_ons': :'OCI::ContainerEngine::Models::AddOnOptions',
+        'admission_controller_options': :'OCI::ContainerEngine::Models::AdmissionControllerOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,6 +55,7 @@ module OCI
     # @option attributes [Array<String>] :service_lb_subnet_ids The value to assign to the {#service_lb_subnet_ids} property
     # @option attributes [OCI::ContainerEngine::Models::KubernetesNetworkConfig] :kubernetes_network_config The value to assign to the {#kubernetes_network_config} property
     # @option attributes [OCI::ContainerEngine::Models::AddOnOptions] :add_ons The value to assign to the {#add_ons} property
+    # @option attributes [OCI::ContainerEngine::Models::AdmissionControllerOptions] :admission_controller_options The value to assign to the {#admission_controller_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -72,6 +79,12 @@ module OCI
       raise 'You cannot provide both :addOns and :add_ons' if attributes.key?(:'addOns') && attributes.key?(:'add_ons')
 
       self.add_ons = attributes[:'add_ons'] if attributes[:'add_ons']
+
+      self.admission_controller_options = attributes[:'admissionControllerOptions'] if attributes[:'admissionControllerOptions']
+
+      raise 'You cannot provide both :admissionControllerOptions and :admission_controller_options' if attributes.key?(:'admissionControllerOptions') && attributes.key?(:'admission_controller_options')
+
+      self.admission_controller_options = attributes[:'admission_controller_options'] if attributes[:'admission_controller_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -87,7 +100,8 @@ module OCI
       self.class == other.class &&
         service_lb_subnet_ids == other.service_lb_subnet_ids &&
         kubernetes_network_config == other.kubernetes_network_config &&
-        add_ons == other.add_ons
+        add_ons == other.add_ons &&
+        admission_controller_options == other.admission_controller_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -103,7 +117,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [service_lb_subnet_ids, kubernetes_network_config, add_ons].hash
+      [service_lb_subnet_ids, kubernetes_network_config, add_ons, admission_controller_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -38,6 +38,14 @@ module OCI
     # @return [String]
     attr_accessor :node_pool_id
 
+    # The fault domain of this node.
+    # @return [String]
+    attr_accessor :fault_domain
+
+    # The private IP address of this node.
+    # @return [String]
+    attr_accessor :private_ip
+
     # The public IP address of this node.
     # @return [String]
     attr_accessor :public_ip
@@ -63,6 +71,8 @@ module OCI
         'availability_domain': :'availabilityDomain',
         'subnet_id': :'subnetId',
         'node_pool_id': :'nodePoolId',
+        'fault_domain': :'faultDomain',
+        'private_ip': :'privateIp',
         'public_ip': :'publicIp',
         'node_error': :'nodeError',
         'lifecycle_state': :'lifecycleState',
@@ -80,6 +90,8 @@ module OCI
         'availability_domain': :'String',
         'subnet_id': :'String',
         'node_pool_id': :'String',
+        'fault_domain': :'String',
+        'private_ip': :'String',
         'public_ip': :'String',
         'node_error': :'OCI::ContainerEngine::Models::NodeError',
         'lifecycle_state': :'String',
@@ -99,6 +111,8 @@ module OCI
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :node_pool_id The value to assign to the {#node_pool_id} property
+    # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
+    # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     # @option attributes [String] :public_ip The value to assign to the {#public_ip} property
     # @option attributes [OCI::ContainerEngine::Models::NodeError] :node_error The value to assign to the {#node_error} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -130,6 +144,18 @@ module OCI
       raise 'You cannot provide both :nodePoolId and :node_pool_id' if attributes.key?(:'nodePoolId') && attributes.key?(:'node_pool_id')
 
       self.node_pool_id = attributes[:'node_pool_id'] if attributes[:'node_pool_id']
+
+      self.fault_domain = attributes[:'faultDomain'] if attributes[:'faultDomain']
+
+      raise 'You cannot provide both :faultDomain and :fault_domain' if attributes.key?(:'faultDomain') && attributes.key?(:'fault_domain')
+
+      self.fault_domain = attributes[:'fault_domain'] if attributes[:'fault_domain']
+
+      self.private_ip = attributes[:'privateIp'] if attributes[:'privateIp']
+
+      raise 'You cannot provide both :privateIp and :private_ip' if attributes.key?(:'privateIp') && attributes.key?(:'private_ip')
+
+      self.private_ip = attributes[:'private_ip'] if attributes[:'private_ip']
 
       self.public_ip = attributes[:'publicIp'] if attributes[:'publicIp']
 
@@ -185,6 +211,8 @@ module OCI
         availability_domain == other.availability_domain &&
         subnet_id == other.subnet_id &&
         node_pool_id == other.node_pool_id &&
+        fault_domain == other.fault_domain &&
+        private_ip == other.private_ip &&
         public_ip == other.public_ip &&
         node_error == other.node_error &&
         lifecycle_state == other.lifecycle_state &&
@@ -204,7 +232,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, availability_domain, subnet_id, node_pool_id, public_ip, node_error, lifecycle_state, lifecycle_details].hash
+      [id, name, availability_domain, subnet_id, node_pool_id, fault_domain, private_ip, public_ip, node_error, lifecycle_state, lifecycle_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

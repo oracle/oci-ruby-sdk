@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -32,6 +32,19 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_gbs
 
+    # The number of volume performance units (VPUs) that will be applied to this volume per GB,
+    # representing the Block Volume service's elastic performance options.
+    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+    #
+    # Allowed values:
+    #
+    #   * `10`: Represents Balanced option.
+    #
+    #   * `20`: Represents Higher Performance option.
+    #
+    # @return [Integer]
+    attr_accessor :vpus_per_gb
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -39,7 +52,8 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
-        'size_in_gbs': :'sizeInGBs'
+        'size_in_gbs': :'sizeInGBs',
+        'vpus_per_gb': :'vpusPerGB'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,7 +65,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'size_in_gbs': :'Integer'
+        'size_in_gbs': :'Integer',
+        'vpus_per_gb': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,6 +81,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
+    # @option attributes [Integer] :vpus_per_gb The value to assign to the {#vpus_per_gb} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -95,6 +111,12 @@ module OCI
       raise 'You cannot provide both :sizeInGBs and :size_in_gbs' if attributes.key?(:'sizeInGBs') && attributes.key?(:'size_in_gbs')
 
       self.size_in_gbs = attributes[:'size_in_gbs'] if attributes[:'size_in_gbs']
+
+      self.vpus_per_gb = attributes[:'vpusPerGB'] if attributes[:'vpusPerGB']
+
+      raise 'You cannot provide both :vpusPerGB and :vpus_per_gb' if attributes.key?(:'vpusPerGB') && attributes.key?(:'vpus_per_gb')
+
+      self.vpus_per_gb = attributes[:'vpus_per_gb'] if attributes[:'vpus_per_gb']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -111,7 +133,8 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
-        size_in_gbs == other.size_in_gbs
+        size_in_gbs == other.size_in_gbs &&
+        vpus_per_gb == other.vpus_per_gb
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -127,7 +150,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, size_in_gbs].hash
+      [defined_tags, display_name, freeform_tags, size_in_gbs, vpus_per_gb].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

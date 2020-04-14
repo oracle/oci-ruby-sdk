@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -77,6 +77,19 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_hydrated
 
+    # The number of volume performance units (VPUs) that will be applied to this boot volume per GB,
+    # representing the Block Volume service's elastic performance options.
+    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+    #
+    # Allowed values:
+    #
+    #   * `10`: Represents Balanced option.
+    #
+    #   * `20`: Represents Higher Performance option.
+    #
+    # @return [Integer]
+    attr_accessor :vpus_per_gb
+
     # **[Required]** The current state of a boot volume.
     # @return [String]
     attr_reader :lifecycle_state
@@ -105,7 +118,7 @@ module OCI
     # @return [String]
     attr_accessor :volume_group_id
 
-    # The OCID of the KMS key which is the master encryption key for the boot volume.
+    # The OCID of the Key Management master encryption key assigned to the boot volume.
     # @return [String]
     attr_accessor :kms_key_id
 
@@ -122,6 +135,7 @@ module OCI
         'id': :'id',
         'image_id': :'imageId',
         'is_hydrated': :'isHydrated',
+        'vpus_per_gb': :'vpusPerGB',
         'lifecycle_state': :'lifecycleState',
         'size_in_gbs': :'sizeInGBs',
         'size_in_mbs': :'sizeInMBs',
@@ -146,6 +160,7 @@ module OCI
         'id': :'String',
         'image_id': :'String',
         'is_hydrated': :'BOOLEAN',
+        'vpus_per_gb': :'Integer',
         'lifecycle_state': :'String',
         'size_in_gbs': :'Integer',
         'size_in_mbs': :'Integer',
@@ -172,6 +187,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
     # @option attributes [BOOLEAN] :is_hydrated The value to assign to the {#is_hydrated} property
+    # @option attributes [Integer] :vpus_per_gb The value to assign to the {#vpus_per_gb} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
@@ -234,6 +250,12 @@ module OCI
       raise 'You cannot provide both :isHydrated and :is_hydrated' if attributes.key?(:'isHydrated') && attributes.key?(:'is_hydrated')
 
       self.is_hydrated = attributes[:'is_hydrated'] unless attributes[:'is_hydrated'].nil?
+
+      self.vpus_per_gb = attributes[:'vpusPerGB'] if attributes[:'vpusPerGB']
+
+      raise 'You cannot provide both :vpusPerGB and :vpus_per_gb' if attributes.key?(:'vpusPerGB') && attributes.key?(:'vpus_per_gb')
+
+      self.vpus_per_gb = attributes[:'vpus_per_gb'] if attributes[:'vpus_per_gb']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -311,6 +333,7 @@ module OCI
         id == other.id &&
         image_id == other.image_id &&
         is_hydrated == other.is_hydrated &&
+        vpus_per_gb == other.vpus_per_gb &&
         lifecycle_state == other.lifecycle_state &&
         size_in_gbs == other.size_in_gbs &&
         size_in_mbs == other.size_in_mbs &&
@@ -333,7 +356,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, system_tags, display_name, freeform_tags, id, image_id, is_hydrated, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, kms_key_id].hash
+      [availability_domain, compartment_id, defined_tags, system_tags, display_name, freeform_tags, id, image_id, is_hydrated, vpus_per_gb, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, kms_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

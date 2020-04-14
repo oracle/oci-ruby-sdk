@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -169,7 +169,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 1000.
+    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 1000. (default to 1000)
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular
     #   request, please provide the complete request ID.
@@ -229,7 +229,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 1000.
+    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 1000. (default to 1000)
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular
     #   request, please provide the complete request ID.

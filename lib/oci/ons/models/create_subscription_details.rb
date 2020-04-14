@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -25,6 +25,7 @@ module OCI
     #   * `HTTPS` (deprecated; for PagerDuty endpoints, use `PAGERDUTY`)
     #   * `PAGERDUTY`
     #   * `SLACK`
+    #   * `ORACLE_FUNCTIONS`
     #
     # For information about subscription protocols, see
     # [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).

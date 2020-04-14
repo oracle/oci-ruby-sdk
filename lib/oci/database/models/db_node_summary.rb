@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -23,6 +23,11 @@ module OCI
       LIFECYCLE_STATE_TERMINATED = 'TERMINATED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    MAINTENANCE_TYPE_ENUM = [
+      MAINTENANCE_TYPE_VMDB_REBOOT_MIGRATION = 'VMDB_REBOOT_MIGRATION'.freeze,
+      MAINTENANCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the database node.
@@ -62,6 +67,22 @@ module OCI
     # @return [Integer]
     attr_accessor :software_storage_size_in_gb
 
+    # The type of maintenance of dbNode.
+    # @return [String]
+    attr_reader :maintenance_type
+
+    # Start date and time of maintenance window.
+    # @return [DateTime]
+    attr_accessor :time_maintenance_window_start
+
+    # End date and time of maintenance window.
+    # @return [DateTime]
+    attr_accessor :time_maintenance_window_end
+
+    # Additional information like a message to customer about the maintenance.
+    # @return [String]
+    attr_accessor :additional_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -74,7 +95,11 @@ module OCI
         'hostname': :'hostname',
         'fault_domain': :'faultDomain',
         'time_created': :'timeCreated',
-        'software_storage_size_in_gb': :'softwareStorageSizeInGB'
+        'software_storage_size_in_gb': :'softwareStorageSizeInGB',
+        'maintenance_type': :'maintenanceType',
+        'time_maintenance_window_start': :'timeMaintenanceWindowStart',
+        'time_maintenance_window_end': :'timeMaintenanceWindowEnd',
+        'additional_details': :'additionalDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -91,7 +116,11 @@ module OCI
         'hostname': :'String',
         'fault_domain': :'String',
         'time_created': :'DateTime',
-        'software_storage_size_in_gb': :'Integer'
+        'software_storage_size_in_gb': :'Integer',
+        'maintenance_type': :'String',
+        'time_maintenance_window_start': :'DateTime',
+        'time_maintenance_window_end': :'DateTime',
+        'additional_details': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -111,6 +140,10 @@ module OCI
     # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Integer] :software_storage_size_in_gb The value to assign to the {#software_storage_size_in_gb} property
+    # @option attributes [String] :maintenance_type The value to assign to the {#maintenance_type} property
+    # @option attributes [DateTime] :time_maintenance_window_start The value to assign to the {#time_maintenance_window_start} property
+    # @option attributes [DateTime] :time_maintenance_window_end The value to assign to the {#time_maintenance_window_end} property
+    # @option attributes [String] :additional_details The value to assign to the {#additional_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -162,6 +195,30 @@ module OCI
       raise 'You cannot provide both :softwareStorageSizeInGB and :software_storage_size_in_gb' if attributes.key?(:'softwareStorageSizeInGB') && attributes.key?(:'software_storage_size_in_gb')
 
       self.software_storage_size_in_gb = attributes[:'software_storage_size_in_gb'] if attributes[:'software_storage_size_in_gb']
+
+      self.maintenance_type = attributes[:'maintenanceType'] if attributes[:'maintenanceType']
+
+      raise 'You cannot provide both :maintenanceType and :maintenance_type' if attributes.key?(:'maintenanceType') && attributes.key?(:'maintenance_type')
+
+      self.maintenance_type = attributes[:'maintenance_type'] if attributes[:'maintenance_type']
+
+      self.time_maintenance_window_start = attributes[:'timeMaintenanceWindowStart'] if attributes[:'timeMaintenanceWindowStart']
+
+      raise 'You cannot provide both :timeMaintenanceWindowStart and :time_maintenance_window_start' if attributes.key?(:'timeMaintenanceWindowStart') && attributes.key?(:'time_maintenance_window_start')
+
+      self.time_maintenance_window_start = attributes[:'time_maintenance_window_start'] if attributes[:'time_maintenance_window_start']
+
+      self.time_maintenance_window_end = attributes[:'timeMaintenanceWindowEnd'] if attributes[:'timeMaintenanceWindowEnd']
+
+      raise 'You cannot provide both :timeMaintenanceWindowEnd and :time_maintenance_window_end' if attributes.key?(:'timeMaintenanceWindowEnd') && attributes.key?(:'time_maintenance_window_end')
+
+      self.time_maintenance_window_end = attributes[:'time_maintenance_window_end'] if attributes[:'time_maintenance_window_end']
+
+      self.additional_details = attributes[:'additionalDetails'] if attributes[:'additionalDetails']
+
+      raise 'You cannot provide both :additionalDetails and :additional_details' if attributes.key?(:'additionalDetails') && attributes.key?(:'additional_details')
+
+      self.additional_details = attributes[:'additional_details'] if attributes[:'additional_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -175,6 +232,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] maintenance_type Object to be assigned
+    def maintenance_type=(maintenance_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if maintenance_type && !MAINTENANCE_TYPE_ENUM.include?(maintenance_type)
+        OCI.logger.debug("Unknown value for 'maintenance_type' [" + maintenance_type + "]. Mapping to 'MAINTENANCE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @maintenance_type = MAINTENANCE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @maintenance_type = maintenance_type
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -196,7 +266,11 @@ module OCI
         hostname == other.hostname &&
         fault_domain == other.fault_domain &&
         time_created == other.time_created &&
-        software_storage_size_in_gb == other.software_storage_size_in_gb
+        software_storage_size_in_gb == other.software_storage_size_in_gb &&
+        maintenance_type == other.maintenance_type &&
+        time_maintenance_window_start == other.time_maintenance_window_start &&
+        time_maintenance_window_end == other.time_maintenance_window_end &&
+        additional_details == other.additional_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -212,7 +286,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, db_system_id, vnic_id, backup_vnic_id, lifecycle_state, hostname, fault_domain, time_created, software_storage_size_in_gb].hash
+      [id, db_system_id, vnic_id, backup_vnic_id, lifecycle_state, hostname, fault_domain, time_created, software_storage_size_in_gb, maintenance_type, time_maintenance_window_start, time_maintenance_window_end, additional_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -48,6 +48,10 @@ module OCI
     # @return [OCI::Waas::Models::BlockChallengeSettings]
     attr_accessor :challenge_settings
 
+    # When enabled, the user is identified not only by the IP address but also by an unique additional hash, which prevents blocking visitors with shared IP addresses.
+    # @return [BOOLEAN]
+    attr_accessor :is_nat_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -60,7 +64,8 @@ module OCI
         'interaction_threshold': :'interactionThreshold',
         'recording_period_in_seconds': :'recordingPeriodInSeconds',
         'set_http_header': :'setHttpHeader',
-        'challenge_settings': :'challengeSettings'
+        'challenge_settings': :'challengeSettings',
+        'is_nat_enabled': :'isNatEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -77,7 +82,8 @@ module OCI
         'interaction_threshold': :'Integer',
         'recording_period_in_seconds': :'Integer',
         'set_http_header': :'OCI::Waas::Models::Header',
-        'challenge_settings': :'OCI::Waas::Models::BlockChallengeSettings'
+        'challenge_settings': :'OCI::Waas::Models::BlockChallengeSettings',
+        'is_nat_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -97,6 +103,7 @@ module OCI
     # @option attributes [Integer] :recording_period_in_seconds The value to assign to the {#recording_period_in_seconds} property
     # @option attributes [OCI::Waas::Models::Header] :set_http_header The value to assign to the {#set_http_header} property
     # @option attributes [OCI::Waas::Models::BlockChallengeSettings] :challenge_settings The value to assign to the {#challenge_settings} property
+    # @option attributes [BOOLEAN] :is_nat_enabled The value to assign to the {#is_nat_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -152,6 +159,14 @@ module OCI
       raise 'You cannot provide both :challengeSettings and :challenge_settings' if attributes.key?(:'challengeSettings') && attributes.key?(:'challenge_settings')
 
       self.challenge_settings = attributes[:'challenge_settings'] if attributes[:'challenge_settings']
+
+      self.is_nat_enabled = attributes[:'isNatEnabled'] unless attributes[:'isNatEnabled'].nil?
+      self.is_nat_enabled = true if is_nat_enabled.nil? && !attributes.key?(:'isNatEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isNatEnabled and :is_nat_enabled' if attributes.key?(:'isNatEnabled') && attributes.key?(:'is_nat_enabled')
+
+      self.is_nat_enabled = attributes[:'is_nat_enabled'] unless attributes[:'is_nat_enabled'].nil?
+      self.is_nat_enabled = true if is_nat_enabled.nil? && !attributes.key?(:'isNatEnabled') && !attributes.key?(:'is_nat_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -186,7 +201,8 @@ module OCI
         interaction_threshold == other.interaction_threshold &&
         recording_period_in_seconds == other.recording_period_in_seconds &&
         set_http_header == other.set_http_header &&
-        challenge_settings == other.challenge_settings
+        challenge_settings == other.challenge_settings &&
+        is_nat_enabled == other.is_nat_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -202,7 +218,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_enabled, action, failure_threshold, action_expiration_in_seconds, failure_threshold_expiration_in_seconds, interaction_threshold, recording_period_in_seconds, set_http_header, challenge_settings].hash
+      [is_enabled, action, failure_threshold, action_expiration_in_seconds, failure_threshold_expiration_in_seconds, interaction_threshold, recording_period_in_seconds, set_http_header, challenge_settings, is_nat_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

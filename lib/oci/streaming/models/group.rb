@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -8,11 +8,11 @@ module OCI
   # Represents the current state of a consumer group, including partition reservations and committed offsets.
   #
   class Streaming::Models::Group
-    # The streamId for which the group exists.
+    # **[Required]** The streamId for which the group exists.
     # @return [String]
     attr_accessor :stream_id
 
-    # The name of the consumer group.
+    # **[Required]** The name of the consumer group.
     # @return [String]
     attr_accessor :group_name
 

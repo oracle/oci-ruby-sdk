@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A logical subdivision of a VCN. Each subnet exists in a single availability domain and
+  # A logical subdivision of a VCN. Each subnet
   # consists of a contiguous range of IP addresses that do not overlap with
   # other subnets in the VCN. Example: 172.16.1.0/24. For more information, see
   # [Overview of the Networking Service](https://docs.cloud.oracle.com/Content/Network/Concepts/overview.htm) and
@@ -96,7 +96,7 @@ module OCI
 
     # For an IPv6-enabled subnet, this is the IPv6 CIDR block for the subnet's private IP address
     # space. The subnet size is always /64. Note that IPv6 addressing is currently supported only
-    # in the Government Cloud.
+    # in certain regions. See [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `2001:0db8:0123:1111::/64`
     #

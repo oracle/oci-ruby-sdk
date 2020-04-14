@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -84,7 +84,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The OCID of the KMS key which is the master encryption key for the volume backup.
+    # The OCID of the Key Management key which is the master encryption key for the volume backup.
     # For more information about the Key Management service and encryption keys, see
     # [Overview of Key Management](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm) and
     # [Using Keys](https://docs.cloud.oracle.com/Content/KeyManagement/Tasks/usingkeys.htm).

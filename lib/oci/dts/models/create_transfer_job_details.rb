@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -23,14 +23,18 @@ module OCI
     # @return [String]
     attr_reader :device_type
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"foo-value\"}}`
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

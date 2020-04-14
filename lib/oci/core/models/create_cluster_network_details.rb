@@ -1,12 +1,14 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The data to create a cluster network
+  # The data to create a cluster network.
   class Core::Models::CreateClusterNetworkDetails
-    # **[Required]** The OCID of the compartment containing the cluster network.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment
+    # containing the cluster network.
+    #
     # @return [String]
     attr_accessor :compartment_id
 
@@ -18,7 +20,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The user-friendly name.  Does not have to be unique.
+    # A user-friendly name for the cluster network. Does not have to be unique, and it's
+    # changeable. Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
@@ -30,11 +34,14 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** the data to create the instance pools in the cluster network.
+    # **[Required]** The data to create the instance pools in the cluster network.
+    #
+    # Each cluster network can have one instance pool.
+    #
     # @return [Array<OCI::Core::Models::CreateClusterNetworkInstancePoolDetails>]
     attr_accessor :instance_pools
 
-    # **[Required]** the placement data for the intance pools in the cluster network
+    # **[Required]** The placement configuration for the instance pools in the cluster network.
     # @return [OCI::Core::Models::ClusterNetworkPlacementConfigurationDetails]
     attr_accessor :placement_configuration
 

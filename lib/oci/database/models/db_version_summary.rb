@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -21,13 +21,18 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :supports_pdb
 
+    # True if this version of the Oracle Database software is the preview version.
+    # @return [BOOLEAN]
+    attr_accessor :is_preview_db_version
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'version': :'version',
         'is_latest_for_major_version': :'isLatestForMajorVersion',
-        'supports_pdb': :'supportsPdb'
+        'supports_pdb': :'supportsPdb',
+        'is_preview_db_version': :'isPreviewDbVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,7 +43,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'version': :'String',
         'is_latest_for_major_version': :'BOOLEAN',
-        'supports_pdb': :'BOOLEAN'
+        'supports_pdb': :'BOOLEAN',
+        'is_preview_db_version': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,6 +58,7 @@ module OCI
     # @option attributes [String] :version The value to assign to the {#version} property
     # @option attributes [BOOLEAN] :is_latest_for_major_version The value to assign to the {#is_latest_for_major_version} property
     # @option attributes [BOOLEAN] :supports_pdb The value to assign to the {#supports_pdb} property
+    # @option attributes [BOOLEAN] :is_preview_db_version The value to assign to the {#is_preview_db_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -71,6 +78,12 @@ module OCI
       raise 'You cannot provide both :supportsPdb and :supports_pdb' if attributes.key?(:'supportsPdb') && attributes.key?(:'supports_pdb')
 
       self.supports_pdb = attributes[:'supports_pdb'] unless attributes[:'supports_pdb'].nil?
+
+      self.is_preview_db_version = attributes[:'isPreviewDbVersion'] unless attributes[:'isPreviewDbVersion'].nil?
+
+      raise 'You cannot provide both :isPreviewDbVersion and :is_preview_db_version' if attributes.key?(:'isPreviewDbVersion') && attributes.key?(:'is_preview_db_version')
+
+      self.is_preview_db_version = attributes[:'is_preview_db_version'] unless attributes[:'is_preview_db_version'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -86,7 +99,8 @@ module OCI
       self.class == other.class &&
         version == other.version &&
         is_latest_for_major_version == other.is_latest_for_major_version &&
-        supports_pdb == other.supports_pdb
+        supports_pdb == other.supports_pdb &&
+        is_preview_db_version == other.is_preview_db_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -102,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [version, is_latest_for_major_version, supports_pdb].hash
+      [version, is_latest_for_major_version, supports_pdb, is_preview_db_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

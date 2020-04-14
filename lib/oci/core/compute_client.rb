@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'uri'
 require 'logger'
@@ -845,7 +845,7 @@ module OCI
 
 
     # Creates a new console connection to the specified instance.
-    # Once the console connection has been created and is available,
+    # After the console connection has been created and is available,
     # you connect to the console using SSH.
     #
     # For more information about console access, see [Accessing the Console](https://docs.cloud.oracle.com/Content/Compute/References/serialconsole.htm).
@@ -2101,8 +2101,8 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the generated credentials for the instance. Only works for instances that require password to log in (E.g. Windows).
-    # For certain OS'es, users will be forced to change the initial credentials.
+    # Gets the generated credentials for the instance. Only works for instances that require a password to log in, such as Windows.
+    # For certain operating systems, users will be forced to change the initial credentials.
     #
     # @param [String] instance_id The OCID of the instance.
     # @param [Hash] opts the optional parameters
@@ -2161,13 +2161,17 @@ module OCI
     #
     # - **STOP** - Powers off the instance.
     #
-    # - **SOFTRESET** - Gracefully reboots instance by sending a shutdown command to the operating system and then powers the instance back on.
-    #
-    # - **SOFTSTOP** - Gracefully shuts down instance by sending a shutdown command to the operating system.
-    #
     # - **RESET** - Powers off the instance and then powers it back on.
     #
-    # For more information see [Stopping and Starting an Instance](https://docs.cloud.oracle.com/Content/Compute/Tasks/restartinginstance.htm).
+    # - **SOFTSTOP** - Gracefully shuts down the instance by sending a shutdown command to the operating system.
+    # If the applications that run on the instance take a long time to shut down, they could be improperly stopped, resulting
+    # in data corruption. To avoid this, shut down the instance using the commands available in the OS before you softstop the
+    # instance.
+    #
+    # - **SOFTRESET** - Gracefully reboots the instance by sending a shutdown command to the operating system, and
+    # then powers the instance back on.
+    #
+    # For more information, see [Stopping and Starting an Instance](https://docs.cloud.oracle.com/Content/Compute/Tasks/restartinginstance.htm).
     #
     # @param [String] instance_id The OCID of the instance.
     # @param [String] action The action to perform on the instance.
@@ -4041,9 +4045,6 @@ module OCI
 
     # Updates certain fields on the specified instance. Fields that are not provided in the
     # request will not be updated. Avoid entering confidential information.
-    #
-    # Changes to metadata fields will be reflected in the instance metadata service (this may take
-    # up to a minute).
     #
     # The OCID of the instance remains the same.
     #

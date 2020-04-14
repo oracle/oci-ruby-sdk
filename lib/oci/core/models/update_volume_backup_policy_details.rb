@@ -1,10 +1,14 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contains properties for updating a scheduled backup policy.
+  # Specifies the properties for a updating a user defined backup policy.
+  # For more information about user defined backup policies,
+  # see [User Defined Policies](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#UserDefinedBackupPolicies) in
+  # [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm).
+  #
   class Core::Models::UpdateVolumeBackupPolicyDetails
     # A user-friendly name for the volume backup policy. Does not have to be unique and it's changeable.
     # Avoid entering confidential information.
@@ -12,7 +16,10 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The collection of schedules that this policy will apply.
+    # The collection of schedules for the volume backup policy. See
+    # see [Schedules](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#schedules) in
+    # [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm) for more information.
+    #
     # @return [Array<OCI::Core::Models::VolumeBackupSchedule>]
     attr_accessor :schedules
 

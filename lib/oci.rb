@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'oci/api_client'
 require 'oci/api_client_proxy_settings'
@@ -48,6 +48,17 @@ require 'oci/oce/oce'
 require 'oci/oda/oda'
 require 'oci/integration/integration'
 require 'oci/analytics/analytics'
+require 'oci/apigateway/apigateway'
+require 'oci/os_management/os_management'
+require 'oci/marketplace/marketplace'
+require 'oci/nosql/nosql'
+require 'oci/data_catalog/data_catalog'
+require 'oci/application_migration/application_migration'
+require 'oci/data_flow/data_flow'
+require 'oci/data_science/data_science'
+require 'oci/vault/vault'
+require 'oci/bds/bds'
+require 'oci/secrets/secrets'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -45,13 +45,28 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The OCID of the KMS key to be used as the master encryption key for the boot volume.
+    # The OCID of the Key Management key to assign as the master encryption key
+    # for the boot volume.
+    #
     # @return [String]
     attr_accessor :kms_key_id
 
     # The size of the volume in GBs.
     # @return [Integer]
     attr_accessor :size_in_gbs
+
+    # The number of volume performance units (VPUs) that will be applied to this volume per GB,
+    # representing the Block Volume service's elastic performance options.
+    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+    #
+    # Allowed values:
+    #
+    #   * `10`: Represents Balanced option.
+    #
+    #   * `20`: Represents Higher Performance option.
+    #
+    # @return [Integer]
+    attr_accessor :vpus_per_gb
 
     # **[Required]** Specifies the boot volume source details for a new boot volume. The volume source is either another boot volume in the same availability domain or a boot volume backup.
     # This is a mandatory field for a boot volume.
@@ -71,6 +86,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'kms_key_id': :'kmsKeyId',
         'size_in_gbs': :'sizeInGBs',
+        'vpus_per_gb': :'vpusPerGB',
         'source_details': :'sourceDetails'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -88,6 +104,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'kms_key_id': :'String',
         'size_in_gbs': :'Integer',
+        'vpus_per_gb': :'Integer',
         'source_details': :'OCI::Core::Models::BootVolumeSourceDetails'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -107,6 +124,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
+    # @option attributes [Integer] :vpus_per_gb The value to assign to the {#vpus_per_gb} property
     # @option attributes [OCI::Core::Models::BootVolumeSourceDetails] :source_details The value to assign to the {#source_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -162,6 +180,12 @@ module OCI
 
       self.size_in_gbs = attributes[:'size_in_gbs'] if attributes[:'size_in_gbs']
 
+      self.vpus_per_gb = attributes[:'vpusPerGB'] if attributes[:'vpusPerGB']
+
+      raise 'You cannot provide both :vpusPerGB and :vpus_per_gb' if attributes.key?(:'vpusPerGB') && attributes.key?(:'vpus_per_gb')
+
+      self.vpus_per_gb = attributes[:'vpus_per_gb'] if attributes[:'vpus_per_gb']
+
       self.source_details = attributes[:'sourceDetails'] if attributes[:'sourceDetails']
 
       raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
@@ -188,6 +212,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         kms_key_id == other.kms_key_id &&
         size_in_gbs == other.size_in_gbs &&
+        vpus_per_gb == other.vpus_per_gb &&
         source_details == other.source_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -204,7 +229,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, kms_key_id, size_in_gbs, source_details].hash
+      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, kms_key_id, size_in_gbs, vpus_per_gb, source_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

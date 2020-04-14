@@ -51,12 +51,15 @@ module OCI
         #   request. If not provided, defaults to {OCI::BaseSigner::GENERIC_HEADERS}
         # @param [Array<String>] body_headers_to_sign An array of headers which should be signed on requests with
         #   bodies. If not provided, defaults to {OCI::BaseSigner::BODY_HEADERS}
+        # @param [Hash<String>] additional_auth_params Additional parameters for the federation client to pass as part
+        #   of the Auth Service request. If not provided, defaults to an empty hash
         def initialize(
           federation_endpoint: nil,
           federation_client_cert_bundle: nil,
           signing_strategy: OCI::BaseSigner::STANDARD,
           headers_to_sign_in_all_requests: OCI::BaseSigner::GENERIC_HEADERS,
-          body_headers_to_sign: OCI::BaseSigner::BODY_HEADERS
+          body_headers_to_sign: OCI::BaseSigner::BODY_HEADERS,
+          additional_auth_params: {}
         )
 
           @leaf_certificate_retriever = OCI::Auth::UrlBasedCertificateRetriever.new(
@@ -91,7 +94,8 @@ module OCI
             @session_key_supplier,
             @leaf_certificate_retriever,
             intermediate_certificate_suppliers: [@intermediate_certificate_retriever],
-            cert_bundle_path: federation_client_cert_bundle
+            cert_bundle_path: federation_client_cert_bundle,
+            additional_auth_params: additional_auth_params
           )
 
           super(

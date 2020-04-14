@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -13,6 +13,7 @@ module OCI
       ACTION_BLOCK = 'BLOCK'.freeze,
       ACTION_BYPASS = 'BYPASS'.freeze,
       ACTION_REDIRECT = 'REDIRECT'.freeze,
+      ACTION_SHOW_CAPTCHA = 'SHOW_CAPTCHA'.freeze,
       ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -40,7 +41,7 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** The list of access rule criteria.
+    # **[Required]** The list of access rule criteria. The rule would be applied only for the requests that matched all the listed conditions.
     # @return [Array<OCI::Waas::Models::AccessRuleCriteria>]
     attr_accessor :criteria
 
@@ -54,7 +55,9 @@ module OCI
     #
     # - **BYPASS:** Bypasses some or all challenges.
     #
-    # - **REDIRECT:** Redirects the request to the specified URL.
+    # - **REDIRECT:** Redirects the request to the specified URL. These fields are required when `REDIRECT` is selected: `redirectUrl`, `redirectResponseCode`.
+    #
+    # - **SHOW_CAPTCHA:** Show a CAPTCHA Challenge page instead of the requested page.
     #
     # Regardless of action, no further rules are processed once a rule is matched.
     # @return [String]
@@ -92,7 +95,7 @@ module OCI
     # @return [Array<String>]
     attr_reader :bypass_challenges
 
-    # The target to which the request should be redirected, represented as a URI reference.
+    # The target to which the request should be redirected, represented as a URI reference. Required when `action` is `REDIRECT`.
     # @return [String]
     attr_accessor :redirect_url
 
@@ -103,6 +106,26 @@ module OCI
     # - **FOUND:** Used for designating the temporary movement of a page (numerical code - 302).
     # @return [String]
     attr_reader :redirect_response_code
+
+    # The title used when showing a CAPTCHA challenge when `action` is set to `SHOW_CAPTCHA` and the request is challenged.
+    # @return [String]
+    attr_accessor :captcha_title
+
+    # The text to show in the header when showing a CAPTCHA challenge when `action` is set to `SHOW_CAPTCHA` and the request is challenged.
+    # @return [String]
+    attr_accessor :captcha_header
+
+    # The text to show in the footer when showing a CAPTCHA challenge when `action` is set to `SHOW_CAPTCHA` and the request is challenged.
+    # @return [String]
+    attr_accessor :captcha_footer
+
+    # The text to show on the label of the CAPTCHA challenge submit button when `action` is set to `SHOW_CAPTCHA` and the request is challenged.
+    # @return [String]
+    attr_accessor :captcha_submit_label
+
+    # An object that represents an action to apply to an HTTP response headers if all rule criteria will be matched regardless of `action` value.
+    # @return [Array<OCI::Waas::Models::HeaderManipulationAction>]
+    attr_accessor :response_header_manipulation
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -118,7 +141,12 @@ module OCI
         'block_error_page_description': :'blockErrorPageDescription',
         'bypass_challenges': :'bypassChallenges',
         'redirect_url': :'redirectUrl',
-        'redirect_response_code': :'redirectResponseCode'
+        'redirect_response_code': :'redirectResponseCode',
+        'captcha_title': :'captchaTitle',
+        'captcha_header': :'captchaHeader',
+        'captcha_footer': :'captchaFooter',
+        'captcha_submit_label': :'captchaSubmitLabel',
+        'response_header_manipulation': :'responseHeaderManipulation'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -137,7 +165,12 @@ module OCI
         'block_error_page_description': :'String',
         'bypass_challenges': :'Array<String>',
         'redirect_url': :'String',
-        'redirect_response_code': :'String'
+        'redirect_response_code': :'String',
+        'captcha_title': :'String',
+        'captcha_header': :'String',
+        'captcha_footer': :'String',
+        'captcha_submit_label': :'String',
+        'response_header_manipulation': :'Array<OCI::Waas::Models::HeaderManipulationAction>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -159,6 +192,11 @@ module OCI
     # @option attributes [Array<String>] :bypass_challenges The value to assign to the {#bypass_challenges} property
     # @option attributes [String] :redirect_url The value to assign to the {#redirect_url} property
     # @option attributes [String] :redirect_response_code The value to assign to the {#redirect_response_code} property
+    # @option attributes [String] :captcha_title The value to assign to the {#captcha_title} property
+    # @option attributes [String] :captcha_header The value to assign to the {#captcha_header} property
+    # @option attributes [String] :captcha_footer The value to assign to the {#captcha_footer} property
+    # @option attributes [String] :captcha_submit_label The value to assign to the {#captcha_submit_label} property
+    # @option attributes [Array<OCI::Waas::Models::HeaderManipulationAction>] :response_header_manipulation The value to assign to the {#response_header_manipulation} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -220,6 +258,44 @@ module OCI
 
       self.redirect_response_code = attributes[:'redirect_response_code'] if attributes[:'redirect_response_code']
       self.redirect_response_code = "MOVED_PERMANENTLY" if redirect_response_code.nil? && !attributes.key?(:'redirectResponseCode') && !attributes.key?(:'redirect_response_code') # rubocop:disable Style/StringLiterals
+
+      self.captcha_title = attributes[:'captchaTitle'] if attributes[:'captchaTitle']
+      self.captcha_title = "Are you human?" if captcha_title.nil? && !attributes.key?(:'captchaTitle') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :captchaTitle and :captcha_title' if attributes.key?(:'captchaTitle') && attributes.key?(:'captcha_title')
+
+      self.captcha_title = attributes[:'captcha_title'] if attributes[:'captcha_title']
+      self.captcha_title = "Are you human?" if captcha_title.nil? && !attributes.key?(:'captchaTitle') && !attributes.key?(:'captcha_title') # rubocop:disable Style/StringLiterals
+
+      self.captcha_header = attributes[:'captchaHeader'] if attributes[:'captchaHeader']
+      self.captcha_header = "We have detected an increased number of attempts to access this webapp. To help us keep this webapp secure, please let us know that you are not a robot by entering the text from captcha below." if captcha_header.nil? && !attributes.key?(:'captchaHeader') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :captchaHeader and :captcha_header' if attributes.key?(:'captchaHeader') && attributes.key?(:'captcha_header')
+
+      self.captcha_header = attributes[:'captcha_header'] if attributes[:'captcha_header']
+      self.captcha_header = "We have detected an increased number of attempts to access this webapp. To help us keep this webapp secure, please let us know that you are not a robot by entering the text from captcha below." if captcha_header.nil? && !attributes.key?(:'captchaHeader') && !attributes.key?(:'captcha_header') # rubocop:disable Style/StringLiterals
+
+      self.captcha_footer = attributes[:'captchaFooter'] if attributes[:'captchaFooter']
+      self.captcha_footer = "Enter the letters and numbers as they are shown in image above" if captcha_footer.nil? && !attributes.key?(:'captchaFooter') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :captchaFooter and :captcha_footer' if attributes.key?(:'captchaFooter') && attributes.key?(:'captcha_footer')
+
+      self.captcha_footer = attributes[:'captcha_footer'] if attributes[:'captcha_footer']
+      self.captcha_footer = "Enter the letters and numbers as they are shown in image above" if captcha_footer.nil? && !attributes.key?(:'captchaFooter') && !attributes.key?(:'captcha_footer') # rubocop:disable Style/StringLiterals
+
+      self.captcha_submit_label = attributes[:'captchaSubmitLabel'] if attributes[:'captchaSubmitLabel']
+      self.captcha_submit_label = "Yes, I am human" if captcha_submit_label.nil? && !attributes.key?(:'captchaSubmitLabel') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :captchaSubmitLabel and :captcha_submit_label' if attributes.key?(:'captchaSubmitLabel') && attributes.key?(:'captcha_submit_label')
+
+      self.captcha_submit_label = attributes[:'captcha_submit_label'] if attributes[:'captcha_submit_label']
+      self.captcha_submit_label = "Yes, I am human" if captcha_submit_label.nil? && !attributes.key?(:'captchaSubmitLabel') && !attributes.key?(:'captcha_submit_label') # rubocop:disable Style/StringLiterals
+
+      self.response_header_manipulation = attributes[:'responseHeaderManipulation'] if attributes[:'responseHeaderManipulation']
+
+      raise 'You cannot provide both :responseHeaderManipulation and :response_header_manipulation' if attributes.key?(:'responseHeaderManipulation') && attributes.key?(:'response_header_manipulation')
+
+      self.response_header_manipulation = attributes[:'response_header_manipulation'] if attributes[:'response_header_manipulation']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -302,7 +378,12 @@ module OCI
         block_error_page_description == other.block_error_page_description &&
         bypass_challenges == other.bypass_challenges &&
         redirect_url == other.redirect_url &&
-        redirect_response_code == other.redirect_response_code
+        redirect_response_code == other.redirect_response_code &&
+        captcha_title == other.captcha_title &&
+        captcha_header == other.captcha_header &&
+        captcha_footer == other.captcha_footer &&
+        captcha_submit_label == other.captcha_submit_label &&
+        response_header_manipulation == other.response_header_manipulation
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -318,7 +399,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, criteria, action, block_action, block_response_code, block_error_page_message, block_error_page_code, block_error_page_description, bypass_challenges, redirect_url, redirect_response_code].hash
+      [name, criteria, action, block_action, block_response_code, block_error_page_message, block_error_page_code, block_error_page_description, bypass_challenges, redirect_url, redirect_response_code, captcha_title, captcha_header, captcha_footer, captcha_submit_label, response_header_manipulation].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

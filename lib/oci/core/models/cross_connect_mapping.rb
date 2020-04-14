@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -83,7 +83,8 @@ module OCI
     #
     # There's one exception: for a public virtual circuit, Oracle specifies the BGP IPv6 addresses.
     #
-    # Note that IPv6 addressing is currently supported only in the Government Cloud.
+    # Note that IPv6 addressing is currently supported only in certain regions. See
+    # [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `2001:db8::1/64`
     #
@@ -97,7 +98,8 @@ module OCI
     #
     # There's one exception: for a public virtual circuit, Oracle specifies the BGP IPv6 addresses.
     #
-    # Note that IPv6 addressing is currently supported only in the Government Cloud.
+    # Note that IPv6 addressing is currently supported only in certain regions. See
+    # [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `2001:db8::2/64`
     #

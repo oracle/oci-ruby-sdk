@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -74,13 +74,28 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_hydrated
 
-    # The OCID of the KMS key which is the master encryption key for the volume.
+    # The OCID of the Key Management key which is the master encryption key for the volume.
     # @return [String]
     attr_accessor :kms_key_id
 
     # **[Required]** The current state of a volume.
     # @return [String]
     attr_reader :lifecycle_state
+
+    # The number of volume performance units (VPUs) that will be applied to this volume per GB,
+    # representing the Block Volume service's elastic performance options.
+    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+    #
+    # Allowed values:
+    #
+    #   * `0`: Represents Lower Cost option.
+    #
+    #   * `10`: Represents Balanced option.
+    #
+    #   * `20`: Represents Higher Performance option.
+    #
+    # @return [Integer]
+    attr_accessor :vpus_per_gb
 
     # The size of the volume in GBs.
     # @return [Integer]
@@ -118,6 +133,7 @@ module OCI
         'is_hydrated': :'isHydrated',
         'kms_key_id': :'kmsKeyId',
         'lifecycle_state': :'lifecycleState',
+        'vpus_per_gb': :'vpusPerGB',
         'size_in_gbs': :'sizeInGBs',
         'size_in_mbs': :'sizeInMBs',
         'source_details': :'sourceDetails',
@@ -141,6 +157,7 @@ module OCI
         'is_hydrated': :'BOOLEAN',
         'kms_key_id': :'String',
         'lifecycle_state': :'String',
+        'vpus_per_gb': :'Integer',
         'size_in_gbs': :'Integer',
         'size_in_mbs': :'Integer',
         'source_details': :'OCI::Core::Models::VolumeSourceDetails',
@@ -166,6 +183,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_hydrated The value to assign to the {#is_hydrated} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [Integer] :vpus_per_gb The value to assign to the {#vpus_per_gb} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
     # @option attributes [OCI::Core::Models::VolumeSourceDetails] :source_details The value to assign to the {#source_details} property
@@ -233,6 +251,12 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.vpus_per_gb = attributes[:'vpusPerGB'] if attributes[:'vpusPerGB']
+
+      raise 'You cannot provide both :vpusPerGB and :vpus_per_gb' if attributes.key?(:'vpusPerGB') && attributes.key?(:'vpus_per_gb')
+
+      self.vpus_per_gb = attributes[:'vpus_per_gb'] if attributes[:'vpus_per_gb']
+
       self.size_in_gbs = attributes[:'sizeInGBs'] if attributes[:'sizeInGBs']
 
       raise 'You cannot provide both :sizeInGBs and :size_in_gbs' if attributes.key?(:'sizeInGBs') && attributes.key?(:'size_in_gbs')
@@ -298,6 +322,7 @@ module OCI
         is_hydrated == other.is_hydrated &&
         kms_key_id == other.kms_key_id &&
         lifecycle_state == other.lifecycle_state &&
+        vpus_per_gb == other.vpus_per_gb &&
         size_in_gbs == other.size_in_gbs &&
         size_in_mbs == other.size_in_mbs &&
         source_details == other.source_details &&
@@ -318,7 +343,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, system_tags, id, is_hydrated, kms_key_id, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, system_tags, id, is_hydrated, kms_key_id, lifecycle_state, vpus_per_gb, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

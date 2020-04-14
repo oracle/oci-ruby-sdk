@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -11,9 +11,8 @@ module OCI
   # You can create and assign an IPv6 to any VNIC that is in an IPv6-enabled subnet in an
   # IPv6-enabled VCN.
   #
-  # **Note:** IPv6 addressing is currently supported only in the Government Cloud.
-  #
-  # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+  # **Note:** IPv6 addressing is currently supported only in certain regions. For important
+  # details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
   #
   class Core::Models::Ipv6
     LIFECYCLE_STATE_ENUM = [

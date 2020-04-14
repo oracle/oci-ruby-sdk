@@ -3,6 +3,99 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.8.0 - 2020-04-13 
+### Added
+- Support for access to APEX and SQL Dev features on autonomous transaction processing and autonomous data warehouse resources in the Database service
+- Support for registering / deregistering autonomous transaction processing and autonomous data warehouse resources with Data Safe in the Database service
+- Support for redirecting HTTP / HTTPS request URIs to different URIs in the Load Balancing service
+- Support for specifying compartments on options APIs in the Container Engine for Kubernetes service
+- Support for volume performance units on block volumes in the Block Storage service
+- Support for four-byte autonomous system numbers (ASNs) on FastConnect resources in the Networking service
+- Support for choosing fault domains when creating instance pools in the Compute service
+- Support for allowing connections from only specific VCNs to autonomous data warehouse and autonomous transaction processing instances in the Database service
+- Support for maintenance windows on autonomous databases in the Database service
+- Support for getting the compute units (OCPUs) of an Exadata autonomous transaction processing - dedicated resource in the Database service
+- Support for etags on results of the List Objects API in the Object Storage service
+- Support for OCIDs on buckets in the Object Storage service
+- Support for content-disposition and cache-control headers on objects in the Object Storage service
+- Support for recovering deleted compartments in the Identity service
+- Support for sharing volumes across multiple instances in the Block Storage service
+- Support for connect harnesses and stream pools in the Streaming service
+- Support for associating file storage mount targets with network security groups in the File Storage service 
+- Support for calling Oracle Cloud Infrastructure services in the uk-gov-london-1 region
+- Add default connection timeout(10s) and read timeout(60s) for Python SDK client
+- Add contents table to client documentation
+- Fix the issue of the second style of pagination
+- Support for the API Gateway service
+- Support for the OS Management service
+- Support for the Marketplace service
+- Support for "default"-type vaults in the Key Management service
+- Support for bringing your own keys in the Key Management service
+- Support for cross-region backups of boot volumes in the Block Storage service
+- Support for top-level TSIG keys in the DNS service
+- Support for resizing virtual machine instances to different shapes in the Compute service
+- Support for management configuration of cloud agents in the Compute service
+- Support for launching node pools using image IDs in the Container Engine for Kubernetes service
+- Support for optionally specifying the corporate proxy field when creating Exadata infrastructure in the Database service
+- Support for maintenance windows, and rescheduling maintenance runs, on autonomous container databases in the Database service
+- Support for a description field on route rules and security rules in the Networking service
+- Support for starting and stopping Digital Assistant instances in the Digital Assistant service
+- Support for shared database homes on Exadata, bare metal, and virtual machine instances in the Database service
+- Support for tracking a number of Database service operations through the Work Requests service
+- Support for getting DRG redundancy status in the Networking service
+- Support for cloning autonomous databases from backups in the Database service
+- Support for the Application Migration service
+- Support for the Data Flow service
+- Support for the Data Catalog service
+- Support for cross-shape Data Guard in the Database service
+- Support for offline data export in the Data Transfer service
+- Support for the Data Science service
+- Support for calling Oracle Cloud Infrastructure services in the ap-osaka-1 and ap-melbourne-1 regions
+- Support for listing supported database versions for Autonomous Database Serverless, and selecting a version at provisioning time in the Database service
+- Support for TCP proxy protocol versions on listener connection configurations in the Load Balancer service
+- Support for calling the Notifications service in alternate realms
+- Support for calling Oracle Cloud Infrastructure services in the eu-amsterdam-1 and me-jeddah-1 regions
+- Support for the NoSQL Database service
+- Support for filtering database versions by storage management type in the Database service
+- Support for specifying paid listing types within pricing models in the Marketplace service
+- Support for primary and non-primary instance types in the Content and Experience service
+- Support for restarting autonomous databases in the Database service
+- Support for private endpoints on autonomous databases in the Database service
+- Support for IP-based policies in the Identity service
+- Support for management of OAuth 2.0 client credentials in the Identity service
+- Support for OCI Functions as a subscription protocol in the Notifications service
+- Support for updating the shape of a Database System in the Database service
+- Support for generating CPE configurations for download in the Networking service
+- Support for private IPs and fault domains of cluster nodes in the Container Engine for Kubernetes service
+- Support for calling Oracle Cloud Infrastructure services in the ca-montreal-1 region
+- Support for Events service integration with alerts in the Budgets service
+- Support for serial console connections in the Database service
+- Support for preview database versions in the Database service
+- Support for node reboot migration maintenance status and maintenance windows in the Database service
+- Support for using instance metadata API v2 for instance principals authentication
+- Support for Web Application Acceleration and Security configurations on instances in the Content and Experience service
+- Support for shared database homes on Exadata Cloud at Customer resources in the Database service
+- Support for Exadata database creation from backup in the Database service
+- Support for conditions on JavaScript challenges, new action types on access rules, new policy configuration settings, exclusions on custom protection rules, and IP address lists on IP whitelists in the Web Application Acceleration and Security service
+- Support for the Secrets Management service 
+- Support for the Big Data service
+- Support for updating class name, file URI, language, and spark version of applications in the Data Flow service
+- Support for cross-region replication in the Object Storage service
+- Support for retention rules in the Object Storage service
+- Support for enabling and disabling pod security policy admission controllers in the Container Engine for Kubernetes service
+- Support for changing compartments of runs and applications in the Data Flow service
+- Support for getting usage information in the Key Management Vault service
+- Support for custom Key Management service endpoints and private endpoints on stream pools in the Streaming service
+- Support for access types on instances in the Content and Experience service
+- Support for identity contexts in the Search service
+
+### Breaking
+- Removed support for v1 auth tokens in kubeconfig files in the `CreateClusterKubeconfigContentDetails` class of the Container Engine for Kubernetes service
+- Removed the IDCS access token requirement on the delete deleteOceInstance operation in the Content and Experience service, which is why the `DeleteOceInstanceDetails` class was removed
+- Set `compartment_id` as a required parameter in `list_stream_pools` for streaming service
+- Field `hostname` in `NodeDetails` from Database service is changed to mandatory
+- Deleted model autonomous_exadata_infrastructure_maintenance_window.rb from the database service.
+
 ## 2.7.0 - 2019-11-05
 ### Added
 - Support for the Sydney (SYD) region

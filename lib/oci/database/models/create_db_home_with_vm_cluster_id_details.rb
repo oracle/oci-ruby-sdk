@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'create_db_home_base'
@@ -16,7 +16,6 @@ module OCI
     # @return [String]
     attr_accessor :db_version
 
-    # This attribute is required.
     # @return [OCI::Database::Models::CreateDatabaseDetails]
     attr_accessor :database
 

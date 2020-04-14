@@ -2,7 +2,7 @@
 
 :warning: This project is no longer being actively developed by Oracle.  We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on GitHub, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork the project and enhance it as they desire.
 
-**Version 2.7.0**
+**Version 2.8.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -12,12 +12,17 @@ The Ruby SDK supports the following services:
 
 * Analytics Cloud 
 * Announcements
+* API Gateway
+* Application Migration
 * Audit
+* Big Data
 * Budgets
 * Compute Autoscaling
 * Container Engine
 * Content and Experience
 * Core Services (which includes Networking, Compute, and Block Volume)
+* Data Catalog
+* Data Flow
 * Data Transfer 
 * Database
 * Digital Assistant
@@ -33,12 +38,16 @@ The Ruby SDK supports the following services:
 * Limits
 * Load Balancing
 * Monitoring
+* Marketplace
 * Notification
 * Oracle Content and Experience
 * Object Storage
+* Oracle NoSQL Database Cloud
+* OS Management
 * Quotas
 * Resource Manager
 * Search
+* Secret Management (for the Vault service)
 * Streaming
 * Web Application Acceleration and Security
 * Work Requests
@@ -110,7 +119,7 @@ The following table provides details about some of the attributes of the SDK.
     <tr>
 		<td>Instance Principals Authentication</td>
 		<td>
-            The Ruby SDK supports <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Tasks/callingservicesfrominstances.htm">Instance Principals</a> authentication via the use of the {OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner} class. An example of using Instance Principals authentication: <a href="https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/instance_principals_example.rb">instance_principals_example.rb</a>
+            The Ruby SDK supports <a href="https://docs.cloud.oracle.com/Content/Identity/Tasks/callingservicesfrominstances.htm">Instance Principals</a> authentication via the use of the {OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner} class. An example of using Instance Principals authentication: <a href="https://github.com/oracle/oci-ruby-sdk/blob/master/examples-oci/instance_principals_example.rb">instance_principals_example.rb</a>
         </td>
 	</tr>
     <tr>
@@ -118,7 +127,7 @@ The following table provides details about some of the attributes of the SDK.
 		<td>
             The Object Storage service supports multipart uploads to make large object uploads easier by splitting the large object into parts. The Ruby SDK supports raw multipart upload operations for advanced use cases, as well as a higher-level upload class that uses the multipart upload APIs.
             <p>
-                <a href="https://docs.us-phoenix-1.oraclecloud.com/Content/Object/Tasks/usingmultipartuploads.htm">Managing Multipart Uploads</a> provides links to the APIs used for raw multipart upload operations. Higher-level uploads can be performed using the {OCI::ObjectStorage::Transfer::UploadManager}.
+                <a href="https://docs.cloud.oracle.com/Content/Object/Tasks/usingmultipartuploads.htm">Managing Multipart Uploads</a> provides links to the APIs used for raw multipart upload operations. Higher-level uploads can be performed using the {OCI::ObjectStorage::Transfer::UploadManager}.
             </p>
             <p>
                 The UploadManager simplifies interaction with the Object Storage service by abstracting away the method used to upload objects and can handle uploading an entire object at once, or in multiple parts if it is of sufficient size (which is configurable via a {OCI::ObjectStorage::Transfer::UploadManagerConfig} object). In the latter case, the UploadManager will split a large object into parts for you, upload the parts in parallel, and then recombine and commit the parts as a single object in Object Storage.
@@ -145,7 +154,7 @@ The following table provides details about some of the attributes of the SDK.
 To use the Ruby SDK, you must have:
 
 * An Oracle Cloud Infrastructure account.
-* A user created in that account, in a group with a policy that grants the desired permissions. This can be a user for yourself, or another person/system that needs to call the API. For an example of how to set up a new user, group, compartment, and policy, see [Adding Users](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Tasks/addingusers.htm) in the Getting Started Guide. For a list of typical policies you may want to use, see [Common Policies](https://docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/commonpolicies.htm) in the User Guide.
+* A user created in that account, in a group with a policy that grants the desired permissions. This can be a user for yourself, or another person/system that needs to call the API. For an example of how to set up a new user, group, compartment, and policy, see [Adding Users](https://docs.cloud.oracle.com/Content/GSG/Tasks/addingusers.htm) in the Getting Started Guide. For a list of typical policies you may want to use, see [Common Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/commonpolicies.htm) in the User Guide.
 * A keypair used for signing API requests, with the public key uploaded to Oracle. Only the user calling the API should be in possession of the private key. See the configuration information below.
 * Ruby version 2.2 or later running on Mac, Linux or Windows.
 
@@ -178,7 +187,7 @@ Using `OCI` as the top level module name is preferred and it is also used in the
 
 To use any of the APIs, you must supply a {OCI::Config Config} object. You can create the object directly in code, or you can create one in a config file. The configuration includes:
 
-* Required credentials and settings: See [SDK and Tool Configuration](https://docs.us-phoenix-1.oraclecloud.com/Content/API/Concepts/sdkconfig.htm) in the User Guide.
+* Required credentials and settings: See [SDK and Tool Configuration](https://docs.cloud.oracle.com/Content/API/Concepts/sdkconfig.htm) in the User Guide.
 * Optional SDK-specific settings: See the {OCI::Config Config} object for the full list of config options.
 
 Note that the Ruby SDK does not support parsing custom attributes in the configuration file.
@@ -342,7 +351,7 @@ Once an {OCI::ApiClientProxySettings} object has been created, it can be used wh
 ### Service Errors
 Any operation that receives a response with a non-2xx HTTP status code from an Oracle Cloud Infrastructure service will cause an exception of type {OCI::Errors::ServiceError ServiceError} to be thrown by the SDK.
 
-For information about common service errors returned by OCI, see [API Errors](https://docs.us-phoenix-1.oraclecloud.com/Content/API/References/apierrors.htm).
+For information about common service errors returned by OCI, see [API Errors](https://docs.cloud.oracle.com/Content/API/References/apierrors.htm).
 
 The key attributes to inspect when dealing with a {OCI::Errors::ServiceError} are:
 
@@ -588,9 +597,9 @@ The {OCI::Signer} can be used to sign arbitrary requests to the Oracle Cloud Inf
 
 ## Documentation
 
-Full documentation, including prerequisites, installation, and configuration instructions can be found [here](https://docs.us-phoenix-1.oraclecloud.com/Content/API/SDKDocs/rubysdk.htm).
+Full documentation, including prerequisites, installation, and configuration instructions can be found [here](docs.cloud.oracle.com/Content/API/SDKDocs/rubysdk.htm).
 
-API reference can be found [here](https://docs.us-phoenix-1.oraclecloud.com/tools/ruby/latest/frames.html).
+API reference can be found [here](https://docs.cloud.oracle.com/tools/ruby/latest/frames.html).
 
 ## Changes
 
@@ -607,7 +616,7 @@ To be notified when a new version of the Ruby SDK is released, subscribe to the 
 
 ## Known Issues
 
-You can find information on any known issues with the SDK [here](https://docs.us-phoenix-1.oraclecloud.com/Content/knownissues.htm) and under the [Issues](https://github.com/oracle/oci-ruby-sdk/issues) tab of this project's [GitHub repository](https://github.com/oracle/oci-ruby-sdk).
+You can find information on any known issues with the SDK [here](https://docs.cloud.oracle.com/Content/knownissues.htm) and under the [Issues](https://github.com/oracle/oci-ruby-sdk/issues) tab of this project's [GitHub repository](https://github.com/oracle/oci-ruby-sdk).
 
 ## Questions or Feedback?
 You can post an issue on the [Issues](https://github.com/oracle/oci-ruby-sdk/issues) tab of this project's [GitHub repository](https://github.com/oracle/oci-ruby-sdk).

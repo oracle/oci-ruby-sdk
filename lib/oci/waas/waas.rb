@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module Waas
@@ -12,6 +12,7 @@ end
 # Require models
 require 'oci/waas/models/access_rule'
 require 'oci/waas/models/access_rule_criteria'
+require 'oci/waas/models/add_http_response_header_action'
 require 'oci/waas/models/address_list'
 require 'oci/waas/models/address_list_summary'
 require 'oci/waas/models/address_rate_limiting'
@@ -41,14 +42,19 @@ require 'oci/waas/models/custom_protection_rule_setting'
 require 'oci/waas/models/custom_protection_rule_summary'
 require 'oci/waas/models/device_fingerprint_challenge'
 require 'oci/waas/models/edge_subnet'
+require 'oci/waas/models/extend_http_response_header_action'
 require 'oci/waas/models/good_bot'
 require 'oci/waas/models/header'
+require 'oci/waas/models/header_manipulation_action'
+require 'oci/waas/models/health_check'
 require 'oci/waas/models/http_redirect'
 require 'oci/waas/models/http_redirect_summary'
 require 'oci/waas/models/http_redirect_target'
 require 'oci/waas/models/human_interaction_challenge'
+require 'oci/waas/models/ip_hash_load_balancing_method'
 require 'oci/waas/models/js_challenge'
 require 'oci/waas/models/lifecycle_states'
+require 'oci/waas/models/load_balancing_method'
 require 'oci/waas/models/origin'
 require 'oci/waas/models/origin_group'
 require 'oci/waas/models/origin_group_origins'
@@ -59,6 +65,9 @@ require 'oci/waas/models/protection_rule_exclusion'
 require 'oci/waas/models/protection_settings'
 require 'oci/waas/models/purge_cache'
 require 'oci/waas/models/recommendation'
+require 'oci/waas/models/remove_http_response_header_action'
+require 'oci/waas/models/round_robin_load_balancing_method'
+require 'oci/waas/models/sticky_cookie_load_balancing_method'
 require 'oci/waas/models/threat_feed'
 require 'oci/waas/models/threat_feed_action'
 require 'oci/waas/models/update_address_list_details'

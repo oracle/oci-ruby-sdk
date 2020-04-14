@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -27,7 +27,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#attach_load_balancer} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::AttachLoadBalancerDetails] attach_load_balancer_details Load balancer being attached
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#attach_load_balancer}
@@ -145,7 +145,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#detach_load_balancer} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::DetachLoadBalancerDetails] detach_load_balancer_details Load balancer being detached
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#detach_load_balancer}
@@ -185,7 +185,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#reset_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#reset_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -224,7 +224,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#softreset_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#softreset_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -263,7 +263,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#start_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#start_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -302,7 +302,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#stop_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#stop_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -341,7 +341,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#terminate_cluster_network} and then waits for the {OCI::Core::Models::ClusterNetwork} acted upon
     # to enter the given state(s).
     #
-    # @param [String] cluster_network_id The OCID of the cluster network.
+    # @param [String] cluster_network_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ClusterNetwork#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#terminate_cluster_network}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -381,7 +381,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#terminate_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#terminate_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -421,7 +421,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#update_cluster_network} and then waits for the {OCI::Core::Models::ClusterNetwork} acted upon
     # to enter the given state(s).
     #
-    # @param [String] cluster_network_id The OCID of the cluster network.
+    # @param [String] cluster_network_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
     # @param [OCI::Core::Models::UpdateClusterNetworkDetails] update_cluster_network_details Update cluster network
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ClusterNetwork#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#update_cluster_network}
@@ -461,7 +461,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#update_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The OCID of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::UpdateInstancePoolDetails] update_instance_pool_details Update instance pool configuration
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#update_instance_pool}

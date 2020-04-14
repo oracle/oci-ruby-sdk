@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -40,9 +40,17 @@ module OCI
     # @return [String]
     attr_accessor :ncharacter_set
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the database home.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Home.
     # @return [String]
     attr_accessor :db_home_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
+    # @return [String]
+    attr_accessor :db_system_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VM cluster.
+    # @return [String]
+    attr_accessor :vm_cluster_id
 
     # **[Required]** The database name.
     # @return [String]
@@ -103,6 +111,8 @@ module OCI
         'character_set': :'characterSet',
         'ncharacter_set': :'ncharacterSet',
         'db_home_id': :'dbHomeId',
+        'db_system_id': :'dbSystemId',
+        'vm_cluster_id': :'vmClusterId',
         'db_name': :'dbName',
         'pdb_name': :'pdbName',
         'db_workload': :'dbWorkload',
@@ -127,6 +137,8 @@ module OCI
         'character_set': :'String',
         'ncharacter_set': :'String',
         'db_home_id': :'String',
+        'db_system_id': :'String',
+        'vm_cluster_id': :'String',
         'db_name': :'String',
         'pdb_name': :'String',
         'db_workload': :'String',
@@ -153,6 +165,8 @@ module OCI
     # @option attributes [String] :character_set The value to assign to the {#character_set} property
     # @option attributes [String] :ncharacter_set The value to assign to the {#ncharacter_set} property
     # @option attributes [String] :db_home_id The value to assign to the {#db_home_id} property
+    # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
+    # @option attributes [String] :vm_cluster_id The value to assign to the {#vm_cluster_id} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [String] :pdb_name The value to assign to the {#pdb_name} property
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
@@ -195,6 +209,18 @@ module OCI
       raise 'You cannot provide both :dbHomeId and :db_home_id' if attributes.key?(:'dbHomeId') && attributes.key?(:'db_home_id')
 
       self.db_home_id = attributes[:'db_home_id'] if attributes[:'db_home_id']
+
+      self.db_system_id = attributes[:'dbSystemId'] if attributes[:'dbSystemId']
+
+      raise 'You cannot provide both :dbSystemId and :db_system_id' if attributes.key?(:'dbSystemId') && attributes.key?(:'db_system_id')
+
+      self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
+
+      self.vm_cluster_id = attributes[:'vmClusterId'] if attributes[:'vmClusterId']
+
+      raise 'You cannot provide both :vmClusterId and :vm_cluster_id' if attributes.key?(:'vmClusterId') && attributes.key?(:'vm_cluster_id')
+
+      self.vm_cluster_id = attributes[:'vm_cluster_id'] if attributes[:'vm_cluster_id']
 
       self.db_name = attributes[:'dbName'] if attributes[:'dbName']
 
@@ -292,6 +318,8 @@ module OCI
         character_set == other.character_set &&
         ncharacter_set == other.ncharacter_set &&
         db_home_id == other.db_home_id &&
+        db_system_id == other.db_system_id &&
+        vm_cluster_id == other.vm_cluster_id &&
         db_name == other.db_name &&
         pdb_name == other.pdb_name &&
         db_workload == other.db_workload &&
@@ -318,7 +346,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, db_backup_config, freeform_tags, defined_tags, connection_strings].hash
+      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_system_id, vm_cluster_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, db_backup_config, freeform_tags, defined_tags, connection_strings].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

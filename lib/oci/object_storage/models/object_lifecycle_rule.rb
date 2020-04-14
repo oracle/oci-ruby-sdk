@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -40,11 +40,10 @@ module OCI
     # @return [String]
     attr_reader :time_unit
 
-    # **[Required]** A boolean that determines whether this rule is currently enabled.
+    # **[Required]** A Boolean that determines whether this rule is currently enabled.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # A filter limiting object names that the rule will apply to.
     # @return [OCI::ObjectStorage::Models::ObjectNameFilter]
     attr_accessor :object_name_filter
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require_relative 'volume_attachment'
@@ -19,6 +19,7 @@ module OCI
         'id': :'id',
         'instance_id': :'instanceId',
         'is_read_only': :'isReadOnly',
+        'is_shareable': :'isShareable',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'volume_id': :'volumeId',
@@ -39,6 +40,7 @@ module OCI
         'id': :'String',
         'instance_id': :'String',
         'is_read_only': :'BOOLEAN',
+        'is_shareable': :'BOOLEAN',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'volume_id': :'String',
@@ -60,6 +62,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {OCI::Core::Models::VolumeAttachment#id #id} proprety
     # @option attributes [String] :instance_id The value to assign to the {OCI::Core::Models::VolumeAttachment#instance_id #instance_id} proprety
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {OCI::Core::Models::VolumeAttachment#is_read_only #is_read_only} proprety
+    # @option attributes [BOOLEAN] :is_shareable The value to assign to the {OCI::Core::Models::VolumeAttachment#is_shareable #is_shareable} proprety
     # @option attributes [String] :lifecycle_state The value to assign to the {OCI::Core::Models::VolumeAttachment#lifecycle_state #lifecycle_state} proprety
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::Core::Models::VolumeAttachment#time_created #time_created} proprety
     # @option attributes [String] :volume_id The value to assign to the {OCI::Core::Models::VolumeAttachment#volume_id #volume_id} proprety
@@ -91,6 +94,7 @@ module OCI
         id == other.id &&
         instance_id == other.instance_id &&
         is_read_only == other.is_read_only &&
+        is_shareable == other.is_shareable &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         volume_id == other.volume_id &&
@@ -110,7 +114,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled].hash
+      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, is_shareable, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

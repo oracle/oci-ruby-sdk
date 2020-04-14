@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -68,7 +68,9 @@ module OCI
     # @return [String]
     attr_accessor :backup_subnet_id
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # **NsgIds restrictions:**
+    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -156,7 +158,7 @@ module OCI
     # @return [Integer]
     attr_accessor :initial_data_storage_size_in_gb
 
-    # The number of nodes to launch for a 2-node RAC virtual machine DB system.
+    # The number of nodes to launch for a 2-node RAC virtual machine DB system. Specify either 1 or 2.
     #
     # @return [Integer]
     attr_accessor :node_count
@@ -176,7 +178,7 @@ module OCI
     attr_accessor :defined_tags
 
     # The source of the database:
-    # NONE for creating a new database. DB_BACKUP for creating a new database by restoring from a backup. The default is NONE.
+    # Use `NONE` for creating a new database. Use `DB_BACKUP` for creating a new database by restoring from a backup. The default is `NONE`.
     #
     # @return [String]
     attr_reader :source

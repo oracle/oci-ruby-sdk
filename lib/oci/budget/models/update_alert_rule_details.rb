@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -37,7 +37,7 @@ module OCI
     # @return [String]
     attr_reader :threshold_type
 
-    # The audience that will received the alert when it triggers.
+    # The audience that will receive the alert when it triggers. If you need to clear out this value, please pass in an empty string instead of null.
     # @return [String]
     attr_accessor :recipients
 

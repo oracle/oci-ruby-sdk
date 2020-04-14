@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -7,6 +7,24 @@ require 'logger'
 module OCI
   # Details of OceInstance.
   class Oce::Models::OceInstance
+    UPGRADE_SCHEDULE_ENUM = [
+      UPGRADE_SCHEDULE_UPGRADE_IMMEDIATELY = 'UPGRADE_IMMEDIATELY'.freeze,
+      UPGRADE_SCHEDULE_DELAYED_UPGRADE = 'DELAYED_UPGRADE'.freeze,
+      UPGRADE_SCHEDULE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    INSTANCE_USAGE_TYPE_ENUM = [
+      INSTANCE_USAGE_TYPE_PRIMARY = 'PRIMARY'.freeze,
+      INSTANCE_USAGE_TYPE_NONPRIMARY = 'NONPRIMARY'.freeze,
+      INSTANCE_USAGE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    INSTANCE_ACCESS_TYPE_ENUM = [
+      INSTANCE_ACCESS_TYPE_PUBLIC = 'PUBLIC'.freeze,
+      INSTANCE_ACCESS_TYPE_PRIVATE = 'PRIVATE'.freeze,
+      INSTANCE_ACCESS_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -49,6 +67,19 @@ module OCI
     # @return [String]
     attr_accessor :tenancy_name
 
+    # Upgrade schedule type representing service to be upgraded immediately whenever latest version is released
+    # or delay upgrade of the service to previous released version
+    #
+    # @return [String]
+    attr_reader :upgrade_schedule
+
+    # @return [OCI::Oce::Models::IdentityStripeDetails]
+    attr_accessor :identity_stripe
+
+    # Instance type based on its usage
+    # @return [String]
+    attr_reader :instance_usage_type
+
     # **[Required]** Object Storage Namespace of tenancy
     # @return [String]
     attr_accessor :object_storage_namespace
@@ -56,6 +87,14 @@ module OCI
     # **[Required]** Admin Email for Notification
     # @return [String]
     attr_accessor :admin_email
+
+    # Web Application Firewall(WAF) primary domain
+    # @return [String]
+    attr_accessor :waf_primary_domain
+
+    # Flag indicating whether the instance access is private or public
+    # @return [String]
+    attr_reader :instance_access_type
 
     # The time the the OceInstance was created. An RFC3339 formatted datetime string
     # @return [DateTime]
@@ -103,8 +142,13 @@ module OCI
         'tenancy_id': :'tenancyId',
         'idcs_tenancy': :'idcsTenancy',
         'tenancy_name': :'tenancyName',
+        'upgrade_schedule': :'upgradeSchedule',
+        'identity_stripe': :'identityStripe',
+        'instance_usage_type': :'instanceUsageType',
         'object_storage_namespace': :'objectStorageNamespace',
         'admin_email': :'adminEmail',
+        'waf_primary_domain': :'wafPrimaryDomain',
+        'instance_access_type': :'instanceAccessType',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
@@ -128,8 +172,13 @@ module OCI
         'tenancy_id': :'String',
         'idcs_tenancy': :'String',
         'tenancy_name': :'String',
+        'upgrade_schedule': :'String',
+        'identity_stripe': :'OCI::Oce::Models::IdentityStripeDetails',
+        'instance_usage_type': :'String',
         'object_storage_namespace': :'String',
         'admin_email': :'String',
+        'waf_primary_domain': :'String',
+        'instance_access_type': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
@@ -155,8 +204,13 @@ module OCI
     # @option attributes [String] :tenancy_id The value to assign to the {#tenancy_id} property
     # @option attributes [String] :idcs_tenancy The value to assign to the {#idcs_tenancy} property
     # @option attributes [String] :tenancy_name The value to assign to the {#tenancy_name} property
+    # @option attributes [String] :upgrade_schedule The value to assign to the {#upgrade_schedule} property
+    # @option attributes [OCI::Oce::Models::IdentityStripeDetails] :identity_stripe The value to assign to the {#identity_stripe} property
+    # @option attributes [String] :instance_usage_type The value to assign to the {#instance_usage_type} property
     # @option attributes [String] :object_storage_namespace The value to assign to the {#object_storage_namespace} property
     # @option attributes [String] :admin_email The value to assign to the {#admin_email} property
+    # @option attributes [String] :waf_primary_domain The value to assign to the {#waf_primary_domain} property
+    # @option attributes [String] :instance_access_type The value to assign to the {#instance_access_type} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -202,6 +256,24 @@ module OCI
 
       self.tenancy_name = attributes[:'tenancy_name'] if attributes[:'tenancy_name']
 
+      self.upgrade_schedule = attributes[:'upgradeSchedule'] if attributes[:'upgradeSchedule']
+
+      raise 'You cannot provide both :upgradeSchedule and :upgrade_schedule' if attributes.key?(:'upgradeSchedule') && attributes.key?(:'upgrade_schedule')
+
+      self.upgrade_schedule = attributes[:'upgrade_schedule'] if attributes[:'upgrade_schedule']
+
+      self.identity_stripe = attributes[:'identityStripe'] if attributes[:'identityStripe']
+
+      raise 'You cannot provide both :identityStripe and :identity_stripe' if attributes.key?(:'identityStripe') && attributes.key?(:'identity_stripe')
+
+      self.identity_stripe = attributes[:'identity_stripe'] if attributes[:'identity_stripe']
+
+      self.instance_usage_type = attributes[:'instanceUsageType'] if attributes[:'instanceUsageType']
+
+      raise 'You cannot provide both :instanceUsageType and :instance_usage_type' if attributes.key?(:'instanceUsageType') && attributes.key?(:'instance_usage_type')
+
+      self.instance_usage_type = attributes[:'instance_usage_type'] if attributes[:'instance_usage_type']
+
       self.object_storage_namespace = attributes[:'objectStorageNamespace'] if attributes[:'objectStorageNamespace']
 
       raise 'You cannot provide both :objectStorageNamespace and :object_storage_namespace' if attributes.key?(:'objectStorageNamespace') && attributes.key?(:'object_storage_namespace')
@@ -213,6 +285,18 @@ module OCI
       raise 'You cannot provide both :adminEmail and :admin_email' if attributes.key?(:'adminEmail') && attributes.key?(:'admin_email')
 
       self.admin_email = attributes[:'admin_email'] if attributes[:'admin_email']
+
+      self.waf_primary_domain = attributes[:'wafPrimaryDomain'] if attributes[:'wafPrimaryDomain']
+
+      raise 'You cannot provide both :wafPrimaryDomain and :waf_primary_domain' if attributes.key?(:'wafPrimaryDomain') && attributes.key?(:'waf_primary_domain')
+
+      self.waf_primary_domain = attributes[:'waf_primary_domain'] if attributes[:'waf_primary_domain']
+
+      self.instance_access_type = attributes[:'instanceAccessType'] if attributes[:'instanceAccessType']
+
+      raise 'You cannot provide both :instanceAccessType and :instance_access_type' if attributes.key?(:'instanceAccessType') && attributes.key?(:'instance_access_type')
+
+      self.instance_access_type = attributes[:'instance_access_type'] if attributes[:'instance_access_type']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -256,6 +340,45 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] upgrade_schedule Object to be assigned
+    def upgrade_schedule=(upgrade_schedule)
+      # rubocop:disable Style/ConditionalAssignment
+      if upgrade_schedule && !UPGRADE_SCHEDULE_ENUM.include?(upgrade_schedule)
+        OCI.logger.debug("Unknown value for 'upgrade_schedule' [" + upgrade_schedule + "]. Mapping to 'UPGRADE_SCHEDULE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @upgrade_schedule = UPGRADE_SCHEDULE_UNKNOWN_ENUM_VALUE
+      else
+        @upgrade_schedule = upgrade_schedule
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] instance_usage_type Object to be assigned
+    def instance_usage_type=(instance_usage_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if instance_usage_type && !INSTANCE_USAGE_TYPE_ENUM.include?(instance_usage_type)
+        OCI.logger.debug("Unknown value for 'instance_usage_type' [" + instance_usage_type + "]. Mapping to 'INSTANCE_USAGE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @instance_usage_type = INSTANCE_USAGE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @instance_usage_type = instance_usage_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] instance_access_type Object to be assigned
+    def instance_access_type=(instance_access_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if instance_access_type && !INSTANCE_ACCESS_TYPE_ENUM.include?(instance_access_type)
+        OCI.logger.debug("Unknown value for 'instance_access_type' [" + instance_access_type + "]. Mapping to 'INSTANCE_ACCESS_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @instance_access_type = INSTANCE_ACCESS_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @instance_access_type = instance_access_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -285,8 +408,13 @@ module OCI
         tenancy_id == other.tenancy_id &&
         idcs_tenancy == other.idcs_tenancy &&
         tenancy_name == other.tenancy_name &&
+        upgrade_schedule == other.upgrade_schedule &&
+        identity_stripe == other.identity_stripe &&
+        instance_usage_type == other.instance_usage_type &&
         object_storage_namespace == other.object_storage_namespace &&
         admin_email == other.admin_email &&
+        waf_primary_domain == other.waf_primary_domain &&
+        instance_access_type == other.instance_access_type &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
@@ -309,7 +437,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, guid, description, compartment_id, name, tenancy_id, idcs_tenancy, tenancy_name, object_storage_namespace, admin_email, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, service].hash
+      [id, guid, description, compartment_id, name, tenancy_id, idcs_tenancy, tenancy_name, upgrade_schedule, identity_stripe, instance_usage_type, object_storage_namespace, admin_email, waf_primary_domain, instance_access_type, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, service].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

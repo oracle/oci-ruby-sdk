@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 
@@ -6,7 +6,7 @@ require 'date'
 module OCI
   # The data used to update the address list: IP addresses and CIDR notations.
   class Waas::Models::UpdateAddressListDetails
-    # A unique user-friendly name for the address list.
+    # A user-friendly name for the address list.
     # @return [String]
     attr_accessor :display_name
 

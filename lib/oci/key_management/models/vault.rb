@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 require 'date'
 require 'logger'
@@ -21,6 +21,7 @@ module OCI
 
     VAULT_TYPE_ENUM = [
       VAULT_TYPE_VIRTUAL_PRIVATE = 'VIRTUAL_PRIVATE'.freeze,
+      VAULT_TYPE_DEFAULT = 'DEFAULT'.freeze,
       VAULT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -28,13 +29,16 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The service endpoint to perform cryptographic operations against. Cryptographic operations include 'Encrypt,' 'Decrypt,' and 'GenerateDataEncryptionKey' operations.
+    # **[Required]** The service endpoint to perform cryptographic operations against. Cryptographic operations include
+    # [Encrypt](https://docs.cloud.oracle.com/api/#/en/key/release/EncryptedData/Encrypt), [Decrypt](https://docs.cloud.oracle.com/api/#/en/key/release/DecryptedData/Decrypt),
+    # and [GenerateDataEncryptionKey](https://docs.cloud.oracle.com/api/#/en/key/release/GeneratedKey/GenerateDataEncryptionKey) operations.
     #
     # @return [String]
     attr_accessor :crypto_endpoint
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"foo-value\"}}`
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
@@ -45,9 +49,9 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # Simple key-value pair that is applied without any predefined name, type, or scope.
-    # Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
@@ -63,7 +67,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** The service endpoint to perform management operations against. Management operations include 'Create,' 'Update,' 'List,' 'Get,' and 'Delete' operations.
+    # **[Required]** The service endpoint to perform management operations against. Management operations include \"Create,\" \"Update,\" \"List,\" \"Get,\" and \"Delete\" operations.
     #
     # @return [String]
     attr_accessor :management_endpoint
@@ -75,15 +79,21 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # An optional property for the deletion time of the vault, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # An optional property to indicate when to delete the vault, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
     # Example: `2018-04-03T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_of_deletion
 
-    # **[Required]** The type of vault. Each type of vault stores the key with different degrees of isolation and has different options and pricing.
+    # **[Required]** The type of vault. Each type of vault stores the key with different
+    # degrees of isolation and has different options and pricing.
+    #
     # @return [String]
     attr_reader :vault_type
+
+    # **[Required]** The OCID of the vault wrapping key.
+    # @return [String]
+    attr_accessor :wrappingkey_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -99,7 +109,8 @@ module OCI
         'management_endpoint': :'managementEndpoint',
         'time_created': :'timeCreated',
         'time_of_deletion': :'timeOfDeletion',
-        'vault_type': :'vaultType'
+        'vault_type': :'vaultType',
+        'wrappingkey_id': :'wrappingkeyId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -118,7 +129,8 @@ module OCI
         'management_endpoint': :'String',
         'time_created': :'DateTime',
         'time_of_deletion': :'DateTime',
-        'vault_type': :'String'
+        'vault_type': :'String',
+        'wrappingkey_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -140,6 +152,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
     # @option attributes [String] :vault_type The value to assign to the {#vault_type} property
+    # @option attributes [String] :wrappingkey_id The value to assign to the {#wrappingkey_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -207,6 +220,12 @@ module OCI
       raise 'You cannot provide both :vaultType and :vault_type' if attributes.key?(:'vaultType') && attributes.key?(:'vault_type')
 
       self.vault_type = attributes[:'vault_type'] if attributes[:'vault_type']
+
+      self.wrappingkey_id = attributes[:'wrappingkeyId'] if attributes[:'wrappingkeyId']
+
+      raise 'You cannot provide both :wrappingkeyId and :wrappingkey_id' if attributes.key?(:'wrappingkeyId') && attributes.key?(:'wrappingkey_id')
+
+      self.wrappingkey_id = attributes[:'wrappingkey_id'] if attributes[:'wrappingkey_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -256,7 +275,8 @@ module OCI
         management_endpoint == other.management_endpoint &&
         time_created == other.time_created &&
         time_of_deletion == other.time_of_deletion &&
-        vault_type == other.vault_type
+        vault_type == other.vault_type &&
+        wrappingkey_id == other.wrappingkey_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -272,7 +292,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, crypto_endpoint, defined_tags, display_name, freeform_tags, id, lifecycle_state, management_endpoint, time_created, time_of_deletion, vault_type].hash
+      [compartment_id, crypto_endpoint, defined_tags, display_name, freeform_tags, id, lifecycle_state, management_endpoint, time_created, time_of_deletion, vault_type, wrappingkey_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

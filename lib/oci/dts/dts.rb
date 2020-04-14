@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
 
 module OCI
   module Dts
@@ -10,8 +10,12 @@ module OCI
 end
 
 # Require models
+require 'oci/dts/models/appliance_export_job'
+require 'oci/dts/models/appliance_export_job_summary'
 require 'oci/dts/models/attach_devices_details'
+require 'oci/dts/models/change_appliance_export_job_compartment_details'
 require 'oci/dts/models/change_transfer_job_compartment_details'
+require 'oci/dts/models/create_appliance_export_job_details'
 require 'oci/dts/models/create_transfer_appliance_details'
 require 'oci/dts/models/create_transfer_appliance_entitlement_details'
 require 'oci/dts/models/create_transfer_device_details'
@@ -37,12 +41,15 @@ require 'oci/dts/models/transfer_job'
 require 'oci/dts/models/transfer_job_summary'
 require 'oci/dts/models/transfer_package'
 require 'oci/dts/models/transfer_package_summary'
+require 'oci/dts/models/update_appliance_export_job_details'
 require 'oci/dts/models/update_transfer_appliance_details'
 require 'oci/dts/models/update_transfer_device_details'
 require 'oci/dts/models/update_transfer_job_details'
 require 'oci/dts/models/update_transfer_package_details'
 
 # Require generated clients
+require 'oci/dts/appliance_export_job_client'
+require 'oci/dts/appliance_export_job_client_composite_operations'
 require 'oci/dts/shipping_vendors_client'
 require 'oci/dts/transfer_appliance_client'
 require 'oci/dts/transfer_appliance_client_composite_operations'
