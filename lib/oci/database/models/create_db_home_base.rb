@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -13,6 +14,7 @@ module OCI
     SOURCE_ENUM = [
       SOURCE_NONE = 'NONE'.freeze,
       SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze,
+      SOURCE_DATABASE = 'DATABASE'.freeze,
       SOURCE_VM_CLUSTER_NEW = 'VM_CLUSTER_NEW'.freeze
     ].freeze
 
@@ -53,6 +55,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'source'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdFromDatabaseDetails' if type == 'DATABASE'
       return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdFromBackupDetails' if type == 'DB_BACKUP'
       return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdDetails' if type == 'NONE'
       return 'OCI::Database::Models::CreateDbHomeWithVmClusterIdDetails' if type == 'VM_CLUSTER_NEW'

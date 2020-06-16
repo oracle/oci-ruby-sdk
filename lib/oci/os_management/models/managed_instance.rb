@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -13,6 +14,13 @@ module OCI
       STATUS_ERROR = 'ERROR'.freeze,
       STATUS_WARNING = 'WARNING'.freeze,
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    OS_FAMILY_ENUM = [
+      OS_FAMILY_LINUX = 'LINUX'.freeze,
+      OS_FAMILY_WINDOWS = 'WINDOWS'.freeze,
+      OS_FAMILY_ALL = 'ALL'.freeze,
+      OS_FAMILY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** Managed Instance identifier
@@ -73,6 +81,14 @@ module OCI
     # @return [Array<OCI::OsManagement::Models::Id>]
     attr_accessor :managed_instance_groups
 
+    # The Operating System type of the managed instance.
+    # @return [String]
+    attr_reader :os_family
+
+    # Indicates whether a reboot is required to complete installation of updates.
+    # @return [BOOLEAN]
+    attr_accessor :is_reboot_required
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -90,7 +106,9 @@ module OCI
         'status': :'status',
         'parent_software_source': :'parentSoftwareSource',
         'child_software_sources': :'childSoftwareSources',
-        'managed_instance_groups': :'managedInstanceGroups'
+        'managed_instance_groups': :'managedInstanceGroups',
+        'os_family': :'osFamily',
+        'is_reboot_required': :'isRebootRequired'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -112,7 +130,9 @@ module OCI
         'status': :'String',
         'parent_software_source': :'OCI::OsManagement::Models::SoftwareSourceId',
         'child_software_sources': :'Array<OCI::OsManagement::Models::SoftwareSourceId>',
-        'managed_instance_groups': :'Array<OCI::OsManagement::Models::Id>'
+        'managed_instance_groups': :'Array<OCI::OsManagement::Models::Id>',
+        'os_family': :'String',
+        'is_reboot_required': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -137,6 +157,8 @@ module OCI
     # @option attributes [OCI::OsManagement::Models::SoftwareSourceId] :parent_software_source The value to assign to the {#parent_software_source} property
     # @option attributes [Array<OCI::OsManagement::Models::SoftwareSourceId>] :child_software_sources The value to assign to the {#child_software_sources} property
     # @option attributes [Array<OCI::OsManagement::Models::Id>] :managed_instance_groups The value to assign to the {#managed_instance_groups} property
+    # @option attributes [String] :os_family The value to assign to the {#os_family} property
+    # @option attributes [BOOLEAN] :is_reboot_required The value to assign to the {#is_reboot_required} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -214,6 +236,18 @@ module OCI
       raise 'You cannot provide both :managedInstanceGroups and :managed_instance_groups' if attributes.key?(:'managedInstanceGroups') && attributes.key?(:'managed_instance_groups')
 
       self.managed_instance_groups = attributes[:'managed_instance_groups'] if attributes[:'managed_instance_groups']
+
+      self.os_family = attributes[:'osFamily'] if attributes[:'osFamily']
+
+      raise 'You cannot provide both :osFamily and :os_family' if attributes.key?(:'osFamily') && attributes.key?(:'os_family')
+
+      self.os_family = attributes[:'os_family'] if attributes[:'os_family']
+
+      self.is_reboot_required = attributes[:'isRebootRequired'] unless attributes[:'isRebootRequired'].nil?
+
+      raise 'You cannot provide both :isRebootRequired and :is_reboot_required' if attributes.key?(:'isRebootRequired') && attributes.key?(:'is_reboot_required')
+
+      self.is_reboot_required = attributes[:'is_reboot_required'] unless attributes[:'is_reboot_required'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -227,6 +261,19 @@ module OCI
         @status = STATUS_UNKNOWN_ENUM_VALUE
       else
         @status = status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] os_family Object to be assigned
+    def os_family=(os_family)
+      # rubocop:disable Style/ConditionalAssignment
+      if os_family && !OS_FAMILY_ENUM.include?(os_family)
+        OCI.logger.debug("Unknown value for 'os_family' [" + os_family + "]. Mapping to 'OS_FAMILY_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @os_family = OS_FAMILY_UNKNOWN_ENUM_VALUE
+      else
+        @os_family = os_family
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -253,7 +300,9 @@ module OCI
         status == other.status &&
         parent_software_source == other.parent_software_source &&
         child_software_sources == other.child_software_sources &&
-        managed_instance_groups == other.managed_instance_groups
+        managed_instance_groups == other.managed_instance_groups &&
+        os_family == other.os_family &&
+        is_reboot_required == other.is_reboot_required
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -269,7 +318,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, id, description, last_checkin, last_boot, updates_available, os_name, os_version, os_kernel_version, compartment_id, status, parent_software_source, child_software_sources, managed_instance_groups].hash
+      [display_name, id, description, last_checkin, last_boot, updates_available, os_name, os_version, os_kernel_version, compartment_id, status, parent_software_source, child_software_sources, managed_instance_groups, os_family, is_reboot_required].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

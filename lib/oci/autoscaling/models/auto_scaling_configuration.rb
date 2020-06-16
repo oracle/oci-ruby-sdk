@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -67,6 +68,14 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The maximum number of resources to scale out to.
+    # @return [Integer]
+    attr_accessor :max_resource_count
+
+    # The minimum number of resources to scale in to.
+    # @return [Integer]
+    attr_accessor :min_resource_count
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -80,7 +89,9 @@ module OCI
         'is_enabled': :'isEnabled',
         'resource': :'resource',
         'policies': :'policies',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'max_resource_count': :'maxResourceCount',
+        'min_resource_count': :'minResourceCount'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,7 +109,9 @@ module OCI
         'is_enabled': :'BOOLEAN',
         'resource': :'OCI::Autoscaling::Models::Resource',
         'policies': :'Array<OCI::Autoscaling::Models::AutoScalingPolicy>',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'max_resource_count': :'Integer',
+        'min_resource_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -119,6 +132,8 @@ module OCI
     # @option attributes [OCI::Autoscaling::Models::Resource] :resource The value to assign to the {#resource} property
     # @option attributes [Array<OCI::Autoscaling::Models::AutoScalingPolicy>] :policies The value to assign to the {#policies} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Integer] :max_resource_count The value to assign to the {#max_resource_count} property
+    # @option attributes [Integer] :min_resource_count The value to assign to the {#min_resource_count} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -172,6 +187,18 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.max_resource_count = attributes[:'maxResourceCount'] if attributes[:'maxResourceCount']
+
+      raise 'You cannot provide both :maxResourceCount and :max_resource_count' if attributes.key?(:'maxResourceCount') && attributes.key?(:'max_resource_count')
+
+      self.max_resource_count = attributes[:'max_resource_count'] if attributes[:'max_resource_count']
+
+      self.min_resource_count = attributes[:'minResourceCount'] if attributes[:'minResourceCount']
+
+      raise 'You cannot provide both :minResourceCount and :min_resource_count' if attributes.key?(:'minResourceCount') && attributes.key?(:'min_resource_count')
+
+      self.min_resource_count = attributes[:'min_resource_count'] if attributes[:'min_resource_count']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -194,7 +221,9 @@ module OCI
         is_enabled == other.is_enabled &&
         resource == other.resource &&
         policies == other.policies &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        max_resource_count == other.max_resource_count &&
+        min_resource_count == other.min_resource_count
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -210,7 +239,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, cool_down_in_seconds, is_enabled, resource, policies, time_created].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, cool_down_in_seconds, is_enabled, resource, policies, time_created, max_resource_count, min_resource_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

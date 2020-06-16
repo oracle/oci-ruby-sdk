@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -86,6 +87,10 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # Version of the backup's source database
+    # @return [String]
+    attr_accessor :version
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -102,7 +107,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'database_edition': :'databaseEdition',
         'database_size_in_gbs': :'databaseSizeInGBs',
-        'shape': :'shape'
+        'shape': :'shape',
+        'version': :'version'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -123,7 +129,8 @@ module OCI
         'lifecycle_state': :'String',
         'database_edition': :'String',
         'database_size_in_gbs': :'Float',
-        'shape': :'String'
+        'shape': :'String',
+        'version': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -147,6 +154,7 @@ module OCI
     # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     # @option attributes [Float] :database_size_in_gbs The value to assign to the {#database_size_in_gbs} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [String] :version The value to assign to the {#version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -215,6 +223,8 @@ module OCI
       self.database_size_in_gbs = attributes[:'database_size_in_gbs'] if attributes[:'database_size_in_gbs']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
+
+      self.version = attributes[:'version'] if attributes[:'version']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -279,7 +289,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         database_edition == other.database_edition &&
         database_size_in_gbs == other.database_size_in_gbs &&
-        shape == other.shape
+        shape == other.shape &&
+        version == other.version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -295,7 +306,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, database_id, display_name, type, time_started, time_ended, lifecycle_details, availability_domain, lifecycle_state, database_edition, database_size_in_gbs, shape].hash
+      [id, compartment_id, database_id, display_name, type, time_started, time_ended, lifecycle_details, availability_domain, lifecycle_state, database_edition, database_size_in_gbs, shape, version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

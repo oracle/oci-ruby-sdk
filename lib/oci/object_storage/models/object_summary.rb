@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -31,6 +32,10 @@ module OCI
     # @return [String]
     attr_accessor :etag
 
+    # The date and time the object was modified, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
+    # @return [DateTime]
+    attr_accessor :time_modified
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -39,7 +44,8 @@ module OCI
         'size': :'size',
         'md5': :'md5',
         'time_created': :'timeCreated',
-        'etag': :'etag'
+        'etag': :'etag',
+        'time_modified': :'timeModified'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,7 +58,8 @@ module OCI
         'size': :'Integer',
         'md5': :'String',
         'time_created': :'DateTime',
-        'etag': :'String'
+        'etag': :'String',
+        'time_modified': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -68,6 +75,7 @@ module OCI
     # @option attributes [String] :md5 The value to assign to the {#md5} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :etag The value to assign to the {#etag} property
+    # @option attributes [DateTime] :time_modified The value to assign to the {#time_modified} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -87,6 +95,12 @@ module OCI
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
       self.etag = attributes[:'etag'] if attributes[:'etag']
+
+      self.time_modified = attributes[:'timeModified'] if attributes[:'timeModified']
+
+      raise 'You cannot provide both :timeModified and :time_modified' if attributes.key?(:'timeModified') && attributes.key?(:'time_modified')
+
+      self.time_modified = attributes[:'time_modified'] if attributes[:'time_modified']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -104,7 +118,8 @@ module OCI
         size == other.size &&
         md5 == other.md5 &&
         time_created == other.time_created &&
-        etag == other.etag
+        etag == other.etag &&
+        time_modified == other.time_modified
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -120,7 +135,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, size, md5, time_created, etag].hash
+      [name, size, md5, time_created, etag, time_modified].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

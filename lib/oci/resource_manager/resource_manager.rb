@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
   module ResourceManager
@@ -37,6 +38,8 @@ require 'oci/resource_manager/models/log_entry'
 require 'oci/resource_manager/models/plan_job_operation_details'
 require 'oci/resource_manager/models/plan_job_operation_details_summary'
 require 'oci/resource_manager/models/stack'
+require 'oci/resource_manager/models/stack_resource_drift_collection'
+require 'oci/resource_manager/models/stack_resource_drift_summary'
 require 'oci/resource_manager/models/stack_summary'
 require 'oci/resource_manager/models/terraform_version_collection'
 require 'oci/resource_manager/models/terraform_version_summary'

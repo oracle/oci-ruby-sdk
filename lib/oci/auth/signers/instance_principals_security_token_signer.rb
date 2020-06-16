@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'net/http'
 require 'uri'
@@ -31,8 +32,9 @@ module OCI
         # @return [String] The region for the instance
         attr_reader :region
 
-        METADATA_URL_BASE = 'http://169.254.169.254/opc/v1'.freeze
+        METADATA_URL_BASE = 'http://169.254.169.254/opc/v2'.freeze
         GET_REGION_URL = "#{METADATA_URL_BASE}/instance/region".freeze
+        GET_REGION_INFO_URL = "#{METADATA_URL_BASE}/instance/regionInfo/".freeze
         LEAF_CERTIFICATE_URL = "#{METADATA_URL_BASE}/identity/cert.pem".freeze
         LEAF_CERTIFICATE_PRIVATE_KEY_URL = "#{METADATA_URL_BASE}/identity/key.pem".freeze
         INTERMEDIATE_CERTIFICATE_URL = "#{METADATA_URL_BASE}/identity/intermediate.pem".freeze

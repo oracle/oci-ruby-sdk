@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -25,7 +26,13 @@ module OCI
     ].freeze
 
     LIFECYCLE_SUB_STATE_ENUM = [
+      LIFECYCLE_SUB_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_SUB_STATE_STARTING = 'STARTING'.freeze,
+      LIFECYCLE_SUB_STATE_STOPPING = 'STOPPING'.freeze,
+      LIFECYCLE_SUB_STATE_CHANGING_COMPARTMENT = 'CHANGING_COMPARTMENT'.freeze,
+      LIFECYCLE_SUB_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_SUB_STATE_DELETE_PENDING = 'DELETE_PENDING'.freeze,
+      LIFECYCLE_SUB_STATE_RECOVERING = 'RECOVERING'.freeze,
       LIFECYCLE_SUB_STATE_PURGING = 'PURGING'.freeze,
       LIFECYCLE_SUB_STATE_QUEUED = 'QUEUED'.freeze,
       LIFECYCLE_SUB_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze

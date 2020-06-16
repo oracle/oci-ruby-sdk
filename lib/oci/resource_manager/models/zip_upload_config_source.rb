@@ -1,11 +1,12 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require_relative 'config_source'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # File path to the location of the zip file that contains the Terraform configuration.
+  # Metadata about the user-provided Terraform configuration.
   #
   class ResourceManager::Models::ZipUploadConfigSource < ResourceManager::Models::ConfigSource
     # Attribute mapping from ruby-style variable name to JSON key.

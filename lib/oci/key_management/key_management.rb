@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
   module KeyManagement
@@ -10,6 +11,11 @@ module OCI
 end
 
 # Require models
+require 'oci/key_management/models/backup_key_details'
+require 'oci/key_management/models/backup_location'
+require 'oci/key_management/models/backup_location_bucket'
+require 'oci/key_management/models/backup_location_uri'
+require 'oci/key_management/models/backup_vault_details'
 require 'oci/key_management/models/change_key_compartment_details'
 require 'oci/key_management/models/change_vault_compartment_details'
 require 'oci/key_management/models/create_key_details'
@@ -27,6 +33,8 @@ require 'oci/key_management/models/key_shape'
 require 'oci/key_management/models/key_summary'
 require 'oci/key_management/models/key_version'
 require 'oci/key_management/models/key_version_summary'
+require 'oci/key_management/models/restore_key_from_object_store_details'
+require 'oci/key_management/models/restore_vault_from_object_store_details'
 require 'oci/key_management/models/schedule_key_deletion_details'
 require 'oci/key_management/models/schedule_key_version_deletion_details'
 require 'oci/key_management/models/schedule_vault_deletion_details'

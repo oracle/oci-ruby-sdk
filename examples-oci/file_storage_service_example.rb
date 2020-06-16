@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # This script provides a basic example of how to use the File Storage service in the Ruby SDK.
 #
@@ -70,6 +71,8 @@ def create_vcn_and_subnet(virtual_network, compartment_id, availability_domain)
 end
 
 def delete_vcn_and_subnet(virtual_network, vcn_and_subnet)
+  virtual_network_composite = OCI::Core::VirtualNetworkClientCompositeOperations.new(virtual_network)
+
   vcn = vcn_and_subnet[:vcn]
   subnet = vcn_and_subnet[:subnet]
 
@@ -77,11 +80,9 @@ def delete_vcn_and_subnet(virtual_network, vcn_and_subnet)
   # still need to clear. If we get a conflict, try a few times before bailing out.
   5.times do |attempt|
     begin
-      virtual_network.delete_subnet(subnet.id)
-      virtual_network.get_subnet(subnet.id).wait_until(
-        :lifecycle_state,
-        OCI::Core::Models::Subnet::LIFECYCLE_STATE_TERMINATED,
-        succeed_on_not_found: true
+      virtual_network_composite.delete_subnet_and_wait_for_state(
+        subnet.id,
+        [OCI::Core::Models::Subnet::LIFECYCLE_STATE_TERMINATED]
       )
       break
     rescue OCI::Errors::ServiceError => e
@@ -91,12 +92,7 @@ def delete_vcn_and_subnet(virtual_network, vcn_and_subnet)
     end
   end
 
-  virtual_network.delete_vcn(vcn.id)
-  virtual_network.get_vcn(vcn.id).wait_until(
-    :lifecycle_state,
-    OCI::Core::Models::Vcn::LIFECYCLE_STATE_TERMINATED,
-    succeed_on_not_found: true
-  )
+  virtual_network_composite.delete_vcn_and_wait_for_state(vcn.id, [OCI::Core::Models::Vcn::LIFECYCLE_STATE_TERMINATED])
 end
 
 compartment_id = ARGV[0]
@@ -271,14 +267,17 @@ create_response = file_storage_client.create_export(
 # or export set (mount target).
 puts 'All exports by file system'
 puts '=' * 20
-file_storage_client.list_exports(compartment_id, file_system_id: file_system.id).each do |response|
+file_storage_client.list_exports(compartment_id: compartment_id, file_system_id: file_system.id).each do |response|
   response.data.each { |r| pp r }
 end
 puts
 
 puts 'All exports by export set'
 puts '=' * 20
-file_storage_client.list_exports(compartment_id, export_set_id: mount_target.export_set_id).each do |response|
+file_storage_client.list_exports(
+  compartment_id: compartment_id,
+  export_set_id: mount_target.export_set_id
+).each do |response|
   response.data.each { |r| pp r }
 end
 puts

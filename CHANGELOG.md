@@ -3,6 +3,47 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.9.0 - 2020-06-16
+### Added
+- Support for creating a new database from an existing database based on a given timestamp in the Database service
+- Support for enabling archive log backups of databases in the Database service
+- Support for returning the database version on autonomous container databases in the Database service
+- Support for the new DNS format of the Data Transfer service
+- Support for scheduled autoscaling, which allows for scaling actions triggered at particular times based on CRON expressions, in the Compute Autoscaling service
+- Support for filtering of list APIs for groups, identity providers, identity provider groups, compartments, dynamic groups, network sources, policies, and users by name or lifecycle state in the Identity Service
+- Support for returning the database version of backups in the Database service
+- Support for patching on Exadata Cloud at Customer resources in the Database service
+- Support for new lifecycle substates on instances in the Digital Assistant service
+- Support for file servers in the Integration service
+- Support for deleting non-empty tag namespaces and bulk deleting tags in the Identity service
+- Support for bulk move and bulk delete of resources by compartment in the Identity service
+- Support for optionally supplying a signature when deleting an agreement in the Marketplace service
+- Support for launching paid listings in non-US regions in the Marketplace service
+- Support for returning the image id of packages in the Marketplace service
+- Support for calling Oracle Cloud Infrastructure services in the ap-chuncheon-1 region
+- Support for returning the private IP of a private endpoint database in the Database service
+- Support for native JWT validation in the API Gateway service
+- Support for drift detection in the Resource Manager service
+- Support for updating the license type of database systems in the Database service
+- Support for updating the version of 19c autonomous databases in the Database service
+- Support for backup and restore functionality in the Key Management service
+- Support for reports in the Marketplace service
+- Support for calling Oracle Cloud Infrastructure services in the ap-hyderabad-1 region
+- Support for the MySQL Database service
+- Support for updating the database home of a database in the Database service
+- Support for government regions in the Marketplace service
+- Support for starting and stopping instances in the Integration service
+- Support for installing Windows updates in the OS Management service
+- Support for the Data Safe service
+- Support for the Incident Management service
+- Support for showing which database versions support always-free in the Database service
+- Support in instance configurations for flex shapes, dedicated VM hosts, encryption in transit, and KMS keys in the Compute Autoscaling service
+- Support for server-side object encryption using a customer-provided encryption key in the Object Storage service
+- Support for specifying maintenance preferences while launching and updating Exadata Database systems in the Database service
+- Support for flexible-shaped VM instances in the Compute service
+- Support for scheduled cross-region backups in the Block Volume service
+- Support for object versioning in the Object Storage service
+
 ## 2.8.0 - 2020-04-13 
 ### Added
 - Support for access to APEX and SQL Dev features on autonomous transaction processing and autonomous data warehouse resources in the Database service

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
   module Apigateway
@@ -36,9 +37,17 @@ require 'oci/apigateway/models/gateway_collection'
 require 'oci/apigateway/models/gateway_summary'
 require 'oci/apigateway/models/http_backend'
 require 'oci/apigateway/models/header_field_specification'
+require 'oci/apigateway/models/json_web_key'
+require 'oci/apigateway/models/json_web_token_claim'
+require 'oci/apigateway/models/jwt_authentication_policy'
 require 'oci/apigateway/models/oracle_function_backend'
+require 'oci/apigateway/models/pem_encoded_public_key'
+require 'oci/apigateway/models/public_key_set'
 require 'oci/apigateway/models/rate_limiting_policy'
+require 'oci/apigateway/models/remote_json_web_key_set'
 require 'oci/apigateway/models/route_authorization_policy'
+require 'oci/apigateway/models/static_public_key'
+require 'oci/apigateway/models/static_public_key_set'
 require 'oci/apigateway/models/stock_response_backend'
 require 'oci/apigateway/models/update_deployment_details'
 require 'oci/apigateway/models/update_gateway_details'

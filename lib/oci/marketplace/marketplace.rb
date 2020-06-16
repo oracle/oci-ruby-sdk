@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
   module Marketplace
@@ -38,6 +39,10 @@ require 'oci/marketplace/models/pricing_type_enum'
 require 'oci/marketplace/models/publisher'
 require 'oci/marketplace/models/publisher_summary'
 require 'oci/marketplace/models/region'
+require 'oci/marketplace/models/report_collection'
+require 'oci/marketplace/models/report_summary'
+require 'oci/marketplace/models/report_type_collection'
+require 'oci/marketplace/models/report_type_summary'
 require 'oci/marketplace/models/screenshot'
 require 'oci/marketplace/models/support_contact'
 require 'oci/marketplace/models/update_accepted_agreement_details'

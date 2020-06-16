@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -10,18 +11,19 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # A list of allowed public IPs and CIDR ranges
+    # A list of allowed public IP addresses and CIDR ranges.
     #
     # @return [Array<String>]
     attr_accessor :public_source_list
 
-    # A list of allowed VCN ocid/IP range pairs
+    # A list of allowed VCN OCID and IP range pairs.
+    # Example:`\"vcnId\": \"ocid1.vcn.oc1.iad.aaaaaaaaexampleuniqueID\", \"ipRanges\": [ \"129.213.39.0/24\" ]`
     #
     # @return [Array<OCI::Identity::Models::NetworkSourcesVirtualSourceList>]
     attr_accessor :virtual_source_list
 
-    # A list of OCIservices allowed to make on behalf of requests which may have different source ips.
-    # At this time only the values of all or none are supported.
+    # A list of services allowed to make on-behalf-of requests. These requests can have different source IPs than
+    # those specified in the network source. Currently, only `all` and `none` are supported. The default is `all`.
     #
     # @return [Array<String>]
     attr_accessor :services

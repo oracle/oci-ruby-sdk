@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -25,6 +26,13 @@ module OCI
       STORAGE_TIER_STANDARD = 'Standard'.freeze,
       STORAGE_TIER_ARCHIVE = 'Archive'.freeze,
       STORAGE_TIER_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    VERSIONING_ENUM = [
+      VERSIONING_ENABLED = 'Enabled'.freeze,
+      VERSIONING_SUSPENDED = 'Suspended'.freeze,
+      VERSIONING_DISABLED = 'Disabled'.freeze,
+      VERSIONING_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The Object Storage namespace in which the bucket lives.
@@ -134,6 +142,12 @@ module OCI
     # @return [String]
     attr_accessor :id
 
+    # The versioning status on the bucket. A bucket is created with versioning `Disabled` by default.
+    # For versioning `Enabled`, objects are protected from overwrites and deletes, by maintaining their version history. When versioning is `Suspended`, the previous versions will still remain but new versions will no longer be created when overwitten or deleted.
+    #
+    # @return [String]
+    attr_reader :versioning
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -156,7 +170,8 @@ module OCI
         'approximate_size': :'approximateSize',
         'replication_enabled': :'replicationEnabled',
         'is_read_only': :'isReadOnly',
-        'id': :'id'
+        'id': :'id',
+        'versioning': :'versioning'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -183,7 +198,8 @@ module OCI
         'approximate_size': :'Integer',
         'replication_enabled': :'BOOLEAN',
         'is_read_only': :'BOOLEAN',
-        'id': :'String'
+        'id': :'String',
+        'versioning': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -213,6 +229,7 @@ module OCI
     # @option attributes [BOOLEAN] :replication_enabled The value to assign to the {#replication_enabled} property
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {#is_read_only} property
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :versioning The value to assign to the {#versioning} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -312,6 +329,8 @@ module OCI
       self.is_read_only = attributes[:'is_read_only'] unless attributes[:'is_read_only'].nil?
 
       self.id = attributes[:'id'] if attributes[:'id']
+
+      self.versioning = attributes[:'versioning'] if attributes[:'versioning']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -338,6 +357,19 @@ module OCI
         @storage_tier = STORAGE_TIER_UNKNOWN_ENUM_VALUE
       else
         @storage_tier = storage_tier
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] versioning Object to be assigned
+    def versioning=(versioning)
+      # rubocop:disable Style/ConditionalAssignment
+      if versioning && !VERSIONING_ENUM.include?(versioning)
+        OCI.logger.debug("Unknown value for 'versioning' [" + versioning + "]. Mapping to 'VERSIONING_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @versioning = VERSIONING_UNKNOWN_ENUM_VALUE
+      else
+        @versioning = versioning
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -369,7 +401,8 @@ module OCI
         approximate_size == other.approximate_size &&
         replication_enabled == other.replication_enabled &&
         is_read_only == other.is_read_only &&
-        id == other.id
+        id == other.id &&
+        versioning == other.versioning
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -385,7 +418,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, name, compartment_id, metadata, created_by, time_created, etag, public_access_type, storage_tier, object_events_enabled, freeform_tags, defined_tags, kms_key_id, object_lifecycle_policy_etag, approximate_count, approximate_size, replication_enabled, is_read_only, id].hash
+      [namespace, name, compartment_id, metadata, created_by, time_created, etag, public_access_type, storage_tier, object_events_enabled, freeform_tags, defined_tags, kms_key_id, object_lifecycle_policy_etag, approximate_count, approximate_size, replication_enabled, is_read_only, id, versioning].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

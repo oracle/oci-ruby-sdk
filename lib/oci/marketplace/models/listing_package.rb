@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -18,11 +19,11 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The id of the listing this package belongs to.
+    # **[Required]** The ID of the listing this package belongs to.
     # @return [String]
     attr_accessor :listing_id
 
-    # **[Required]** The version of this package.
+    # **[Required]** The package version.
     # @return [String]
     attr_accessor :version
 

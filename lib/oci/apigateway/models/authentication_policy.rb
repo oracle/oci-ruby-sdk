@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -10,6 +11,7 @@ module OCI
   class Apigateway::Models::AuthenticationPolicy
     TYPE_ENUM = [
       TYPE_CUSTOM_AUTHENTICATION = 'CUSTOM_AUTHENTICATION'.freeze,
+      TYPE_JWT_AUTHENTICATION = 'JWT_AUTHENTICATION'.freeze,
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -51,6 +53,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Apigateway::Models::JwtAuthenticationPolicy' if type == 'JWT_AUTHENTICATION'
       return 'OCI::Apigateway::Models::CustomAuthenticationPolicy' if type == 'CUSTOM_AUTHENTICATION'
 
       # TODO: Log a warning when the subtype is not found.

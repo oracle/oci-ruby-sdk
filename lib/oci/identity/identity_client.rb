@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
 require 'logger'
@@ -50,16 +51,14 @@ module OCI
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
     def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
-      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner or SecurityTokenSigner and no config was supplied (they are self-sufficient signers)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
       # pass it to this constructor.
       #
       # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
       # so try and load the config from the default file.
-      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
       if signer.nil?
         signer = OCI::Signer.new(
@@ -290,6 +289,307 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Identity::Models::TagDefaultSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Bulk delete resources in the compartment. All resources must be in the same compartment.
+    # This API can only be invoked from tenancy's home region.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [OCI::Identity::Models::BulkDeleteResourcesDetails] bulk_delete_resources_details Request object for bulk delete resources in a compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def bulk_delete_resources(compartment_id, bulk_delete_resources_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#bulk_delete_resources.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling bulk_delete_resources." if compartment_id.nil?
+      raise "Missing the required parameter 'bulk_delete_resources_details' when calling bulk_delete_resources." if bulk_delete_resources_details.nil?
+      raise "Parameter value for 'compartment_id' must not be blank" if OCI::Internal::Util.blank_string?(compartment_id)
+
+      path = '/compartments/{compartmentId}/actions/bulkDeleteResources'.sub('{compartmentId}', compartment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(bulk_delete_resources_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#bulk_delete_resources') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified tag key definitions. This operation triggers a process that removes the
+    # tags from all resources in your tenancy.
+    #
+    # The following actions happen immediately:
+    # \u00A0
+    #   * If the tag is a cost-tracking tag, the tag no longer counts against your
+    #   10 cost-tracking tags limit, even if you do not disable the tag before running this operation.
+    #   * If the tag is used with dynamic groups, the rules that contain the tag are no longer
+    #   evaluated against the tag.
+    #
+    # After you start this operation, the state of the tag changes to DELETING, and tag removal
+    # from resources begins. This process can take up to 48 hours depending on the number of resources that
+    # are tagged and the regions in which those resources reside.
+    #
+    # When all tags have been removed, the state changes to DELETED. You cannot restore a deleted tag. After the tag state
+    # changes to DELETED, you can use the same tag name again.
+    #
+    # After you start this operation, you cannot start either the {#delete_tag delete_tag} or the {#cascade_delete_tag_namespace cascade_delete_tag_namespace} operation until this process completes.
+    #
+    # In order to delete tags, you must first retire the tags. Use {#update_tag update_tag}
+    # to retire a tag.
+    #
+    # @param [OCI::Identity::Models::BulkDeleteTagsDetails] bulk_delete_tags_details Request object for deleting tags in bulk.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def bulk_delete_tags(bulk_delete_tags_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#bulk_delete_tags.' if logger
+
+      raise "Missing the required parameter 'bulk_delete_tags_details' when calling bulk_delete_tags." if bulk_delete_tags_details.nil?
+
+      path = '/tags/actions/bulkDelete'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(bulk_delete_tags_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#bulk_delete_tags') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Bulk move resources in the compartment. All resources must be in the same compartment.
+    # This API can only be invoked from tenancy's home region.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [OCI::Identity::Models::BulkMoveResourcesDetails] bulk_move_resources_details Request object for bulk move resources in the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def bulk_move_resources(compartment_id, bulk_move_resources_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#bulk_move_resources.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling bulk_move_resources." if compartment_id.nil?
+      raise "Missing the required parameter 'bulk_move_resources_details' when calling bulk_move_resources." if bulk_move_resources_details.nil?
+      raise "Parameter value for 'compartment_id' must not be blank" if OCI::Internal::Util.blank_string?(compartment_id)
+
+      path = '/compartments/{compartmentId}/actions/bulkMoveResources'.sub('{compartmentId}', compartment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(bulk_move_resources_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#bulk_move_resources') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified tag namespace. This operation triggers a process that removes all of the tags
+    # defined in the specified tag namespace from all resources in your tenancy and then deletes the tag namespace.
+    #
+    # After you start the delete operation:
+    #
+    #   * New tag key definitions cannot be created under the namespace.
+    #   * The state of the tag namespace changes to DELETING.
+    #   * Tag removal from the resources begins.
+    #
+    # This process can take up to 48 hours depending on the number of tag definitions in the namespace, the number of resources
+    # that are tagged, and the locations of the regions in which those resources reside.
+    #
+    # After all tags are removed, the state changes to DELETED. You cannot restore a deleted tag namespace. After the deleted tag namespace
+    # changes its state to DELETED, you can use the name of the deleted tag namespace again.
+    #
+    # After you start this operation, you cannot start either the {#delete_tag delete_tag} or the {#bulk_delete_tags bulk_delete_tags} operation until this process completes.
+    #
+    # To delete a tag namespace, you must first retire it. Use {#update_tag_namespace update_tag_namespace}
+    # to retire a tag namespace.
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def cascade_delete_tag_namespace(tag_namespace_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#cascade_delete_tag_namespace.' if logger
+
+      raise "Missing the required parameter 'tag_namespace_id' when calling cascade_delete_tag_namespace." if tag_namespace_id.nil?
+      raise "Parameter value for 'tag_namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(tag_namespace_id)
+
+      path = '/tagNamespaces/{tagNamespaceId}/actions/cascadeDelete'.sub('{tagNamespaceId}', tag_namespace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#cascade_delete_tag_namespace') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -962,6 +1262,9 @@ module OCI
     #
     # After you send your request, the new object's `lifecycleState` will temporarily be CREATING. Before using the
     # object, first make sure its `lifecycleState` has changed to ACTIVE.
+    #
+    # After your network resource is created, you can use it in policy to restrict access to only requests made from an allowed
+    # IP address specified in your network source. For more information, see [Managing Network Sources](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingnetworksources.htm).
     #
     # @param [OCI::Identity::Models::CreateNetworkSourceDetails] create_network_source_details Request object for creating a new network source.
     # @param [Hash] opts the optional parameters
@@ -2570,11 +2873,14 @@ module OCI
     #   * If the tag was used with dynamic groups, none of the rules that contain the tag will
     #   be evaluated against the tag.
     #
-    # Once you start the delete operation, the state of the tag changes to DELETING and tag removal
+    # When you start the delete operation, the state of the tag changes to DELETING and tag removal
     # from resources begins. This can take up to 48 hours depending on the number of resources that
-    # were tagged as well as the regions in which those resources reside. When all tags have been
-    # removed, the state changes to DELETED. You cannot restore a deleted tag. Once the deleted tag
+    # were tagged as well as the regions in which those resources reside.
+    #
+    # When all tags have been removed, the state changes to DELETED. You cannot restore a deleted tag. Once the deleted tag
     # changes its state to DELETED, you can use the same tag name again.
+    #
+    # After you start this operation, you cannot start either the {#bulk_delete_tags bulk_delete_tags} or the {#cascade_delete_tag_namespace cascade_delete_tag_namespace} operation until this process completes.
     #
     # To delete a tag, you must first retire it. Use {#update_tag update_tag}
     # to retire a tag.
@@ -2698,8 +3004,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified tag namespace. Only an empty tag namespace can be deleted. To delete
-    # a tag namespace, first delete all its tag definitions.
+    # Deletes the specified tag namespace. Only an empty tag namespace can be deleted with this operation. To use this operation
+    # to delete a tag namespace that contains tag definitions, first delete all of its tag definitions.
+    #
+    # Use {#cascade_delete_tag_namespace cascade_delete_tag_namespace} to delete a tag namespace along with all of
+    # the tag definitions contained within that namespace.
     #
     # Use {#delete_tag delete_tag} to delete a tag definition.
     #
@@ -4040,6 +4349,69 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the resource types supported by compartment bulk actions.
+    #
+    # @param [String] bulk_action_type The type of the bulk action.
+    #
+    #   Allowed values are: BULK_MOVE_RESOURCES, BULK_DELETE_RESOURCES
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::BulkActionResourceTypeCollection BulkActionResourceTypeCollection}
+    def list_bulk_action_resource_types(bulk_action_type, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_bulk_action_resource_types.' if logger
+
+      raise "Missing the required parameter 'bulk_action_type' when calling list_bulk_action_resource_types." if bulk_action_type.nil?
+      unless %w[BULK_MOVE_RESOURCES BULK_DELETE_RESOURCES].include?(bulk_action_type)
+        raise "Invalid value for 'bulk_action_type', must be one of BULK_MOVE_RESOURCES, BULK_DELETE_RESOURCES."
+      end
+
+      path = '/compartments/bulkActionResourceTypes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:bulkActionType] = bulk_action_type
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_bulk_action_resource_types') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::BulkActionResourceTypeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the compartments in a specified compartment. The members of the list
     # returned depends on the values set for several parameters.
     #
@@ -4083,6 +4455,24 @@ module OCI
     #   and all compartments and subcompartments in the tenancy are
     #   returned depending on the the setting of `accessLevel`.
     #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Compartment Compartment}>
     def list_compartments(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_compartments.' if logger
@@ -4091,6 +4481,18 @@ module OCI
 
       if opts[:access_level] && !%w[ANY ACCESSIBLE].include?(opts[:access_level])
         raise 'Invalid value for "access_level", must be one of ANY, ACCESSIBLE.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::Compartment::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::Compartment::LIFECYCLE_STATE_ENUM.'
       end
 
       path = '/compartments/'
@@ -4104,6 +4506,10 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
       query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -4265,11 +4671,41 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::DynamicGroup DynamicGroup}>
     def list_dynamic_groups(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_dynamic_groups.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_dynamic_groups." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::DynamicGroup::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::DynamicGroup::LIFECYCLE_STATE_ENUM.'
+      end
 
       path = '/dynamicGroups/'
       operation_signing_strategy = :standard
@@ -4280,6 +4716,10 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -4387,11 +4827,41 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Group Group}>
     def list_groups(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_groups.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_groups." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::Group::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::Group::LIFECYCLE_STATE_ENUM.'
+      end
 
       path = '/groups/'
       operation_signing_strategy = :standard
@@ -4402,6 +4872,10 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -4444,11 +4918,19 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IdentityProviderGroupSummary IdentityProviderGroupSummary}>
     def list_identity_provider_groups(identity_provider_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_identity_provider_groups.' if logger
 
       raise "Missing the required parameter 'identity_provider_id' when calling list_identity_provider_groups." if identity_provider_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::IdentityProvider::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::IdentityProvider::LIFECYCLE_STATE_ENUM.'
+      end
       raise "Parameter value for 'identity_provider_id' must not be blank" if OCI::Internal::Util.blank_string?(identity_provider_id)
 
       path = '/identityProviders/{identityProviderId}/groups/'.sub('{identityProviderId}', identity_provider_id.to_s)
@@ -4459,6 +4941,8 @@ module OCI
       query_params = {}
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -4508,6 +4992,24 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IdentityProvider IdentityProvider}>
     def list_identity_providers(protocol, compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_identity_providers.' if logger
@@ -4517,6 +5019,18 @@ module OCI
         raise "Invalid value for 'protocol', must be one of SAML2."
       end
       raise "Missing the required parameter 'compartment_id' when calling list_identity_providers." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::IdentityProvider::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::IdentityProvider::LIFECYCLE_STATE_ENUM.'
+      end
 
       path = '/identityProviders/'
       operation_signing_strategy = :standard
@@ -4528,6 +5042,10 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -4715,11 +5233,41 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::NetworkSourcesSummary NetworkSourcesSummary}>
     def list_network_sources(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_network_sources.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_network_sources." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::NetworkSources::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::NetworkSources::LIFECYCLE_STATE_ENUM.'
+      end
 
       path = '/networkSources'
       operation_signing_strategy = :standard
@@ -4730,6 +5278,10 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -4843,11 +5395,41 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Policy Policy}>
     def list_policies(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_policies.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_policies." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::Policy::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::Policy::LIFECYCLE_STATE_ENUM.'
+      end
 
       path = '/policies/'
       operation_signing_strategy = :standard
@@ -4858,6 +5440,10 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}
@@ -5579,11 +6165,41 @@ module OCI
     #
     # @option opts [String] :external_identifier The id of a user in the identity provider.
     #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::User User}>
     def list_users(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_users.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_users." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::User::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::User::LIFECYCLE_STATE_ENUM.'
+      end
 
       path = '/users/'
       operation_signing_strategy = :standard
@@ -5596,6 +6212,10 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:identityProviderId] = opts[:identity_provider_id] if opts[:identity_provider_id]
       query_params[:externalIdentifier] = opts[:external_identifier] if opts[:external_identifier]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
 
       # Header Params
       header_params = {}

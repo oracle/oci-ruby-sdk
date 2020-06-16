@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -16,12 +17,18 @@ module OCI
     # @return [Integer]
     attr_accessor :hours
 
+    # The versionId of the object to restore. Current object version is used by default.
+    #
+    # @return [String]
+    attr_accessor :version_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'object_name': :'objectName',
-        'hours': :'hours'
+        'hours': :'hours',
+        'version_id': :'versionId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -31,7 +38,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'object_name': :'String',
-        'hours': :'Integer'
+        'hours': :'Integer',
+        'version_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,6 +52,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :object_name The value to assign to the {#object_name} property
     # @option attributes [Integer] :hours The value to assign to the {#hours} property
+    # @option attributes [String] :version_id The value to assign to the {#version_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -57,6 +66,12 @@ module OCI
       self.object_name = attributes[:'object_name'] if attributes[:'object_name']
 
       self.hours = attributes[:'hours'] if attributes[:'hours']
+
+      self.version_id = attributes[:'versionId'] if attributes[:'versionId']
+
+      raise 'You cannot provide both :versionId and :version_id' if attributes.key?(:'versionId') && attributes.key?(:'version_id')
+
+      self.version_id = attributes[:'version_id'] if attributes[:'version_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -71,7 +86,8 @@ module OCI
 
       self.class == other.class &&
         object_name == other.object_name &&
-        hours == other.hours
+        hours == other.hours &&
+        version_id == other.version_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -87,7 +103,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [object_name, hours].hash
+      [object_name, hours, version_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

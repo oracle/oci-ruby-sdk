@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require_relative 'listing_package'
@@ -15,6 +16,10 @@ module OCI
     # @return [Array<OCI::Marketplace::Models::OrchestrationVariable>]
     attr_accessor :variables
 
+    # List of regions in which this ListingPackage is available.
+    # @return [Array<OCI::Marketplace::Models::Region>]
+    attr_accessor :regions
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -27,7 +32,8 @@ module OCI
         'resource_id': :'resourceId',
         'time_created': :'timeCreated',
         'resource_link': :'resourceLink',
-        'variables': :'variables'
+        'variables': :'variables',
+        'regions': :'regions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,7 +50,8 @@ module OCI
         'resource_id': :'String',
         'time_created': :'DateTime',
         'resource_link': :'String',
-        'variables': :'Array<OCI::Marketplace::Models::OrchestrationVariable>'
+        'variables': :'Array<OCI::Marketplace::Models::OrchestrationVariable>',
+        'regions': :'Array<OCI::Marketplace::Models::Region>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -63,6 +70,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::Marketplace::Models::ListingPackage#time_created #time_created} proprety
     # @option attributes [String] :resource_link The value to assign to the {#resource_link} property
     # @option attributes [Array<OCI::Marketplace::Models::OrchestrationVariable>] :variables The value to assign to the {#variables} property
+    # @option attributes [Array<OCI::Marketplace::Models::Region>] :regions The value to assign to the {#regions} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -80,6 +88,8 @@ module OCI
       self.resource_link = attributes[:'resource_link'] if attributes[:'resource_link']
 
       self.variables = attributes[:'variables'] if attributes[:'variables']
+
+      self.regions = attributes[:'regions'] if attributes[:'regions']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -101,7 +111,8 @@ module OCI
         resource_id == other.resource_id &&
         time_created == other.time_created &&
         resource_link == other.resource_link &&
-        variables == other.variables
+        variables == other.variables &&
+        regions == other.regions
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -117,7 +128,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, listing_id, version, package_type, pricing, resource_id, time_created, resource_link, variables].hash
+      [description, listing_id, version, package_type, pricing, resource_id, time_created, resource_link, variables, regions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

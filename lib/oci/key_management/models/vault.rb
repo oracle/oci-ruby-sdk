@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -16,6 +17,8 @@ module OCI
       LIFECYCLE_STATE_SCHEDULING_DELETION = 'SCHEDULING_DELETION'.freeze,
       LIFECYCLE_STATE_CANCELLING_DELETION = 'CANCELLING_DELETION'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_RESTORING = 'RESTORING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -60,7 +63,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The vault's current state.
+    # **[Required]** The vault's current lifecycle state.
     #
     # Example: `DELETED`
     #
@@ -91,7 +94,14 @@ module OCI
     # @return [String]
     attr_reader :vault_type
 
-    # **[Required]** The OCID of the vault wrapping key.
+    # The OCID of the vault from which this vault was restored, if it was restored from a backup file.
+    # If you restore a vault to the same region, the vault retains the same OCID that it had when you
+    # backed up the vault.
+    #
+    # @return [String]
+    attr_accessor :restored_from_vault_id
+
+    # **[Required]** The OCID of the vault's wrapping key.
     # @return [String]
     attr_accessor :wrappingkey_id
 
@@ -110,6 +120,7 @@ module OCI
         'time_created': :'timeCreated',
         'time_of_deletion': :'timeOfDeletion',
         'vault_type': :'vaultType',
+        'restored_from_vault_id': :'restoredFromVaultId',
         'wrappingkey_id': :'wrappingkeyId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -130,6 +141,7 @@ module OCI
         'time_created': :'DateTime',
         'time_of_deletion': :'DateTime',
         'vault_type': :'String',
+        'restored_from_vault_id': :'String',
         'wrappingkey_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -152,6 +164,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
     # @option attributes [String] :vault_type The value to assign to the {#vault_type} property
+    # @option attributes [String] :restored_from_vault_id The value to assign to the {#restored_from_vault_id} property
     # @option attributes [String] :wrappingkey_id The value to assign to the {#wrappingkey_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -221,6 +234,12 @@ module OCI
 
       self.vault_type = attributes[:'vault_type'] if attributes[:'vault_type']
 
+      self.restored_from_vault_id = attributes[:'restoredFromVaultId'] if attributes[:'restoredFromVaultId']
+
+      raise 'You cannot provide both :restoredFromVaultId and :restored_from_vault_id' if attributes.key?(:'restoredFromVaultId') && attributes.key?(:'restored_from_vault_id')
+
+      self.restored_from_vault_id = attributes[:'restored_from_vault_id'] if attributes[:'restored_from_vault_id']
+
       self.wrappingkey_id = attributes[:'wrappingkeyId'] if attributes[:'wrappingkeyId']
 
       raise 'You cannot provide both :wrappingkeyId and :wrappingkey_id' if attributes.key?(:'wrappingkeyId') && attributes.key?(:'wrappingkey_id')
@@ -276,6 +295,7 @@ module OCI
         time_created == other.time_created &&
         time_of_deletion == other.time_of_deletion &&
         vault_type == other.vault_type &&
+        restored_from_vault_id == other.restored_from_vault_id &&
         wrappingkey_id == other.wrappingkey_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -292,7 +312,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, crypto_endpoint, defined_tags, display_name, freeform_tags, id, lifecycle_state, management_endpoint, time_created, time_of_deletion, vault_type, wrappingkey_id].hash
+      [compartment_id, crypto_endpoint, defined_tags, display_name, freeform_tags, id, lifecycle_state, management_endpoint, time_created, time_of_deletion, vault_type, restored_from_vault_id, wrappingkey_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -100,6 +101,10 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
+    # Oracle Database version of the Autonomous Container Database
+    # @return [String]
+    attr_accessor :db_version
+
     # @return [OCI::Database::Models::AutonomousContainerDatabaseBackupConfig]
     attr_accessor :backup_config
 
@@ -122,6 +127,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'availability_domain': :'availabilityDomain',
+        'db_version': :'dbVersion',
         'backup_config': :'backupConfig'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -146,6 +152,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'availability_domain': :'String',
+        'db_version': :'String',
         'backup_config': :'OCI::Database::Models::AutonomousContainerDatabaseBackupConfig'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -172,6 +179,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [OCI::Database::Models::AutonomousContainerDatabaseBackupConfig] :backup_config The value to assign to the {#backup_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -265,6 +273,12 @@ module OCI
 
       self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
 
+      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
+
+      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
+
+      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
+
       self.backup_config = attributes[:'backupConfig'] if attributes[:'backupConfig']
 
       raise 'You cannot provide both :backupConfig and :backup_config' if attributes.key?(:'backupConfig') && attributes.key?(:'backup_config')
@@ -337,6 +351,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         availability_domain == other.availability_domain &&
+        db_version == other.db_version &&
         backup_config == other.backup_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -353,7 +368,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, lifecycle_state, lifecycle_details, time_created, patch_model, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, freeform_tags, defined_tags, availability_domain, backup_config].hash
+      [id, compartment_id, display_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, lifecycle_state, lifecycle_details, time_created, patch_model, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, freeform_tags, defined_tags, availability_domain, db_version, backup_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

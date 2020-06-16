@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -23,6 +24,13 @@ module OCI
       STATUS_CANCELLING = 'CANCELLING'.freeze,
       STATUS_CANCELED = 'CANCELED'.freeze,
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    OS_FAMILY_ENUM = [
+      OS_FAMILY_LINUX = 'LINUX'.freeze,
+      OS_FAMILY_WINDOWS = 'WINDOWS'.freeze,
+      OS_FAMILY_ALL = 'ALL'.freeze,
+      OS_FAMILY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** the type of operation this Work Request performs
@@ -63,6 +71,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_accepted
 
+    # The Operating System type of the managed instance.
+    # @return [String]
+    attr_reader :os_family
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -74,7 +86,8 @@ module OCI
         'description': :'description',
         'message': :'message',
         'percent_complete': :'percentComplete',
-        'time_accepted': :'timeAccepted'
+        'time_accepted': :'timeAccepted',
+        'os_family': :'osFamily'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -90,7 +103,8 @@ module OCI
         'description': :'String',
         'message': :'String',
         'percent_complete': :'Float',
-        'time_accepted': :'DateTime'
+        'time_accepted': :'DateTime',
+        'os_family': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -109,6 +123,7 @@ module OCI
     # @option attributes [String] :message The value to assign to the {#message} property
     # @option attributes [Float] :percent_complete The value to assign to the {#percent_complete} property
     # @option attributes [DateTime] :time_accepted The value to assign to the {#time_accepted} property
+    # @option attributes [String] :os_family The value to assign to the {#os_family} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -146,6 +161,12 @@ module OCI
       raise 'You cannot provide both :timeAccepted and :time_accepted' if attributes.key?(:'timeAccepted') && attributes.key?(:'time_accepted')
 
       self.time_accepted = attributes[:'time_accepted'] if attributes[:'time_accepted']
+
+      self.os_family = attributes[:'osFamily'] if attributes[:'osFamily']
+
+      raise 'You cannot provide both :osFamily and :os_family' if attributes.key?(:'osFamily') && attributes.key?(:'os_family')
+
+      self.os_family = attributes[:'os_family'] if attributes[:'os_family']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -176,6 +197,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] os_family Object to be assigned
+    def os_family=(os_family)
+      # rubocop:disable Style/ConditionalAssignment
+      if os_family && !OS_FAMILY_ENUM.include?(os_family)
+        OCI.logger.debug("Unknown value for 'os_family' [" + os_family + "]. Mapping to 'OS_FAMILY_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @os_family = OS_FAMILY_UNKNOWN_ENUM_VALUE
+      else
+        @os_family = os_family
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -192,7 +226,8 @@ module OCI
         description == other.description &&
         message == other.message &&
         percent_complete == other.percent_complete &&
-        time_accepted == other.time_accepted
+        time_accepted == other.time_accepted &&
+        os_family == other.os_family
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -208,7 +243,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [operation_type, status, id, compartment_id, description, message, percent_complete, time_accepted].hash
+      [operation_type, status, id, compartment_id, description, message, percent_complete, time_accepted, os_family].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

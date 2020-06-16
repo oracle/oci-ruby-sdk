@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -39,14 +40,14 @@ module OCI
     # @return [String]
     attr_accessor :key_id
 
-    # The key version's current state.
+    # The key version's current lifecycle state.
     #
     # Example: `ENABLED`
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** The source of the key material. When this value is INTERNAL, OCI KMS created the key material. When this value is EXTERNAL, the key material was imported
+    # **[Required]** The source of the key material. When this value is INTERNAL, Key Management created the key material. When this value is EXTERNAL, the key material was imported from an external source.
     # @return [String]
     attr_reader :origin
 

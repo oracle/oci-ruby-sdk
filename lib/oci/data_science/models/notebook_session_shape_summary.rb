@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -20,7 +21,7 @@ module OCI
     # **[Required]** The amount of memory in GBs associated with this notebook session shape.
     #
     # @return [Integer]
-    attr_accessor :memory_in_g_bs
+    attr_accessor :memory_in_gbs
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -28,7 +29,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'core_count': :'coreCount',
-        'memory_in_g_bs': :'memoryInGBs'
+        'memory_in_gbs': :'memoryInGBs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -39,7 +40,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'core_count': :'Integer',
-        'memory_in_g_bs': :'Integer'
+        'memory_in_gbs': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,7 +53,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Integer] :core_count The value to assign to the {#core_count} property
-    # @option attributes [Integer] :memory_in_g_bs The value to assign to the {#memory_in_g_bs} property
+    # @option attributes [Integer] :memory_in_gbs The value to assign to the {#memory_in_gbs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -67,11 +68,11 @@ module OCI
 
       self.core_count = attributes[:'core_count'] if attributes[:'core_count']
 
-      self.memory_in_g_bs = attributes[:'memoryInGBs'] if attributes[:'memoryInGBs']
+      self.memory_in_gbs = attributes[:'memoryInGBs'] if attributes[:'memoryInGBs']
 
-      raise 'You cannot provide both :memoryInGBs and :memory_in_g_bs' if attributes.key?(:'memoryInGBs') && attributes.key?(:'memory_in_g_bs')
+      raise 'You cannot provide both :memoryInGBs and :memory_in_gbs' if attributes.key?(:'memoryInGBs') && attributes.key?(:'memory_in_gbs')
 
-      self.memory_in_g_bs = attributes[:'memory_in_g_bs'] if attributes[:'memory_in_g_bs']
+      self.memory_in_gbs = attributes[:'memory_in_gbs'] if attributes[:'memory_in_gbs']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -87,7 +88,7 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         core_count == other.core_count &&
-        memory_in_g_bs == other.memory_in_g_bs
+        memory_in_gbs == other.memory_in_gbs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -103,7 +104,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, core_count, memory_in_g_bs].hash
+      [name, core_count, memory_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

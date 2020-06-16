@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require_relative 'create_auto_scaling_policy_details'
@@ -22,6 +23,7 @@ module OCI
         'capacity': :'capacity',
         'display_name': :'displayName',
         'policy_type': :'policyType',
+        'is_enabled': :'isEnabled',
         'rules': :'rules'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -34,6 +36,7 @@ module OCI
         'capacity': :'OCI::Autoscaling::Models::Capacity',
         'display_name': :'String',
         'policy_type': :'String',
+        'is_enabled': :'BOOLEAN',
         'rules': :'Array<OCI::Autoscaling::Models::CreateConditionDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -47,6 +50,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::Autoscaling::Models::Capacity] :capacity The value to assign to the {OCI::Autoscaling::Models::CreateAutoScalingPolicyDetails#capacity #capacity} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::Autoscaling::Models::CreateAutoScalingPolicyDetails#display_name #display_name} proprety
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {OCI::Autoscaling::Models::CreateAutoScalingPolicyDetails#is_enabled #is_enabled} proprety
     # @option attributes [Array<OCI::Autoscaling::Models::CreateConditionDetails>] :rules The value to assign to the {#rules} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -75,6 +79,7 @@ module OCI
         capacity == other.capacity &&
         display_name == other.display_name &&
         policy_type == other.policy_type &&
+        is_enabled == other.is_enabled &&
         rules == other.rules
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -91,7 +96,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [capacity, display_name, policy_type, rules].hash
+      [capacity, display_name, policy_type, is_enabled, rules].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

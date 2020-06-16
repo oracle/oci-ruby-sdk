@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -38,6 +39,11 @@ module OCI
     # @return [Array<Integer>]
     attr_accessor :hours_of_day
 
+    # Lead time window allows user to set a lead time to prepare for a down time. The lead time is in weeks and valid value is between 1 to 4.
+    #
+    # @return [Integer]
+    attr_accessor :lead_time_in_weeks
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -46,7 +52,8 @@ module OCI
         'months': :'months',
         'weeks_of_month': :'weeksOfMonth',
         'days_of_week': :'daysOfWeek',
-        'hours_of_day': :'hoursOfDay'
+        'hours_of_day': :'hoursOfDay',
+        'lead_time_in_weeks': :'leadTimeInWeeks'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -59,7 +66,8 @@ module OCI
         'months': :'Array<OCI::Database::Models::Month>',
         'weeks_of_month': :'Array<Integer>',
         'days_of_week': :'Array<OCI::Database::Models::DayOfWeek>',
-        'hours_of_day': :'Array<Integer>'
+        'hours_of_day': :'Array<Integer>',
+        'lead_time_in_weeks': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,6 +83,7 @@ module OCI
     # @option attributes [Array<Integer>] :weeks_of_month The value to assign to the {#weeks_of_month} property
     # @option attributes [Array<OCI::Database::Models::DayOfWeek>] :days_of_week The value to assign to the {#days_of_week} property
     # @option attributes [Array<Integer>] :hours_of_day The value to assign to the {#hours_of_day} property
+    # @option attributes [Integer] :lead_time_in_weeks The value to assign to the {#lead_time_in_weeks} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -103,6 +112,12 @@ module OCI
       raise 'You cannot provide both :hoursOfDay and :hours_of_day' if attributes.key?(:'hoursOfDay') && attributes.key?(:'hours_of_day')
 
       self.hours_of_day = attributes[:'hours_of_day'] if attributes[:'hours_of_day']
+
+      self.lead_time_in_weeks = attributes[:'leadTimeInWeeks'] if attributes[:'leadTimeInWeeks']
+
+      raise 'You cannot provide both :leadTimeInWeeks and :lead_time_in_weeks' if attributes.key?(:'leadTimeInWeeks') && attributes.key?(:'lead_time_in_weeks')
+
+      self.lead_time_in_weeks = attributes[:'lead_time_in_weeks'] if attributes[:'lead_time_in_weeks']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -133,7 +148,8 @@ module OCI
         months == other.months &&
         weeks_of_month == other.weeks_of_month &&
         days_of_week == other.days_of_week &&
-        hours_of_day == other.hours_of_day
+        hours_of_day == other.hours_of_day &&
+        lead_time_in_weeks == other.lead_time_in_weeks
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -149,7 +165,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [preference, months, weeks_of_month, days_of_week, hours_of_day].hash
+      [preference, months, weeks_of_month, days_of_week, hours_of_day, lead_time_in_weeks].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

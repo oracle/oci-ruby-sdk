@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
 
@@ -121,6 +122,16 @@ module OCI
           raise OCI::InvalidConfigError, "The format of #{name} is invalid."
         end
       end
+    end
+
+    def self.validate_and_build_config_with_signer(config, signer)
+      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner) || \
+                                   signer.is_a?(OCI::Auth::Signers::SecurityTokenSigner)
+      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner) || \
+                                    signer.is_a?(OCI::Auth::Signers::SecurityTokenSigner)
+      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner) || \
+                             signer.is_a?(OCI::Auth::Signers::SecurityTokenSigner)
+      config
     end
   end
 end

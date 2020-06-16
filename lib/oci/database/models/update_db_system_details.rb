@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -9,6 +10,11 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::UpdateDbSystemDetails
+    LICENSE_MODEL_ENUM = [
+      LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
+      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
+    ].freeze
+
     # The new number of CPU cores to set for the DB system. Not applicable for virtual machine DB systems.
     # @return [Integer]
     attr_accessor :cpu_core_count
@@ -59,6 +65,14 @@ module OCI
     # @return [Array<String>]
     attr_accessor :backup_network_nsg_ids
 
+    # The Oracle Database license model that applies to all databases on the DB system. The default is LICENSE_INCLUDED.
+    #
+    # @return [String]
+    attr_reader :license_model
+
+    # @return [OCI::Database::Models::MaintenanceWindow]
+    attr_accessor :maintenance_window_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -71,7 +85,9 @@ module OCI
         'defined_tags': :'definedTags',
         'shape': :'shape',
         'nsg_ids': :'nsgIds',
-        'backup_network_nsg_ids': :'backupNetworkNsgIds'
+        'backup_network_nsg_ids': :'backupNetworkNsgIds',
+        'license_model': :'licenseModel',
+        'maintenance_window_details': :'maintenanceWindowDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -88,7 +104,9 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'shape': :'String',
         'nsg_ids': :'Array<String>',
-        'backup_network_nsg_ids': :'Array<String>'
+        'backup_network_nsg_ids': :'Array<String>',
+        'license_model': :'String',
+        'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -108,6 +126,8 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
+    # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -159,9 +179,29 @@ module OCI
       raise 'You cannot provide both :backupNetworkNsgIds and :backup_network_nsg_ids' if attributes.key?(:'backupNetworkNsgIds') && attributes.key?(:'backup_network_nsg_ids')
 
       self.backup_network_nsg_ids = attributes[:'backup_network_nsg_ids'] if attributes[:'backup_network_nsg_ids']
+
+      self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
+
+      raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
+
+      self.license_model = attributes[:'license_model'] if attributes[:'license_model']
+
+      self.maintenance_window_details = attributes[:'maintenanceWindowDetails'] if attributes[:'maintenanceWindowDetails']
+
+      raise 'You cannot provide both :maintenanceWindowDetails and :maintenance_window_details' if attributes.key?(:'maintenanceWindowDetails') && attributes.key?(:'maintenance_window_details')
+
+      self.maintenance_window_details = attributes[:'maintenance_window_details'] if attributes[:'maintenance_window_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license_model Object to be assigned
+    def license_model=(license_model)
+      raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
+
+      @license_model = license_model
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -180,7 +220,9 @@ module OCI
         defined_tags == other.defined_tags &&
         shape == other.shape &&
         nsg_ids == other.nsg_ids &&
-        backup_network_nsg_ids == other.backup_network_nsg_ids
+        backup_network_nsg_ids == other.backup_network_nsg_ids &&
+        license_model == other.license_model &&
+        maintenance_window_details == other.maintenance_window_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -196,7 +238,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, version, ssh_public_keys, data_storage_size_in_gbs, freeform_tags, defined_tags, shape, nsg_ids, backup_network_nsg_ids].hash
+      [cpu_core_count, version, ssh_public_keys, data_storage_size_in_gbs, freeform_tags, defined_tags, shape, nsg_ids, backup_network_nsg_ids, license_model, maintenance_window_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

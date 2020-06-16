@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -76,6 +77,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The date and time when the latest database backup was created.
+    # @return [DateTime]
+    attr_accessor :last_backup_timestamp
+
     # @return [OCI::Database::Models::DbBackupConfig]
     attr_accessor :db_backup_config
 
@@ -115,6 +120,7 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
+        'last_backup_timestamp': :'lastBackupTimestamp',
         'db_backup_config': :'dbBackupConfig',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -141,6 +147,7 @@ module OCI
         'lifecycle_details': :'String',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
+        'last_backup_timestamp': :'DateTime',
         'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -169,6 +176,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :last_backup_timestamp The value to assign to the {#last_backup_timestamp} property
     # @option attributes [OCI::Database::Models::DbBackupConfig] :db_backup_config The value to assign to the {#db_backup_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -256,6 +264,12 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
+      self.last_backup_timestamp = attributes[:'lastBackupTimestamp'] if attributes[:'lastBackupTimestamp']
+
+      raise 'You cannot provide both :lastBackupTimestamp and :last_backup_timestamp' if attributes.key?(:'lastBackupTimestamp') && attributes.key?(:'last_backup_timestamp')
+
+      self.last_backup_timestamp = attributes[:'last_backup_timestamp'] if attributes[:'last_backup_timestamp']
+
       self.db_backup_config = attributes[:'dbBackupConfig'] if attributes[:'dbBackupConfig']
 
       raise 'You cannot provide both :dbBackupConfig and :db_backup_config' if attributes.key?(:'dbBackupConfig') && attributes.key?(:'db_backup_config')
@@ -319,6 +333,7 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
+        last_backup_timestamp == other.last_backup_timestamp &&
         db_backup_config == other.db_backup_config &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -338,7 +353,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_system_id, vm_cluster_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, db_backup_config, freeform_tags, defined_tags, connection_strings].hash
+      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_system_id, vm_cluster_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, last_backup_timestamp, db_backup_config, freeform_tags, defined_tags, connection_strings].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

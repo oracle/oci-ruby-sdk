@@ -1,12 +1,17 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # APIs for dynamically scaling Compute resources to meet application requirements.
-  # For information about the Compute service, see [Overview of the Compute Service](/Content/Compute/Concepts/computeoverview.htm).
+  # APIs for dynamically scaling Compute resources to meet application requirements. For more information about
+  # autoscaling, see [Autoscaling](/Content/Compute/Tasks/autoscalinginstancepools.htm). For information about the
+  # Compute service, see [Overview of the Compute Service](/Content/Compute/Concepts/computeoverview.htm).
+  #
+  # **Note:** Autoscaling is not available in US Government Cloud tenancies. For more information, see
+  # [Oracle Cloud Infrastructure US Government Cloud](/Content/General/Concepts/govoverview.htm).
   class Autoscaling::AutoScalingClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -51,16 +56,14 @@ module OCI
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
     def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
-      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner or SecurityTokenSigner and no config was supplied (they are self-sufficient signers)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
       # pass it to this constructor.
       #
       # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
       # so try and load the config from the default file.
-      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
       if signer.nil?
         signer = OCI::Signer.new(
@@ -542,22 +545,22 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
-    #
+    #    (default to null)
     # @option opts [String] :opc_request_id
     # @option opts [Integer] :limit For list pagination. The maximum number of items to return in a paginated \"List\" call. For important details
     #   about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
+    #    (default to 15)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
     #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
+    #    (default to null)
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
     #   sort order is case sensitive.
-    #
+    #    (default to [DISPLAYNAME])
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
     #   is case sensitive.
-    #
+    #    (default to [ASC])
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Autoscaling::Models::AutoScalingConfigurationSummary AutoScalingConfigurationSummary}>
     def list_auto_scaling_configurations(compartment_id, opts = {})
@@ -626,22 +629,22 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
-    #
+    #    (default to null)
     # @option opts [String] :opc_request_id
     # @option opts [Integer] :limit For list pagination. The maximum number of items to return in a paginated \"List\" call. For important details
     #   about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
+    #    (default to 15)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
     #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
+    #    (default to null)
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
     #   sort order is case sensitive.
-    #
+    #    (default to [DISPLAYNAME])
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
     #   is case sensitive.
-    #
+    #    (default to [ASC])
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Autoscaling::Models::AutoScalingPolicySummary AutoScalingPolicySummary}>
     def list_auto_scaling_policies(auto_scaling_configuration_id, opts = {})

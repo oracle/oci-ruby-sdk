@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # This script provides a basic example on how to work with reserved and ephemeral public IPs in the Python SDK by:
 #
@@ -64,26 +65,19 @@ def create_vcn_and_subnet(virtual_network, compartment_id, availability_domain)
 end
 
 def delete_vcn_and_subnet(virtual_network, vcn_and_subnet)
+  virtual_network_composite = OCI::Core::VirtualNetworkClientCompositeOperations.new(virtual_network)
+
   vcn = vcn_and_subnet[:vcn]
   subnet = vcn_and_subnet[:subnet]
 
-  get_subnet_response = virtual_network.get_subnet(subnet.id)
-  virtual_network.delete_subnet(subnet.id)
-  get_subnet_response.wait_until(
-    :lifecycle_state,
-    OCI::Core::Models::Subnet::LIFECYCLE_STATE_TERMINATED,
-    # For a deletion, the record may no longer be available and the waiter may encounter a 404 when trying to retrieve it.
-    # This flag tells the waiter to consider 404s as successful (which is only really valid for delete/terminate since
-    # the record not being there anymore can signify a successful delete/terminate)
-    succeed_on_not_found: true
+  virtual_network_composite.delete_subnet_and_wait_for_state(
+    subnet.id,
+    [OCI::Core::Models::Subnet::LIFECYCLE_STATE_TERMINATED]
   )
 
-  get_vcn_response = virtual_network.get_subnet(vcn.id)
-  virtual_network.delete_vcn(vcn.id)
-  get_vcn_response.wait_until(
-    :lifecycle_state,
-    OCI::Core::Models::Vcn::LIFECYCLE_STATE_TERMINATED,
-    succeed_on_not_found: true
+  virtual_network_composite.delete_vcn_and_wait_for_state(
+    vcn.id,
+    [OCI::Core::Models::Vcn::LIFECYCLE_STATE_TERMINATED]
   )
 end
 

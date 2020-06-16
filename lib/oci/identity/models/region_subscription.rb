@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -19,30 +20,18 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The region's key.
+    # **[Required]** The region's key. See [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm)
+    # for the full list of supported 3-letter region codes.
     #
-    # Allowed values are:
-    # - `PHX`
-    # - `IAD`
-    # - `FRA`
-    # - `LHR`
-    # - `YYZ`
-    # - `NRT`
-    # - `ICN`
+    # Example: `PHX`
     #
     # @return [String]
     attr_accessor :region_key
 
-    # **[Required]** The region's name.
+    # **[Required]** The region's name. See [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm)
+    # for the full list of supported region names.
     #
-    # Allowed values are:
-    # - `ap-seoul-1`
-    # - `ap-tokyo-1`
-    # - `ca-toronto-1`
-    # - `eu-frankurt-1`
-    # - `uk-london-1`
-    # - `us-ashburn-1`
-    # - `us-phoenix-1`
+    # Example: `us-phoenix-1`
     #
     # @return [String]
     attr_accessor :region_name
