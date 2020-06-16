@@ -1,11 +1,13 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # OS Management as a Service API definition
+  # API for the OS Management service. Use these API operations for working
+  # with Managed instances and Managed instance groups.
   class OsManagement::OsManagementClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -50,16 +52,14 @@ module OCI
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
     def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
-      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner or SecurityTokenSigner and no config was supplied (they are self-sufficient signers)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
       # pass it to this constructor.
       #
       # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
       # so try and load the config from the default file.
-      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
       if signer.nil?
         signer = OCI::Signer.new(
@@ -1463,6 +1463,60 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a Windows Update object.
+    #
+    # @param [String] windows_update The Windows Update
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::OsManagement::Models::WindowsUpdate WindowsUpdate}
+    def get_windows_update(windows_update, opts = {})
+      logger.debug 'Calling operation OsManagementClient#get_windows_update.' if logger
+
+      raise "Missing the required parameter 'windows_update' when calling get_windows_update." if windows_update.nil?
+      raise "Parameter value for 'windows_update' must not be blank" if OCI::Internal::Util.blank_string?(windows_update)
+
+      path = '/updates/{windowsUpdate}'.sub('{windowsUpdate}', windows_update.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#get_windows_update') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::OsManagement::Models::WindowsUpdate'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the detailed information for the work request with the given ID.
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -1556,6 +1610,67 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#install_all_package_updates_on_managed_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Install all of the available Windows updates for the managed instance.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    def install_all_windows_updates_on_managed_instance(managed_instance_id, opts = {})
+      logger.debug 'Calling operation OsManagementClient#install_all_windows_updates_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling install_all_windows_updates_on_managed_instance." if managed_instance_id.nil?
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/actions/updates/installAll'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#install_all_windows_updates_on_managed_instance') do
         @api_client.call_api(
           :POST,
           path,
@@ -1705,6 +1820,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Installs a Windows update on a managed instance.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [String] windows_update_name Unique identifier for the Windows update. NOTE - This is not an OCID,
+    #   but is a unique identifier assigned by Microsoft.
+    #   Example: `6981d463-cd91-4a26-b7c4-ea4ded9183ed`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    def install_windows_update_on_managed_instance(managed_instance_id, windows_update_name, opts = {})
+      logger.debug 'Calling operation OsManagementClient#install_windows_update_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling install_windows_update_on_managed_instance." if managed_instance_id.nil?
+      raise "Missing the required parameter 'windows_update_name' when calling install_windows_update_on_managed_instance." if windows_update_name.nil?
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/actions/updates/install'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:windowsUpdateName] = windows_update_name
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#install_windows_update_on_managed_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of packages available for install on the Managed Instance.
     #
     # @param [String] managed_instance_id OCID for the managed instance
@@ -1715,7 +1897,7 @@ module OCI
     #
     #   Example: `My new resource`
     #
-    # @option opts [String] :compartment_id The ID of the compartment in which to list resources.
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
@@ -1795,7 +1977,7 @@ module OCI
     #
     #   Example: `My new resource`
     #
-    # @option opts [String] :compartment_id The ID of the compartment in which to list resources.
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
@@ -1875,7 +2057,7 @@ module OCI
     #
     #   Example: `My new resource`
     #
-    # @option opts [String] :compartment_id The ID of the compartment in which to list resources.
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
@@ -1945,6 +2127,92 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of available Windows updates for a Managed Instance. This is only applicable to Windows instances.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
+    #
+    #   Example: `My new resource`
+    #
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :is_eligible_for_installation Indicator of whether the update can be installed using OSMS.
+    # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::AvailableWindowsUpdateSummary AvailableWindowsUpdateSummary}>
+    def list_available_windows_updates_for_managed_instance(managed_instance_id, opts = {})
+      logger.debug 'Calling operation OsManagementClient#list_available_windows_updates_for_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling list_available_windows_updates_for_managed_instance." if managed_instance_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:is_eligible_for_installation] && !OCI::OsManagement::Models::IS_ELIGIBLE_FOR_INSTALLATION_ENUM.include?(opts[:is_eligible_for_installation])
+        raise 'Invalid value for "is_eligible_for_installation", must be one of the values in OCI::OsManagement::Models::IS_ELIGIBLE_FOR_INSTALLATION_ENUM.'
+      end
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/updates/available'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:isEligibleForInstallation] = opts[:is_eligible_for_installation] if opts[:is_eligible_for_installation]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#list_available_windows_updates_for_managed_instance') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::OsManagement::Models::AvailableWindowsUpdateSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of all Managed Instance Groups.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -1964,6 +2232,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :lifecycle_state The current lifecycle state for the object.
+    # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ManagedInstanceGroupSummary ManagedInstanceGroupSummary}>
     def list_managed_instance_groups(compartment_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_managed_instance_groups.' if logger
@@ -1982,6 +2251,10 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::OsManagement::Models::LIFECYCLE_STATES_ENUM.'
       end
 
+      if opts[:os_family] && !OCI::OsManagement::Models::OS_FAMILIES_ENUM.include?(opts[:os_family])
+        raise 'Invalid value for "os_family", must be one of the values in OCI::OsManagement::Models::OS_FAMILIES_ENUM.'
+      end
+
       path = '/managedInstanceGroups'
       operation_signing_strategy = :standard
 
@@ -1995,6 +2268,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:osFamily] = opts[:os_family] if opts[:os_family]
 
       # Header Params
       header_params = {}
@@ -2047,6 +2321,7 @@ module OCI
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ManagedInstanceSummary ManagedInstanceSummary}>
     def list_managed_instances(compartment_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_managed_instances.' if logger
@@ -2061,6 +2336,10 @@ module OCI
         raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
       end
 
+      if opts[:os_family] && !OCI::OsManagement::Models::OS_FAMILIES_ENUM.include?(opts[:os_family])
+        raise 'Invalid value for "os_family", must be one of the values in OCI::OsManagement::Models::OS_FAMILIES_ENUM.'
+      end
+
       path = '/managedInstances'
       operation_signing_strategy = :standard
 
@@ -2073,6 +2352,7 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:osFamily] = opts[:os_family] if opts[:os_family]
 
       # Header Params
       header_params = {}
@@ -2117,7 +2397,7 @@ module OCI
     #
     #   Example: `My new resource`
     #
-    # @option opts [String] :compartment_id The ID of the compartment in which to list resources.
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
@@ -2209,6 +2489,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :lifecycle_state The current lifecycle state for the object.
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ScheduledJobSummary ScheduledJobSummary}>
     def list_scheduled_jobs(compartment_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_scheduled_jobs.' if logger
@@ -2231,6 +2512,10 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::OsManagement::Models::LIFECYCLE_STATES_ENUM.'
       end
 
+      if opts[:os_family] && !OCI::OsManagement::Models::OS_FAMILIES_ENUM.include?(opts[:os_family])
+        raise 'Invalid value for "os_family", must be one of the values in OCI::OsManagement::Models::OS_FAMILIES_ENUM.'
+      end
+
       path = '/scheduledJobs'
       operation_signing_strategy = :standard
 
@@ -2247,6 +2532,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:osFamily] = opts[:os_family] if opts[:os_family]
 
       # Header Params
       header_params = {}
@@ -2287,7 +2573,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id The ID of the compartment in which to list resources.
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
     # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
     #
     #   Example: `My new resource`
@@ -2470,6 +2756,7 @@ module OCI
     # @option opts [String] :tag_value The value for the tag.
     # @option opts [String] :lifecycle_state The current lifecycle state for the object.
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ScheduledJobSummary ScheduledJobSummary}>
     def list_upcoming_scheduled_jobs(compartment_id, time_end, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_upcoming_scheduled_jobs.' if logger
@@ -2489,6 +2776,10 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::OsManagement::Models::LIFECYCLE_STATES_ENUM.'
       end
 
+      if opts[:os_family] && !OCI::OsManagement::Models::OS_FAMILIES_ENUM.include?(opts[:os_family])
+        raise 'Invalid value for "os_family", must be one of the values in OCI::OsManagement::Models::OS_FAMILIES_ENUM.'
+      end
+
       path = '/scheduledJobs/upcomingSchedules'
       operation_signing_strategy = :standard
 
@@ -2505,6 +2796,7 @@ module OCI
       query_params[:tagName] = opts[:tag_name] if opts[:tag_name]
       query_params[:tagValue] = opts[:tag_value] if opts[:tag_value]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:osFamily] = opts[:os_family] if opts[:os_family]
 
       # Header Params
       header_params = {}
@@ -2526,6 +2818,163 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::OsManagement::Models::ScheduledJobSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of Windows Updates.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
+    # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
+    #
+    #   Example: `My new resource`
+    #
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::WindowsUpdateSummary WindowsUpdateSummary}>
+    def list_windows_updates(opts = {})
+      logger.debug 'Calling operation OsManagementClient#list_windows_updates.' if logger
+
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      path = '/updates'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#list_windows_updates') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::OsManagement::Models::WindowsUpdateSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of installed Windows updates for a Managed Instance. This is only applicable to Windows instances.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
+    #
+    #   Example: `My new resource`
+    #
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::InstalledWindowsUpdateSummary InstalledWindowsUpdateSummary}>
+    def list_windows_updates_installed_on_managed_instance(managed_instance_id, opts = {})
+      logger.debug 'Calling operation OsManagementClient#list_windows_updates_installed_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling list_windows_updates_installed_on_managed_instance." if managed_instance_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/updates/installed'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#list_windows_updates_installed_on_managed_instance') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::OsManagement::Models::InstalledWindowsUpdateSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2702,6 +3151,7 @@ module OCI
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::WorkRequestSummary WorkRequestSummary}>
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_work_requests.' if logger
@@ -2714,6 +3164,10 @@ module OCI
 
       if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
         raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:os_family] && !OCI::OsManagement::Models::OS_FAMILIES_ENUM.include?(opts[:os_family])
+        raise 'Invalid value for "os_family", must be one of the values in OCI::OsManagement::Models::OS_FAMILIES_ENUM.'
       end
 
       path = '/workRequests'
@@ -2729,6 +3183,7 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:osFamily] = opts[:os_family] if opts[:os_family]
 
       # Header Params
       header_params = {}

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
 require 'logger'
@@ -50,16 +51,14 @@ module OCI
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
     def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
-      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner or SecurityTokenSigner and no config was supplied (they are self-sufficient signers)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
       # pass it to this constructor.
       #
       # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
       # so try and load the config from the default file.
-      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
       if signer.nil?
         signer = OCI::Signer.new(
@@ -275,70 +274,6 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # Starts the provisioning of a new stream archiver.
-    # To track the progress of the provisioning, you can periodically call {#get_archiver get_archiver}.
-    # In the response, the `lifecycleState` parameter of the {Archiver} object tells you its current state.
-    #
-    # @param [String] stream_id The OCID of the stream.
-    #
-    # @param [OCI::Streaming::Models::CreateArchiverDetails] create_archiver_details A stream archiver parameters to create.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
-    #   particular request, please provide the request ID.
-    #
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations (for example, if a resource has been deleted and purged from the system, then a retry of the original creation request may be rejected).
-    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Archiver Archiver}
-    def create_archiver(stream_id, create_archiver_details, opts = {})
-      logger.debug 'Calling operation StreamAdminClient#create_archiver.' if logger
-
-      raise "Missing the required parameter 'stream_id' when calling create_archiver." if stream_id.nil?
-      raise "Missing the required parameter 'create_archiver_details' when calling create_archiver." if create_archiver_details.nil?
-      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
-
-      path = '/streams/{streamId}/archiver'.sub('{streamId}', stream_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
-
-      post_body = @api_client.object_to_http_body(create_archiver_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#create_archiver') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Streaming::Models::Archiver'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -700,63 +635,6 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # Returns the current state of the stream archiver.
-    #
-    # @param [String] stream_id The OCID of the stream.
-    #
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
-    #   particular request, please provide the request ID.
-    #
-    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Archiver Archiver}
-    def get_archiver(stream_id, opts = {})
-      logger.debug 'Calling operation StreamAdminClient#get_archiver.' if logger
-
-      raise "Missing the required parameter 'stream_id' when calling get_archiver." if stream_id.nil?
-      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
-
-      path = '/streams/{streamId}/archiver'.sub('{streamId}', stream_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#get_archiver') do
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Streaming::Models::Archiver'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1194,185 +1072,6 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Streaming::Models::StreamSummary>'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # Start the archiver for the specified stream.
-    #
-    # @param [String] stream_id The OCID of the stream.
-    #
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
-    #   particular request, please provide the request ID.
-    #
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the if-match parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
-    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Archiver Archiver}
-    def start_archiver(stream_id, opts = {})
-      logger.debug 'Calling operation StreamAdminClient#start_archiver.' if logger
-
-      raise "Missing the required parameter 'stream_id' when calling start_archiver." if stream_id.nil?
-      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
-
-      path = '/streams/{streamId}/archiver/actions/start'.sub('{streamId}', stream_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#start_archiver') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Streaming::Models::Archiver'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # Stop the archiver for the specified stream.
-    #
-    # @param [String] stream_id The OCID of the stream.
-    #
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
-    #   particular request, please provide the request ID.
-    #
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the if-match parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
-    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Archiver Archiver}
-    def stop_archiver(stream_id, opts = {})
-      logger.debug 'Calling operation StreamAdminClient#stop_archiver.' if logger
-
-      raise "Missing the required parameter 'stream_id' when calling stop_archiver." if stream_id.nil?
-      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
-
-      path = '/streams/{streamId}/archiver/actions/stop'.sub('{streamId}', stream_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#stop_archiver') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Streaming::Models::Archiver'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # Update the stream archiver parameters.
-    #
-    # @param [String] stream_id The OCID of the stream.
-    #
-    # @param [OCI::Streaming::Models::UpdateArchiverDetails] update_archiver_details The new parameters of the stream archiver.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
-    #   particular request, please provide the request ID.
-    #
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the if-match parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
-    # @return [Response] A Response object with data of type {OCI::Streaming::Models::Archiver Archiver}
-    def update_archiver(stream_id, update_archiver_details, opts = {})
-      logger.debug 'Calling operation StreamAdminClient#update_archiver.' if logger
-
-      raise "Missing the required parameter 'stream_id' when calling update_archiver." if stream_id.nil?
-      raise "Missing the required parameter 'update_archiver_details' when calling update_archiver." if update_archiver_details.nil?
-      raise "Parameter value for 'stream_id' must not be blank" if OCI::Internal::Util.blank_string?(stream_id)
-
-      path = '/streams/{streamId}/archiver'.sub('{streamId}', stream_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = @api_client.object_to_http_body(update_archiver_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StreamAdminClient#update_archiver') do
-        @api_client.call_api(
-          :PUT,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Streaming::Models::Archiver'
         )
       end
       # rubocop:enable Metrics/BlockLength

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -27,6 +28,7 @@ module OCI
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_MAINTENANCE_IN_PROGRESS = 'MAINTENANCE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_RESTARTING = 'RESTARTING'.freeze,
+      LIFECYCLE_STATE_UPGRADING = 'UPGRADING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -181,6 +183,10 @@ module OCI
     # @return [String]
     attr_accessor :private_endpoint_label
 
+    # The private endpoint Ip address for the resource.
+    # @return [String]
+    attr_accessor :private_endpoint_ip
+
     # A valid Oracle Database version for Autonomous Database.
     # @return [String]
     attr_accessor :db_version
@@ -223,6 +229,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_maintenance_end
 
+    # List of Oracle Database versions available for a database upgrade. If there are no version upgrades available, this list is empty.
+    # @return [Array<String>]
+    attr_accessor :available_upgrade_versions
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -253,6 +263,7 @@ module OCI
         'nsg_ids': :'nsgIds',
         'private_endpoint': :'privateEndpoint',
         'private_endpoint_label': :'privateEndpointLabel',
+        'private_endpoint_ip': :'privateEndpointIp',
         'db_version': :'dbVersion',
         'is_preview': :'isPreview',
         'db_workload': :'dbWorkload',
@@ -260,7 +271,8 @@ module OCI
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'data_safe_status': :'dataSafeStatus',
         'time_maintenance_begin': :'timeMaintenanceBegin',
-        'time_maintenance_end': :'timeMaintenanceEnd'
+        'time_maintenance_end': :'timeMaintenanceEnd',
+        'available_upgrade_versions': :'availableUpgradeVersions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -295,6 +307,7 @@ module OCI
         'nsg_ids': :'Array<String>',
         'private_endpoint': :'String',
         'private_endpoint_label': :'String',
+        'private_endpoint_ip': :'String',
         'db_version': :'String',
         'is_preview': :'BOOLEAN',
         'db_workload': :'String',
@@ -302,7 +315,8 @@ module OCI
         'is_auto_scaling_enabled': :'BOOLEAN',
         'data_safe_status': :'String',
         'time_maintenance_begin': :'DateTime',
-        'time_maintenance_end': :'DateTime'
+        'time_maintenance_end': :'DateTime',
+        'available_upgrade_versions': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -339,6 +353,7 @@ module OCI
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [String] :private_endpoint The value to assign to the {#private_endpoint} property
     # @option attributes [String] :private_endpoint_label The value to assign to the {#private_endpoint_label} property
+    # @option attributes [String] :private_endpoint_ip The value to assign to the {#private_endpoint_ip} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [BOOLEAN] :is_preview The value to assign to the {#is_preview} property
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
@@ -347,6 +362,7 @@ module OCI
     # @option attributes [String] :data_safe_status The value to assign to the {#data_safe_status} property
     # @option attributes [DateTime] :time_maintenance_begin The value to assign to the {#time_maintenance_begin} property
     # @option attributes [DateTime] :time_maintenance_end The value to assign to the {#time_maintenance_end} property
+    # @option attributes [Array<String>] :available_upgrade_versions The value to assign to the {#available_upgrade_versions} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -507,6 +523,12 @@ module OCI
 
       self.private_endpoint_label = attributes[:'private_endpoint_label'] if attributes[:'private_endpoint_label']
 
+      self.private_endpoint_ip = attributes[:'privateEndpointIp'] if attributes[:'privateEndpointIp']
+
+      raise 'You cannot provide both :privateEndpointIp and :private_endpoint_ip' if attributes.key?(:'privateEndpointIp') && attributes.key?(:'private_endpoint_ip')
+
+      self.private_endpoint_ip = attributes[:'private_endpoint_ip'] if attributes[:'private_endpoint_ip']
+
       self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
 
       raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
@@ -554,6 +576,12 @@ module OCI
       raise 'You cannot provide both :timeMaintenanceEnd and :time_maintenance_end' if attributes.key?(:'timeMaintenanceEnd') && attributes.key?(:'time_maintenance_end')
 
       self.time_maintenance_end = attributes[:'time_maintenance_end'] if attributes[:'time_maintenance_end']
+
+      self.available_upgrade_versions = attributes[:'availableUpgradeVersions'] if attributes[:'availableUpgradeVersions']
+
+      raise 'You cannot provide both :availableUpgradeVersions and :available_upgrade_versions' if attributes.key?(:'availableUpgradeVersions') && attributes.key?(:'available_upgrade_versions')
+
+      self.available_upgrade_versions = attributes[:'available_upgrade_versions'] if attributes[:'available_upgrade_versions']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -645,6 +673,7 @@ module OCI
         nsg_ids == other.nsg_ids &&
         private_endpoint == other.private_endpoint &&
         private_endpoint_label == other.private_endpoint_label &&
+        private_endpoint_ip == other.private_endpoint_ip &&
         db_version == other.db_version &&
         is_preview == other.is_preview &&
         db_workload == other.db_workload &&
@@ -652,7 +681,8 @@ module OCI
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         data_safe_status == other.data_safe_status &&
         time_maintenance_begin == other.time_maintenance_begin &&
-        time_maintenance_end == other.time_maintenance_end
+        time_maintenance_end == other.time_maintenance_end &&
+        available_upgrade_versions == other.available_upgrade_versions
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -668,7 +698,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, cpu_core_count, data_storage_size_in_tbs, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, db_version, is_preview, db_workload, whitelisted_ips, is_auto_scaling_enabled, data_safe_status, time_maintenance_begin, time_maintenance_end].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, cpu_core_count, data_storage_size_in_tbs, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, whitelisted_ips, is_auto_scaling_enabled, data_safe_status, time_maintenance_begin, time_maintenance_end, available_upgrade_versions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

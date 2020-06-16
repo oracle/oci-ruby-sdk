@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -39,14 +40,17 @@ module OCI
     # @return [String]
     attr_accessor :key_id
 
-    # The key version's current state.
+    # The key version's current lifecycle state.
     #
     # Example: `ENABLED`
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The source of the key material. When this value is INTERNAL, OCI KMS created the key material. When this value is EXTERNAL, the key material was imported
+    # The source of the key material. When this value is `INTERNAL`, Key Management
+    # created the key material. When this value is `EXTERNAL`, the key material
+    # was imported from an external source.
+    #
     # @return [String]
     attr_reader :origin
 
@@ -67,6 +71,10 @@ module OCI
     # @return [String]
     attr_accessor :vault_id
 
+    # The OCID of the key version from which this key version was restored.
+    # @return [String]
+    attr_accessor :restored_from_key_version_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -78,7 +86,8 @@ module OCI
         'origin': :'origin',
         'time_created': :'timeCreated',
         'time_of_deletion': :'timeOfDeletion',
-        'vault_id': :'vaultId'
+        'vault_id': :'vaultId',
+        'restored_from_key_version_id': :'restoredFromKeyVersionId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -94,7 +103,8 @@ module OCI
         'origin': :'String',
         'time_created': :'DateTime',
         'time_of_deletion': :'DateTime',
-        'vault_id': :'String'
+        'vault_id': :'String',
+        'restored_from_key_version_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -113,6 +123,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
+    # @option attributes [String] :restored_from_key_version_id The value to assign to the {#restored_from_key_version_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -158,6 +169,12 @@ module OCI
       raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
 
       self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
+
+      self.restored_from_key_version_id = attributes[:'restoredFromKeyVersionId'] if attributes[:'restoredFromKeyVersionId']
+
+      raise 'You cannot provide both :restoredFromKeyVersionId and :restored_from_key_version_id' if attributes.key?(:'restoredFromKeyVersionId') && attributes.key?(:'restored_from_key_version_id')
+
+      self.restored_from_key_version_id = attributes[:'restored_from_key_version_id'] if attributes[:'restored_from_key_version_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -204,7 +221,8 @@ module OCI
         origin == other.origin &&
         time_created == other.time_created &&
         time_of_deletion == other.time_of_deletion &&
-        vault_id == other.vault_id
+        vault_id == other.vault_id &&
+        restored_from_key_version_id == other.restored_from_key_version_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -220,7 +238,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, id, key_id, lifecycle_state, origin, time_created, time_of_deletion, vault_id].hash
+      [compartment_id, id, key_id, lifecycle_state, origin, time_created, time_of_deletion, vault_id, restored_from_key_version_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -35,6 +36,34 @@ module OCI
     # @return [Integer]
     attr_accessor :core_count_increment
 
+    # The minimum number of CPU cores that can be enabled per node for this shape.
+    # @return [Integer]
+    attr_accessor :min_core_count_per_node
+
+    # The maximum memory that can be enabled for this shape.
+    # @return [Integer]
+    attr_accessor :available_memory_in_gbs
+
+    # The minimum memory that need be allocated per node for this shape.
+    # @return [Integer]
+    attr_accessor :min_memory_per_node_in_g_bs
+
+    # The maximum Db Node storage that can be enabled for this shape.
+    # @return [Integer]
+    attr_accessor :available_db_node_storage_in_g_bs
+
+    # The minimum Db Node storage that need be allocated per node for this shape.
+    # @return [Integer]
+    attr_accessor :min_db_node_storage_per_node_in_g_bs
+
+    # The maximum DATA storage that can be enabled for this shape.
+    # @return [Integer]
+    attr_accessor :available_data_storage_in_t_bs
+
+    # The minimum data storage that need be allocated for this shape.
+    # @return [Integer]
+    attr_accessor :min_data_storage_in_t_bs
+
     # The minimum number of database nodes available for this shape.
     # @return [Integer]
     attr_accessor :minimum_node_count
@@ -53,6 +82,13 @@ module OCI
         'available_core_count': :'availableCoreCount',
         'minimum_core_count': :'minimumCoreCount',
         'core_count_increment': :'coreCountIncrement',
+        'min_core_count_per_node': :'minCoreCountPerNode',
+        'available_memory_in_gbs': :'availableMemoryInGBs',
+        'min_memory_per_node_in_g_bs': :'minMemoryPerNodeInGBs',
+        'available_db_node_storage_in_g_bs': :'availableDbNodeStorageInGBs',
+        'min_db_node_storage_per_node_in_g_bs': :'minDbNodeStoragePerNodeInGBs',
+        'available_data_storage_in_t_bs': :'availableDataStorageInTBs',
+        'min_data_storage_in_t_bs': :'minDataStorageInTBs',
         'minimum_node_count': :'minimumNodeCount',
         'maximum_node_count': :'maximumNodeCount'
         # rubocop:enable Style/SymbolLiteral
@@ -69,6 +105,13 @@ module OCI
         'available_core_count': :'Integer',
         'minimum_core_count': :'Integer',
         'core_count_increment': :'Integer',
+        'min_core_count_per_node': :'Integer',
+        'available_memory_in_gbs': :'Integer',
+        'min_memory_per_node_in_g_bs': :'Integer',
+        'available_db_node_storage_in_g_bs': :'Integer',
+        'min_db_node_storage_per_node_in_g_bs': :'Integer',
+        'available_data_storage_in_t_bs': :'Integer',
+        'min_data_storage_in_t_bs': :'Integer',
         'minimum_node_count': :'Integer',
         'maximum_node_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
@@ -87,6 +130,13 @@ module OCI
     # @option attributes [Integer] :available_core_count The value to assign to the {#available_core_count} property
     # @option attributes [Integer] :minimum_core_count The value to assign to the {#minimum_core_count} property
     # @option attributes [Integer] :core_count_increment The value to assign to the {#core_count_increment} property
+    # @option attributes [Integer] :min_core_count_per_node The value to assign to the {#min_core_count_per_node} property
+    # @option attributes [Integer] :available_memory_in_gbs The value to assign to the {#available_memory_in_gbs} property
+    # @option attributes [Integer] :min_memory_per_node_in_g_bs The value to assign to the {#min_memory_per_node_in_g_bs} property
+    # @option attributes [Integer] :available_db_node_storage_in_g_bs The value to assign to the {#available_db_node_storage_in_g_bs} property
+    # @option attributes [Integer] :min_db_node_storage_per_node_in_g_bs The value to assign to the {#min_db_node_storage_per_node_in_g_bs} property
+    # @option attributes [Integer] :available_data_storage_in_t_bs The value to assign to the {#available_data_storage_in_t_bs} property
+    # @option attributes [Integer] :min_data_storage_in_t_bs The value to assign to the {#min_data_storage_in_t_bs} property
     # @option attributes [Integer] :minimum_node_count The value to assign to the {#minimum_node_count} property
     # @option attributes [Integer] :maximum_node_count The value to assign to the {#maximum_node_count} property
     def initialize(attributes = {})
@@ -123,6 +173,48 @@ module OCI
 
       self.core_count_increment = attributes[:'core_count_increment'] if attributes[:'core_count_increment']
 
+      self.min_core_count_per_node = attributes[:'minCoreCountPerNode'] if attributes[:'minCoreCountPerNode']
+
+      raise 'You cannot provide both :minCoreCountPerNode and :min_core_count_per_node' if attributes.key?(:'minCoreCountPerNode') && attributes.key?(:'min_core_count_per_node')
+
+      self.min_core_count_per_node = attributes[:'min_core_count_per_node'] if attributes[:'min_core_count_per_node']
+
+      self.available_memory_in_gbs = attributes[:'availableMemoryInGBs'] if attributes[:'availableMemoryInGBs']
+
+      raise 'You cannot provide both :availableMemoryInGBs and :available_memory_in_gbs' if attributes.key?(:'availableMemoryInGBs') && attributes.key?(:'available_memory_in_gbs')
+
+      self.available_memory_in_gbs = attributes[:'available_memory_in_gbs'] if attributes[:'available_memory_in_gbs']
+
+      self.min_memory_per_node_in_g_bs = attributes[:'minMemoryPerNodeInGBs'] if attributes[:'minMemoryPerNodeInGBs']
+
+      raise 'You cannot provide both :minMemoryPerNodeInGBs and :min_memory_per_node_in_g_bs' if attributes.key?(:'minMemoryPerNodeInGBs') && attributes.key?(:'min_memory_per_node_in_g_bs')
+
+      self.min_memory_per_node_in_g_bs = attributes[:'min_memory_per_node_in_g_bs'] if attributes[:'min_memory_per_node_in_g_bs']
+
+      self.available_db_node_storage_in_g_bs = attributes[:'availableDbNodeStorageInGBs'] if attributes[:'availableDbNodeStorageInGBs']
+
+      raise 'You cannot provide both :availableDbNodeStorageInGBs and :available_db_node_storage_in_g_bs' if attributes.key?(:'availableDbNodeStorageInGBs') && attributes.key?(:'available_db_node_storage_in_g_bs')
+
+      self.available_db_node_storage_in_g_bs = attributes[:'available_db_node_storage_in_g_bs'] if attributes[:'available_db_node_storage_in_g_bs']
+
+      self.min_db_node_storage_per_node_in_g_bs = attributes[:'minDbNodeStoragePerNodeInGBs'] if attributes[:'minDbNodeStoragePerNodeInGBs']
+
+      raise 'You cannot provide both :minDbNodeStoragePerNodeInGBs and :min_db_node_storage_per_node_in_g_bs' if attributes.key?(:'minDbNodeStoragePerNodeInGBs') && attributes.key?(:'min_db_node_storage_per_node_in_g_bs')
+
+      self.min_db_node_storage_per_node_in_g_bs = attributes[:'min_db_node_storage_per_node_in_g_bs'] if attributes[:'min_db_node_storage_per_node_in_g_bs']
+
+      self.available_data_storage_in_t_bs = attributes[:'availableDataStorageInTBs'] if attributes[:'availableDataStorageInTBs']
+
+      raise 'You cannot provide both :availableDataStorageInTBs and :available_data_storage_in_t_bs' if attributes.key?(:'availableDataStorageInTBs') && attributes.key?(:'available_data_storage_in_t_bs')
+
+      self.available_data_storage_in_t_bs = attributes[:'available_data_storage_in_t_bs'] if attributes[:'available_data_storage_in_t_bs']
+
+      self.min_data_storage_in_t_bs = attributes[:'minDataStorageInTBs'] if attributes[:'minDataStorageInTBs']
+
+      raise 'You cannot provide both :minDataStorageInTBs and :min_data_storage_in_t_bs' if attributes.key?(:'minDataStorageInTBs') && attributes.key?(:'min_data_storage_in_t_bs')
+
+      self.min_data_storage_in_t_bs = attributes[:'min_data_storage_in_t_bs'] if attributes[:'min_data_storage_in_t_bs']
+
       self.minimum_node_count = attributes[:'minimumNodeCount'] if attributes[:'minimumNodeCount']
 
       raise 'You cannot provide both :minimumNodeCount and :minimum_node_count' if attributes.key?(:'minimumNodeCount') && attributes.key?(:'minimum_node_count')
@@ -153,6 +245,13 @@ module OCI
         available_core_count == other.available_core_count &&
         minimum_core_count == other.minimum_core_count &&
         core_count_increment == other.core_count_increment &&
+        min_core_count_per_node == other.min_core_count_per_node &&
+        available_memory_in_gbs == other.available_memory_in_gbs &&
+        min_memory_per_node_in_g_bs == other.min_memory_per_node_in_g_bs &&
+        available_db_node_storage_in_g_bs == other.available_db_node_storage_in_g_bs &&
+        min_db_node_storage_per_node_in_g_bs == other.min_db_node_storage_per_node_in_g_bs &&
+        available_data_storage_in_t_bs == other.available_data_storage_in_t_bs &&
+        min_data_storage_in_t_bs == other.min_data_storage_in_t_bs &&
         minimum_node_count == other.minimum_node_count &&
         maximum_node_count == other.maximum_node_count
     end
@@ -170,7 +269,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, shape_family, shape, available_core_count, minimum_core_count, core_count_increment, minimum_node_count, maximum_node_count].hash
+      [name, shape_family, shape, available_core_count, minimum_core_count, core_count_increment, min_core_count_per_node, available_memory_in_gbs, min_memory_per_node_in_g_bs, available_db_node_storage_in_g_bs, min_db_node_storage_per_node_in_g_bs, available_data_storage_in_t_bs, min_data_storage_in_t_bs, minimum_node_count, maximum_node_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

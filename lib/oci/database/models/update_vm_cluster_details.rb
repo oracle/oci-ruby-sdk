@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -15,6 +16,18 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
+    # The memory to be allocated in GBs.
+    # @return [Integer]
+    attr_accessor :memory_size_in_gbs
+
+    # The local node storage to be allocated in GBs.
+    # @return [Integer]
+    attr_accessor :db_node_storage_size_in_gbs
+
+    # The data disk group size to be allocated in TBs.
+    # @return [Float]
+    attr_accessor :data_storage_size_in_tbs
+
     # The Oracle license model that applies to the VM cluster. The default is BRING_YOUR_OWN_LICENSE.
     #
     # @return [String]
@@ -23,6 +36,9 @@ module OCI
     # The public key portion of one or more key pairs used for SSH access to the VM cluster.
     # @return [Array<String>]
     attr_accessor :ssh_public_keys
+
+    # @return [OCI::Database::Models::PatchDetails]
+    attr_accessor :version
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -43,8 +59,12 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cpu_core_count': :'cpuCoreCount',
+        'memory_size_in_gbs': :'memorySizeInGBs',
+        'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
+        'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'license_model': :'licenseModel',
         'ssh_public_keys': :'sshPublicKeys',
+        'version': :'version',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -56,8 +76,12 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cpu_core_count': :'Integer',
+        'memory_size_in_gbs': :'Integer',
+        'db_node_storage_size_in_gbs': :'Integer',
+        'data_storage_size_in_tbs': :'Float',
         'license_model': :'String',
         'ssh_public_keys': :'Array<String>',
+        'version': :'OCI::Database::Models::PatchDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -71,8 +95,12 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
+    # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
+    # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
+    # @option attributes [OCI::Database::Models::PatchDetails] :version The value to assign to the {#version} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -87,6 +115,24 @@ module OCI
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
 
+      self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
+
+      raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
+
+      self.memory_size_in_gbs = attributes[:'memory_size_in_gbs'] if attributes[:'memory_size_in_gbs']
+
+      self.db_node_storage_size_in_gbs = attributes[:'dbNodeStorageSizeInGBs'] if attributes[:'dbNodeStorageSizeInGBs']
+
+      raise 'You cannot provide both :dbNodeStorageSizeInGBs and :db_node_storage_size_in_gbs' if attributes.key?(:'dbNodeStorageSizeInGBs') && attributes.key?(:'db_node_storage_size_in_gbs')
+
+      self.db_node_storage_size_in_gbs = attributes[:'db_node_storage_size_in_gbs'] if attributes[:'db_node_storage_size_in_gbs']
+
+      self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
+
+      raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
+
+      self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
       raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
@@ -98,6 +144,8 @@ module OCI
       raise 'You cannot provide both :sshPublicKeys and :ssh_public_keys' if attributes.key?(:'sshPublicKeys') && attributes.key?(:'ssh_public_keys')
 
       self.ssh_public_keys = attributes[:'ssh_public_keys'] if attributes[:'ssh_public_keys']
+
+      self.version = attributes[:'version'] if attributes[:'version']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -132,8 +180,12 @@ module OCI
 
       self.class == other.class &&
         cpu_core_count == other.cpu_core_count &&
+        memory_size_in_gbs == other.memory_size_in_gbs &&
+        db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
+        data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         license_model == other.license_model &&
         ssh_public_keys == other.ssh_public_keys &&
+        version == other.version &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -151,7 +203,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, license_model, ssh_public_keys, freeform_tags, defined_tags].hash
+      [cpu_core_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, license_model, ssh_public_keys, version, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -15,6 +16,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :display_name
+
+    # The paired destination region (pre-defined by oracle) for scheduled cross region backup calls. Example: `us-ashburn-1`
+    #
+    # @return [String]
+    attr_accessor :destination_region
 
     # The collection of schedules for the volume backup policy. See
     # see [Schedules](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#schedules) in
@@ -44,6 +50,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'destination_region': :'destinationRegion',
         'schedules': :'schedules',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags'
@@ -56,6 +63,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'destination_region': :'String',
         'schedules': :'Array<OCI::Core::Models::VolumeBackupSchedule>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>'
@@ -70,6 +78,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :destination_region The value to assign to the {#destination_region} property
     # @option attributes [Array<OCI::Core::Models::VolumeBackupSchedule>] :schedules The value to assign to the {#schedules} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -84,6 +93,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.destination_region = attributes[:'destinationRegion'] if attributes[:'destinationRegion']
+
+      raise 'You cannot provide both :destinationRegion and :destination_region' if attributes.key?(:'destinationRegion') && attributes.key?(:'destination_region')
+
+      self.destination_region = attributes[:'destination_region'] if attributes[:'destination_region']
 
       self.schedules = attributes[:'schedules'] if attributes[:'schedules']
 
@@ -112,6 +127,7 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        destination_region == other.destination_region &&
         schedules == other.schedules &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags
@@ -130,7 +146,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, schedules, defined_tags, freeform_tags].hash
+      [display_name, destination_region, schedules, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

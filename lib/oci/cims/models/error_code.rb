@@ -1,0 +1,27 @@
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
+
+module OCI
+  module Cims::Models
+    ERROR_CODE_ENUM = [
+      ERROR_CODE_CONTENT_EMPTY = 'CONTENT_EMPTY'.freeze,
+      ERROR_CODE_CLIENT_EXCEPTION = 'CLIENT_EXCEPTION'.freeze,
+      ERROR_CODE_INVALID_FORMAT = 'INVALID_FORMAT'.freeze,
+      ERROR_CODE_INVALID_JSON_INPUT = 'INVALID_JSON_INPUT'.freeze,
+      ERROR_CODE_SSL_AUTHORIZATION = 'SSL_AUTHORIZATION'.freeze,
+      ERROR_CODE_AUTH_FAILED = 'AUTH_FAILED'.freeze,
+      ERROR_CODE_CSI_NOT_AUTHORIZED = 'CSI_NOT_AUTHORIZED'.freeze,
+      ERROR_CODE_USER_POLICY_NOT_AUTHORIZED = 'USER_POLICY_NOT_AUTHORIZED'.freeze,
+      ERROR_CODE_EMAIL_NOT_VERIFIED = 'EMAIL_NOT_VERIFIED'.freeze,
+      ERROR_CODE_EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND'.freeze,
+      ERROR_CODE_IDCS_EMAIL_NOT_VALID = 'IDCS_EMAIL_NOT_VALID'.freeze,
+      ERROR_CODE_INVALID_PATH = 'INVALID_PATH'.freeze,
+      ERROR_CODE_METHOD_NOT_ALLOWED = 'METHOD_NOT_ALLOWED'.freeze,
+      ERROR_CODE_JSON_PROCESSING = 'JSON_PROCESSING'.freeze,
+      ERROR_CODE_GENERIC_EXCEPTION = 'GENERIC_EXCEPTION'.freeze,
+      ERROR_CODE_EXTERNAL_SERVICE_PROVIDER_UNAVAILABLE = 'EXTERNAL_SERVICE_PROVIDER_UNAVAILABLE'.freeze,
+      ERROR_CODE_EXTERNAL_SERVICE_PROVIDER_TIMEOUT = 'EXTERNAL_SERVICE_PROVIDER_TIMEOUT'.freeze,
+      ERROR_CODE_TOO_MANY_REQUESTS = 'TOO_MANY_REQUESTS'.freeze
+    ].freeze
+  end
+end

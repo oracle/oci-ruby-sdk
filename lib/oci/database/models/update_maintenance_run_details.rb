@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -11,11 +12,16 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
+    # The scheduled date and time of the Maintenance Run to update.
+    # @return [DateTime]
+    attr_accessor :time_scheduled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_enabled': :'isEnabled'
+        'is_enabled': :'isEnabled',
+        'time_scheduled': :'timeScheduled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +30,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_enabled': :'BOOLEAN'
+        'is_enabled': :'BOOLEAN',
+        'time_scheduled': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +43,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
+    # @option attributes [DateTime] :time_scheduled The value to assign to the {#time_scheduled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -47,6 +55,12 @@ module OCI
       raise 'You cannot provide both :isEnabled and :is_enabled' if attributes.key?(:'isEnabled') && attributes.key?(:'is_enabled')
 
       self.is_enabled = attributes[:'is_enabled'] unless attributes[:'is_enabled'].nil?
+
+      self.time_scheduled = attributes[:'timeScheduled'] if attributes[:'timeScheduled']
+
+      raise 'You cannot provide both :timeScheduled and :time_scheduled' if attributes.key?(:'timeScheduled') && attributes.key?(:'time_scheduled')
+
+      self.time_scheduled = attributes[:'time_scheduled'] if attributes[:'time_scheduled']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +74,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        is_enabled == other.is_enabled
+        is_enabled == other.is_enabled &&
+        time_scheduled == other.time_scheduled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +91,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_enabled].hash
+      [is_enabled, time_scheduled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

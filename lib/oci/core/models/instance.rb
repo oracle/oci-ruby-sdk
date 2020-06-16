@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -174,6 +175,9 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # @return [OCI::Core::Models::InstanceShapeConfig]
+    attr_accessor :shape_config
+
     # Details for creating an instance
     # @return [OCI::Core::Models::InstanceSourceDetails]
     attr_accessor :source_details
@@ -223,6 +227,7 @@ module OCI
         'metadata': :'metadata',
         'region': :'region',
         'shape': :'shape',
+        'shape_config': :'shapeConfig',
         'source_details': :'sourceDetails',
         'system_tags': :'systemTags',
         'time_created': :'timeCreated',
@@ -253,6 +258,7 @@ module OCI
         'metadata': :'Hash<String, String>',
         'region': :'String',
         'shape': :'String',
+        'shape_config': :'OCI::Core::Models::InstanceShapeConfig',
         'source_details': :'OCI::Core::Models::InstanceSourceDetails',
         'system_tags': :'Hash<String, Hash<String, Object>>',
         'time_created': :'DateTime',
@@ -285,6 +291,7 @@ module OCI
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     # @option attributes [String] :region The value to assign to the {#region} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [OCI::Core::Models::InstanceShapeConfig] :shape_config The value to assign to the {#shape_config} property
     # @option attributes [OCI::Core::Models::InstanceSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -382,6 +389,12 @@ module OCI
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
+      self.shape_config = attributes[:'shapeConfig'] if attributes[:'shapeConfig']
+
+      raise 'You cannot provide both :shapeConfig and :shape_config' if attributes.key?(:'shapeConfig') && attributes.key?(:'shape_config')
+
+      self.shape_config = attributes[:'shape_config'] if attributes[:'shape_config']
+
       self.source_details = attributes[:'sourceDetails'] if attributes[:'sourceDetails']
 
       raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
@@ -467,6 +480,7 @@ module OCI
         metadata == other.metadata &&
         region == other.region &&
         shape == other.shape &&
+        shape_config == other.shape_config &&
         source_details == other.source_details &&
         system_tags == other.system_tags &&
         time_created == other.time_created &&
@@ -487,7 +501,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, source_details, system_tags, time_created, agent_config, time_maintenance_reboot_due].hash
+      [availability_domain, compartment_id, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, shape_config, source_details, system_tags, time_created, agent_config, time_maintenance_reboot_due].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

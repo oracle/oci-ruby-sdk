@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -15,6 +16,13 @@ module OCI
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    STACK_DRIFT_STATUS_ENUM = [
+      STACK_DRIFT_STATUS_NOT_CHECKED = 'NOT_CHECKED'.freeze,
+      STACK_DRIFT_STATUS_IN_SYNC = 'IN_SYNC'.freeze,
+      STACK_DRIFT_STATUS_DRIFTED = 'DRIFTED'.freeze,
+      STACK_DRIFT_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # Unique identifier ([OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)) for the stack.
@@ -38,6 +46,9 @@ module OCI
     attr_accessor :time_created
 
     # The current lifecycle state of the stack.
+    # For more information about resource states in Resource Manager, see
+    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#concepts).
+    #
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -56,6 +67,18 @@ module OCI
     #
     # @return [String]
     attr_accessor :terraform_version
+
+    # Drift status of the stack.
+    # Drift refers to differences between the actual (current) state of the stack and the expected (defined) state of the stack.
+    #
+    # @return [String]
+    attr_reader :stack_drift_status
+
+    # Date and time when the drift detection was last executed. Format is defined by RFC3339.
+    # Example: 2020-01-25T21:10:29.600Z
+    #
+    # @return [DateTime]
+    attr_accessor :time_drift_last_checked
 
     # Free-form tags associated with the resource. Each tag is a key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
@@ -84,6 +107,8 @@ module OCI
         'config_source': :'configSource',
         'variables': :'variables',
         'terraform_version': :'terraformVersion',
+        'stack_drift_status': :'stackDriftStatus',
+        'time_drift_last_checked': :'timeDriftLastChecked',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -103,6 +128,8 @@ module OCI
         'config_source': :'OCI::ResourceManager::Models::ConfigSource',
         'variables': :'Hash<String, String>',
         'terraform_version': :'String',
+        'stack_drift_status': :'String',
+        'time_drift_last_checked': :'DateTime',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -124,6 +151,8 @@ module OCI
     # @option attributes [OCI::ResourceManager::Models::ConfigSource] :config_source The value to assign to the {#config_source} property
     # @option attributes [Hash<String, String>] :variables The value to assign to the {#variables} property
     # @option attributes [String] :terraform_version The value to assign to the {#terraform_version} property
+    # @option attributes [String] :stack_drift_status The value to assign to the {#stack_drift_status} property
+    # @option attributes [DateTime] :time_drift_last_checked The value to assign to the {#time_drift_last_checked} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -174,6 +203,18 @@ module OCI
 
       self.terraform_version = attributes[:'terraform_version'] if attributes[:'terraform_version']
 
+      self.stack_drift_status = attributes[:'stackDriftStatus'] if attributes[:'stackDriftStatus']
+
+      raise 'You cannot provide both :stackDriftStatus and :stack_drift_status' if attributes.key?(:'stackDriftStatus') && attributes.key?(:'stack_drift_status')
+
+      self.stack_drift_status = attributes[:'stack_drift_status'] if attributes[:'stack_drift_status']
+
+      self.time_drift_last_checked = attributes[:'timeDriftLastChecked'] if attributes[:'timeDriftLastChecked']
+
+      raise 'You cannot provide both :timeDriftLastChecked and :time_drift_last_checked' if attributes.key?(:'timeDriftLastChecked') && attributes.key?(:'time_drift_last_checked')
+
+      self.time_drift_last_checked = attributes[:'time_drift_last_checked'] if attributes[:'time_drift_last_checked']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -202,6 +243,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] stack_drift_status Object to be assigned
+    def stack_drift_status=(stack_drift_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if stack_drift_status && !STACK_DRIFT_STATUS_ENUM.include?(stack_drift_status)
+        OCI.logger.debug("Unknown value for 'stack_drift_status' [" + stack_drift_status + "]. Mapping to 'STACK_DRIFT_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @stack_drift_status = STACK_DRIFT_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @stack_drift_status = stack_drift_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -220,6 +274,8 @@ module OCI
         config_source == other.config_source &&
         variables == other.variables &&
         terraform_version == other.terraform_version &&
+        stack_drift_status == other.stack_drift_status &&
+        time_drift_last_checked == other.time_drift_last_checked &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -237,7 +293,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, time_created, lifecycle_state, config_source, variables, terraform_version, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, description, time_created, lifecycle_state, config_source, variables, terraform_version, stack_drift_status, time_drift_last_checked, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

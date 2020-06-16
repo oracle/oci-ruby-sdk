@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'base64'
 require 'openssl'
@@ -90,10 +91,10 @@ module OCI
         headers[:'content-length'] ||= if body.respond_to?(:read) && body.respond_to?(:write)
                                          body.respond_to?('size') ? body.size : body.stat.size
                                        else
-                                         body.length.to_s
+                                         body.bytes.length.to_s
                                        end
       else
-        headers[:'content-length'] ||= body.length.to_s
+        headers[:'content-length'] ||= body.bytes.length.to_s
         headers[:'x-content-sha256'] ||= OpenSSL::Digest::SHA256.new.update(body).base64digest
       end
     end

@@ -1,5 +1,7 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
+# Top level module for the Oracle Cloud Infrastructure SDK
 module OCI
-  VERSION = '2.8.0'.freeze
+  VERSION = ('2.9.0'.freeze unless ENV['RUBY_SDK_VERSION']) || ENV['RUBY_SDK_VERSION']
 end

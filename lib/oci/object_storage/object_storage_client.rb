@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
 require 'logger'
@@ -52,16 +53,14 @@ module OCI
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
     def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
-      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner or SecurityTokenSigner and no config was supplied (they are self-sufficient signers)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
       # pass it to this constructor.
       #
       # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
       # so try and load the config from the default file.
-      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
       if signer.nil?
         signer = OCI::Signer.new(
@@ -317,6 +316,30 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
+    #   decrypt the data. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
+    #   value is used to check the integrity of the encryption key. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_source_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm to use to decrypt the source
+    #   object. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_source_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to decrypt
+    #   the source object. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_source_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key used to
+    #   decrypt the source object. This value is used to check the integrity of the encryption key. For
+    #   more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
     # @return [Response] A Response object with data of type nil
     def copy_object(namespace_name, bucket_name, copy_object_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#copy_object.' if logger
@@ -339,6 +362,12 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
+      header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
+      header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
+      header_params[:'opc-source-sse-customer-algorithm'] = opts[:opc_source_sse_customer_algorithm] if opts[:opc_source_sse_customer_algorithm]
+      header_params[:'opc-source-sse-customer-key'] = opts[:opc_source_sse_customer_key] if opts[:opc_source_sse_customer_key]
+      header_params[:'opc-source-sse-customer-key-sha256'] = opts[:opc_source_sse_customer_key_sha256] if opts[:opc_source_sse_customer_key_sha256]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(copy_object_details)
@@ -441,6 +470,17 @@ module OCI
     #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
+    #   decrypt the data. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
+    #   value is used to check the integrity of the encryption key. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::MultipartUpload MultipartUpload}
     def create_multipart_upload(namespace_name, bucket_name, create_multipart_upload_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#create_multipart_upload.' if logger
@@ -465,6 +505,9 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
+      header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
+      header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_multipart_upload_details)
@@ -758,6 +801,7 @@ module OCI
     #   For uploading a part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [String] :version_id VersionId used to identify a particular version of the object
     # @return [Response] A Response object with data of type nil
     def delete_object(namespace_name, bucket_name, object_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#delete_object.' if logger
@@ -775,6 +819,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:versionId] = opts[:version_id] if opts[:version_id]
 
       # Header Params
       header_params = {}
@@ -1275,6 +1320,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :version_id VersionId used to identify a particular version of the object
     # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -1285,6 +1331,17 @@ module OCI
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :range Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/html/rfc7233#section-2.1).
     #   Note that only a single range of bytes is supported.
+    #
+    # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
+    #   decrypt the data. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
+    #   value is used to check the integrity of the encryption key. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
     #
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
@@ -1305,6 +1362,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:versionId] = opts[:version_id] if opts[:version_id]
 
       # Header Params
       header_params = {}
@@ -1316,6 +1374,9 @@ module OCI
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
       header_params[:range] = opts[:range] if opts[:range]
+      header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
+      header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
+      header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -1763,6 +1824,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :version_id VersionId used to identify a particular version of the object
     # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
     #   For uploading a part, this is the entity tag of the target part.
     #
@@ -1771,6 +1833,17 @@ module OCI
     #   part, this is the entity tag of the target part.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
+    #   decrypt the data. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
+    #   value is used to check the integrity of the encryption key. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
     # @return [Response] A Response object with data of type nil
     def head_object(namespace_name, bucket_name, object_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#head_object.' if logger
@@ -1788,6 +1861,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:versionId] = opts[:version_id] if opts[:version_id]
 
       # Header Params
       header_params = {}
@@ -1796,6 +1870,9 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
       header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
+      header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
+      header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -2039,6 +2116,100 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the object versions in a bucket.
+    #
+    # To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized,
+    # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
+    # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :prefix The string to use for matching against the start of object names in a list query.
+    # @option opts [String] :start Object names returned by a list query must be greater or equal to this parameter.
+    # @option opts [String] :_end Object names returned by a list query must be strictly less than this parameter.
+    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :delimiter When this parameter is set, only objects whose names do not contain the delimiter character
+    #   (after an optionally specified prefix) are returned in the objects key of the response body.
+    #   Scanned objects whose names contain the delimiter have the part of their name up to the first
+    #   occurrence of the delimiter (including the optional prefix) returned as a set of prefixes.
+    #   Note that only '/' is a supported delimiter character at this time.
+    #
+    # @option opts [String] :fields Object summary in list of objects includes the 'name' field. This parameter can also include 'size'
+    #   (object size in bytes), 'etag', 'md5', 'timeCreated' (object creation date and time) and 'timeModified'
+    #   (object modification date and time).
+    #   Value of this parameter should be a comma-separated, case-insensitive list of those field names.
+    #   For example 'name,etag,timeCreated,md5,timeModified'
+    #
+    #   Allowed values are: name, size, etag, timeCreated, md5, timeModified
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [String] :start_after Object names returned by a list query must be greater than this parameter.
+    # @option opts [String] :page The page at which to start retrieving results.
+    # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ObjectVersionCollection ObjectVersionCollection}
+    def list_object_versions(namespace_name, bucket_name, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#list_object_versions.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_object_versions." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling list_object_versions." if bucket_name.nil?
+
+      if opts[:fields] && !%w[name size etag timeCreated md5 timeModified].include?(opts[:fields])
+        raise 'Invalid value for "fields", must be one of name, size, etag, timeCreated, md5, timeModified.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/objectversions'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:prefix] = opts[:prefix] if opts[:prefix]
+      query_params[:start] = opts[:start] if opts[:start]
+      query_params[:end] = opts[:_end] if opts[:_end]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:delimiter] = opts[:delimiter] if opts[:delimiter]
+      query_params[:fields] = opts[:fields] if opts[:fields]
+      query_params[:startAfter] = opts[:start_after] if opts[:start_after]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#list_object_versions') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ObjectStorage::Models::ObjectVersionCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the objects in a bucket.
     #
     # To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized,
@@ -2063,11 +2234,13 @@ module OCI
     #   Note that only '/' is a supported delimiter character at this time.
     #
     # @option opts [String] :fields Object summary in list of objects includes the 'name' field. This parameter can also include 'size'
-    #   (object size in bytes), 'etag', 'md5', and 'timeCreated' (object creation date and time) fields.
+    #   (object size in bytes), 'etag', 'md5', 'timeCreated' (object creation date and time) and 'timeModified'
+    #   (object modification date and time).
     #   Value of this parameter should be a comma-separated, case-insensitive list of those field names.
-    #   For example 'name,etag,timeCreated,md5'.
+    #   For example 'name,etag,timeCreated,md5,timeModified'
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @option opts [String] :start_after Object names returned by a list query must be greater than this parameter.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ListObjects ListObjects}
     def list_objects(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_objects.' if logger
@@ -2089,6 +2262,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:delimiter] = opts[:delimiter] if opts[:delimiter]
       query_params[:fields] = opts[:fields] if opts[:fields]
+      query_params[:startAfter] = opts[:start_after] if opts[:start_after]
 
       # Header Params
       header_params = {}
@@ -2667,6 +2841,17 @@ module OCI
     #   that read the object determine what to do based on the value provided.
     #   For example, you could use this header to identify objects that require caching restrictions.
     #
+    # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
+    #   decrypt the data. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
+    #   value is used to check the integrity of the encryption key. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
     # @option opts [Hash<String, String>] :opc_meta Optional user-defined metadata key and value.
     #   "opc-meta-" will be appended to each Hash key before it is sent to the server.
     # @return [Response] A Response object with data of type nil
@@ -2702,6 +2887,9 @@ module OCI
       header_params[:'content-encoding'] = opts[:content_encoding] if opts[:content_encoding]
       header_params[:'content-disposition'] = opts[:content_disposition] if opts[:content_disposition]
       header_params[:'cache-control'] = opts[:cache_control] if opts[:cache_control]
+      header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
+      header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
+      header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
       # rubocop:enable Style/NegatedIf
 
       if opts[:opc_meta]
@@ -2820,6 +3008,7 @@ module OCI
     # objects created before the time of the API call will be re-encrypted. The call can take a long time, depending on how many
     # objects are in the bucket and how big they are. This API returns a work request ID that you can use to retrieve the status
     # of the work request task.
+    # All the versions of objects will be re-encrypted whether versioning is enabled or suspended at the bucket.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
@@ -3229,6 +3418,17 @@ module OCI
     #
     #   \"The computed MD5 of the request body (ACTUAL_MD5) does not match the Content-MD5 header (HEADER_MD5)\"
     #
+    # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
+    #   decrypt the data. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
+    #   value is used to check the integrity of the encryption key. For more information, see
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #
     # @return [Response] A Response object with data of type nil
     def upload_part(namespace_name, bucket_name, object_name, upload_id, upload_part_num, upload_part_body, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#upload_part.' if logger
@@ -3261,6 +3461,9 @@ module OCI
       header_params[:expect] = opts[:expect] if opts[:expect]
       header_params[:'content-length'] = opts[:content_length] if opts[:content_length]
       header_params[:'content-md5'] = opts[:content_md5] if opts[:content_md5]
+      header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
+      header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
+      header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
       # rubocop:enable Style/NegatedIf
       header_params[:'content-type'] ||= 'application/octet-stream'
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -26,13 +27,18 @@ module OCI
     # @return [String]
     attr_accessor :policy_type
 
+    # Boolean field indicating whether this policy is enabled or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'capacity': :'capacity',
         'display_name': :'displayName',
-        'policy_type': :'policyType'
+        'policy_type': :'policyType',
+        'is_enabled': :'isEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,7 +49,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'capacity': :'OCI::Autoscaling::Models::Capacity',
         'display_name': :'String',
-        'policy_type': :'String'
+        'policy_type': :'String',
+        'is_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -56,6 +63,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'policyType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Autoscaling::Models::CreateScheduledPolicyDetails' if type == 'scheduled'
       return 'OCI::Autoscaling::Models::CreateThresholdPolicyDetails' if type == 'threshold'
 
       # TODO: Log a warning when the subtype is not found.
@@ -72,6 +80,7 @@ module OCI
     # @option attributes [OCI::Autoscaling::Models::Capacity] :capacity The value to assign to the {#capacity} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :policy_type The value to assign to the {#policy_type} property
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -91,6 +100,14 @@ module OCI
       raise 'You cannot provide both :policyType and :policy_type' if attributes.key?(:'policyType') && attributes.key?(:'policy_type')
 
       self.policy_type = attributes[:'policy_type'] if attributes[:'policy_type']
+
+      self.is_enabled = attributes[:'isEnabled'] unless attributes[:'isEnabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEnabled and :is_enabled' if attributes.key?(:'isEnabled') && attributes.key?(:'is_enabled')
+
+      self.is_enabled = attributes[:'is_enabled'] unless attributes[:'is_enabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') && !attributes.key?(:'is_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -106,7 +123,8 @@ module OCI
       self.class == other.class &&
         capacity == other.capacity &&
         display_name == other.display_name &&
-        policy_type == other.policy_type
+        policy_type == other.policy_type &&
+        is_enabled == other.is_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -122,7 +140,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [capacity, display_name, policy_type].hash
+      [capacity, display_name, policy_type, is_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

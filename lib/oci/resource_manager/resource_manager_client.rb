@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
 require 'logger'
@@ -50,16 +51,14 @@ module OCI
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
     def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
-      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner or SecurityTokenSigner and no config was supplied (they are self-sufficient signers)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
       # pass it to this constructor.
       #
       # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
       # so try and load the config from the default file.
-      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
       if signer.nil?
         signer = OCI::Signer.new(
@@ -301,7 +300,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a stack in the specified comparment.
+    # Creates a stack in the specified compartment.
     # Specify the compartment using the compartment ID.
     # For more information, see [Create a Stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/usingconsole.htm#CreateStack).
     #
@@ -425,6 +424,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Checks drift status for the specified stack.
+    # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of retrying the same action. Retry tokens expire after
+    #   24 hours, but can be invalidated before then due to conflicting operations. For example,
+    #   if a resource has been deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    def detect_stack_drift(stack_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#detect_stack_drift.' if logger
+
+      raise "Missing the required parameter 'stack_id' when calling detect_stack_drift." if stack_id.nil?
+      raise "Parameter value for 'stack_id' must not be blank" if OCI::Internal::Util.blank_string?(stack_id)
+
+      path = '/stacks/{stackId}/actions/detectDrift'.sub('{stackId}', stack_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#detect_stack_drift') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns the specified job along with the job details.
     # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @param [Hash] opts the optional parameters
@@ -493,7 +559,7 @@ module OCI
     #
     # @option opts [String] :level_greater_than_or_equal_to A filter that returns only log entries that match a given severity level or greater.
     #
-    # @option opts [String] :sort_order The sort order, either `ASC` (ascending) or `DESC` (descending).
+    # @option opts [String] :sort_order The sort order to use when sorting returned resources. Ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
@@ -1155,7 +1221,8 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
-    # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) on which to filter.
+    # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
     # @option opts [String] :stack_id The stack [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) on which to filter.
     #
     # @option opts [String] :id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) on which to query for jobs.
@@ -1171,13 +1238,14 @@ module OCI
     #   - CANCELING
     #   - CANCELED
     #
-    # @option opts [String] :display_name Display name on which to query.
-    # @option opts [String] :sort_by Specifies the field on which to sort.
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [String] :sort_by The field to use when sorting returned resources.
     #   By default, `TIMECREATED` is ordered descending.
     #   By default, `DISPLAYNAME` is ordered ascending. Note that you can sort only on one field.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order, either `ASC` (ascending) or `DESC` (descending).
+    # @option opts [String] :sort_order The sort order to use when sorting returned resources. Ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
@@ -1252,6 +1320,80 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists drift status details for each resource defined in the specified stack.
+    # The drift status details for a given resource indicate differences, if any, between the actual state
+    # and the expected (defined) state for that resource.
+    #
+    # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [Array<OCI::ResourceManager::Models::OCI::ResourceManager::Models::StackResourceDriftSummaryResourceDriftStatus>] :resource_drift_status A filter that returns only resources that match the given drift status. The value is case-insensitive.
+    #   Allowable values -
+    #     - NOT_CHECKED
+    #     - MODIFIED
+    #     - IN_SYNC
+    #     - DELETED
+    #
+    # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
+    #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::StackResourceDriftCollection StackResourceDriftCollection}
+    def list_stack_resource_drift_details(stack_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#list_stack_resource_drift_details.' if logger
+
+      raise "Missing the required parameter 'stack_id' when calling list_stack_resource_drift_details." if stack_id.nil?
+      raise "Parameter value for 'stack_id' must not be blank" if OCI::Internal::Util.blank_string?(stack_id)
+
+      path = '/stacks/{stackId}/actions/listResourceDriftDetails'.sub('{stackId}', stack_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:resourceDriftStatus] = OCI::ApiClient.build_collection_params(opts[:resource_drift_status], :multi) if opts[:resource_drift_status] && !opts[:resource_drift_status].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#list_stack_resource_drift_details') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::StackResourceDriftCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of stacks.
     # - If called using the compartment ID, returns all stacks in the specified compartment.
     # - If called using the stack ID, returns the specified stack.
@@ -1262,11 +1404,13 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
-    # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) on which to filter.
+    # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
     # @option opts [String] :id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) on which to query for a stack.
     #
     # @option opts [String] :lifecycle_state A filter that returns only those resources that match the specified
     #   lifecycle state. The state value is case-insensitive.
+    #   For more information about stack lifecycle states, see [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#StackStates).
     #
     #   Allowable values:
     #   - CREATING
@@ -1274,13 +1418,14 @@ module OCI
     #   - DELETING
     #   - DELETED
     #
-    # @option opts [String] :display_name Display name on which to query.
-    # @option opts [String] :sort_by Specifies the field on which to sort.
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [String] :sort_by The field to use when sorting returned resources.
     #   By default, `TIMECREATED` is ordered descending.
     #   By default, `DISPLAYNAME` is ordered ascending. Note that you can sort only on one field.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order, either `ASC` (ascending) or `DESC` (descending).
+    # @option opts [String] :sort_order The sort order to use when sorting returned resources. Ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
@@ -1362,7 +1507,8 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
-    # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) on which to filter.
+    # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::TerraformVersionCollection TerraformVersionCollection}
     def list_terraform_versions(opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_terraform_versions.' if logger
@@ -1415,14 +1561,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) on which to filter.
+    # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
     # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
     #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :sort_order The sort order, either `ASC` (ascending) or `DESC` (descending).
+    # @option opts [String] :sort_order The sort order to use when sorting returned resources. Ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
@@ -1489,14 +1636,15 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) on which to filter.
+    # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
     # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
     #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [String] :sort_order The sort order, either `ASC` (ascending) or `DESC` (descending).
+    # @option opts [String] :sort_order The sort order to use when sorting returned resources. Ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
@@ -1559,7 +1707,8 @@ module OCI
 
     # Lists the work requests in a given compartment or for a given resource.
     #
-    # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) on which to filter.
+    # @param [String] compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # This script provides a basic example of how to use the DNS service in the Ruby SDK.
 # This will use credentials and settings from the DEFAULT profile at ~/.oci/config (on windows
@@ -59,16 +60,16 @@ pp create_response.data
 
 puts 'All Zones'
 puts '=' * 20
-dns_client.list_zones(zone_name).each do |response|
-  response.data.items.each { |r| pp r }
+dns_client.list_zones(compartment_id, name: zone_name).each do |response|
+  response.data.each { |r| pp r }
 end
 
 # We can also provide filter conditions and sort order to the list_zones operation. Here we filter based
 # on an exact name match and filter by the time the zone was created descending.
 puts 'Zones with sort and filter'
 puts '=' * 20
-dns_client.list_zones(zone_name, name: zone_name, sort_by: 'timeCreated', sort_order: 'DESC').each do |response|
-  response.data.items.each { |r| pp r }
+dns_client.list_zones(compartment_id, name: zone_name, sort_by: 'timeCreated', sort_order: 'DESC').each do |response|
+  response.data.each { |r| pp r }
 end
 
 # We can update records in the zone. This will overwrite any existing records. If there are items

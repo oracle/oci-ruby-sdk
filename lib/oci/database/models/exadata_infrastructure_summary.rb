@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -17,7 +18,7 @@ module OCI
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
-      LIFECYCLE_STATE_OFFLINE = 'OFFLINE'.freeze,
+      LIFECYCLE_STATE_DISCONNECTED = 'DISCONNECTED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -50,10 +51,34 @@ module OCI
     # @return [Integer]
     attr_accessor :cpus_enabled
 
+    # The total number of CPU cores available.
+    # @return [Integer]
+    attr_accessor :max_cpu_count
+
+    # The memory allocated in GBs.
+    # @return [Integer]
+    attr_accessor :memory_size_in_gbs
+
+    # The total memory available in GBs.
+    # @return [Integer]
+    attr_accessor :max_memory_in_gbs
+
+    # The local node storage allocated in GBs.
+    # @return [Integer]
+    attr_accessor :db_node_storage_size_in_gbs
+
+    # The total local node storage available in GBs.
+    # @return [Integer]
+    attr_accessor :max_db_node_storage_in_g_bs
+
     # Size, in terabytes, of the DATA disk group.
     #
-    # @return [Integer]
+    # @return [Float]
     attr_accessor :data_storage_size_in_tbs
+
+    # The total available DATA disk group size.
+    # @return [Float]
+    attr_accessor :max_data_storage_in_t_bs
 
     # The IP address for the first control plane server.
     # @return [String]
@@ -124,7 +149,13 @@ module OCI
         'shape': :'shape',
         'time_zone': :'timeZone',
         'cpus_enabled': :'cpusEnabled',
+        'max_cpu_count': :'maxCpuCount',
+        'memory_size_in_gbs': :'memorySizeInGBs',
+        'max_memory_in_gbs': :'maxMemoryInGBs',
+        'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
+        'max_db_node_storage_in_g_bs': :'maxDbNodeStorageInGBs',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'max_data_storage_in_t_bs': :'maxDataStorageInTBs',
         'cloud_control_plane_server1': :'cloudControlPlaneServer1',
         'cloud_control_plane_server2': :'cloudControlPlaneServer2',
         'netmask': :'netmask',
@@ -153,7 +184,13 @@ module OCI
         'shape': :'String',
         'time_zone': :'String',
         'cpus_enabled': :'Integer',
-        'data_storage_size_in_tbs': :'Integer',
+        'max_cpu_count': :'Integer',
+        'memory_size_in_gbs': :'Integer',
+        'max_memory_in_gbs': :'Integer',
+        'db_node_storage_size_in_gbs': :'Integer',
+        'max_db_node_storage_in_g_bs': :'Integer',
+        'data_storage_size_in_tbs': :'Float',
+        'max_data_storage_in_t_bs': :'Float',
         'cloud_control_plane_server1': :'String',
         'cloud_control_plane_server2': :'String',
         'netmask': :'String',
@@ -184,7 +221,13 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     # @option attributes [Integer] :cpus_enabled The value to assign to the {#cpus_enabled} property
-    # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Integer] :max_cpu_count The value to assign to the {#max_cpu_count} property
+    # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
+    # @option attributes [Integer] :max_memory_in_gbs The value to assign to the {#max_memory_in_gbs} property
+    # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
+    # @option attributes [Integer] :max_db_node_storage_in_g_bs The value to assign to the {#max_db_node_storage_in_g_bs} property
+    # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Float] :max_data_storage_in_t_bs The value to assign to the {#max_data_storage_in_t_bs} property
     # @option attributes [String] :cloud_control_plane_server1 The value to assign to the {#cloud_control_plane_server1} property
     # @option attributes [String] :cloud_control_plane_server2 The value to assign to the {#cloud_control_plane_server2} property
     # @option attributes [String] :netmask The value to assign to the {#netmask} property
@@ -238,11 +281,47 @@ module OCI
 
       self.cpus_enabled = attributes[:'cpus_enabled'] if attributes[:'cpus_enabled']
 
+      self.max_cpu_count = attributes[:'maxCpuCount'] if attributes[:'maxCpuCount']
+
+      raise 'You cannot provide both :maxCpuCount and :max_cpu_count' if attributes.key?(:'maxCpuCount') && attributes.key?(:'max_cpu_count')
+
+      self.max_cpu_count = attributes[:'max_cpu_count'] if attributes[:'max_cpu_count']
+
+      self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
+
+      raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
+
+      self.memory_size_in_gbs = attributes[:'memory_size_in_gbs'] if attributes[:'memory_size_in_gbs']
+
+      self.max_memory_in_gbs = attributes[:'maxMemoryInGBs'] if attributes[:'maxMemoryInGBs']
+
+      raise 'You cannot provide both :maxMemoryInGBs and :max_memory_in_gbs' if attributes.key?(:'maxMemoryInGBs') && attributes.key?(:'max_memory_in_gbs')
+
+      self.max_memory_in_gbs = attributes[:'max_memory_in_gbs'] if attributes[:'max_memory_in_gbs']
+
+      self.db_node_storage_size_in_gbs = attributes[:'dbNodeStorageSizeInGBs'] if attributes[:'dbNodeStorageSizeInGBs']
+
+      raise 'You cannot provide both :dbNodeStorageSizeInGBs and :db_node_storage_size_in_gbs' if attributes.key?(:'dbNodeStorageSizeInGBs') && attributes.key?(:'db_node_storage_size_in_gbs')
+
+      self.db_node_storage_size_in_gbs = attributes[:'db_node_storage_size_in_gbs'] if attributes[:'db_node_storage_size_in_gbs']
+
+      self.max_db_node_storage_in_g_bs = attributes[:'maxDbNodeStorageInGBs'] if attributes[:'maxDbNodeStorageInGBs']
+
+      raise 'You cannot provide both :maxDbNodeStorageInGBs and :max_db_node_storage_in_g_bs' if attributes.key?(:'maxDbNodeStorageInGBs') && attributes.key?(:'max_db_node_storage_in_g_bs')
+
+      self.max_db_node_storage_in_g_bs = attributes[:'max_db_node_storage_in_g_bs'] if attributes[:'max_db_node_storage_in_g_bs']
+
       self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
 
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.max_data_storage_in_t_bs = attributes[:'maxDataStorageInTBs'] if attributes[:'maxDataStorageInTBs']
+
+      raise 'You cannot provide both :maxDataStorageInTBs and :max_data_storage_in_t_bs' if attributes.key?(:'maxDataStorageInTBs') && attributes.key?(:'max_data_storage_in_t_bs')
+
+      self.max_data_storage_in_t_bs = attributes[:'max_data_storage_in_t_bs'] if attributes[:'max_data_storage_in_t_bs']
 
       self.cloud_control_plane_server1 = attributes[:'cloudControlPlaneServer1'] if attributes[:'cloudControlPlaneServer1']
 
@@ -346,7 +425,13 @@ module OCI
         shape == other.shape &&
         time_zone == other.time_zone &&
         cpus_enabled == other.cpus_enabled &&
+        max_cpu_count == other.max_cpu_count &&
+        memory_size_in_gbs == other.memory_size_in_gbs &&
+        max_memory_in_gbs == other.max_memory_in_gbs &&
+        db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
+        max_db_node_storage_in_g_bs == other.max_db_node_storage_in_g_bs &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        max_data_storage_in_t_bs == other.max_data_storage_in_t_bs &&
         cloud_control_plane_server1 == other.cloud_control_plane_server1 &&
         cloud_control_plane_server2 == other.cloud_control_plane_server2 &&
         netmask == other.netmask &&
@@ -375,7 +460,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, data_storage_size_in_tbs, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, freeform_tags, defined_tags].hash
+      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

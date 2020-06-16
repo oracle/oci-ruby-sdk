@@ -1,25 +1,25 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require_relative 'update_auto_scaling_policy_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An error related to a stream archiver.
-  class Streaming::Models::ArchiverError
-    # A short error code that defines the error, meant for programmatic parsing.
-    # @return [String]
-    attr_accessor :code
-
-    # A human-readable error string.
-    # @return [String]
-    attr_accessor :message
+  # UpdateScheduledPolicyDetails model.
+  class Autoscaling::Models::UpdateScheduledPolicyDetails < Autoscaling::Models::UpdateAutoScalingPolicyDetails
+    # @return [OCI::Autoscaling::Models::ExecutionSchedule]
+    attr_accessor :execution_schedule
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'code': :'code',
-        'message': :'message'
+        'display_name': :'displayName',
+        'capacity': :'capacity',
+        'policy_type': :'policyType',
+        'is_enabled': :'isEnabled',
+        'execution_schedule': :'executionSchedule'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -28,8 +28,11 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'code': :'String',
-        'message': :'String'
+        'display_name': :'String',
+        'capacity': :'OCI::Autoscaling::Models::Capacity',
+        'policy_type': :'String',
+        'is_enabled': :'BOOLEAN',
+        'execution_schedule': :'OCI::Autoscaling::Models::ExecutionSchedule'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -40,17 +43,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :code The value to assign to the {#code} property
-    # @option attributes [String] :message The value to assign to the {#message} property
+    # @option attributes [String] :display_name The value to assign to the {OCI::Autoscaling::Models::UpdateAutoScalingPolicyDetails#display_name #display_name} proprety
+    # @option attributes [OCI::Autoscaling::Models::Capacity] :capacity The value to assign to the {OCI::Autoscaling::Models::UpdateAutoScalingPolicyDetails#capacity #capacity} proprety
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {OCI::Autoscaling::Models::UpdateAutoScalingPolicyDetails#is_enabled #is_enabled} proprety
+    # @option attributes [OCI::Autoscaling::Models::ExecutionSchedule] :execution_schedule The value to assign to the {#execution_schedule} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
+
+      attributes['policyType'] = 'scheduled'
+
+      super(attributes)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.code = attributes[:'code'] if attributes[:'code']
+      self.execution_schedule = attributes[:'executionSchedule'] if attributes[:'executionSchedule']
 
-      self.message = attributes[:'message'] if attributes[:'message']
+      raise 'You cannot provide both :executionSchedule and :execution_schedule' if attributes.key?(:'executionSchedule') && attributes.key?(:'execution_schedule')
+
+      self.execution_schedule = attributes[:'execution_schedule'] if attributes[:'execution_schedule']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -64,8 +75,11 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        code == other.code &&
-        message == other.message
+        display_name == other.display_name &&
+        capacity == other.capacity &&
+        policy_type == other.policy_type &&
+        is_enabled == other.is_enabled &&
+        execution_schedule == other.execution_schedule
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -81,7 +95,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [code, message].hash
+      [display_name, capacity, policy_type, is_enabled, execution_schedule].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

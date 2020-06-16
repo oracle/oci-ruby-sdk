@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # This script provides an example on how to use tagging in the Ruby SDK to manage tags and tag namespaces, as
 # well as how to apply freeform and defined tags to a resource.
@@ -110,6 +111,8 @@ pp tag_two
 puts '********************************************'
 
 vcn_id = nil
+
+sleep(20)
 
 # We can assign freeform and defined tags at creation time. Freeform tags are a hash where the key (a string) is the tag
 # name and the value (a string) is the value to assign to the tag.

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -31,6 +32,10 @@ module OCI
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the last patch history. This value is updated as soon as a patch operation starts.
+    # @return [String]
+    attr_accessor :last_patch_history_entry_id
 
     # The current state of the VM cluster.
     # @return [String]
@@ -74,9 +79,17 @@ module OCI
     # @return [Integer]
     attr_accessor :cpus_enabled
 
+    # The memory allocated in GBs.
+    # @return [Integer]
+    attr_accessor :memory_size_in_gbs
+
+    # The local node storage allocated in GBs.
+    # @return [Integer]
+    attr_accessor :db_node_storage_size_in_gbs
+
     # Size, in terabytes, of the DATA disk group.
     #
-    # @return [Integer]
+    # @return [Float]
     attr_accessor :data_storage_size_in_tbs
 
     # The shape of the Exadata infrastructure. The shape determines the amount of CPU, storage, and memory resources allocated to the instance.
@@ -117,6 +130,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
         'compartment_id': :'compartmentId',
+        'last_patch_history_entry_id': :'lastPatchHistoryEntryId',
         'lifecycle_state': :'lifecycleState',
         'display_name': :'displayName',
         'time_created': :'timeCreated',
@@ -127,6 +141,8 @@ module OCI
         'is_sparse_diskgroup_enabled': :'isSparseDiskgroupEnabled',
         'vm_cluster_network_id': :'vmClusterNetworkId',
         'cpus_enabled': :'cpusEnabled',
+        'memory_size_in_gbs': :'memorySizeInGBs',
+        'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'shape': :'shape',
         'gi_version': :'giVersion',
@@ -144,6 +160,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
         'compartment_id': :'String',
+        'last_patch_history_entry_id': :'String',
         'lifecycle_state': :'String',
         'display_name': :'String',
         'time_created': :'DateTime',
@@ -154,7 +171,9 @@ module OCI
         'is_sparse_diskgroup_enabled': :'BOOLEAN',
         'vm_cluster_network_id': :'String',
         'cpus_enabled': :'Integer',
-        'data_storage_size_in_tbs': :'Integer',
+        'memory_size_in_gbs': :'Integer',
+        'db_node_storage_size_in_gbs': :'Integer',
+        'data_storage_size_in_tbs': :'Float',
         'shape': :'String',
         'gi_version': :'String',
         'ssh_public_keys': :'Array<String>',
@@ -173,6 +192,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :last_patch_history_entry_id The value to assign to the {#last_patch_history_entry_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -183,7 +203,9 @@ module OCI
     # @option attributes [BOOLEAN] :is_sparse_diskgroup_enabled The value to assign to the {#is_sparse_diskgroup_enabled} property
     # @option attributes [String] :vm_cluster_network_id The value to assign to the {#vm_cluster_network_id} property
     # @option attributes [Integer] :cpus_enabled The value to assign to the {#cpus_enabled} property
-    # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
+    # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
+    # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :gi_version The value to assign to the {#gi_version} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
@@ -200,6 +222,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.last_patch_history_entry_id = attributes[:'lastPatchHistoryEntryId'] if attributes[:'lastPatchHistoryEntryId']
+
+      raise 'You cannot provide both :lastPatchHistoryEntryId and :last_patch_history_entry_id' if attributes.key?(:'lastPatchHistoryEntryId') && attributes.key?(:'last_patch_history_entry_id')
+
+      self.last_patch_history_entry_id = attributes[:'last_patch_history_entry_id'] if attributes[:'last_patch_history_entry_id']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -260,6 +288,18 @@ module OCI
       raise 'You cannot provide both :cpusEnabled and :cpus_enabled' if attributes.key?(:'cpusEnabled') && attributes.key?(:'cpus_enabled')
 
       self.cpus_enabled = attributes[:'cpus_enabled'] if attributes[:'cpus_enabled']
+
+      self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
+
+      raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
+
+      self.memory_size_in_gbs = attributes[:'memory_size_in_gbs'] if attributes[:'memory_size_in_gbs']
+
+      self.db_node_storage_size_in_gbs = attributes[:'dbNodeStorageSizeInGBs'] if attributes[:'dbNodeStorageSizeInGBs']
+
+      raise 'You cannot provide both :dbNodeStorageSizeInGBs and :db_node_storage_size_in_gbs' if attributes.key?(:'dbNodeStorageSizeInGBs') && attributes.key?(:'db_node_storage_size_in_gbs')
+
+      self.db_node_storage_size_in_gbs = attributes[:'db_node_storage_size_in_gbs'] if attributes[:'db_node_storage_size_in_gbs']
 
       self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
 
@@ -339,6 +379,7 @@ module OCI
       self.class == other.class &&
         id == other.id &&
         compartment_id == other.compartment_id &&
+        last_patch_history_entry_id == other.last_patch_history_entry_id &&
         lifecycle_state == other.lifecycle_state &&
         display_name == other.display_name &&
         time_created == other.time_created &&
@@ -349,6 +390,8 @@ module OCI
         is_sparse_diskgroup_enabled == other.is_sparse_diskgroup_enabled &&
         vm_cluster_network_id == other.vm_cluster_network_id &&
         cpus_enabled == other.cpus_enabled &&
+        memory_size_in_gbs == other.memory_size_in_gbs &&
+        db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         shape == other.shape &&
         gi_version == other.gi_version &&
@@ -371,7 +414,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, vm_cluster_network_id, cpus_enabled, data_storage_size_in_tbs, shape, gi_version, ssh_public_keys, license_model, freeform_tags, defined_tags].hash
+      [id, compartment_id, last_patch_history_entry_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, vm_cluster_network_id, cpus_enabled, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, shape, gi_version, ssh_public_keys, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

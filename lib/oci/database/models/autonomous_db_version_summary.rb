@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -35,6 +36,10 @@ module OCI
     # @return [String]
     attr_accessor :details
 
+    # True if this version of the Oracle Database software can be used for Always-Free Autonomous Databases.
+    # @return [BOOLEAN]
+    attr_accessor :is_free_tier_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -42,7 +47,8 @@ module OCI
         'version': :'version',
         'db_workload': :'dbWorkload',
         'is_dedicated': :'isDedicated',
-        'details': :'details'
+        'details': :'details',
+        'is_free_tier_enabled': :'isFreeTierEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -54,7 +60,8 @@ module OCI
         'version': :'String',
         'db_workload': :'String',
         'is_dedicated': :'BOOLEAN',
-        'details': :'String'
+        'details': :'String',
+        'is_free_tier_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -69,6 +76,7 @@ module OCI
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
     # @option attributes [String] :details The value to assign to the {#details} property
+    # @option attributes [BOOLEAN] :is_free_tier_enabled The value to assign to the {#is_free_tier_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -90,6 +98,12 @@ module OCI
       self.is_dedicated = attributes[:'is_dedicated'] unless attributes[:'is_dedicated'].nil?
 
       self.details = attributes[:'details'] if attributes[:'details']
+
+      self.is_free_tier_enabled = attributes[:'isFreeTierEnabled'] unless attributes[:'isFreeTierEnabled'].nil?
+
+      raise 'You cannot provide both :isFreeTierEnabled and :is_free_tier_enabled' if attributes.key?(:'isFreeTierEnabled') && attributes.key?(:'is_free_tier_enabled')
+
+      self.is_free_tier_enabled = attributes[:'is_free_tier_enabled'] unless attributes[:'is_free_tier_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -119,7 +133,8 @@ module OCI
         version == other.version &&
         db_workload == other.db_workload &&
         is_dedicated == other.is_dedicated &&
-        details == other.details
+        details == other.details &&
+        is_free_tier_enabled == other.is_free_tier_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -135,7 +150,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [version, db_workload, is_dedicated, details].hash
+      [version, db_workload, is_dedicated, details, is_free_tier_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

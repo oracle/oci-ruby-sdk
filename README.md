@@ -2,7 +2,7 @@
 
 :warning: This project is no longer being actively developed by Oracle.  We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on GitHub, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork the project and enhance it as they desire.
 
-**Version 2.8.0**
+**Version 2.9.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -23,6 +23,7 @@ The Ruby SDK supports the following services:
 * Core Services (which includes Networking, Compute, and Block Volume)
 * Data Catalog
 * Data Flow
+* Data Safe
 * Data Transfer 
 * Database
 * Digital Assistant
@@ -33,12 +34,14 @@ The Ruby SDK supports the following services:
 * Functions
 * Health Checks
 * Identity and Access Management
+* Incident Management
 * Integration Cloud
 * Key Management
 * Limits
 * Load Balancing
 * Monitoring
 * Marketplace
+* MySQL Database service
 * Notification
 * Oracle Content and Experience
 * Object Storage
@@ -629,8 +632,9 @@ Addtional ways to get in touch:
 
 ## License
 
-Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
 
-This SDK and sample is dual licensed under the Universal Permissive License 1.0 and the Apache License 2.0.
+This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl
+or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 See [LICENSE](https://github.com/oracle/oci-ruby-sdk/blob/master/LICENSE.txt) for more details.

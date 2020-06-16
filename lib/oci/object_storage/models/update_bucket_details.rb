@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -13,6 +14,11 @@ module OCI
       PUBLIC_ACCESS_TYPE_NO_PUBLIC_ACCESS = 'NoPublicAccess'.freeze,
       PUBLIC_ACCESS_TYPE_OBJECT_READ = 'ObjectRead'.freeze,
       PUBLIC_ACCESS_TYPE_OBJECT_READ_WITHOUT_LIST = 'ObjectReadWithoutList'.freeze
+    ].freeze
+
+    VERSIONING_ENUM = [
+      VERSIONING_ENABLED = 'Enabled'.freeze,
+      VERSIONING_SUSPENDED = 'Suspended'.freeze
     ].freeze
 
     # The Object Storage namespace in which the bucket lives.
@@ -71,6 +77,13 @@ module OCI
     # @return [String]
     attr_accessor :kms_key_id
 
+    # The versioning status on the bucket. If in state `Enabled`, multiple versions of the same object can be kept in the bucket.
+    # When the object is overwritten or deleted, previous versions will still be available. When versioning is `Suspended`, the previous versions will still remain but new versions will no longer be created when overwitten or deleted.
+    # Versioning cannot be disabled on a bucket once enabled.
+    #
+    # @return [String]
+    attr_reader :versioning
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -83,7 +96,8 @@ module OCI
         'object_events_enabled': :'objectEventsEnabled',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'kms_key_id': :'kmsKeyId'
+        'kms_key_id': :'kmsKeyId',
+        'versioning': :'versioning'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -100,7 +114,8 @@ module OCI
         'object_events_enabled': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'kms_key_id': :'String'
+        'kms_key_id': :'String',
+        'versioning': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -120,6 +135,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :versioning The value to assign to the {#versioning} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -167,6 +183,8 @@ module OCI
       raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
 
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.versioning = attributes[:'versioning'] if attributes[:'versioning']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -177,6 +195,14 @@ module OCI
       raise "Invalid value for 'public_access_type': this must be one of the values in PUBLIC_ACCESS_TYPE_ENUM." if public_access_type && !PUBLIC_ACCESS_TYPE_ENUM.include?(public_access_type)
 
       @public_access_type = public_access_type
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] versioning Object to be assigned
+    def versioning=(versioning)
+      raise "Invalid value for 'versioning': this must be one of the values in VERSIONING_ENUM." if versioning && !VERSIONING_ENUM.include?(versioning)
+
+      @versioning = versioning
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -196,7 +222,8 @@ module OCI
         object_events_enabled == other.object_events_enabled &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        kms_key_id == other.kms_key_id
+        kms_key_id == other.kms_key_id &&
+        versioning == other.versioning
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -212,7 +239,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, compartment_id, name, metadata, public_access_type, object_events_enabled, freeform_tags, defined_tags, kms_key_id].hash
+      [namespace, compartment_id, name, metadata, public_access_type, object_events_enabled, freeform_tags, defined_tags, kms_key_id, versioning].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

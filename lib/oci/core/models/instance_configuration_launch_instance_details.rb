@@ -1,12 +1,28 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # See Instance launch details - {LaunchInstanceDetails}
   #
   class Core::Models::InstanceConfigurationLaunchInstanceDetails
+    LAUNCH_MODE_ENUM = [
+      LAUNCH_MODE_NATIVE = 'NATIVE'.freeze,
+      LAUNCH_MODE_EMULATED = 'EMULATED'.freeze,
+      LAUNCH_MODE_PARAVIRTUALIZED = 'PARAVIRTUALIZED'.freeze,
+      LAUNCH_MODE_CUSTOM = 'CUSTOM'.freeze,
+      LAUNCH_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    PREFERRED_MAINTENANCE_ACTION_ENUM = [
+      PREFERRED_MAINTENANCE_ACTION_LIVE_MIGRATE = 'LIVE_MIGRATE'.freeze,
+      PREFERRED_MAINTENANCE_ACTION_REBOOT = 'REBOOT'.freeze,
+      PREFERRED_MAINTENANCE_ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # The availability domain of the instance.
     #
     # Example: `Uocm:PHX-AD-1`
@@ -153,6 +169,9 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # @return [OCI::Core::Models::InstanceConfigurationLaunchInstanceShapeConfigDetails]
+    attr_accessor :shape_config
+
     # Details for creating an instance.
     # Use this parameter to specify whether a boot volume or an image should be used to launch a new instance.
     #
@@ -177,6 +196,37 @@ module OCI
     # @return [String]
     attr_accessor :fault_domain
 
+    # The OCID of dedicated VM host.
+    #
+    # @return [String]
+    attr_accessor :dedicated_vm_host_id
+
+    # Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
+    # * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
+    # * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
+    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+    # * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
+    #
+    # @return [String]
+    attr_reader :launch_mode
+
+    # @return [OCI::Core::Models::InstanceConfigurationLaunchOptions]
+    attr_accessor :launch_options
+
+    # @return [OCI::Core::Models::InstanceConfigurationLaunchInstanceAgentConfigDetails]
+    attr_accessor :agent_config
+
+    # Whether to enable in-transit encryption for the data volume's paravirtualized attachment. The default value is false.
+    # @return [BOOLEAN]
+    attr_accessor :is_pv_encryption_in_transit_enabled
+
+    # The preferred maintenance action for an instance. The default is LIVE_MIGRATE, if live migration is supported.
+    # * `LIVE_MIGRATE` - Run maintenance using a live migration.
+    # * `REBOOT` - Run maintenance using a reboot.
+    #
+    # @return [String]
+    attr_reader :preferred_maintenance_action
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -191,8 +241,15 @@ module OCI
         'ipxe_script': :'ipxeScript',
         'metadata': :'metadata',
         'shape': :'shape',
+        'shape_config': :'shapeConfig',
         'source_details': :'sourceDetails',
-        'fault_domain': :'faultDomain'
+        'fault_domain': :'faultDomain',
+        'dedicated_vm_host_id': :'dedicatedVmHostId',
+        'launch_mode': :'launchMode',
+        'launch_options': :'launchOptions',
+        'agent_config': :'agentConfig',
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
+        'preferred_maintenance_action': :'preferredMaintenanceAction'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -211,8 +268,15 @@ module OCI
         'ipxe_script': :'String',
         'metadata': :'Hash<String, String>',
         'shape': :'String',
+        'shape_config': :'OCI::Core::Models::InstanceConfigurationLaunchInstanceShapeConfigDetails',
         'source_details': :'OCI::Core::Models::InstanceConfigurationInstanceSourceDetails',
-        'fault_domain': :'String'
+        'fault_domain': :'String',
+        'dedicated_vm_host_id': :'String',
+        'launch_mode': :'String',
+        'launch_options': :'OCI::Core::Models::InstanceConfigurationLaunchOptions',
+        'agent_config': :'OCI::Core::Models::InstanceConfigurationLaunchInstanceAgentConfigDetails',
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
+        'preferred_maintenance_action': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -233,8 +297,15 @@ module OCI
     # @option attributes [String] :ipxe_script The value to assign to the {#ipxe_script} property
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [OCI::Core::Models::InstanceConfigurationLaunchInstanceShapeConfigDetails] :shape_config The value to assign to the {#shape_config} property
     # @option attributes [OCI::Core::Models::InstanceConfigurationInstanceSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
+    # @option attributes [String] :dedicated_vm_host_id The value to assign to the {#dedicated_vm_host_id} property
+    # @option attributes [String] :launch_mode The value to assign to the {#launch_mode} property
+    # @option attributes [OCI::Core::Models::InstanceConfigurationLaunchOptions] :launch_options The value to assign to the {#launch_options} property
+    # @option attributes [OCI::Core::Models::InstanceConfigurationLaunchInstanceAgentConfigDetails] :agent_config The value to assign to the {#agent_config} property
+    # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
+    # @option attributes [String] :preferred_maintenance_action The value to assign to the {#preferred_maintenance_action} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -293,6 +364,12 @@ module OCI
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
+      self.shape_config = attributes[:'shapeConfig'] if attributes[:'shapeConfig']
+
+      raise 'You cannot provide both :shapeConfig and :shape_config' if attributes.key?(:'shapeConfig') && attributes.key?(:'shape_config')
+
+      self.shape_config = attributes[:'shape_config'] if attributes[:'shape_config']
+
       self.source_details = attributes[:'sourceDetails'] if attributes[:'sourceDetails']
 
       raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
@@ -304,9 +381,71 @@ module OCI
       raise 'You cannot provide both :faultDomain and :fault_domain' if attributes.key?(:'faultDomain') && attributes.key?(:'fault_domain')
 
       self.fault_domain = attributes[:'fault_domain'] if attributes[:'fault_domain']
+
+      self.dedicated_vm_host_id = attributes[:'dedicatedVmHostId'] if attributes[:'dedicatedVmHostId']
+
+      raise 'You cannot provide both :dedicatedVmHostId and :dedicated_vm_host_id' if attributes.key?(:'dedicatedVmHostId') && attributes.key?(:'dedicated_vm_host_id')
+
+      self.dedicated_vm_host_id = attributes[:'dedicated_vm_host_id'] if attributes[:'dedicated_vm_host_id']
+
+      self.launch_mode = attributes[:'launchMode'] if attributes[:'launchMode']
+
+      raise 'You cannot provide both :launchMode and :launch_mode' if attributes.key?(:'launchMode') && attributes.key?(:'launch_mode')
+
+      self.launch_mode = attributes[:'launch_mode'] if attributes[:'launch_mode']
+
+      self.launch_options = attributes[:'launchOptions'] if attributes[:'launchOptions']
+
+      raise 'You cannot provide both :launchOptions and :launch_options' if attributes.key?(:'launchOptions') && attributes.key?(:'launch_options')
+
+      self.launch_options = attributes[:'launch_options'] if attributes[:'launch_options']
+
+      self.agent_config = attributes[:'agentConfig'] if attributes[:'agentConfig']
+
+      raise 'You cannot provide both :agentConfig and :agent_config' if attributes.key?(:'agentConfig') && attributes.key?(:'agent_config')
+
+      self.agent_config = attributes[:'agent_config'] if attributes[:'agent_config']
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'isPvEncryptionInTransitEnabled'] unless attributes[:'isPvEncryptionInTransitEnabled'].nil?
+
+      raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
+
+      self.preferred_maintenance_action = attributes[:'preferredMaintenanceAction'] if attributes[:'preferredMaintenanceAction']
+
+      raise 'You cannot provide both :preferredMaintenanceAction and :preferred_maintenance_action' if attributes.key?(:'preferredMaintenanceAction') && attributes.key?(:'preferred_maintenance_action')
+
+      self.preferred_maintenance_action = attributes[:'preferred_maintenance_action'] if attributes[:'preferred_maintenance_action']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] launch_mode Object to be assigned
+    def launch_mode=(launch_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if launch_mode && !LAUNCH_MODE_ENUM.include?(launch_mode)
+        OCI.logger.debug("Unknown value for 'launch_mode' [" + launch_mode + "]. Mapping to 'LAUNCH_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @launch_mode = LAUNCH_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @launch_mode = launch_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] preferred_maintenance_action Object to be assigned
+    def preferred_maintenance_action=(preferred_maintenance_action)
+      # rubocop:disable Style/ConditionalAssignment
+      if preferred_maintenance_action && !PREFERRED_MAINTENANCE_ACTION_ENUM.include?(preferred_maintenance_action)
+        OCI.logger.debug("Unknown value for 'preferred_maintenance_action' [" + preferred_maintenance_action + "]. Mapping to 'PREFERRED_MAINTENANCE_ACTION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @preferred_maintenance_action = PREFERRED_MAINTENANCE_ACTION_UNKNOWN_ENUM_VALUE
+      else
+        @preferred_maintenance_action = preferred_maintenance_action
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -327,8 +466,15 @@ module OCI
         ipxe_script == other.ipxe_script &&
         metadata == other.metadata &&
         shape == other.shape &&
+        shape_config == other.shape_config &&
         source_details == other.source_details &&
-        fault_domain == other.fault_domain
+        fault_domain == other.fault_domain &&
+        dedicated_vm_host_id == other.dedicated_vm_host_id &&
+        launch_mode == other.launch_mode &&
+        launch_options == other.launch_options &&
+        agent_config == other.agent_config &&
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
+        preferred_maintenance_action == other.preferred_maintenance_action
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -344,7 +490,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, freeform_tags, ipxe_script, metadata, shape, source_details, fault_domain].hash
+      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, freeform_tags, ipxe_script, metadata, shape, shape_config, source_details, fault_domain, dedicated_vm_host_id, launch_mode, launch_options, agent_config, is_pv_encryption_in_transit_enabled, preferred_maintenance_action].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

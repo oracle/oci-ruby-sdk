@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
 require 'logger'
@@ -50,16 +51,14 @@ module OCI
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
     def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
-      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner or SecurityTokenSigner and no config was supplied (they are self-sufficient signers)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
       # pass it to this constructor.
       #
       # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
       # so try and load the config from the default file.
-      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
       if signer.nil?
         signer = OCI::Signer.new(
@@ -122,6 +121,13 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations. For example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request might be rejected.
+    #
     # @return [Response] A Response object with data of type nil
     def change_integration_instance_compartment(integration_instance_id, change_integration_instance_compartment_details, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#change_integration_instance_compartment.' if logger
@@ -143,7 +149,9 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(change_integration_instance_compartment_details)
 
@@ -407,7 +415,7 @@ module OCI
     #   Example: `My new resource`
     #
     # @option opts [String] :lifecycle_state Life cycle state to query on.
-    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED
+    #   Allowed values are: CREATING, UPDATING, ACTIVE, INACTIVE, DELETING, DELETED, FAILED
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
@@ -424,8 +432,8 @@ module OCI
 
       raise "Missing the required parameter 'compartment_id' when calling list_integration_instances." if compartment_id.nil?
 
-      if opts[:lifecycle_state] && !%w[CREATING UPDATING ACTIVE DELETING DELETED FAILED].include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED.'
+      if opts[:lifecycle_state] && !%w[CREATING UPDATING ACTIVE INACTIVE DELETING DELETED FAILED].include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, INACTIVE, DELETING, DELETED, FAILED.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -650,6 +658,144 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Integration::Models::WorkRequestSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Start an integration instance that was previously in an INACTIVE state
+    #
+    # @param [String] integration_instance_id Unique Integration Instance identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations. For example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    def start_integration_instance(integration_instance_id, opts = {})
+      logger.debug 'Calling operation IntegrationInstanceClient#start_integration_instance.' if logger
+
+      raise "Missing the required parameter 'integration_instance_id' when calling start_integration_instance." if integration_instance_id.nil?
+      raise "Parameter value for 'integration_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(integration_instance_id)
+
+      path = '/integrationInstances/{integrationInstanceId}/actions/start'.sub('{integrationInstanceId}', integration_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IntegrationInstanceClient#start_integration_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Stop an integration instance that was previously in an ACTIVE state
+    #
+    # @param [String] integration_instance_id Unique Integration Instance identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations. For example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    def stop_integration_instance(integration_instance_id, opts = {})
+      logger.debug 'Calling operation IntegrationInstanceClient#stop_integration_instance.' if logger
+
+      raise "Missing the required parameter 'integration_instance_id' when calling stop_integration_instance." if integration_instance_id.nil?
+      raise "Parameter value for 'integration_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(integration_instance_id)
+
+      path = '/integrationInstances/{integrationInstanceId}/actions/stop'.sub('{integrationInstanceId}', integration_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IntegrationInstanceClient#stop_integration_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -196,6 +197,9 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # @return [OCI::Core::Models::LaunchInstanceShapeConfigDetails]
+    attr_accessor :shape_config
+
     # Details for creating an instance.
     # Use this parameter to specify whether a boot volume or an image should be used to launch a new instance.
     #
@@ -233,6 +237,7 @@ module OCI
         'metadata': :'metadata',
         'agent_config': :'agentConfig',
         'shape': :'shape',
+        'shape_config': :'shapeConfig',
         'source_details': :'sourceDetails',
         'subnet_id': :'subnetId',
         'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
@@ -260,6 +265,7 @@ module OCI
         'metadata': :'Hash<String, String>',
         'agent_config': :'OCI::Core::Models::LaunchInstanceAgentConfigDetails',
         'shape': :'String',
+        'shape_config': :'OCI::Core::Models::LaunchInstanceShapeConfigDetails',
         'source_details': :'OCI::Core::Models::InstanceSourceDetails',
         'subnet_id': :'String',
         'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
@@ -289,6 +295,7 @@ module OCI
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     # @option attributes [OCI::Core::Models::LaunchInstanceAgentConfigDetails] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [OCI::Core::Models::LaunchInstanceShapeConfigDetails] :shape_config The value to assign to the {#shape_config} property
     # @option attributes [OCI::Core::Models::InstanceSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
@@ -386,6 +393,12 @@ module OCI
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
+      self.shape_config = attributes[:'shapeConfig'] if attributes[:'shapeConfig']
+
+      raise 'You cannot provide both :shapeConfig and :shape_config' if attributes.key?(:'shapeConfig') && attributes.key?(:'shape_config')
+
+      self.shape_config = attributes[:'shape_config'] if attributes[:'shape_config']
+
       self.source_details = attributes[:'sourceDetails'] if attributes[:'sourceDetails']
 
       raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
@@ -432,6 +445,7 @@ module OCI
         metadata == other.metadata &&
         agent_config == other.agent_config &&
         shape == other.shape &&
+        shape_config == other.shape_config &&
         source_details == other.source_details &&
         subnet_id == other.subnet_id &&
         is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
@@ -450,7 +464,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, create_vnic_details, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, launch_options, metadata, agent_config, shape, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
+      [availability_domain, compartment_id, create_vnic_details, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, launch_options, metadata, agent_config, shape, shape_config, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

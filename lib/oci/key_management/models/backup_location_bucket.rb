@@ -1,46 +1,33 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require_relative 'backup_location'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Represents the parameters of the stream archiver.
-  #
-  class Streaming::Models::CreateArchiverDetails
-    START_POSITION_ENUM = [
-      START_POSITION_LATEST = 'LATEST'.freeze,
-      START_POSITION_TRIM_HORIZON = 'TRIM_HORIZON'.freeze
-    ].freeze
+  # Object storage bucket details to upload or download the backup
+  class KeyManagement::Models::BackupLocationBucket < KeyManagement::Models::BackupLocation
+    # This attribute is required.
+    # @return [String]
+    attr_accessor :namespace
 
-    # **[Required]** The name of the bucket.
+    # This attribute is required.
     # @return [String]
     attr_accessor :bucket_name
 
-    # **[Required]** The flag to create a new bucket or use existing one.
-    # @return [BOOLEAN]
-    attr_accessor :use_existing_bucket
-
-    # **[Required]** The start message.
+    # This attribute is required.
     # @return [String]
-    attr_reader :start_position
-
-    # **[Required]** The batch rollover size in megabytes.
-    # @return [Integer]
-    attr_accessor :batch_rollover_size_in_mbs
-
-    # **[Required]** The rollover time in seconds.
-    # @return [Integer]
-    attr_accessor :batch_rollover_time_in_seconds
+    attr_accessor :object_name
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'destination': :'destination',
+        'namespace': :'namespace',
         'bucket_name': :'bucketName',
-        'use_existing_bucket': :'useExistingBucket',
-        'start_position': :'startPosition',
-        'batch_rollover_size_in_mbs': :'batchRolloverSizeInMBs',
-        'batch_rollover_time_in_seconds': :'batchRolloverTimeInSeconds'
+        'object_name': :'objectName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,11 +36,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'destination': :'String',
+        'namespace': :'String',
         'bucket_name': :'String',
-        'use_existing_bucket': :'BOOLEAN',
-        'start_position': :'String',
-        'batch_rollover_size_in_mbs': :'Integer',
-        'batch_rollover_time_in_seconds': :'Integer'
+        'object_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,16 +50,20 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :namespace The value to assign to the {#namespace} property
     # @option attributes [String] :bucket_name The value to assign to the {#bucket_name} property
-    # @option attributes [BOOLEAN] :use_existing_bucket The value to assign to the {#use_existing_bucket} property
-    # @option attributes [String] :start_position The value to assign to the {#start_position} property
-    # @option attributes [Integer] :batch_rollover_size_in_mbs The value to assign to the {#batch_rollover_size_in_mbs} property
-    # @option attributes [Integer] :batch_rollover_time_in_seconds The value to assign to the {#batch_rollover_time_in_seconds} property
+    # @option attributes [String] :object_name The value to assign to the {#object_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
+      attributes['destination'] = 'BUCKET'
+
+      super(attributes)
+
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.namespace = attributes[:'namespace'] if attributes[:'namespace']
 
       self.bucket_name = attributes[:'bucketName'] if attributes[:'bucketName']
 
@@ -81,40 +71,14 @@ module OCI
 
       self.bucket_name = attributes[:'bucket_name'] if attributes[:'bucket_name']
 
-      self.use_existing_bucket = attributes[:'useExistingBucket'] unless attributes[:'useExistingBucket'].nil?
+      self.object_name = attributes[:'objectName'] if attributes[:'objectName']
 
-      raise 'You cannot provide both :useExistingBucket and :use_existing_bucket' if attributes.key?(:'useExistingBucket') && attributes.key?(:'use_existing_bucket')
+      raise 'You cannot provide both :objectName and :object_name' if attributes.key?(:'objectName') && attributes.key?(:'object_name')
 
-      self.use_existing_bucket = attributes[:'use_existing_bucket'] unless attributes[:'use_existing_bucket'].nil?
-
-      self.start_position = attributes[:'startPosition'] if attributes[:'startPosition']
-
-      raise 'You cannot provide both :startPosition and :start_position' if attributes.key?(:'startPosition') && attributes.key?(:'start_position')
-
-      self.start_position = attributes[:'start_position'] if attributes[:'start_position']
-
-      self.batch_rollover_size_in_mbs = attributes[:'batchRolloverSizeInMBs'] if attributes[:'batchRolloverSizeInMBs']
-
-      raise 'You cannot provide both :batchRolloverSizeInMBs and :batch_rollover_size_in_mbs' if attributes.key?(:'batchRolloverSizeInMBs') && attributes.key?(:'batch_rollover_size_in_mbs')
-
-      self.batch_rollover_size_in_mbs = attributes[:'batch_rollover_size_in_mbs'] if attributes[:'batch_rollover_size_in_mbs']
-
-      self.batch_rollover_time_in_seconds = attributes[:'batchRolloverTimeInSeconds'] if attributes[:'batchRolloverTimeInSeconds']
-
-      raise 'You cannot provide both :batchRolloverTimeInSeconds and :batch_rollover_time_in_seconds' if attributes.key?(:'batchRolloverTimeInSeconds') && attributes.key?(:'batch_rollover_time_in_seconds')
-
-      self.batch_rollover_time_in_seconds = attributes[:'batch_rollover_time_in_seconds'] if attributes[:'batch_rollover_time_in_seconds']
+      self.object_name = attributes[:'object_name'] if attributes[:'object_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] start_position Object to be assigned
-    def start_position=(start_position)
-      raise "Invalid value for 'start_position': this must be one of the values in START_POSITION_ENUM." if start_position && !START_POSITION_ENUM.include?(start_position)
-
-      @start_position = start_position
-    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -125,11 +89,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        destination == other.destination &&
+        namespace == other.namespace &&
         bucket_name == other.bucket_name &&
-        use_existing_bucket == other.use_existing_bucket &&
-        start_position == other.start_position &&
-        batch_rollover_size_in_mbs == other.batch_rollover_size_in_mbs &&
-        batch_rollover_time_in_seconds == other.batch_rollover_time_in_seconds
+        object_name == other.object_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -145,7 +108,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bucket_name, use_existing_bucket, start_position, batch_rollover_size_in_mbs, batch_rollover_time_in_seconds].hash
+      [destination, namespace, bucket_name, object_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -41,6 +42,10 @@ module OCI
     # @return [Integer]
     attr_accessor :message_packs
 
+    # The file server is enabled or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_file_server_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -50,7 +55,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'is_byol': :'isByol',
-        'message_packs': :'messagePacks'
+        'message_packs': :'messagePacks',
+        'is_file_server_enabled': :'isFileServerEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,7 +70,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'is_byol': :'BOOLEAN',
-        'message_packs': :'Integer'
+        'message_packs': :'Integer',
+        'is_file_server_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -81,6 +88,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [BOOLEAN] :is_byol The value to assign to the {#is_byol} property
     # @option attributes [Integer] :message_packs The value to assign to the {#message_packs} property
+    # @option attributes [BOOLEAN] :is_file_server_enabled The value to assign to the {#is_file_server_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -122,6 +130,14 @@ module OCI
       raise 'You cannot provide both :messagePacks and :message_packs' if attributes.key?(:'messagePacks') && attributes.key?(:'message_packs')
 
       self.message_packs = attributes[:'message_packs'] if attributes[:'message_packs']
+
+      self.is_file_server_enabled = attributes[:'isFileServerEnabled'] unless attributes[:'isFileServerEnabled'].nil?
+      self.is_file_server_enabled = false if is_file_server_enabled.nil? && !attributes.key?(:'isFileServerEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isFileServerEnabled and :is_file_server_enabled' if attributes.key?(:'isFileServerEnabled') && attributes.key?(:'is_file_server_enabled')
+
+      self.is_file_server_enabled = attributes[:'is_file_server_enabled'] unless attributes[:'is_file_server_enabled'].nil?
+      self.is_file_server_enabled = false if is_file_server_enabled.nil? && !attributes.key?(:'isFileServerEnabled') && !attributes.key?(:'is_file_server_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -148,7 +164,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         is_byol == other.is_byol &&
-        message_packs == other.message_packs
+        message_packs == other.message_packs &&
+        is_file_server_enabled == other.is_file_server_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -164,7 +181,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, integration_instance_type, freeform_tags, defined_tags, is_byol, message_packs].hash
+      [display_name, integration_instance_type, freeform_tags, defined_tags, is_byol, message_packs, is_file_server_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

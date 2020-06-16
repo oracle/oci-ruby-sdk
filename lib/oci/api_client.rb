@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'json'
@@ -633,7 +634,9 @@ module OCI
         begin
           return yield
         rescue OCI::Errors::ServiceError => e
-          @config.logger('Error encountered inside instance_principals_signer_wrapped_call: ' + e.inspect) if @config.logger
+          if @config.logger
+            @config.logger.debug("Error encountered inside instance_principals_signer_wrapped_call: #{e.inspect}")
+          end
           raise if attempt >= (max_attempts - 1) # .times is zero-based
           raise if e.status_code != 401
 
