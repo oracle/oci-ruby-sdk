@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -217,6 +218,17 @@ module OCI
     # @return [String]
     attr_reader :license_model
 
+    # @return [OCI::Database::Models::MaintenanceWindow]
+    attr_accessor :maintenance_window
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the last maintenance run.
+    # @return [String]
+    attr_accessor :last_maintenance_run_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the next maintenance run.
+    # @return [String]
+    attr_accessor :next_maintenance_run_id
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -270,6 +282,9 @@ module OCI
         'reco_storage_size_in_gb': :'recoStorageSizeInGB',
         'node_count': :'nodeCount',
         'license_model': :'licenseModel',
+        'maintenance_window': :'maintenanceWindow',
+        'last_maintenance_run_id': :'lastMaintenanceRunId',
+        'next_maintenance_run_id': :'nextMaintenanceRunId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -315,6 +330,9 @@ module OCI
         'reco_storage_size_in_gb': :'Integer',
         'node_count': :'Integer',
         'license_model': :'String',
+        'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
+        'last_maintenance_run_id': :'String',
+        'next_maintenance_run_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -362,6 +380,9 @@ module OCI
     # @option attributes [Integer] :reco_storage_size_in_gb The value to assign to the {#reco_storage_size_in_gb} property
     # @option attributes [Integer] :node_count The value to assign to the {#node_count} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
+    # @option attributes [String] :last_maintenance_run_id The value to assign to the {#last_maintenance_run_id} property
+    # @option attributes [String] :next_maintenance_run_id The value to assign to the {#next_maintenance_run_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -560,6 +581,24 @@ module OCI
 
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
 
+      self.maintenance_window = attributes[:'maintenanceWindow'] if attributes[:'maintenanceWindow']
+
+      raise 'You cannot provide both :maintenanceWindow and :maintenance_window' if attributes.key?(:'maintenanceWindow') && attributes.key?(:'maintenance_window')
+
+      self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
+
+      self.last_maintenance_run_id = attributes[:'lastMaintenanceRunId'] if attributes[:'lastMaintenanceRunId']
+
+      raise 'You cannot provide both :lastMaintenanceRunId and :last_maintenance_run_id' if attributes.key?(:'lastMaintenanceRunId') && attributes.key?(:'last_maintenance_run_id')
+
+      self.last_maintenance_run_id = attributes[:'last_maintenance_run_id'] if attributes[:'last_maintenance_run_id']
+
+      self.next_maintenance_run_id = attributes[:'nextMaintenanceRunId'] if attributes[:'nextMaintenanceRunId']
+
+      raise 'You cannot provide both :nextMaintenanceRunId and :next_maintenance_run_id' if attributes.key?(:'nextMaintenanceRunId') && attributes.key?(:'next_maintenance_run_id')
+
+      self.next_maintenance_run_id = attributes[:'next_maintenance_run_id'] if attributes[:'next_maintenance_run_id']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -671,6 +710,9 @@ module OCI
         reco_storage_size_in_gb == other.reco_storage_size_in_gb &&
         node_count == other.node_count &&
         license_model == other.license_model &&
+        maintenance_window == other.maintenance_window &&
+        last_maintenance_run_id == other.last_maintenance_run_id &&
+        next_maintenance_run_id == other.next_maintenance_run_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -688,7 +730,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, freeform_tags, defined_tags].hash
+      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # This example demonstrates how to programatically create, update, and delete a Container Engine cluster.
 # As-is, it is not a fully functional for container deployments without specific configuration
@@ -14,11 +15,6 @@
 require 'oci'
 require 'time'
 
-SECTION_BREAK_LENGTH = 50 # 50 characters
-KUBERNETES_VERSION = 'v1.11.5'.freeze
-NODE_IMAGE_NAME = 'Oracle-Linux-7.5'.freeze
-NODE_SHAPE = 'VM.Standard2.1'.freeze
-
 compartment_id = ARGV[0] # Example: 'ocid1.compartment.oc1..aaaaaaaac4xqx43texeuonfionxsx4okzfsya5evr2goe2t7v5wntztaymab'
 vcn_cidr_block = '10.0.0.0/16'
 cluster_lb_cidr_blocks = %w[10.0.20.0/24 10.0.21.0/24]
@@ -32,6 +28,11 @@ def get_availability_domains(compartment_id)
   OCI::Identity::IdentityClient.new.list_availability_domains(compartment_id).data
 end
 
+def get_default_kubernetes_version(ce_client)
+  cluster_options_response = ce_client.get_cluster_options('all')
+  kubernetes_version = cluster_options_response.data.kubernetes_versions
+  kubernetes_version[0]
+end
 # ==============
 # Create Methods
 
@@ -199,6 +200,10 @@ vcn_client_composite = OCI::Core::VirtualNetworkClientCompositeOperations.new(
 ce_client = OCI::ContainerEngine::ContainerEngineClient.new
 ce_client_composite = OCI::ContainerEngine::ContainerEngineClientCompositeOperations.new(ce_client)
 
+SECTION_BREAK_LENGTH = 50 # 50 characters
+KUBERNETES_VERSION = get_default_kubernetes_version(ce_client)
+NODE_IMAGE_NAME = 'Oracle-Linux-7.5'.freeze
+NODE_SHAPE = 'VM.Standard2.1'.freeze
 puts 'Setting up VCN'
 puts '=' * SECTION_BREAK_LENGTH
 vcn = create_vcn(vcn_client_composite, compartment_id, vcn_cidr_block)

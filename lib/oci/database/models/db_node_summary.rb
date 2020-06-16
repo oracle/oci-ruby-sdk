@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -67,7 +68,7 @@ module OCI
     # @return [Integer]
     attr_accessor :software_storage_size_in_gb
 
-    # The type of maintenance of dbNode.
+    # The type of database node maintenance.
     # @return [String]
     attr_reader :maintenance_type
 
@@ -79,7 +80,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_maintenance_window_end
 
-    # Additional information like a message to customer about the maintenance.
+    # Additional information about the planned maintenance.
     # @return [String]
     attr_accessor :additional_details
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'inifile'
 require 'logger'
@@ -19,20 +20,26 @@ module OCI
     # Default config file name and location
     DEFAULT_CONFIG_FILE = "#{Dir.home}/.oci/config".freeze
     FALLBACK_DEFAULT_CONFIG_FILE = "#{Dir.home}/.oraclebmc/config".freeze
+    OCI_CONFIG_FILE_ENV_VAR_NAME = 'OCI_CONFIG_FILE'.freeze
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     # Loads the a Config from the specified file and profile.
     #
     # @param [String] config_file_location Filename and path of the config file.
     # Defaults to "~/.oci/config" (on windows "C:\Users\{user}\.oci\config") with a fallback to
     # "~/.oraclebmc/config" (on windows "C:\Users\{user}\.oraclebmc\config")
+    # If all the above fallbacks failed, it will use ENV VAR "OCI_CONFIG_FILE" to retrieve the path
     # @param [String] profile_name Name of the profile from the file. Defaults to "DEFAULT".
     # @return [Config] A Config
     def self.load_config(config_file_location: DEFAULT_CONFIG_FILE, profile_name: DEFAULT_PROFILE)
+      env_var_config_path = ENV[OCI_CONFIG_FILE_ENV_VAR_NAME]
       if config_file_location == DEFAULT_CONFIG_FILE
         configs = if File.exist?(File.expand_path(config_file_location))
                     load_configs(config_file_location)
                   elsif File.exist?(File.expand_path(FALLBACK_DEFAULT_CONFIG_FILE))
                     load_configs(FALLBACK_DEFAULT_CONFIG_FILE)
+                  elsif !env_var_config_path.nil? && File.exist?(File.expand_path(env_var_config_path))
+                    load_configs(env_var_config_path)
                   else
                     raise Errors::ConfigFileNotFoundError, 'Config file does not exist.'
                   end
@@ -44,6 +51,7 @@ module OCI
 
       raise Errors::ProfileNotFoundError, 'Profile not found in the given config file.'
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     # Loads all of the Configs from the specified file.
     #

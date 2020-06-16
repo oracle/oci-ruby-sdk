@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require_relative 'listing_package'
@@ -7,13 +8,18 @@ require_relative 'listing_package'
 module OCI
   # A package for image listings.
   class Marketplace::Models::ImageListingPackage < Marketplace::Models::ListingPackage
-    # The id of the AppCatalogListing associated with this ListingPackage.
+    # The ID of the listing resource associated with this listing package. For more information, see [AppCatalogListing](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListing/) in the Core Services API.
+    #
     # @return [String]
     attr_accessor :app_catalog_listing_id
 
-    # The resource version of the AppCatalogListing associated with this ListingPackage.
+    # The resource version of the listing resource associated with this listing package.
     # @return [String]
     attr_accessor :app_catalog_listing_resource_version
+
+    # The id of the image corresponding to the package.
+    # @return [String]
+    attr_accessor :image_id
 
     # List of regions in which this ListingPackage is available.
     # @return [Array<OCI::Marketplace::Models::Region>]
@@ -32,6 +38,7 @@ module OCI
         'time_created': :'timeCreated',
         'app_catalog_listing_id': :'appCatalogListingId',
         'app_catalog_listing_resource_version': :'appCatalogListingResourceVersion',
+        'image_id': :'imageId',
         'regions': :'regions'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -50,6 +57,7 @@ module OCI
         'time_created': :'DateTime',
         'app_catalog_listing_id': :'String',
         'app_catalog_listing_resource_version': :'String',
+        'image_id': :'String',
         'regions': :'Array<OCI::Marketplace::Models::Region>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -69,6 +77,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::Marketplace::Models::ListingPackage#time_created #time_created} proprety
     # @option attributes [String] :app_catalog_listing_id The value to assign to the {#app_catalog_listing_id} property
     # @option attributes [String] :app_catalog_listing_resource_version The value to assign to the {#app_catalog_listing_resource_version} property
+    # @option attributes [String] :image_id The value to assign to the {#image_id} property
     # @option attributes [Array<OCI::Marketplace::Models::Region>] :regions The value to assign to the {#regions} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -91,6 +100,12 @@ module OCI
       raise 'You cannot provide both :appCatalogListingResourceVersion and :app_catalog_listing_resource_version' if attributes.key?(:'appCatalogListingResourceVersion') && attributes.key?(:'app_catalog_listing_resource_version')
 
       self.app_catalog_listing_resource_version = attributes[:'app_catalog_listing_resource_version'] if attributes[:'app_catalog_listing_resource_version']
+
+      self.image_id = attributes[:'imageId'] if attributes[:'imageId']
+
+      raise 'You cannot provide both :imageId and :image_id' if attributes.key?(:'imageId') && attributes.key?(:'image_id')
+
+      self.image_id = attributes[:'image_id'] if attributes[:'image_id']
 
       self.regions = attributes[:'regions'] if attributes[:'regions']
     end
@@ -115,6 +130,7 @@ module OCI
         time_created == other.time_created &&
         app_catalog_listing_id == other.app_catalog_listing_id &&
         app_catalog_listing_resource_version == other.app_catalog_listing_resource_version &&
+        image_id == other.image_id &&
         regions == other.regions
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -131,7 +147,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, listing_id, version, package_type, pricing, resource_id, time_created, app_catalog_listing_id, app_catalog_listing_resource_version, regions].hash
+      [description, listing_id, version, package_type, pricing, resource_id, time_created, app_catalog_listing_id, app_catalog_listing_resource_version, image_id, regions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -23,6 +24,13 @@ module OCI
       STATUS_CANCELLING = 'CANCELLING'.freeze,
       STATUS_CANCELED = 'CANCELED'.freeze,
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    OS_FAMILY_ENUM = [
+      OS_FAMILY_LINUX = 'LINUX'.freeze,
+      OS_FAMILY_WINDOWS = 'WINDOWS'.freeze,
+      OS_FAMILY_ALL = 'ALL'.freeze,
+      OS_FAMILY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** the type of operation this Work Request performs
@@ -53,6 +61,9 @@ module OCI
     # @return [String]
     attr_accessor :message
 
+    # @return [OCI::OsManagement::Models::Id]
+    attr_accessor :managed_instance_id
+
     # **[Required]** The resources affected by this work request.
     # @return [Array<OCI::OsManagement::Models::WorkRequestResource>]
     attr_accessor :resources
@@ -78,6 +89,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_finished
 
+    # The Operating System type of the managed instance.
+    # @return [String]
+    attr_reader :os_family
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -88,11 +103,13 @@ module OCI
         'compartment_id': :'compartmentId',
         'description': :'description',
         'message': :'message',
+        'managed_instance_id': :'managedInstanceId',
         'resources': :'resources',
         'percent_complete': :'percentComplete',
         'time_accepted': :'timeAccepted',
         'time_started': :'timeStarted',
-        'time_finished': :'timeFinished'
+        'time_finished': :'timeFinished',
+        'os_family': :'osFamily'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -107,11 +124,13 @@ module OCI
         'compartment_id': :'String',
         'description': :'String',
         'message': :'String',
+        'managed_instance_id': :'OCI::OsManagement::Models::Id',
         'resources': :'Array<OCI::OsManagement::Models::WorkRequestResource>',
         'percent_complete': :'Float',
         'time_accepted': :'DateTime',
         'time_started': :'DateTime',
-        'time_finished': :'DateTime'
+        'time_finished': :'DateTime',
+        'os_family': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -128,11 +147,13 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :message The value to assign to the {#message} property
+    # @option attributes [OCI::OsManagement::Models::Id] :managed_instance_id The value to assign to the {#managed_instance_id} property
     # @option attributes [Array<OCI::OsManagement::Models::WorkRequestResource>] :resources The value to assign to the {#resources} property
     # @option attributes [Float] :percent_complete The value to assign to the {#percent_complete} property
     # @option attributes [DateTime] :time_accepted The value to assign to the {#time_accepted} property
     # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
     # @option attributes [DateTime] :time_finished The value to assign to the {#time_finished} property
+    # @option attributes [String] :os_family The value to assign to the {#os_family} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -159,6 +180,12 @@ module OCI
 
       self.message = attributes[:'message'] if attributes[:'message']
 
+      self.managed_instance_id = attributes[:'managedInstanceId'] if attributes[:'managedInstanceId']
+
+      raise 'You cannot provide both :managedInstanceId and :managed_instance_id' if attributes.key?(:'managedInstanceId') && attributes.key?(:'managed_instance_id')
+
+      self.managed_instance_id = attributes[:'managed_instance_id'] if attributes[:'managed_instance_id']
+
       self.resources = attributes[:'resources'] if attributes[:'resources']
 
       self.percent_complete = attributes[:'percentComplete'] if attributes[:'percentComplete']
@@ -184,6 +211,12 @@ module OCI
       raise 'You cannot provide both :timeFinished and :time_finished' if attributes.key?(:'timeFinished') && attributes.key?(:'time_finished')
 
       self.time_finished = attributes[:'time_finished'] if attributes[:'time_finished']
+
+      self.os_family = attributes[:'osFamily'] if attributes[:'osFamily']
+
+      raise 'You cannot provide both :osFamily and :os_family' if attributes.key?(:'osFamily') && attributes.key?(:'os_family')
+
+      self.os_family = attributes[:'os_family'] if attributes[:'os_family']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -214,6 +247,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] os_family Object to be assigned
+    def os_family=(os_family)
+      # rubocop:disable Style/ConditionalAssignment
+      if os_family && !OS_FAMILY_ENUM.include?(os_family)
+        OCI.logger.debug("Unknown value for 'os_family' [" + os_family + "]. Mapping to 'OS_FAMILY_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @os_family = OS_FAMILY_UNKNOWN_ENUM_VALUE
+      else
+        @os_family = os_family
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -229,11 +275,13 @@ module OCI
         compartment_id == other.compartment_id &&
         description == other.description &&
         message == other.message &&
+        managed_instance_id == other.managed_instance_id &&
         resources == other.resources &&
         percent_complete == other.percent_complete &&
         time_accepted == other.time_accepted &&
         time_started == other.time_started &&
-        time_finished == other.time_finished
+        time_finished == other.time_finished &&
+        os_family == other.os_family
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -249,7 +297,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [operation_type, status, id, compartment_id, description, message, resources, percent_complete, time_accepted, time_started, time_finished].hash
+      [operation_type, status, id, compartment_id, description, message, managed_instance_id, resources, percent_complete, time_accepted, time_started, time_finished, os_family].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

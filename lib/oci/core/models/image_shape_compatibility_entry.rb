@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -14,12 +15,16 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # @return [OCI::Core::Models::ImageOcpuConstraints]
+    attr_accessor :ocpu_constraints
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'image_id': :'imageId',
-        'shape': :'shape'
+        'shape': :'shape',
+        'ocpu_constraints': :'ocpuConstraints'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -29,7 +34,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'image_id': :'String',
-        'shape': :'String'
+        'shape': :'String',
+        'ocpu_constraints': :'OCI::Core::Models::ImageOcpuConstraints'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,6 +48,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [OCI::Core::Models::ImageOcpuConstraints] :ocpu_constraints The value to assign to the {#ocpu_constraints} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -55,6 +62,12 @@ module OCI
       self.image_id = attributes[:'image_id'] if attributes[:'image_id']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
+
+      self.ocpu_constraints = attributes[:'ocpuConstraints'] if attributes[:'ocpuConstraints']
+
+      raise 'You cannot provide both :ocpuConstraints and :ocpu_constraints' if attributes.key?(:'ocpuConstraints') && attributes.key?(:'ocpu_constraints')
+
+      self.ocpu_constraints = attributes[:'ocpu_constraints'] if attributes[:'ocpu_constraints']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -69,7 +82,8 @@ module OCI
 
       self.class == other.class &&
         image_id == other.image_id &&
-        shape == other.shape
+        shape == other.shape &&
+        ocpu_constraints == other.ocpu_constraints
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -85,7 +99,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [image_id, shape].hash
+      [image_id, shape, ocpu_constraints].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

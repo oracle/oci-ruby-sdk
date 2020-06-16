@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -11,6 +12,10 @@ module OCI
   class Database::Models::UpdateDatabaseDetails
     # @return [OCI::Database::Models::DbBackupConfig]
     attr_accessor :db_backup_config
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Home.
+    # @return [String]
+    attr_accessor :db_home_id
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -31,6 +36,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'db_backup_config': :'dbBackupConfig',
+        'db_home_id': :'dbHomeId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -42,6 +48,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
+        'db_home_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -55,6 +62,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::Database::Models::DbBackupConfig] :db_backup_config The value to assign to the {#db_backup_config} property
+    # @option attributes [String] :db_home_id The value to assign to the {#db_home_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -68,6 +76,12 @@ module OCI
       raise 'You cannot provide both :dbBackupConfig and :db_backup_config' if attributes.key?(:'dbBackupConfig') && attributes.key?(:'db_backup_config')
 
       self.db_backup_config = attributes[:'db_backup_config'] if attributes[:'db_backup_config']
+
+      self.db_home_id = attributes[:'dbHomeId'] if attributes[:'dbHomeId']
+
+      raise 'You cannot provide both :dbHomeId and :db_home_id' if attributes.key?(:'dbHomeId') && attributes.key?(:'db_home_id')
+
+      self.db_home_id = attributes[:'db_home_id'] if attributes[:'db_home_id']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -94,6 +108,7 @@ module OCI
 
       self.class == other.class &&
         db_backup_config == other.db_backup_config &&
+        db_home_id == other.db_home_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -111,7 +126,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_backup_config, freeform_tags, defined_tags].hash
+      [db_backup_config, db_home_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

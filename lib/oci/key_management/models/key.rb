@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -19,6 +20,8 @@ module OCI
       LIFECYCLE_STATE_SCHEDULING_DELETION = 'SCHEDULING_DELETION'.freeze,
       LIFECYCLE_STATE_CANCELLING_DELETION = 'CANCELLING_DELETION'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_RESTORING = 'RESTORING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -28,7 +31,7 @@ module OCI
 
     # **[Required]** The OCID of the key version used in cryptographic operations. During key rotation, the service might be
     # in a transitional state where this or a newer key version are used intermittently. The `currentKeyVersion`
-    # field is updated when the service is guaranteed to use the new key version for all subsequent encryption operations.
+    # property is updated when the service is guaranteed to use the new key version for all subsequent encryption operations.
     #
     # @return [String]
     attr_accessor :current_key_version
@@ -61,7 +64,7 @@ module OCI
     # @return [OCI::KeyManagement::Models::KeyShape]
     attr_accessor :key_shape
 
-    # **[Required]** The key's current state.
+    # **[Required]** The key's current lifecycle state.
     #
     # Example: `ENABLED`
     #
@@ -85,6 +88,10 @@ module OCI
     # @return [String]
     attr_accessor :vault_id
 
+    # The OCID of the key from which this key was restored.
+    # @return [String]
+    attr_accessor :restored_from_key_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -99,7 +106,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'time_of_deletion': :'timeOfDeletion',
-        'vault_id': :'vaultId'
+        'vault_id': :'vaultId',
+        'restored_from_key_id': :'restoredFromKeyId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -118,7 +126,8 @@ module OCI
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'time_of_deletion': :'DateTime',
-        'vault_id': :'String'
+        'vault_id': :'String',
+        'restored_from_key_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -140,6 +149,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
+    # @option attributes [String] :restored_from_key_id The value to assign to the {#restored_from_key_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -207,6 +217,12 @@ module OCI
       raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
 
       self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
+
+      self.restored_from_key_id = attributes[:'restoredFromKeyId'] if attributes[:'restoredFromKeyId']
+
+      raise 'You cannot provide both :restoredFromKeyId and :restored_from_key_id' if attributes.key?(:'restoredFromKeyId') && attributes.key?(:'restored_from_key_id')
+
+      self.restored_from_key_id = attributes[:'restored_from_key_id'] if attributes[:'restored_from_key_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -243,7 +259,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         time_of_deletion == other.time_of_deletion &&
-        vault_id == other.vault_id
+        vault_id == other.vault_id &&
+        restored_from_key_id == other.restored_from_key_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -259,7 +276,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, current_key_version, defined_tags, display_name, freeform_tags, id, key_shape, lifecycle_state, time_created, time_of_deletion, vault_id].hash
+      [compartment_id, current_key_version, defined_tags, display_name, freeform_tags, id, key_shape, lifecycle_state, time_created, time_of_deletion, vault_id, restored_from_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

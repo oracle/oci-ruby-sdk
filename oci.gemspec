@@ -1,4 +1,6 @@
-# Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl
+# or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
@@ -31,5 +33,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'activesupport', '~> 5.2.2'
   s.executables   = nil
   s.require_paths = ["lib"]
-  s.files         = Dir["./lib/**/*.rb", "README.md", "LICENSE.txt"]
+  s.files         = Dir["./lib/**/*.rb", "README.md", "LICENSE.txt", "NOTICE.txt"]
 end

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -12,7 +13,8 @@ module OCI
   class Database::Models::LaunchDbSystemBase
     SOURCE_ENUM = [
       SOURCE_NONE = 'NONE'.freeze,
-      SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze
+      SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze,
+      SOURCE_DATABASE = 'DATABASE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment the DB system  belongs in.
@@ -178,7 +180,8 @@ module OCI
     attr_accessor :defined_tags
 
     # The source of the database:
-    # Use `NONE` for creating a new database. Use `DB_BACKUP` for creating a new database by restoring from a backup. The default is `NONE`.
+    # Use `NONE` for creating a new database. Use `DB_BACKUP` for creating a new database by restoring from a backup. Use `DATABASE` for creating
+    # a new database from an existing database, including archive redo log data. The default is `NONE`.
     #
     # @return [String]
     attr_reader :source
@@ -254,6 +257,7 @@ module OCI
       type = object_hash[:'source'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Database::Models::LaunchDbSystemDetails' if type == 'NONE'
+      return 'OCI::Database::Models::LaunchDbSystemFromDatabaseDetails' if type == 'DATABASE'
       return 'OCI::Database::Models::LaunchDbSystemFromBackupDetails' if type == 'DB_BACKUP'
 
       # TODO: Log a warning when the subtype is not found.

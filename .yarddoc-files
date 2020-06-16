@@ -7,10 +7,12 @@ lib/oci/auth/auth.rb
 lib/oci/autoscaling/autoscaling.rb
 lib/oci/bds/bds.rb
 lib/oci/budget/budget.rb
+lib/oci/cims/cims.rb
 lib/oci/container_engine/container_engine.rb
 lib/oci/core/core.rb
 lib/oci/data_catalog/data_catalog.rb
 lib/oci/data_flow/data_flow.rb
+lib/oci/data_safe/data_safe.rb
 lib/oci/data_science/data_science.rb
 lib/oci/database/database.rb
 lib/oci/dns/dns.rb
@@ -27,6 +29,7 @@ lib/oci/limits/limits.rb
 lib/oci/load_balancer/load_balancer.rb
 lib/oci/marketplace/marketplace.rb
 lib/oci/monitoring/monitoring.rb
+lib/oci/mysql/mysql.rb
 lib/oci/nosql/nosql.rb
 lib/oci/object_storage/object_storage.rb
 lib/oci/oce/oce.rb

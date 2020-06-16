@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -9,9 +10,18 @@ module OCI
   class KeyManagement::Models::WrappingKey
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ENABLING = 'ENABLING'.freeze,
       LIFECYCLE_STATE_ENABLED = 'ENABLED'.freeze,
+      LIFECYCLE_STATE_DISABLING = 'DISABLING'.freeze,
+      LIFECYCLE_STATE_DISABLED = 'DISABLED'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_PENDING_DELETION = 'PENDING_DELETION'.freeze,
+      LIFECYCLE_STATE_SCHEDULING_DELETION = 'SCHEDULING_DELETION'.freeze,
+      LIFECYCLE_STATE_CANCELLING_DELETION = 'CANCELLING_DELETION'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_RESTORING = 'RESTORING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -23,7 +33,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The key's current state.
+    # **[Required]** The key's current lifecycle state.
     #
     # Example: `ENABLED`
     #

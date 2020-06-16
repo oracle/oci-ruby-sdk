@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -17,6 +18,7 @@ module OCI
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
@@ -81,6 +83,10 @@ module OCI
     # @return [Integer]
     attr_accessor :message_packs
 
+    # The file server is enabled or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_file_server_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -97,7 +103,8 @@ module OCI
         'defined_tags': :'definedTags',
         'is_byol': :'isByol',
         'instance_url': :'instanceUrl',
-        'message_packs': :'messagePacks'
+        'message_packs': :'messagePacks',
+        'is_file_server_enabled': :'isFileServerEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -118,7 +125,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'is_byol': :'BOOLEAN',
         'instance_url': :'String',
-        'message_packs': :'Integer'
+        'message_packs': :'Integer',
+        'is_file_server_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -142,6 +150,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_byol The value to assign to the {#is_byol} property
     # @option attributes [String] :instance_url The value to assign to the {#instance_url} property
     # @option attributes [Integer] :message_packs The value to assign to the {#message_packs} property
+    # @option attributes [BOOLEAN] :is_file_server_enabled The value to assign to the {#is_file_server_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -221,6 +230,12 @@ module OCI
       raise 'You cannot provide both :messagePacks and :message_packs' if attributes.key?(:'messagePacks') && attributes.key?(:'message_packs')
 
       self.message_packs = attributes[:'message_packs'] if attributes[:'message_packs']
+
+      self.is_file_server_enabled = attributes[:'isFileServerEnabled'] unless attributes[:'isFileServerEnabled'].nil?
+
+      raise 'You cannot provide both :isFileServerEnabled and :is_file_server_enabled' if attributes.key?(:'isFileServerEnabled') && attributes.key?(:'is_file_server_enabled')
+
+      self.is_file_server_enabled = attributes[:'is_file_server_enabled'] unless attributes[:'is_file_server_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -272,7 +287,8 @@ module OCI
         defined_tags == other.defined_tags &&
         is_byol == other.is_byol &&
         instance_url == other.instance_url &&
-        message_packs == other.message_packs
+        message_packs == other.message_packs &&
+        is_file_server_enabled == other.is_file_server_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -288,7 +304,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, integration_instance_type, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, is_byol, instance_url, message_packs].hash
+      [id, display_name, compartment_id, integration_instance_type, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, is_byol, instance_url, message_packs, is_file_server_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

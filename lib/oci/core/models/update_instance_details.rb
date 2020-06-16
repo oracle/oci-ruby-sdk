@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -54,6 +55,9 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # @return [OCI::Core::Models::UpdateInstanceShapeConfigDetails]
+    attr_accessor :shape_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -62,7 +66,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'agent_config': :'agentConfig',
-        'shape': :'shape'
+        'shape': :'shape',
+        'shape_config': :'shapeConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,7 +80,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'agent_config': :'OCI::Core::Models::UpdateInstanceAgentConfigDetails',
-        'shape': :'String'
+        'shape': :'String',
+        'shape_config': :'OCI::Core::Models::UpdateInstanceShapeConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -91,6 +97,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [OCI::Core::Models::UpdateInstanceAgentConfigDetails] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [OCI::Core::Models::UpdateInstanceShapeConfigDetails] :shape_config The value to assign to the {#shape_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -122,6 +129,12 @@ module OCI
       self.agent_config = attributes[:'agent_config'] if attributes[:'agent_config']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
+
+      self.shape_config = attributes[:'shapeConfig'] if attributes[:'shapeConfig']
+
+      raise 'You cannot provide both :shapeConfig and :shape_config' if attributes.key?(:'shapeConfig') && attributes.key?(:'shape_config')
+
+      self.shape_config = attributes[:'shape_config'] if attributes[:'shape_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -139,7 +152,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         agent_config == other.agent_config &&
-        shape == other.shape
+        shape == other.shape &&
+        shape_config == other.shape_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -155,7 +169,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, agent_config, shape].hash
+      [defined_tags, display_name, freeform_tags, agent_config, shape, shape_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

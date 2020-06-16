@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -23,7 +24,9 @@ module OCI
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
 
-    # The user-friendly name for the Autonomous Database. The name does not have to be unique.
+    # The user-friendly name for the Autonomous Database. The name does not have to be unique. Can only be updated for Autonomous Databases
+    # using dedicated Exadata infrastructure.
+    #
     # @return [String]
     attr_accessor :display_name
 
@@ -57,13 +60,6 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
-    # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
-    #
-    # @return [Array<String>]
-    attr_accessor :nsg_ids
-
     # The Oracle license model that applies to the Oracle Autonomous Database. Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm), this attribute must be null because the attribute is already set at the
     # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
     #
@@ -83,6 +79,17 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
 
+    # A valid Oracle Database version for Autonomous Database.
+    # @return [String]
+    attr_accessor :db_version
+
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # **NsgIds restrictions:**
+    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -95,10 +102,11 @@ module OCI
         'db_name': :'dbName',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'nsg_ids': :'nsgIds',
         'license_model': :'licenseModel',
         'whitelisted_ips': :'whitelistedIps',
-        'is_auto_scaling_enabled': :'isAutoScalingEnabled'
+        'is_auto_scaling_enabled': :'isAutoScalingEnabled',
+        'db_version': :'dbVersion',
+        'nsg_ids': :'nsgIds'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -115,10 +123,11 @@ module OCI
         'db_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'nsg_ids': :'Array<String>',
         'license_model': :'String',
         'whitelisted_ips': :'Array<String>',
-        'is_auto_scaling_enabled': :'BOOLEAN'
+        'is_auto_scaling_enabled': :'BOOLEAN',
+        'db_version': :'String',
+        'nsg_ids': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -137,10 +146,11 @@ module OCI
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
-    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
+    # @option attributes [String] :db_version The value to assign to the {#db_version} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -197,12 +207,6 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
-      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
-
-      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
-
-      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
-
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
       raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
@@ -220,6 +224,18 @@ module OCI
       raise 'You cannot provide both :isAutoScalingEnabled and :is_auto_scaling_enabled' if attributes.key?(:'isAutoScalingEnabled') && attributes.key?(:'is_auto_scaling_enabled')
 
       self.is_auto_scaling_enabled = attributes[:'is_auto_scaling_enabled'] unless attributes[:'is_auto_scaling_enabled'].nil?
+
+      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
+
+      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
+
+      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
+
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -249,10 +265,11 @@ module OCI
         db_name == other.db_name &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        nsg_ids == other.nsg_ids &&
         license_model == other.license_model &&
         whitelisted_ips == other.whitelisted_ips &&
-        is_auto_scaling_enabled == other.is_auto_scaling_enabled
+        is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
+        db_version == other.db_version &&
+        nsg_ids == other.nsg_ids
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -268,7 +285,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, data_storage_size_in_tbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, nsg_ids, license_model, whitelisted_ips, is_auto_scaling_enabled].hash
+      [cpu_core_count, data_storage_size_in_tbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, license_model, whitelisted_ips, is_auto_scaling_enabled, db_version, nsg_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

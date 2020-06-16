@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require_relative 'launch_db_system_base'
@@ -47,6 +48,9 @@ module OCI
     # @return [String]
     attr_reader :license_model
 
+    # @return [OCI::Database::Models::MaintenanceWindow]
+    attr_accessor :maintenance_window_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -77,7 +81,8 @@ module OCI
         'db_home': :'dbHome',
         'database_edition': :'databaseEdition',
         'disk_redundancy': :'diskRedundancy',
-        'license_model': :'licenseModel'
+        'license_model': :'licenseModel',
+        'maintenance_window_details': :'maintenanceWindowDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -112,7 +117,8 @@ module OCI
         'db_home': :'OCI::Database::Models::CreateDbHomeDetails',
         'database_edition': :'String',
         'disk_redundancy': :'String',
-        'license_model': :'String'
+        'license_model': :'String',
+        'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -149,6 +155,7 @@ module OCI
     # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     # @option attributes [String] :disk_redundancy The value to assign to the {#disk_redundancy} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -182,6 +189,12 @@ module OCI
       raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
 
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
+
+      self.maintenance_window_details = attributes[:'maintenanceWindowDetails'] if attributes[:'maintenanceWindowDetails']
+
+      raise 'You cannot provide both :maintenanceWindowDetails and :maintenance_window_details' if attributes.key?(:'maintenanceWindowDetails') && attributes.key?(:'maintenance_window_details')
+
+      self.maintenance_window_details = attributes[:'maintenance_window_details'] if attributes[:'maintenance_window_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -245,7 +258,8 @@ module OCI
         db_home == other.db_home &&
         database_edition == other.database_edition &&
         disk_redundancy == other.disk_redundancy &&
-        license_model == other.license_model
+        license_model == other.license_model &&
+        maintenance_window_details == other.maintenance_window_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -261,7 +275,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, db_home, database_edition, disk_redundancy, license_model].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, db_home, database_edition, disk_redundancy, license_model, maintenance_window_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
   module Identity
@@ -16,6 +17,12 @@ require 'oci/identity/models/auth_token'
 require 'oci/identity/models/authentication_policy'
 require 'oci/identity/models/availability_domain'
 require 'oci/identity/models/base_tag_definition_validator'
+require 'oci/identity/models/bulk_action_resource'
+require 'oci/identity/models/bulk_action_resource_type'
+require 'oci/identity/models/bulk_action_resource_type_collection'
+require 'oci/identity/models/bulk_delete_resources_details'
+require 'oci/identity/models/bulk_delete_tags_details'
+require 'oci/identity/models/bulk_move_resources_details'
 require 'oci/identity/models/change_tag_namespace_compartment_detail'
 require 'oci/identity/models/compartment'
 require 'oci/identity/models/create_api_key_details'

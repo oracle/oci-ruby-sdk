@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -27,6 +28,18 @@ module OCI
     # **[Required]** The number of CPU cores to enable for the VM cluster.
     # @return [Integer]
     attr_accessor :cpu_core_count
+
+    # The memory to be allocated in GBs.
+    # @return [Integer]
+    attr_accessor :memory_size_in_gbs
+
+    # The local node storage to be allocated in GBs.
+    # @return [Integer]
+    attr_accessor :db_node_storage_size_in_gbs
+
+    # The data disk group size to be allocated in TBs.
+    # @return [Float]
+    attr_accessor :data_storage_size_in_tbs
 
     # **[Required]** The public key portion of one or more key pairs used for SSH access to the VM cluster.
     # @return [Array<String>]
@@ -81,6 +94,9 @@ module OCI
         'display_name': :'displayName',
         'exadata_infrastructure_id': :'exadataInfrastructureId',
         'cpu_core_count': :'cpuCoreCount',
+        'memory_size_in_gbs': :'memorySizeInGBs',
+        'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
+        'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'ssh_public_keys': :'sshPublicKeys',
         'vm_cluster_network_id': :'vmClusterNetworkId',
         'license_model': :'licenseModel',
@@ -102,6 +118,9 @@ module OCI
         'display_name': :'String',
         'exadata_infrastructure_id': :'String',
         'cpu_core_count': :'Integer',
+        'memory_size_in_gbs': :'Integer',
+        'db_node_storage_size_in_gbs': :'Integer',
+        'data_storage_size_in_tbs': :'Float',
         'ssh_public_keys': :'Array<String>',
         'vm_cluster_network_id': :'String',
         'license_model': :'String',
@@ -125,6 +144,9 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :exadata_infrastructure_id The value to assign to the {#exadata_infrastructure_id} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
+    # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
+    # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :vm_cluster_network_id The value to assign to the {#vm_cluster_network_id} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
@@ -163,6 +185,24 @@ module OCI
       raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
+
+      self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
+
+      raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
+
+      self.memory_size_in_gbs = attributes[:'memory_size_in_gbs'] if attributes[:'memory_size_in_gbs']
+
+      self.db_node_storage_size_in_gbs = attributes[:'dbNodeStorageSizeInGBs'] if attributes[:'dbNodeStorageSizeInGBs']
+
+      raise 'You cannot provide both :dbNodeStorageSizeInGBs and :db_node_storage_size_in_gbs' if attributes.key?(:'dbNodeStorageSizeInGBs') && attributes.key?(:'db_node_storage_size_in_gbs')
+
+      self.db_node_storage_size_in_gbs = attributes[:'db_node_storage_size_in_gbs'] if attributes[:'db_node_storage_size_in_gbs']
+
+      self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
+
+      raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
+
+      self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
 
       self.ssh_public_keys = attributes[:'sshPublicKeys'] if attributes[:'sshPublicKeys']
 
@@ -242,6 +282,9 @@ module OCI
         display_name == other.display_name &&
         exadata_infrastructure_id == other.exadata_infrastructure_id &&
         cpu_core_count == other.cpu_core_count &&
+        memory_size_in_gbs == other.memory_size_in_gbs &&
+        db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
+        data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         ssh_public_keys == other.ssh_public_keys &&
         vm_cluster_network_id == other.vm_cluster_network_id &&
         license_model == other.license_model &&
@@ -266,7 +309,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, exadata_infrastructure_id, cpu_core_count, ssh_public_keys, vm_cluster_network_id, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, gi_version, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, exadata_infrastructure_id, cpu_core_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, ssh_public_keys, vm_cluster_network_id, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, gi_version, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

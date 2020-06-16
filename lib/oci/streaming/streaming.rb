@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
   module Streaming
@@ -10,15 +11,11 @@ module OCI
 end
 
 # Require models
-require 'oci/streaming/models/archiver'
-require 'oci/streaming/models/archiver_error'
-require 'oci/streaming/models/archiver_start_position'
 require 'oci/streaming/models/change_connect_harness_compartment_details'
 require 'oci/streaming/models/change_stream_compartment_details'
 require 'oci/streaming/models/change_stream_pool_compartment_details'
 require 'oci/streaming/models/connect_harness'
 require 'oci/streaming/models/connect_harness_summary'
-require 'oci/streaming/models/create_archiver_details'
 require 'oci/streaming/models/create_connect_harness_details'
 require 'oci/streaming/models/create_cursor_details'
 require 'oci/streaming/models/create_group_cursor_details'
@@ -41,7 +38,6 @@ require 'oci/streaming/models/stream'
 require 'oci/streaming/models/stream_pool'
 require 'oci/streaming/models/stream_pool_summary'
 require 'oci/streaming/models/stream_summary'
-require 'oci/streaming/models/update_archiver_details'
 require 'oci/streaming/models/update_connect_harness_details'
 require 'oci/streaming/models/update_group_details'
 require 'oci/streaming/models/update_stream_details'

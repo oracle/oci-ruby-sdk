@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -20,6 +21,10 @@ module OCI
     #
     # @return [String]
     attr_accessor :source_object_if_match_e_tag
+
+    # VersionId of the object to copy. If not provided then current version is copied by default.
+    # @return [String]
+    attr_accessor :source_version_id
 
     # **[Required]** The destination region the object will be copied to, for example \"us-ashburn-1\".
     # @return [String]
@@ -64,6 +69,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'source_object_name': :'sourceObjectName',
         'source_object_if_match_e_tag': :'sourceObjectIfMatchETag',
+        'source_version_id': :'sourceVersionId',
         'destination_region': :'destinationRegion',
         'destination_namespace': :'destinationNamespace',
         'destination_bucket': :'destinationBucket',
@@ -81,6 +87,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'source_object_name': :'String',
         'source_object_if_match_e_tag': :'String',
+        'source_version_id': :'String',
         'destination_region': :'String',
         'destination_namespace': :'String',
         'destination_bucket': :'String',
@@ -100,6 +107,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :source_object_name The value to assign to the {#source_object_name} property
     # @option attributes [String] :source_object_if_match_e_tag The value to assign to the {#source_object_if_match_e_tag} property
+    # @option attributes [String] :source_version_id The value to assign to the {#source_version_id} property
     # @option attributes [String] :destination_region The value to assign to the {#destination_region} property
     # @option attributes [String] :destination_namespace The value to assign to the {#destination_namespace} property
     # @option attributes [String] :destination_bucket The value to assign to the {#destination_bucket} property
@@ -124,6 +132,12 @@ module OCI
       raise 'You cannot provide both :sourceObjectIfMatchETag and :source_object_if_match_e_tag' if attributes.key?(:'sourceObjectIfMatchETag') && attributes.key?(:'source_object_if_match_e_tag')
 
       self.source_object_if_match_e_tag = attributes[:'source_object_if_match_e_tag'] if attributes[:'source_object_if_match_e_tag']
+
+      self.source_version_id = attributes[:'sourceVersionId'] if attributes[:'sourceVersionId']
+
+      raise 'You cannot provide both :sourceVersionId and :source_version_id' if attributes.key?(:'sourceVersionId') && attributes.key?(:'source_version_id')
+
+      self.source_version_id = attributes[:'source_version_id'] if attributes[:'source_version_id']
 
       self.destination_region = attributes[:'destinationRegion'] if attributes[:'destinationRegion']
 
@@ -181,6 +195,7 @@ module OCI
       self.class == other.class &&
         source_object_name == other.source_object_name &&
         source_object_if_match_e_tag == other.source_object_if_match_e_tag &&
+        source_version_id == other.source_version_id &&
         destination_region == other.destination_region &&
         destination_namespace == other.destination_namespace &&
         destination_bucket == other.destination_bucket &&
@@ -203,7 +218,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_object_name, source_object_if_match_e_tag, destination_region, destination_namespace, destination_bucket, destination_object_name, destination_object_if_match_e_tag, destination_object_if_none_match_e_tag, destination_object_metadata].hash
+      [source_object_name, source_object_if_match_e_tag, source_version_id, destination_region, destination_namespace, destination_bucket, destination_object_name, destination_object_if_match_e_tag, destination_object_if_none_match_e_tag, destination_object_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

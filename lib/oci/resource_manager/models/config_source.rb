@@ -1,11 +1,12 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Location of the Terraform configuration.
+  # Information about the Terraform configuration.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ResourceManager::Models::ConfigSource
@@ -14,14 +15,13 @@ module OCI
       CONFIG_SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Specifies the `configSourceType` for uploading the Terraform configuration.
-    # Presently, the .zip file type (`ZIP_UPLOAD`) is the only supported `configSourceType`.
+    # **[Required]** The type of configuration source to use for the Terraform configuration.
     #
     # @return [String]
     attr_reader :config_source_type
 
-    # File path to the directory from which Terraform runs.
-    # If not specified, we use the root directory.
+    # File path to the directory to use for running Terraform.
+    # If not specified, the root directory is used.
     #
     # @return [String]
     attr_accessor :working_directory

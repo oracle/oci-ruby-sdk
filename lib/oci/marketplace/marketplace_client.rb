@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
 require 'logger'
@@ -50,16 +51,14 @@ module OCI
     #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
     #   will not perform any retries
     def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
-      # If the signer is an InstancePrincipalsSecurityTokenSigner and no config was supplied (which is valid for instance principals)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner or SecurityTokenSigner and no config was supplied (they are self-sufficient signers)
       # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
       # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
       # pass it to this constructor.
       #
       # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
       # so try and load the config from the default file.
-      config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config ||= OCI::Config.new if signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
-      config.validate unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+      config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
       if signer.nil?
         signer = OCI::Signer.new(
@@ -176,11 +175,10 @@ module OCI
     # of use can no longer be deployed, but existing deployments aren't affected.
     #
     # @param [String] accepted_agreement_id The unique identifier for the accepted terms of use agreement.
-    # @param [String] signature A signature generated for the listing package terms of use agreements that can be retrieved with GetAgreement.
-    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :signature Deprecated. The signature value is ignored.
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
@@ -189,11 +187,10 @@ module OCI
     #   deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
-    def delete_accepted_agreement(accepted_agreement_id, signature, opts = {})
+    def delete_accepted_agreement(accepted_agreement_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#delete_accepted_agreement.' if logger
 
       raise "Missing the required parameter 'accepted_agreement_id' when calling delete_accepted_agreement." if accepted_agreement_id.nil?
-      raise "Missing the required parameter 'signature' when calling delete_accepted_agreement." if signature.nil?
       raise "Parameter value for 'accepted_agreement_id' must not be blank" if OCI::Internal::Util.blank_string?(accepted_agreement_id)
 
       path = '/acceptedAgreements/{acceptedAgreementId}'.sub('{acceptedAgreementId}', accepted_agreement_id.to_s)
@@ -202,7 +199,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:signature] = signature
+      query_params[:signature] = opts[:signature] if opts[:signature]
 
       # Header Params
       header_params = {}
@@ -305,6 +302,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::Agreement Agreement}
     def get_agreement(listing_id, package_version, agreement_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#get_agreement.' if logger
@@ -322,6 +320,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -359,6 +358,19 @@ module OCI
     # Gets detailed information about a listing, including the listing's name, version, description, and
     # resources.
     #
+    # If you plan to launch an instance from an image listing, you must first subscribe to the listing. When
+    # you launch the instance, you also need to provide the image ID of the listing resource version that you want.
+    #
+    # Subscribing to the listing requires you to first get a signature from the terms of use agreement for the
+    # listing resource version. To get the signature, issue a [GetAppCatalogListingAgreements](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersionAgreements/GetAppCatalogListingAgreements) API call.
+    # The [AppCatalogListingResourceVersionAgreements](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersionAgreements) object, including
+    # its signature, is returned in the response. With the signature for the terms of use agreement for the desired
+    # listing resource version, create a subscription by issuing a
+    # [CreateAppCatalogSubscription](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogSubscription/CreateAppCatalogSubscription) API call.
+    #
+    # To get the image ID to launch an instance, issue a [GetAppCatalogListingResourceVersion](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersion/GetAppCatalogListingResourceVersion) API call.
+    # Lastly, to launch the instance, use the image ID of the listing resource version to issue a [LaunchInstance](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/Instance/LaunchInstance) API call.
+    #
     # @param [String] listing_id The unique identifier for the listing.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -366,6 +378,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::Listing Listing}
     def get_listing(listing_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#get_listing.' if logger
@@ -379,6 +392,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -415,6 +429,19 @@ module OCI
 
     # Get the details of the specified version of a package, including information needed to launch the package.
     #
+    # If you plan to launch an instance from an image listing, you must first subscribe to the listing. When
+    # you launch the instance, you also need to provide the image ID of the listing resource version that you want.
+    #
+    # Subscribing to the listing requires you to first get a signature from the terms of use agreement for the
+    # listing resource version. To get the signature, issue a [GetAppCatalogListingAgreements](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersionAgreements/GetAppCatalogListingAgreements) API call.
+    # The [AppCatalogListingResourceVersionAgreements](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersionAgreements) object, including
+    # its signature, is returned in the response. With the signature for the terms of use agreement for the desired
+    # listing resource version, create a subscription by issuing a
+    # [CreateAppCatalogSubscription](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogSubscription/CreateAppCatalogSubscription) API call.
+    #
+    # To get the image ID to launch an instance, issue a [GetAppCatalogListingResourceVersion](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersion/GetAppCatalogListingResourceVersion) API call.
+    # Lastly, to launch the instance, use the image ID of the listing resource version to issue a [LaunchInstance](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/Instance/LaunchInstance) API call.
+    #
     # @param [String] listing_id The unique identifier for the listing.
     # @param [String] package_version The version of the package. Package versions are unique within a listing.
     # @param [Hash] opts the optional parameters
@@ -423,6 +450,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::ListingPackage ListingPackage}
     def get_package(listing_id, package_version, opts = {})
       logger.debug 'Calling operation MarketplaceClient#get_package.' if logger
@@ -438,6 +466,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -572,6 +601,7 @@ module OCI
     # @option opts [Integer] :limit How many records to return. Specify a value greater than zero and less than or equal to 1000. The default is 30.
     #    (default to 30)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::AgreementSummary AgreementSummary}>
     def list_agreements(listing_id, package_version, opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_agreements.' if logger
@@ -589,6 +619,7 @@ module OCI
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -635,6 +666,7 @@ module OCI
     # @option opts [Integer] :limit How many records to return. Specify a value greater than zero and less than or equal to 1000. The default is 30.
     #    (default to 30)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::CategorySummary CategorySummary}>
     def list_categories(opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_categories.' if logger
@@ -648,6 +680,7 @@ module OCI
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -685,6 +718,19 @@ module OCI
     # Gets a list of listings from Oracle Cloud Infrastructure Marketplace by searching keywords and
     # filtering according to listing attributes.
     #
+    # If you plan to launch an instance from an image listing, you must first subscribe to the listing. When
+    # you launch the instance, you also need to provide the image ID of the listing resource version that you want.
+    #
+    # Subscribing to the listing requires you to first get a signature from the terms of use agreement for the
+    # listing resource version. To get the signature, issue a [GetAppCatalogListingAgreements](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersionAgreements/GetAppCatalogListingAgreements) API call.
+    # The [AppCatalogListingResourceVersionAgreements](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersionAgreements) object, including
+    # its signature, is returned in the response. With the signature for the terms of use agreement for the desired
+    # listing resource version, create a subscription by issuing a
+    # [CreateAppCatalogSubscription](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogSubscription/CreateAppCatalogSubscription) API call.
+    #
+    # To get the image ID to launch an instance, issue a [GetAppCatalogListingResourceVersion](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersion/GetAppCatalogListingResourceVersion) API call.
+    # Lastly, to launch the instance, use the image ID of the listing resource version to issue a [LaunchInstance](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/Instance/LaunchInstance) API call.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -715,6 +761,7 @@ module OCI
     #   Allowed values are: FREE, BYOL, PAYGO
     # @option opts [BOOLEAN] :is_featured Indicates whether to show only featured listings. If this is set to `false` or is omitted, then all listings will be returned.
     #    (default to false)
+    # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::ListingSummary ListingSummary}>
     def list_listings(opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_listings.' if logger
@@ -755,6 +802,7 @@ module OCI
       query_params[:category] = OCI::ApiClient.build_collection_params(opts[:category], :multi) if opts[:category] && !opts[:category].empty?
       query_params[:pricing] = OCI::ApiClient.build_collection_params(opts[:pricing], :multi) if opts[:pricing] && !opts[:pricing].empty?
       query_params[:isFeatured] = opts[:is_featured] if !opts[:is_featured].nil?
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -791,6 +839,19 @@ module OCI
 
     # Gets the list of packages for a listing.
     #
+    # If you plan to launch an instance from an image listing, you must first subscribe to the listing. When
+    # you launch the instance, you also need to provide the image ID of the listing resource version that you want.
+    #
+    # Subscribing to the listing requires you to first get a signature from the terms of use agreement for the
+    # listing resource version. To get the signature, issue a [GetAppCatalogListingAgreements](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersionAgreements/GetAppCatalogListingAgreements) API call.
+    # The [AppCatalogListingResourceVersionAgreements](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersionAgreements) object, including
+    # its signature, is returned in the response. With the signature for the terms of use agreement for the desired
+    # listing resource version, create a subscription by issuing a
+    # [CreateAppCatalogSubscription](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogSubscription/CreateAppCatalogSubscription) API call.
+    #
+    # To get the image ID to launch an instance, issue a [GetAppCatalogListingResourceVersion](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListingResourceVersion/GetAppCatalogListingResourceVersion) API call.
+    # Lastly, to launch the instance, use the image ID of the listing resource version to issue a [LaunchInstance](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/Instance/LaunchInstance) API call.
+    #
     # @param [String] listing_id The unique identifier for the listing.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -811,6 +872,7 @@ module OCI
     #   Allowed values are: TIMERELEASED
     # @option opts [String] :sort_order The sort order to use, either `ASC` or `DESC`. (default to DESC)
     #   Allowed values are: ASC, DESC
+    # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::ListingPackageSummary ListingPackageSummary}>
     def list_packages(listing_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_packages.' if logger
@@ -838,6 +900,7 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -884,6 +947,7 @@ module OCI
     # @option opts [Integer] :limit How many records to return. Specify a value greater than zero and less than or equal to 1000. The default is 30.
     #    (default to 30)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::PublisherSummary PublisherSummary}>
     def list_publishers(opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_publishers.' if logger
@@ -898,6 +962,7 @@ module OCI
       query_params[:publisherId] = opts[:publisher_id] if opts[:publisher_id]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
       header_params = {}
@@ -919,6 +984,126 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Marketplace::Models::PublisherSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists available types of reports for the compartment.
+    # @param [String] compartment_id The unique identifier for the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::ReportTypeCollection ReportTypeCollection}
+    def list_report_types(compartment_id, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#list_report_types.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_report_types." if compartment_id.nil?
+
+      path = '/reportTypes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#list_report_types') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::ReportTypeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists reports in the compartment that match the specified report type and date.
+    # @param [String] report_type The type of the report.
+    # @param [DateTime] date Date, expressed in `YYYYMMDD` format, where `Y` represents the year, `M` represents the month, and `D` represents the day.
+    # @param [String] compartment_id The unique identifier for the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::ReportCollection ReportCollection}
+    def list_reports(report_type, date, compartment_id, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#list_reports.' if logger
+
+      raise "Missing the required parameter 'report_type' when calling list_reports." if report_type.nil?
+      raise "Missing the required parameter 'date' when calling list_reports." if date.nil?
+      raise "Missing the required parameter 'compartment_id' when calling list_reports." if compartment_id.nil?
+
+      path = '/reports'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:reportType] = report_type
+      query_params[:date] = date
+      query_params[:compartmentId] = compartment_id
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#list_reports') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::ReportCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength

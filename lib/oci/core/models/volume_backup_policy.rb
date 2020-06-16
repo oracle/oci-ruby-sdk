@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
@@ -25,6 +26,11 @@ module OCI
     # **[Required]** The collection of schedules that this policy will apply.
     # @return [Array<OCI::Core::Models::VolumeBackupSchedule>]
     attr_accessor :schedules
+
+    # The paired destination region (pre-defined by oracle) for scheduled cross region backup calls. Example `us-ashburn-1`
+    #
+    # @return [String]
+    attr_accessor :destination_region
 
     # **[Required]** The date and time the volume backup policy was created. Format defined by RFC3339.
     #
@@ -58,6 +64,7 @@ module OCI
         'display_name': :'displayName',
         'id': :'id',
         'schedules': :'schedules',
+        'destination_region': :'destinationRegion',
         'time_created': :'timeCreated',
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
@@ -73,6 +80,7 @@ module OCI
         'display_name': :'String',
         'id': :'String',
         'schedules': :'Array<OCI::Core::Models::VolumeBackupSchedule>',
+        'destination_region': :'String',
         'time_created': :'DateTime',
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -90,6 +98,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [Array<OCI::Core::Models::VolumeBackupSchedule>] :schedules The value to assign to the {#schedules} property
+    # @option attributes [String] :destination_region The value to assign to the {#destination_region} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -109,6 +118,12 @@ module OCI
       self.id = attributes[:'id'] if attributes[:'id']
 
       self.schedules = attributes[:'schedules'] if attributes[:'schedules']
+
+      self.destination_region = attributes[:'destinationRegion'] if attributes[:'destinationRegion']
+
+      raise 'You cannot provide both :destinationRegion and :destination_region' if attributes.key?(:'destinationRegion') && attributes.key?(:'destination_region')
+
+      self.destination_region = attributes[:'destination_region'] if attributes[:'destination_region']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -149,6 +164,7 @@ module OCI
         display_name == other.display_name &&
         id == other.id &&
         schedules == other.schedules &&
+        destination_region == other.destination_region &&
         time_created == other.time_created &&
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
@@ -168,7 +184,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, id, schedules, time_created, compartment_id, defined_tags, freeform_tags].hash
+      [display_name, id, schedules, destination_region, time_created, compartment_id, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # This example demonstrates how to attach volumes to an instance using different volume attachment
 # types.
@@ -66,21 +67,19 @@ def create_vcn_and_subnet(virtual_network, compartment_id, availability_domain)
 end
 
 def delete_vcn_and_subnet(virtual_network, vcn_and_subnet)
+  virtual_network_composite = OCI::Core::VirtualNetworkClientCompositeOperations.new(virtual_network)
+
   vcn = vcn_and_subnet[:vcn]
   subnet = vcn_and_subnet[:subnet]
 
-  virtual_network.delete_subnet(subnet.id)
-  virtual_network.get_subnet(subnet.id).wait_until(
-    :lifecycle_state,
-    OCI::Core::Models::Subnet::LIFECYCLE_STATE_TERMINATED,
-    succeed_on_not_found: true
+  virtual_network_composite.delete_subnet_and_wait_for_state(
+    subnet.id,
+    [OCI::Core::Models::Subnet::LIFECYCLE_STATE_TERMINATED]
   )
 
-  virtual_network.delete_vcn(vcn.id)
-  virtual_network.get_vcn(vcn.id).wait_until(
-    :lifecycle_state,
-    OCI::Core::Models::Vcn::LIFECYCLE_STATE_TERMINATED,
-    succeed_on_not_found: true
+  virtual_network_composite.delete_vcn_and_wait_for_state(
+    vcn.id,
+    [OCI::Core::Models::Vcn::LIFECYCLE_STATE_TERMINATED]
   )
 end
 
@@ -112,7 +111,7 @@ def launch_instance(compute_client, compartment_id, vcn_and_subnet)
     OCI::Core::Models::LaunchInstanceDetails.new(
       availability_domain: subnet.availability_domain,
       compartment_id: subnet.compartment_id,
-      image_id: get_image(compute_client, compartment_id, 'Oracle Linux', '7.4', 'VM.Standard1.1').id,
+      image_id: get_image(compute_client, compartment_id, 'Oracle Linux', '7.7', 'VM.Standard1.1').id,
       shape: 'VM.Standard1.1',
       subnet_id: subnet.id,
       display_name: 'RubyVolAttachExampleInstance'
@@ -170,8 +169,8 @@ def detach_volume(compute_client, volume_attachment)
                 .wait_until(:lifecycle_state, OCI::Core::Models::VolumeAttachment::LIFECYCLE_STATE_DETACHED)
 end
 
-compartment_id = ARGV[0]
-availability_domain = ARGV[1]
+compartment_id = 'ocid1.compartment.oc1..aaaaaaaaqert7qj3dm6euhozemrh3oquordbqvpqqs2b7c7ebtlihox2bwjq'
+availability_domain = 'AnvB:PHX-AD-1'
 
 blockstorage_client = OCI::Core::BlockstorageClient.new
 compute_client = OCI::Core::ComputeClient.new

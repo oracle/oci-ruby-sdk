@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
@@ -47,6 +48,10 @@ module OCI
     # @return [Array<String>]
     attr_reader :pricing_types
 
+    # The regions where the listing is eligible to be deployed.
+    # @return [Array<OCI::Marketplace::Models::Region>]
+    attr_accessor :regions
+
     # Indicates whether the listing is featured.
     # @return [BOOLEAN]
     attr_accessor :is_featured
@@ -69,6 +74,7 @@ module OCI
         'icon': :'icon',
         'package_type': :'packageType',
         'pricing_types': :'pricingTypes',
+        'regions': :'regions',
         'is_featured': :'isFeatured',
         'categories': :'categories',
         'publisher': :'publisher'
@@ -87,6 +93,7 @@ module OCI
         'icon': :'OCI::Marketplace::Models::UploadData',
         'package_type': :'String',
         'pricing_types': :'Array<String>',
+        'regions': :'Array<OCI::Marketplace::Models::Region>',
         'is_featured': :'BOOLEAN',
         'categories': :'Array<String>',
         'publisher': :'OCI::Marketplace::Models::PublisherSummary'
@@ -107,6 +114,7 @@ module OCI
     # @option attributes [OCI::Marketplace::Models::UploadData] :icon The value to assign to the {#icon} property
     # @option attributes [String] :package_type The value to assign to the {#package_type} property
     # @option attributes [Array<String>] :pricing_types The value to assign to the {#pricing_types} property
+    # @option attributes [Array<OCI::Marketplace::Models::Region>] :regions The value to assign to the {#regions} property
     # @option attributes [BOOLEAN] :is_featured The value to assign to the {#is_featured} property
     # @option attributes [Array<String>] :categories The value to assign to the {#categories} property
     # @option attributes [OCI::Marketplace::Models::PublisherSummary] :publisher The value to assign to the {#publisher} property
@@ -141,6 +149,8 @@ module OCI
       raise 'You cannot provide both :pricingTypes and :pricing_types' if attributes.key?(:'pricingTypes') && attributes.key?(:'pricing_types')
 
       self.pricing_types = attributes[:'pricing_types'] if attributes[:'pricing_types']
+
+      self.regions = attributes[:'regions'] if attributes[:'regions']
 
       self.is_featured = attributes[:'isFeatured'] unless attributes[:'isFeatured'].nil?
 
@@ -204,6 +214,7 @@ module OCI
         icon == other.icon &&
         package_type == other.package_type &&
         pricing_types == other.pricing_types &&
+        regions == other.regions &&
         is_featured == other.is_featured &&
         categories == other.categories &&
         publisher == other.publisher
@@ -222,7 +233,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, short_description, tagline, icon, package_type, pricing_types, is_featured, categories, publisher].hash
+      [id, name, short_description, tagline, icon, package_type, pricing_types, regions, is_featured, categories, publisher].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

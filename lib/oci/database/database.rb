@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
   module Database
@@ -62,13 +63,16 @@ require 'oci/database/models/create_data_guard_association_to_existing_db_system
 require 'oci/database/models/create_data_guard_association_with_new_db_system_details'
 require 'oci/database/models/create_database_base'
 require 'oci/database/models/create_database_details'
+require 'oci/database/models/create_database_from_another_database_details'
 require 'oci/database/models/create_database_from_backup'
 require 'oci/database/models/create_database_from_backup_details'
 require 'oci/database/models/create_db_home_base'
 require 'oci/database/models/create_db_home_details'
 require 'oci/database/models/create_db_home_from_backup_details'
+require 'oci/database/models/create_db_home_from_database_details'
 require 'oci/database/models/create_db_home_with_db_system_id_details'
 require 'oci/database/models/create_db_home_with_db_system_id_from_backup_details'
+require 'oci/database/models/create_db_home_with_db_system_id_from_database_details'
 require 'oci/database/models/create_db_home_with_vm_cluster_id_details'
 require 'oci/database/models/create_exadata_infrastructure_details'
 require 'oci/database/models/create_external_backup_job_details'
@@ -109,6 +113,7 @@ require 'oci/database/models/launch_autonomous_exadata_infrastructure_details'
 require 'oci/database/models/launch_db_system_base'
 require 'oci/database/models/launch_db_system_details'
 require 'oci/database/models/launch_db_system_from_backup_details'
+require 'oci/database/models/launch_db_system_from_database_details'
 require 'oci/database/models/maintenance_run'
 require 'oci/database/models/maintenance_run_summary'
 require 'oci/database/models/maintenance_window'
