@@ -16,7 +16,8 @@ module OCI
     # @return [Array<OCI::Marketplace::Models::OrchestrationVariable>]
     attr_accessor :variables
 
-    # List of regions in which this ListingPackage is available.
+    # The regions where you can deploy this listing package. (Some packages have restrictions that limit their deployment to United States regions only.)
+    #
     # @return [Array<OCI::Marketplace::Models::Region>]
     attr_accessor :regions
 

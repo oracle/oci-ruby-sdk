@@ -13,7 +13,8 @@ module OCI
   class Database::Models::CreateAutonomousDatabaseBase
     DB_WORKLOAD_ENUM = [
       DB_WORKLOAD_OLTP = 'OLTP'.freeze,
-      DB_WORKLOAD_DW = 'DW'.freeze
+      DB_WORKLOAD_DW = 'DW'.freeze,
+      DB_WORKLOAD_AJD = 'AJD'.freeze
     ].freeze
 
     LICENSE_MODEL_ENUM = [
@@ -25,7 +26,8 @@ module OCI
       SOURCE_NONE = 'NONE'.freeze,
       SOURCE_DATABASE = 'DATABASE'.freeze,
       SOURCE_BACKUP_FROM_ID = 'BACKUP_FROM_ID'.freeze,
-      SOURCE_BACKUP_FROM_TIMESTAMP = 'BACKUP_FROM_TIMESTAMP'.freeze
+      SOURCE_BACKUP_FROM_TIMESTAMP = 'BACKUP_FROM_TIMESTAMP'.freeze,
+      SOURCE_CLONE_TO_REFRESHABLE = 'CLONE_TO_REFRESHABLE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment of the Autonomous Database.
@@ -44,6 +46,7 @@ module OCI
     #
     # - OLTP - indicates an Autonomous Transaction Processing database
     # - DW - indicates an Autonomous Data Warehouse database
+    # - AJD - indicates an Autonomous JSON Database
     #
     # @return [String]
     attr_reader :db_workload
@@ -58,7 +61,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_free_tier
 
-    # **[Required]** The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing.
+    # The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing.
     # @return [String]
     attr_accessor :admin_password
 
@@ -77,7 +80,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_preview_version_with_service_terms_accepted
 
-    # Indicates if auto scaling is enabled for the Autonomous Database OCPU core count. The default value is `FALSE`. Note that auto scaling is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
+    # Indicates if auto scaling is enabled for the Autonomous Database OCPU core count. The default value is `FALSE`.
     #
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
@@ -93,17 +96,23 @@ module OCI
 
     # The client IP access control list (ACL). This feature is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
     # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
+    #
     # To add the whitelist VCN specific subnet or IP, use a semicoln ';' as a deliminator to add the VCN specific subnets or IPs.
-    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw;1.1.1.1\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw;1.1.0.0/16\"]`
+    # For an update operation, if you want to delete all the IPs in the ACL, use an array with a single empty string entry.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.<unique_id>\",\"ocid1.vcn.oc1.sea.<unique_id1>;1.1.1.1\",\"ocid1.vcn.oc1.sea.<unique_id2>;1.1.0.0/16\"]`
     #
     # @return [Array<String>]
     attr_accessor :whitelisted_ips
+
+    # Indicates whether the Autonomous Database has Data Guard enabled.
+    # @return [BOOLEAN]
+    attr_accessor :is_data_guard_enabled
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet the resource is associated with.
     #
     # **Subnet Restrictions:**
     # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
-    # - For Exadata and virtual machine 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.128.0/20.
+    # - For Exadata and virtual machine 2-node RAC systems, do not use a subnet that overlaps with 192.168.128.0/20.
     # - For Autonomous Database, setting this will disable public secure access to the database.
     #
     # These subnets are used by the Oracle Clusterware private interconnect on the database instance.
@@ -120,7 +129,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :nsg_ids
 
-    # The private endpoint label for the resource.
+    # The private endpoint label for the resource. Setting this to an empty string, after the private endpoint database gets created, will change the same private endpoint database to the public endpoint database.
     # @return [String]
     attr_accessor :private_endpoint_label
 
@@ -167,6 +176,7 @@ module OCI
         'is_dedicated': :'isDedicated',
         'autonomous_container_database_id': :'autonomousContainerDatabaseId',
         'whitelisted_ips': :'whitelistedIps',
+        'is_data_guard_enabled': :'isDataGuardEnabled',
         'subnet_id': :'subnetId',
         'nsg_ids': :'nsgIds',
         'private_endpoint_label': :'privateEndpointLabel',
@@ -196,6 +206,7 @@ module OCI
         'is_dedicated': :'BOOLEAN',
         'autonomous_container_database_id': :'String',
         'whitelisted_ips': :'Array<String>',
+        'is_data_guard_enabled': :'BOOLEAN',
         'subnet_id': :'String',
         'nsg_ids': :'Array<String>',
         'private_endpoint_label': :'String',
@@ -216,6 +227,7 @@ module OCI
       type = object_hash[:'source'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Database::Models::CreateAutonomousDatabaseCloneDetails' if type == 'DATABASE'
+      return 'OCI::Database::Models::CreateRefreshableAutonomousDatabaseCloneDetails' if type == 'CLONE_TO_REFRESHABLE'
       return 'OCI::Database::Models::CreateAutonomousDatabaseFromBackupDetails' if type == 'BACKUP_FROM_ID'
       return 'OCI::Database::Models::CreateAutonomousDatabaseFromBackupTimestampDetails' if type == 'BACKUP_FROM_TIMESTAMP'
       return 'OCI::Database::Models::CreateAutonomousDatabaseDetails' if type == 'NONE'
@@ -245,6 +257,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
     # @option attributes [String] :autonomous_container_database_id The value to assign to the {#autonomous_container_database_id} property
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
+    # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {#is_data_guard_enabled} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [String] :private_endpoint_label The value to assign to the {#private_endpoint_label} property
@@ -348,6 +361,12 @@ module OCI
 
       self.whitelisted_ips = attributes[:'whitelisted_ips'] if attributes[:'whitelisted_ips']
 
+      self.is_data_guard_enabled = attributes[:'isDataGuardEnabled'] unless attributes[:'isDataGuardEnabled'].nil?
+
+      raise 'You cannot provide both :isDataGuardEnabled and :is_data_guard_enabled' if attributes.key?(:'isDataGuardEnabled') && attributes.key?(:'is_data_guard_enabled')
+
+      self.is_data_guard_enabled = attributes[:'is_data_guard_enabled'] unless attributes[:'is_data_guard_enabled'].nil?
+
       self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
 
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
@@ -437,6 +456,7 @@ module OCI
         is_dedicated == other.is_dedicated &&
         autonomous_container_database_id == other.autonomous_container_database_id &&
         whitelisted_ips == other.whitelisted_ips &&
+        is_data_guard_enabled == other.is_data_guard_enabled &&
         subnet_id == other.subnet_id &&
         nsg_ids == other.nsg_ids &&
         private_endpoint_label == other.private_endpoint_label &&
@@ -459,7 +479,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, whitelisted_ips, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

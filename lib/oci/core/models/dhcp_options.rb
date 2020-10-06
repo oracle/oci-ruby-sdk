@@ -72,7 +72,7 @@ module OCI
     # @return [Array<OCI::Core::Models::DhcpOption>]
     attr_accessor :options
 
-    # **[Required]** Date and time the set of DHCP options was created, in the format defined by RFC3339.
+    # **[Required]** Date and time the set of DHCP options was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #

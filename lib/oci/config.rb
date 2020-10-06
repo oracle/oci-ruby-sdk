@@ -15,6 +15,8 @@ module OCI
                  'user' => /^([0-9a-zA-Z\-_]+[.:])([0-9a-zA-Z\-_]*[.:]){3,}([0-9a-zA-Z\-_]+)$/,
                  'fingerprint' => /^([0-9a-f]{2}:){15}[0-9a-f]{2}$/ }.freeze
 
+    OCI_REGION_ENV = 'OCI_REGION'.freeze
+
     private_constant :PATTERNS
 
     # OCID of the user to use for authentication.
@@ -58,7 +60,7 @@ module OCI
     # A region to use for APIs created with this Config.
     #
     # @return [OCI::Regions::REGION_ENUM]
-    attr_accessor :region
+    attr_writer :region
 
     # Defines the logger used for debugging.
     # For example, log to STDOUT by setting this to Logger.new(STDOUT).
@@ -90,6 +92,18 @@ module OCI
     # @return [String]
     attr_accessor :additional_user_agent
 
+    # The file location of delegation token
+    # Example: ~/.oci/delegation
+    #
+    # @return [String]
+    attr_accessor :delegation_token_file
+
+    # The authentication type user want to apply
+    # Example: instance_principal
+    #
+    # @return [String]
+    attr_accessor :authentication_type
+
     def initialize
       @timeout = 0
       @connection_timeout = 10
@@ -106,12 +120,27 @@ module OCI
       @logger
     end
 
+    # Gets the region var. If the region doesn't exist, check OCI_REGION_ENV env var to search for it
+    #
+    # @return [OCI::Regions::REGION_ENUM]
+    def region
+      @region ||= ENV[OCI::Config::OCI_REGION_ENV]
+
+      @region
+    end
+
+    # rubocop:disable Metrics/PerceivedComplexity
     def validate
-      %w[user fingerprint tenancy region].each do |name|
+      # currently, config file auth type only supports delegation token auth which is `instance_principal` based auth
+      return unless @authentication_type.nil? && @delegation_token_file.nil?
+
+      %w[user fingerprint tenancy].each do |name|
         if !instance_variable_defined?("@#{name}") || instance_variable_get("@#{name}").nil?
           raise OCI::InvalidConfigError, "The #{name} is missing in configuration."
         end
       end
+
+      raise OCI::InvalidConfigError, 'The region is missing in configuration or environment variable.' if @region.nil?
 
       if (!instance_variable_defined?('@key_file') || instance_variable_get('@key_file').nil?) && @key_content.nil?
         raise OCI::InvalidConfigError, 'The key_file and key_content cannot both be missing in configuration.'
@@ -123,6 +152,7 @@ module OCI
         end
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def self.validate_and_build_config_with_signer(config, signer)
       config ||= OCI.config unless signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner) || \

@@ -14,12 +14,20 @@ module OCI
     # @return [OCI::Apigateway::Models::CorsPolicy]
     attr_accessor :cors
 
+    # @return [OCI::Apigateway::Models::HeaderTransformationPolicy]
+    attr_accessor :header_transformations
+
+    # @return [OCI::Apigateway::Models::QueryParameterTransformationPolicy]
+    attr_accessor :query_parameter_transformations
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'authorization': :'authorization',
-        'cors': :'cors'
+        'cors': :'cors',
+        'header_transformations': :'headerTransformations',
+        'query_parameter_transformations': :'queryParameterTransformations'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -29,7 +37,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'authorization': :'OCI::Apigateway::Models::RouteAuthorizationPolicy',
-        'cors': :'OCI::Apigateway::Models::CorsPolicy'
+        'cors': :'OCI::Apigateway::Models::CorsPolicy',
+        'header_transformations': :'OCI::Apigateway::Models::HeaderTransformationPolicy',
+        'query_parameter_transformations': :'OCI::Apigateway::Models::QueryParameterTransformationPolicy'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,6 +52,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::Apigateway::Models::RouteAuthorizationPolicy] :authorization The value to assign to the {#authorization} property
     # @option attributes [OCI::Apigateway::Models::CorsPolicy] :cors The value to assign to the {#cors} property
+    # @option attributes [OCI::Apigateway::Models::HeaderTransformationPolicy] :header_transformations The value to assign to the {#header_transformations} property
+    # @option attributes [OCI::Apigateway::Models::QueryParameterTransformationPolicy] :query_parameter_transformations The value to assign to the {#query_parameter_transformations} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -51,6 +63,18 @@ module OCI
       self.authorization = attributes[:'authorization'] if attributes[:'authorization']
 
       self.cors = attributes[:'cors'] if attributes[:'cors']
+
+      self.header_transformations = attributes[:'headerTransformations'] if attributes[:'headerTransformations']
+
+      raise 'You cannot provide both :headerTransformations and :header_transformations' if attributes.key?(:'headerTransformations') && attributes.key?(:'header_transformations')
+
+      self.header_transformations = attributes[:'header_transformations'] if attributes[:'header_transformations']
+
+      self.query_parameter_transformations = attributes[:'queryParameterTransformations'] if attributes[:'queryParameterTransformations']
+
+      raise 'You cannot provide both :queryParameterTransformations and :query_parameter_transformations' if attributes.key?(:'queryParameterTransformations') && attributes.key?(:'query_parameter_transformations')
+
+      self.query_parameter_transformations = attributes[:'query_parameter_transformations'] if attributes[:'query_parameter_transformations']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -65,7 +89,9 @@ module OCI
 
       self.class == other.class &&
         authorization == other.authorization &&
-        cors == other.cors
+        cors == other.cors &&
+        header_transformations == other.header_transformations &&
+        query_parameter_transformations == other.query_parameter_transformations
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -81,7 +107,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [authorization, cors].hash
+      [authorization, cors, header_transformations, query_parameter_transformations].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -43,6 +43,28 @@ module OCI
     # @return [OCI::ContainerEngine::Models::UpdateNodePoolNodeConfigDetails]
     attr_accessor :node_config_details
 
+    # A list of key/value pairs to add to each underlying OCI instance in the node pool on launch.
+    # @return [Hash<String, String>]
+    attr_accessor :node_metadata
+
+    # Specify the source to use to launch nodes in the node pool. Currently, image is the only supported source.
+    #
+    # @return [OCI::ContainerEngine::Models::NodeSourceDetails]
+    attr_accessor :node_source_details
+
+    # The SSH public key to add to each node in the node pool on launch.
+    # @return [String]
+    attr_accessor :ssh_public_key
+
+    # The name of the node shape of the nodes in the node pool used on launch.
+    # @return [String]
+    attr_accessor :node_shape
+
+    # Specify the configuration of the shape to launch nodes in the node pool.
+    #
+    # @return [OCI::ContainerEngine::Models::UpdateNodeShapeConfigDetails]
+    attr_accessor :node_shape_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -52,7 +74,12 @@ module OCI
         'initial_node_labels': :'initialNodeLabels',
         'quantity_per_subnet': :'quantityPerSubnet',
         'subnet_ids': :'subnetIds',
-        'node_config_details': :'nodeConfigDetails'
+        'node_config_details': :'nodeConfigDetails',
+        'node_metadata': :'nodeMetadata',
+        'node_source_details': :'nodeSourceDetails',
+        'ssh_public_key': :'sshPublicKey',
+        'node_shape': :'nodeShape',
+        'node_shape_config': :'nodeShapeConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,7 +93,12 @@ module OCI
         'initial_node_labels': :'Array<OCI::ContainerEngine::Models::KeyValue>',
         'quantity_per_subnet': :'Integer',
         'subnet_ids': :'Array<String>',
-        'node_config_details': :'OCI::ContainerEngine::Models::UpdateNodePoolNodeConfigDetails'
+        'node_config_details': :'OCI::ContainerEngine::Models::UpdateNodePoolNodeConfigDetails',
+        'node_metadata': :'Hash<String, String>',
+        'node_source_details': :'OCI::ContainerEngine::Models::NodeSourceDetails',
+        'ssh_public_key': :'String',
+        'node_shape': :'String',
+        'node_shape_config': :'OCI::ContainerEngine::Models::UpdateNodeShapeConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,6 +115,11 @@ module OCI
     # @option attributes [Integer] :quantity_per_subnet The value to assign to the {#quantity_per_subnet} property
     # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
     # @option attributes [OCI::ContainerEngine::Models::UpdateNodePoolNodeConfigDetails] :node_config_details The value to assign to the {#node_config_details} property
+    # @option attributes [Hash<String, String>] :node_metadata The value to assign to the {#node_metadata} property
+    # @option attributes [OCI::ContainerEngine::Models::NodeSourceDetails] :node_source_details The value to assign to the {#node_source_details} property
+    # @option attributes [String] :ssh_public_key The value to assign to the {#ssh_public_key} property
+    # @option attributes [String] :node_shape The value to assign to the {#node_shape} property
+    # @option attributes [OCI::ContainerEngine::Models::UpdateNodeShapeConfigDetails] :node_shape_config The value to assign to the {#node_shape_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -120,6 +157,36 @@ module OCI
       raise 'You cannot provide both :nodeConfigDetails and :node_config_details' if attributes.key?(:'nodeConfigDetails') && attributes.key?(:'node_config_details')
 
       self.node_config_details = attributes[:'node_config_details'] if attributes[:'node_config_details']
+
+      self.node_metadata = attributes[:'nodeMetadata'] if attributes[:'nodeMetadata']
+
+      raise 'You cannot provide both :nodeMetadata and :node_metadata' if attributes.key?(:'nodeMetadata') && attributes.key?(:'node_metadata')
+
+      self.node_metadata = attributes[:'node_metadata'] if attributes[:'node_metadata']
+
+      self.node_source_details = attributes[:'nodeSourceDetails'] if attributes[:'nodeSourceDetails']
+
+      raise 'You cannot provide both :nodeSourceDetails and :node_source_details' if attributes.key?(:'nodeSourceDetails') && attributes.key?(:'node_source_details')
+
+      self.node_source_details = attributes[:'node_source_details'] if attributes[:'node_source_details']
+
+      self.ssh_public_key = attributes[:'sshPublicKey'] if attributes[:'sshPublicKey']
+
+      raise 'You cannot provide both :sshPublicKey and :ssh_public_key' if attributes.key?(:'sshPublicKey') && attributes.key?(:'ssh_public_key')
+
+      self.ssh_public_key = attributes[:'ssh_public_key'] if attributes[:'ssh_public_key']
+
+      self.node_shape = attributes[:'nodeShape'] if attributes[:'nodeShape']
+
+      raise 'You cannot provide both :nodeShape and :node_shape' if attributes.key?(:'nodeShape') && attributes.key?(:'node_shape')
+
+      self.node_shape = attributes[:'node_shape'] if attributes[:'node_shape']
+
+      self.node_shape_config = attributes[:'nodeShapeConfig'] if attributes[:'nodeShapeConfig']
+
+      raise 'You cannot provide both :nodeShapeConfig and :node_shape_config' if attributes.key?(:'nodeShapeConfig') && attributes.key?(:'node_shape_config')
+
+      self.node_shape_config = attributes[:'node_shape_config'] if attributes[:'node_shape_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -138,7 +205,12 @@ module OCI
         initial_node_labels == other.initial_node_labels &&
         quantity_per_subnet == other.quantity_per_subnet &&
         subnet_ids == other.subnet_ids &&
-        node_config_details == other.node_config_details
+        node_config_details == other.node_config_details &&
+        node_metadata == other.node_metadata &&
+        node_source_details == other.node_source_details &&
+        ssh_public_key == other.ssh_public_key &&
+        node_shape == other.node_shape &&
+        node_shape_config == other.node_shape_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -154,7 +226,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, kubernetes_version, initial_node_labels, quantity_per_subnet, subnet_ids, node_config_details].hash
+      [name, kubernetes_version, initial_node_labels, quantity_per_subnet, subnet_ids, node_config_details, node_metadata, node_source_details, ssh_public_key, node_shape, node_shape_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

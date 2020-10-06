@@ -77,7 +77,7 @@ module OCI
     # @return [String]
     attr_accessor :nat_ip
 
-    # **[Required]** The date and time the NAT gateway was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the NAT gateway was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
@@ -89,6 +89,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :vcn_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Public IP associated with the NAT gateway.
+    #
+    # @return [String]
+    attr_accessor :public_ip_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -103,7 +108,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'nat_ip': :'natIp',
         'time_created': :'timeCreated',
-        'vcn_id': :'vcnId'
+        'vcn_id': :'vcnId',
+        'public_ip_id': :'publicIpId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -121,7 +127,8 @@ module OCI
         'lifecycle_state': :'String',
         'nat_ip': :'String',
         'time_created': :'DateTime',
-        'vcn_id': :'String'
+        'vcn_id': :'String',
+        'public_ip_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -142,6 +149,7 @@ module OCI
     # @option attributes [String] :nat_ip The value to assign to the {#nat_ip} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
+    # @option attributes [String] :public_ip_id The value to assign to the {#public_ip_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -205,6 +213,12 @@ module OCI
       raise 'You cannot provide both :vcnId and :vcn_id' if attributes.key?(:'vcnId') && attributes.key?(:'vcn_id')
 
       self.vcn_id = attributes[:'vcn_id'] if attributes[:'vcn_id']
+
+      self.public_ip_id = attributes[:'publicIpId'] if attributes[:'publicIpId']
+
+      raise 'You cannot provide both :publicIpId and :public_ip_id' if attributes.key?(:'publicIpId') && attributes.key?(:'public_ip_id')
+
+      self.public_ip_id = attributes[:'public_ip_id'] if attributes[:'public_ip_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -240,7 +254,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         nat_ip == other.nat_ip &&
         time_created == other.time_created &&
-        vcn_id == other.vcn_id
+        vcn_id == other.vcn_id &&
+        public_ip_id == other.public_ip_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -256,7 +271,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, block_traffic, lifecycle_state, nat_ip, time_created, vcn_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, block_traffic, lifecycle_state, nat_ip, time_created, vcn_id, public_ip_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

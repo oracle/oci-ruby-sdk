@@ -2,12 +2,25 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Summary of a term relationship. Business term relationship between two terms in a business glossary.
   #
   class DataCatalog::Models::TermRelationshipSummary
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_MOVING = 'MOVING'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique term relationship key that is immutable.
     # @return [String]
     attr_accessor :key
@@ -34,6 +47,10 @@ module OCI
     # @return [String]
     attr_accessor :related_term_description
 
+    # Full path of the related term.
+    # @return [String]
+    attr_accessor :related_term_path
+
     # URI to the term relationship instance in the API.
     # @return [String]
     attr_accessor :uri
@@ -50,6 +67,10 @@ module OCI
     # @return [String]
     attr_accessor :parent_term_description
 
+    # Full path of the parent term.
+    # @return [String]
+    attr_accessor :parent_term_path
+
     # The date and time the term relationship was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # Example: `2019-03-25T21:10:29.600Z`
     #
@@ -58,7 +79,7 @@ module OCI
 
     # State of the term relationship.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -70,10 +91,12 @@ module OCI
         'related_term_key': :'relatedTermKey',
         'related_term_display_name': :'relatedTermDisplayName',
         'related_term_description': :'relatedTermDescription',
+        'related_term_path': :'relatedTermPath',
         'uri': :'uri',
         'parent_term_key': :'parentTermKey',
         'parent_term_display_name': :'parentTermDisplayName',
         'parent_term_description': :'parentTermDescription',
+        'parent_term_path': :'parentTermPath',
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState'
         # rubocop:enable Style/SymbolLiteral
@@ -90,10 +113,12 @@ module OCI
         'related_term_key': :'String',
         'related_term_display_name': :'String',
         'related_term_description': :'String',
+        'related_term_path': :'String',
         'uri': :'String',
         'parent_term_key': :'String',
         'parent_term_display_name': :'String',
         'parent_term_description': :'String',
+        'parent_term_path': :'String',
         'time_created': :'DateTime',
         'lifecycle_state': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -112,10 +137,12 @@ module OCI
     # @option attributes [String] :related_term_key The value to assign to the {#related_term_key} property
     # @option attributes [String] :related_term_display_name The value to assign to the {#related_term_display_name} property
     # @option attributes [String] :related_term_description The value to assign to the {#related_term_description} property
+    # @option attributes [String] :related_term_path The value to assign to the {#related_term_path} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
     # @option attributes [String] :parent_term_key The value to assign to the {#parent_term_key} property
     # @option attributes [String] :parent_term_display_name The value to assign to the {#parent_term_display_name} property
     # @option attributes [String] :parent_term_description The value to assign to the {#parent_term_description} property
+    # @option attributes [String] :parent_term_path The value to assign to the {#parent_term_path} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     def initialize(attributes = {})
@@ -152,6 +179,12 @@ module OCI
 
       self.related_term_description = attributes[:'related_term_description'] if attributes[:'related_term_description']
 
+      self.related_term_path = attributes[:'relatedTermPath'] if attributes[:'relatedTermPath']
+
+      raise 'You cannot provide both :relatedTermPath and :related_term_path' if attributes.key?(:'relatedTermPath') && attributes.key?(:'related_term_path')
+
+      self.related_term_path = attributes[:'related_term_path'] if attributes[:'related_term_path']
+
       self.uri = attributes[:'uri'] if attributes[:'uri']
 
       self.parent_term_key = attributes[:'parentTermKey'] if attributes[:'parentTermKey']
@@ -172,6 +205,12 @@ module OCI
 
       self.parent_term_description = attributes[:'parent_term_description'] if attributes[:'parent_term_description']
 
+      self.parent_term_path = attributes[:'parentTermPath'] if attributes[:'parentTermPath']
+
+      raise 'You cannot provide both :parentTermPath and :parent_term_path' if attributes.key?(:'parentTermPath') && attributes.key?(:'parent_term_path')
+
+      self.parent_term_path = attributes[:'parent_term_path'] if attributes[:'parent_term_path']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -186,6 +225,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -202,10 +254,12 @@ module OCI
         related_term_key == other.related_term_key &&
         related_term_display_name == other.related_term_display_name &&
         related_term_description == other.related_term_description &&
+        related_term_path == other.related_term_path &&
         uri == other.uri &&
         parent_term_key == other.parent_term_key &&
         parent_term_display_name == other.parent_term_display_name &&
         parent_term_description == other.parent_term_description &&
+        parent_term_path == other.parent_term_path &&
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state
     end
@@ -223,7 +277,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, related_term_key, related_term_display_name, related_term_description, uri, parent_term_key, parent_term_display_name, parent_term_description, time_created, lifecycle_state].hash
+      [key, display_name, description, related_term_key, related_term_display_name, related_term_description, related_term_path, uri, parent_term_key, parent_term_display_name, parent_term_description, parent_term_path, time_created, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -10,6 +10,7 @@ module OCI
   class ResourceManager::Models::WorkRequest
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CHANGE_STACK_COMPARTMENT = 'CHANGE_STACK_COMPARTMENT'.freeze,
+      OPERATION_TYPE_CREATE_STACK_FROM_COMPARTMENT = 'CREATE_STACK_FROM_COMPARTMENT'.freeze,
       OPERATION_TYPE_DRIFT_DETECTION = 'DRIFT_DETECTION'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -46,15 +47,24 @@ module OCI
     # @return [Float]
     attr_accessor :percent_complete
 
-    # **[Required]** When the work request was created.
+    # **[Required]** The date and time when the work request was created.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
     # @return [DateTime]
     attr_accessor :time_accepted
 
-    # When the work request transitioned from ACCEPTED to IN_PROGRESS.
+    # The date and time when the work request transitioned from ACCEPTED to IN_PROGRESS.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
     # @return [DateTime]
     attr_accessor :time_started
 
-    # When the work request reached a terminal state (FAILED or SUCCEEDED).
+    # The date and time when the work request reached a terminal state (FAILED or SUCCEEDED).
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
     # @return [DateTime]
     attr_accessor :time_finished
 

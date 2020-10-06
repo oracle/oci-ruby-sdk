@@ -115,6 +115,45 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::ResourceManager::ResourceManagerClient#create_configuration_source_provider} and then waits for the {OCI::ResourceManager::Models::ConfigurationSourceProvider} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::ResourceManager::Models::CreateConfigurationSourceProviderDetails] create_configuration_source_provider_details The properties for creating a ConfigurationSourceProvider.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::ConfigurationSourceProvider#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#create_configuration_source_provider}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProvider}
+    def create_configuration_source_provider_and_wait_for_state(create_configuration_source_provider_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_configuration_source_provider(create_configuration_source_provider_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_configuration_source_provider(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::ResourceManager::ResourceManagerClient#create_job} and then waits for the {OCI::ResourceManager::Models::Job} acted upon
     # to enter the given state(s).
     #
@@ -154,30 +193,81 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::ResourceManager::ResourceManagerClient#create_stack} and then waits for the {OCI::ResourceManager::Models::Stack} acted upon
+    # Calls {OCI::ResourceManager::ResourceManagerClient#create_stack} and then waits for the {OCI::ResourceManager::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [OCI::ResourceManager::Models::CreateStackDetails] create_stack_details The properties for creating a stack.
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::Stack#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#create_stack}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::ResourceManager::Models::Stack}
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::ResourceManager::Models::WorkRequest}
     def create_stack_and_wait_for_state(create_stack_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_stack(create_stack_details, base_operation_opts)
+      use_util = OCI::ResourceManager::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::ResourceManager::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::ResourceManager::ResourceManagerClient#delete_configuration_source_provider} and then waits for the {OCI::ResourceManager::Models::ConfigurationSourceProvider} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] configuration_source_provider_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the configuration source provider.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::ConfigurationSourceProvider#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#delete_configuration_source_provider}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_configuration_source_provider_and_wait_for_state(configuration_source_provider_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_configuration_source_provider(configuration_source_provider_id)
+      operation_result = @service_client.delete_configuration_source_provider(configuration_source_provider_id, base_operation_opts)
 
       return operation_result if wait_for_states.empty?
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
-      wait_for_resource_id = operation_result.data.id
 
       begin
-        waiter_result = @service_client.get_stack(wait_for_resource_id).wait_until(
+        waiter_result = initial_get_result.wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
         )
         result_to_return = waiter_result
 
@@ -268,6 +358,48 @@ module OCI
             max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
           )
         end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::ResourceManager::ResourceManagerClient#update_configuration_source_provider} and then waits for the {OCI::ResourceManager::Models::ConfigurationSourceProvider} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] configuration_source_provider_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the configuration source provider.
+    #
+    # @param [OCI::ResourceManager::Models::UpdateConfigurationSourceProviderDetails] update_configuration_source_provider_details Updated information provided for the ConfigurationSourceProvider.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::ConfigurationSourceProvider#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#update_configuration_source_provider}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProvider}
+    def update_configuration_source_provider_and_wait_for_state(configuration_source_provider_id, update_configuration_source_provider_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_configuration_source_provider(configuration_source_provider_id, update_configuration_source_provider_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_configuration_source_provider(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
         result_to_return = waiter_result
 
         return result_to_return

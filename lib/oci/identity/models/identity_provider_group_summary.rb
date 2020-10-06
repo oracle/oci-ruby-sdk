@@ -20,6 +20,10 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # Display name of the group
+    # @return [String]
+    attr_accessor :name
+
     # Identifier of the group in the identity provider
     # @return [String]
     attr_accessor :external_identifier
@@ -45,6 +49,7 @@ module OCI
         'id': :'id',
         'identity_provider_id': :'identityProviderId',
         'display_name': :'displayName',
+        'name': :'name',
         'external_identifier': :'externalIdentifier',
         'time_created': :'timeCreated',
         'time_modified': :'timeModified'
@@ -59,6 +64,7 @@ module OCI
         'id': :'String',
         'identity_provider_id': :'String',
         'display_name': :'String',
+        'name': :'String',
         'external_identifier': :'String',
         'time_created': :'DateTime',
         'time_modified': :'DateTime'
@@ -75,6 +81,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :identity_provider_id The value to assign to the {#identity_provider_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :external_identifier The value to assign to the {#external_identifier} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_modified The value to assign to the {#time_modified} property
@@ -97,6 +104,8 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.name = attributes[:'name'] if attributes[:'name']
 
       self.external_identifier = attributes[:'externalIdentifier'] if attributes[:'externalIdentifier']
 
@@ -131,6 +140,7 @@ module OCI
         id == other.id &&
         identity_provider_id == other.identity_provider_id &&
         display_name == other.display_name &&
+        name == other.name &&
         external_identifier == other.external_identifier &&
         time_created == other.time_created &&
         time_modified == other.time_modified
@@ -149,7 +159,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, identity_provider_id, display_name, external_identifier, time_created, time_modified].hash
+      [id, identity_provider_id, display_name, name, external_identifier, time_created, time_modified].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

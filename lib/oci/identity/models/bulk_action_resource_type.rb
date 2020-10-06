@@ -7,15 +7,13 @@ require 'date'
 module OCI
   # BulkActionResourceType model.
   class Identity::Models::BulkActionResourceType
-    # **[Required]** The unique name of the resource type.
+    # **[Required]** The unique name of the resource-type.
     #
     # @return [String]
     attr_accessor :name
 
-    # List of metadata keys required to identify the resource.
-    # E.g. for bucket, metadataKeys will be [\"namespaceName\", \"bucketName\"].
-    # This informatino will match the public API document:
-    # https://docs.cloud.oracle.com/en-us/iaas/api/#/en/objectstorage/20160918/Bucket/GetBucket
+    # List of metadata keys required to identify a specific resource. Some resource-types require information besides an OCID to identify
+    # a specific resource. For example, the resource-type `buckets` requires metadataKeys {#delete_bucket delete_bucket}.
     #
     # @return [Array<String>]
     attr_accessor :metadata_keys

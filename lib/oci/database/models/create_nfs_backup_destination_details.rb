@@ -8,10 +8,14 @@ require_relative 'create_backup_destination_details'
 module OCI
   # Used for creating NFS backup destinations.
   class Database::Models::CreateNFSBackupDestinationDetails < Database::Models::CreateBackupDestinationDetails
-    # **[Required]** The local directory path on each VM cluster node where the NFS server location is mounted. The local directory path and the NFS server location must each be the same across all of the VM cluster nodes. Ensure that the NFS mount is maintained continuously on all of the VM cluster nodes.
+    # **Deprecated.** The local directory path on each VM cluster node where the NFS server location is mounted. The local directory path and the NFS server location must each be the same across all of the VM cluster nodes. Ensure that the NFS mount is maintained continuously on all of the VM cluster nodes.
+    # This field is deprecated. Use the mountTypeDetails field instead to specify the mount type for NFS.
     #
     # @return [String]
     attr_accessor :local_mount_point_path
+
+    # @return [OCI::Database::Models::MountTypeDetails]
+    attr_accessor :mount_type_details
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -22,7 +26,8 @@ module OCI
         'type': :'type',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'local_mount_point_path': :'localMountPointPath'
+        'local_mount_point_path': :'localMountPointPath',
+        'mount_type_details': :'mountTypeDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,7 +41,8 @@ module OCI
         'type': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'local_mount_point_path': :'String'
+        'local_mount_point_path': :'String',
+        'mount_type_details': :'OCI::Database::Models::MountTypeDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,6 +58,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::CreateBackupDestinationDetails#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateBackupDestinationDetails#defined_tags #defined_tags} proprety
     # @option attributes [String] :local_mount_point_path The value to assign to the {#local_mount_point_path} property
+    # @option attributes [OCI::Database::Models::MountTypeDetails] :mount_type_details The value to assign to the {#mount_type_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -67,6 +74,12 @@ module OCI
       raise 'You cannot provide both :localMountPointPath and :local_mount_point_path' if attributes.key?(:'localMountPointPath') && attributes.key?(:'local_mount_point_path')
 
       self.local_mount_point_path = attributes[:'local_mount_point_path'] if attributes[:'local_mount_point_path']
+
+      self.mount_type_details = attributes[:'mountTypeDetails'] if attributes[:'mountTypeDetails']
+
+      raise 'You cannot provide both :mountTypeDetails and :mount_type_details' if attributes.key?(:'mountTypeDetails') && attributes.key?(:'mount_type_details')
+
+      self.mount_type_details = attributes[:'mount_type_details'] if attributes[:'mount_type_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -85,7 +98,8 @@ module OCI
         type == other.type &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        local_mount_point_path == other.local_mount_point_path
+        local_mount_point_path == other.local_mount_point_path &&
+        mount_type_details == other.mount_type_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -101,7 +115,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, type, freeform_tags, defined_tags, local_mount_point_path].hash
+      [display_name, compartment_id, type, freeform_tags, defined_tags, local_mount_point_path, mount_type_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Defines the requirements and properties of changeStackCompartment operation.
   class ResourceManager::Models::ChangeStackCompartmentDetails
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment
     # into which the Stack should be moved.
     #
     # @return [String]

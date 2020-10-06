@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Identity Stripe
+  # Details of the identity stripe used for OceInstance
   class Oce::Models::IdentityStripeDetails
     # **[Required]** Name of the Identity Cloud Service instance in My Services to be used.
     # Example: `secondstripe`

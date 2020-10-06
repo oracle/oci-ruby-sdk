@@ -6,7 +6,10 @@ require_relative 'create_item_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of TechSupport Item
+  # Details about the issue that the technical support request relates to.
+  #
+  # **Caution:** Avoid using any confidential information when you supply string values using the API.
+  #
   class Cims::Models::CreateTechSupportItemDetails < Cims::Models::CreateItemDetails
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

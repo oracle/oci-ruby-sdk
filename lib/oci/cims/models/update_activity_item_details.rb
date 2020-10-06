@@ -6,7 +6,10 @@ require_relative 'update_item_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Activity Item
+  # Details for udpating the support ticket activity.
+  #
+  # **Caution:** Avoid using any confidential information when you supply string values using the API.
+  #
   class Cims::Models::UpdateActivityItemDetails < Cims::Models::UpdateItemDetails
     ACTIVITY_TYPE_ENUM = [
       ACTIVITY_TYPE_NOTES = 'NOTES'.freeze,
@@ -15,11 +18,11 @@ module OCI
       ACTIVITY_TYPE_CLOSE = 'CLOSE'.freeze
     ].freeze
 
-    # Comments to update as part of Activity
+    # Comments updated at the time that the activity occurs.
     # @return [String]
     attr_accessor :comments
 
-    # Type of activity. eg: NOTES, UPDATE
+    # The type of activity occurring.
     # @return [String]
     attr_reader :activity_type
 

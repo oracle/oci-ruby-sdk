@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Sub Category of the incident
+  # Details about the subcategory associated with the support ticket.
   class Cims::Models::SubCategory
-    # Unique ID that identifies a Sub Category
+    # Unique identifier for the subcategory.
     # @return [String]
     attr_accessor :sub_category_key
 
-    # Name of sub category. eg: Backup Count, Custom Image Count
+    # The name of the subcategory. For example, `Backup Count` or `Custom Image Count`.
     # @return [String]
     attr_accessor :name
 

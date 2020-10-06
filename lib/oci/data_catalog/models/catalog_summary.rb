@@ -2,11 +2,24 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Summary of the data catalog.
   class DataCatalog::Models::CatalogSummary
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_MOVING = 'MOVING'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique identifier that is immutable on creation.
     # @return [String]
     attr_accessor :id
@@ -33,7 +46,7 @@ module OCI
 
     # The current state of the data catalog resource.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # An message describing the current state in more detail. For example, can be used to provide actionable information for a resource in 'Failed' state.
     # @return [String]
@@ -51,6 +64,10 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The list of private reverse connection endpoints attached to the catalog
+    # @return [Array<String>]
+    attr_accessor :attached_catalog_private_endpoints
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -64,7 +81,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'attached_catalog_private_endpoints': :'attachedCatalogPrivateEndpoints'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,7 +100,8 @@ module OCI
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'attached_catalog_private_endpoints': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -103,6 +122,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Array<String>] :attached_catalog_private_endpoints The value to assign to the {#attached_catalog_private_endpoints} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -164,9 +184,28 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.attached_catalog_private_endpoints = attributes[:'attachedCatalogPrivateEndpoints'] if attributes[:'attachedCatalogPrivateEndpoints']
+
+      raise 'You cannot provide both :attachedCatalogPrivateEndpoints and :attached_catalog_private_endpoints' if attributes.key?(:'attachedCatalogPrivateEndpoints') && attributes.key?(:'attached_catalog_private_endpoints')
+
+      self.attached_catalog_private_endpoints = attributes[:'attached_catalog_private_endpoints'] if attributes[:'attached_catalog_private_endpoints']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -186,7 +225,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        attached_catalog_private_endpoints == other.attached_catalog_private_endpoints
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -202,7 +242,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, time_created, time_updated, number_of_objects, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, time_created, time_updated, number_of_objects, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, attached_catalog_private_endpoints].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

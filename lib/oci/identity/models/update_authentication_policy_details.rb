@@ -8,15 +8,18 @@ module OCI
   # Update request for authentication policy, describes set of validation rules and their parameters to be updated.
   #
   class Identity::Models::UpdateAuthenticationPolicyDetails
-    # Password policy.
     # @return [OCI::Identity::Models::PasswordPolicy]
     attr_accessor :password_policy
+
+    # @return [OCI::Identity::Models::NetworkPolicy]
+    attr_accessor :network_policy
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'password_policy': :'passwordPolicy'
+        'password_policy': :'passwordPolicy',
+        'network_policy': :'networkPolicy'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +28,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'password_policy': :'OCI::Identity::Models::PasswordPolicy'
+        'password_policy': :'OCI::Identity::Models::PasswordPolicy',
+        'network_policy': :'OCI::Identity::Models::NetworkPolicy'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,6 +41,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::Identity::Models::PasswordPolicy] :password_policy The value to assign to the {#password_policy} property
+    # @option attributes [OCI::Identity::Models::NetworkPolicy] :network_policy The value to assign to the {#network_policy} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -48,6 +53,12 @@ module OCI
       raise 'You cannot provide both :passwordPolicy and :password_policy' if attributes.key?(:'passwordPolicy') && attributes.key?(:'password_policy')
 
       self.password_policy = attributes[:'password_policy'] if attributes[:'password_policy']
+
+      self.network_policy = attributes[:'networkPolicy'] if attributes[:'networkPolicy']
+
+      raise 'You cannot provide both :networkPolicy and :network_policy' if attributes.key?(:'networkPolicy') && attributes.key?(:'network_policy')
+
+      self.network_policy = attributes[:'network_policy'] if attributes[:'network_policy']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -61,7 +72,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        password_policy == other.password_policy
+        password_policy == other.password_policy &&
+        network_policy == other.network_policy
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -77,7 +89,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [password_policy].hash
+      [password_policy, network_policy].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

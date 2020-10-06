@@ -33,7 +33,7 @@ module OCI
 
     # **[Required]** The public IP address of the on-premises router.
     #
-    # Example: `143.19.23.16`
+    # Example: `203.0.113.2`
     #
     # @return [String]
     attr_accessor :ip_address

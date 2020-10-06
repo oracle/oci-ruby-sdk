@@ -25,6 +25,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'database_software_image_id': :'databaseSoftwareImageId',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
         'source': :'source',
         'vm_cluster_id': :'vmClusterId',
         'db_version': :'dbVersion',
@@ -38,6 +41,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'database_software_image_id': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'source': :'String',
         'vm_cluster_id': :'String',
         'db_version': :'String',
@@ -53,6 +59,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::CreateDbHomeBase#display_name #display_name} proprety
+    # @option attributes [String] :database_software_image_id The value to assign to the {OCI::Database::Models::CreateDbHomeBase#database_software_image_id #database_software_image_id} proprety
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::CreateDbHomeBase#freeform_tags #freeform_tags} proprety
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateDbHomeBase#defined_tags #defined_tags} proprety
     # @option attributes [String] :vm_cluster_id The value to assign to the {#vm_cluster_id} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [OCI::Database::Models::CreateDatabaseDetails] :database The value to assign to the {#database} property
@@ -93,6 +102,9 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        database_software_image_id == other.database_software_image_id &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
         source == other.source &&
         vm_cluster_id == other.vm_cluster_id &&
         db_version == other.db_version &&
@@ -112,7 +124,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, source, vm_cluster_id, db_version, database].hash
+      [display_name, database_software_image_id, freeform_tags, defined_tags, source, vm_cluster_id, db_version, database].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

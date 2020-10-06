@@ -11,11 +11,11 @@ module OCI
       WRAPPING_ALGORITHM_RSA_OAEP_SHA256 = 'RSA_OAEP_SHA256'.freeze
     ].freeze
 
-    # **[Required]** The wrapped/encrypted key material to import. It is encrypted using RSA wrapped key and Base64 encoded.
+    # **[Required]** The key material to import, wrapped by the vault's public RSA wrapping key and base64-encoded.
     # @return [String]
     attr_accessor :key_material
 
-    # **[Required]** The wrapping mechanism to be used during key import
+    # **[Required]** The wrapping mechanism to use during key import.
     # @return [String]
     attr_reader :wrapping_algorithm
 

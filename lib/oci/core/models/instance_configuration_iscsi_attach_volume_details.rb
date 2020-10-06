@@ -18,6 +18,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'is_read_only': :'isReadOnly',
+        'device': :'device',
+        'is_shareable': :'isShareable',
         'type': :'type',
         'use_chap': :'useChap'
         # rubocop:enable Style/SymbolLiteral
@@ -30,6 +32,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'is_read_only': :'BOOLEAN',
+        'device': :'String',
+        'is_shareable': :'BOOLEAN',
         'type': :'String',
         'use_chap': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
@@ -44,6 +48,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {OCI::Core::Models::InstanceConfigurationAttachVolumeDetails#display_name #display_name} proprety
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {OCI::Core::Models::InstanceConfigurationAttachVolumeDetails#is_read_only #is_read_only} proprety
+    # @option attributes [String] :device The value to assign to the {OCI::Core::Models::InstanceConfigurationAttachVolumeDetails#device #device} proprety
+    # @option attributes [BOOLEAN] :is_shareable The value to assign to the {OCI::Core::Models::InstanceConfigurationAttachVolumeDetails#is_shareable #is_shareable} proprety
     # @option attributes [BOOLEAN] :use_chap The value to assign to the {#use_chap} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -75,6 +81,8 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         is_read_only == other.is_read_only &&
+        device == other.device &&
+        is_shareable == other.is_shareable &&
         type == other.type &&
         use_chap == other.use_chap
     end
@@ -92,7 +100,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, is_read_only, type, use_chap].hash
+      [display_name, is_read_only, device, is_shareable, type, use_chap].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

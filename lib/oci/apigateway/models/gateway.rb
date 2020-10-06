@@ -45,7 +45,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Gateway endpoint type.
+    # **[Required]** Gateway endpoint type. `PUBLIC` will have a public ip address assigned to it, while `PRIVATE` will only be
+    # accessible on a private IP address on the subnet.
+    #
+    # Example: `PUBLIC` or `PRIVATE`
+    #
     # @return [String]
     attr_reader :endpoint_type
 
@@ -77,6 +81,15 @@ module OCI
     # The hostname for APIs deployed on the gateway.
     # @return [String]
     attr_accessor :hostname
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the resource.
+    #
+    # @return [String]
+    attr_accessor :certificate_id
+
+    # An array of IP addresses associated with the gateway.
+    # @return [Array<OCI::Apigateway::Models::IpAddress>]
+    attr_accessor :ip_addresses
 
     # Free-form tags for this resource. Each tag is a simple key-value pair
     # with no predefined name, type, or namespace. For more information, see
@@ -110,6 +123,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'hostname': :'hostname',
+        'certificate_id': :'certificateId',
+        'ip_addresses': :'ipAddresses',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -130,6 +145,8 @@ module OCI
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'hostname': :'String',
+        'certificate_id': :'String',
+        'ip_addresses': :'Array<OCI::Apigateway::Models::IpAddress>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -152,6 +169,8 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
+    # @option attributes [String] :certificate_id The value to assign to the {#certificate_id} property
+    # @option attributes [Array<OCI::Apigateway::Models::IpAddress>] :ip_addresses The value to assign to the {#ip_addresses} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -211,6 +230,18 @@ module OCI
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
       self.hostname = attributes[:'hostname'] if attributes[:'hostname']
+
+      self.certificate_id = attributes[:'certificateId'] if attributes[:'certificateId']
+
+      raise 'You cannot provide both :certificateId and :certificate_id' if attributes.key?(:'certificateId') && attributes.key?(:'certificate_id')
+
+      self.certificate_id = attributes[:'certificate_id'] if attributes[:'certificate_id']
+
+      self.ip_addresses = attributes[:'ipAddresses'] if attributes[:'ipAddresses']
+
+      raise 'You cannot provide both :ipAddresses and :ip_addresses' if attributes.key?(:'ipAddresses') && attributes.key?(:'ip_addresses')
+
+      self.ip_addresses = attributes[:'ip_addresses'] if attributes[:'ip_addresses']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -272,6 +303,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         hostname == other.hostname &&
+        certificate_id == other.certificate_id &&
+        ip_addresses == other.ip_addresses &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -289,7 +322,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, endpoint_type, subnet_id, time_created, time_updated, lifecycle_state, lifecycle_details, hostname, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, endpoint_type, subnet_id, time_created, time_updated, lifecycle_state, lifecycle_details, hostname, certificate_id, ip_addresses, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

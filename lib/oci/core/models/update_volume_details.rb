@@ -48,6 +48,11 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_gbs
 
+    # Specifies whether the auto-tune performance is enabled for this volume.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_tune_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -56,7 +61,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'vpus_per_gb': :'vpusPerGB',
-        'size_in_gbs': :'sizeInGBs'
+        'size_in_gbs': :'sizeInGBs',
+        'is_auto_tune_enabled': :'isAutoTuneEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -69,7 +75,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'vpus_per_gb': :'Integer',
-        'size_in_gbs': :'Integer'
+        'size_in_gbs': :'Integer',
+        'is_auto_tune_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -85,6 +92,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Integer] :vpus_per_gb The value to assign to the {#vpus_per_gb} property
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
+    # @option attributes [BOOLEAN] :is_auto_tune_enabled The value to assign to the {#is_auto_tune_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -120,6 +128,12 @@ module OCI
       raise 'You cannot provide both :sizeInGBs and :size_in_gbs' if attributes.key?(:'sizeInGBs') && attributes.key?(:'size_in_gbs')
 
       self.size_in_gbs = attributes[:'size_in_gbs'] if attributes[:'size_in_gbs']
+
+      self.is_auto_tune_enabled = attributes[:'isAutoTuneEnabled'] unless attributes[:'isAutoTuneEnabled'].nil?
+
+      raise 'You cannot provide both :isAutoTuneEnabled and :is_auto_tune_enabled' if attributes.key?(:'isAutoTuneEnabled') && attributes.key?(:'is_auto_tune_enabled')
+
+      self.is_auto_tune_enabled = attributes[:'is_auto_tune_enabled'] unless attributes[:'is_auto_tune_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -137,7 +151,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         vpus_per_gb == other.vpus_per_gb &&
-        size_in_gbs == other.size_in_gbs
+        size_in_gbs == other.size_in_gbs &&
+        is_auto_tune_enabled == other.is_auto_tune_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -153,7 +168,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, vpus_per_gb, size_in_gbs].hash
+      [defined_tags, display_name, freeform_tags, vpus_per_gb, size_in_gbs, is_auto_tune_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

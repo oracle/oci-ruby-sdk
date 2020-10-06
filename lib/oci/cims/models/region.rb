@@ -15,14 +15,9 @@ module OCI
       REGION_LHR = 'LHR'.freeze,
       REGION_YYZ = 'YYZ'.freeze,
       REGION_NRT = 'NRT'.freeze,
-      REGION_US_LANGLEY_1 = 'US_LANGLEY_1'.freeze,
-      REGION_US_LUKE_1 = 'US_LUKE_1'.freeze,
       REGION_ICN = 'ICN'.freeze,
       REGION_BOM = 'BOM'.freeze,
       REGION_GRU = 'GRU'.freeze,
-      REGION_US_GOV_ASHBURN_1 = 'US_GOV_ASHBURN_1'.freeze,
-      REGION_US_GOV_PHOENIX_1 = 'US_GOV_PHOENIX_1'.freeze,
-      REGION_US_GOV_CHICAGO_1 = 'US_GOV_CHICAGO_1'.freeze,
       REGION_SYD = 'SYD'.freeze,
       REGION_ZRH = 'ZRH'.freeze,
       REGION_JED = 'JED'.freeze,
@@ -31,8 +26,7 @@ module OCI
       REGION_MEL = 'MEL'.freeze,
       REGION_YUL = 'YUL'.freeze,
       REGION_HYD = 'HYD'.freeze,
-      REGION_YNY = 'YNY'.freeze,
-      REGION_TIW = 'TIW'.freeze
+      REGION_YNY = 'YNY'.freeze
     ].freeze
   end
 end

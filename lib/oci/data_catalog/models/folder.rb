@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -11,6 +12,26 @@ module OCI
   # many levels of folders.
   #
   class DataCatalog::Models::Folder
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_MOVING = 'MOVING'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    HARVEST_STATUS_ENUM = [
+      HARVEST_STATUS_COMPLETE = 'COMPLETE'.freeze,
+      HARVEST_STATUS_ERROR = 'ERROR'.freeze,
+      HARVEST_STATUS_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      HARVEST_STATUS_DEFERRED = 'DEFERRED'.freeze,
+      HARVEST_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique folder key that is immutable.
     # @return [String]
     attr_accessor :key
@@ -75,11 +96,11 @@ module OCI
 
     # The current state of the folder.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # Status of the object as updated by the harvest process.
     # @return [String]
-    attr_accessor :harvest_status
+    attr_reader :harvest_status
 
     # The key of the last harvest process to update the metadata of this object.
     # @return [String]
@@ -252,6 +273,32 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] harvest_status Object to be assigned
+    def harvest_status=(harvest_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if harvest_status && !HARVEST_STATUS_ENUM.include?(harvest_status)
+        OCI.logger.debug("Unknown value for 'harvest_status' [" + harvest_status + "]. Mapping to 'HARVEST_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @harvest_status = HARVEST_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @harvest_status = harvest_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 

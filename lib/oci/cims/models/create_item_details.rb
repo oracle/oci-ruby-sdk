@@ -5,10 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Item
+  # Details gathered during item creation.
+  #
+  # **Caution:** Avoid using any confidential information when you supply string values using the API.
+  #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Cims::Models::CreateItemDetails
-    # Type of item. eg: CreateTechSupportItemDetails, CreateLimitItemDetails
+    # The type of the item.
     # @return [String]
     attr_accessor :type
 
@@ -21,7 +24,7 @@ module OCI
     # @return [OCI::Cims::Models::CreateIssueTypeDetails]
     attr_accessor :issue_type
 
-    # Name of the item
+    # The display name of the item.
     # @return [String]
     attr_accessor :name
 

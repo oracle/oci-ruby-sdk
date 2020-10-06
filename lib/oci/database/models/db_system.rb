@@ -23,6 +23,8 @@ module OCI
       LIFECYCLE_STATE_TERMINATING = 'TERMINATING'.freeze,
       LIFECYCLE_STATE_TERMINATED = 'TERMINATED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_MIGRATED = 'MIGRATED'.freeze,
+      LIFECYCLE_STATE_MAINTENANCE_IN_PROGRESS = 'MAINTENANCE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -88,7 +90,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :nsg_ids
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata DB systems.
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata systems.
     #
     # @return [Array<String>]
     attr_accessor :backup_network_nsg_ids
@@ -127,7 +129,7 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
-    # The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
+    # The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
     #
     # @return [String]
     attr_accessor :cluster_name
@@ -243,6 +245,14 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DB system.
+    # @return [String]
+    attr_accessor :source_db_system_id
+
+    # The point in time for a cloned database system when the data disks were cloned from the source database system, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+    # @return [DateTime]
+    attr_accessor :point_in_time_data_disk_clone_timestamp
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -286,7 +296,9 @@ module OCI
         'last_maintenance_run_id': :'lastMaintenanceRunId',
         'next_maintenance_run_id': :'nextMaintenanceRunId',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'source_db_system_id': :'sourceDbSystemId',
+        'point_in_time_data_disk_clone_timestamp': :'pointInTimeDataDiskCloneTimestamp'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -334,7 +346,9 @@ module OCI
         'last_maintenance_run_id': :'String',
         'next_maintenance_run_id': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'source_db_system_id': :'String',
+        'point_in_time_data_disk_clone_timestamp': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -385,6 +399,8 @@ module OCI
     # @option attributes [String] :next_maintenance_run_id The value to assign to the {#next_maintenance_run_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :source_db_system_id The value to assign to the {#source_db_system_id} property
+    # @option attributes [DateTime] :point_in_time_data_disk_clone_timestamp The value to assign to the {#point_in_time_data_disk_clone_timestamp} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -610,6 +626,18 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.source_db_system_id = attributes[:'sourceDbSystemId'] if attributes[:'sourceDbSystemId']
+
+      raise 'You cannot provide both :sourceDbSystemId and :source_db_system_id' if attributes.key?(:'sourceDbSystemId') && attributes.key?(:'source_db_system_id')
+
+      self.source_db_system_id = attributes[:'source_db_system_id'] if attributes[:'source_db_system_id']
+
+      self.point_in_time_data_disk_clone_timestamp = attributes[:'pointInTimeDataDiskCloneTimestamp'] if attributes[:'pointInTimeDataDiskCloneTimestamp']
+
+      raise 'You cannot provide both :pointInTimeDataDiskCloneTimestamp and :point_in_time_data_disk_clone_timestamp' if attributes.key?(:'pointInTimeDataDiskCloneTimestamp') && attributes.key?(:'point_in_time_data_disk_clone_timestamp')
+
+      self.point_in_time_data_disk_clone_timestamp = attributes[:'point_in_time_data_disk_clone_timestamp'] if attributes[:'point_in_time_data_disk_clone_timestamp']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -714,7 +742,9 @@ module OCI
         last_maintenance_run_id == other.last_maintenance_run_id &&
         next_maintenance_run_id == other.next_maintenance_run_id &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        source_db_system_id == other.source_db_system_id &&
+        point_in_time_data_disk_clone_timestamp == other.point_in_time_data_disk_clone_timestamp
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -730,7 +760,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags].hash
+      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags, source_db_system_id, point_in_time_data_disk_clone_timestamp].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

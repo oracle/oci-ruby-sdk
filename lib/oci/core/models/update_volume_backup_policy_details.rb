@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the properties for a updating a user defined backup policy.
+  # Specifies the properties for updating a user defined backup policy.
   # For more information about user defined backup policies,
   # see [User Defined Policies](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#UserDefinedBackupPolicies) in
   # [Policy-Based Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm).
@@ -17,7 +17,9 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The paired destination region (pre-defined by oracle) for scheduled cross region backup calls. Example: `us-ashburn-1`
+    # The paired destination region for copying scheduled backups to. Example: `us-ashburn-1`.
+    # Specify `none` to reset the `destinationRegion` parameter.
+    # See [Region Pairs](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#RegionPairs) for details about paired regions.
     #
     # @return [String]
     attr_accessor :destination_region

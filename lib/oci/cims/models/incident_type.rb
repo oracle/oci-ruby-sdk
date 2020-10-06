@@ -5,25 +5,25 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of incident type
+  # Details about the incident type object.
   class Cims::Models::IncidentType
-    # Unique ID that identifies an Incident Type
+    # Unique identifier for the incident type.
     # @return [String]
     attr_accessor :id
 
-    # Name of Incident type
+    # The name of the incident type.
     # @return [String]
     attr_accessor :name
 
-    # Label associated with Incident Type
+    # The label associated with the incident type.
     # @return [String]
     attr_accessor :label
 
-    # Details of Incident Type
+    # The description of the incident type.
     # @return [String]
     attr_accessor :description
 
-    # List of classifiers
+    # The list of classifiers.
     # @return [Array<OCI::Cims::Models::Classifier>]
     attr_accessor :classifier_list
 

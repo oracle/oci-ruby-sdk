@@ -12,6 +12,12 @@ module OCI
       INTEGRATION_INSTANCE_TYPE_ENTERPRISE = 'ENTERPRISE'.freeze
     ].freeze
 
+    CONSUMPTION_MODEL_ENUM = [
+      CONSUMPTION_MODEL_UCM = 'UCM'.freeze,
+      CONSUMPTION_MODEL_GOV = 'GOV'.freeze,
+      CONSUMPTION_MODEL_OIC4_SAAS = 'OIC4SAAS'.freeze
+    ].freeze
+
     # **[Required]** Integration Instance Identifier.
     # @return [String]
     attr_accessor :display_name
@@ -50,6 +56,10 @@ module OCI
     # @return [Integer]
     attr_accessor :message_packs
 
+    # Optional parameter specifying which entitlement to use for billing purposes. Only required if the account possesses more than one entitlement.
+    # @return [String]
+    attr_reader :consumption_model
+
     # The file server is enabled or not.
     # @return [BOOLEAN]
     attr_accessor :is_file_server_enabled
@@ -66,6 +76,7 @@ module OCI
         'is_byol': :'isByol',
         'idcs_at': :'idcsAt',
         'message_packs': :'messagePacks',
+        'consumption_model': :'consumptionModel',
         'is_file_server_enabled': :'isFileServerEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -83,6 +94,7 @@ module OCI
         'is_byol': :'BOOLEAN',
         'idcs_at': :'String',
         'message_packs': :'Integer',
+        'consumption_model': :'String',
         'is_file_server_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -102,6 +114,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_byol The value to assign to the {#is_byol} property
     # @option attributes [String] :idcs_at The value to assign to the {#idcs_at} property
     # @option attributes [Integer] :message_packs The value to assign to the {#message_packs} property
+    # @option attributes [String] :consumption_model The value to assign to the {#consumption_model} property
     # @option attributes [BOOLEAN] :is_file_server_enabled The value to assign to the {#is_file_server_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -157,6 +170,12 @@ module OCI
 
       self.message_packs = attributes[:'message_packs'] if attributes[:'message_packs']
 
+      self.consumption_model = attributes[:'consumptionModel'] if attributes[:'consumptionModel']
+
+      raise 'You cannot provide both :consumptionModel and :consumption_model' if attributes.key?(:'consumptionModel') && attributes.key?(:'consumption_model')
+
+      self.consumption_model = attributes[:'consumption_model'] if attributes[:'consumption_model']
+
       self.is_file_server_enabled = attributes[:'isFileServerEnabled'] unless attributes[:'isFileServerEnabled'].nil?
       self.is_file_server_enabled = false if is_file_server_enabled.nil? && !attributes.key?(:'isFileServerEnabled') # rubocop:disable Style/StringLiterals
 
@@ -176,6 +195,14 @@ module OCI
       @integration_instance_type = integration_instance_type
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] consumption_model Object to be assigned
+    def consumption_model=(consumption_model)
+      raise "Invalid value for 'consumption_model': this must be one of the values in CONSUMPTION_MODEL_ENUM." if consumption_model && !CONSUMPTION_MODEL_ENUM.include?(consumption_model)
+
+      @consumption_model = consumption_model
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -193,6 +220,7 @@ module OCI
         is_byol == other.is_byol &&
         idcs_at == other.idcs_at &&
         message_packs == other.message_packs &&
+        consumption_model == other.consumption_model &&
         is_file_server_enabled == other.is_file_server_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -209,7 +237,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, integration_instance_type, freeform_tags, defined_tags, is_byol, idcs_at, message_packs, is_file_server_enabled].hash
+      [display_name, compartment_id, integration_instance_type, freeform_tags, defined_tags, is_byol, idcs_at, message_packs, consumption_model, is_file_server_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

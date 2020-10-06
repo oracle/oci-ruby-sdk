@@ -26,8 +26,16 @@ module OCI
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_MAINTENANCE_IN_PROGRESS = 'MAINTENANCE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_RESTARTING = 'RESTARTING'.freeze,
+      LIFECYCLE_STATE_RECREATING = 'RECREATING'.freeze,
+      LIFECYCLE_STATE_ROLE_CHANGE_IN_PROGRESS = 'ROLE_CHANGE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_UPGRADING = 'UPGRADING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    INFRASTRUCTURE_TYPE_ENUM = [
+      INFRASTRUCTURE_TYPE_CLOUD = 'CLOUD'.freeze,
+      INFRASTRUCTURE_TYPE_CLOUD_AT_CUSTOMER = 'CLOUD_AT_CUSTOMER'.freeze,
+      INFRASTRUCTURE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     LICENSE_MODEL_ENUM = [
@@ -39,6 +47,7 @@ module OCI
     DB_WORKLOAD_ENUM = [
       DB_WORKLOAD_OLTP = 'OLTP'.freeze,
       DB_WORKLOAD_DW = 'DW'.freeze,
+      DB_WORKLOAD_AJD = 'AJD'.freeze,
       DB_WORKLOAD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -49,6 +58,30 @@ module OCI
       DATA_SAFE_STATUS_NOT_REGISTERED = 'NOT_REGISTERED'.freeze,
       DATA_SAFE_STATUS_FAILED = 'FAILED'.freeze,
       DATA_SAFE_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    OPEN_MODE_ENUM = [
+      OPEN_MODE_READ_ONLY = 'READ_ONLY'.freeze,
+      OPEN_MODE_READ_WRITE = 'READ_WRITE'.freeze,
+      OPEN_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    REFRESHABLE_STATUS_ENUM = [
+      REFRESHABLE_STATUS_REFRESHING = 'REFRESHING'.freeze,
+      REFRESHABLE_STATUS_NOT_REFRESHING = 'NOT_REFRESHING'.freeze,
+      REFRESHABLE_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    REFRESHABLE_MODE_ENUM = [
+      REFRESHABLE_MODE_AUTOMATIC = 'AUTOMATIC'.freeze,
+      REFRESHABLE_MODE_MANUAL = 'MANUAL'.freeze,
+      REFRESHABLE_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    PERMISSION_LEVEL_ENUM = [
+      PERMISSION_LEVEL_RESTRICTED = 'RESTRICTED'.freeze,
+      PERMISSION_LEVEL_UNRESTRICTED = 'UNRESTRICTED'.freeze,
+      PERMISSION_LEVEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Database.
@@ -99,6 +132,10 @@ module OCI
     # **[Required]** The quantity of data in the database, in terabytes.
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
+
+    # The infrastructure type this resource belongs to.
+    # @return [String]
+    attr_reader :infrastructure_type
 
     # True if the database uses [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm).
     #
@@ -156,7 +193,7 @@ module OCI
     #
     # **Subnet Restrictions:**
     # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
-    # - For Exadata and virtual machine 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.128.0/20.
+    # - For Exadata and virtual machine 2-node RAC systems, do not use a subnet that overlaps with 192.168.128.0/20.
     # - For Autonomous Database, setting this will disable public secure access to the database.
     #
     # These subnets are used by the Oracle Clusterware private interconnect on the database instance.
@@ -177,7 +214,7 @@ module OCI
     # @return [String]
     attr_accessor :private_endpoint
 
-    # The private endpoint label for the resource.
+    # The private endpoint label for the resource. Setting this to an empty string, after the private endpoint database gets created, will change the same private endpoint database to the public endpoint database.
     # @return [String]
     attr_accessor :private_endpoint_label
 
@@ -197,6 +234,7 @@ module OCI
     #
     # - OLTP - indicates an Autonomous Transaction Processing database
     # - DW - indicates an Autonomous Data Warehouse database
+    # - AJD - indicates an Autonomous JSON Database
     #
     # @return [String]
     attr_reader :db_workload
@@ -205,12 +243,13 @@ module OCI
     # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
     #
     # To add the whitelist VCN specific subnet or IP, use a semicoln ';' as a deliminator to add the VCN specific subnets or IPs.
-    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw;1.1.1.1\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw;1.1.0.0/16\"]`
+    # For an update operation, if you want to delete all the IPs in the ACL, use an array with a single empty string entry.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.<unique_id>\",\"ocid1.vcn.oc1.sea.<unique_id1>;1.1.1.1\",\"ocid1.vcn.oc1.sea.<unique_id2>;1.1.0.0/16\"]`
     #
     # @return [Array<String>]
     attr_accessor :whitelisted_ips
 
-    # Indicates if auto scaling is enabled for the Autonomous Database CPU core count. Note that auto scaling is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
+    # Indicates if auto scaling is enabled for the Autonomous Database CPU core count.
     #
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
@@ -226,6 +265,61 @@ module OCI
     # The date and time when maintenance will end.
     # @return [DateTime]
     attr_accessor :time_maintenance_end
+
+    # Indicates whether the Autonomous Database is a refreshable clone.
+    # @return [BOOLEAN]
+    attr_accessor :is_refreshable_clone
+
+    # The date and time when last refresh happened.
+    # @return [DateTime]
+    attr_accessor :time_of_last_refresh
+
+    # The refresh point timestamp (UTC). The refresh point is the time to which the database was most recently refreshed. Data created after the refresh point is not included in the refresh.
+    # @return [DateTime]
+    attr_accessor :time_of_last_refresh_point
+
+    # The date and time of next refresh.
+    # @return [DateTime]
+    attr_accessor :time_of_next_refresh
+
+    # The `DATABASE OPEN` mode. You can open the database in `READ_ONLY` or `READ_WRITE` mode.
+    # @return [String]
+    attr_reader :open_mode
+
+    # The refresh status of the clone. REFRESHING indicates that the clone is currently being refreshed with data from the source Autonomous Database.
+    # @return [String]
+    attr_reader :refreshable_status
+
+    # The refresh mode of the clone. AUTOMATIC indicates that the clone is automatically being refreshed with data from the source Autonomous Database.
+    # @return [String]
+    attr_reader :refreshable_mode
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the source Autonomous Database that was cloned to create the current Autonomous Database.
+    # @return [String]
+    attr_accessor :source_id
+
+    # The Autonomous Database permission level. Restricted mode allows access only to admin users.
+    # @return [String]
+    attr_reader :permission_level
+
+    # The timestamp of the last switchover operation for the Autonomous Database.
+    # @return [DateTime]
+    attr_accessor :time_of_last_switchover
+
+    # The timestamp of the last failover operation.
+    # @return [DateTime]
+    attr_accessor :time_of_last_failover
+
+    # Indicates whether the Autonomous Database has Data Guard enabled.
+    # @return [BOOLEAN]
+    attr_accessor :is_data_guard_enabled
+
+    # Indicates the number of seconds of data loss for a Data Guard failover.
+    # @return [Integer]
+    attr_accessor :failed_data_recovery_in_seconds
+
+    # @return [OCI::Database::Models::AutonomousDatabaseStandbySummary]
+    attr_accessor :standby_db
 
     # List of Oracle Database versions available for a database upgrade. If there are no version upgrades available, this list is empty.
     # @return [Array<String>]
@@ -246,6 +340,7 @@ module OCI
         'time_deletion_of_free_autonomous_database': :'timeDeletionOfFreeAutonomousDatabase',
         'cpu_core_count': :'cpuCoreCount',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'infrastructure_type': :'infrastructureType',
         'is_dedicated': :'isDedicated',
         'autonomous_container_database_id': :'autonomousContainerDatabaseId',
         'time_created': :'timeCreated',
@@ -270,6 +365,20 @@ module OCI
         'data_safe_status': :'dataSafeStatus',
         'time_maintenance_begin': :'timeMaintenanceBegin',
         'time_maintenance_end': :'timeMaintenanceEnd',
+        'is_refreshable_clone': :'isRefreshableClone',
+        'time_of_last_refresh': :'timeOfLastRefresh',
+        'time_of_last_refresh_point': :'timeOfLastRefreshPoint',
+        'time_of_next_refresh': :'timeOfNextRefresh',
+        'open_mode': :'openMode',
+        'refreshable_status': :'refreshableStatus',
+        'refreshable_mode': :'refreshableMode',
+        'source_id': :'sourceId',
+        'permission_level': :'permissionLevel',
+        'time_of_last_switchover': :'timeOfLastSwitchover',
+        'time_of_last_failover': :'timeOfLastFailover',
+        'is_data_guard_enabled': :'isDataGuardEnabled',
+        'failed_data_recovery_in_seconds': :'failedDataRecoveryInSeconds',
+        'standby_db': :'standbyDb',
         'available_upgrade_versions': :'availableUpgradeVersions'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -290,6 +399,7 @@ module OCI
         'time_deletion_of_free_autonomous_database': :'DateTime',
         'cpu_core_count': :'Integer',
         'data_storage_size_in_tbs': :'Integer',
+        'infrastructure_type': :'String',
         'is_dedicated': :'BOOLEAN',
         'autonomous_container_database_id': :'String',
         'time_created': :'DateTime',
@@ -314,6 +424,20 @@ module OCI
         'data_safe_status': :'String',
         'time_maintenance_begin': :'DateTime',
         'time_maintenance_end': :'DateTime',
+        'is_refreshable_clone': :'BOOLEAN',
+        'time_of_last_refresh': :'DateTime',
+        'time_of_last_refresh_point': :'DateTime',
+        'time_of_next_refresh': :'DateTime',
+        'open_mode': :'String',
+        'refreshable_status': :'String',
+        'refreshable_mode': :'String',
+        'source_id': :'String',
+        'permission_level': :'String',
+        'time_of_last_switchover': :'DateTime',
+        'time_of_last_failover': :'DateTime',
+        'is_data_guard_enabled': :'BOOLEAN',
+        'failed_data_recovery_in_seconds': :'Integer',
+        'standby_db': :'OCI::Database::Models::AutonomousDatabaseStandbySummary',
         'available_upgrade_versions': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -336,6 +460,7 @@ module OCI
     # @option attributes [DateTime] :time_deletion_of_free_autonomous_database The value to assign to the {#time_deletion_of_free_autonomous_database} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [String] :infrastructure_type The value to assign to the {#infrastructure_type} property
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
     # @option attributes [String] :autonomous_container_database_id The value to assign to the {#autonomous_container_database_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -360,6 +485,20 @@ module OCI
     # @option attributes [String] :data_safe_status The value to assign to the {#data_safe_status} property
     # @option attributes [DateTime] :time_maintenance_begin The value to assign to the {#time_maintenance_begin} property
     # @option attributes [DateTime] :time_maintenance_end The value to assign to the {#time_maintenance_end} property
+    # @option attributes [BOOLEAN] :is_refreshable_clone The value to assign to the {#is_refreshable_clone} property
+    # @option attributes [DateTime] :time_of_last_refresh The value to assign to the {#time_of_last_refresh} property
+    # @option attributes [DateTime] :time_of_last_refresh_point The value to assign to the {#time_of_last_refresh_point} property
+    # @option attributes [DateTime] :time_of_next_refresh The value to assign to the {#time_of_next_refresh} property
+    # @option attributes [String] :open_mode The value to assign to the {#open_mode} property
+    # @option attributes [String] :refreshable_status The value to assign to the {#refreshable_status} property
+    # @option attributes [String] :refreshable_mode The value to assign to the {#refreshable_mode} property
+    # @option attributes [String] :source_id The value to assign to the {#source_id} property
+    # @option attributes [String] :permission_level The value to assign to the {#permission_level} property
+    # @option attributes [DateTime] :time_of_last_switchover The value to assign to the {#time_of_last_switchover} property
+    # @option attributes [DateTime] :time_of_last_failover The value to assign to the {#time_of_last_failover} property
+    # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {#is_data_guard_enabled} property
+    # @option attributes [Integer] :failed_data_recovery_in_seconds The value to assign to the {#failed_data_recovery_in_seconds} property
+    # @option attributes [OCI::Database::Models::AutonomousDatabaseStandbySummary] :standby_db The value to assign to the {#standby_db} property
     # @option attributes [Array<String>] :available_upgrade_versions The value to assign to the {#available_upgrade_versions} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -427,6 +566,12 @@ module OCI
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.infrastructure_type = attributes[:'infrastructureType'] if attributes[:'infrastructureType']
+
+      raise 'You cannot provide both :infrastructureType and :infrastructure_type' if attributes.key?(:'infrastructureType') && attributes.key?(:'infrastructure_type')
+
+      self.infrastructure_type = attributes[:'infrastructure_type'] if attributes[:'infrastructure_type']
 
       self.is_dedicated = attributes[:'isDedicated'] unless attributes[:'isDedicated'].nil?
 
@@ -572,6 +717,90 @@ module OCI
 
       self.time_maintenance_end = attributes[:'time_maintenance_end'] if attributes[:'time_maintenance_end']
 
+      self.is_refreshable_clone = attributes[:'isRefreshableClone'] unless attributes[:'isRefreshableClone'].nil?
+
+      raise 'You cannot provide both :isRefreshableClone and :is_refreshable_clone' if attributes.key?(:'isRefreshableClone') && attributes.key?(:'is_refreshable_clone')
+
+      self.is_refreshable_clone = attributes[:'is_refreshable_clone'] unless attributes[:'is_refreshable_clone'].nil?
+
+      self.time_of_last_refresh = attributes[:'timeOfLastRefresh'] if attributes[:'timeOfLastRefresh']
+
+      raise 'You cannot provide both :timeOfLastRefresh and :time_of_last_refresh' if attributes.key?(:'timeOfLastRefresh') && attributes.key?(:'time_of_last_refresh')
+
+      self.time_of_last_refresh = attributes[:'time_of_last_refresh'] if attributes[:'time_of_last_refresh']
+
+      self.time_of_last_refresh_point = attributes[:'timeOfLastRefreshPoint'] if attributes[:'timeOfLastRefreshPoint']
+
+      raise 'You cannot provide both :timeOfLastRefreshPoint and :time_of_last_refresh_point' if attributes.key?(:'timeOfLastRefreshPoint') && attributes.key?(:'time_of_last_refresh_point')
+
+      self.time_of_last_refresh_point = attributes[:'time_of_last_refresh_point'] if attributes[:'time_of_last_refresh_point']
+
+      self.time_of_next_refresh = attributes[:'timeOfNextRefresh'] if attributes[:'timeOfNextRefresh']
+
+      raise 'You cannot provide both :timeOfNextRefresh and :time_of_next_refresh' if attributes.key?(:'timeOfNextRefresh') && attributes.key?(:'time_of_next_refresh')
+
+      self.time_of_next_refresh = attributes[:'time_of_next_refresh'] if attributes[:'time_of_next_refresh']
+
+      self.open_mode = attributes[:'openMode'] if attributes[:'openMode']
+
+      raise 'You cannot provide both :openMode and :open_mode' if attributes.key?(:'openMode') && attributes.key?(:'open_mode')
+
+      self.open_mode = attributes[:'open_mode'] if attributes[:'open_mode']
+
+      self.refreshable_status = attributes[:'refreshableStatus'] if attributes[:'refreshableStatus']
+
+      raise 'You cannot provide both :refreshableStatus and :refreshable_status' if attributes.key?(:'refreshableStatus') && attributes.key?(:'refreshable_status')
+
+      self.refreshable_status = attributes[:'refreshable_status'] if attributes[:'refreshable_status']
+
+      self.refreshable_mode = attributes[:'refreshableMode'] if attributes[:'refreshableMode']
+
+      raise 'You cannot provide both :refreshableMode and :refreshable_mode' if attributes.key?(:'refreshableMode') && attributes.key?(:'refreshable_mode')
+
+      self.refreshable_mode = attributes[:'refreshable_mode'] if attributes[:'refreshable_mode']
+
+      self.source_id = attributes[:'sourceId'] if attributes[:'sourceId']
+
+      raise 'You cannot provide both :sourceId and :source_id' if attributes.key?(:'sourceId') && attributes.key?(:'source_id')
+
+      self.source_id = attributes[:'source_id'] if attributes[:'source_id']
+
+      self.permission_level = attributes[:'permissionLevel'] if attributes[:'permissionLevel']
+
+      raise 'You cannot provide both :permissionLevel and :permission_level' if attributes.key?(:'permissionLevel') && attributes.key?(:'permission_level')
+
+      self.permission_level = attributes[:'permission_level'] if attributes[:'permission_level']
+
+      self.time_of_last_switchover = attributes[:'timeOfLastSwitchover'] if attributes[:'timeOfLastSwitchover']
+
+      raise 'You cannot provide both :timeOfLastSwitchover and :time_of_last_switchover' if attributes.key?(:'timeOfLastSwitchover') && attributes.key?(:'time_of_last_switchover')
+
+      self.time_of_last_switchover = attributes[:'time_of_last_switchover'] if attributes[:'time_of_last_switchover']
+
+      self.time_of_last_failover = attributes[:'timeOfLastFailover'] if attributes[:'timeOfLastFailover']
+
+      raise 'You cannot provide both :timeOfLastFailover and :time_of_last_failover' if attributes.key?(:'timeOfLastFailover') && attributes.key?(:'time_of_last_failover')
+
+      self.time_of_last_failover = attributes[:'time_of_last_failover'] if attributes[:'time_of_last_failover']
+
+      self.is_data_guard_enabled = attributes[:'isDataGuardEnabled'] unless attributes[:'isDataGuardEnabled'].nil?
+
+      raise 'You cannot provide both :isDataGuardEnabled and :is_data_guard_enabled' if attributes.key?(:'isDataGuardEnabled') && attributes.key?(:'is_data_guard_enabled')
+
+      self.is_data_guard_enabled = attributes[:'is_data_guard_enabled'] unless attributes[:'is_data_guard_enabled'].nil?
+
+      self.failed_data_recovery_in_seconds = attributes[:'failedDataRecoveryInSeconds'] if attributes[:'failedDataRecoveryInSeconds']
+
+      raise 'You cannot provide both :failedDataRecoveryInSeconds and :failed_data_recovery_in_seconds' if attributes.key?(:'failedDataRecoveryInSeconds') && attributes.key?(:'failed_data_recovery_in_seconds')
+
+      self.failed_data_recovery_in_seconds = attributes[:'failed_data_recovery_in_seconds'] if attributes[:'failed_data_recovery_in_seconds']
+
+      self.standby_db = attributes[:'standbyDb'] if attributes[:'standbyDb']
+
+      raise 'You cannot provide both :standbyDb and :standby_db' if attributes.key?(:'standbyDb') && attributes.key?(:'standby_db')
+
+      self.standby_db = attributes[:'standby_db'] if attributes[:'standby_db']
+
       self.available_upgrade_versions = attributes[:'availableUpgradeVersions'] if attributes[:'availableUpgradeVersions']
 
       raise 'You cannot provide both :availableUpgradeVersions and :available_upgrade_versions' if attributes.key?(:'availableUpgradeVersions') && attributes.key?(:'available_upgrade_versions')
@@ -590,6 +819,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] infrastructure_type Object to be assigned
+    def infrastructure_type=(infrastructure_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if infrastructure_type && !INFRASTRUCTURE_TYPE_ENUM.include?(infrastructure_type)
+        OCI.logger.debug("Unknown value for 'infrastructure_type' [" + infrastructure_type + "]. Mapping to 'INFRASTRUCTURE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @infrastructure_type = INFRASTRUCTURE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @infrastructure_type = infrastructure_type
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -633,6 +875,58 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] open_mode Object to be assigned
+    def open_mode=(open_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if open_mode && !OPEN_MODE_ENUM.include?(open_mode)
+        OCI.logger.debug("Unknown value for 'open_mode' [" + open_mode + "]. Mapping to 'OPEN_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @open_mode = OPEN_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @open_mode = open_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] refreshable_status Object to be assigned
+    def refreshable_status=(refreshable_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if refreshable_status && !REFRESHABLE_STATUS_ENUM.include?(refreshable_status)
+        OCI.logger.debug("Unknown value for 'refreshable_status' [" + refreshable_status + "]. Mapping to 'REFRESHABLE_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @refreshable_status = REFRESHABLE_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @refreshable_status = refreshable_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] refreshable_mode Object to be assigned
+    def refreshable_mode=(refreshable_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if refreshable_mode && !REFRESHABLE_MODE_ENUM.include?(refreshable_mode)
+        OCI.logger.debug("Unknown value for 'refreshable_mode' [" + refreshable_mode + "]. Mapping to 'REFRESHABLE_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @refreshable_mode = REFRESHABLE_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @refreshable_mode = refreshable_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] permission_level Object to be assigned
+    def permission_level=(permission_level)
+      # rubocop:disable Style/ConditionalAssignment
+      if permission_level && !PERMISSION_LEVEL_ENUM.include?(permission_level)
+        OCI.logger.debug("Unknown value for 'permission_level' [" + permission_level + "]. Mapping to 'PERMISSION_LEVEL_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @permission_level = PERMISSION_LEVEL_UNKNOWN_ENUM_VALUE
+      else
+        @permission_level = permission_level
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -653,6 +947,7 @@ module OCI
         time_deletion_of_free_autonomous_database == other.time_deletion_of_free_autonomous_database &&
         cpu_core_count == other.cpu_core_count &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        infrastructure_type == other.infrastructure_type &&
         is_dedicated == other.is_dedicated &&
         autonomous_container_database_id == other.autonomous_container_database_id &&
         time_created == other.time_created &&
@@ -677,6 +972,20 @@ module OCI
         data_safe_status == other.data_safe_status &&
         time_maintenance_begin == other.time_maintenance_begin &&
         time_maintenance_end == other.time_maintenance_end &&
+        is_refreshable_clone == other.is_refreshable_clone &&
+        time_of_last_refresh == other.time_of_last_refresh &&
+        time_of_last_refresh_point == other.time_of_last_refresh_point &&
+        time_of_next_refresh == other.time_of_next_refresh &&
+        open_mode == other.open_mode &&
+        refreshable_status == other.refreshable_status &&
+        refreshable_mode == other.refreshable_mode &&
+        source_id == other.source_id &&
+        permission_level == other.permission_level &&
+        time_of_last_switchover == other.time_of_last_switchover &&
+        time_of_last_failover == other.time_of_last_failover &&
+        is_data_guard_enabled == other.is_data_guard_enabled &&
+        failed_data_recovery_in_seconds == other.failed_data_recovery_in_seconds &&
+        standby_db == other.standby_db &&
         available_upgrade_versions == other.available_upgrade_versions
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -693,7 +1002,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, cpu_core_count, data_storage_size_in_tbs, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, whitelisted_ips, is_auto_scaling_enabled, data_safe_status, time_maintenance_begin, time_maintenance_end, available_upgrade_versions].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, cpu_core_count, data_storage_size_in_tbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, whitelisted_ips, is_auto_scaling_enabled, data_safe_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, available_upgrade_versions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

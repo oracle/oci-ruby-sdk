@@ -35,6 +35,9 @@ module OCI
     # @return [OCI::Apigateway::Models::ApiSpecificationRouteRequestPolicies]
     attr_accessor :request_policies
 
+    # @return [OCI::Apigateway::Models::ApiSpecificationRouteResponsePolicies]
+    attr_accessor :response_policies
+
     # @return [OCI::Apigateway::Models::ApiSpecificationLoggingPolicies]
     attr_accessor :logging_policies
 
@@ -49,6 +52,7 @@ module OCI
         'path': :'path',
         'methods': :'methods',
         'request_policies': :'requestPolicies',
+        'response_policies': :'responsePolicies',
         'logging_policies': :'loggingPolicies',
         'backend': :'backend'
         # rubocop:enable Style/SymbolLiteral
@@ -62,6 +66,7 @@ module OCI
         'path': :'String',
         'methods': :'Array<String>',
         'request_policies': :'OCI::Apigateway::Models::ApiSpecificationRouteRequestPolicies',
+        'response_policies': :'OCI::Apigateway::Models::ApiSpecificationRouteResponsePolicies',
         'logging_policies': :'OCI::Apigateway::Models::ApiSpecificationLoggingPolicies',
         'backend': :'OCI::Apigateway::Models::ApiSpecificationRouteBackend'
         # rubocop:enable Style/SymbolLiteral
@@ -77,6 +82,7 @@ module OCI
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [Array<String>] :methods The value to assign to the {#methods} property
     # @option attributes [OCI::Apigateway::Models::ApiSpecificationRouteRequestPolicies] :request_policies The value to assign to the {#request_policies} property
+    # @option attributes [OCI::Apigateway::Models::ApiSpecificationRouteResponsePolicies] :response_policies The value to assign to the {#response_policies} property
     # @option attributes [OCI::Apigateway::Models::ApiSpecificationLoggingPolicies] :logging_policies The value to assign to the {#logging_policies} property
     # @option attributes [OCI::Apigateway::Models::ApiSpecificationRouteBackend] :backend The value to assign to the {#backend} property
     def initialize(attributes = {})
@@ -94,6 +100,12 @@ module OCI
       raise 'You cannot provide both :requestPolicies and :request_policies' if attributes.key?(:'requestPolicies') && attributes.key?(:'request_policies')
 
       self.request_policies = attributes[:'request_policies'] if attributes[:'request_policies']
+
+      self.response_policies = attributes[:'responsePolicies'] if attributes[:'responsePolicies']
+
+      raise 'You cannot provide both :responsePolicies and :response_policies' if attributes.key?(:'responsePolicies') && attributes.key?(:'response_policies')
+
+      self.response_policies = attributes[:'response_policies'] if attributes[:'response_policies']
 
       self.logging_policies = attributes[:'loggingPolicies'] if attributes[:'loggingPolicies']
 
@@ -138,6 +150,7 @@ module OCI
         path == other.path &&
         methods == other.methods &&
         request_policies == other.request_policies &&
+        response_policies == other.response_policies &&
         logging_policies == other.logging_policies &&
         backend == other.backend
     end
@@ -155,7 +168,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [path, methods, request_policies, logging_policies, backend].hash
+      [path, methods, request_policies, response_policies, logging_policies, backend].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

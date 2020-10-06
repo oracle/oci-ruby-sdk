@@ -39,7 +39,7 @@ module OCI
     # The shape of the instance. The shape determines the number of CPUs and the amount of memory
     # allocated to the instance. For more information about how to change shapes, and a list of
     # shapes that are supported, see
-    # [Changing the Shape of an Instance](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/resizinginstances.htm).
+    # [Editing an Instance](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/resizinginstances.htm).
     #
     # For details about the CPUs, memory, and other properties of each shape, see
     # [Compute Shapes](https://docs.cloud.oracle.com/iaas/Content/Compute/References/computeshapes.htm).
@@ -58,6 +58,34 @@ module OCI
     # @return [OCI::Core::Models::UpdateInstanceShapeConfigDetails]
     attr_accessor :shape_config
 
+    # @return [OCI::Core::Models::InstanceOptions]
+    attr_accessor :instance_options
+
+    # A fault domain is a grouping of hardware and infrastructure within an availability domain.
+    # Each availability domain contains three fault domains. Fault domains let you distribute your
+    # instances so that they are not on the same physical hardware within a single availability domain.
+    # A hardware failure or Compute hardware maintenance that affects one fault domain does not affect
+    # instances in other fault domains.
+    #
+    # To get a list of fault domains, use the
+    # {#list_fault_domains list_fault_domains} operation in the
+    # Identity and Access Management Service API.
+    #
+    # Example: `FAULT-DOMAIN-1`
+    #
+    # @return [String]
+    attr_accessor :fault_domain
+
+    # Options for tuning the compatibility and performance of VM shapes.
+    #
+    # @return [OCI::Core::Models::UpdateLaunchOptions]
+    attr_accessor :launch_options
+
+    # Options for defining the availability of a VM instance after a maintenance event that impacts the underlying hardware.
+    #
+    # @return [OCI::Core::Models::UpdateInstanceAvailabilityConfigDetails]
+    attr_accessor :availability_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -67,7 +95,11 @@ module OCI
         'freeform_tags': :'freeformTags',
         'agent_config': :'agentConfig',
         'shape': :'shape',
-        'shape_config': :'shapeConfig'
+        'shape_config': :'shapeConfig',
+        'instance_options': :'instanceOptions',
+        'fault_domain': :'faultDomain',
+        'launch_options': :'launchOptions',
+        'availability_config': :'availabilityConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -81,7 +113,11 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'agent_config': :'OCI::Core::Models::UpdateInstanceAgentConfigDetails',
         'shape': :'String',
-        'shape_config': :'OCI::Core::Models::UpdateInstanceShapeConfigDetails'
+        'shape_config': :'OCI::Core::Models::UpdateInstanceShapeConfigDetails',
+        'instance_options': :'OCI::Core::Models::InstanceOptions',
+        'fault_domain': :'String',
+        'launch_options': :'OCI::Core::Models::UpdateLaunchOptions',
+        'availability_config': :'OCI::Core::Models::UpdateInstanceAvailabilityConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,6 +134,10 @@ module OCI
     # @option attributes [OCI::Core::Models::UpdateInstanceAgentConfigDetails] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [OCI::Core::Models::UpdateInstanceShapeConfigDetails] :shape_config The value to assign to the {#shape_config} property
+    # @option attributes [OCI::Core::Models::InstanceOptions] :instance_options The value to assign to the {#instance_options} property
+    # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
+    # @option attributes [OCI::Core::Models::UpdateLaunchOptions] :launch_options The value to assign to the {#launch_options} property
+    # @option attributes [OCI::Core::Models::UpdateInstanceAvailabilityConfigDetails] :availability_config The value to assign to the {#availability_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -135,6 +175,30 @@ module OCI
       raise 'You cannot provide both :shapeConfig and :shape_config' if attributes.key?(:'shapeConfig') && attributes.key?(:'shape_config')
 
       self.shape_config = attributes[:'shape_config'] if attributes[:'shape_config']
+
+      self.instance_options = attributes[:'instanceOptions'] if attributes[:'instanceOptions']
+
+      raise 'You cannot provide both :instanceOptions and :instance_options' if attributes.key?(:'instanceOptions') && attributes.key?(:'instance_options')
+
+      self.instance_options = attributes[:'instance_options'] if attributes[:'instance_options']
+
+      self.fault_domain = attributes[:'faultDomain'] if attributes[:'faultDomain']
+
+      raise 'You cannot provide both :faultDomain and :fault_domain' if attributes.key?(:'faultDomain') && attributes.key?(:'fault_domain')
+
+      self.fault_domain = attributes[:'fault_domain'] if attributes[:'fault_domain']
+
+      self.launch_options = attributes[:'launchOptions'] if attributes[:'launchOptions']
+
+      raise 'You cannot provide both :launchOptions and :launch_options' if attributes.key?(:'launchOptions') && attributes.key?(:'launch_options')
+
+      self.launch_options = attributes[:'launch_options'] if attributes[:'launch_options']
+
+      self.availability_config = attributes[:'availabilityConfig'] if attributes[:'availabilityConfig']
+
+      raise 'You cannot provide both :availabilityConfig and :availability_config' if attributes.key?(:'availabilityConfig') && attributes.key?(:'availability_config')
+
+      self.availability_config = attributes[:'availability_config'] if attributes[:'availability_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -153,7 +217,11 @@ module OCI
         freeform_tags == other.freeform_tags &&
         agent_config == other.agent_config &&
         shape == other.shape &&
-        shape_config == other.shape_config
+        shape_config == other.shape_config &&
+        instance_options == other.instance_options &&
+        fault_domain == other.fault_domain &&
+        launch_options == other.launch_options &&
+        availability_config == other.availability_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -169,7 +237,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, agent_config, shape, shape_config].hash
+      [defined_tags, display_name, freeform_tags, agent_config, shape, shape_config, instance_options, fault_domain, launch_options, availability_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -5,7 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Ticket Item
+  # Details about the resource that the support ticket relates to.
+  #
+  # **Caution:** Avoid using any confidential information when you supply string values using the API.
+  #
   class Cims::Models::CreateResourceDetails
     REGION_ENUM = [
       REGION_DEV = 'DEV'.freeze,
@@ -19,14 +22,9 @@ module OCI
       REGION_LHR = 'LHR'.freeze,
       REGION_YYZ = 'YYZ'.freeze,
       REGION_NRT = 'NRT'.freeze,
-      REGION_US_LANGLEY_1 = 'US_LANGLEY_1'.freeze,
-      REGION_US_LUKE_1 = 'US_LUKE_1'.freeze,
       REGION_ICN = 'ICN'.freeze,
       REGION_BOM = 'BOM'.freeze,
       REGION_GRU = 'GRU'.freeze,
-      REGION_US_GOV_ASHBURN_1 = 'US_GOV_ASHBURN_1'.freeze,
-      REGION_US_GOV_PHOENIX_1 = 'US_GOV_PHOENIX_1'.freeze,
-      REGION_US_GOV_CHICAGO_1 = 'US_GOV_CHICAGO_1'.freeze,
       REGION_SYD = 'SYD'.freeze,
       REGION_ZRH = 'ZRH'.freeze,
       REGION_JED = 'JED'.freeze,
@@ -35,8 +33,7 @@ module OCI
       REGION_MEL = 'MEL'.freeze,
       REGION_YUL = 'YUL'.freeze,
       REGION_HYD = 'HYD'.freeze,
-      REGION_YNY = 'YNY'.freeze,
-      REGION_TIW = 'TIW'.freeze
+      REGION_YNY = 'YNY'.freeze
     ].freeze
 
     AVAILABILITY_DOMAIN_ENUM = [
@@ -66,8 +63,6 @@ module OCI
       AVAILABILITY_DOMAIN_AP_SEOUL_1_AD_1 = 'AP_SEOUL_1_AD_1'.freeze,
       AVAILABILITY_DOMAIN_AP_MUMBAI_1_AD_1 = 'AP_MUMBAI_1_AD_1'.freeze,
       AVAILABILITY_DOMAIN_SA_SAOPAULO_1_AD_1 = 'SA_SAOPAULO_1_AD_1'.freeze,
-      AVAILABILITY_DOMAIN_US_LUKE_1_AD_1 = 'US_LUKE_1_AD_1'.freeze,
-      AVAILABILITY_DOMAIN_US_LANGLEY_1_AD_1 = 'US_LANGLEY_1_AD_1'.freeze,
       AVAILABILITY_DOMAIN_ME_JEDDAH_1_AD_1 = 'ME_JEDDAH_1_AD_1'.freeze,
       AVAILABILITY_DOMAIN_AP_OSAKA_1_AD_1 = 'AP_OSAKA_1_AD_1'.freeze,
       AVAILABILITY_DOMAIN_AP_SYDNEY_1_AD_1 = 'AP_SYDNEY_1_AD_1'.freeze,
@@ -77,18 +72,17 @@ module OCI
       AVAILABILITY_DOMAIN_CA_MONTREAL_1_AD_1 = 'CA_MONTREAL_1_AD_1'.freeze,
       AVAILABILITY_DOMAIN_AP_HYDERABAD_1_AD_1 = 'AP_HYDERABAD_1_AD_1'.freeze,
       AVAILABILITY_DOMAIN_AP_CHUNCHEON_1_AD_1 = 'AP_CHUNCHEON_1_AD_1'.freeze,
-      AVAILABILITY_DOMAIN_US_TACOMA_1_AD_1 = 'US_TACOMA_1_AD_1'.freeze,
       AVAILABILITY_DOMAIN_NO_AD = 'NO_AD'.freeze
     ].freeze
 
     # @return [OCI::Cims::Models::CreateItemDetails]
     attr_accessor :item
 
-    # List of OCI regions
+    # The list of available Oracle Cloud Infrastructure regions.
     # @return [String]
     attr_reader :region
 
-    # List of OCI ADs
+    # The list of available Oracle Cloud Infrastructure availability domains.
     # @return [String]
     attr_reader :availability_domain
 

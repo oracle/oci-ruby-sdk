@@ -23,6 +23,10 @@ module OCI
     # @return [String]
     attr_accessor :db_unique_name
 
+    # The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
+    # @return [String]
+    attr_accessor :database_software_image_id
+
     # The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.
     # @return [String]
     attr_accessor :pdb_name
@@ -71,6 +75,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'db_name': :'dbName',
         'db_unique_name': :'dbUniqueName',
+        'database_software_image_id': :'databaseSoftwareImageId',
         'pdb_name': :'pdbName',
         'admin_password': :'adminPassword',
         'character_set': :'characterSet',
@@ -89,6 +94,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'db_name': :'String',
         'db_unique_name': :'String',
+        'database_software_image_id': :'String',
         'pdb_name': :'String',
         'admin_password': :'String',
         'character_set': :'String',
@@ -109,6 +115,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [String] :db_unique_name The value to assign to the {#db_unique_name} property
+    # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
     # @option attributes [String] :pdb_name The value to assign to the {#pdb_name} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :character_set The value to assign to the {#character_set} property
@@ -134,6 +141,12 @@ module OCI
       raise 'You cannot provide both :dbUniqueName and :db_unique_name' if attributes.key?(:'dbUniqueName') && attributes.key?(:'db_unique_name')
 
       self.db_unique_name = attributes[:'db_unique_name'] if attributes[:'db_unique_name']
+
+      self.database_software_image_id = attributes[:'databaseSoftwareImageId'] if attributes[:'databaseSoftwareImageId']
+
+      raise 'You cannot provide both :databaseSoftwareImageId and :database_software_image_id' if attributes.key?(:'databaseSoftwareImageId') && attributes.key?(:'database_software_image_id')
+
+      self.database_software_image_id = attributes[:'database_software_image_id'] if attributes[:'database_software_image_id']
 
       self.pdb_name = attributes[:'pdbName'] if attributes[:'pdbName']
 
@@ -205,6 +218,7 @@ module OCI
       self.class == other.class &&
         db_name == other.db_name &&
         db_unique_name == other.db_unique_name &&
+        database_software_image_id == other.database_software_image_id &&
         pdb_name == other.pdb_name &&
         admin_password == other.admin_password &&
         character_set == other.character_set &&
@@ -228,7 +242,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_name, db_unique_name, pdb_name, admin_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags].hash
+      [db_name, db_unique_name, database_software_image_id, pdb_name, admin_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

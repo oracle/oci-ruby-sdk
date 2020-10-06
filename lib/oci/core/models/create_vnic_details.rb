@@ -32,6 +32,9 @@ module OCI
     #
     # Example: `false`
     #
+    # If you specify a `vlanId`, the `assignPublicIp` is required to be set to false. See
+    # {Vlan}.
+    #
     # @return [BOOLEAN]
     attr_accessor :assign_public_ip
 
@@ -78,12 +81,20 @@ module OCI
     #
     # Example: `bminstance-1`
     #
+    # If you specify a `vlanId`, the `hostnameLabel` cannot be specified. vnics on a Vlan
+    # can not be assigned a hostname  See {Vlan}.
+    #
     # @return [String]
     attr_accessor :hostname_label
 
     # A list of the OCIDs of the network security groups (NSGs) to add the VNIC to. For more
     # information about NSGs, see
     # {NetworkSecurityGroup}.
+    #
+    # If a `vlanId` is specified, the `nsgIds` cannot be specified. The `vlanId`
+    # indicates that the VNIC will belong to a VLAN instead of a subnet. With VLANs,
+    # all VNICs in the VLAN belong to the NSGs that are associated with the VLAN.
+    # See {Vlan}.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -96,6 +107,11 @@ module OCI
     # {PrivateIp} object returned by
     # {#list_private_ips list_private_ips} and
     # {#get_private_ip get_private_ip}.
+    #
+    #
+    # If you specify a `vlanId`, the `privateIp` cannot be specified.
+    # See {Vlan}.
+    #
     # Example: `10.0.3.3`
     #
     # @return [String]
@@ -106,18 +122,37 @@ module OCI
     # about why you would skip the source/destination check, see
     # [Using a Private IP as a Route Target](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm#privateip).
     #
+    #
+    # If you specify a `vlanId`, the `skipSourceDestCheck` cannot be specified because the
+    # source/destination check is always disabled for VNICs in a VLAN. See
+    # {Vlan}.
+    #
     # Example: `true`
     #
     # @return [BOOLEAN]
     attr_accessor :skip_source_dest_check
 
-    # **[Required]** The OCID of the subnet to create the VNIC in. When launching an instance,
+    # The OCID of the subnet to create the VNIC in. When launching an instance,
     # use this `subnetId` instead of the deprecated `subnetId` in
     # {#launch_instance_details launch_instance_details}.
     # At least one of them is required; if you provide both, the values must match.
     #
+    # If you are an Oracle Cloud VMware Solution customer and creating a secondary
+    # VNIC in a VLAN instead of a subnet, provide a `vlanId` instead of a `subnetId`.
+    # If you provide both a `vlanId` and `subnetId`, the request fails.
+    #
     # @return [String]
     attr_accessor :subnet_id
+
+    # Provide this attribute only if you are an Oracle Cloud VMware Solution
+    # customer and creating a secondary VNIC in a VLAN. The value is the OCID of the VLAN.
+    # See {Vlan}.
+    #
+    # Provide a `vlanId` instead of a `subnetId`. If you provide both a
+    # `vlanId` and `subnetId`, the request fails.
+    #
+    # @return [String]
+    attr_accessor :vlan_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -131,7 +166,8 @@ module OCI
         'nsg_ids': :'nsgIds',
         'private_ip': :'privateIp',
         'skip_source_dest_check': :'skipSourceDestCheck',
-        'subnet_id': :'subnetId'
+        'subnet_id': :'subnetId',
+        'vlan_id': :'vlanId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -148,7 +184,8 @@ module OCI
         'nsg_ids': :'Array<String>',
         'private_ip': :'String',
         'skip_source_dest_check': :'BOOLEAN',
-        'subnet_id': :'String'
+        'subnet_id': :'String',
+        'vlan_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -168,6 +205,7 @@ module OCI
     # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     # @option attributes [BOOLEAN] :skip_source_dest_check The value to assign to the {#skip_source_dest_check} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [String] :vlan_id The value to assign to the {#vlan_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -227,6 +265,12 @@ module OCI
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.vlan_id = attributes[:'vlanId'] if attributes[:'vlanId']
+
+      raise 'You cannot provide both :vlanId and :vlan_id' if attributes.key?(:'vlanId') && attributes.key?(:'vlan_id')
+
+      self.vlan_id = attributes[:'vlan_id'] if attributes[:'vlan_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -248,7 +292,8 @@ module OCI
         nsg_ids == other.nsg_ids &&
         private_ip == other.private_ip &&
         skip_source_dest_check == other.skip_source_dest_check &&
-        subnet_id == other.subnet_id
+        subnet_id == other.subnet_id &&
+        vlan_id == other.vlan_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -264,7 +309,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [assign_public_ip, defined_tags, display_name, freeform_tags, hostname_label, nsg_ids, private_ip, skip_source_dest_check, subnet_id].hash
+      [assign_public_ip, defined_tags, display_name, freeform_tags, hostname_label, nsg_ids, private_ip, skip_source_dest_check, subnet_id, vlan_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

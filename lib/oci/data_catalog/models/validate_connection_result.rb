@@ -2,18 +2,25 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Details regarding the validation of a connection resource.
   class DataCatalog::Models::ValidateConnectionResult
+    STATUS_ENUM = [
+      STATUS_SUCCEEDED = 'SUCCEEDED'.freeze,
+      STATUS_FAILED = 'FAILED'.freeze,
+      STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # The message from the connection validation.
     # @return [String]
     attr_accessor :message
 
     # **[Required]** The status returned from the connection validation.
     # @return [String]
-    attr_accessor :status
+    attr_reader :status
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -55,6 +62,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] status Object to be assigned
+    def status=(status)
+      # rubocop:disable Style/ConditionalAssignment
+      if status && !STATUS_ENUM.include?(status)
+        OCI.logger.debug("Unknown value for 'status' [" + status + "]. Mapping to 'STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @status = STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @status = status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 

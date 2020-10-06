@@ -6,7 +6,7 @@ require_relative 'create_item_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Limit Item
+  # Reserved for future use.
   class Cims::Models::CreateLimitItemDetails < Cims::Models::CreateItemDetails
     LIMIT_STATUS_ENUM = [
       LIMIT_STATUS_APPROVED = 'APPROVED'.freeze,
@@ -14,19 +14,19 @@ module OCI
       LIMIT_STATUS_NOT_APPROVED = 'NOT_APPROVED'.freeze
     ].freeze
 
-    # Current available limit of the resource
+    # The limit of the resource currently available.
     # @return [Integer]
     attr_accessor :current_limit
 
-    # Current used limit of the resource
+    # The current usage of the resource.
     # @return [Integer]
     attr_accessor :current_usage
 
-    # Requested limit for the resource
+    # Reserved for future use.
     # @return [Integer]
     attr_accessor :requested_limit
 
-    # Status of the Limit
+    # The current status of the request.
     # @return [String]
     attr_reader :limit_status
 

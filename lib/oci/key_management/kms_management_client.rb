@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for managing and performing operations with keys and vaults.
+  # API for managing and performing operations with keys and vaults. (For the API for managing secrets, see the Vault Service
+  # Secret Management API. For the API for retrieving secrets, see the Vault Service Secret Retrieval API.)
   class KeyManagement::KmsManagementClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -54,16 +55,7 @@ module OCI
       # so try and load the config from the default file.
       config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
-      if signer.nil?
-        signer = OCI::Signer.new(
-          config.user,
-          config.fingerprint,
-          config.tenancy,
-          config.key_file,
-          pass_phrase: config.pass_phrase,
-          private_key_content: config.key_content
-        )
-      end
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
@@ -471,7 +463,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Generates a new [KeyVersion](https://docs.cloud.oracle.com/api/#/en/key/release/KeyVersion/) resource that provides new cryptographic
+    # Generates a new [KeyVersion](https://docs.cloud.oracle.com/api/#/en/key/latest/KeyVersion/) resource that provides new cryptographic
     # material for a master encryption key. The key must be in an `ENABLED` state to be rotated.
     #
     # As a management operation, this call is subject to a Key Management limit that applies to the total number
@@ -1022,7 +1014,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all [KeyVersion](https://docs.cloud.oracle.com/api/#/en/key/release/KeyVersion/) resources for the specified
+    # Lists all [KeyVersion](https://docs.cloud.oracle.com/api/#/en/key/latest/KeyVersion/) resources for the specified
     # master encryption key.
     #
     # As a management operation, this call is subject to a Key Management limit that applies to the total number
@@ -1138,6 +1130,13 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
+    # @option opts [String] :protection_mode A key's protection mode indicates how the key persists and where cryptographic operations that use the key are performed. A
+    #   protection mode of `HSM` means that the key persists on a hardware security module (HSM) and all cryptographic operations are
+    #   performed inside the HSM. A protection mode of `SOFTWARE` means that the key persists on the server, protected by the vault's
+    #   RSA wrapping key which persists on the HSM. All cryptographic operations that use a key with a protection mode of
+    #   `SOFTWARE` are performed on the server.
+    #    (default to HSM)
+    #   Allowed values are: HSM, SOFTWARE
     # @return [Response] A Response object with data of type Array<{OCI::KeyManagement::Models::KeySummary KeySummary}>
     def list_keys(compartment_id, opts = {})
       logger.debug 'Calling operation KmsManagementClient#list_keys.' if logger
@@ -1152,6 +1151,10 @@ module OCI
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
       end
 
+      if opts[:protection_mode] && !%w[HSM SOFTWARE].include?(opts[:protection_mode])
+        raise 'Invalid value for "protection_mode", must be one of HSM, SOFTWARE.'
+      end
+
       path = '/20180608/keys'
       operation_signing_strategy = :standard
 
@@ -1163,6 +1166,7 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:protectionMode] = opts[:protection_mode] if opts[:protection_mode]
 
       # Header Params
       header_params = {}

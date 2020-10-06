@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -10,6 +11,53 @@ module OCI
   # type, regular expressions, or specific names of objects and a sample size for the data harvested.
   #
   class DataCatalog::Models::JobDefinitionSummary
+    JOB_TYPE_ENUM = [
+      JOB_TYPE_HARVEST = 'HARVEST'.freeze,
+      JOB_TYPE_PROFILING = 'PROFILING'.freeze,
+      JOB_TYPE_SAMPLING = 'SAMPLING'.freeze,
+      JOB_TYPE_PREVIEW = 'PREVIEW'.freeze,
+      JOB_TYPE_IMPORT = 'IMPORT'.freeze,
+      JOB_TYPE_EXPORT = 'EXPORT'.freeze,
+      JOB_TYPE_IMPORT_GLOSSARY = 'IMPORT_GLOSSARY'.freeze,
+      JOB_TYPE_EXPORT_GLOSSARY = 'EXPORT_GLOSSARY'.freeze,
+      JOB_TYPE_INTERNAL = 'INTERNAL'.freeze,
+      JOB_TYPE_PURGE = 'PURGE'.freeze,
+      JOB_TYPE_IMMEDIATE = 'IMMEDIATE'.freeze,
+      JOB_TYPE_SCHEDULED = 'SCHEDULED'.freeze,
+      JOB_TYPE_IMMEDIATE_EXECUTION = 'IMMEDIATE_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION = 'SCHEDULED_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION_INSTANCE = 'SCHEDULED_EXECUTION_INSTANCE'.freeze,
+      JOB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_MOVING = 'MOVING'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    JOB_EXECUTION_STATE_ENUM = [
+      JOB_EXECUTION_STATE_CREATED = 'CREATED'.freeze,
+      JOB_EXECUTION_STATE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      JOB_EXECUTION_STATE_INACTIVE = 'INACTIVE'.freeze,
+      JOB_EXECUTION_STATE_FAILED = 'FAILED'.freeze,
+      JOB_EXECUTION_STATE_SUCCEEDED = 'SUCCEEDED'.freeze,
+      JOB_EXECUTION_STATE_CANCELED = 'CANCELED'.freeze,
+      JOB_EXECUTION_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    SCHEDULE_TYPE_ENUM = [
+      SCHEDULE_TYPE_SCHEDULED = 'SCHEDULED'.freeze,
+      SCHEDULE_TYPE_IMMEDIATE = 'IMMEDIATE'.freeze,
+      SCHEDULE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique key of the job definition resource that is immutable.
     # @return [String]
     attr_accessor :key
@@ -34,11 +82,11 @@ module OCI
 
     # Type of the job definition.
     # @return [String]
-    attr_accessor :job_type
+    attr_reader :job_type
 
     # Lifecycle state of the job definition.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # Specify if sample data to be extracted as part of this harvest.
     # @return [BOOLEAN]
@@ -49,6 +97,29 @@ module OCI
     #
     # @return [DateTime]
     attr_accessor :time_created
+
+    # The key of the connection resource used in harvest, sampling, profiling jobs.
+    #
+    # @return [String]
+    attr_accessor :connection_key
+
+    # Time that the latest job execution started. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    # @return [DateTime]
+    attr_accessor :time_latest_execution_started
+
+    # Time that the latest job execution ended or null if it hasn't yet completed.
+    # An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    #
+    # @return [DateTime]
+    attr_accessor :time_latest_execution_ended
+
+    # Status of the latest job execution, such as running, paused, or completed.
+    # @return [String]
+    attr_reader :job_execution_state
+
+    # Type of job schedule for the latest job executed.
+    # @return [String]
+    attr_reader :schedule_type
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -62,7 +133,12 @@ module OCI
         'job_type': :'jobType',
         'lifecycle_state': :'lifecycleState',
         'is_sample_data_extracted': :'isSampleDataExtracted',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'connection_key': :'connectionKey',
+        'time_latest_execution_started': :'timeLatestExecutionStarted',
+        'time_latest_execution_ended': :'timeLatestExecutionEnded',
+        'job_execution_state': :'jobExecutionState',
+        'schedule_type': :'scheduleType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -79,7 +155,12 @@ module OCI
         'job_type': :'String',
         'lifecycle_state': :'String',
         'is_sample_data_extracted': :'BOOLEAN',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'connection_key': :'String',
+        'time_latest_execution_started': :'DateTime',
+        'time_latest_execution_ended': :'DateTime',
+        'job_execution_state': :'String',
+        'schedule_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -99,6 +180,11 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [BOOLEAN] :is_sample_data_extracted The value to assign to the {#is_sample_data_extracted} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :connection_key The value to assign to the {#connection_key} property
+    # @option attributes [DateTime] :time_latest_execution_started The value to assign to the {#time_latest_execution_started} property
+    # @option attributes [DateTime] :time_latest_execution_ended The value to assign to the {#time_latest_execution_ended} property
+    # @option attributes [String] :job_execution_state The value to assign to the {#job_execution_state} property
+    # @option attributes [String] :schedule_type The value to assign to the {#schedule_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -148,9 +234,91 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.connection_key = attributes[:'connectionKey'] if attributes[:'connectionKey']
+
+      raise 'You cannot provide both :connectionKey and :connection_key' if attributes.key?(:'connectionKey') && attributes.key?(:'connection_key')
+
+      self.connection_key = attributes[:'connection_key'] if attributes[:'connection_key']
+
+      self.time_latest_execution_started = attributes[:'timeLatestExecutionStarted'] if attributes[:'timeLatestExecutionStarted']
+
+      raise 'You cannot provide both :timeLatestExecutionStarted and :time_latest_execution_started' if attributes.key?(:'timeLatestExecutionStarted') && attributes.key?(:'time_latest_execution_started')
+
+      self.time_latest_execution_started = attributes[:'time_latest_execution_started'] if attributes[:'time_latest_execution_started']
+
+      self.time_latest_execution_ended = attributes[:'timeLatestExecutionEnded'] if attributes[:'timeLatestExecutionEnded']
+
+      raise 'You cannot provide both :timeLatestExecutionEnded and :time_latest_execution_ended' if attributes.key?(:'timeLatestExecutionEnded') && attributes.key?(:'time_latest_execution_ended')
+
+      self.time_latest_execution_ended = attributes[:'time_latest_execution_ended'] if attributes[:'time_latest_execution_ended']
+
+      self.job_execution_state = attributes[:'jobExecutionState'] if attributes[:'jobExecutionState']
+
+      raise 'You cannot provide both :jobExecutionState and :job_execution_state' if attributes.key?(:'jobExecutionState') && attributes.key?(:'job_execution_state')
+
+      self.job_execution_state = attributes[:'job_execution_state'] if attributes[:'job_execution_state']
+
+      self.schedule_type = attributes[:'scheduleType'] if attributes[:'scheduleType']
+
+      raise 'You cannot provide both :scheduleType and :schedule_type' if attributes.key?(:'scheduleType') && attributes.key?(:'schedule_type')
+
+      self.schedule_type = attributes[:'schedule_type'] if attributes[:'schedule_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] job_type Object to be assigned
+    def job_type=(job_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if job_type && !JOB_TYPE_ENUM.include?(job_type)
+        OCI.logger.debug("Unknown value for 'job_type' [" + job_type + "]. Mapping to 'JOB_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @job_type = JOB_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @job_type = job_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] job_execution_state Object to be assigned
+    def job_execution_state=(job_execution_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if job_execution_state && !JOB_EXECUTION_STATE_ENUM.include?(job_execution_state)
+        OCI.logger.debug("Unknown value for 'job_execution_state' [" + job_execution_state + "]. Mapping to 'JOB_EXECUTION_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @job_execution_state = JOB_EXECUTION_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @job_execution_state = job_execution_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] schedule_type Object to be assigned
+    def schedule_type=(schedule_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if schedule_type && !SCHEDULE_TYPE_ENUM.include?(schedule_type)
+        OCI.logger.debug("Unknown value for 'schedule_type' [" + schedule_type + "]. Mapping to 'SCHEDULE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @schedule_type = SCHEDULE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @schedule_type = schedule_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -169,7 +337,12 @@ module OCI
         job_type == other.job_type &&
         lifecycle_state == other.lifecycle_state &&
         is_sample_data_extracted == other.is_sample_data_extracted &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        connection_key == other.connection_key &&
+        time_latest_execution_started == other.time_latest_execution_started &&
+        time_latest_execution_ended == other.time_latest_execution_ended &&
+        job_execution_state == other.job_execution_state &&
+        schedule_type == other.schedule_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -185,7 +358,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, catalog_id, uri, job_type, lifecycle_state, is_sample_data_extracted, time_created].hash
+      [key, display_name, description, catalog_id, uri, job_type, lifecycle_state, is_sample_data_extracted, time_created, connection_key, time_latest_execution_started, time_latest_execution_ended, job_execution_state, schedule_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

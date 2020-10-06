@@ -6,7 +6,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The shape of the DB system. The shape determines resources to allocate to the DB system - CPU cores and memory for VM shapes; CPU cores, memory and storage for non-VM (or bare metal) shapes.
-  # For a description of shapes, see [DB System Launch Options](https://docs.cloud.oracle.com/Content/Database/References/launchoptions.htm).
+  #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator.
   # If you're an administrator who needs to write policies to give users access,
   # see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
@@ -72,6 +72,10 @@ module OCI
     # @return [Integer]
     attr_accessor :maximum_node_count
 
+    # The maximum number of CPU cores per database node that can be enabled for this shape. Only applicable to the flex Exadata shape. Does not apply to X6, X7, and X8 fixed-shape systems.
+    # @return [Integer]
+    attr_accessor :available_core_count_per_node
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -90,7 +94,8 @@ module OCI
         'available_data_storage_in_t_bs': :'availableDataStorageInTBs',
         'min_data_storage_in_t_bs': :'minDataStorageInTBs',
         'minimum_node_count': :'minimumNodeCount',
-        'maximum_node_count': :'maximumNodeCount'
+        'maximum_node_count': :'maximumNodeCount',
+        'available_core_count_per_node': :'availableCoreCountPerNode'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -113,7 +118,8 @@ module OCI
         'available_data_storage_in_t_bs': :'Integer',
         'min_data_storage_in_t_bs': :'Integer',
         'minimum_node_count': :'Integer',
-        'maximum_node_count': :'Integer'
+        'maximum_node_count': :'Integer',
+        'available_core_count_per_node': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -139,6 +145,7 @@ module OCI
     # @option attributes [Integer] :min_data_storage_in_t_bs The value to assign to the {#min_data_storage_in_t_bs} property
     # @option attributes [Integer] :minimum_node_count The value to assign to the {#minimum_node_count} property
     # @option attributes [Integer] :maximum_node_count The value to assign to the {#maximum_node_count} property
+    # @option attributes [Integer] :available_core_count_per_node The value to assign to the {#available_core_count_per_node} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -226,6 +233,12 @@ module OCI
       raise 'You cannot provide both :maximumNodeCount and :maximum_node_count' if attributes.key?(:'maximumNodeCount') && attributes.key?(:'maximum_node_count')
 
       self.maximum_node_count = attributes[:'maximum_node_count'] if attributes[:'maximum_node_count']
+
+      self.available_core_count_per_node = attributes[:'availableCoreCountPerNode'] if attributes[:'availableCoreCountPerNode']
+
+      raise 'You cannot provide both :availableCoreCountPerNode and :available_core_count_per_node' if attributes.key?(:'availableCoreCountPerNode') && attributes.key?(:'available_core_count_per_node')
+
+      self.available_core_count_per_node = attributes[:'available_core_count_per_node'] if attributes[:'available_core_count_per_node']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -253,7 +266,8 @@ module OCI
         available_data_storage_in_t_bs == other.available_data_storage_in_t_bs &&
         min_data_storage_in_t_bs == other.min_data_storage_in_t_bs &&
         minimum_node_count == other.minimum_node_count &&
-        maximum_node_count == other.maximum_node_count
+        maximum_node_count == other.maximum_node_count &&
+        available_core_count_per_node == other.available_core_count_per_node
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -269,7 +283,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, shape_family, shape, available_core_count, minimum_core_count, core_count_increment, min_core_count_per_node, available_memory_in_gbs, min_memory_per_node_in_g_bs, available_db_node_storage_in_g_bs, min_db_node_storage_per_node_in_g_bs, available_data_storage_in_t_bs, min_data_storage_in_t_bs, minimum_node_count, maximum_node_count].hash
+      [name, shape_family, shape, available_core_count, minimum_core_count, core_count_increment, min_core_count_per_node, available_memory_in_gbs, min_memory_per_node_in_g_bs, available_db_node_storage_in_g_bs, min_db_node_storage_per_node_in_g_bs, available_data_storage_in_t_bs, min_data_storage_in_t_bs, minimum_node_count, maximum_node_count, available_core_count_per_node].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

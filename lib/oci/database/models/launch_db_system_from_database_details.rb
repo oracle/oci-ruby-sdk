@@ -75,6 +75,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'source': :'source',
+        'private_ip': :'privateIp',
         'db_home': :'dbHome',
         'database_edition': :'databaseEdition',
         'disk_redundancy': :'diskRedundancy',
@@ -110,6 +111,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'source': :'String',
+        'private_ip': :'String',
         'db_home': :'OCI::Database::Models::CreateDbHomeFromDatabaseDetails',
         'database_edition': :'String',
         'disk_redundancy': :'String',
@@ -146,6 +148,7 @@ module OCI
     # @option attributes [Integer] :node_count The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#node_count #node_count} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#defined_tags #defined_tags} proprety
+    # @option attributes [String] :private_ip The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#private_ip #private_ip} proprety
     # @option attributes [OCI::Database::Models::CreateDbHomeFromDatabaseDetails] :db_home The value to assign to the {#db_home} property
     # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     # @option attributes [String] :disk_redundancy The value to assign to the {#disk_redundancy} property
@@ -243,6 +246,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         source == other.source &&
+        private_ip == other.private_ip &&
         db_home == other.db_home &&
         database_edition == other.database_edition &&
         disk_redundancy == other.disk_redundancy &&
@@ -262,7 +266,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, db_home, database_edition, disk_redundancy, license_model].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, private_ip, db_home, database_edition, disk_redundancy, license_model].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

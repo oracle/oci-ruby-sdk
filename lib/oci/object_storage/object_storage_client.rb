@@ -62,16 +62,7 @@ module OCI
       # so try and load the config from the default file.
       config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
-      if signer.nil?
-        signer = OCI::Signer.new(
-          config.user,
-          config.fingerprint,
-          config.tenancy,
-          config.key_file,
-          pass_phrase: config.pass_phrase,
-          private_key_content: config.key_content
-        )
-      end
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
@@ -317,28 +308,28 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
     #   decrypt the data. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
     #   value is used to check the integrity of the encryption key. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_source_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm to use to decrypt the source
     #   object. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_source_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to decrypt
     #   the source object. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_source_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key used to
     #   decrypt the source object. This value is used to check the integrity of the encryption key. For
     #   more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @return [Response] A Response object with data of type nil
     def copy_object(namespace_name, bucket_name, copy_object_details, opts = {})
@@ -471,15 +462,15 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
     #   decrypt the data. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
     #   value is used to check the integrity of the encryption key. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::MultipartUpload MultipartUpload}
     def create_multipart_upload(namespace_name, bucket_name, create_multipart_upload_details, opts = {})
@@ -1333,16 +1324,22 @@ module OCI
     #   Note that only a single range of bytes is supported.
     #
     # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
     #   decrypt the data. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
     #   value is used to check the integrity of the encryption key. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
+    # @option opts [String] :http_response_content_disposition This value will be used in Content-Disposition header of the response.
+    # @option opts [String] :http_response_cache_control This value will be used in Cache-Control header of the response.
+    # @option opts [String] :http_response_content_type This value will be used in Content-Type header of the response.
+    # @option opts [String] :http_response_content_language This value will be used in Content-Language header of the response.
+    # @option opts [String] :http_response_content_encoding This value will be used in Content-Encoding header of the response
+    # @option opts [String] :http_response_expires This value will be used in Expires header of the response
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
@@ -1363,6 +1360,12 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:versionId] = opts[:version_id] if opts[:version_id]
+      query_params[:httpResponseContentDisposition] = opts[:http_response_content_disposition] if opts[:http_response_content_disposition]
+      query_params[:httpResponseCacheControl] = opts[:http_response_cache_control] if opts[:http_response_cache_control]
+      query_params[:httpResponseContentType] = opts[:http_response_content_type] if opts[:http_response_content_type]
+      query_params[:httpResponseContentLanguage] = opts[:http_response_content_language] if opts[:http_response_content_language]
+      query_params[:httpResponseContentEncoding] = opts[:http_response_content_encoding] if opts[:http_response_content_encoding]
+      query_params[:httpResponseExpires] = opts[:http_response_expires] if opts[:http_response_expires]
 
       # Header Params
       header_params = {}
@@ -1834,15 +1837,15 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
     #   decrypt the data. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
     #   value is used to check the integrity of the encryption key. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @return [Response] A Response object with data of type nil
     def head_object(namespace_name, bucket_name, object_name, opts = {})
@@ -2784,6 +2787,9 @@ module OCI
     # Creates a new object or overwrites an existing object with the same name. The maximum object size allowed by
     # PutObject is 50 GiB.
     #
+    # See [Object Names](https://docs.cloud.oracle.com/Content/Object/Tasks/managingobjects.htm#namerequirements)
+    # for object naming requirements.
+    #
     # See [Special Instructions for Object Storage PUT](https://docs.cloud.oracle.com/Content/API/Concepts/signingrequests.htm#ObjectStoragePut)
     # for request signature requirements.
     #
@@ -2842,15 +2848,15 @@ module OCI
     #   For example, you could use this header to identify objects that require caching restrictions.
     #
     # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
     #   decrypt the data. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
     #   value is used to check the integrity of the encryption key. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [Hash<String, String>] :opc_meta Optional user-defined metadata key and value.
     #   "opc-meta-" will be appended to each Hash key before it is sent to the server.
@@ -3066,7 +3072,85 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Re-encrypts the data encryption keys that encrypt the object and its chunks. By default, when you create a bucket, the Object Storage
+    # service manages the master encryption key used to encrypt each object's data encryption keys. The encryption mechanism that you specify for
+    # the bucket applies to the objects it contains.
+    #
+    # You can alternatively employ one of these encryption strategies for an object:
+    #
+    # - You can assign a key that you created and control through the Oracle Cloud Infrastructure Vault service.
+    #
+    # - You can encrypt an object using your own encryption key. The key you supply is known as a customer-provided encryption key (SSE-C).
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [String] object_name The name of the object. Avoid entering confidential information.
+    #   Example: `test/object1.log`
+    #
+    # @param [OCI::ObjectStorage::Models::ReencryptObjectDetails] reencrypt_object_details Request object for re-encrypting the data encryption key associated with an object.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :version_id VersionId used to identify a particular version of the object
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def reencrypt_object(namespace_name, bucket_name, object_name, reencrypt_object_details, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#reencrypt_object.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling reencrypt_object." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling reencrypt_object." if bucket_name.nil?
+      raise "Missing the required parameter 'object_name' when calling reencrypt_object." if object_name.nil?
+      raise "Missing the required parameter 'reencrypt_object_details' when calling reencrypt_object." if reencrypt_object_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+      raise "Parameter value for 'object_name' must not be blank" if OCI::Internal::Util.blank_string?(object_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/actions/reencrypt/{objectName}'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s).sub('{objectName}', object_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:versionId] = opts[:version_id] if opts[:version_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(reencrypt_object_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#reencrypt_object') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Rename an object in the given Object Storage namespace.
+    #
+    # See [Object Names](https://docs.cloud.oracle.com/Content/Object/Tasks/managingobjects.htm#namerequirements)
+    # for object naming requirements.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
@@ -3419,15 +3503,15 @@ module OCI
     #   \"The computed MD5 of the request body (ACTUAL_MD5) does not match the Content-MD5 header (HEADER_MD5)\"
     #
     # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key The optional header that specifies the base64-encoded 256-bit encryption key to use to encrypt or
     #   decrypt the data. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
     #   value is used to check the integrity of the encryption key. For more information, see
-    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourecryptionkeys.htm).
+    #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @return [Response] A Response object with data of type nil
     def upload_part(namespace_name, bucket_name, object_name, upload_id, upload_part_num, upload_part_body, opts = {})

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Incident
+  # Details of about the incident object.
   class Cims::Models::Incident
     PROBLEM_TYPE_ENUM = [
       PROBLEM_TYPE_LIMIT = 'LIMIT'.freeze,
@@ -16,11 +16,11 @@ module OCI
       PROBLEM_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Unique ID that identifies an Incident
+    # **[Required]** Unique identifier for the support ticket.
     # @return [String]
     attr_accessor :key
 
-    # Tenancy Ocid
+    # The OCID of the tenancy.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -36,11 +36,11 @@ module OCI
     # @return [OCI::Cims::Models::IncidentType]
     attr_accessor :incident_type
 
-    # States type of incident. eg: LIMIT, TECH
+    # The kind of support ticket, such as a technical support request.
     # @return [String]
     attr_reader :problem_type
 
-    # Referrer of the incident., its usually the URL for where the customer logged the incident
+    # The incident referrer. This value is often the URL that the customer used when creating the support ticket.
     # @return [String]
     attr_accessor :referrer
 

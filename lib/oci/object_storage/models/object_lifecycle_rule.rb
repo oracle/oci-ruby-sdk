@@ -21,9 +21,13 @@ module OCI
     # @return [String]
     attr_accessor :name
 
+    # @return [String]
+    attr_accessor :target
+
     # **[Required]** The action of the object lifecycle policy rule. Rules using the action 'ARCHIVE' move objects into the
     # [Archive Storage tier](https://docs.cloud.oracle.com/Content/Archive/Concepts/archivestorageoverview.htm). Rules using the action
-    # 'DELETE' permanently delete objects from buckets. 'ARCHIVE' and 'DELETE' are the only two supported
+    # 'DELETE' permanently delete objects from buckets. Rules using 'ABORT' abort the uncommitted multipart-uploads
+    # and permanently delete their parts from buckets. 'ARCHIVE', 'DELETE' and 'ABORT' are the only three supported
     # actions at this time.
     #
     # @return [String]
@@ -53,6 +57,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
+        'target': :'target',
         'action': :'action',
         'time_amount': :'timeAmount',
         'time_unit': :'timeUnit',
@@ -67,6 +72,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
+        'target': :'String',
         'action': :'String',
         'time_amount': :'Integer',
         'time_unit': :'String',
@@ -83,6 +89,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :target The value to assign to the {#target} property
     # @option attributes [String] :action The value to assign to the {#action} property
     # @option attributes [Integer] :time_amount The value to assign to the {#time_amount} property
     # @option attributes [String] :time_unit The value to assign to the {#time_unit} property
@@ -95,6 +102,9 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.name = attributes[:'name'] if attributes[:'name']
+
+      self.target = attributes[:'target'] if attributes[:'target']
+      self.target = "objects" if target.nil? && !attributes.key?(:'target') # rubocop:disable Style/StringLiterals
 
       self.action = attributes[:'action'] if attributes[:'action']
 
@@ -148,6 +158,7 @@ module OCI
 
       self.class == other.class &&
         name == other.name &&
+        target == other.target &&
         action == other.action &&
         time_amount == other.time_amount &&
         time_unit == other.time_unit &&
@@ -168,7 +179,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, action, time_amount, time_unit, is_enabled, object_name_filter].hash
+      [name, target, action, time_amount, time_unit, is_enabled, object_name_filter].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

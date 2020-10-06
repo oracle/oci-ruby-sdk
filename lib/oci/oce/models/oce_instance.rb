@@ -26,6 +26,12 @@ module OCI
       INSTANCE_ACCESS_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    INSTANCE_LICENSE_TYPE_ENUM = [
+      INSTANCE_LICENSE_TYPE_NEW = 'NEW'.freeze,
+      INSTANCE_LICENSE_TYPE_BYOL = 'BYOL'.freeze,
+      INSTANCE_LICENSE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -97,6 +103,10 @@ module OCI
     # @return [String]
     attr_reader :instance_access_type
 
+    # Flag indicating whether the instance license is new cloud or bring your own license
+    # @return [String]
+    attr_reader :instance_license_type
+
     # The time the the OceInstance was created. An RFC3339 formatted datetime string
     # @return [DateTime]
     attr_accessor :time_created
@@ -150,6 +160,7 @@ module OCI
         'admin_email': :'adminEmail',
         'waf_primary_domain': :'wafPrimaryDomain',
         'instance_access_type': :'instanceAccessType',
+        'instance_license_type': :'instanceLicenseType',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
@@ -180,6 +191,7 @@ module OCI
         'admin_email': :'String',
         'waf_primary_domain': :'String',
         'instance_access_type': :'String',
+        'instance_license_type': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
@@ -212,6 +224,7 @@ module OCI
     # @option attributes [String] :admin_email The value to assign to the {#admin_email} property
     # @option attributes [String] :waf_primary_domain The value to assign to the {#waf_primary_domain} property
     # @option attributes [String] :instance_access_type The value to assign to the {#instance_access_type} property
+    # @option attributes [String] :instance_license_type The value to assign to the {#instance_license_type} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -299,6 +312,12 @@ module OCI
 
       self.instance_access_type = attributes[:'instance_access_type'] if attributes[:'instance_access_type']
 
+      self.instance_license_type = attributes[:'instanceLicenseType'] if attributes[:'instanceLicenseType']
+
+      raise 'You cannot provide both :instanceLicenseType and :instance_license_type' if attributes.key?(:'instanceLicenseType') && attributes.key?(:'instance_license_type')
+
+      self.instance_license_type = attributes[:'instance_license_type'] if attributes[:'instance_license_type']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -380,6 +399,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] instance_license_type Object to be assigned
+    def instance_license_type=(instance_license_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if instance_license_type && !INSTANCE_LICENSE_TYPE_ENUM.include?(instance_license_type)
+        OCI.logger.debug("Unknown value for 'instance_license_type' [" + instance_license_type + "]. Mapping to 'INSTANCE_LICENSE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @instance_license_type = INSTANCE_LICENSE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @instance_license_type = instance_license_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -416,6 +448,7 @@ module OCI
         admin_email == other.admin_email &&
         waf_primary_domain == other.waf_primary_domain &&
         instance_access_type == other.instance_access_type &&
+        instance_license_type == other.instance_license_type &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
@@ -438,7 +471,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, guid, description, compartment_id, name, tenancy_id, idcs_tenancy, tenancy_name, upgrade_schedule, identity_stripe, instance_usage_type, object_storage_namespace, admin_email, waf_primary_domain, instance_access_type, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, service].hash
+      [id, guid, description, compartment_id, name, tenancy_id, idcs_tenancy, tenancy_name, upgrade_schedule, identity_stripe, instance_usage_type, object_storage_namespace, admin_email, waf_primary_domain, instance_access_type, instance_license_type, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, service].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

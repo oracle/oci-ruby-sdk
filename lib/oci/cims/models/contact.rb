@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contact Details of the Customer
+  # Contact details for the customer.
   class Cims::Models::Contact
     CONTACT_TYPE_ENUM = [
       CONTACT_TYPE_PRIMARY = 'PRIMARY'.freeze,
@@ -17,19 +17,19 @@ module OCI
       CONTACT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Contact person name
+    # The name of the contact person.
     # @return [String]
     attr_accessor :contact_name
 
-    # Contact person email
+    # The email of the contact person.
     # @return [String]
     attr_accessor :contact_email
 
-    # Contact person phone number
+    # The phone number of the contact person.
     # @return [String]
     attr_accessor :contact_phone
 
-    # ContactType enum. eg: MANAGER, PRIMARY
+    # The type of contact, such as primary or alternate.
     # @return [String]
     attr_reader :contact_type
 

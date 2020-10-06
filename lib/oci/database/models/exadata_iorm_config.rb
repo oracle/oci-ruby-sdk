@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Response details which has IORM Settings for this Exadata System
+  # The IORM settings of the Exadata DB system.
   #
   class Database::Models::ExadataIormConfig
     LIFECYCLE_STATE_ENUM = [
@@ -27,24 +27,24 @@ module OCI
       OBJECTIVE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The current config state of IORM settings for this Exadata System.
+    # The current state of IORM configuration for the Exadata DB system.
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Additional information about the current lifecycleState.
+    # Additional information about the current `lifecycleState`.
     #
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # Value for the IORM objective
-    # Default is \"Auto\"
+    # The current value for the IORM objective.
+    # The default is `AUTO`.
     #
     # @return [String]
     attr_reader :objective
 
-    # Array of IORM Setting for all the database in
-    # this Exadata DB System
+    # An array of IORM settings for all the database in
+    # the Exadata DB system.
     #
     # @return [Array<OCI::Database::Models::DbIormConfig>]
     attr_accessor :db_plans

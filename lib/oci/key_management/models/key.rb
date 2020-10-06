@@ -8,6 +8,12 @@ require 'logger'
 module OCI
   # Key model.
   class KeyManagement::Models::Key
+    PROTECTION_MODE_ENUM = [
+      PROTECTION_MODE_HSM = 'HSM'.freeze,
+      PROTECTION_MODE_SOFTWARE = 'SOFTWARE'.freeze,
+      PROTECTION_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_ENABLING = 'ENABLING'.freeze,
@@ -64,6 +70,15 @@ module OCI
     # @return [OCI::KeyManagement::Models::KeyShape]
     attr_accessor :key_shape
 
+    # The key's protection mode indicates how the key persists and where cryptographic operations that use the key are performed.
+    # A protection mode of `HSM` means that the key persists on a hardware security module (HSM) and all cryptographic operations are performed inside
+    # the HSM. A protection mode of `SOFTWARE` means that the key persists on the server, protected by the vault's RSA wrapping key which persists
+    # on the HSM. All cryptographic operations that use a key with a protection mode of `SOFTWARE` are performed on the server. By default,
+    # a key's protection mode is set to `HSM`. You can't change a key's protection mode after the key is created or imported.
+    #
+    # @return [String]
+    attr_reader :protection_mode
+
     # **[Required]** The key's current lifecycle state.
     #
     # Example: `ENABLED`
@@ -103,6 +118,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'key_shape': :'keyShape',
+        'protection_mode': :'protectionMode',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'time_of_deletion': :'timeOfDeletion',
@@ -123,6 +139,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'key_shape': :'OCI::KeyManagement::Models::KeyShape',
+        'protection_mode': :'String',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'time_of_deletion': :'DateTime',
@@ -145,6 +162,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [OCI::KeyManagement::Models::KeyShape] :key_shape The value to assign to the {#key_shape} property
+    # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
@@ -194,6 +212,12 @@ module OCI
 
       self.key_shape = attributes[:'key_shape'] if attributes[:'key_shape']
 
+      self.protection_mode = attributes[:'protectionMode'] if attributes[:'protectionMode']
+
+      raise 'You cannot provide both :protectionMode and :protection_mode' if attributes.key?(:'protectionMode') && attributes.key?(:'protection_mode')
+
+      self.protection_mode = attributes[:'protection_mode'] if attributes[:'protection_mode']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -228,6 +252,19 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] protection_mode Object to be assigned
+    def protection_mode=(protection_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if protection_mode && !PROTECTION_MODE_ENUM.include?(protection_mode)
+        OCI.logger.debug("Unknown value for 'protection_mode' [" + protection_mode + "]. Mapping to 'PROTECTION_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @protection_mode = PROTECTION_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @protection_mode = protection_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -256,6 +293,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         key_shape == other.key_shape &&
+        protection_mode == other.protection_mode &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         time_of_deletion == other.time_of_deletion &&
@@ -276,7 +314,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, current_key_version, defined_tags, display_name, freeform_tags, id, key_shape, lifecycle_state, time_created, time_of_deletion, vault_id, restored_from_key_id].hash
+      [compartment_id, current_key_version, defined_tags, display_name, freeform_tags, id, key_shape, protection_mode, lifecycle_state, time_created, time_of_deletion, vault_id, restored_from_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

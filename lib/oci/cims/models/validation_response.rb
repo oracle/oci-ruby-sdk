@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Validation Response
+  # The validation response returned when checking whether the requested user is valid.
   class Cims::Models::ValidationResponse
-    # Boolean value to check whether requested user is valid or not
+    # Boolean value that indicates whether the requested user is valid.
     # @return [BOOLEAN]
     attr_accessor :is_valid_user
 

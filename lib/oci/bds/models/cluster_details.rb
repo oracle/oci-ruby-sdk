@@ -11,9 +11,29 @@ module OCI
     # @return [String]
     attr_accessor :bda_version
 
-    # BDM version installed in the cluster
+    # Big Data Manager version installed in the cluster
     # @return [String]
     attr_accessor :bdm_version
+
+    # Big Data Service version installed in the cluster
+    # @return [String]
+    attr_accessor :bds_version
+
+    # Oracle Linux version installed in the cluster
+    # @return [String]
+    attr_accessor :os_version
+
+    # Query Server Database version
+    # @return [String]
+    attr_accessor :db_version
+
+    # Cloud SQL cell version
+    # @return [String]
+    attr_accessor :bd_cell_version
+
+    # Big Data SQL version
+    # @return [String]
+    attr_accessor :csql_cell_version
 
     # **[Required]** The time the cluster was created. An RFC3339 formatted datetime string
     # @return [DateTime]
@@ -43,6 +63,11 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'bda_version': :'bdaVersion',
         'bdm_version': :'bdmVersion',
+        'bds_version': :'bdsVersion',
+        'os_version': :'osVersion',
+        'db_version': :'dbVersion',
+        'bd_cell_version': :'bdCellVersion',
+        'csql_cell_version': :'csqlCellVersion',
         'time_created': :'timeCreated',
         'time_refreshed': :'timeRefreshed',
         'cloudera_manager_url': :'clouderaManagerUrl',
@@ -58,6 +83,11 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'bda_version': :'String',
         'bdm_version': :'String',
+        'bds_version': :'String',
+        'os_version': :'String',
+        'db_version': :'String',
+        'bd_cell_version': :'String',
+        'csql_cell_version': :'String',
         'time_created': :'DateTime',
         'time_refreshed': :'DateTime',
         'cloudera_manager_url': :'String',
@@ -75,6 +105,11 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :bda_version The value to assign to the {#bda_version} property
     # @option attributes [String] :bdm_version The value to assign to the {#bdm_version} property
+    # @option attributes [String] :bds_version The value to assign to the {#bds_version} property
+    # @option attributes [String] :os_version The value to assign to the {#os_version} property
+    # @option attributes [String] :db_version The value to assign to the {#db_version} property
+    # @option attributes [String] :bd_cell_version The value to assign to the {#bd_cell_version} property
+    # @option attributes [String] :csql_cell_version The value to assign to the {#csql_cell_version} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_refreshed The value to assign to the {#time_refreshed} property
     # @option attributes [String] :cloudera_manager_url The value to assign to the {#cloudera_manager_url} property
@@ -97,6 +132,36 @@ module OCI
       raise 'You cannot provide both :bdmVersion and :bdm_version' if attributes.key?(:'bdmVersion') && attributes.key?(:'bdm_version')
 
       self.bdm_version = attributes[:'bdm_version'] if attributes[:'bdm_version']
+
+      self.bds_version = attributes[:'bdsVersion'] if attributes[:'bdsVersion']
+
+      raise 'You cannot provide both :bdsVersion and :bds_version' if attributes.key?(:'bdsVersion') && attributes.key?(:'bds_version')
+
+      self.bds_version = attributes[:'bds_version'] if attributes[:'bds_version']
+
+      self.os_version = attributes[:'osVersion'] if attributes[:'osVersion']
+
+      raise 'You cannot provide both :osVersion and :os_version' if attributes.key?(:'osVersion') && attributes.key?(:'os_version')
+
+      self.os_version = attributes[:'os_version'] if attributes[:'os_version']
+
+      self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
+
+      raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
+
+      self.db_version = attributes[:'db_version'] if attributes[:'db_version']
+
+      self.bd_cell_version = attributes[:'bdCellVersion'] if attributes[:'bdCellVersion']
+
+      raise 'You cannot provide both :bdCellVersion and :bd_cell_version' if attributes.key?(:'bdCellVersion') && attributes.key?(:'bd_cell_version')
+
+      self.bd_cell_version = attributes[:'bd_cell_version'] if attributes[:'bd_cell_version']
+
+      self.csql_cell_version = attributes[:'csqlCellVersion'] if attributes[:'csqlCellVersion']
+
+      raise 'You cannot provide both :csqlCellVersion and :csql_cell_version' if attributes.key?(:'csqlCellVersion') && attributes.key?(:'csql_cell_version')
+
+      self.csql_cell_version = attributes[:'csql_cell_version'] if attributes[:'csql_cell_version']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -142,6 +207,11 @@ module OCI
       self.class == other.class &&
         bda_version == other.bda_version &&
         bdm_version == other.bdm_version &&
+        bds_version == other.bds_version &&
+        os_version == other.os_version &&
+        db_version == other.db_version &&
+        bd_cell_version == other.bd_cell_version &&
+        csql_cell_version == other.csql_cell_version &&
         time_created == other.time_created &&
         time_refreshed == other.time_refreshed &&
         cloudera_manager_url == other.cloudera_manager_url &&
@@ -162,7 +232,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bda_version, bdm_version, time_created, time_refreshed, cloudera_manager_url, big_data_manager_url, hue_server_url].hash
+      [bda_version, bdm_version, bds_version, os_version, db_version, bd_cell_version, csql_cell_version, time_created, time_refreshed, cloudera_manager_url, big_data_manager_url, hue_server_url].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

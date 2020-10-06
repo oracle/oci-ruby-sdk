@@ -72,9 +72,11 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # Additional metadata key/value pairs that you provide. They serve the same purpose and functionality as fields in the 'metadata' object.
+    # Additional metadata key/value pairs that you provide. They serve the same purpose and functionality
+    # as fields in the `metadata` object.
     #
-    # They are distinguished from 'metadata' fields in that these can be nested JSON objects (whereas 'metadata' fields are string/string maps only).
+    # They are distinguished from `metadata` fields in that these can be nested JSON objects (whereas `metadata`
+    # fields are string/string maps only).
     #
     # @return [Hash<String, Object>]
     attr_accessor :extended_metadata
@@ -87,8 +89,7 @@ module OCI
     # A hardware failure or Compute hardware maintenance that affects one fault domain does not affect
     # instances in other fault domains.
     #
-    # If you do not specify the fault domain, the system selects one for you. To change the fault
-    # domain for an instance, terminate it and launch a new instance in the preferred fault domain.
+    # If you do not specify the fault domain, the system selects one for you.
     #
     # Example: `FAULT-DOMAIN-1`
     #
@@ -141,14 +142,24 @@ module OCI
     # Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
     # * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
     # * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
-    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
     # * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
     #
     # @return [String]
     attr_reader :launch_mode
 
+    # Options for tuning the compatibility and performance of VM shapes. The values that you specify override any default values.
+    #
     # @return [OCI::Core::Models::LaunchOptions]
     attr_accessor :launch_options
+
+    # @return [OCI::Core::Models::InstanceOptions]
+    attr_accessor :instance_options
+
+    # Options for defining the availability of a VM instance after a maintenance event that impacts the underlying hardware.
+    #
+    # @return [OCI::Core::Models::InstanceAvailabilityConfig]
+    attr_accessor :availability_config
 
     # **[Required]** The current state of the instance.
     # @return [String]
@@ -188,7 +199,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags
 
-    # **[Required]** The date and time the instance was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the instance was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
@@ -198,7 +209,7 @@ module OCI
     # @return [OCI::Core::Models::InstanceAgentConfig]
     attr_accessor :agent_config
 
-    # The date and time the instance is expected to be stopped / started,  in the format defined by RFC3339.
+    # The date and time the instance is expected to be stopped / started,  in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # After that time if instance hasn't been rebooted, Oracle will reboot the instance within 24 hours of the due time.
     # Regardless of how the instance was stopped, the flag will be reset to empty as soon as instance reaches Stopped state.
     # Example: `2018-05-25T21:10:29.600Z`
@@ -223,6 +234,8 @@ module OCI
         'ipxe_script': :'ipxeScript',
         'launch_mode': :'launchMode',
         'launch_options': :'launchOptions',
+        'instance_options': :'instanceOptions',
+        'availability_config': :'availabilityConfig',
         'lifecycle_state': :'lifecycleState',
         'metadata': :'metadata',
         'region': :'region',
@@ -254,6 +267,8 @@ module OCI
         'ipxe_script': :'String',
         'launch_mode': :'String',
         'launch_options': :'OCI::Core::Models::LaunchOptions',
+        'instance_options': :'OCI::Core::Models::InstanceOptions',
+        'availability_config': :'OCI::Core::Models::InstanceAvailabilityConfig',
         'lifecycle_state': :'String',
         'metadata': :'Hash<String, String>',
         'region': :'String',
@@ -287,6 +302,8 @@ module OCI
     # @option attributes [String] :ipxe_script The value to assign to the {#ipxe_script} property
     # @option attributes [String] :launch_mode The value to assign to the {#launch_mode} property
     # @option attributes [OCI::Core::Models::LaunchOptions] :launch_options The value to assign to the {#launch_options} property
+    # @option attributes [OCI::Core::Models::InstanceOptions] :instance_options The value to assign to the {#instance_options} property
+    # @option attributes [OCI::Core::Models::InstanceAvailabilityConfig] :availability_config The value to assign to the {#availability_config} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     # @option attributes [String] :region The value to assign to the {#region} property
@@ -376,6 +393,18 @@ module OCI
       raise 'You cannot provide both :launchOptions and :launch_options' if attributes.key?(:'launchOptions') && attributes.key?(:'launch_options')
 
       self.launch_options = attributes[:'launch_options'] if attributes[:'launch_options']
+
+      self.instance_options = attributes[:'instanceOptions'] if attributes[:'instanceOptions']
+
+      raise 'You cannot provide both :instanceOptions and :instance_options' if attributes.key?(:'instanceOptions') && attributes.key?(:'instance_options')
+
+      self.instance_options = attributes[:'instance_options'] if attributes[:'instance_options']
+
+      self.availability_config = attributes[:'availabilityConfig'] if attributes[:'availabilityConfig']
+
+      raise 'You cannot provide both :availabilityConfig and :availability_config' if attributes.key?(:'availabilityConfig') && attributes.key?(:'availability_config')
+
+      self.availability_config = attributes[:'availability_config'] if attributes[:'availability_config']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -476,6 +505,8 @@ module OCI
         ipxe_script == other.ipxe_script &&
         launch_mode == other.launch_mode &&
         launch_options == other.launch_options &&
+        instance_options == other.instance_options &&
+        availability_config == other.availability_config &&
         lifecycle_state == other.lifecycle_state &&
         metadata == other.metadata &&
         region == other.region &&
@@ -501,7 +532,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, lifecycle_state, metadata, region, shape, shape_config, source_details, system_tags, time_created, agent_config, time_maintenance_reboot_due].hash
+      [availability_domain, compartment_id, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, instance_options, availability_config, lifecycle_state, metadata, region, shape, shape_config, source_details, system_tags, time_created, agent_config, time_maintenance_reboot_due].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

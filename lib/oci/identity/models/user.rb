@@ -111,7 +111,6 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # Properties indicating how the user is allowed to authenticate.
     # @return [OCI::Identity::Models::UserCapabilities]
     attr_accessor :capabilities
 

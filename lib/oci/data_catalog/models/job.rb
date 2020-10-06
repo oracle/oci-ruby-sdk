@@ -8,6 +8,38 @@ require 'logger'
 module OCI
   # Details of a job. Jobs are scheduled instances of a job definition.
   class DataCatalog::Models::Job
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_EXPIRED = 'EXPIRED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    JOB_TYPE_ENUM = [
+      JOB_TYPE_HARVEST = 'HARVEST'.freeze,
+      JOB_TYPE_PROFILING = 'PROFILING'.freeze,
+      JOB_TYPE_SAMPLING = 'SAMPLING'.freeze,
+      JOB_TYPE_PREVIEW = 'PREVIEW'.freeze,
+      JOB_TYPE_IMPORT = 'IMPORT'.freeze,
+      JOB_TYPE_EXPORT = 'EXPORT'.freeze,
+      JOB_TYPE_IMPORT_GLOSSARY = 'IMPORT_GLOSSARY'.freeze,
+      JOB_TYPE_EXPORT_GLOSSARY = 'EXPORT_GLOSSARY'.freeze,
+      JOB_TYPE_INTERNAL = 'INTERNAL'.freeze,
+      JOB_TYPE_PURGE = 'PURGE'.freeze,
+      JOB_TYPE_IMMEDIATE = 'IMMEDIATE'.freeze,
+      JOB_TYPE_SCHEDULED = 'SCHEDULED'.freeze,
+      JOB_TYPE_IMMEDIATE_EXECUTION = 'IMMEDIATE_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION = 'SCHEDULED_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION_INSTANCE = 'SCHEDULED_EXECUTION_INSTANCE'.freeze,
+      JOB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    SCHEDULE_TYPE_ENUM = [
+      SCHEDULE_TYPE_SCHEDULED = 'SCHEDULED'.freeze,
+      SCHEDULE_TYPE_IMMEDIATE = 'IMMEDIATE'.freeze,
+      SCHEDULE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique key of the job resource.
     # @return [String]
     attr_accessor :key
@@ -28,7 +60,7 @@ module OCI
 
     # Lifecycle state for job.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # The date and time the job was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # Example: `2019-03-25T21:10:29.600Z`
@@ -42,7 +74,7 @@ module OCI
 
     # Type of the job.
     # @return [String]
-    attr_accessor :job_type
+    attr_reader :job_type
 
     # Schedule specified in the cron expression format that has seven fields for second, minute, hour, day-of-month, month, day-of-week, year.
     # It can also include special characters like * for all and ? for any. There are also pre-defined schedules that can be specified using
@@ -61,7 +93,7 @@ module OCI
 
     # Type of job schedule that is inferred from the scheduling properties.
     # @return [String]
-    attr_accessor :schedule_type
+    attr_reader :schedule_type
 
     # The key of the connection used by the job. This connection will override the default connection specified in
     # the associated job definition. All executions will use this connection.
@@ -96,6 +128,20 @@ module OCI
     # @return [String]
     attr_accessor :updated_by_id
 
+    # The display name of the job definition resource that defined the scope of this job.
+    # @return [String]
+    attr_accessor :job_definition_name
+
+    # Error code returned from the latest job execution for this job. Useful when the latest Job execution is in FAILED state.
+    #
+    # @return [String]
+    attr_accessor :error_code
+
+    # Error message returned from the latest job execution for this job. Useful when the latest Job Execution is in a FAILED state.
+    #
+    # @return [String]
+    attr_accessor :error_message
+
     # URI to the job instance in the API.
     # @return [String]
     attr_accessor :uri
@@ -123,6 +169,9 @@ module OCI
         'time_of_latest_execution': :'timeOfLatestExecution',
         'created_by_id': :'createdById',
         'updated_by_id': :'updatedById',
+        'job_definition_name': :'jobDefinitionName',
+        'error_code': :'errorCode',
+        'error_message': :'errorMessage',
         'uri': :'uri'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -151,6 +200,9 @@ module OCI
         'time_of_latest_execution': :'DateTime',
         'created_by_id': :'String',
         'updated_by_id': :'String',
+        'job_definition_name': :'String',
+        'error_code': :'String',
+        'error_message': :'String',
         'uri': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -181,6 +233,9 @@ module OCI
     # @option attributes [DateTime] :time_of_latest_execution The value to assign to the {#time_of_latest_execution} property
     # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
+    # @option attributes [String] :job_definition_name The value to assign to the {#job_definition_name} property
+    # @option attributes [String] :error_code The value to assign to the {#error_code} property
+    # @option attributes [String] :error_message The value to assign to the {#error_message} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -294,10 +349,67 @@ module OCI
 
       self.updated_by_id = attributes[:'updated_by_id'] if attributes[:'updated_by_id']
 
+      self.job_definition_name = attributes[:'jobDefinitionName'] if attributes[:'jobDefinitionName']
+
+      raise 'You cannot provide both :jobDefinitionName and :job_definition_name' if attributes.key?(:'jobDefinitionName') && attributes.key?(:'job_definition_name')
+
+      self.job_definition_name = attributes[:'job_definition_name'] if attributes[:'job_definition_name']
+
+      self.error_code = attributes[:'errorCode'] if attributes[:'errorCode']
+
+      raise 'You cannot provide both :errorCode and :error_code' if attributes.key?(:'errorCode') && attributes.key?(:'error_code')
+
+      self.error_code = attributes[:'error_code'] if attributes[:'error_code']
+
+      self.error_message = attributes[:'errorMessage'] if attributes[:'errorMessage']
+
+      raise 'You cannot provide both :errorMessage and :error_message' if attributes.key?(:'errorMessage') && attributes.key?(:'error_message')
+
+      self.error_message = attributes[:'error_message'] if attributes[:'error_message']
+
       self.uri = attributes[:'uri'] if attributes[:'uri']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] job_type Object to be assigned
+    def job_type=(job_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if job_type && !JOB_TYPE_ENUM.include?(job_type)
+        OCI.logger.debug("Unknown value for 'job_type' [" + job_type + "]. Mapping to 'JOB_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @job_type = JOB_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @job_type = job_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] schedule_type Object to be assigned
+    def schedule_type=(schedule_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if schedule_type && !SCHEDULE_TYPE_ENUM.include?(schedule_type)
+        OCI.logger.debug("Unknown value for 'schedule_type' [" + schedule_type + "]. Mapping to 'SCHEDULE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @schedule_type = SCHEDULE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @schedule_type = schedule_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -327,6 +439,9 @@ module OCI
         time_of_latest_execution == other.time_of_latest_execution &&
         created_by_id == other.created_by_id &&
         updated_by_id == other.updated_by_id &&
+        job_definition_name == other.job_definition_name &&
+        error_code == other.error_code &&
+        error_message == other.error_message &&
         uri == other.uri
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -343,7 +458,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, catalog_id, lifecycle_state, time_created, time_updated, job_type, schedule_cron_expression, time_schedule_begin, time_schedule_end, schedule_type, connection_key, job_definition_key, internal_version, execution_count, time_of_latest_execution, created_by_id, updated_by_id, uri].hash
+      [key, display_name, description, catalog_id, lifecycle_state, time_created, time_updated, job_type, schedule_cron_expression, time_schedule_begin, time_schedule_end, schedule_type, connection_key, job_definition_key, internal_version, execution_count, time_of_latest_execution, created_by_id, updated_by_id, job_definition_name, error_code, error_message, uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

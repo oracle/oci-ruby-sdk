@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Property details for the configuration source.
+  # Property details for the configuration source used for the stack.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ResourceManager::Models::CreateConfigSourceDetails
@@ -16,6 +16,7 @@ module OCI
 
     # File path to the directory from which Terraform runs.
     # If not specified, the root directory is used.
+    # This parameter is ignored for the `configSourceType` value of `COMPARTMENT_CONFIG_SOURCE`.
     #
     # @return [String]
     attr_accessor :working_directory
@@ -49,6 +50,8 @@ module OCI
       type = object_hash[:'configSourceType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::ResourceManager::Models::CreateZipUploadConfigSourceDetails' if type == 'ZIP_UPLOAD'
+      return 'OCI::ResourceManager::Models::CreateGitConfigSourceDetails' if type == 'GIT_CONFIG_SOURCE'
+      return 'OCI::ResourceManager::Models::CreateCompartmentConfigSourceDetails' if type == 'COMPARTMENT_CONFIG_SOURCE'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::ResourceManager::Models::CreateConfigSourceDetails'

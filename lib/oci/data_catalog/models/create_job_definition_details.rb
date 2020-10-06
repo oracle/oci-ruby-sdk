@@ -10,6 +10,24 @@ module OCI
   # object type, regular expressions, or specific names of objects and a sample size for the data harvested.
   #
   class DataCatalog::Models::CreateJobDefinitionDetails
+    JOB_TYPE_ENUM = [
+      JOB_TYPE_HARVEST = 'HARVEST'.freeze,
+      JOB_TYPE_PROFILING = 'PROFILING'.freeze,
+      JOB_TYPE_SAMPLING = 'SAMPLING'.freeze,
+      JOB_TYPE_PREVIEW = 'PREVIEW'.freeze,
+      JOB_TYPE_IMPORT = 'IMPORT'.freeze,
+      JOB_TYPE_EXPORT = 'EXPORT'.freeze,
+      JOB_TYPE_IMPORT_GLOSSARY = 'IMPORT_GLOSSARY'.freeze,
+      JOB_TYPE_EXPORT_GLOSSARY = 'EXPORT_GLOSSARY'.freeze,
+      JOB_TYPE_INTERNAL = 'INTERNAL'.freeze,
+      JOB_TYPE_PURGE = 'PURGE'.freeze,
+      JOB_TYPE_IMMEDIATE = 'IMMEDIATE'.freeze,
+      JOB_TYPE_SCHEDULED = 'SCHEDULED'.freeze,
+      JOB_TYPE_IMMEDIATE_EXECUTION = 'IMMEDIATE_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION = 'SCHEDULED_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION_INSTANCE = 'SCHEDULED_EXECUTION_INSTANCE'.freeze
+    ].freeze
+
     # **[Required]** A user-friendly display name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
@@ -22,7 +40,7 @@ module OCI
 
     # **[Required]** Type of the job definition.
     # @return [String]
-    attr_accessor :job_type
+    attr_reader :job_type
 
     # Specifies if the job definition is incremental or full.
     # @return [BOOLEAN]
@@ -160,6 +178,14 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] job_type Object to be assigned
+    def job_type=(job_type)
+      raise "Invalid value for 'job_type': this must be one of the values in JOB_TYPE_ENUM." if job_type && !JOB_TYPE_ENUM.include?(job_type)
+
+      @job_type = job_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 

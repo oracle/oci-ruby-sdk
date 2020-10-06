@@ -64,7 +64,7 @@ module OCI
     # @return [Array<OCI::Core::Models::RouteRule>]
     attr_accessor :route_rules
 
-    # The date and time the route table was created, in the format defined by RFC3339.
+    # The date and time the route table was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #

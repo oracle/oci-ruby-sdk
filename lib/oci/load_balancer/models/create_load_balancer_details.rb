@@ -94,6 +94,9 @@ module OCI
     # @return [Hash<String, OCI::LoadBalancer::Models::CertificateDetails>]
     attr_accessor :certificates
 
+    # @return [Hash<String, OCI::LoadBalancer::Models::SSLCipherSuiteDetails>]
+    attr_accessor :ssl_cipher_suites
+
     # @return [Hash<String, OCI::LoadBalancer::Models::PathRouteSetDetails>]
     attr_accessor :path_route_sets
 
@@ -131,6 +134,7 @@ module OCI
         'network_security_group_ids': :'networkSecurityGroupIds',
         'subnet_ids': :'subnetIds',
         'certificates': :'certificates',
+        'ssl_cipher_suites': :'sslCipherSuites',
         'path_route_sets': :'pathRouteSets',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -154,6 +158,7 @@ module OCI
         'network_security_group_ids': :'Array<String>',
         'subnet_ids': :'Array<String>',
         'certificates': :'Hash<String, OCI::LoadBalancer::Models::CertificateDetails>',
+        'ssl_cipher_suites': :'Hash<String, OCI::LoadBalancer::Models::SSLCipherSuiteDetails>',
         'path_route_sets': :'Hash<String, OCI::LoadBalancer::Models::PathRouteSetDetails>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -179,6 +184,7 @@ module OCI
     # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
     # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::CertificateDetails>] :certificates The value to assign to the {#certificates} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::SSLCipherSuiteDetails>] :ssl_cipher_suites The value to assign to the {#ssl_cipher_suites} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::PathRouteSetDetails>] :path_route_sets The value to assign to the {#path_route_sets} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -247,6 +253,12 @@ module OCI
 
       self.certificates = attributes[:'certificates'] if attributes[:'certificates']
 
+      self.ssl_cipher_suites = attributes[:'sslCipherSuites'] if attributes[:'sslCipherSuites']
+
+      raise 'You cannot provide both :sslCipherSuites and :ssl_cipher_suites' if attributes.key?(:'sslCipherSuites') && attributes.key?(:'ssl_cipher_suites')
+
+      self.ssl_cipher_suites = attributes[:'ssl_cipher_suites'] if attributes[:'ssl_cipher_suites']
+
       self.path_route_sets = attributes[:'pathRouteSets'] if attributes[:'pathRouteSets']
 
       raise 'You cannot provide both :pathRouteSets and :path_route_sets' if attributes.key?(:'pathRouteSets') && attributes.key?(:'path_route_sets')
@@ -302,6 +314,7 @@ module OCI
         network_security_group_ids == other.network_security_group_ids &&
         subnet_ids == other.subnet_ids &&
         certificates == other.certificates &&
+        ssl_cipher_suites == other.ssl_cipher_suites &&
         path_route_sets == other.path_route_sets &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -321,7 +334,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, shape_name, is_private, ip_mode, listeners, hostnames, backend_sets, network_security_group_ids, subnet_ids, certificates, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
+      [compartment_id, display_name, shape_name, is_private, ip_mode, listeners, hostnames, backend_sets, network_security_group_ids, subnet_ids, certificates, ssl_cipher_suites, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -7,6 +7,9 @@ require 'date'
 module OCI
   # Image shape compatibility details.
   class Core::Models::AddImageShapeCompatibilityEntryDetails
+    # @return [OCI::Core::Models::ImageMemoryConstraints]
+    attr_accessor :memory_constraints
+
     # @return [OCI::Core::Models::ImageOcpuConstraints]
     attr_accessor :ocpu_constraints
 
@@ -14,6 +17,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'memory_constraints': :'memoryConstraints',
         'ocpu_constraints': :'ocpuConstraints'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -23,6 +27,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'memory_constraints': :'OCI::Core::Models::ImageMemoryConstraints',
         'ocpu_constraints': :'OCI::Core::Models::ImageOcpuConstraints'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -34,12 +39,19 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [OCI::Core::Models::ImageMemoryConstraints] :memory_constraints The value to assign to the {#memory_constraints} property
     # @option attributes [OCI::Core::Models::ImageOcpuConstraints] :ocpu_constraints The value to assign to the {#ocpu_constraints} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.memory_constraints = attributes[:'memoryConstraints'] if attributes[:'memoryConstraints']
+
+      raise 'You cannot provide both :memoryConstraints and :memory_constraints' if attributes.key?(:'memoryConstraints') && attributes.key?(:'memory_constraints')
+
+      self.memory_constraints = attributes[:'memory_constraints'] if attributes[:'memory_constraints']
 
       self.ocpu_constraints = attributes[:'ocpuConstraints'] if attributes[:'ocpuConstraints']
 
@@ -59,6 +71,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        memory_constraints == other.memory_constraints &&
         ocpu_constraints == other.ocpu_constraints
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -75,7 +88,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [ocpu_constraints].hash
+      [memory_constraints, ocpu_constraints].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

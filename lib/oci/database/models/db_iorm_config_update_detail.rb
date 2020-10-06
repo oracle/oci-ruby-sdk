@@ -5,15 +5,15 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # IORM Config setting request for this database
+  # Details of the IORM configuration settings update request.
   #
   class Database::Models::DbIormConfigUpdateDetail
-    # Database Name. For updating default DbPlan, pass in dbName as `default`
+    # The database name. For the default `DbPlan`, the `dbName` is `default`.
     #
     # @return [String]
     attr_accessor :db_name
 
-    # Relative priority of a database
+    # The relative priority of this database.
     #
     # @return [Integer]
     attr_accessor :share

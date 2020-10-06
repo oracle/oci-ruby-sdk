@@ -23,7 +23,7 @@ module OCI
     # @return [String]
     attr_accessor :kubernetes_version
 
-    # A list of key/value pairs to add to each underlying OCI instance in the node pool.
+    # A list of key/value pairs to add to each underlying OCI instance in the node pool on launch.
     # @return [Hash<String, String>]
     attr_accessor :node_metadata
 
@@ -43,11 +43,16 @@ module OCI
     # @return [String]
     attr_accessor :node_shape
 
+    # Specify the configuration of the shape to launch nodes in the node pool.
+    #
+    # @return [OCI::ContainerEngine::Models::CreateNodeShapeConfigDetails]
+    attr_accessor :node_shape_config
+
     # A list of key/value pairs to add to nodes after they join the Kubernetes cluster.
     # @return [Array<OCI::ContainerEngine::Models::KeyValue>]
     attr_accessor :initial_node_labels
 
-    # The SSH public key to add to each node in the node pool.
+    # The SSH public key on each node in the node pool on launch.
     # @return [String]
     attr_accessor :ssh_public_key
 
@@ -82,6 +87,7 @@ module OCI
         'node_image_name': :'nodeImageName',
         'node_source_details': :'nodeSourceDetails',
         'node_shape': :'nodeShape',
+        'node_shape_config': :'nodeShapeConfig',
         'initial_node_labels': :'initialNodeLabels',
         'ssh_public_key': :'sshPublicKey',
         'quantity_per_subnet': :'quantityPerSubnet',
@@ -103,6 +109,7 @@ module OCI
         'node_image_name': :'String',
         'node_source_details': :'OCI::ContainerEngine::Models::NodeSourceDetails',
         'node_shape': :'String',
+        'node_shape_config': :'OCI::ContainerEngine::Models::CreateNodeShapeConfigDetails',
         'initial_node_labels': :'Array<OCI::ContainerEngine::Models::KeyValue>',
         'ssh_public_key': :'String',
         'quantity_per_subnet': :'Integer',
@@ -126,6 +133,7 @@ module OCI
     # @option attributes [String] :node_image_name The value to assign to the {#node_image_name} property
     # @option attributes [OCI::ContainerEngine::Models::NodeSourceDetails] :node_source_details The value to assign to the {#node_source_details} property
     # @option attributes [String] :node_shape The value to assign to the {#node_shape} property
+    # @option attributes [OCI::ContainerEngine::Models::CreateNodeShapeConfigDetails] :node_shape_config The value to assign to the {#node_shape_config} property
     # @option attributes [Array<OCI::ContainerEngine::Models::KeyValue>] :initial_node_labels The value to assign to the {#initial_node_labels} property
     # @option attributes [String] :ssh_public_key The value to assign to the {#ssh_public_key} property
     # @option attributes [Integer] :quantity_per_subnet The value to assign to the {#quantity_per_subnet} property
@@ -181,6 +189,12 @@ module OCI
 
       self.node_shape = attributes[:'node_shape'] if attributes[:'node_shape']
 
+      self.node_shape_config = attributes[:'nodeShapeConfig'] if attributes[:'nodeShapeConfig']
+
+      raise 'You cannot provide both :nodeShapeConfig and :node_shape_config' if attributes.key?(:'nodeShapeConfig') && attributes.key?(:'node_shape_config')
+
+      self.node_shape_config = attributes[:'node_shape_config'] if attributes[:'node_shape_config']
+
       self.initial_node_labels = attributes[:'initialNodeLabels'] if attributes[:'initialNodeLabels']
 
       raise 'You cannot provide both :initialNodeLabels and :initial_node_labels' if attributes.key?(:'initialNodeLabels') && attributes.key?(:'initial_node_labels')
@@ -233,6 +247,7 @@ module OCI
         node_image_name == other.node_image_name &&
         node_source_details == other.node_source_details &&
         node_shape == other.node_shape &&
+        node_shape_config == other.node_shape_config &&
         initial_node_labels == other.initial_node_labels &&
         ssh_public_key == other.ssh_public_key &&
         quantity_per_subnet == other.quantity_per_subnet &&
@@ -253,7 +268,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_name, node_source_details, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, node_config_details].hash
+      [compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_name, node_source_details, node_shape, node_shape_config, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, node_config_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

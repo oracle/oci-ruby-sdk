@@ -6,7 +6,10 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for the Resource Manager service. Use this API to install, configure, and manage resources via the &quot;infrastructure-as-code&quot; model. For more information, see [Overview of Resource Manager](/iaas/Content/ResourceManager/Concepts/resourcemanager.htm).
+  # API for the Resource Manager service.
+  # Use this API to install, configure, and manage resources via the &quot;infrastructure-as-code&quot; model.
+  # For more information, see
+  # [Overview of Resource Manager](/iaas/Content/ResourceManager/Concepts/resourcemanager.htm).
   class ResourceManager::ResourceManagerClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -60,16 +63,7 @@ module OCI
       # so try and load the config from the default file.
       config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
-      if signer.nil?
-        signer = OCI::Signer.new(
-          config.user,
-          config.fingerprint,
-          config.tenancy,
-          config.key_file,
-          pass_phrase: config.pass_phrase,
-          private_key_content: config.key_content
-        )
-      end
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
@@ -169,6 +163,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a configuration source provider into a different compartment within the same tenancy.
+    # For information about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # @param [String] configuration_source_provider_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the configuration source provider.
+    #
+    # @param [OCI::ResourceManager::Models::ChangeConfigurationSourceProviderCompartmentDetails] change_configuration_source_provider_compartment_details Defines the properties of changeConfigurationSourceProviderCompartment operation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of retrying the same action. Retry tokens expire after
+    #   24 hours, but can be invalidated before then due to conflicting operations. For example,
+    #   if a resource has been deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_configuration_source_provider_compartment(configuration_source_provider_id, change_configuration_source_provider_compartment_details, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#change_configuration_source_provider_compartment.' if logger
+
+      raise "Missing the required parameter 'configuration_source_provider_id' when calling change_configuration_source_provider_compartment." if configuration_source_provider_id.nil?
+      raise "Missing the required parameter 'change_configuration_source_provider_compartment_details' when calling change_configuration_source_provider_compartment." if change_configuration_source_provider_compartment_details.nil?
+      raise "Parameter value for 'configuration_source_provider_id' must not be blank" if OCI::Internal::Util.blank_string?(configuration_source_provider_id)
+
+      path = '/configurationSourceProviders/{configurationSourceProviderId}/actions/changeCompartment'.sub('{configurationSourceProviderId}', configuration_source_provider_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_configuration_source_provider_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#change_configuration_source_provider_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves a Stack and it's associated Jobs into a different compartment.
     # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
     # @param [OCI::ResourceManager::Models::ChangeStackCompartmentDetails] change_stack_compartment_details Defines the properties of changeStackCompartment operation.
@@ -225,6 +292,71 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a configuration source provider in the specified compartment.
+    # For more information, see
+    # [To create a configuration source provider](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#CreateConfigurationSourceProvider).
+    #
+    # @param [OCI::ResourceManager::Models::CreateConfigurationSourceProviderDetails] create_configuration_source_provider_details The properties for creating a ConfigurationSourceProvider.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of retrying the same action. Retry tokens expire after
+    #   24 hours, but can be invalidated before then due to conflicting operations. For example,
+    #   if a resource has been deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProvider ConfigurationSourceProvider}
+    def create_configuration_source_provider(create_configuration_source_provider_details, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#create_configuration_source_provider.' if logger
+
+      raise "Missing the required parameter 'create_configuration_source_provider_details' when calling create_configuration_source_provider." if create_configuration_source_provider_details.nil?
+
+      path = '/configurationSourceProviders'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_configuration_source_provider_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#create_configuration_source_provider') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::ConfigurationSourceProvider'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -301,8 +433,11 @@ module OCI
 
 
     # Creates a stack in the specified compartment.
-    # Specify the compartment using the compartment ID.
-    # For more information, see [Create a Stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/usingconsole.htm#CreateStack).
+    # You can create a stack from a Terraform configuration file.
+    # The Terraform configuration file can be directly uploaded or referenced from a source code control system.
+    # You can also create a stack from an existing compartment.
+    # For more information, see
+    # [To create a stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#CreateStack).
     #
     # @param [OCI::ResourceManager::Models::CreateStackDetails] create_stack_details The properties for creating a stack.
     # @param [Hash] opts the optional parameters
@@ -352,6 +487,66 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ResourceManager::Models::Stack'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified configuration source provider.
+    # @param [String] configuration_source_provider_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the configuration source provider.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_configuration_source_provider(configuration_source_provider_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#delete_configuration_source_provider.' if logger
+
+      raise "Missing the required parameter 'configuration_source_provider_id' when calling delete_configuration_source_provider." if configuration_source_provider_id.nil?
+      raise "Parameter value for 'configuration_source_provider_id' must not be blank" if OCI::Internal::Util.blank_string?(configuration_source_provider_id)
+
+      path = '/configurationSourceProviders/{configurationSourceProviderId}'.sub('{configurationSourceProviderId}', configuration_source_provider_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#delete_configuration_source_provider') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -491,6 +686,62 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the properties of the specified configuration source provider.
+    # @param [String] configuration_source_provider_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the configuration source provider.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProvider ConfigurationSourceProvider}
+    def get_configuration_source_provider(configuration_source_provider_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#get_configuration_source_provider.' if logger
+
+      raise "Missing the required parameter 'configuration_source_provider_id' when calling get_configuration_source_provider." if configuration_source_provider_id.nil?
+      raise "Parameter value for 'configuration_source_provider_id' must not be blank" if OCI::Internal::Util.blank_string?(configuration_source_provider_id)
+
+      path = '/configurationSourceProviders/{configurationSourceProviderId}'.sub('{configurationSourceProviderId}', configuration_source_provider_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#get_configuration_source_provider') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::ConfigurationSourceProvider'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns the specified job along with the job details.
     # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @param [Hash] opts the optional parameters
@@ -569,8 +820,12 @@ module OCI
     #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [DateTime] :timestamp_greater_than_or_equal_to Time stamp specifying the lower time limit for which logs are returned in a query.
+    #   Format is defined by RFC3339.
+    #   Example: `2020-01-01T12:00:00.000Z`
     #
     # @option opts [DateTime] :timestamp_less_than_or_equal_to Time stamp specifying the upper time limit for which logs are returned in a query.
+    #   Format is defined by RFC3339.
+    #   Example: `2020-02-01T12:00:00.000Z`
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceManager::Models::LogEntry LogEntry}>
     def get_job_logs(job_id, opts = {})
@@ -1209,6 +1464,96 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists configuration source providers according to the specified filter.
+    # - For `compartmentId`, lists all configuration source providers in the matching compartment.
+    # - For `configurationSourceProviderId`, lists the matching configuration source provider.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
+    # @option opts [String] :configuration_source_provider_id A filter to return only configuration source providers that match the provided [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [String] :sort_by The field to use when sorting returned resources.
+    #   By default, `TIMECREATED` is ordered descending.
+    #   By default, `DISPLAYNAME` is ordered ascending. Note that you can sort only on one field.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use when sorting returned resources. Ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
+    #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProviderCollection ConfigurationSourceProviderCollection}
+    def list_configuration_source_providers(opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#list_configuration_source_providers.' if logger
+
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      path = '/configurationSourceProviders'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:configurationSourceProviderId] = opts[:configuration_source_provider_id] if opts[:configuration_source_provider_id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#list_configuration_source_providers') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::ConfigurationSourceProviderCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of jobs in a stack or compartment, ordered by time created.
     #
     # - To list all jobs in a stack, provide the stack [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -1320,6 +1665,62 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of supported services for Resource Discovery. For reference on service names, see the [Terraform provider documentation](https://www.terraform.io/docs/providers/oci/guides/resource_discovery.html#services).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ResourceDiscoveryServiceCollection ResourceDiscoveryServiceCollection}
+    def list_resource_discovery_services(opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#list_resource_discovery_services.' if logger
+
+
+      path = '/resourceDiscoveryServices'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#list_resource_discovery_services') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::ResourceDiscoveryServiceCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists drift status details for each resource defined in the specified stack.
     # The drift status details for a given resource indicate differences, if any, between the actual state
     # and the expected (defined) state for that resource.
@@ -1410,13 +1811,15 @@ module OCI
     #
     # @option opts [String] :lifecycle_state A filter that returns only those resources that match the specified
     #   lifecycle state. The state value is case-insensitive.
-    #   For more information about stack lifecycle states, see [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#StackStates).
+    #   For more information about stack lifecycle states, see
+    #   [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#StackStates).
     #
     #   Allowable values:
     #   - CREATING
     #   - ACTIVE
     #   - DELETING
     #   - DELETED
+    #   - FAILED
     #
     # @option opts [String] :display_name A filter to return only resources that match the specified display name.
     #
@@ -1772,6 +2175,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the properties of the specified configuration source provider.
+    # For more information, see
+    # [To update a configuration source provider](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#UpdateConfigurationSourceProvider).
+    #
+    # @param [String] configuration_source_provider_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the configuration source provider.
+    #
+    # @param [OCI::ResourceManager::Models::UpdateConfigurationSourceProviderDetails] update_configuration_source_provider_details Updated information provided for the ConfigurationSourceProvider.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProvider ConfigurationSourceProvider}
+    def update_configuration_source_provider(configuration_source_provider_id, update_configuration_source_provider_details, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#update_configuration_source_provider.' if logger
+
+      raise "Missing the required parameter 'configuration_source_provider_id' when calling update_configuration_source_provider." if configuration_source_provider_id.nil?
+      raise "Missing the required parameter 'update_configuration_source_provider_details' when calling update_configuration_source_provider." if update_configuration_source_provider_details.nil?
+      raise "Parameter value for 'configuration_source_provider_id' must not be blank" if OCI::Internal::Util.blank_string?(configuration_source_provider_id)
+
+      path = '/configurationSourceProviders/{configurationSourceProviderId}'.sub('{configurationSourceProviderId}', configuration_source_provider_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_configuration_source_provider_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#update_configuration_source_provider') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::ConfigurationSourceProvider'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the specified job.
     # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @param [OCI::ResourceManager::Models::UpdateJobDetails] update_job_details Updates properties for the specified job.
@@ -1837,8 +2307,9 @@ module OCI
     # Updates the specified stack object.
     # Use `UpdateStack` when you update your Terraform configuration
     # and want your changes to be reflected in the execution plan.
-    # For more information, see [Update a Stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/usingconsole.htm#UpdateStack) and
-    # [Edit or Delete a Stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/usingconsole.htm#EditStack).
+    # For more information, see
+    # [To update a stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#UpdateStack) and
+    # [To edit a stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#EditStack).
     #
     # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
     # @param [OCI::ResourceManager::Models::UpdateStackDetails] update_stack_details Updated information provided for the stack.

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A data flow application object used in bulk listings.
+  # A Data Flow application object used in bulk listings.
   #
   class DataFlow::Models::ApplicationSummary
     LANGUAGE_ENUM = [

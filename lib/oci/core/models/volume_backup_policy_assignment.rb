@@ -23,7 +23,7 @@ module OCI
     # @return [String]
     attr_accessor :policy_id
 
-    # **[Required]** The date and time the volume backup policy was assigned to the volume. The format is defined by RFC3339.
+    # **[Required]** The date and time the volume backup policy was assigned to the volume. The format is defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_created

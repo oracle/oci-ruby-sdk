@@ -31,7 +31,10 @@ module OCI
     # @return [String]
     attr_reader :level
 
-    # Date and time of the log entry.
+    # The date and time of the log entry.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
     # @return [DateTime]
     attr_accessor :timestamp
 

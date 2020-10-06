@@ -107,7 +107,7 @@ module OCI
 
     # The public IP address of the `publicIp` object.
     #
-    # Example: `129.146.2.1`
+    # Example: `203.0.113.2`
     #
     # @return [String]
     attr_accessor :ip_address
@@ -159,12 +159,16 @@ module OCI
     # @return [String]
     attr_reader :scope
 
-    # The date and time the public IP was created, in the format defined by RFC3339.
+    # The date and time the public IP was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
+
+    # OCID of the pool object created by the current tenancy
+    # @return [String]
+    attr_accessor :public_ip_pool_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -183,7 +187,8 @@ module OCI
         'lifetime': :'lifetime',
         'private_ip_id': :'privateIpId',
         'scope': :'scope',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'public_ip_pool_id': :'publicIpPoolId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -205,7 +210,8 @@ module OCI
         'lifetime': :'String',
         'private_ip_id': :'String',
         'scope': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'public_ip_pool_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -230,6 +236,7 @@ module OCI
     # @option attributes [String] :private_ip_id The value to assign to the {#private_ip_id} property
     # @option attributes [String] :scope The value to assign to the {#scope} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :public_ip_pool_id The value to assign to the {#public_ip_pool_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -307,6 +314,12 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.public_ip_pool_id = attributes[:'publicIpPoolId'] if attributes[:'publicIpPoolId']
+
+      raise 'You cannot provide both :publicIpPoolId and :public_ip_pool_id' if attributes.key?(:'publicIpPoolId') && attributes.key?(:'public_ip_pool_id')
+
+      self.public_ip_pool_id = attributes[:'public_ip_pool_id'] if attributes[:'public_ip_pool_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -385,7 +398,8 @@ module OCI
         lifetime == other.lifetime &&
         private_ip_id == other.private_ip_id &&
         scope == other.scope &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        public_ip_pool_id == other.public_ip_pool_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -401,7 +415,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [assigned_entity_id, assigned_entity_type, availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, ip_address, lifecycle_state, lifetime, private_ip_id, scope, time_created].hash
+      [assigned_entity_id, assigned_entity_type, availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, ip_address, lifecycle_state, lifetime, private_ip_id, scope, time_created, public_ip_pool_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

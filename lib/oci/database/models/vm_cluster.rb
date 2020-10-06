@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of the VM cluster.
+  # Details of the Exadata Cloud@Customer VM cluster.
   #
   class Database::Models::VmCluster
     LIFECYCLE_STATE_ENUM = [
@@ -41,7 +41,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The user-friendly name for the VM cluster. The name does not need to be unique.
+    # The user-friendly name for the Exadata Cloud@Customer VM cluster. The name does not need to be unique.
     # @return [String]
     attr_accessor :display_name
 

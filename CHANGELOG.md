@@ -3,6 +3,81 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.10.0 - 2020-10-06
+### Added
+- Support for the Data Integration service
+- Support for updating database home IDs on databases in the Database service
+- Support for backing up autonomous databases on Cloud at Customer in the Database service
+- Support for managing autonomous VM clusters on Cloud at Customer in the Database service
+- Support for accessing data assets via private endpoints in the Data Catalog service
+- Support for dependency archive zip files to be specified for use by applications in the Data Flow service
+- Support for the Usage service
+- Support for the VMware Provisioning service
+- Support for applying one-off patches to databases in the Database service
+- Support for layer-2 virtualization features on vlans in the Networking service
+- Support for all AttachVolumeDetails and ParavirtualizedAttachVolumeDetails properties on instance configurations in the Compute Management service
+- Support for setting HTTP header size and allowing invalid characters in HTTP request headers in the Load Balancing service
+- Support for registering and deregistering autonomous dedicated databases with Data Safe in the Database service
+- Support for switching between non-private-endpoints and private endpoints on autonomous databases in the Database service
+- Support for returning group names when listing identity provider groups in the Identity service
+- Support for server-side object re-encryption in the Object Storage service
+- Support for private endpoint (ingress) and public endpoint whitelisting in the Analytics Cloud service
+- Support for the Blockchain service
+- Support for failing over an autonomous database that has Data Guard enabled in the Database service
+- Support for switching over an autonomous database that has Data Guard enabled in the Database service
+- Support for git configuration sources in the Resource Manager service
+- Support for optionally specifying a VCN id on list operations of DHCP options, subnets, security lists, route tables, internet gateways, and local peering gateways in the Networking service
+- Support for license types on instances in the Content and Experience service
+- Support for calling Oracle Cloud Infrastructure services in the us-sanjose-1 region
+- Support for updating the fault domain and launch options of VM instances in the Compute service
+- Support for image capability schemas and schema versions in the Compute service
+- Support for 'Patch Now' maintenance runs for autonomous Exadata infrastructure and autonomous container database resources in the Database service
+- Support for automatic performance and cost tuning on volumes in the Block Storage service
+- Support for calling Oracle Cloud Infrastructure services in the uk-gov-cardiff-1 region
+- Support for creating and managing private endpoints in the Data Flow service
+- Support for changing instance shapes and restarting nodes in the Big Data service
+- Support for additional versions (for example CSQL) in the Big Data service
+- Support for creating stacks from compartments in the Resource Manager service
+- Support for autonomous json databases in the Database service
+- Support for cleaning up uncommitted multipart uploads in the Object Storage service
+- Support for additional list API filters in the Data Catalog service
+- Support for custom boot volume size and other node pool updates in the Container Engine for Kubernetes service
+- Support for Data Guard on Exadata Cloud at Customer VM clusters in the Database service
+- Support for stopping VM instances after scheduled maintenance or hypervisor reboots in the Compute service
+- Support for creating and managing private endpoints in the Data Flow service
+- Support for calling Oracle Cloud Infrastructure services in the ap-chiyoda-1 region
+- Support for VM database cloning in the Database service
+- Support for the MAINTENANCE_IN_PROGRESS lifecycle state on database systems, VM clusters, and Cloud Exadata in the Database service
+- Support for provisioning refreshable clones in the Database service
+- Support for new options on listeners and backend sets for specifying SSL protocols, SSL cipher suites, and server ordering preferences in the Load Balancing service
+- Support for AMD flexible shapes with configurable CPU in the Container Engine for Kubernetes service
+- Support for network sources in authentication policies in the Identity service
+- Support for Logging Service
+- Support for Logging Analytics Service
+- Support for Logging Search Service
+- Support for Logging Ingestion Service
+- Support for Management Agent Cloud Service
+- Support for Management Dashboard Service
+- Support for Service Connector Hub service
+- Support for Policy based Request/Response transformation in the API Gateway Service
+- Support for sending diagnostic interrupt to a VM instance in the Compute Service
+- Support for custom Database Software Images in the Database Service
+- Support for getting and listing container database patches for Autonomous Container Database resources in the Database Service
+- Support for updating patch id on maintenance run for Autonomous Container Database resources in the Database Service
+- Support for searching Oracle Cloud resources across tenancies in the Search Service
+- Documentation update for Logging Policies in the API Gateway service
+- Support for the Cloud Guard service
+- Support for specifying desired consumption models when creating instances in the Integration service
+- Support for dynamic shapes in the Load Balancing service
+- Support for software keys in the Key Management service
+- Support for customer contacts on Exadata Cloud at Customer in the Database service
+- Support for updating open modes and permission levels of autonomous databases in the Database service
+- Support for flexible memory on VM instances in the Compute and Compute Management services
+- Support for specifying custom content dispositions when downloading objects in the Object Storage service
+- Support for the “bring your own IP address” feature in the Virtual Networking service
+- Support for updating the tags of instance console connections in the Compute service
+- Support for custom SSL certificates on gateways in the API Gateway service
+
 ## 2.9.0 - 2020-06-16
 ### Added
 - Support for creating a new database from an existing database based on a given timestamp in the Database service

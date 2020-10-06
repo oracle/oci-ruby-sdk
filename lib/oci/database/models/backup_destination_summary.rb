@@ -14,6 +14,12 @@ module OCI
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    NFS_MOUNT_TYPE_ENUM = [
+      NFS_MOUNT_TYPE_SELF_MOUNT = 'SELF_MOUNT'.freeze,
+      NFS_MOUNT_TYPE_AUTOMATED_MOUNT = 'AUTOMATED_MOUNT'.freeze,
+      NFS_MOUNT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
@@ -53,6 +59,18 @@ module OCI
     #
     # @return [String]
     attr_accessor :local_mount_point_path
+
+    # NFS Mount type for backup destination.
+    # @return [String]
+    attr_reader :nfs_mount_type
+
+    # Host names or IP addresses for NFS Auto mount.
+    # @return [Array<String>]
+    attr_accessor :nfs_server
+
+    # Specifies the directory on which to mount the file system
+    # @return [String]
+    attr_accessor :nfs_server_export
 
     # The current lifecycle state of the backup destination.
     # @return [String]
@@ -94,6 +112,9 @@ module OCI
         'connection_string': :'connectionString',
         'vpc_users': :'vpcUsers',
         'local_mount_point_path': :'localMountPointPath',
+        'nfs_mount_type': :'nfsMountType',
+        'nfs_server': :'nfsServer',
+        'nfs_server_export': :'nfsServerExport',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'lifecycle_details': :'lifecycleDetails',
@@ -115,6 +136,9 @@ module OCI
         'connection_string': :'String',
         'vpc_users': :'Array<String>',
         'local_mount_point_path': :'String',
+        'nfs_mount_type': :'String',
+        'nfs_server': :'Array<String>',
+        'nfs_server_export': :'String',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'lifecycle_details': :'String',
@@ -138,6 +162,9 @@ module OCI
     # @option attributes [String] :connection_string The value to assign to the {#connection_string} property
     # @option attributes [Array<String>] :vpc_users The value to assign to the {#vpc_users} property
     # @option attributes [String] :local_mount_point_path The value to assign to the {#local_mount_point_path} property
+    # @option attributes [String] :nfs_mount_type The value to assign to the {#nfs_mount_type} property
+    # @option attributes [Array<String>] :nfs_server The value to assign to the {#nfs_server} property
+    # @option attributes [String] :nfs_server_export The value to assign to the {#nfs_server_export} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -189,6 +216,24 @@ module OCI
 
       self.local_mount_point_path = attributes[:'local_mount_point_path'] if attributes[:'local_mount_point_path']
 
+      self.nfs_mount_type = attributes[:'nfsMountType'] if attributes[:'nfsMountType']
+
+      raise 'You cannot provide both :nfsMountType and :nfs_mount_type' if attributes.key?(:'nfsMountType') && attributes.key?(:'nfs_mount_type')
+
+      self.nfs_mount_type = attributes[:'nfs_mount_type'] if attributes[:'nfs_mount_type']
+
+      self.nfs_server = attributes[:'nfsServer'] if attributes[:'nfsServer']
+
+      raise 'You cannot provide both :nfsServer and :nfs_server' if attributes.key?(:'nfsServer') && attributes.key?(:'nfs_server')
+
+      self.nfs_server = attributes[:'nfs_server'] if attributes[:'nfs_server']
+
+      self.nfs_server_export = attributes[:'nfsServerExport'] if attributes[:'nfsServerExport']
+
+      raise 'You cannot provide both :nfsServerExport and :nfs_server_export' if attributes.key?(:'nfsServerExport') && attributes.key?(:'nfs_server_export')
+
+      self.nfs_server_export = attributes[:'nfs_server_export'] if attributes[:'nfs_server_export']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -236,6 +281,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] nfs_mount_type Object to be assigned
+    def nfs_mount_type=(nfs_mount_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if nfs_mount_type && !NFS_MOUNT_TYPE_ENUM.include?(nfs_mount_type)
+        OCI.logger.debug("Unknown value for 'nfs_mount_type' [" + nfs_mount_type + "]. Mapping to 'NFS_MOUNT_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @nfs_mount_type = NFS_MOUNT_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @nfs_mount_type = nfs_mount_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -265,6 +323,9 @@ module OCI
         connection_string == other.connection_string &&
         vpc_users == other.vpc_users &&
         local_mount_point_path == other.local_mount_point_path &&
+        nfs_mount_type == other.nfs_mount_type &&
+        nfs_server == other.nfs_server &&
+        nfs_server_export == other.nfs_server_export &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         lifecycle_details == other.lifecycle_details &&
@@ -285,7 +346,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, type, associated_databases, connection_string, vpc_users, local_mount_point_path, lifecycle_state, time_created, lifecycle_details, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, type, associated_databases, connection_string, vpc_users, local_mount_point_path, nfs_mount_type, nfs_server, nfs_server_export, lifecycle_state, time_created, lifecycle_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

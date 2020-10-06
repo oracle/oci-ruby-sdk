@@ -5,9 +5,12 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Category of the incident
+  # Details for creating the category of the support ticket.
+  #
+  # **Caution:** Avoid using any confidential information when you supply string values using the API.
+  #
   class Cims::Models::CreateCategoryDetails
-    # Unique ID that identifies a Category
+    # Unique identifier for the category.
     # @return [String]
     attr_accessor :category_key
 

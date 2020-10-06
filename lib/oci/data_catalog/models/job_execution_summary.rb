@@ -2,11 +2,41 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A list of job executions. A job execution is a unit of work being executed on behalf of a job.
   class DataCatalog::Models::JobExecutionSummary
+    JOB_TYPE_ENUM = [
+      JOB_TYPE_HARVEST = 'HARVEST'.freeze,
+      JOB_TYPE_PROFILING = 'PROFILING'.freeze,
+      JOB_TYPE_SAMPLING = 'SAMPLING'.freeze,
+      JOB_TYPE_PREVIEW = 'PREVIEW'.freeze,
+      JOB_TYPE_IMPORT = 'IMPORT'.freeze,
+      JOB_TYPE_EXPORT = 'EXPORT'.freeze,
+      JOB_TYPE_IMPORT_GLOSSARY = 'IMPORT_GLOSSARY'.freeze,
+      JOB_TYPE_EXPORT_GLOSSARY = 'EXPORT_GLOSSARY'.freeze,
+      JOB_TYPE_INTERNAL = 'INTERNAL'.freeze,
+      JOB_TYPE_PURGE = 'PURGE'.freeze,
+      JOB_TYPE_IMMEDIATE = 'IMMEDIATE'.freeze,
+      JOB_TYPE_SCHEDULED = 'SCHEDULED'.freeze,
+      JOB_TYPE_IMMEDIATE_EXECUTION = 'IMMEDIATE_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION = 'SCHEDULED_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION_INSTANCE = 'SCHEDULED_EXECUTION_INSTANCE'.freeze,
+      JOB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATED = 'CREATED'.freeze,
+      LIFECYCLE_STATE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_SUCCEEDED = 'SUCCEEDED'.freeze,
+      LIFECYCLE_STATE_CANCELED = 'CANCELED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique key of the job execution resource.
     # @return [String]
     attr_accessor :key
@@ -17,7 +47,7 @@ module OCI
 
     # Type of the job execution.
     # @return [String]
-    attr_accessor :job_type
+    attr_reader :job_type
 
     # The unique key of the parent execution or null if this job execution has no parent.
     # @return [String]
@@ -29,7 +59,7 @@ module OCI
 
     # Status of the job execution, such as running, paused, or completed.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # The date and time the job execution was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # Example: `2019-03-25T21:10:29.600Z`
@@ -163,6 +193,32 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] job_type Object to be assigned
+    def job_type=(job_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if job_type && !JOB_TYPE_ENUM.include?(job_type)
+        OCI.logger.debug("Unknown value for 'job_type' [" + job_type + "]. Mapping to 'JOB_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @job_type = JOB_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @job_type = job_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 

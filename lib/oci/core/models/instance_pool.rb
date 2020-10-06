@@ -71,7 +71,7 @@ module OCI
     # @return [Integer]
     attr_accessor :size
 
-    # **[Required]** The date and time the instance pool was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the instance pool was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]

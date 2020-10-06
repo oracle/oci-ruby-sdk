@@ -19,6 +19,10 @@ module OCI
     # @return [String]
     attr_accessor :patch_id
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the database software image.
+    # @return [String]
+    attr_accessor :database_software_image_id
+
     # The action to perform on the patch.
     # @return [String]
     attr_reader :action
@@ -28,6 +32,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'patch_id': :'patchId',
+        'database_software_image_id': :'databaseSoftwareImageId',
         'action': :'action'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -38,6 +43,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'patch_id': :'String',
+        'database_software_image_id': :'String',
         'action': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -50,6 +56,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
+    # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
     # @option attributes [String] :action The value to assign to the {#action} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -62,6 +69,12 @@ module OCI
       raise 'You cannot provide both :patchId and :patch_id' if attributes.key?(:'patchId') && attributes.key?(:'patch_id')
 
       self.patch_id = attributes[:'patch_id'] if attributes[:'patch_id']
+
+      self.database_software_image_id = attributes[:'databaseSoftwareImageId'] if attributes[:'databaseSoftwareImageId']
+
+      raise 'You cannot provide both :databaseSoftwareImageId and :database_software_image_id' if attributes.key?(:'databaseSoftwareImageId') && attributes.key?(:'database_software_image_id')
+
+      self.database_software_image_id = attributes[:'database_software_image_id'] if attributes[:'database_software_image_id']
 
       self.action = attributes[:'action'] if attributes[:'action']
     end
@@ -86,6 +99,7 @@ module OCI
 
       self.class == other.class &&
         patch_id == other.patch_id &&
+        database_software_image_id == other.database_software_image_id &&
         action == other.action
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -102,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [patch_id, action].hash
+      [patch_id, database_software_image_id, action].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

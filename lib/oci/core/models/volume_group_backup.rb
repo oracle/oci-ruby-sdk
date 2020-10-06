@@ -77,12 +77,12 @@ module OCI
     attr_accessor :size_in_gbs
 
     # **[Required]** The date and time the volume group backup was created. This is the time the actual point-in-time image
-    # of the volume group data was taken. Format defined by RFC3339.
+    # of the volume group data was taken. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The date and time the request to create the volume group backup was received. Format defined by RFC3339.
+    # The date and time the request to create the volume group backup was received. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_request_received

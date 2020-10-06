@@ -21,7 +21,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Gateway endpoint type.
+    # **[Required]** Gateway endpoint type. `PUBLIC` will have a public ip address assigned to it, while `PRIVATE` will only be
+    # accessible on a private IP address on the subnet.
+    #
+    # Example: `PUBLIC` or `PRIVATE`
+    #
     # @return [String]
     attr_accessor :endpoint_type
 
@@ -30,6 +34,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :subnet_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the resource.
+    #
+    # @return [String]
+    attr_accessor :certificate_id
 
     # Free-form tags for this resource. Each tag is a simple key-value pair
     # with no predefined name, type, or namespace. For more information, see
@@ -57,6 +66,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'endpoint_type': :'endpointType',
         'subnet_id': :'subnetId',
+        'certificate_id': :'certificateId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -71,6 +81,7 @@ module OCI
         'compartment_id': :'String',
         'endpoint_type': :'String',
         'subnet_id': :'String',
+        'certificate_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -87,6 +98,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :endpoint_type The value to assign to the {#endpoint_type} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [String] :certificate_id The value to assign to the {#certificate_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -119,6 +131,12 @@ module OCI
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
 
+      self.certificate_id = attributes[:'certificateId'] if attributes[:'certificateId']
+
+      raise 'You cannot provide both :certificateId and :certificate_id' if attributes.key?(:'certificateId') && attributes.key?(:'certificate_id')
+
+      self.certificate_id = attributes[:'certificate_id'] if attributes[:'certificate_id']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -147,6 +165,7 @@ module OCI
         compartment_id == other.compartment_id &&
         endpoint_type == other.endpoint_type &&
         subnet_id == other.subnet_id &&
+        certificate_id == other.certificate_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -164,7 +183,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, endpoint_type, subnet_id, freeform_tags, defined_tags].hash
+      [display_name, compartment_id, endpoint_type, subnet_id, certificate_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

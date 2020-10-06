@@ -7,6 +7,13 @@ require 'date'
 module OCI
   # Properties used in term update operations.
   class DataCatalog::Models::UpdateTermDetails
+    WORKFLOW_STATUS_ENUM = [
+      WORKFLOW_STATUS_NEW = 'NEW'.freeze,
+      WORKFLOW_STATUS_APPROVED = 'APPROVED'.freeze,
+      WORKFLOW_STATUS_UNDER_REVIEW = 'UNDER_REVIEW'.freeze,
+      WORKFLOW_STATUS_ESCALATED = 'ESCALATED'.freeze
+    ].freeze
+
     # A user-friendly display name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
@@ -27,7 +34,7 @@ module OCI
 
     # Status of the approval process workflow for this business term in the glossary
     # @return [String]
-    attr_accessor :workflow_status
+    attr_reader :workflow_status
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -96,6 +103,14 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] workflow_status Object to be assigned
+    def workflow_status=(workflow_status)
+      raise "Invalid value for 'workflow_status': this must be one of the values in WORKFLOW_STATUS_ENUM." if workflow_status && !WORKFLOW_STATUS_ENUM.include?(workflow_status)
+
+      @workflow_status = workflow_status
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 

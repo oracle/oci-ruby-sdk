@@ -13,19 +13,17 @@ module OCI
   class Core::Models::TunnelConfig
     # **[Required]** The IP address of Oracle's VPN headend.
     #
-    # Example: `129.146.17.50`
+    # Example: `203.0.113.50 `
     #
     # @return [String]
     attr_accessor :ip_address
 
     # **[Required]** The shared secret of the IPSec tunnel.
     #
-    # Example: `EXAMPLEToUis6j1cp8GdVQxcmdfMO0yXMLilZTbYCMDGu4V8o`
-    #
     # @return [String]
     attr_accessor :shared_secret
 
-    # The date and time the IPSec connection was created, in the format defined by RFC3339.
+    # The date and time the IPSec connection was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #

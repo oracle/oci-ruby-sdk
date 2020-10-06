@@ -47,6 +47,11 @@ module OCI
     # @return [String]
     attr_accessor :vcn_id
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Public IP associated with the NAT gateway.
+    #
+    # @return [String]
+    attr_accessor :public_ip_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -56,7 +61,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'block_traffic': :'blockTraffic',
-        'vcn_id': :'vcnId'
+        'vcn_id': :'vcnId',
+        'public_ip_id': :'publicIpId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -70,7 +76,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'block_traffic': :'BOOLEAN',
-        'vcn_id': :'String'
+        'vcn_id': :'String',
+        'public_ip_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -87,6 +94,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [BOOLEAN] :block_traffic The value to assign to the {#block_traffic} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
+    # @option attributes [String] :public_ip_id The value to assign to the {#public_ip_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -130,6 +138,12 @@ module OCI
       raise 'You cannot provide both :vcnId and :vcn_id' if attributes.key?(:'vcnId') && attributes.key?(:'vcn_id')
 
       self.vcn_id = attributes[:'vcn_id'] if attributes[:'vcn_id']
+
+      self.public_ip_id = attributes[:'publicIpId'] if attributes[:'publicIpId']
+
+      raise 'You cannot provide both :publicIpId and :public_ip_id' if attributes.key?(:'publicIpId') && attributes.key?(:'public_ip_id')
+
+      self.public_ip_id = attributes[:'public_ip_id'] if attributes[:'public_ip_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -148,7 +162,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         block_traffic == other.block_traffic &&
-        vcn_id == other.vcn_id
+        vcn_id == other.vcn_id &&
+        public_ip_id == other.public_ip_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -164,7 +179,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, block_traffic, vcn_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, block_traffic, vcn_id, public_ip_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

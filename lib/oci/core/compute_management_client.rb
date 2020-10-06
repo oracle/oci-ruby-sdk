@@ -64,16 +64,7 @@ module OCI
       # so try and load the config from the default file.
       config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
-      if signer.nil?
-        signer = OCI::Signer.new(
-          config.user,
-          config.fingerprint,
-          config.tenancy,
-          config.key_file,
-          pass_phrase: config.pass_phrase,
-          private_key_content: config.key_content
-        )
-      end
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
@@ -1787,6 +1778,14 @@ module OCI
 
 
     # Terminate the specified instance pool.
+    #
+    # **Warning:** When you delete an instance pool, the resources that were created by the pool are permanently
+    # deleted, including associated instances, attached boot volumes, and block volumes.
+    #
+    # If an autoscaling configuration applies to the instance pool, the autoscaling configuration will be deleted
+    # asynchronously after the pool is deleted. You can also manually delete the autoscaling configuration using
+    # the `DeleteAutoScalingConfiguration` operation in the Autoscaling API.
+    #
     # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

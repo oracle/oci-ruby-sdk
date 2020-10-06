@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -9,6 +10,18 @@ module OCI
   # with a name and data type. Synonymous with 'column' in a database.
   #
   class DataCatalog::Models::Attribute
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_MOVING = 'MOVING'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique attribute key that is immutable.
     # @return [String]
     attr_accessor :key
@@ -29,7 +42,7 @@ module OCI
 
     # State of the attribute.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # The date and time the attribute was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # Example: `2019-03-25T21:10:29.600Z`
@@ -70,6 +83,33 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_nullable
 
+    # The minimum count for the number of instances of a given type stored in this collection type attribute,applicable if this attribute is a complex type.
+    # @return [Integer]
+    attr_accessor :min_collection_count
+
+    # The maximum count for the number of instances of a given type stored in this collection type attribute,applicable if this attribute is a complex type.
+    # For type specifications in systems that specify only \"capacity\" without upper or lower bound , this property can also be used to just mean \"capacity\".
+    # Some examples are Varray size in Oracle , Occurs Clause in Cobol , capacity in XmlSchemaObjectCollection , maxOccurs in  Xml , maxItems in Json
+    #
+    # @return [Integer]
+    attr_accessor :max_collection_count
+
+    # Entity key that represents the datatype of this attribute , applicable if this attribute is a complex type.
+    # @return [String]
+    attr_accessor :datatype_entity_key
+
+    # External entity key that represents the datatype of this attribute , applicable if this attribute is a complex type.
+    # @return [String]
+    attr_accessor :external_datatype_entity_key
+
+    # Attribute key that represents the parent attribute of this attribute , applicable if the parent attribute is of complex datatype.
+    # @return [String]
+    attr_accessor :parent_attribute_key
+
+    # External attribute key that represents the parent attribute  of this attribute , applicable if the parent attribute is of complex type.
+    # @return [String]
+    attr_accessor :external_parent_attribute_key
+
     # Max allowed length of the attribute value.
     # @return [Integer]
     attr_accessor :length
@@ -93,6 +133,10 @@ module OCI
     # URI to the attribute instance in the API.
     # @return [String]
     attr_accessor :uri
+
+    # Full path of the attribute.
+    # @return [String]
+    attr_accessor :path
 
     # A map of maps that contains the properties which are specific to the attribute type. Each attribute type
     # definition defines it's set of required and optional properties. The map keys are category names and the
@@ -120,12 +164,19 @@ module OCI
         'external_key': :'externalKey',
         'is_incremental_data': :'isIncrementalData',
         'is_nullable': :'isNullable',
+        'min_collection_count': :'minCollectionCount',
+        'max_collection_count': :'maxCollectionCount',
+        'datatype_entity_key': :'datatypeEntityKey',
+        'external_datatype_entity_key': :'externalDatatypeEntityKey',
+        'parent_attribute_key': :'parentAttributeKey',
+        'external_parent_attribute_key': :'externalParentAttributeKey',
         'length': :'length',
         'position': :'position',
         'precision': :'precision',
         'scale': :'scale',
         'time_external': :'timeExternal',
         'uri': :'uri',
+        'path': :'path',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -148,12 +199,19 @@ module OCI
         'external_key': :'String',
         'is_incremental_data': :'BOOLEAN',
         'is_nullable': :'BOOLEAN',
+        'min_collection_count': :'Integer',
+        'max_collection_count': :'Integer',
+        'datatype_entity_key': :'String',
+        'external_datatype_entity_key': :'String',
+        'parent_attribute_key': :'String',
+        'external_parent_attribute_key': :'String',
         'length': :'Integer',
         'position': :'Integer',
         'precision': :'Integer',
         'scale': :'Integer',
         'time_external': :'DateTime',
         'uri': :'String',
+        'path': :'String',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -178,12 +236,19 @@ module OCI
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
     # @option attributes [BOOLEAN] :is_incremental_data The value to assign to the {#is_incremental_data} property
     # @option attributes [BOOLEAN] :is_nullable The value to assign to the {#is_nullable} property
+    # @option attributes [Integer] :min_collection_count The value to assign to the {#min_collection_count} property
+    # @option attributes [Integer] :max_collection_count The value to assign to the {#max_collection_count} property
+    # @option attributes [String] :datatype_entity_key The value to assign to the {#datatype_entity_key} property
+    # @option attributes [String] :external_datatype_entity_key The value to assign to the {#external_datatype_entity_key} property
+    # @option attributes [String] :parent_attribute_key The value to assign to the {#parent_attribute_key} property
+    # @option attributes [String] :external_parent_attribute_key The value to assign to the {#external_parent_attribute_key} property
     # @option attributes [Integer] :length The value to assign to the {#length} property
     # @option attributes [Integer] :position The value to assign to the {#position} property
     # @option attributes [Integer] :precision The value to assign to the {#precision} property
     # @option attributes [Integer] :scale The value to assign to the {#scale} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
+    # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -261,6 +326,42 @@ module OCI
 
       self.is_nullable = attributes[:'is_nullable'] unless attributes[:'is_nullable'].nil?
 
+      self.min_collection_count = attributes[:'minCollectionCount'] if attributes[:'minCollectionCount']
+
+      raise 'You cannot provide both :minCollectionCount and :min_collection_count' if attributes.key?(:'minCollectionCount') && attributes.key?(:'min_collection_count')
+
+      self.min_collection_count = attributes[:'min_collection_count'] if attributes[:'min_collection_count']
+
+      self.max_collection_count = attributes[:'maxCollectionCount'] if attributes[:'maxCollectionCount']
+
+      raise 'You cannot provide both :maxCollectionCount and :max_collection_count' if attributes.key?(:'maxCollectionCount') && attributes.key?(:'max_collection_count')
+
+      self.max_collection_count = attributes[:'max_collection_count'] if attributes[:'max_collection_count']
+
+      self.datatype_entity_key = attributes[:'datatypeEntityKey'] if attributes[:'datatypeEntityKey']
+
+      raise 'You cannot provide both :datatypeEntityKey and :datatype_entity_key' if attributes.key?(:'datatypeEntityKey') && attributes.key?(:'datatype_entity_key')
+
+      self.datatype_entity_key = attributes[:'datatype_entity_key'] if attributes[:'datatype_entity_key']
+
+      self.external_datatype_entity_key = attributes[:'externalDatatypeEntityKey'] if attributes[:'externalDatatypeEntityKey']
+
+      raise 'You cannot provide both :externalDatatypeEntityKey and :external_datatype_entity_key' if attributes.key?(:'externalDatatypeEntityKey') && attributes.key?(:'external_datatype_entity_key')
+
+      self.external_datatype_entity_key = attributes[:'external_datatype_entity_key'] if attributes[:'external_datatype_entity_key']
+
+      self.parent_attribute_key = attributes[:'parentAttributeKey'] if attributes[:'parentAttributeKey']
+
+      raise 'You cannot provide both :parentAttributeKey and :parent_attribute_key' if attributes.key?(:'parentAttributeKey') && attributes.key?(:'parent_attribute_key')
+
+      self.parent_attribute_key = attributes[:'parent_attribute_key'] if attributes[:'parent_attribute_key']
+
+      self.external_parent_attribute_key = attributes[:'externalParentAttributeKey'] if attributes[:'externalParentAttributeKey']
+
+      raise 'You cannot provide both :externalParentAttributeKey and :external_parent_attribute_key' if attributes.key?(:'externalParentAttributeKey') && attributes.key?(:'external_parent_attribute_key')
+
+      self.external_parent_attribute_key = attributes[:'external_parent_attribute_key'] if attributes[:'external_parent_attribute_key']
+
       self.length = attributes[:'length'] if attributes[:'length']
 
       self.position = attributes[:'position'] if attributes[:'position']
@@ -277,10 +378,25 @@ module OCI
 
       self.uri = attributes[:'uri'] if attributes[:'uri']
 
+      self.path = attributes[:'path'] if attributes[:'path']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -304,12 +420,19 @@ module OCI
         external_key == other.external_key &&
         is_incremental_data == other.is_incremental_data &&
         is_nullable == other.is_nullable &&
+        min_collection_count == other.min_collection_count &&
+        max_collection_count == other.max_collection_count &&
+        datatype_entity_key == other.datatype_entity_key &&
+        external_datatype_entity_key == other.external_datatype_entity_key &&
+        parent_attribute_key == other.parent_attribute_key &&
+        external_parent_attribute_key == other.external_parent_attribute_key &&
         length == other.length &&
         position == other.position &&
         precision == other.precision &&
         scale == other.scale &&
         time_external == other.time_external &&
         uri == other.uri &&
+        path == other.path &&
         properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -326,7 +449,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, length, position, precision, scale, time_external, uri, properties].hash
+      [key, display_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, length, position, precision, scale, time_external, uri, path, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

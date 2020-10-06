@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Ticket created
+  # Details about the ticket created.
   class Cims::Models::Ticket
     SEVERITY_ENUM = [
       SEVERITY_HIGHEST = 'HIGHEST'.freeze,
@@ -29,39 +29,39 @@ module OCI
       LIFECYCLE_DETAILS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Unique ID that identifies a Ticket
+    # Unique identifier for the ticket.
     # @return [String]
     attr_accessor :ticket_number
 
-    # **[Required]** Severity of the ticket. eg: HIGH, MEDIUM
+    # **[Required]** The severity assigned to the ticket.
     # @return [String]
     attr_reader :severity
 
-    # List of resources
+    # The list of resources associated with the ticket.
     # @return [Array<OCI::Cims::Models::Resource>]
     attr_accessor :resource_list
 
-    # **[Required]** Title of ticket
+    # **[Required]** The title of the ticket.
     # @return [String]
     attr_accessor :title
 
-    # **[Required]** Details of ticket
+    # **[Required]** The description of the issue addressed in the ticket.
     # @return [String]
     attr_accessor :description
 
-    # Epoch time of ticket creation
+    # The time when the ticket was created, in milliseconds since epoch time.
     # @return [Integer]
     attr_accessor :time_created
 
-    # Epoch time of ticket updated
+    # The time when the ticket was updated, in milliseconds since epoch time.
     # @return [Integer]
     attr_accessor :time_updated
 
-    # Describes the lifecycles of a ticket
+    # The current state of the ticket.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Describes the lifecycle details of a ticket
+    # Additional information about the current `lifecycleState`.
     # @return [String]
     attr_reader :lifecycle_details
 

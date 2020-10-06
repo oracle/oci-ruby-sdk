@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information to be updated.
+  # The information to be updated for catalog resource.
   class DataCatalog::Models::UpdateCatalogDetails
     # Data catalog identifier.
     # @return [String]

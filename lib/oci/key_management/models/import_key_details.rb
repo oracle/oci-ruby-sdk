@@ -7,6 +7,11 @@ require 'date'
 module OCI
   # ImportKeyDetails model.
   class KeyManagement::Models::ImportKeyDetails
+    PROTECTION_MODE_ENUM = [
+      PROTECTION_MODE_HSM = 'HSM'.freeze,
+      PROTECTION_MODE_SOFTWARE = 'SOFTWARE'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the compartment that contains this key.
     # @return [String]
     attr_accessor :compartment_id
@@ -38,6 +43,15 @@ module OCI
     # @return [OCI::KeyManagement::Models::WrappedImportKey]
     attr_accessor :wrapped_import_key
 
+    # The key's protection mode indicates how the key persists and where cryptographic operations that use the key are performed.
+    # A protection mode of `HSM` means that the key persists on a hardware security module (HSM) and all cryptographic operations are performed inside
+    # the HSM. A protection mode of `SOFTWARE` means that the key persists on the server, protected by the vault's RSA wrapping key which persists
+    # on the HSM. All cryptographic operations that use a key with a protection mode of `SOFTWARE` are performed on the server. By default,
+    # a key's protection mode is set to `HSM`. You can't change a key's protection mode after the key is created or imported.
+    #
+    # @return [String]
+    attr_reader :protection_mode
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -47,7 +61,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'key_shape': :'keyShape',
-        'wrapped_import_key': :'wrappedImportKey'
+        'wrapped_import_key': :'wrappedImportKey',
+        'protection_mode': :'protectionMode'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,7 +76,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'key_shape': :'OCI::KeyManagement::Models::KeyShape',
-        'wrapped_import_key': :'OCI::KeyManagement::Models::WrappedImportKey'
+        'wrapped_import_key': :'OCI::KeyManagement::Models::WrappedImportKey',
+        'protection_mode': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -78,6 +94,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [OCI::KeyManagement::Models::KeyShape] :key_shape The value to assign to the {#key_shape} property
     # @option attributes [OCI::KeyManagement::Models::WrappedImportKey] :wrapped_import_key The value to assign to the {#wrapped_import_key} property
+    # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -119,9 +136,25 @@ module OCI
       raise 'You cannot provide both :wrappedImportKey and :wrapped_import_key' if attributes.key?(:'wrappedImportKey') && attributes.key?(:'wrapped_import_key')
 
       self.wrapped_import_key = attributes[:'wrapped_import_key'] if attributes[:'wrapped_import_key']
+
+      self.protection_mode = attributes[:'protectionMode'] if attributes[:'protectionMode']
+      self.protection_mode = "HSM" if protection_mode.nil? && !attributes.key?(:'protectionMode') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :protectionMode and :protection_mode' if attributes.key?(:'protectionMode') && attributes.key?(:'protection_mode')
+
+      self.protection_mode = attributes[:'protection_mode'] if attributes[:'protection_mode']
+      self.protection_mode = "HSM" if protection_mode.nil? && !attributes.key?(:'protectionMode') && !attributes.key?(:'protection_mode') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] protection_mode Object to be assigned
+    def protection_mode=(protection_mode)
+      raise "Invalid value for 'protection_mode': this must be one of the values in PROTECTION_MODE_ENUM." if protection_mode && !PROTECTION_MODE_ENUM.include?(protection_mode)
+
+      @protection_mode = protection_mode
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -137,7 +170,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         key_shape == other.key_shape &&
-        wrapped_import_key == other.wrapped_import_key
+        wrapped_import_key == other.wrapped_import_key &&
+        protection_mode == other.protection_mode
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -153,7 +187,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, key_shape, wrapped_import_key].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, key_shape, wrapped_import_key, protection_mode].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

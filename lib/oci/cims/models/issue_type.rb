@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details Issue Type of the incident
+  # Details about the issue type associated with the support ticket.
   class Cims::Models::IssueType
-    # Unique ID that identifies an Issue Type
+    # Unique identifier for the issue type.
     # @return [String]
     attr_accessor :issue_type_key
 
-    # Label of issue type. eg: Instance Performance
+    # The label for the issue type. For example, `Instance Performance`.
     # @return [String]
     attr_accessor :label
 

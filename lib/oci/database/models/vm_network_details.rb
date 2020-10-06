@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of the client or backup networks in a VM cluster network.
+  # Details of the client or backup networks in an Exadata Cloud@Customer VM cluster network.
   class Database::Models::VmNetworkDetails
     NETWORK_TYPE_ENUM = [
       NETWORK_TYPE_CLIENT = 'CLIENT'.freeze,

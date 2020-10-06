@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Customer Tenant
+  # Details about the customer's tenancy.
   class Cims::Models::TenancyInformation
-    # **[Required]** Tenant customer support identifier
+    # **[Required]** The Customer Support Identifier number associated with the tenancy.
     # @return [String]
     attr_accessor :customer_support_key
 
-    # **[Required]** Tenant OCID
+    # **[Required]** The OCID of the tenancy.
     # @return [String]
     attr_accessor :tenancy_id
 

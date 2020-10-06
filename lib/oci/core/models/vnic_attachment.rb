@@ -61,11 +61,20 @@ module OCI
     # @return [Integer]
     attr_accessor :nic_index
 
-    # **[Required]** The OCID of the subnet to create the VNIC in.
+    # The OCID of the subnet to create the VNIC in.
     # @return [String]
     attr_accessor :subnet_id
 
-    # **[Required]** The date and time the VNIC attachment was created, in the format defined by RFC3339.
+    # The OCID of the VLAN to create the VNIC in. Creating the VNIC in a VLAN (instead
+    # of a subnet) is possible only if you are an Oracle Cloud VMware Solution customer.
+    # See {Vlan}.
+    #
+    # An error is returned if the instance already has a VNIC attached to it from this VLAN.
+    #
+    # @return [String]
+    attr_accessor :vlan_id
+
+    # **[Required]** The date and time the VNIC attachment was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
@@ -74,6 +83,10 @@ module OCI
 
     # The Oracle-assigned VLAN tag of the attached VNIC. Available after the
     # attachment process is complete.
+    #
+    # However, if the VNIC belongs to a VLAN as part of the Oracle Cloud VMware Solution,
+    # the `vlanTag` value is instead the value of the `vlanTag` attribute for the VLAN.
+    # See {Vlan}.
     #
     # Example: `0`
     #
@@ -96,6 +109,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'nic_index': :'nicIndex',
         'subnet_id': :'subnetId',
+        'vlan_id': :'vlanId',
         'time_created': :'timeCreated',
         'vlan_tag': :'vlanTag',
         'vnic_id': :'vnicId'
@@ -115,6 +129,7 @@ module OCI
         'lifecycle_state': :'String',
         'nic_index': :'Integer',
         'subnet_id': :'String',
+        'vlan_id': :'String',
         'time_created': :'DateTime',
         'vlan_tag': :'Integer',
         'vnic_id': :'String'
@@ -136,6 +151,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :nic_index The value to assign to the {#nic_index} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [String] :vlan_id The value to assign to the {#vlan_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Integer] :vlan_tag The value to assign to the {#vlan_tag} property
     # @option attributes [String] :vnic_id The value to assign to the {#vnic_id} property
@@ -189,6 +205,12 @@ module OCI
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
 
+      self.vlan_id = attributes[:'vlanId'] if attributes[:'vlanId']
+
+      raise 'You cannot provide both :vlanId and :vlan_id' if attributes.key?(:'vlanId') && attributes.key?(:'vlan_id')
+
+      self.vlan_id = attributes[:'vlan_id'] if attributes[:'vlan_id']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -240,6 +262,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         nic_index == other.nic_index &&
         subnet_id == other.subnet_id &&
+        vlan_id == other.vlan_id &&
         time_created == other.time_created &&
         vlan_tag == other.vlan_tag &&
         vnic_id == other.vnic_id
@@ -258,7 +281,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, display_name, id, instance_id, lifecycle_state, nic_index, subnet_id, time_created, vlan_tag, vnic_id].hash
+      [availability_domain, compartment_id, display_name, id, instance_id, lifecycle_state, nic_index, subnet_id, vlan_id, time_created, vlan_tag, vnic_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

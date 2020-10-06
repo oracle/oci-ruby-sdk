@@ -61,16 +61,7 @@ module OCI
       # so try and load the config from the default file.
       config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
-      if signer.nil?
-        signer = OCI::Signer.new(
-          config.user,
-          config.fingerprint,
-          config.tenancy,
-          config.key_file,
-          pass_phrase: config.pass_phrase,
-          private_key_content: config.key_content
-        )
-      end
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
@@ -721,6 +712,71 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a custom SSL cipher suite.
+    # @param [OCI::LoadBalancer::Models::CreateSSLCipherSuiteDetails] create_ssl_cipher_suite_details The details of the SSL cipher suite to add.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the associated load balancer.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def create_ssl_cipher_suite(create_ssl_cipher_suite_details, load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#create_ssl_cipher_suite.' if logger
+
+      raise "Missing the required parameter 'create_ssl_cipher_suite_details' when calling create_ssl_cipher_suite." if create_ssl_cipher_suite_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling create_ssl_cipher_suite." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/sslCipherSuites'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_ssl_cipher_suite_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#create_ssl_cipher_suite') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Removes a backend server from a given load balancer and backend set.
     # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the backend set and server.
     # @param [String] backend_set_name The name of the backend set associated with the backend server.
@@ -1194,6 +1250,67 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#delete_rule_set') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes an SSL cipher suite from a load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the associated load balancer.
+    #
+    # @param [String] name The name of the SSL cipher suite to delete.
+    #
+    #   example: `example_cipher_suite`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_ssl_cipher_suite(load_balancer_id, name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#delete_ssl_cipher_suite.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling delete_ssl_cipher_suite." if load_balancer_id.nil?
+      raise "Missing the required parameter 'name' when calling delete_ssl_cipher_suite." if name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'name' must not be blank" if OCI::Internal::Util.blank_string?(name)
+
+      path = '/loadBalancers/{loadBalancerId}/sslCipherSuites/{name}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{name}', name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#delete_ssl_cipher_suite') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -1812,6 +1929,68 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::LoadBalancer::Models::RuleSet'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the specified SSL cipher suite's configuration information.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the associated load balancer.
+    #
+    # @param [String] name The name of the SSL cipher suite to retrieve.
+    #
+    #   example: `example_cipher_suite`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::SSLCipherSuite SSLCipherSuite}
+    def get_ssl_cipher_suite(load_balancer_id, name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_ssl_cipher_suite.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_ssl_cipher_suite." if load_balancer_id.nil?
+      raise "Missing the required parameter 'name' when calling get_ssl_cipher_suite." if name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'name' must not be blank" if OCI::Internal::Util.blank_string?(name)
+
+      path = '/loadBalancers/{loadBalancerId}/sslCipherSuites/{name}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{name}', name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#get_ssl_cipher_suite') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LoadBalancer::Models::SSLCipherSuite'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2659,6 +2838,62 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists all SSL cipher suites associated with the specified load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the associated load balancer.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::SSLCipherSuite SSLCipherSuite}>
+    def list_ssl_cipher_suites(load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_ssl_cipher_suites.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling list_ssl_cipher_suites." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/sslCipherSuites'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#list_ssl_cipher_suites') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::LoadBalancer::Models::SSLCipherSuite>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the work requests for a given load balancer.
     # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the work requests to retrieve.
     # @param [Hash] opts the optional parameters
@@ -3142,6 +3377,76 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Update the shape of a load balancer. The new shape can be larger or smaller compared to existing shape of the
+    # LB. The service will try to perform this operation in the least disruptive way to existing connections, but
+    # there is a possibility that they might be lost during the LB resizing process. The new shape becomes effective
+    # as soon as the related work request completes successfully, i.e. when reshaping to a larger shape, the LB will
+    # start accepting larger bandwidth and when reshaping to a smaller one, the LB will be accepting smaller
+    # bandwidth.
+    #
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the load balancer whose shape will be updated.
+    # @param [OCI::LoadBalancer::Models::UpdateLoadBalancerShapeDetails] update_load_balancer_shape_details The details for updating a load balancer's shape. This contains the new, desired shape.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_load_balancer_shape(load_balancer_id, update_load_balancer_shape_details, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#update_load_balancer_shape.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling update_load_balancer_shape." if load_balancer_id.nil?
+      raise "Missing the required parameter 'update_load_balancer_shape_details' when calling update_load_balancer_shape." if update_load_balancer_shape_details.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/updateShape'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_load_balancer_shape_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#update_load_balancer_shape') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the network security groups associated with the specified load balancer.
     # @param [OCI::LoadBalancer::Models::UpdateNetworkSecurityGroupsDetails] update_network_security_groups_details The details for updating the NSGs associated with the specified load balancer.
     # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer to update the NSGs for.
@@ -3327,6 +3632,77 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#update_rule_set') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates an existing SSL cipher suite for the specified load balancer.
+    # @param [OCI::LoadBalancer::Models::UpdateSSLCipherSuiteDetails] update_ssl_cipher_suite_details The configuration details to update an SSL cipher suite.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the associated load balancer.
+    #
+    # @param [String] name The name of the SSL cipher suite to update.
+    #
+    #   example: `example_cipher_suite`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
+    #   a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_ssl_cipher_suite(update_ssl_cipher_suite_details, load_balancer_id, name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#update_ssl_cipher_suite.' if logger
+
+      raise "Missing the required parameter 'update_ssl_cipher_suite_details' when calling update_ssl_cipher_suite." if update_ssl_cipher_suite_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling update_ssl_cipher_suite." if load_balancer_id.nil?
+      raise "Missing the required parameter 'name' when calling update_ssl_cipher_suite." if name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'name' must not be blank" if OCI::Internal::Util.blank_string?(name)
+
+      path = '/loadBalancers/{loadBalancerId}/sslCipherSuites/{name}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{name}', name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_ssl_cipher_suite_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#update_ssl_cipher_suite') do
         @api_client.call_api(
           :PUT,
           path,

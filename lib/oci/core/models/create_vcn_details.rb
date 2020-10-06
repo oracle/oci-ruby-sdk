@@ -8,8 +8,7 @@ module OCI
   # CreateVcnDetails model.
   class Core::Models::CreateVcnDetails
     # **[Required]** The CIDR IP address block of the VCN.
-    #
-    # Example: `172.16.0.0/16`
+    # Example: `10.0.0.0/16`
     #
     # @return [String]
     attr_accessor :cidr_block

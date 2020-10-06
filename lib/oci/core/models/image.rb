@@ -85,7 +85,7 @@ module OCI
     # Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
     # * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
     # * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
-    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
     # * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
     #
     # @return [String]
@@ -123,7 +123,7 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_mbs
 
-    # **[Required]** The date and time the image was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the image was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #

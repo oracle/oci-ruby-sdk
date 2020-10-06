@@ -14,17 +14,17 @@ module OCI
     # @return [Float]
     attr_accessor :ocpus
 
-    # The total amount of memory, in gigabytes, available to the instance.
+    # The total amount of memory available to the instance, in gigabytes.
     #
     # @return [Float]
     attr_accessor :memory_in_gbs
 
-    # A short description of the processors available to the instance.
+    # A short description of the instance's processor (CPU).
     #
     # @return [String]
     attr_accessor :processor_description
 
-    # The networking bandwidth, in gigabits per second, available to the instance.
+    # The networking bandwidth available to the instance, in gigabits per second.
     #
     # @return [Float]
     attr_accessor :networking_bandwidth_in_gbps
@@ -34,13 +34,14 @@ module OCI
     # @return [Integer]
     attr_accessor :max_vnic_attachments
 
-    # The number of GPUs available to this instance.
+    # The number of GPUs available to the instance.
     #
     # @return [Integer]
     attr_accessor :gpus
 
-    # A short description of the GPUs available to this instance.
-    # This field is `null` if `gpus` is `0`.
+    # A short description of the instance's graphics processing unit (GPU).
+    #
+    # If the instance does not have any GPUs, this field is `null`.
     #
     # @return [String]
     attr_accessor :gpu_description
@@ -50,14 +51,16 @@ module OCI
     # @return [Integer]
     attr_accessor :local_disks
 
-    # The size of the local disks, aggregated, in gigabytes.
-    # This field is `null` if `localDisks` is equal to `0`.
+    # The aggregate size of all local disks, in gigabytes.
+    #
+    # If the instance does not have any local disks, this field is `null`.
     #
     # @return [Float]
     attr_accessor :local_disks_total_size_in_gbs
 
     # A short description of the local disks available to this instance.
-    # This field is `null` if `localDisks` is equal to `0`.
+    #
+    # If the instance does not have any local disks, this field is `null`.
     #
     # @return [String]
     attr_accessor :local_disk_description

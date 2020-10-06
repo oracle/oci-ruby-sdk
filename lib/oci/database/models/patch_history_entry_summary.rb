@@ -47,7 +47,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The date and time when the patch action completed.
+    # The date and time when the patch action completed
     # @return [DateTime]
     attr_accessor :time_ended
 

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Incident Classifier details
+  # Information about the incident classifier.
   class Cims::Models::ServiceCategory
     SCOPE_ENUM = [
       SCOPE_AD = 'AD'.freeze,
@@ -23,35 +23,35 @@ module OCI
       UNIT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Unique ID that identifies a classifier
+    # The unique ID that identifies a classifier.
     # @return [String]
     attr_accessor :key
 
-    # Name of classifier. eg: LIMIT Increase
+    # The name of the classifier.
     # @return [String]
     attr_accessor :name
 
-    # Label of classifier
+    # The label for the classifier.
     # @return [String]
     attr_accessor :label
 
-    # Description of classifier
+    # The text describing the classifier.
     # @return [String]
     attr_accessor :description
 
-    # List of Issues
+    # The list of issues.
     # @return [Array<OCI::Cims::Models::IssueType>]
     attr_accessor :issue_type_list
 
-    # List of Scope
+    # The scope of the incident.
     # @return [String]
     attr_reader :scope
 
-    # List of Units
+    # The unit to use to measure the service category or resource.
     # @return [String]
     attr_reader :unit
 
-    # Limit's unique id
+    # The unique ID for the limit.
     # @return [String]
     attr_accessor :limit_id
 

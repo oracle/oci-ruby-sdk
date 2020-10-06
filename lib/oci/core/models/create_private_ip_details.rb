@@ -53,11 +53,19 @@ module OCI
     # @return [String]
     attr_accessor :ip_address
 
-    # **[Required]** The OCID of the VNIC to assign the private IP to. The VNIC and private IP
+    # The OCID of the VNIC to assign the private IP to. The VNIC and private IP
     # must be in the same subnet.
     #
     # @return [String]
     attr_accessor :vnic_id
+
+    # Use this attribute only with the Oracle Cloud VMware Solution.
+    #
+    # The OCID of the VLAN from which the private IP is to be drawn. The IP address,
+    # *if supplied*, must be valid for the given VLAN. See {Vlan}.
+    #
+    # @return [String]
+    attr_accessor :vlan_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -68,7 +76,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'hostname_label': :'hostnameLabel',
         'ip_address': :'ipAddress',
-        'vnic_id': :'vnicId'
+        'vnic_id': :'vnicId',
+        'vlan_id': :'vlanId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,7 +91,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'hostname_label': :'String',
         'ip_address': :'String',
-        'vnic_id': :'String'
+        'vnic_id': :'String',
+        'vlan_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -99,6 +109,7 @@ module OCI
     # @option attributes [String] :hostname_label The value to assign to the {#hostname_label} property
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
     # @option attributes [String] :vnic_id The value to assign to the {#vnic_id} property
+    # @option attributes [String] :vlan_id The value to assign to the {#vlan_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -140,6 +151,12 @@ module OCI
       raise 'You cannot provide both :vnicId and :vnic_id' if attributes.key?(:'vnicId') && attributes.key?(:'vnic_id')
 
       self.vnic_id = attributes[:'vnic_id'] if attributes[:'vnic_id']
+
+      self.vlan_id = attributes[:'vlanId'] if attributes[:'vlanId']
+
+      raise 'You cannot provide both :vlanId and :vlan_id' if attributes.key?(:'vlanId') && attributes.key?(:'vlan_id')
+
+      self.vlan_id = attributes[:'vlan_id'] if attributes[:'vlan_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -158,7 +175,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         hostname_label == other.hostname_label &&
         ip_address == other.ip_address &&
-        vnic_id == other.vnic_id
+        vnic_id == other.vnic_id &&
+        vlan_id == other.vlan_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -174,7 +192,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, hostname_label, ip_address, vnic_id].hash
+      [defined_tags, display_name, freeform_tags, hostname_label, ip_address, vnic_id, vlan_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

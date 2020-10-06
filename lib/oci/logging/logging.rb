@@ -1,0 +1,90 @@
+# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
+
+module OCI
+  module Logging
+    # Module containing models for requests made to, and responses received from,
+    # OCI Logging services
+    module Models
+    end
+  end
+end
+
+# Require models
+require 'oci/logging/models/action_types'
+require 'oci/logging/models/archiving'
+require 'oci/logging/models/category'
+require 'oci/logging/models/change_log_group_compartment_details'
+require 'oci/logging/models/change_log_log_group_details'
+require 'oci/logging/models/change_log_saved_search_compartment_details'
+require 'oci/logging/models/change_unified_agent_configuration_compartment_details'
+require 'oci/logging/models/configuration'
+require 'oci/logging/models/create_log_details'
+require 'oci/logging/models/create_log_group_details'
+require 'oci/logging/models/create_log_saved_search_details'
+require 'oci/logging/models/create_unified_agent_configuration_details'
+require 'oci/logging/models/grok_pattern'
+require 'oci/logging/models/group_association_details'
+require 'oci/logging/models/log'
+require 'oci/logging/models/log_group'
+require 'oci/logging/models/log_group_lifecycle_state'
+require 'oci/logging/models/log_group_summary'
+require 'oci/logging/models/log_included_search'
+require 'oci/logging/models/log_included_search_summary'
+require 'oci/logging/models/log_included_search_summary_collection'
+require 'oci/logging/models/log_lifecycle_state'
+require 'oci/logging/models/log_saved_search'
+require 'oci/logging/models/log_saved_search_lifecycle_state'
+require 'oci/logging/models/log_saved_search_summary'
+require 'oci/logging/models/log_saved_search_summary_collection'
+require 'oci/logging/models/log_summary'
+require 'oci/logging/models/oci_service'
+require 'oci/logging/models/operation_status'
+require 'oci/logging/models/operation_types'
+require 'oci/logging/models/parameter'
+require 'oci/logging/models/resource_type'
+require 'oci/logging/models/service_summary'
+require 'oci/logging/models/source'
+require 'oci/logging/models/source_update_details'
+require 'oci/logging/models/unified_agent_apache2_parser'
+require 'oci/logging/models/unified_agent_apache_error_parser'
+require 'oci/logging/models/unified_agent_auditd_parser'
+require 'oci/logging/models/unified_agent_configuration'
+require 'oci/logging/models/unified_agent_configuration_collection'
+require 'oci/logging/models/unified_agent_configuration_summary'
+require 'oci/logging/models/unified_agent_csv_parser'
+require 'oci/logging/models/unified_agent_grok_parser'
+require 'oci/logging/models/unified_agent_logging_configuration'
+require 'oci/logging/models/unified_agent_logging_destination'
+require 'oci/logging/models/unified_agent_logging_source'
+require 'oci/logging/models/unified_agent_msgpack_parser'
+require 'oci/logging/models/unified_agent_multiline_grok_parser'
+require 'oci/logging/models/unified_agent_multiline_parser'
+require 'oci/logging/models/unified_agent_none_parser'
+require 'oci/logging/models/unified_agent_parser'
+require 'oci/logging/models/unified_agent_regex_parser'
+require 'oci/logging/models/unified_agent_service_configuration_details'
+require 'oci/logging/models/unified_agent_service_configuration_states'
+require 'oci/logging/models/unified_agent_service_configuration_types'
+require 'oci/logging/models/unified_agent_syslog_parser'
+require 'oci/logging/models/unified_agent_tail_log_source'
+require 'oci/logging/models/unified_agent_tsv_parser'
+require 'oci/logging/models/unified_agent_windows_event_source'
+require 'oci/logging/models/unified_json_parser'
+require 'oci/logging/models/update_configuration_details'
+require 'oci/logging/models/update_log_details'
+require 'oci/logging/models/update_log_group_details'
+require 'oci/logging/models/update_log_saved_search_details'
+require 'oci/logging/models/update_unified_agent_configuration_details'
+require 'oci/logging/models/work_request'
+require 'oci/logging/models/work_request_error'
+require 'oci/logging/models/work_request_log'
+require 'oci/logging/models/work_request_resource'
+require 'oci/logging/models/work_request_summary'
+
+# Require generated clients
+require 'oci/logging/logging_management_client'
+require 'oci/logging/logging_management_client_composite_operations'
+
+# Require service utilities
+require 'oci/logging/util'

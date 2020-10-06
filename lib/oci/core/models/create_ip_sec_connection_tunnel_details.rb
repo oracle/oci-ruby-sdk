@@ -38,8 +38,6 @@ module OCI
     # Oracle generates a value for you. You can specify your own shared secret later if
     # you like with {#update_ip_sec_connection_tunnel_shared_secret update_ip_sec_connection_tunnel_shared_secret}.
     #
-    # Example: `EXAMPLEToUis6j1cp8GdVQxcmdfMO0yXMLilZTbYCMDGu4V8o`
-    #
     # @return [String]
     attr_accessor :shared_secret
 

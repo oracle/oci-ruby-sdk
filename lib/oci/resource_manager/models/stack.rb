@@ -15,6 +15,7 @@ module OCI
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -42,12 +43,15 @@ module OCI
     attr_accessor :description
 
     # The date and time at which the stack was created.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
     # @return [DateTime]
     attr_accessor :time_created
 
     # The current lifecycle state of the stack.
-    # For more information about resource states in Resource Manager, see
-    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#concepts).
+    # For more information about stack lifecycle states in Resource Manager, see
+    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#StackStates).
     #
     # @return [String]
     attr_reader :lifecycle_state
@@ -56,7 +60,7 @@ module OCI
     attr_accessor :config_source
 
     # Terraform variables associated with this resource.
-    # Maximum number of variables supported is 100.
+    # Maximum number of variables supported is 250.
     # The maximum size of each variable, including both name and value, is 4096 bytes.
     # Example: `{\"CompartmentId\": \"compartment-id-value\"}`
     #
@@ -74,8 +78,9 @@ module OCI
     # @return [String]
     attr_reader :stack_drift_status
 
-    # Date and time when the drift detection was last executed. Format is defined by RFC3339.
-    # Example: 2020-01-25T21:10:29.600Z
+    # The date and time when the drift detection was last executed.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_drift_last_checked
