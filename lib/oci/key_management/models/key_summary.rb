@@ -25,6 +25,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    PROTECTION_MODE_ENUM = [
+      PROTECTION_MODE_HSM = 'HSM'.freeze,
+      PROTECTION_MODE_SOFTWARE = 'SOFTWARE'.freeze,
+      PROTECTION_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the compartment that contains the key.
     # @return [String]
     attr_accessor :compartment_id
@@ -71,6 +77,15 @@ module OCI
     # @return [String]
     attr_accessor :vault_id
 
+    # The key's protection mode indicates how the key persists and where cryptographic operations that use the key are performed.
+    # A protection mode of `HSM` means that the key persists on a hardware security module (HSM) and all cryptographic operations are performed inside
+    # the HSM. A protection mode of `SOFTWARE` means that the key persists on the server, protected by the vault's RSA wrapping key which persists
+    # on the HSM. All cryptographic operations that use a key with a protection mode of `SOFTWARE` are performed on the server. By default,
+    # a key's protection mode is set to `HSM`. You can't change a key's protection mode after the key is created or imported.
+    #
+    # @return [String]
+    attr_reader :protection_mode
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -82,7 +97,8 @@ module OCI
         'id': :'id',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
-        'vault_id': :'vaultId'
+        'vault_id': :'vaultId',
+        'protection_mode': :'protectionMode'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,7 +114,8 @@ module OCI
         'id': :'String',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
-        'vault_id': :'String'
+        'vault_id': :'String',
+        'protection_mode': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -117,6 +134,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
+    # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -166,6 +184,12 @@ module OCI
       raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
 
       self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
+
+      self.protection_mode = attributes[:'protectionMode'] if attributes[:'protectionMode']
+
+      raise 'You cannot provide both :protectionMode and :protection_mode' if attributes.key?(:'protectionMode') && attributes.key?(:'protection_mode')
+
+      self.protection_mode = attributes[:'protection_mode'] if attributes[:'protection_mode']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -179,6 +203,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] protection_mode Object to be assigned
+    def protection_mode=(protection_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if protection_mode && !PROTECTION_MODE_ENUM.include?(protection_mode)
+        OCI.logger.debug("Unknown value for 'protection_mode' [" + protection_mode + "]. Mapping to 'PROTECTION_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @protection_mode = PROTECTION_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @protection_mode = protection_mode
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -199,7 +236,8 @@ module OCI
         id == other.id &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
-        vault_id == other.vault_id
+        vault_id == other.vault_id &&
+        protection_mode == other.protection_mode
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -215,7 +253,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, time_created, vault_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, time_created, vault_id, protection_mode].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

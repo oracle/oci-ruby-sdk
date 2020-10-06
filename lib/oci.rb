@@ -63,6 +63,18 @@ require 'oci/secrets/secrets'
 require 'oci/cims/cims'
 require 'oci/data_safe/data_safe'
 require 'oci/mysql/mysql'
+require 'oci/data_integration/data_integration'
+require 'oci/usage_api/usage_api'
+require 'oci/ocvp/ocvp'
+require 'oci/blockchain/blockchain'
+require 'oci/management_agent/management_agent'
+require 'oci/loggingingestion/loggingingestion'
+require 'oci/logging/logging'
+require 'oci/management_dashboard/management_dashboard'
+require 'oci/loggingsearch/loggingsearch'
+require 'oci/log_analytics/log_analytics'
+require 'oci/sch/sch'
+require 'oci/cloud_guard/cloud_guard'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

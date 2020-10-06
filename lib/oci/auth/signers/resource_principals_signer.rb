@@ -6,15 +6,30 @@ require 'oci/base_signer'
 module OCI
   module Auth
     # signers
+    # rubocop:disable Metrics/AbcSize
     module Signers
       OCI_RESOURCE_PRINCIPAL_VERSION = 'OCI_RESOURCE_PRINCIPAL_VERSION'.freeze
       OCI_RESOURCE_PRINCIPAL_RPT_ENDPOINT = 'OCI_RESOURCE_PRINCIPAL_RPT_ENDPOINT'.freeze
       OCI_RESOURCE_PRINCIPAL_RPST_ENDPOINT = 'OCI_RESOURCE_PRINCIPAL_RPST_ENDPOINT'.freeze
+      OCI_RESOURCE_PRINCIPAL_RPST = 'OCI_RESOUCE_RPINCIPAL_RPST'.freeze
+      OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM = 'OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM'.freeze
+      OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM_PASSPHRASE = 'OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM_PASSPHRASE'.freeze
+      OCI_RESOURCE_PRINCIPAL_REGION = 'OCI_RESOURCE_PRINCIPAL_REGION'.freeze
 
       def self.resource_principals_signer(resource_principal_token_path_provider: nil)
         rp_version = ENV[OCI_RESOURCE_PRINCIPAL_VERSION]
-
-        if rp_version == '1.1'
+        if rp_version == '2.2'
+          session_token = ENV[OCI_RESOURCE_PRINCIPAL_RPST]
+          private_key = ENV[OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM]
+          private_key_passphrase = ENV[OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM_PASSPHRASE]
+          region = ENV[OCI_RESOURCE_PRINCIPAL_REGION]
+          OCI::Auth::Signers::EphemeralResourcePrincipalsSigner.new(
+            session_token: session_token,
+            private_key: private_key,
+            private_key_passphrase: private_key_passphrase,
+            region: region
+          )
+        elsif rp_version == '1.1'
           #
           # This signer takes the following parameters
           # - OCI_RESOURCE_PRINCIPAL_RPT_ENDPOINT
@@ -37,5 +52,6 @@ module OCI
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end

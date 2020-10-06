@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Updates the Exadata infrastructure.
+  # Updates the Exadata Cloud@Customer infrastructure.
   #
   class Database::Models::UpdateExadataInfrastructureDetails
     # The IP address for the first control plane server.
@@ -35,6 +35,10 @@ module OCI
     # The corporate network proxy for access to the control plane network.
     # @return [String]
     attr_accessor :corporate_proxy
+
+    # The list of contacts for the Exadata infrastructure.
+    # @return [Array<OCI::Database::Models::ExadataInfrastructureContact>]
+    attr_accessor :contacts
 
     # The list of DNS server IP addresses. Maximum of 3 allowed.
     # @return [Array<String>]
@@ -74,6 +78,7 @@ module OCI
         'admin_network_cidr': :'adminNetworkCIDR',
         'infini_band_network_cidr': :'infiniBandNetworkCIDR',
         'corporate_proxy': :'corporateProxy',
+        'contacts': :'contacts',
         'dns_server': :'dnsServer',
         'ntp_server': :'ntpServer',
         'time_zone': :'timeZone',
@@ -94,6 +99,7 @@ module OCI
         'admin_network_cidr': :'String',
         'infini_band_network_cidr': :'String',
         'corporate_proxy': :'String',
+        'contacts': :'Array<OCI::Database::Models::ExadataInfrastructureContact>',
         'dns_server': :'Array<String>',
         'ntp_server': :'Array<String>',
         'time_zone': :'String',
@@ -116,6 +122,7 @@ module OCI
     # @option attributes [String] :admin_network_cidr The value to assign to the {#admin_network_cidr} property
     # @option attributes [String] :infini_band_network_cidr The value to assign to the {#infini_band_network_cidr} property
     # @option attributes [String] :corporate_proxy The value to assign to the {#corporate_proxy} property
+    # @option attributes [Array<OCI::Database::Models::ExadataInfrastructureContact>] :contacts The value to assign to the {#contacts} property
     # @option attributes [Array<String>] :dns_server The value to assign to the {#dns_server} property
     # @option attributes [Array<String>] :ntp_server The value to assign to the {#ntp_server} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
@@ -160,6 +167,8 @@ module OCI
       raise 'You cannot provide both :corporateProxy and :corporate_proxy' if attributes.key?(:'corporateProxy') && attributes.key?(:'corporate_proxy')
 
       self.corporate_proxy = attributes[:'corporate_proxy'] if attributes[:'corporate_proxy']
+
+      self.contacts = attributes[:'contacts'] if attributes[:'contacts']
 
       self.dns_server = attributes[:'dnsServer'] if attributes[:'dnsServer']
 
@@ -210,6 +219,7 @@ module OCI
         admin_network_cidr == other.admin_network_cidr &&
         infini_band_network_cidr == other.infini_band_network_cidr &&
         corporate_proxy == other.corporate_proxy &&
+        contacts == other.contacts &&
         dns_server == other.dns_server &&
         ntp_server == other.ntp_server &&
         time_zone == other.time_zone &&
@@ -230,7 +240,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_zone, freeform_tags, defined_tags].hash
+      [cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, dns_server, ntp_server, time_zone, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

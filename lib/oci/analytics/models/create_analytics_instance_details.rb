@@ -52,6 +52,9 @@ module OCI
     # @return [String]
     attr_accessor :email_notification
 
+    # @return [OCI::Analytics::Models::NetworkEndpointDetails]
+    attr_accessor :network_endpoint_details
+
     # IDCS access token identifying a stripe and service administrator user.
     #
     # @return [String]
@@ -84,6 +87,7 @@ module OCI
         'capacity': :'capacity',
         'license_type': :'licenseType',
         'email_notification': :'emailNotification',
+        'network_endpoint_details': :'networkEndpointDetails',
         'idcs_access_token': :'idcsAccessToken',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags'
@@ -102,6 +106,7 @@ module OCI
         'capacity': :'OCI::Analytics::Models::Capacity',
         'license_type': :'String',
         'email_notification': :'String',
+        'network_endpoint_details': :'OCI::Analytics::Models::NetworkEndpointDetails',
         'idcs_access_token': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>'
@@ -122,6 +127,7 @@ module OCI
     # @option attributes [OCI::Analytics::Models::Capacity] :capacity The value to assign to the {#capacity} property
     # @option attributes [String] :license_type The value to assign to the {#license_type} property
     # @option attributes [String] :email_notification The value to assign to the {#email_notification} property
+    # @option attributes [OCI::Analytics::Models::NetworkEndpointDetails] :network_endpoint_details The value to assign to the {#network_endpoint_details} property
     # @option attributes [String] :idcs_access_token The value to assign to the {#idcs_access_token} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -160,6 +166,12 @@ module OCI
       raise 'You cannot provide both :emailNotification and :email_notification' if attributes.key?(:'emailNotification') && attributes.key?(:'email_notification')
 
       self.email_notification = attributes[:'email_notification'] if attributes[:'email_notification']
+
+      self.network_endpoint_details = attributes[:'networkEndpointDetails'] if attributes[:'networkEndpointDetails']
+
+      raise 'You cannot provide both :networkEndpointDetails and :network_endpoint_details' if attributes.key?(:'networkEndpointDetails') && attributes.key?(:'network_endpoint_details')
+
+      self.network_endpoint_details = attributes[:'network_endpoint_details'] if attributes[:'network_endpoint_details']
 
       self.idcs_access_token = attributes[:'idcsAccessToken'] if attributes[:'idcsAccessToken']
 
@@ -214,6 +226,7 @@ module OCI
         capacity == other.capacity &&
         license_type == other.license_type &&
         email_notification == other.email_notification &&
+        network_endpoint_details == other.network_endpoint_details &&
         idcs_access_token == other.idcs_access_token &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags
@@ -232,7 +245,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, description, compartment_id, feature_set, capacity, license_type, email_notification, idcs_access_token, defined_tags, freeform_tags].hash
+      [name, description, compartment_id, feature_set, capacity, license_type, email_notification, network_endpoint_details, idcs_access_token, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

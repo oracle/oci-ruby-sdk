@@ -5,9 +5,12 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Ticket updated
+  # Details about the ticket updated.
+  #
+  # **Caution:** Avoid using any confidential information when you supply string values using the API.
+  #
   class Cims::Models::UpdateTicketDetails
-    # **[Required]** List of resources
+    # **[Required]** The list of resources.
     # @return [Object]
     attr_accessor :resource
 

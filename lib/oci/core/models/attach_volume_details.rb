@@ -33,7 +33,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_shareable
 
-    # **[Required]** The type of volume. The only supported value are \"iscsi\" and \"paravirtualized\".
+    # **[Required]** The type of volume. The only supported values are \"iscsi\" and \"paravirtualized\".
     # @return [String]
     attr_accessor :type
 

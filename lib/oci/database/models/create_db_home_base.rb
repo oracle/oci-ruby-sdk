@@ -15,12 +15,31 @@ module OCI
       SOURCE_NONE = 'NONE'.freeze,
       SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze,
       SOURCE_DATABASE = 'DATABASE'.freeze,
+      SOURCE_VM_CLUSTER_BACKUP = 'VM_CLUSTER_BACKUP'.freeze,
       SOURCE_VM_CLUSTER_NEW = 'VM_CLUSTER_NEW'.freeze
     ].freeze
 
     # The user-provided name of the Database Home.
     # @return [String]
     attr_accessor :display_name
+
+    # The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
+    # @return [String]
+    attr_accessor :database_software_image_id
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
     # The source of database: NONE for creating a new database. DB_BACKUP for creating a new database by restoring from a database backup.
     #
@@ -32,6 +51,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'database_software_image_id': :'databaseSoftwareImageId',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
         'source': :'source'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -42,6 +64,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'database_software_image_id': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'source': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -57,6 +82,7 @@ module OCI
 
       return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdFromDatabaseDetails' if type == 'DATABASE'
       return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdFromBackupDetails' if type == 'DB_BACKUP'
+      return 'OCI::Database::Models::CreateDbHomeWithVmClusterIdFromBackupDetails' if type == 'VM_CLUSTER_BACKUP'
       return 'OCI::Database::Models::CreateDbHomeWithDbSystemIdDetails' if type == 'NONE'
       return 'OCI::Database::Models::CreateDbHomeWithVmClusterIdDetails' if type == 'VM_CLUSTER_NEW'
 
@@ -72,6 +98,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :source The value to assign to the {#source} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -84,6 +113,24 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.database_software_image_id = attributes[:'databaseSoftwareImageId'] if attributes[:'databaseSoftwareImageId']
+
+      raise 'You cannot provide both :databaseSoftwareImageId and :database_software_image_id' if attributes.key?(:'databaseSoftwareImageId') && attributes.key?(:'database_software_image_id')
+
+      self.database_software_image_id = attributes[:'database_software_image_id'] if attributes[:'database_software_image_id']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
       self.source = attributes[:'source'] if attributes[:'source']
       self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
@@ -109,6 +156,9 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        database_software_image_id == other.database_software_image_id &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
         source == other.source
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -125,7 +175,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, source].hash
+      [display_name, database_software_image_id, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

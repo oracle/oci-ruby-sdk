@@ -19,6 +19,7 @@ module OCI
       ACTION_ALLOW = 'ALLOW'.freeze,
       ACTION_CONTROL_ACCESS_USING_HTTP_METHODS = 'CONTROL_ACCESS_USING_HTTP_METHODS'.freeze,
       ACTION_REDIRECT = 'REDIRECT'.freeze,
+      ACTION_HTTP_HEADER = 'HTTP_HEADER'.freeze,
       ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -59,6 +60,7 @@ module OCI
       return 'OCI::LoadBalancer::Models::RemoveHttpResponseHeaderRule' if type == 'REMOVE_HTTP_RESPONSE_HEADER'
       return 'OCI::LoadBalancer::Models::ControlAccessUsingHttpMethodsRule' if type == 'CONTROL_ACCESS_USING_HTTP_METHODS'
       return 'OCI::LoadBalancer::Models::AllowRule' if type == 'ALLOW'
+      return 'OCI::LoadBalancer::Models::HttpHeaderRule' if type == 'HTTP_HEADER'
       return 'OCI::LoadBalancer::Models::AddHttpResponseHeaderRule' if type == 'ADD_HTTP_RESPONSE_HEADER'
       return 'OCI::LoadBalancer::Models::ExtendHttpResponseHeaderValueRule' if type == 'EXTEND_HTTP_RESPONSE_HEADER_VALUE'
 

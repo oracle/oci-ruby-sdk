@@ -5,7 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Ticket created
+  # Details relevant to the support ticket.
+  #
+  # **Caution:** Avoid using any confidential information when you supply string values using the API.
+  #
   class Cims::Models::CreateTicketDetails
     SEVERITY_ENUM = [
       SEVERITY_HIGHEST = 'HIGHEST'.freeze,
@@ -13,21 +16,25 @@ module OCI
       SEVERITY_MEDIUM = 'MEDIUM'.freeze
     ].freeze
 
-    # **[Required]** Severity of the ticket. eg: HIGH, MEDIUM
+    # **[Required]** The severity of the support ticket.
     # @return [String]
     attr_reader :severity
 
-    # List of resources
+    # The list of resources.
     # @return [Array<OCI::Cims::Models::CreateResourceDetails>]
     attr_accessor :resource_list
 
-    # **[Required]** Title of ticket
+    # **[Required]** The title of the support ticket.
     # @return [String]
     attr_accessor :title
 
-    # **[Required]** Details of ticket
+    # **[Required]** The description of the support ticket.
     # @return [String]
     attr_accessor :description
+
+    # The context from where the ticket is getting created.
+    # @return [OCI::Cims::Models::ContextualData]
+    attr_accessor :contextual_data
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -36,7 +43,8 @@ module OCI
         'severity': :'severity',
         'resource_list': :'resourceList',
         'title': :'title',
-        'description': :'description'
+        'description': :'description',
+        'contextual_data': :'contextualData'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,7 +56,8 @@ module OCI
         'severity': :'String',
         'resource_list': :'Array<OCI::Cims::Models::CreateResourceDetails>',
         'title': :'String',
-        'description': :'String'
+        'description': :'String',
+        'contextual_data': :'OCI::Cims::Models::ContextualData'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -63,6 +72,7 @@ module OCI
     # @option attributes [Array<OCI::Cims::Models::CreateResourceDetails>] :resource_list The value to assign to the {#resource_list} property
     # @option attributes [String] :title The value to assign to the {#title} property
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [OCI::Cims::Models::ContextualData] :contextual_data The value to assign to the {#contextual_data} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -80,6 +90,12 @@ module OCI
       self.title = attributes[:'title'] if attributes[:'title']
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.contextual_data = attributes[:'contextualData'] if attributes[:'contextualData']
+
+      raise 'You cannot provide both :contextualData and :contextual_data' if attributes.key?(:'contextualData') && attributes.key?(:'contextual_data')
+
+      self.contextual_data = attributes[:'contextual_data'] if attributes[:'contextual_data']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -104,7 +120,8 @@ module OCI
         severity == other.severity &&
         resource_list == other.resource_list &&
         title == other.title &&
-        description == other.description
+        description == other.description &&
+        contextual_data == other.contextual_data
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -120,7 +137,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [severity, resource_list, title, description].hash
+      [severity, resource_list, title, description, contextual_data].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

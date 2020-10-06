@@ -11,11 +11,32 @@ module OCI
     # @return [OCI::Database::Models::PatchDetails]
     attr_accessor :db_version
 
+    # List of one-off patches for Database Homes.
+    # @return [Array<String>]
+    attr_accessor :one_off_patches
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'db_version': :'dbVersion'
+        'db_version': :'dbVersion',
+        'one_off_patches': :'oneOffPatches',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +45,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'db_version': :'OCI::Database::Models::PatchDetails'
+        'db_version': :'OCI::Database::Models::PatchDetails',
+        'one_off_patches': :'Array<String>',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +60,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::Database::Models::PatchDetails] :db_version The value to assign to the {#db_version} property
+    # @option attributes [Array<String>] :one_off_patches The value to assign to the {#one_off_patches} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -47,6 +74,24 @@ module OCI
       raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
 
       self.db_version = attributes[:'db_version'] if attributes[:'db_version']
+
+      self.one_off_patches = attributes[:'oneOffPatches'] if attributes[:'oneOffPatches']
+
+      raise 'You cannot provide both :oneOffPatches and :one_off_patches' if attributes.key?(:'oneOffPatches') && attributes.key?(:'one_off_patches')
+
+      self.one_off_patches = attributes[:'one_off_patches'] if attributes[:'one_off_patches']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +105,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        db_version == other.db_version
+        db_version == other.db_version &&
+        one_off_patches == other.one_off_patches &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +124,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_version].hash
+      [db_version, one_off_patches, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

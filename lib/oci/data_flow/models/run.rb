@@ -27,6 +27,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    # An Oracle Cloud Infrastructure URI of an archive.zip file containing custom dependencies that may be used to support the execution a Python, Java, or Scala application.
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
+    #
+    # @return [String]
+    attr_accessor :archive_uri
+
     # The arguments passed to the running application as command line arguments.  An argument is
     # either a plain text or a placeholder. Placeholders are replaced using values from the parameters
     # map.  Each placeholder specified must be represented in the parameters map else the request
@@ -55,7 +61,7 @@ module OCI
     attr_accessor :compartment_id
 
     # The Spark configuration passed to the running process.
-    # See https://spark.apache.org/docs/latest/configuration.html#available-properties
+    # See https://spark.apache.org/docs/latest/configuration.html#available-properties.
     # Example: { \"spark.app.name\" : \"My App Name\", \"spark.shuffle.io.maxRetries\" : \"4\" }
     # Note: Not all Spark properties are permitted to be set.  Attempting to set a property that is
     # not allowed to be overwritten will cause a 400 status to be returned.
@@ -95,7 +101,7 @@ module OCI
     attr_accessor :executor_shape
 
     # **[Required]** An Oracle Cloud Infrastructure URI of the file containing the application to execute.
-    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
     #
     # @return [String]
     attr_accessor :file_uri
@@ -128,7 +134,7 @@ module OCI
     attr_reader :lifecycle_state
 
     # An Oracle Cloud Infrastructure URI of the bucket where the Spark job logs are to be uploaded.
-    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
     #
     # @return [String]
     attr_accessor :logs_bucket_uri
@@ -138,7 +144,7 @@ module OCI
     # @return [Integer]
     attr_accessor :num_executors
 
-    # Unique Oracle-assigned identifier for the request.
+    # Unique Oracle assigned identifier for the request.
     # If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [String]
@@ -162,6 +168,35 @@ module OCI
     #
     # @return [Array<OCI::DataFlow::Models::ApplicationParameter>]
     attr_accessor :parameters
+
+    # An array of DNS zone names.
+    # Example: `[ \"app.examplecorp.com\", \"app.examplecorp2.com\" ]`
+    #
+    # @return [Array<String>]
+    attr_accessor :private_endpoint_dns_zones
+
+    # The maximum number of hosts to be accessed through the private endpoint. This value is used
+    # to calculate the relevant CIDR block and should be a multiple of 256.  If the value is not a
+    # multiple of 256, it is rounded up to the next multiple of 256. For example, 300 is rounded up
+    # to 512.
+    #
+    # @return [Integer]
+    attr_accessor :private_endpoint_max_host_count
+
+    # An array of network security group OCIDs.
+    #
+    # @return [Array<String>]
+    attr_accessor :private_endpoint_nsg_ids
+
+    # The OCID of a private endpoint.
+    #
+    # @return [String]
+    attr_accessor :private_endpoint_id
+
+    # The OCID of a subnet.
+    #
+    # @return [String]
+    attr_accessor :private_endpoint_subnet_id
 
     # The duration of the run in milliseconds.
     #
@@ -192,7 +227,7 @@ module OCI
 
     # An Oracle Cloud Infrastructure URI of the bucket to be used as default warehouse directory
     # for BATCH SQL runs.
-    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
     #
     # @return [String]
     attr_accessor :warehouse_bucket_uri
@@ -201,6 +236,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'archive_uri': :'archiveUri',
         'arguments': :'arguments',
         'application_id': :'applicationId',
         'class_name': :'className',
@@ -224,6 +260,11 @@ module OCI
         'owner_principal_id': :'ownerPrincipalId',
         'owner_user_name': :'ownerUserName',
         'parameters': :'parameters',
+        'private_endpoint_dns_zones': :'privateEndpointDnsZones',
+        'private_endpoint_max_host_count': :'privateEndpointMaxHostCount',
+        'private_endpoint_nsg_ids': :'privateEndpointNsgIds',
+        'private_endpoint_id': :'privateEndpointId',
+        'private_endpoint_subnet_id': :'privateEndpointSubnetId',
         'run_duration_in_milliseconds': :'runDurationInMilliseconds',
         'spark_version': :'sparkVersion',
         'time_created': :'timeCreated',
@@ -238,6 +279,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'archive_uri': :'String',
         'arguments': :'Array<String>',
         'application_id': :'String',
         'class_name': :'String',
@@ -261,6 +303,11 @@ module OCI
         'owner_principal_id': :'String',
         'owner_user_name': :'String',
         'parameters': :'Array<OCI::DataFlow::Models::ApplicationParameter>',
+        'private_endpoint_dns_zones': :'Array<String>',
+        'private_endpoint_max_host_count': :'Integer',
+        'private_endpoint_nsg_ids': :'Array<String>',
+        'private_endpoint_id': :'String',
+        'private_endpoint_subnet_id': :'String',
         'run_duration_in_milliseconds': :'Integer',
         'spark_version': :'String',
         'time_created': :'DateTime',
@@ -277,6 +324,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :archive_uri The value to assign to the {#archive_uri} property
     # @option attributes [Array<String>] :arguments The value to assign to the {#arguments} property
     # @option attributes [String] :application_id The value to assign to the {#application_id} property
     # @option attributes [String] :class_name The value to assign to the {#class_name} property
@@ -300,6 +348,11 @@ module OCI
     # @option attributes [String] :owner_principal_id The value to assign to the {#owner_principal_id} property
     # @option attributes [String] :owner_user_name The value to assign to the {#owner_user_name} property
     # @option attributes [Array<OCI::DataFlow::Models::ApplicationParameter>] :parameters The value to assign to the {#parameters} property
+    # @option attributes [Array<String>] :private_endpoint_dns_zones The value to assign to the {#private_endpoint_dns_zones} property
+    # @option attributes [Integer] :private_endpoint_max_host_count The value to assign to the {#private_endpoint_max_host_count} property
+    # @option attributes [Array<String>] :private_endpoint_nsg_ids The value to assign to the {#private_endpoint_nsg_ids} property
+    # @option attributes [String] :private_endpoint_id The value to assign to the {#private_endpoint_id} property
+    # @option attributes [String] :private_endpoint_subnet_id The value to assign to the {#private_endpoint_subnet_id} property
     # @option attributes [Integer] :run_duration_in_milliseconds The value to assign to the {#run_duration_in_milliseconds} property
     # @option attributes [String] :spark_version The value to assign to the {#spark_version} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -311,6 +364,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.archive_uri = attributes[:'archiveUri'] if attributes[:'archiveUri']
+
+      raise 'You cannot provide both :archiveUri and :archive_uri' if attributes.key?(:'archiveUri') && attributes.key?(:'archive_uri')
+
+      self.archive_uri = attributes[:'archive_uri'] if attributes[:'archive_uri']
 
       self.arguments = attributes[:'arguments'] if attributes[:'arguments']
 
@@ -430,6 +489,36 @@ module OCI
 
       self.parameters = attributes[:'parameters'] if attributes[:'parameters']
 
+      self.private_endpoint_dns_zones = attributes[:'privateEndpointDnsZones'] if attributes[:'privateEndpointDnsZones']
+
+      raise 'You cannot provide both :privateEndpointDnsZones and :private_endpoint_dns_zones' if attributes.key?(:'privateEndpointDnsZones') && attributes.key?(:'private_endpoint_dns_zones')
+
+      self.private_endpoint_dns_zones = attributes[:'private_endpoint_dns_zones'] if attributes[:'private_endpoint_dns_zones']
+
+      self.private_endpoint_max_host_count = attributes[:'privateEndpointMaxHostCount'] if attributes[:'privateEndpointMaxHostCount']
+
+      raise 'You cannot provide both :privateEndpointMaxHostCount and :private_endpoint_max_host_count' if attributes.key?(:'privateEndpointMaxHostCount') && attributes.key?(:'private_endpoint_max_host_count')
+
+      self.private_endpoint_max_host_count = attributes[:'private_endpoint_max_host_count'] if attributes[:'private_endpoint_max_host_count']
+
+      self.private_endpoint_nsg_ids = attributes[:'privateEndpointNsgIds'] if attributes[:'privateEndpointNsgIds']
+
+      raise 'You cannot provide both :privateEndpointNsgIds and :private_endpoint_nsg_ids' if attributes.key?(:'privateEndpointNsgIds') && attributes.key?(:'private_endpoint_nsg_ids')
+
+      self.private_endpoint_nsg_ids = attributes[:'private_endpoint_nsg_ids'] if attributes[:'private_endpoint_nsg_ids']
+
+      self.private_endpoint_id = attributes[:'privateEndpointId'] if attributes[:'privateEndpointId']
+
+      raise 'You cannot provide both :privateEndpointId and :private_endpoint_id' if attributes.key?(:'privateEndpointId') && attributes.key?(:'private_endpoint_id')
+
+      self.private_endpoint_id = attributes[:'private_endpoint_id'] if attributes[:'private_endpoint_id']
+
+      self.private_endpoint_subnet_id = attributes[:'privateEndpointSubnetId'] if attributes[:'privateEndpointSubnetId']
+
+      raise 'You cannot provide both :privateEndpointSubnetId and :private_endpoint_subnet_id' if attributes.key?(:'privateEndpointSubnetId') && attributes.key?(:'private_endpoint_subnet_id')
+
+      self.private_endpoint_subnet_id = attributes[:'private_endpoint_subnet_id'] if attributes[:'private_endpoint_subnet_id']
+
       self.run_duration_in_milliseconds = attributes[:'runDurationInMilliseconds'] if attributes[:'runDurationInMilliseconds']
 
       raise 'You cannot provide both :runDurationInMilliseconds and :run_duration_in_milliseconds' if attributes.key?(:'runDurationInMilliseconds') && attributes.key?(:'run_duration_in_milliseconds')
@@ -504,6 +593,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        archive_uri == other.archive_uri &&
         arguments == other.arguments &&
         application_id == other.application_id &&
         class_name == other.class_name &&
@@ -527,6 +617,11 @@ module OCI
         owner_principal_id == other.owner_principal_id &&
         owner_user_name == other.owner_user_name &&
         parameters == other.parameters &&
+        private_endpoint_dns_zones == other.private_endpoint_dns_zones &&
+        private_endpoint_max_host_count == other.private_endpoint_max_host_count &&
+        private_endpoint_nsg_ids == other.private_endpoint_nsg_ids &&
+        private_endpoint_id == other.private_endpoint_id &&
+        private_endpoint_subnet_id == other.private_endpoint_subnet_id &&
         run_duration_in_milliseconds == other.run_duration_in_milliseconds &&
         spark_version == other.spark_version &&
         time_created == other.time_created &&
@@ -548,7 +643,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [arguments, application_id, class_name, compartment_id, configuration, data_read_in_bytes, data_written_in_bytes, defined_tags, display_name, driver_shape, executor_shape, file_uri, freeform_tags, id, language, lifecycle_details, lifecycle_state, logs_bucket_uri, num_executors, opc_request_id, owner_principal_id, owner_user_name, parameters, run_duration_in_milliseconds, spark_version, time_created, time_updated, total_o_cpu, warehouse_bucket_uri].hash
+      [archive_uri, arguments, application_id, class_name, compartment_id, configuration, data_read_in_bytes, data_written_in_bytes, defined_tags, display_name, driver_shape, executor_shape, file_uri, freeform_tags, id, language, lifecycle_details, lifecycle_state, logs_bucket_uri, num_executors, opc_request_id, owner_principal_id, owner_user_name, parameters, private_endpoint_dns_zones, private_endpoint_max_host_count, private_endpoint_nsg_ids, private_endpoint_id, private_endpoint_subnet_id, run_duration_in_milliseconds, spark_version, time_created, time_updated, total_o_cpu, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

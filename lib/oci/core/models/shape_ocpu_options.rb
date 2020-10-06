@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The possible configurations for the number of OCPUs available to an instance of this shape.
-  # If this field is null, then all instances of this shape have a fixed
-  # number of OCPUs equal to `ocpus`.
+  # For a flexible shape, the number of OCPUs available for instances that use this shape.
+  #
+  # If this field is null, then this shape has a fixed number of OCPUs equal to `ocpus`.
   #
   class Core::Models::ShapeOcpuOptions
     # The minimum number of OCPUs.

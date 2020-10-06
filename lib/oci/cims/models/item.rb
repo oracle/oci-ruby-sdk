@@ -5,18 +5,18 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Item
+  # Details about the item object.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Cims::Models::Item
-    # **[Required]** Unique ID that identifies an Item
+    # **[Required]** Unique identifier for the item.
     # @return [String]
     attr_accessor :item_key
 
-    # Name of item
+    # The display name of the item.
     # @return [String]
     attr_accessor :name
 
-    # Type of item. eg: ActivityItem, LimitItem
+    # The type of the support request.
     # @return [String]
     attr_accessor :type
 

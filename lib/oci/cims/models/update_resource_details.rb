@@ -5,7 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Update Resource details
+  # Details about updates to the resource.
+  #
+  # **Caution:** Avoid using any confidential information when you supply string values using the API.
+  #
   class Cims::Models::UpdateResourceDetails
     # @return [OCI::Cims::Models::UpdateItemDetails]
     attr_accessor :item

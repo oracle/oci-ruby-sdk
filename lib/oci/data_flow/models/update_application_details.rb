@@ -21,7 +21,7 @@ module OCI
     attr_accessor :class_name
 
     # An Oracle Cloud Infrastructure URI of the file containing the application to execute.
-    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
     #
     # @return [String]
     attr_accessor :file_uri
@@ -36,6 +36,12 @@ module OCI
     # @return [String]
     attr_reader :language
 
+    # An Oracle Cloud Infrastructure URI of an archive.zip file containing custom dependencies that may be used to support the execution a Python, Java, or Scala application.
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
+    #
+    # @return [String]
+    attr_accessor :archive_uri
+
     # The arguments passed to the running application as command line arguments.  An argument is
     # either a plain text or a placeholder. Placeholders are replaced using values from the parameters
     # map.  Each placeholder specified must be represented in the parameters map else the request
@@ -49,7 +55,7 @@ module OCI
     attr_accessor :arguments
 
     # The Spark configuration passed to the running process.
-    # See https://spark.apache.org/docs/latest/configuration.html#available-properties
+    # See https://spark.apache.org/docs/latest/configuration.html#available-properties.
     # Example: { \"spark.app.name\" : \"My App Name\", \"spark.shuffle.io.maxRetries\" : \"4\" }
     # Note: Not all Spark properties are permitted to be set.  Attempting to set a property that is
     # not allowed to be overwritten will cause a 400 status to be returned.
@@ -91,7 +97,7 @@ module OCI
     attr_accessor :freeform_tags
 
     # An Oracle Cloud Infrastructure URI of the bucket where the Spark job logs are to be uploaded.
-    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
     #
     # @return [String]
     attr_accessor :logs_bucket_uri
@@ -109,9 +115,14 @@ module OCI
     # @return [Array<OCI::DataFlow::Models::ApplicationParameter>]
     attr_accessor :parameters
 
+    # The OCID of a private endpoint.
+    #
+    # @return [String]
+    attr_accessor :private_endpoint_id
+
     # An Oracle Cloud Infrastructure URI of the bucket to be used as default warehouse directory
     # for BATCH SQL runs.
-    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
     #
     # @return [String]
     attr_accessor :warehouse_bucket_uri
@@ -124,6 +135,7 @@ module OCI
         'file_uri': :'fileUri',
         'spark_version': :'sparkVersion',
         'language': :'language',
+        'archive_uri': :'archiveUri',
         'arguments': :'arguments',
         'configuration': :'configuration',
         'defined_tags': :'definedTags',
@@ -135,6 +147,7 @@ module OCI
         'logs_bucket_uri': :'logsBucketUri',
         'num_executors': :'numExecutors',
         'parameters': :'parameters',
+        'private_endpoint_id': :'privateEndpointId',
         'warehouse_bucket_uri': :'warehouseBucketUri'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -148,6 +161,7 @@ module OCI
         'file_uri': :'String',
         'spark_version': :'String',
         'language': :'String',
+        'archive_uri': :'String',
         'arguments': :'Array<String>',
         'configuration': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -159,6 +173,7 @@ module OCI
         'logs_bucket_uri': :'String',
         'num_executors': :'Integer',
         'parameters': :'Array<OCI::DataFlow::Models::ApplicationParameter>',
+        'private_endpoint_id': :'String',
         'warehouse_bucket_uri': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -174,6 +189,7 @@ module OCI
     # @option attributes [String] :file_uri The value to assign to the {#file_uri} property
     # @option attributes [String] :spark_version The value to assign to the {#spark_version} property
     # @option attributes [String] :language The value to assign to the {#language} property
+    # @option attributes [String] :archive_uri The value to assign to the {#archive_uri} property
     # @option attributes [Array<String>] :arguments The value to assign to the {#arguments} property
     # @option attributes [Hash<String, String>] :configuration The value to assign to the {#configuration} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -185,6 +201,7 @@ module OCI
     # @option attributes [String] :logs_bucket_uri The value to assign to the {#logs_bucket_uri} property
     # @option attributes [Integer] :num_executors The value to assign to the {#num_executors} property
     # @option attributes [Array<OCI::DataFlow::Models::ApplicationParameter>] :parameters The value to assign to the {#parameters} property
+    # @option attributes [String] :private_endpoint_id The value to assign to the {#private_endpoint_id} property
     # @option attributes [String] :warehouse_bucket_uri The value to assign to the {#warehouse_bucket_uri} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -211,6 +228,12 @@ module OCI
       self.spark_version = attributes[:'spark_version'] if attributes[:'spark_version']
 
       self.language = attributes[:'language'] if attributes[:'language']
+
+      self.archive_uri = attributes[:'archiveUri'] if attributes[:'archiveUri']
+
+      raise 'You cannot provide both :archiveUri and :archive_uri' if attributes.key?(:'archiveUri') && attributes.key?(:'archive_uri')
+
+      self.archive_uri = attributes[:'archive_uri'] if attributes[:'archive_uri']
 
       self.arguments = attributes[:'arguments'] if attributes[:'arguments']
 
@@ -262,6 +285,12 @@ module OCI
 
       self.parameters = attributes[:'parameters'] if attributes[:'parameters']
 
+      self.private_endpoint_id = attributes[:'privateEndpointId'] if attributes[:'privateEndpointId']
+
+      raise 'You cannot provide both :privateEndpointId and :private_endpoint_id' if attributes.key?(:'privateEndpointId') && attributes.key?(:'private_endpoint_id')
+
+      self.private_endpoint_id = attributes[:'private_endpoint_id'] if attributes[:'private_endpoint_id']
+
       self.warehouse_bucket_uri = attributes[:'warehouseBucketUri'] if attributes[:'warehouseBucketUri']
 
       raise 'You cannot provide both :warehouseBucketUri and :warehouse_bucket_uri' if attributes.key?(:'warehouseBucketUri') && attributes.key?(:'warehouse_bucket_uri')
@@ -292,6 +321,7 @@ module OCI
         file_uri == other.file_uri &&
         spark_version == other.spark_version &&
         language == other.language &&
+        archive_uri == other.archive_uri &&
         arguments == other.arguments &&
         configuration == other.configuration &&
         defined_tags == other.defined_tags &&
@@ -303,6 +333,7 @@ module OCI
         logs_bucket_uri == other.logs_bucket_uri &&
         num_executors == other.num_executors &&
         parameters == other.parameters &&
+        private_endpoint_id == other.private_endpoint_id &&
         warehouse_bucket_uri == other.warehouse_bucket_uri
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -319,7 +350,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [class_name, file_uri, spark_version, language, arguments, configuration, defined_tags, description, display_name, driver_shape, executor_shape, freeform_tags, logs_bucket_uri, num_executors, parameters, warehouse_bucket_uri].hash
+      [class_name, file_uri, spark_version, language, archive_uri, arguments, configuration, defined_tags, description, display_name, driver_shape, executor_shape, freeform_tags, logs_bucket_uri, num_executors, parameters, private_endpoint_id, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

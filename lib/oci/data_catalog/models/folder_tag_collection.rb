@@ -8,6 +8,10 @@ module OCI
   # Results of a folders tag listing. Folder tags allow association of folder objects to business terms.
   #
   class DataCatalog::Models::FolderTagCollection
+    # Total number of items returned.
+    # @return [Integer]
+    attr_accessor :count
+
     # **[Required]** Collection of folder tags.
     # @return [Array<OCI::DataCatalog::Models::FolderTagSummary>]
     attr_accessor :items
@@ -16,6 +20,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'count': :'count',
         'items': :'items'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -25,6 +30,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'count': :'Integer',
         'items': :'Array<OCI::DataCatalog::Models::FolderTagSummary>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -36,12 +42,15 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Integer] :count The value to assign to the {#count} property
     # @option attributes [Array<OCI::DataCatalog::Models::FolderTagSummary>] :items The value to assign to the {#items} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.count = attributes[:'count'] if attributes[:'count']
 
       self.items = attributes[:'items'] if attributes[:'items']
     end
@@ -57,6 +66,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        count == other.count &&
         items == other.items
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -73,7 +83,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [items].hash
+      [count, items].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

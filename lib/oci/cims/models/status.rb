@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Ticket Status
+  # Details about the status of the support ticket.
   class Cims::Models::Status
-    # **[Required]** Unique code
+    # **[Required]** The code unique to this ticket status.
     # @return [String]
     attr_accessor :code
 
-    # **[Required]** Status message
+    # **[Required]** The status message for this ticket.
     # @return [String]
     attr_accessor :message
 

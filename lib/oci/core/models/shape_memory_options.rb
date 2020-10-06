@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The possible configurations for the amount of memory available to an instance of this shape.
-  # If this field is null, then all instances of this shape have a fixed
-  # amount of memory equivalent to `memoryInGBs`.
+  # For a flexible shape, the amount of memory available for instances that use this shape.
+  #
+  # If this field is null, then this shape has a fixed amount of memory equivalent to `memoryInGBs`.
   #
   class Core::Models::ShapeMemoryOptions
     # The minimum amount of memory, in gigabytes.
@@ -20,11 +20,20 @@ module OCI
     # @return [Float]
     attr_accessor :max_in_g_bs
 
-    # The default amount of memory, in gigabytes, per OCPU available to an instance
-    # of this shape.
+    # The default amount of memory per OCPU available for this shape, in gigabytes.
     #
     # @return [Float]
     attr_accessor :default_per_ocpu_in_g_bs
+
+    # The minimum amount of memory per OCPU available for this shape, in gigabytes.
+    #
+    # @return [Float]
+    attr_accessor :min_per_ocpu_in_gbs
+
+    # The maximum amount of memory per OCPU available for this shape, in gigabytes.
+    #
+    # @return [Float]
+    attr_accessor :max_per_ocpu_in_gbs
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -32,7 +41,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'min_in_g_bs': :'minInGBs',
         'max_in_g_bs': :'maxInGBs',
-        'default_per_ocpu_in_g_bs': :'defaultPerOcpuInGBs'
+        'default_per_ocpu_in_g_bs': :'defaultPerOcpuInGBs',
+        'min_per_ocpu_in_gbs': :'minPerOcpuInGBs',
+        'max_per_ocpu_in_gbs': :'maxPerOcpuInGBs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,7 +54,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'min_in_g_bs': :'Float',
         'max_in_g_bs': :'Float',
-        'default_per_ocpu_in_g_bs': :'Float'
+        'default_per_ocpu_in_g_bs': :'Float',
+        'min_per_ocpu_in_gbs': :'Float',
+        'max_per_ocpu_in_gbs': :'Float'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,6 +70,8 @@ module OCI
     # @option attributes [Float] :min_in_g_bs The value to assign to the {#min_in_g_bs} property
     # @option attributes [Float] :max_in_g_bs The value to assign to the {#max_in_g_bs} property
     # @option attributes [Float] :default_per_ocpu_in_g_bs The value to assign to the {#default_per_ocpu_in_g_bs} property
+    # @option attributes [Float] :min_per_ocpu_in_gbs The value to assign to the {#min_per_ocpu_in_gbs} property
+    # @option attributes [Float] :max_per_ocpu_in_gbs The value to assign to the {#max_per_ocpu_in_gbs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -80,6 +95,18 @@ module OCI
       raise 'You cannot provide both :defaultPerOcpuInGBs and :default_per_ocpu_in_g_bs' if attributes.key?(:'defaultPerOcpuInGBs') && attributes.key?(:'default_per_ocpu_in_g_bs')
 
       self.default_per_ocpu_in_g_bs = attributes[:'default_per_ocpu_in_g_bs'] if attributes[:'default_per_ocpu_in_g_bs']
+
+      self.min_per_ocpu_in_gbs = attributes[:'minPerOcpuInGBs'] if attributes[:'minPerOcpuInGBs']
+
+      raise 'You cannot provide both :minPerOcpuInGBs and :min_per_ocpu_in_gbs' if attributes.key?(:'minPerOcpuInGBs') && attributes.key?(:'min_per_ocpu_in_gbs')
+
+      self.min_per_ocpu_in_gbs = attributes[:'min_per_ocpu_in_gbs'] if attributes[:'min_per_ocpu_in_gbs']
+
+      self.max_per_ocpu_in_gbs = attributes[:'maxPerOcpuInGBs'] if attributes[:'maxPerOcpuInGBs']
+
+      raise 'You cannot provide both :maxPerOcpuInGBs and :max_per_ocpu_in_gbs' if attributes.key?(:'maxPerOcpuInGBs') && attributes.key?(:'max_per_ocpu_in_gbs')
+
+      self.max_per_ocpu_in_gbs = attributes[:'max_per_ocpu_in_gbs'] if attributes[:'max_per_ocpu_in_gbs']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -95,7 +122,9 @@ module OCI
       self.class == other.class &&
         min_in_g_bs == other.min_in_g_bs &&
         max_in_g_bs == other.max_in_g_bs &&
-        default_per_ocpu_in_g_bs == other.default_per_ocpu_in_g_bs
+        default_per_ocpu_in_g_bs == other.default_per_ocpu_in_g_bs &&
+        min_per_ocpu_in_gbs == other.min_per_ocpu_in_gbs &&
+        max_per_ocpu_in_gbs == other.max_per_ocpu_in_gbs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -111,7 +140,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [min_in_g_bs, max_in_g_bs, default_per_ocpu_in_g_bs].hash
+      [min_in_g_bs, max_in_g_bs, default_per_ocpu_in_g_bs, min_per_ocpu_in_gbs, max_per_ocpu_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

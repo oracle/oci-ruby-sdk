@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Generates a recommended VM cluster network configuration.
+  # Generates a recommended VM cluster network configuration for an Exadata Cloud@Customer system.
   #
   class Database::Models::GenerateRecommendedNetworkDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.

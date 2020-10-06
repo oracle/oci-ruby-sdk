@@ -12,12 +12,17 @@ module OCI
     # @return [String]
     attr_accessor :image_id
 
+    # The size of the boot volume in GBs. Minimum value is 50 GB. See [here](https://docs.cloud.oracle.com/en-us/iaas/Content/Block/Concepts/bootvolumes.htm) for max custom boot volume sizing and OS-specific requirements.
+    # @return [Integer]
+    attr_accessor :boot_volume_size_in_gbs
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'source_type': :'sourceType',
-        'image_id': :'imageId'
+        'image_id': :'imageId',
+        'boot_volume_size_in_gbs': :'bootVolumeSizeInGBs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -27,7 +32,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'source_type': :'String',
-        'image_id': :'String'
+        'image_id': :'String',
+        'boot_volume_size_in_gbs': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -39,6 +45,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
+    # @option attributes [Integer] :boot_volume_size_in_gbs The value to assign to the {#boot_volume_size_in_gbs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -54,6 +61,12 @@ module OCI
       raise 'You cannot provide both :imageId and :image_id' if attributes.key?(:'imageId') && attributes.key?(:'image_id')
 
       self.image_id = attributes[:'image_id'] if attributes[:'image_id']
+
+      self.boot_volume_size_in_gbs = attributes[:'bootVolumeSizeInGBs'] if attributes[:'bootVolumeSizeInGBs']
+
+      raise 'You cannot provide both :bootVolumeSizeInGBs and :boot_volume_size_in_gbs' if attributes.key?(:'bootVolumeSizeInGBs') && attributes.key?(:'boot_volume_size_in_gbs')
+
+      self.boot_volume_size_in_gbs = attributes[:'boot_volume_size_in_gbs'] if attributes[:'boot_volume_size_in_gbs']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -68,7 +81,8 @@ module OCI
 
       self.class == other.class &&
         source_type == other.source_type &&
-        image_id == other.image_id
+        image_id == other.image_id &&
+        boot_volume_size_in_gbs == other.boot_volume_size_in_gbs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -84,7 +98,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_type, image_id].hash
+      [source_type, image_id, boot_volume_size_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

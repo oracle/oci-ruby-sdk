@@ -16,7 +16,10 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The time the error happened.
+    # **[Required]** The date and time when the error happened.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
     # @return [DateTime]
     attr_accessor :timestamp
 

@@ -27,6 +27,10 @@ module OCI
     # @return [String]
     attr_accessor :name
 
+    # The version of Kubernetes this node is running.
+    # @return [String]
+    attr_accessor :kubernetes_version
+
     # The name of the availability domain in which this node is placed.
     # @return [String]
     attr_accessor :availability_domain
@@ -69,6 +73,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
         'name': :'name',
+        'kubernetes_version': :'kubernetesVersion',
         'availability_domain': :'availabilityDomain',
         'subnet_id': :'subnetId',
         'node_pool_id': :'nodePoolId',
@@ -88,6 +93,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
         'name': :'String',
+        'kubernetes_version': :'String',
         'availability_domain': :'String',
         'subnet_id': :'String',
         'node_pool_id': :'String',
@@ -109,6 +115,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :node_pool_id The value to assign to the {#node_pool_id} property
@@ -127,6 +134,12 @@ module OCI
       self.id = attributes[:'id'] if attributes[:'id']
 
       self.name = attributes[:'name'] if attributes[:'name']
+
+      self.kubernetes_version = attributes[:'kubernetesVersion'] if attributes[:'kubernetesVersion']
+
+      raise 'You cannot provide both :kubernetesVersion and :kubernetes_version' if attributes.key?(:'kubernetesVersion') && attributes.key?(:'kubernetes_version')
+
+      self.kubernetes_version = attributes[:'kubernetes_version'] if attributes[:'kubernetes_version']
 
       self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
 
@@ -209,6 +222,7 @@ module OCI
       self.class == other.class &&
         id == other.id &&
         name == other.name &&
+        kubernetes_version == other.kubernetes_version &&
         availability_domain == other.availability_domain &&
         subnet_id == other.subnet_id &&
         node_pool_id == other.node_pool_id &&
@@ -233,7 +247,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, availability_domain, subnet_id, node_pool_id, fault_domain, private_ip, public_ip, node_error, lifecycle_state, lifecycle_details].hash
+      [id, name, kubernetes_version, availability_domain, subnet_id, node_pool_id, fault_domain, private_ip, public_ip, node_error, lifecycle_state, lifecycle_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

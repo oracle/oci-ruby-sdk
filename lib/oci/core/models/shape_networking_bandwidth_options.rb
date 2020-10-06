@@ -5,7 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The possible configurations for the amount of networking bandwidth available to an instance of this shape. If this field is null, then all instances of this shape have a fixed amount of bandwidth equivalent to `networkingBandwidthInGbps`.
+  # For a flexible shape, the amount of networking bandwidth available for instances that use this shape.
+  #
+  # If this field is null, then this shape has a fixed amount of bandwidth equivalent to `networkingBandwidthInGbps`.
+  #
   class Core::Models::ShapeNetworkingBandwidthOptions
     # The minimum amount of networking bandwidth, in gigabits per second.
     #
@@ -17,8 +20,7 @@ module OCI
     # @return [Float]
     attr_accessor :max_in_gbps
 
-    # The default amount of networking bandwidth, in gigabits per second,
-    # per OCPU.
+    # The default amount of networking bandwidth per OCPU, in gigabits per second.
     #
     # @return [Float]
     attr_accessor :default_per_ocpu_in_gbps

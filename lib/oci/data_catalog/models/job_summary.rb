@@ -2,12 +2,39 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Details of a job. Jobs are scheduled instances of a job definition.
   #
   class DataCatalog::Models::JobSummary
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_EXPIRED = 'EXPIRED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    JOB_TYPE_ENUM = [
+      JOB_TYPE_HARVEST = 'HARVEST'.freeze,
+      JOB_TYPE_PROFILING = 'PROFILING'.freeze,
+      JOB_TYPE_SAMPLING = 'SAMPLING'.freeze,
+      JOB_TYPE_PREVIEW = 'PREVIEW'.freeze,
+      JOB_TYPE_IMPORT = 'IMPORT'.freeze,
+      JOB_TYPE_EXPORT = 'EXPORT'.freeze,
+      JOB_TYPE_IMPORT_GLOSSARY = 'IMPORT_GLOSSARY'.freeze,
+      JOB_TYPE_EXPORT_GLOSSARY = 'EXPORT_GLOSSARY'.freeze,
+      JOB_TYPE_INTERNAL = 'INTERNAL'.freeze,
+      JOB_TYPE_PURGE = 'PURGE'.freeze,
+      JOB_TYPE_IMMEDIATE = 'IMMEDIATE'.freeze,
+      JOB_TYPE_SCHEDULED = 'SCHEDULED'.freeze,
+      JOB_TYPE_IMMEDIATE_EXECUTION = 'IMMEDIATE_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION = 'SCHEDULED_EXECUTION'.freeze,
+      JOB_TYPE_SCHEDULED_EXECUTION_INSTANCE = 'SCHEDULED_EXECUTION_INSTANCE'.freeze,
+      JOB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique key of the job.
     # @return [String]
     attr_accessor :key
@@ -32,11 +59,11 @@ module OCI
 
     # Lifecycle state of the job, such as running, paused, or completed.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # Type of the job.
     # @return [String]
-    attr_accessor :job_type
+    attr_reader :job_type
 
     # Type of job schedule that is inferred from the scheduling properties.
     # @return [String]
@@ -86,6 +113,20 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_of_latest_execution
 
+    # The display name of the job definition resource that defined the scope of this job.
+    # @return [String]
+    attr_accessor :job_definition_name
+
+    # Error code returned from the latest job execution for this job. Useful when the latest Job execution is in FAILED state.
+    #
+    # @return [String]
+    attr_accessor :error_code
+
+    # Error message returned from the latest job execution for this job. Useful when the latest Job Execution is in a FAILED state.
+    #
+    # @return [String]
+    attr_accessor :error_message
+
     # Array of the executions summary associated with this job.
     # @return [Array<OCI::DataCatalog::Models::JobExecutionSummary>]
     attr_accessor :executions
@@ -111,6 +152,9 @@ module OCI
         'time_schedule_begin': :'timeScheduleBegin',
         'execution_count': :'executionCount',
         'time_of_latest_execution': :'timeOfLatestExecution',
+        'job_definition_name': :'jobDefinitionName',
+        'error_code': :'errorCode',
+        'error_message': :'errorMessage',
         'executions': :'executions'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -137,6 +181,9 @@ module OCI
         'time_schedule_begin': :'DateTime',
         'execution_count': :'Integer',
         'time_of_latest_execution': :'DateTime',
+        'job_definition_name': :'String',
+        'error_code': :'String',
+        'error_message': :'String',
         'executions': :'Array<OCI::DataCatalog::Models::JobExecutionSummary>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -165,6 +212,9 @@ module OCI
     # @option attributes [DateTime] :time_schedule_begin The value to assign to the {#time_schedule_begin} property
     # @option attributes [Integer] :execution_count The value to assign to the {#execution_count} property
     # @option attributes [DateTime] :time_of_latest_execution The value to assign to the {#time_of_latest_execution} property
+    # @option attributes [String] :job_definition_name The value to assign to the {#job_definition_name} property
+    # @option attributes [String] :error_code The value to assign to the {#error_code} property
+    # @option attributes [String] :error_message The value to assign to the {#error_message} property
     # @option attributes [Array<OCI::DataCatalog::Models::JobExecutionSummary>] :executions The value to assign to the {#executions} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -262,10 +312,54 @@ module OCI
 
       self.time_of_latest_execution = attributes[:'time_of_latest_execution'] if attributes[:'time_of_latest_execution']
 
+      self.job_definition_name = attributes[:'jobDefinitionName'] if attributes[:'jobDefinitionName']
+
+      raise 'You cannot provide both :jobDefinitionName and :job_definition_name' if attributes.key?(:'jobDefinitionName') && attributes.key?(:'job_definition_name')
+
+      self.job_definition_name = attributes[:'job_definition_name'] if attributes[:'job_definition_name']
+
+      self.error_code = attributes[:'errorCode'] if attributes[:'errorCode']
+
+      raise 'You cannot provide both :errorCode and :error_code' if attributes.key?(:'errorCode') && attributes.key?(:'error_code')
+
+      self.error_code = attributes[:'error_code'] if attributes[:'error_code']
+
+      self.error_message = attributes[:'errorMessage'] if attributes[:'errorMessage']
+
+      raise 'You cannot provide both :errorMessage and :error_message' if attributes.key?(:'errorMessage') && attributes.key?(:'error_message')
+
+      self.error_message = attributes[:'error_message'] if attributes[:'error_message']
+
       self.executions = attributes[:'executions'] if attributes[:'executions']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] job_type Object to be assigned
+    def job_type=(job_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if job_type && !JOB_TYPE_ENUM.include?(job_type)
+        OCI.logger.debug("Unknown value for 'job_type' [" + job_type + "]. Mapping to 'JOB_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @job_type = JOB_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @job_type = job_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -293,6 +387,9 @@ module OCI
         time_schedule_begin == other.time_schedule_begin &&
         execution_count == other.execution_count &&
         time_of_latest_execution == other.time_of_latest_execution &&
+        job_definition_name == other.job_definition_name &&
+        error_code == other.error_code &&
+        error_message == other.error_message &&
         executions == other.executions
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -309,7 +406,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, uri, display_name, catalog_id, job_definition_key, lifecycle_state, job_type, schedule_type, description, time_created, time_updated, created_by_id, updated_by_id, schedule_cron_expression, time_schedule_begin, execution_count, time_of_latest_execution, executions].hash
+      [key, uri, display_name, catalog_id, job_definition_key, lifecycle_state, job_type, schedule_type, description, time_created, time_updated, created_by_id, updated_by_id, schedule_cron_expression, time_schedule_begin, execution_count, time_of_latest_execution, job_definition_name, error_code, error_message, executions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

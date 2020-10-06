@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Collection of resource types supported by bulk action.
+  # Collection of resource-types supported by a compartment bulk action.
   #
   class Identity::Models::BulkActionResourceTypeCollection
-    # **[Required]** Collection of resource types supported by bulk action.
+    # **[Required]** Collection of the resource-types supported by a compartment bulk action.
     # @return [Array<OCI::Identity::Models::BulkActionResourceType>]
     attr_accessor :items
 

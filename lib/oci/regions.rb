@@ -19,27 +19,39 @@ module OCI
       REGION_AP_SEOUL_1 = 'ap-seoul-1'.freeze,
       REGION_AP_SYDNEY_1 = 'ap-sydney-1'.freeze,
       REGION_AP_TOKYO_1 = 'ap-tokyo-1'.freeze,
+
       REGION_CA_MONTREAL_1 = 'ca-montreal-1'.freeze,
       REGION_CA_TORONTO_1 = 'ca-toronto-1'.freeze,
+
       REGION_EU_AMSTERDAM_1 = 'eu-amsterdam-1'.freeze,
       REGION_EU_FRANKFURT_1 = 'eu-frankfurt-1'.freeze,
       REGION_EU_ZURICH_1 = 'eu-zurich-1'.freeze,
+
+      REGION_ME_DUBAI_1 = 'me-dubai-1'.freeze,
       REGION_ME_JEDDAH_1 = 'me-jeddah-1'.freeze,
+
       REGION_SA_SAOPAULO_1 = 'sa-saopaulo-1'.freeze,
+
       REGION_UK_GOV_LONDON_1 = 'uk-gov-london-1'.freeze,
       REGION_UK_LONDON_1 = 'uk-london-1'.freeze,
+      REGION_UK_GOV_CARDIFF_1 = 'uk-gov-cardiff-1'.freeze,
+
       REGION_US_PHOENIX_1 = 'us-phoenix-1'.freeze,
       REGION_US_ASHBURN_1 = 'us-ashburn-1'.freeze,
       REGION_US_LANGLEY_1 = 'us-langley-1'.freeze,
       REGION_US_LUKE_1 = 'us-luke-1'.freeze,
+      REGION_US_SANJOSE_1 = 'us-sanjose-1'.freeze,
+
       REGION_US_GOV_ASHBURN_1 = 'us-gov-ashburn-1'.freeze,
-      REGION_US_GOV_PHOENIX_1 = 'us-gov-phoenix-1'.freeze,
-      REGION_US_GOV_CHICAGO_1 = 'us-gov-chicago-1'.freeze
+      REGION_US_GOV_CHICAGO_1 = 'us-gov-chicago-1'.freeze,
+      REGION_US_GOV_PHOENIX_1 = 'us-gov-phoenix-1'.freeze
     ]
 
     REGION_SHORT_NAMES_TO_LONG_NAMES = {
       'ams': REGION_EU_AMSTERDAM_1,
       'bom': REGION_AP_MUMBAI_1,
+      'brs': REGION_UK_GOV_CARDIFF_1,
+      'dxb': REGION_ME_DUBAI_1,
       'fra': REGION_EU_FRANKFURT_1,
       'gru': REGION_SA_SAOPAULO_1,
       'hyd': REGION_AP_HYDERABAD_1,
@@ -53,6 +65,7 @@ module OCI
       'nja': REGION_AP_CHIYODA_1,
       'nrt': REGION_AP_TOKYO_1,
       'phx': REGION_US_PHOENIX_1,
+      'sjc': REGION_US_SANJOSE_1,
       'syd': REGION_AP_SYDNEY_1,
       'yny': REGION_AP_CHUNCHEON_1,
       'yul': REGION_CA_MONTREAL_1,
@@ -71,19 +84,30 @@ module OCI
       'ap-seoul-1': 'oc1'.freeze,
       'ap-sydney-1': 'oc1'.freeze,
       'ap-tokyo-1': 'oc1'.freeze,
+
       'ca-montreal-1': 'oc1'.freeze,
       'ca-toronto-1': 'oc1'.freeze,
+
       'eu-amsterdam-1': 'oc1'.freeze,
       'eu-frankfurt-1': 'oc1'.freeze,
       'eu-zurich-1': 'oc1'.freeze,
+
+      'me-dubai-1': 'oc1'.freeze,
       'me-jeddah-1': 'oc1'.freeze,
+
       'sa-saopaulo-1': 'oc1'.freeze,
-      'uk-gov-london-1': 'oc4'.freeze,
+
       'uk-london-1': 'oc1'.freeze,
+
+      'uk-gov-london-1': 'oc4'.freeze,
+      'uk-gov-cardiff-1': 'oc4'.freeze,
+
       'us-phoenix-1': 'oc1'.freeze,
       'us-ashburn-1': 'oc1'.freeze,
       'us-langley-1': 'oc2'.freeze,
       'us-luke-1': 'oc2'.freeze,
+      'us-sanjose-1': 'oc1'.freeze,
+
       'us-gov-ashburn-1': 'oc3'.freeze,
       'us-gov-phoenix-1': 'oc3'.freeze,
       'us-gov-chicago-1': 'oc3'.freeze

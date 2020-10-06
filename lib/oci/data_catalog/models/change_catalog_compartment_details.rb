@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # ChangeCatalogCompartmentDetails model.
+  # Information about the change compartment
   class DataCatalog::Models::ChangeCatalogCompartmentDetails
     # **[Required]** The identifier of the compartment where the resource should be moved.
     # @return [String]

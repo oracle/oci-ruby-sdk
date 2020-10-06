@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Configures the pushing of execution logs to OCI Public Logging.
+  # Configures the logging policies for the execution logs of an API Deployment.
   #
   class Apigateway::Models::ExecutionLogPolicy
     LOG_LEVEL_ENUM = [
@@ -16,12 +16,21 @@ module OCI
       LOG_LEVEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Enables pushing of execution logs to OCI Public Logging.
+    # Enables pushing of execution logs to the legacy OCI Object Storage log archival bucket.
+    #
+    # Oracle recommends using the OCI Logging service to enable, retrieve, and query execution logs
+    # for an API Deployment. If there is an active log object for the API Deployment and its
+    # category is set to 'execution' in OCI Logging service, the logs will not be uploaded to the legacy
+    # OCI Object Storage log archival bucket.
+    #
+    # Please note that the functionality to push to the legacy OCI Object Storage log
+    # archival bucket has been deprecated and will be removed in the future.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # Specifies the logging level, which affects the log entries pushed to
-    # OCI Public Logging if `isEnabled` is set to True.
+    # Specifies the log level used to control logging output of execution logs.
+    # Enabling logging at a given level also enables logging at all higher levels.
     #
     # @return [String]
     attr_reader :log_level

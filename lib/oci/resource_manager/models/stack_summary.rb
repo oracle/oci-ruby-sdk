@@ -24,19 +24,23 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # Date and time at which the stack was created.
+    # The date and time when the stack was created.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
     # @return [DateTime]
     attr_accessor :time_created
 
     # The current lifecycle state of the stack.
-    # For more information about resource states in Resource Manager, see
-    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#concepts).
+    # For more information about stack lifecycle states in Resource Manager, see
+    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#StackStates).
     #
     # Allowable values:
     # - CREATING
     # - ACTIVE
     # - DELETING
     # - DELETED
+    # - FAILED
     #
     # @return [String]
     attr_accessor :lifecycle_state

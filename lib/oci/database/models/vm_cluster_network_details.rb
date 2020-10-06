@@ -5,14 +5,14 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for a VM cluster network.
+  # Details for an Exadata Cloud@Customer VM cluster network.
   #
   class Database::Models::VmClusterNetworkDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The user-friendly name for the VM cluster network. The name does not need to be unique.
+    # **[Required]** The user-friendly name for the Exadata Cloud@Customer VM cluster network. The name does not need to be unique.
     # @return [String]
     attr_accessor :display_name
 

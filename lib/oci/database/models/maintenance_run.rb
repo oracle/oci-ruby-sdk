@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of a Maintenance Run.
+  # Details of a maintenance run.
   #
   class Database::Models::MaintenanceRun
     LIFECYCLE_STATE_ENUM = [
@@ -25,6 +25,7 @@ module OCI
       TARGET_RESOURCE_TYPE_AUTONOMOUS_EXADATA_INFRASTRUCTURE = 'AUTONOMOUS_EXADATA_INFRASTRUCTURE'.freeze,
       TARGET_RESOURCE_TYPE_AUTONOMOUS_CONTAINER_DATABASE = 'AUTONOMOUS_CONTAINER_DATABASE'.freeze,
       TARGET_RESOURCE_TYPE_EXADATA_DB_SYSTEM = 'EXADATA_DB_SYSTEM'.freeze,
+      TARGET_RESOURCE_TYPE_CLOUD_EXADATA_INFRASTRUCTURE = 'CLOUD_EXADATA_INFRASTRUCTURE'.freeze,
       TARGET_RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -41,7 +42,7 @@ module OCI
       MAINTENANCE_SUBTYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the Maintenance Run.
+    # **[Required]** The OCID of the maintenance run.
     # @return [String]
     attr_accessor :id
 
@@ -49,15 +50,15 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The user-friendly name for the Maintenance Run.
+    # **[Required]** The user-friendly name for the maintenance run.
     # @return [String]
     attr_accessor :display_name
 
-    # The text describing this Maintenance Run.
+    # Description of the maintenance run.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The current state of the Maintenance Run.
+    # **[Required]** The current state of the maintenance run.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -65,29 +66,33 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # **[Required]** The date and time the Maintenance Run is scheduled for.
+    # **[Required]** The date and time the maintenance run is scheduled to occur.
     # @return [DateTime]
     attr_accessor :time_scheduled
 
-    # The date and time the Maintenance Run starts.
+    # The date and time the maintenance run starts.
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The date and time the Maintenance Run was completed.
+    # The date and time the maintenance run was completed.
     # @return [DateTime]
     attr_accessor :time_ended
 
-    # The type of the target resource on which the Maintenance Run occurs.
+    # The type of the target resource on which the maintenance run occurs.
     # @return [String]
     attr_reader :target_resource_type
 
-    # The ID of the target resource on which the Maintenance Run occurs.
+    # The ID of the target resource on which the maintenance run occurs.
     # @return [String]
     attr_accessor :target_resource_id
 
     # Maintenance type.
     # @return [String]
     attr_reader :maintenance_type
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the patch to be applied in the maintenance run.
+    # @return [String]
+    attr_accessor :patch_id
 
     # Maintenance sub-type.
     # @return [String]
@@ -109,6 +114,7 @@ module OCI
         'target_resource_type': :'targetResourceType',
         'target_resource_id': :'targetResourceId',
         'maintenance_type': :'maintenanceType',
+        'patch_id': :'patchId',
         'maintenance_subtype': :'maintenanceSubtype'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -130,6 +136,7 @@ module OCI
         'target_resource_type': :'String',
         'target_resource_id': :'String',
         'maintenance_type': :'String',
+        'patch_id': :'String',
         'maintenance_subtype': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -153,6 +160,7 @@ module OCI
     # @option attributes [String] :target_resource_type The value to assign to the {#target_resource_type} property
     # @option attributes [String] :target_resource_id The value to assign to the {#target_resource_id} property
     # @option attributes [String] :maintenance_type The value to assign to the {#maintenance_type} property
+    # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
     # @option attributes [String] :maintenance_subtype The value to assign to the {#maintenance_subtype} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -220,6 +228,12 @@ module OCI
       raise 'You cannot provide both :maintenanceType and :maintenance_type' if attributes.key?(:'maintenanceType') && attributes.key?(:'maintenance_type')
 
       self.maintenance_type = attributes[:'maintenance_type'] if attributes[:'maintenance_type']
+
+      self.patch_id = attributes[:'patchId'] if attributes[:'patchId']
+
+      raise 'You cannot provide both :patchId and :patch_id' if attributes.key?(:'patchId') && attributes.key?(:'patch_id')
+
+      self.patch_id = attributes[:'patch_id'] if attributes[:'patch_id']
 
       self.maintenance_subtype = attributes[:'maintenanceSubtype'] if attributes[:'maintenanceSubtype']
 
@@ -303,6 +317,7 @@ module OCI
         target_resource_type == other.target_resource_type &&
         target_resource_id == other.target_resource_id &&
         maintenance_type == other.maintenance_type &&
+        patch_id == other.patch_id &&
         maintenance_subtype == other.maintenance_subtype
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -319,7 +334,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, maintenance_subtype].hash
+      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, patch_id, maintenance_subtype].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

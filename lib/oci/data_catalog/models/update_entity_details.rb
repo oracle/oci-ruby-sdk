@@ -7,6 +7,13 @@ require 'date'
 module OCI
   # Properties used in entity update operations.
   class DataCatalog::Models::UpdateEntityDetails
+    HARVEST_STATUS_ENUM = [
+      HARVEST_STATUS_COMPLETE = 'COMPLETE'.freeze,
+      HARVEST_STATUS_ERROR = 'ERROR'.freeze,
+      HARVEST_STATUS_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      HARVEST_STATUS_DEFERRED = 'DEFERRED'.freeze
+    ].freeze
+
     # A user-friendly display name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
@@ -39,7 +46,7 @@ module OCI
     # This requires a harvest status indicator for catalog objects.
     #
     # @return [String]
-    attr_accessor :harvest_status
+    attr_reader :harvest_status
 
     # Key of the last harvest process to update this object.
     # @return [String]
@@ -160,6 +167,14 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] harvest_status Object to be assigned
+    def harvest_status=(harvest_status)
+      raise "Invalid value for 'harvest_status': this must be one of the values in HARVEST_STATUS_ENUM." if harvest_status && !HARVEST_STATUS_ENUM.include?(harvest_status)
+
+      @harvest_status = harvest_status
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 

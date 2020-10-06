@@ -8,7 +8,7 @@ module OCI
   # Drift status details for resources in the stack.
   #
   class ResourceManager::Models::StackResourceDriftCollection
-    # Collection of drift status details for all resources defined in the stack.
+    # **[Required]** Collection of drift status details for all resources defined in the stack.
     # @return [Array<OCI::ResourceManager::Models::StackResourceDriftSummary>]
     attr_accessor :items
 

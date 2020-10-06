@@ -5,7 +5,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties provided for creating a stack.
+  # The configuration details for creating a stack.
+  #
   class ResourceManager::Models::CreateStackDetails
     # **[Required]** Unique identifier ([OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)) of the compartment in which the stack resides.
     # @return [String]
@@ -24,7 +25,7 @@ module OCI
     attr_accessor :config_source
 
     # Terraform variables associated with this resource.
-    # Maximum number of variables supported is 100.
+    # Maximum number of variables supported is 250.
     # The maximum size of each variable, including both name and value, is 4096 bytes.
     # Example: `{\"CompartmentId\": \"compartment-id-value\"}`
     #

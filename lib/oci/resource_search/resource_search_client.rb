@@ -60,16 +60,7 @@ module OCI
       # so try and load the config from the default file.
       config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
-      if signer.nil?
-        signer = OCI::Signer.new(
-          config.user,
-          config.fingerprint,
-          config.tenancy,
-          config.key_file,
-          pass_phrase: config.pass_phrase,
-          private_key_content: config.key_content
-        )
-      end
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
@@ -220,7 +211,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Queries any and all compartments in the tenancy to find resources that match the specified criteria.
+    # Queries any and all compartments in the specified tenancy to find resources that match the specified criteria.
     # Results include resources that you have permission to view and can span different resource types.
     # You can also sort results based on a specified resource attribute.
     #
@@ -230,6 +221,8 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 1000. (default to 1000)
     # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [String] :tenant_id The tenancy ID, which can be used to specify a different tenancy (for cross-tenancy authorization) when searching for resources in a different tenancy.
+    #
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular
     #   request, please provide the complete request ID.
     #
@@ -247,6 +240,7 @@ module OCI
       query_params = {}
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:tenantId] = opts[:tenant_id] if opts[:tenant_id]
 
       # Header Params
       header_params = {}

@@ -8,13 +8,20 @@ require_relative 'instance_configuration_attach_volume_details'
 module OCI
   # InstanceConfigurationParavirtualizedAttachVolumeDetails model.
   class Core::Models::InstanceConfigurationParavirtualizedAttachVolumeDetails < Core::Models::InstanceConfigurationAttachVolumeDetails
+    # Whether to enable in-transit encryption for the data volume's paravirtualized attachment. The default value is false.
+    # @return [BOOLEAN]
+    attr_accessor :is_pv_encryption_in_transit_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'is_read_only': :'isReadOnly',
-        'type': :'type'
+        'device': :'device',
+        'is_shareable': :'isShareable',
+        'type': :'type',
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +32,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'is_read_only': :'BOOLEAN',
-        'type': :'String'
+        'device': :'String',
+        'is_shareable': :'BOOLEAN',
+        'type': :'String',
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,12 +48,24 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {OCI::Core::Models::InstanceConfigurationAttachVolumeDetails#display_name #display_name} proprety
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {OCI::Core::Models::InstanceConfigurationAttachVolumeDetails#is_read_only #is_read_only} proprety
+    # @option attributes [String] :device The value to assign to the {OCI::Core::Models::InstanceConfigurationAttachVolumeDetails#device #device} proprety
+    # @option attributes [BOOLEAN] :is_shareable The value to assign to the {OCI::Core::Models::InstanceConfigurationAttachVolumeDetails#is_shareable #is_shareable} proprety
+    # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['type'] = 'paravirtualized'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'isPvEncryptionInTransitEnabled'] unless attributes[:'isPvEncryptionInTransitEnabled'].nil?
+
+      raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -59,7 +81,10 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         is_read_only == other.is_read_only &&
-        type == other.type
+        device == other.device &&
+        is_shareable == other.is_shareable &&
+        type == other.type &&
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -75,7 +100,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, is_read_only, type].hash
+      [display_name, is_read_only, device, is_shareable, type, is_pv_encryption_in_transit_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

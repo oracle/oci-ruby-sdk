@@ -23,7 +23,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The name of the Fault Domain the instance is running in.
+    # The fault domain the instance is running in.
     # @return [String]
     attr_accessor :fault_domain
 
@@ -47,7 +47,7 @@ module OCI
     # @return [String]
     attr_accessor :state
 
-    # **[Required]** The date and time the instance pool instance was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the instance pool instance was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]

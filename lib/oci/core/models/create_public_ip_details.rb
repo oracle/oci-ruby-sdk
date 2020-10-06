@@ -59,6 +59,10 @@ module OCI
     # @return [String]
     attr_accessor :private_ip_id
 
+    # OCID of the pool object created by the current tenancy
+    # @return [String]
+    attr_accessor :public_ip_pool_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -68,7 +72,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'lifetime': :'lifetime',
-        'private_ip_id': :'privateIpId'
+        'private_ip_id': :'privateIpId',
+        'public_ip_pool_id': :'publicIpPoolId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,7 +87,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'lifetime': :'String',
-        'private_ip_id': :'String'
+        'private_ip_id': :'String',
+        'public_ip_pool_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -99,6 +105,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :lifetime The value to assign to the {#lifetime} property
     # @option attributes [String] :private_ip_id The value to assign to the {#private_ip_id} property
+    # @option attributes [String] :public_ip_pool_id The value to assign to the {#public_ip_pool_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -136,6 +143,12 @@ module OCI
       raise 'You cannot provide both :privateIpId and :private_ip_id' if attributes.key?(:'privateIpId') && attributes.key?(:'private_ip_id')
 
       self.private_ip_id = attributes[:'private_ip_id'] if attributes[:'private_ip_id']
+
+      self.public_ip_pool_id = attributes[:'publicIpPoolId'] if attributes[:'publicIpPoolId']
+
+      raise 'You cannot provide both :publicIpPoolId and :public_ip_pool_id' if attributes.key?(:'publicIpPoolId') && attributes.key?(:'public_ip_pool_id')
+
+      self.public_ip_pool_id = attributes[:'public_ip_pool_id'] if attributes[:'public_ip_pool_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -162,7 +175,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         lifetime == other.lifetime &&
-        private_ip_id == other.private_ip_id
+        private_ip_id == other.private_ip_id &&
+        public_ip_pool_id == other.public_ip_pool_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -178,7 +192,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, lifetime, private_ip_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, lifetime, private_ip_id, public_ip_pool_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

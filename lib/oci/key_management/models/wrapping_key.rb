@@ -40,7 +40,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** The public key in PEM format to encrypt the key material before importing it with ImportKey/ImportKeyVersion.
+    # **[Required]** The public key, in PEM format, to use to wrap the key material before importing it.
     #
     # @return [String]
     attr_accessor :public_key

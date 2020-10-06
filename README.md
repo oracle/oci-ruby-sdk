@@ -2,7 +2,7 @@
 
 :warning: This project is no longer being actively developed by Oracle.  We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on GitHub, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork the project and enhance it as they desire.
 
-**Version 2.9.0**
+**Version 2.10.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -15,14 +15,19 @@ The Ruby SDK supports the following services:
 * API Gateway
 * Application Migration
 * Audit
+* Autoscaling (Compute)
 * Big Data
+* Blockchain Platform
 * Budgets
+* Cloud Guard
 * Compute Autoscaling
 * Container Engine
 * Content and Experience
 * Core Services (which includes Networking, Compute, and Block Volume)
 * Data Catalog
 * Data Flow
+* Data Integration
+* Data Science
 * Data Safe
 * Data Transfer 
 * Database
@@ -39,8 +44,14 @@ The Ruby SDK supports the following services:
 * Key Management
 * Limits
 * Load Balancing
-* Monitoring
+* Logging
+* Logging Analytics
+* Logging Search
+* Logging Ingestion
+* Management Agent Cloud
+* Management Dashboard
 * Marketplace
+* Monitoring
 * MySQL Database service
 * Notification
 * Oracle Content and Experience
@@ -51,7 +62,11 @@ The Ruby SDK supports the following services:
 * Resource Manager
 * Search
 * Secret Management (for the Vault service)
+* Service Connector Hub
 * Streaming
+* Support Management
+* Usage
+* VMWare Solution
 * Web Application Acceleration and Security
 * Work Requests
 

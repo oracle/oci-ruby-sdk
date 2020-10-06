@@ -21,7 +21,7 @@ module OCI
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Identity::Models::BaseTagDefinitionValidator
     VALIDATOR_TYPE_ENUM = [
-      VALIDATOR_TYPE_ENUM = 'ENUM'.freeze,
+      VALIDATOR_TYPE_ENUM_VALUE = 'ENUM'.freeze,
       VALIDATOR_TYPE_DEFAULT = 'DEFAULT'.freeze,
       VALIDATOR_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze

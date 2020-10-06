@@ -11,14 +11,13 @@ module OCI
     # The Challenge-Handshake-Authentication-Protocol (CHAP) secret valid for the associated CHAP user name.
     # (Also called the \"CHAP password\".)
     #
-    # Example: `d6866c0d-298b-48ba-95af-309b4faux45e`
     #
     # @return [String]
     attr_accessor :chap_secret
 
-    # The volume's system-generated Challenge-Handshake-Authentication-Protocol (CHAP) user name.
+    # The volume's system-generated Challenge-Handshake-Authentication-Protocol (CHAP) user name. See [RFC 1994](https://tools.ietf.org/html/rfc1994) for more on CHAP.
     #
-    # Example: `ocid1.volume.oc1.phx.abyhqljrgvttnlx73nmrwfaux7kcvzfs3s66izvxf2h4lgvyndsdsnoiwr5q`
+    # Example: `ocid1.volume.oc1.phx.<unique_ID>`
     #
     # @return [String]
     attr_accessor :chap_username
@@ -30,14 +29,14 @@ module OCI
     # @return [String]
     attr_accessor :ipv4
 
-    # **[Required]** The target volume's iSCSI Qualified Name in the format defined by RFC 3720.
+    # **[Required]** The target volume's iSCSI Qualified Name in the format defined by [RFC 3720](https://tools.ietf.org/html/rfc3720#page-32).
     #
-    # Example: `iqn.2015-12.us.oracle.com:456b0391-17b8-4122-bbf1-f85fc0bb97d9`
+    # Example: `iqn.2015-12.us.oracle.com:<CHAP_username>`
     #
     # @return [String]
     attr_accessor :iqn
 
-    # **[Required]** The volume's iSCSI port.
+    # **[Required]** The volume's iSCSI port, usually port 860 or 3260.
     #
     # Example: `3260`
     #

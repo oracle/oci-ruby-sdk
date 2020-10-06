@@ -9,8 +9,6 @@ module OCI
   class Core::Models::IPSecConnectionTunnelSharedSecret
     # **[Required]** The tunnel's shared secret (pre-shared key).
     #
-    # Example: `EXAMPLEToUis6j1cp8GdVQxcmdfMO0yXMLilZTbYCMDGu4V8o`
-    #
     # @return [String]
     attr_accessor :shared_secret
 

@@ -72,7 +72,7 @@ module OCI
     # @return [OCI::Core::Models::VolumeGroupSourceDetails]
     attr_accessor :source_details
 
-    # **[Required]** The date and time the volume group was created. Format defined by RFC3339.
+    # **[Required]** The date and time the volume group was created. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_created
 

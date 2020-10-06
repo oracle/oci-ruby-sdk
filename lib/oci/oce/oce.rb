@@ -14,6 +14,7 @@ end
 require 'oci/oce/models/change_oce_instance_compartment_details'
 require 'oci/oce/models/create_oce_instance_details'
 require 'oci/oce/models/identity_stripe_details'
+require 'oci/oce/models/license_type'
 require 'oci/oce/models/oce_instance'
 require 'oci/oce/models/oce_instance_summary'
 require 'oci/oce/models/update_oce_instance_details'

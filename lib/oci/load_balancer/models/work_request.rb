@@ -37,6 +37,10 @@ module OCI
     # @return [String]
     attr_accessor :type
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the load balancer.
+    # @return [String]
+    attr_accessor :compartment_id
+
     # **[Required]** The current state of the work request.
     #
     # @return [String]
@@ -79,6 +83,7 @@ module OCI
         'id': :'id',
         'load_balancer_id': :'loadBalancerId',
         'type': :'type',
+        'compartment_id': :'compartmentId',
         'lifecycle_state': :'lifecycleState',
         'message': :'message',
         'time_accepted': :'timeAccepted',
@@ -95,6 +100,7 @@ module OCI
         'id': :'String',
         'load_balancer_id': :'String',
         'type': :'String',
+        'compartment_id': :'String',
         'lifecycle_state': :'String',
         'message': :'String',
         'time_accepted': :'DateTime',
@@ -113,6 +119,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :load_balancer_id The value to assign to the {#load_balancer_id} property
     # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :message The value to assign to the {#message} property
     # @option attributes [DateTime] :time_accepted The value to assign to the {#time_accepted} property
@@ -133,6 +140,12 @@ module OCI
       self.load_balancer_id = attributes[:'load_balancer_id'] if attributes[:'load_balancer_id']
 
       self.type = attributes[:'type'] if attributes[:'type']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -188,6 +201,7 @@ module OCI
         id == other.id &&
         load_balancer_id == other.load_balancer_id &&
         type == other.type &&
+        compartment_id == other.compartment_id &&
         lifecycle_state == other.lifecycle_state &&
         message == other.message &&
         time_accepted == other.time_accepted &&
@@ -208,7 +222,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, load_balancer_id, type, lifecycle_state, message, time_accepted, time_finished, error_details].hash
+      [id, load_balancer_id, type, compartment_id, lifecycle_state, message, time_accepted, time_finished, error_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

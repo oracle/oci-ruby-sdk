@@ -21,13 +21,21 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The service level agreement type of the Autonomous Container Database. The default is STANDARD. For a mission critical Autonomous Container Database, the specified Autonomous Exadata Infrastructure must be associated with a remote Autonomous Exadata Infrastructure.
+    # The `DB_UNIQUE_NAME` of the Oracle Database being backed up.
+    # @return [String]
+    attr_accessor :db_unique_name
+
+    # The service level agreement type of the Autonomous Container Database. The default is STANDARD. For an autonomous dataguard Autonomous Container Database, the specified Autonomous Exadata Infrastructure must be associated with a remote Autonomous Exadata Infrastructure.
     # @return [String]
     attr_reader :service_level_agreement_type
 
-    # **[Required]** The OCID of the Autonomous Exadata Infrastructure.
+    # The OCID of the Autonomous Exadata Infrastructure.
     # @return [String]
     attr_accessor :autonomous_exadata_infrastructure_id
+
+    # The OCID of the Autonomous VM Cluster.
+    # @return [String]
+    attr_accessor :autonomous_vm_cluster_id
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the Autonomous Container Database.
     # @return [String]
@@ -57,19 +65,37 @@ module OCI
     # @return [OCI::Database::Models::AutonomousContainerDatabaseBackupConfig]
     attr_accessor :backup_config
 
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
+
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
+    # @return [String]
+    attr_accessor :vault_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'db_unique_name': :'dbUniqueName',
         'service_level_agreement_type': :'serviceLevelAgreementType',
         'autonomous_exadata_infrastructure_id': :'autonomousExadataInfrastructureId',
+        'autonomous_vm_cluster_id': :'autonomousVmClusterId',
         'compartment_id': :'compartmentId',
         'patch_model': :'patchModel',
         'maintenance_window_details': :'maintenanceWindowDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'backup_config': :'backupConfig'
+        'backup_config': :'backupConfig',
+        'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId',
+        'vault_id': :'vaultId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -79,14 +105,19 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'db_unique_name': :'String',
         'service_level_agreement_type': :'String',
         'autonomous_exadata_infrastructure_id': :'String',
+        'autonomous_vm_cluster_id': :'String',
         'compartment_id': :'String',
         'patch_model': :'String',
         'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'backup_config': :'OCI::Database::Models::AutonomousContainerDatabaseBackupConfig'
+        'backup_config': :'OCI::Database::Models::AutonomousContainerDatabaseBackupConfig',
+        'kms_key_id': :'String',
+        'kms_key_version_id': :'String',
+        'vault_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,14 +129,19 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :db_unique_name The value to assign to the {#db_unique_name} property
     # @option attributes [String] :service_level_agreement_type The value to assign to the {#service_level_agreement_type} property
     # @option attributes [String] :autonomous_exadata_infrastructure_id The value to assign to the {#autonomous_exadata_infrastructure_id} property
+    # @option attributes [String] :autonomous_vm_cluster_id The value to assign to the {#autonomous_vm_cluster_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :patch_model The value to assign to the {#patch_model} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Database::Models::AutonomousContainerDatabaseBackupConfig] :backup_config The value to assign to the {#backup_config} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
+    # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -118,6 +154,12 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
+      self.db_unique_name = attributes[:'dbUniqueName'] if attributes[:'dbUniqueName']
+
+      raise 'You cannot provide both :dbUniqueName and :db_unique_name' if attributes.key?(:'dbUniqueName') && attributes.key?(:'db_unique_name')
+
+      self.db_unique_name = attributes[:'db_unique_name'] if attributes[:'db_unique_name']
+
       self.service_level_agreement_type = attributes[:'serviceLevelAgreementType'] if attributes[:'serviceLevelAgreementType']
 
       raise 'You cannot provide both :serviceLevelAgreementType and :service_level_agreement_type' if attributes.key?(:'serviceLevelAgreementType') && attributes.key?(:'service_level_agreement_type')
@@ -129,6 +171,12 @@ module OCI
       raise 'You cannot provide both :autonomousExadataInfrastructureId and :autonomous_exadata_infrastructure_id' if attributes.key?(:'autonomousExadataInfrastructureId') && attributes.key?(:'autonomous_exadata_infrastructure_id')
 
       self.autonomous_exadata_infrastructure_id = attributes[:'autonomous_exadata_infrastructure_id'] if attributes[:'autonomous_exadata_infrastructure_id']
+
+      self.autonomous_vm_cluster_id = attributes[:'autonomousVmClusterId'] if attributes[:'autonomousVmClusterId']
+
+      raise 'You cannot provide both :autonomousVmClusterId and :autonomous_vm_cluster_id' if attributes.key?(:'autonomousVmClusterId') && attributes.key?(:'autonomous_vm_cluster_id')
+
+      self.autonomous_vm_cluster_id = attributes[:'autonomous_vm_cluster_id'] if attributes[:'autonomous_vm_cluster_id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -165,6 +213,24 @@ module OCI
       raise 'You cannot provide both :backupConfig and :backup_config' if attributes.key?(:'backupConfig') && attributes.key?(:'backup_config')
 
       self.backup_config = attributes[:'backup_config'] if attributes[:'backup_config']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
+
+      self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
+
+      raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
+
+      self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -195,14 +261,19 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        db_unique_name == other.db_unique_name &&
         service_level_agreement_type == other.service_level_agreement_type &&
         autonomous_exadata_infrastructure_id == other.autonomous_exadata_infrastructure_id &&
+        autonomous_vm_cluster_id == other.autonomous_vm_cluster_id &&
         compartment_id == other.compartment_id &&
         patch_model == other.patch_model &&
         maintenance_window_details == other.maintenance_window_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        backup_config == other.backup_config
+        backup_config == other.backup_config &&
+        kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id &&
+        vault_id == other.vault_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -218,7 +289,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, compartment_id, patch_model, maintenance_window_details, freeform_tags, defined_tags, backup_config].hash
+      [display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, compartment_id, patch_model, maintenance_window_details, freeform_tags, defined_tags, backup_config, kms_key_id, kms_key_version_id, vault_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -9,7 +9,7 @@ module OCI
   #
   class Core::Models::GetPublicIpByIpAddressDetails
     # **[Required]** The public IP address.
-    # Example: 129.146.2.1
+    # Example: 203.0.113.2
     #
     # @return [String]
     attr_accessor :ip_address

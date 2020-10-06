@@ -107,6 +107,14 @@ module OCI
     # @return [OCI::Database::Models::DatabaseConnectionStrings]
     attr_accessor :connection_strings
 
+    # Point in time recovery timeStamp of the source database at which cloned database system is cloned from the source database system, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339)
+    # @return [DateTime]
+    attr_accessor :source_database_point_in_time_recovery_timestamp
+
+    # The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
+    # @return [String]
+    attr_accessor :database_software_image_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -129,7 +137,9 @@ module OCI
         'db_backup_config': :'dbBackupConfig',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'connection_strings': :'connectionStrings'
+        'connection_strings': :'connectionStrings',
+        'source_database_point_in_time_recovery_timestamp': :'sourceDatabasePointInTimeRecoveryTimestamp',
+        'database_software_image_id': :'databaseSoftwareImageId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -156,7 +166,9 @@ module OCI
         'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'connection_strings': :'OCI::Database::Models::DatabaseConnectionStrings'
+        'connection_strings': :'OCI::Database::Models::DatabaseConnectionStrings',
+        'source_database_point_in_time_recovery_timestamp': :'DateTime',
+        'database_software_image_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -186,6 +198,8 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Database::Models::DatabaseConnectionStrings] :connection_strings The value to assign to the {#connection_strings} property
+    # @option attributes [DateTime] :source_database_point_in_time_recovery_timestamp The value to assign to the {#source_database_point_in_time_recovery_timestamp} property
+    # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -301,6 +315,18 @@ module OCI
       raise 'You cannot provide both :connectionStrings and :connection_strings' if attributes.key?(:'connectionStrings') && attributes.key?(:'connection_strings')
 
       self.connection_strings = attributes[:'connection_strings'] if attributes[:'connection_strings']
+
+      self.source_database_point_in_time_recovery_timestamp = attributes[:'sourceDatabasePointInTimeRecoveryTimestamp'] if attributes[:'sourceDatabasePointInTimeRecoveryTimestamp']
+
+      raise 'You cannot provide both :sourceDatabasePointInTimeRecoveryTimestamp and :source_database_point_in_time_recovery_timestamp' if attributes.key?(:'sourceDatabasePointInTimeRecoveryTimestamp') && attributes.key?(:'source_database_point_in_time_recovery_timestamp')
+
+      self.source_database_point_in_time_recovery_timestamp = attributes[:'source_database_point_in_time_recovery_timestamp'] if attributes[:'source_database_point_in_time_recovery_timestamp']
+
+      self.database_software_image_id = attributes[:'databaseSoftwareImageId'] if attributes[:'databaseSoftwareImageId']
+
+      raise 'You cannot provide both :databaseSoftwareImageId and :database_software_image_id' if attributes.key?(:'databaseSoftwareImageId') && attributes.key?(:'database_software_image_id')
+
+      self.database_software_image_id = attributes[:'database_software_image_id'] if attributes[:'database_software_image_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -345,7 +371,9 @@ module OCI
         db_backup_config == other.db_backup_config &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        connection_strings == other.connection_strings
+        connection_strings == other.connection_strings &&
+        source_database_point_in_time_recovery_timestamp == other.source_database_point_in_time_recovery_timestamp &&
+        database_software_image_id == other.database_software_image_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -361,7 +389,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_system_id, vm_cluster_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, last_backup_timestamp, db_backup_config, freeform_tags, defined_tags, connection_strings].hash
+      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_system_id, vm_cluster_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, last_backup_timestamp, db_backup_config, freeform_tags, defined_tags, connection_strings, source_database_point_in_time_recovery_timestamp, database_software_image_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

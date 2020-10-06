@@ -14,7 +14,8 @@ module OCI
     SOURCE_ENUM = [
       SOURCE_NONE = 'NONE'.freeze,
       SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze,
-      SOURCE_DATABASE = 'DATABASE'.freeze
+      SOURCE_DATABASE = 'DATABASE'.freeze,
+      SOURCE_DB_SYSTEM = 'DB_SYSTEM'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment the DB system  belongs in.
@@ -77,7 +78,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :nsg_ids
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata DB systems.
+    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that the backup network of this DB system belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm). Applicable only to Exadata systems.
     #
     # @return [Array<String>]
     attr_accessor :backup_network_nsg_ids
@@ -143,7 +144,7 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
-    # The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
+    # The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
     #
     # @return [String]
     attr_accessor :cluster_name
@@ -186,6 +187,12 @@ module OCI
     # @return [String]
     attr_reader :source
 
+    # A private IP address of your choice. Must be an available IP address within the subnet's CIDR.
+    # If you don't specify a value, Oracle automatically assigns a private IP address from the subnet.
+    #
+    # @return [String]
+    attr_accessor :private_ip
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -212,7 +219,8 @@ module OCI
         'node_count': :'nodeCount',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'source': :'source'
+        'source': :'source',
+        'private_ip': :'privateIp'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -243,7 +251,8 @@ module OCI
         'node_count': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'source': :'String'
+        'source': :'String',
+        'private_ip': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -257,6 +266,7 @@ module OCI
       type = object_hash[:'source'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Database::Models::LaunchDbSystemDetails' if type == 'NONE'
+      return 'OCI::Database::Models::LaunchDbSystemFromDbSystemDetails' if type == 'DB_SYSTEM'
       return 'OCI::Database::Models::LaunchDbSystemFromDatabaseDetails' if type == 'DATABASE'
       return 'OCI::Database::Models::LaunchDbSystemFromBackupDetails' if type == 'DB_BACKUP'
 
@@ -294,6 +304,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :source The value to assign to the {#source} property
+    # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -422,6 +433,12 @@ module OCI
 
       self.source = attributes[:'source'] if attributes[:'source']
       self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
+
+      self.private_ip = attributes[:'privateIp'] if attributes[:'privateIp']
+
+      raise 'You cannot provide both :privateIp and :private_ip' if attributes.key?(:'privateIp') && attributes.key?(:'private_ip')
+
+      self.private_ip = attributes[:'private_ip'] if attributes[:'private_ip']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -465,7 +482,8 @@ module OCI
         node_count == other.node_count &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        source == other.source
+        source == other.source &&
+        private_ip == other.private_ip
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -481,7 +499,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, private_ip].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

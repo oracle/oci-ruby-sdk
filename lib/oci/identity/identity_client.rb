@@ -60,16 +60,7 @@ module OCI
       # so try and load the config from the default file.
       config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
-      if signer.nil?
-        signer = OCI::Signer.new(
-          config.user,
-          config.fingerprint,
-          config.tenancy,
-          config.key_file,
-          pass_phrase: config.pass_phrase,
-          private_key_content: config.key_content
-        )
-      end
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
@@ -302,8 +293,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Bulk delete resources in the compartment. All resources must be in the same compartment.
-    # This API can only be invoked from tenancy's home region.
+    # Deletes multiple resources in the compartment. All resources must be in the same compartment. You must have the appropriate
+    # permissions to delete the resources in the request. This API can only be invoked from the tenancy's
+    # [home region](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingregions.htm#Home). This operation creates a
+    # {WorkRequest}. Use the {#get_work_request get_work_request}
+    # API to monitor the status of the bulk action.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [OCI::Identity::Models::BulkDeleteResourcesDetails] bulk_delete_resources_details Request object for bulk delete resources in a compartment.
@@ -450,8 +444,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Bulk move resources in the compartment. All resources must be in the same compartment.
-    # This API can only be invoked from tenancy's home region.
+    # Moves multiple resources from one compartment to another. All resources must be in the same compartment.
+    # This API can only be invoked from the tenancy's [home region](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingregions.htm#Home).
+    # To move resources, you must have the appropriate permissions to move the resource in both the source and target
+    # compartments. This operation creates a {WorkRequest}.
+    # Use the {#get_work_request get_work_request} API to monitor the status of the bulk action.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [OCI::Identity::Models::BulkMoveResourcesDetails] bulk_move_resources_details Request object for bulk move resources in the compartment.
@@ -4349,9 +4346,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the resource types supported by compartment bulk actions.
+    # Lists the resource-types supported by compartment bulk actions. Use this API to help you provide the correct
+    # resource-type information to the {#bulk_delete_resources bulk_delete_resources}
+    # and {#bulk_move_resources bulk_move_resources} operations. The returned list of
+    # resource-types provides the appropriate resource-type names to use with the bulk action operations along with
+    # the type of identifying information you'll need to provide for each resource-type. Most resource-types just
+    # require an [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) to identify a specific resource, but some resource-types,
+    # such as buckets, require you to provide other identifying information.
     #
-    # @param [String] bulk_action_type The type of the bulk action.
+    # @param [String] bulk_action_type The type of bulk action.
     #
     #   Allowed values are: BULK_MOVE_RESOURCES, BULK_DELETE_RESOURCES
     # @param [Hash] opts the optional parameters

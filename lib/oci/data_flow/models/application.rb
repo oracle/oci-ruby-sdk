@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A data flow application object.
+  # A Data Flow application object.
   #
   class DataFlow::Models::Application
     LANGUAGE_ENUM = [
@@ -23,6 +23,12 @@ module OCI
       LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
+
+    # An Oracle Cloud Infrastructure URI of an archive.zip file containing custom dependencies that may be used to support the execution a Python, Java, or Scala application.
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
+    #
+    # @return [String]
+    attr_accessor :archive_uri
 
     # The arguments passed to the running application as command line arguments.  An argument is
     # either a plain text or a placeholder. Placeholders are replaced using values from the parameters
@@ -42,7 +48,7 @@ module OCI
     attr_accessor :class_name
 
     # The Spark configuration passed to the running process.
-    # See https://spark.apache.org/docs/latest/configuration.html#available-properties
+    # See https://spark.apache.org/docs/latest/configuration.html#available-properties.
     # Example: { \"spark.app.name\" : \"My App Name\", \"spark.shuffle.io.maxRetries\" : \"4\" }
     # Note: Not all Spark properties are permitted to be set.  Attempting to set a property that is
     # not allowed to be overwritten will cause a 400 status to be returned.
@@ -82,7 +88,7 @@ module OCI
     attr_accessor :executor_shape
 
     # **[Required]** An Oracle Cloud Infrastructure URI of the file containing the application to execute.
-    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
     #
     # @return [String]
     attr_accessor :file_uri
@@ -110,7 +116,7 @@ module OCI
     attr_reader :lifecycle_state
 
     # An Oracle Cloud Infrastructure URI of the bucket where the Spark job logs are to be uploaded.
-    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
     #
     # @return [String]
     attr_accessor :logs_bucket_uri
@@ -139,6 +145,11 @@ module OCI
     # @return [Array<OCI::DataFlow::Models::ApplicationParameter>]
     attr_accessor :parameters
 
+    # The OCID of a private endpoint.
+    #
+    # @return [String]
+    attr_accessor :private_endpoint_id
+
     # **[Required]** The Spark version utilized to run the application.
     #
     # @return [String]
@@ -158,7 +169,7 @@ module OCI
 
     # An Oracle Cloud Infrastructure URI of the bucket to be used as default warehouse directory
     # for BATCH SQL runs.
-    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
     #
     # @return [String]
     attr_accessor :warehouse_bucket_uri
@@ -167,6 +178,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'archive_uri': :'archiveUri',
         'arguments': :'arguments',
         'class_name': :'className',
         'configuration': :'configuration',
@@ -186,6 +198,7 @@ module OCI
         'owner_principal_id': :'ownerPrincipalId',
         'owner_user_name': :'ownerUserName',
         'parameters': :'parameters',
+        'private_endpoint_id': :'privateEndpointId',
         'spark_version': :'sparkVersion',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
@@ -198,6 +211,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'archive_uri': :'String',
         'arguments': :'Array<String>',
         'class_name': :'String',
         'configuration': :'Hash<String, String>',
@@ -217,6 +231,7 @@ module OCI
         'owner_principal_id': :'String',
         'owner_user_name': :'String',
         'parameters': :'Array<OCI::DataFlow::Models::ApplicationParameter>',
+        'private_endpoint_id': :'String',
         'spark_version': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
@@ -231,6 +246,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :archive_uri The value to assign to the {#archive_uri} property
     # @option attributes [Array<String>] :arguments The value to assign to the {#arguments} property
     # @option attributes [String] :class_name The value to assign to the {#class_name} property
     # @option attributes [Hash<String, String>] :configuration The value to assign to the {#configuration} property
@@ -250,6 +266,7 @@ module OCI
     # @option attributes [String] :owner_principal_id The value to assign to the {#owner_principal_id} property
     # @option attributes [String] :owner_user_name The value to assign to the {#owner_user_name} property
     # @option attributes [Array<OCI::DataFlow::Models::ApplicationParameter>] :parameters The value to assign to the {#parameters} property
+    # @option attributes [String] :private_endpoint_id The value to assign to the {#private_endpoint_id} property
     # @option attributes [String] :spark_version The value to assign to the {#spark_version} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
@@ -259,6 +276,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.archive_uri = attributes[:'archiveUri'] if attributes[:'archiveUri']
+
+      raise 'You cannot provide both :archiveUri and :archive_uri' if attributes.key?(:'archiveUri') && attributes.key?(:'archive_uri')
+
+      self.archive_uri = attributes[:'archive_uri'] if attributes[:'archive_uri']
 
       self.arguments = attributes[:'arguments'] if attributes[:'arguments']
 
@@ -350,6 +373,12 @@ module OCI
 
       self.parameters = attributes[:'parameters'] if attributes[:'parameters']
 
+      self.private_endpoint_id = attributes[:'privateEndpointId'] if attributes[:'privateEndpointId']
+
+      raise 'You cannot provide both :privateEndpointId and :private_endpoint_id' if attributes.key?(:'privateEndpointId') && attributes.key?(:'private_endpoint_id')
+
+      self.private_endpoint_id = attributes[:'private_endpoint_id'] if attributes[:'private_endpoint_id']
+
       self.spark_version = attributes[:'sparkVersion'] if attributes[:'sparkVersion']
 
       raise 'You cannot provide both :sparkVersion and :spark_version' if attributes.key?(:'sparkVersion') && attributes.key?(:'spark_version')
@@ -412,6 +441,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        archive_uri == other.archive_uri &&
         arguments == other.arguments &&
         class_name == other.class_name &&
         configuration == other.configuration &&
@@ -431,6 +461,7 @@ module OCI
         owner_principal_id == other.owner_principal_id &&
         owner_user_name == other.owner_user_name &&
         parameters == other.parameters &&
+        private_endpoint_id == other.private_endpoint_id &&
         spark_version == other.spark_version &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
@@ -450,7 +481,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [arguments, class_name, configuration, compartment_id, defined_tags, description, display_name, driver_shape, executor_shape, file_uri, freeform_tags, id, language, lifecycle_state, logs_bucket_uri, num_executors, owner_principal_id, owner_user_name, parameters, spark_version, time_created, time_updated, warehouse_bucket_uri].hash
+      [archive_uri, arguments, class_name, configuration, compartment_id, defined_tags, description, display_name, driver_shape, executor_shape, file_uri, freeform_tags, id, language, lifecycle_state, logs_bucket_uri, num_executors, owner_principal_id, owner_user_name, parameters, private_endpoint_id, spark_version, time_created, time_updated, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

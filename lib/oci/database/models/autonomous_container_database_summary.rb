@@ -15,6 +15,12 @@ module OCI
       SERVICE_LEVEL_AGREEMENT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    INFRASTRUCTURE_TYPE_ENUM = [
+      INFRASTRUCTURE_TYPE_CLOUD = 'CLOUD'.freeze,
+      INFRASTRUCTURE_TYPE_CLOUD_AT_CUSTOMER = 'CLOUD_AT_CUSTOMER'.freeze,
+      INFRASTRUCTURE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
@@ -48,13 +54,33 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # The `DB_UNIQUE_NAME` of the Oracle Database being backed up.
+    # @return [String]
+    attr_accessor :db_unique_name
+
     # **[Required]** The service level agreement type of the container database. The default is STANDARD.
     # @return [String]
     attr_reader :service_level_agreement_type
 
-    # **[Required]** The OCID of the Autonomous Exadata Infrastructure.
+    # The OCID of the Autonomous Exadata Infrastructure.
     # @return [String]
     attr_accessor :autonomous_exadata_infrastructure_id
+
+    # The OCID of the Autonomous VM Cluster.
+    # @return [String]
+    attr_accessor :autonomous_vm_cluster_id
+
+    # The infrastructure type this resource belongs to.
+    # @return [String]
+    attr_reader :infrastructure_type
+
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
+    # @return [String]
+    attr_accessor :vault_id
 
     # **[Required]** The current state of the Autonomous Container Database.
     # @return [String]
@@ -71,6 +97,10 @@ module OCI
     # **[Required]** Database patch model preference.
     # @return [String]
     attr_reader :patch_model
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the last patch applied on the system.
+    # @return [String]
+    attr_accessor :patch_id
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the last maintenance run.
     # @return [String]
@@ -101,7 +131,7 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
-    # Oracle Database version of the Autonomous Container Database
+    # Oracle Database version of the Autonomous Container Database.
     # @return [String]
     attr_accessor :db_version
 
@@ -115,12 +145,18 @@ module OCI
         'id': :'id',
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
+        'db_unique_name': :'dbUniqueName',
         'service_level_agreement_type': :'serviceLevelAgreementType',
         'autonomous_exadata_infrastructure_id': :'autonomousExadataInfrastructureId',
+        'autonomous_vm_cluster_id': :'autonomousVmClusterId',
+        'infrastructure_type': :'infrastructureType',
+        'kms_key_id': :'kmsKeyId',
+        'vault_id': :'vaultId',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'time_created': :'timeCreated',
         'patch_model': :'patchModel',
+        'patch_id': :'patchId',
         'last_maintenance_run_id': :'lastMaintenanceRunId',
         'next_maintenance_run_id': :'nextMaintenanceRunId',
         'maintenance_window': :'maintenanceWindow',
@@ -140,12 +176,18 @@ module OCI
         'id': :'String',
         'compartment_id': :'String',
         'display_name': :'String',
+        'db_unique_name': :'String',
         'service_level_agreement_type': :'String',
         'autonomous_exadata_infrastructure_id': :'String',
+        'autonomous_vm_cluster_id': :'String',
+        'infrastructure_type': :'String',
+        'kms_key_id': :'String',
+        'vault_id': :'String',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'time_created': :'DateTime',
         'patch_model': :'String',
+        'patch_id': :'String',
         'last_maintenance_run_id': :'String',
         'next_maintenance_run_id': :'String',
         'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
@@ -167,12 +209,18 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :db_unique_name The value to assign to the {#db_unique_name} property
     # @option attributes [String] :service_level_agreement_type The value to assign to the {#service_level_agreement_type} property
     # @option attributes [String] :autonomous_exadata_infrastructure_id The value to assign to the {#autonomous_exadata_infrastructure_id} property
+    # @option attributes [String] :autonomous_vm_cluster_id The value to assign to the {#autonomous_vm_cluster_id} property
+    # @option attributes [String] :infrastructure_type The value to assign to the {#infrastructure_type} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :patch_model The value to assign to the {#patch_model} property
+    # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
     # @option attributes [String] :last_maintenance_run_id The value to assign to the {#last_maintenance_run_id} property
     # @option attributes [String] :next_maintenance_run_id The value to assign to the {#next_maintenance_run_id} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
@@ -201,6 +249,12 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
+      self.db_unique_name = attributes[:'dbUniqueName'] if attributes[:'dbUniqueName']
+
+      raise 'You cannot provide both :dbUniqueName and :db_unique_name' if attributes.key?(:'dbUniqueName') && attributes.key?(:'db_unique_name')
+
+      self.db_unique_name = attributes[:'db_unique_name'] if attributes[:'db_unique_name']
+
       self.service_level_agreement_type = attributes[:'serviceLevelAgreementType'] if attributes[:'serviceLevelAgreementType']
 
       raise 'You cannot provide both :serviceLevelAgreementType and :service_level_agreement_type' if attributes.key?(:'serviceLevelAgreementType') && attributes.key?(:'service_level_agreement_type')
@@ -212,6 +266,30 @@ module OCI
       raise 'You cannot provide both :autonomousExadataInfrastructureId and :autonomous_exadata_infrastructure_id' if attributes.key?(:'autonomousExadataInfrastructureId') && attributes.key?(:'autonomous_exadata_infrastructure_id')
 
       self.autonomous_exadata_infrastructure_id = attributes[:'autonomous_exadata_infrastructure_id'] if attributes[:'autonomous_exadata_infrastructure_id']
+
+      self.autonomous_vm_cluster_id = attributes[:'autonomousVmClusterId'] if attributes[:'autonomousVmClusterId']
+
+      raise 'You cannot provide both :autonomousVmClusterId and :autonomous_vm_cluster_id' if attributes.key?(:'autonomousVmClusterId') && attributes.key?(:'autonomous_vm_cluster_id')
+
+      self.autonomous_vm_cluster_id = attributes[:'autonomous_vm_cluster_id'] if attributes[:'autonomous_vm_cluster_id']
+
+      self.infrastructure_type = attributes[:'infrastructureType'] if attributes[:'infrastructureType']
+
+      raise 'You cannot provide both :infrastructureType and :infrastructure_type' if attributes.key?(:'infrastructureType') && attributes.key?(:'infrastructure_type')
+
+      self.infrastructure_type = attributes[:'infrastructure_type'] if attributes[:'infrastructure_type']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
+
+      raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
+
+      self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -236,6 +314,12 @@ module OCI
       raise 'You cannot provide both :patchModel and :patch_model' if attributes.key?(:'patchModel') && attributes.key?(:'patch_model')
 
       self.patch_model = attributes[:'patch_model'] if attributes[:'patch_model']
+
+      self.patch_id = attributes[:'patchId'] if attributes[:'patchId']
+
+      raise 'You cannot provide both :patchId and :patch_id' if attributes.key?(:'patchId') && attributes.key?(:'patch_id')
+
+      self.patch_id = attributes[:'patch_id'] if attributes[:'patch_id']
 
       self.last_maintenance_run_id = attributes[:'lastMaintenanceRunId'] if attributes[:'lastMaintenanceRunId']
 
@@ -302,6 +386,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] infrastructure_type Object to be assigned
+    def infrastructure_type=(infrastructure_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if infrastructure_type && !INFRASTRUCTURE_TYPE_ENUM.include?(infrastructure_type)
+        OCI.logger.debug("Unknown value for 'infrastructure_type' [" + infrastructure_type + "]. Mapping to 'INFRASTRUCTURE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @infrastructure_type = INFRASTRUCTURE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @infrastructure_type = infrastructure_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -339,12 +436,18 @@ module OCI
         id == other.id &&
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
+        db_unique_name == other.db_unique_name &&
         service_level_agreement_type == other.service_level_agreement_type &&
         autonomous_exadata_infrastructure_id == other.autonomous_exadata_infrastructure_id &&
+        autonomous_vm_cluster_id == other.autonomous_vm_cluster_id &&
+        infrastructure_type == other.infrastructure_type &&
+        kms_key_id == other.kms_key_id &&
+        vault_id == other.vault_id &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         time_created == other.time_created &&
         patch_model == other.patch_model &&
+        patch_id == other.patch_id &&
         last_maintenance_run_id == other.last_maintenance_run_id &&
         next_maintenance_run_id == other.next_maintenance_run_id &&
         maintenance_window == other.maintenance_window &&
@@ -368,7 +471,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, lifecycle_state, lifecycle_details, time_created, patch_model, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, freeform_tags, defined_tags, availability_domain, db_version, backup_config].hash
+      [id, compartment_id, display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, infrastructure_type, kms_key_id, vault_id, lifecycle_state, lifecycle_details, time_created, patch_model, patch_id, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, freeform_tags, defined_tags, availability_domain, db_version, backup_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -65,7 +65,7 @@ module OCI
     attr_accessor :display_name
 
     # The date and time the volume backup will expire and be automatically deleted.
-    # Format defined by RFC3339. This parameter will always be present for backups that
+    # Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339). This parameter will always be present for backups that
     # were created automatically by a scheduled-backup policy. For manually created backups,
     # it will be absent, signifying that there is no expiration time and the backup will
     # last forever until manually deleted.
@@ -117,12 +117,12 @@ module OCI
     attr_accessor :source_volume_backup_id
 
     # **[Required]** The date and time the volume backup was created. This is the time the actual point-in-time image
-    # of the volume data was taken. Format defined by RFC3339.
+    # of the volume data was taken. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The date and time the request to create the volume backup was received. Format defined by RFC3339.
+    # The date and time the request to create the volume backup was received. Format defined by [RFC3339]https://tools.ietf.org/html/rfc3339.
     #
     # @return [DateTime]
     attr_accessor :time_request_received

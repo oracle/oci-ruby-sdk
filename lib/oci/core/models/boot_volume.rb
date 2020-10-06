@@ -111,7 +111,9 @@ module OCI
     # @return [OCI::Core::Models::BootVolumeSourceDetails]
     attr_accessor :source_details
 
-    # **[Required]** The date and time the boot volume was created. Format defined by RFC3339.
+    # **[Required]** The date and time the boot volume was created. Format defined
+    # by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
     # @return [DateTime]
     attr_accessor :time_created
 
@@ -122,6 +124,16 @@ module OCI
     # The OCID of the Key Management master encryption key assigned to the boot volume.
     # @return [String]
     attr_accessor :kms_key_id
+
+    # Specifies whether the auto-tune performance is enabled for this boot volume.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_tune_enabled
+
+    # The number of Volume Performance Units per GB that this boot volume is effectively tuned to when it's idle.
+    #
+    # @return [Integer]
+    attr_accessor :auto_tuned_vpus_per_gb
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -143,7 +155,9 @@ module OCI
         'source_details': :'sourceDetails',
         'time_created': :'timeCreated',
         'volume_group_id': :'volumeGroupId',
-        'kms_key_id': :'kmsKeyId'
+        'kms_key_id': :'kmsKeyId',
+        'is_auto_tune_enabled': :'isAutoTuneEnabled',
+        'auto_tuned_vpus_per_gb': :'autoTunedVpusPerGB'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -168,7 +182,9 @@ module OCI
         'source_details': :'OCI::Core::Models::BootVolumeSourceDetails',
         'time_created': :'DateTime',
         'volume_group_id': :'String',
-        'kms_key_id': :'String'
+        'kms_key_id': :'String',
+        'is_auto_tune_enabled': :'BOOLEAN',
+        'auto_tuned_vpus_per_gb': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -196,6 +212,8 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :volume_group_id The value to assign to the {#volume_group_id} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [BOOLEAN] :is_auto_tune_enabled The value to assign to the {#is_auto_tune_enabled} property
+    # @option attributes [Integer] :auto_tuned_vpus_per_gb The value to assign to the {#auto_tuned_vpus_per_gb} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -299,6 +317,18 @@ module OCI
       raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
 
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.is_auto_tune_enabled = attributes[:'isAutoTuneEnabled'] unless attributes[:'isAutoTuneEnabled'].nil?
+
+      raise 'You cannot provide both :isAutoTuneEnabled and :is_auto_tune_enabled' if attributes.key?(:'isAutoTuneEnabled') && attributes.key?(:'is_auto_tune_enabled')
+
+      self.is_auto_tune_enabled = attributes[:'is_auto_tune_enabled'] unless attributes[:'is_auto_tune_enabled'].nil?
+
+      self.auto_tuned_vpus_per_gb = attributes[:'autoTunedVpusPerGB'] if attributes[:'autoTunedVpusPerGB']
+
+      raise 'You cannot provide both :autoTunedVpusPerGB and :auto_tuned_vpus_per_gb' if attributes.key?(:'autoTunedVpusPerGB') && attributes.key?(:'auto_tuned_vpus_per_gb')
+
+      self.auto_tuned_vpus_per_gb = attributes[:'auto_tuned_vpus_per_gb'] if attributes[:'auto_tuned_vpus_per_gb']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -341,7 +371,9 @@ module OCI
         source_details == other.source_details &&
         time_created == other.time_created &&
         volume_group_id == other.volume_group_id &&
-        kms_key_id == other.kms_key_id
+        kms_key_id == other.kms_key_id &&
+        is_auto_tune_enabled == other.is_auto_tune_enabled &&
+        auto_tuned_vpus_per_gb == other.auto_tuned_vpus_per_gb
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -357,7 +389,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, system_tags, display_name, freeform_tags, id, image_id, is_hydrated, vpus_per_gb, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, kms_key_id].hash
+      [availability_domain, compartment_id, defined_tags, system_tags, display_name, freeform_tags, id, image_id, is_hydrated, vpus_per_gb, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, kms_key_id, is_auto_tune_enabled, auto_tuned_vpus_per_gb].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

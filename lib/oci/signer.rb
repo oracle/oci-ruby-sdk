@@ -9,7 +9,7 @@ module OCI
     # enum to define the signing strategy
     SIGNING_STRATEGY_ENUM = [STANDARD = 'standard'.freeze, OBJECT_STORAGE = 'object_storage'.freeze].freeze
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/AbcSize, Metrics/LineLength
 
 
     # Creates a Signer
@@ -34,12 +34,35 @@ module OCI
       raise 'Missing required parameter fingerprint.' unless fingerprint
       raise 'Missing required parameter tenancy.' unless tenancy
 
-      raise 'Missing required parameter private_key_file or private_key_content.' \
-        unless private_key_file || private_key_content
+      raise 'Missing required parameter private_key_file or private_key_content.' unless private_key_file || private_key_content
 
       private_key = private_key_content.nil? ? File.read(private_key_file) : private_key_content
       super("#{tenancy}/#{user}/#{fingerprint}", private_key, pass_phrase: pass_phrase, signing_strategy: signing_strategy)
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines:
+
+    def self.config_file_auth_builder(config)
+      signer = nil
+
+      case config.authentication_type
+      when 'instance_principal'
+        unless config.delegation_token_file.nil?
+          delegation_token = File.read(File.expand_path(config.delegation_token_file)).to_s.strip
+          signer ||= OCI::Auth::Signers::InstancePrincipalsDelegationTokenSigner.new(delegation_token) unless config.delegation_token_file.nil?
+        end
+      when 'resource_principal'
+        signer ||= OCI::Auth::Signers.resource_principals_signer
+      else
+        signer ||= OCI::Signer.new(
+          config.user,
+          config.fingerprint,
+          config.tenancy,
+          config.key_file,
+          pass_phrase: config.pass_phrase,
+          private_key_content: config.key_content
+        )
+      end
+      signer
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/AbcSize, Metrics/LineLength
   end
 end

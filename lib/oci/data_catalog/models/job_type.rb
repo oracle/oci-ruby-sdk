@@ -10,6 +10,8 @@ module OCI
       JOB_TYPE_PREVIEW = 'PREVIEW'.freeze,
       JOB_TYPE_IMPORT = 'IMPORT'.freeze,
       JOB_TYPE_EXPORT = 'EXPORT'.freeze,
+      JOB_TYPE_IMPORT_GLOSSARY = 'IMPORT_GLOSSARY'.freeze,
+      JOB_TYPE_EXPORT_GLOSSARY = 'EXPORT_GLOSSARY'.freeze,
       JOB_TYPE_INTERNAL = 'INTERNAL'.freeze,
       JOB_TYPE_PURGE = 'PURGE'.freeze,
       JOB_TYPE_IMMEDIATE = 'IMMEDIATE'.freeze,

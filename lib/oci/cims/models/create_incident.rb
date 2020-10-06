@@ -5,7 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Incident
+  # Details gathered during the creation of the support ticket.
+  #
+  # **Caution:** Avoid using any confidential information when you supply string values using the API.
+  #
   class Cims::Models::CreateIncident
     PROBLEM_TYPE_ENUM = [
       PROBLEM_TYPE_LIMIT = 'LIMIT'.freeze,
@@ -14,7 +17,7 @@ module OCI
       PROBLEM_TYPE_ACCOUNT = 'ACCOUNT'.freeze
     ].freeze
 
-    # **[Required]** Tenancy Ocid
+    # **[Required]** The OCID of the tenancy.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -22,19 +25,19 @@ module OCI
     # @return [OCI::Cims::Models::CreateTicketDetails]
     attr_accessor :ticket
 
-    # Customer Support Identifier of the support account
+    # The Customer Support Identifier number for the support account.
     # @return [String]
     attr_accessor :csi
 
-    # **[Required]** States type of incident. eg: LIMIT, TECH
+    # **[Required]** The kind of support ticket, such as a technical issue request.
     # @return [String]
     attr_reader :problem_type
 
-    # List of contacts
+    # The list of contacts.
     # @return [Array<OCI::Cims::Models::Contact>]
     attr_accessor :contacts
 
-    # Referrer of the incident., its usually the URL for where the customer logged the incident
+    # The incident referrer. This value is often the URL that the customer used when creating the support ticket.
     # @return [String]
     attr_accessor :referrer
 

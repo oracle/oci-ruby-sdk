@@ -6,7 +6,7 @@ require_relative 'item'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of TechSupport Item
+  # Details about the TechSupportItem object.
   class Cims::Models::TechSupportItem < Cims::Models::Item
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

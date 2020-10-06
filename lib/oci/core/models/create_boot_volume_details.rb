@@ -75,6 +75,11 @@ module OCI
     # @return [OCI::Core::Models::BootVolumeSourceDetails]
     attr_accessor :source_details
 
+    # Specifies whether the auto-tune performance is enabled for this boot volume.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_tune_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -88,7 +93,8 @@ module OCI
         'kms_key_id': :'kmsKeyId',
         'size_in_gbs': :'sizeInGBs',
         'vpus_per_gb': :'vpusPerGB',
-        'source_details': :'sourceDetails'
+        'source_details': :'sourceDetails',
+        'is_auto_tune_enabled': :'isAutoTuneEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -106,7 +112,8 @@ module OCI
         'kms_key_id': :'String',
         'size_in_gbs': :'Integer',
         'vpus_per_gb': :'Integer',
-        'source_details': :'OCI::Core::Models::BootVolumeSourceDetails'
+        'source_details': :'OCI::Core::Models::BootVolumeSourceDetails',
+        'is_auto_tune_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -127,6 +134,7 @@ module OCI
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [Integer] :vpus_per_gb The value to assign to the {#vpus_per_gb} property
     # @option attributes [OCI::Core::Models::BootVolumeSourceDetails] :source_details The value to assign to the {#source_details} property
+    # @option attributes [BOOLEAN] :is_auto_tune_enabled The value to assign to the {#is_auto_tune_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -192,6 +200,12 @@ module OCI
       raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
 
       self.source_details = attributes[:'source_details'] if attributes[:'source_details']
+
+      self.is_auto_tune_enabled = attributes[:'isAutoTuneEnabled'] unless attributes[:'isAutoTuneEnabled'].nil?
+
+      raise 'You cannot provide both :isAutoTuneEnabled and :is_auto_tune_enabled' if attributes.key?(:'isAutoTuneEnabled') && attributes.key?(:'is_auto_tune_enabled')
+
+      self.is_auto_tune_enabled = attributes[:'is_auto_tune_enabled'] unless attributes[:'is_auto_tune_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -214,7 +228,8 @@ module OCI
         kms_key_id == other.kms_key_id &&
         size_in_gbs == other.size_in_gbs &&
         vpus_per_gb == other.vpus_per_gb &&
-        source_details == other.source_details
+        source_details == other.source_details &&
+        is_auto_tune_enabled == other.is_auto_tune_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -230,7 +245,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, kms_key_id, size_in_gbs, vpus_per_gb, source_details].hash
+      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, kms_key_id, size_in_gbs, vpus_per_gb, source_details, is_auto_tune_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

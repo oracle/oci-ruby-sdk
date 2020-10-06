@@ -32,6 +32,10 @@ module OCI
     # @return [String]
     attr_accessor :vpc_password
 
+    # Proxy URL to connect to object store.
+    # @return [String]
+    attr_accessor :internet_proxy
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -39,7 +43,8 @@ module OCI
         'type': :'type',
         'id': :'id',
         'vpc_user': :'vpcUser',
-        'vpc_password': :'vpcPassword'
+        'vpc_password': :'vpcPassword',
+        'internet_proxy': :'internetProxy'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,7 +56,8 @@ module OCI
         'type': :'String',
         'id': :'String',
         'vpc_user': :'String',
-        'vpc_password': :'String'
+        'vpc_password': :'String',
+        'internet_proxy': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,6 +72,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :vpc_user The value to assign to the {#vpc_user} property
     # @option attributes [String] :vpc_password The value to assign to the {#vpc_password} property
+    # @option attributes [String] :internet_proxy The value to assign to the {#internet_proxy} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -87,6 +94,12 @@ module OCI
       raise 'You cannot provide both :vpcPassword and :vpc_password' if attributes.key?(:'vpcPassword') && attributes.key?(:'vpc_password')
 
       self.vpc_password = attributes[:'vpc_password'] if attributes[:'vpc_password']
+
+      self.internet_proxy = attributes[:'internetProxy'] if attributes[:'internetProxy']
+
+      raise 'You cannot provide both :internetProxy and :internet_proxy' if attributes.key?(:'internetProxy') && attributes.key?(:'internet_proxy')
+
+      self.internet_proxy = attributes[:'internet_proxy'] if attributes[:'internet_proxy']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -116,7 +129,8 @@ module OCI
         type == other.type &&
         id == other.id &&
         vpc_user == other.vpc_user &&
-        vpc_password == other.vpc_password
+        vpc_password == other.vpc_password &&
+        internet_proxy == other.internet_proxy
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -132,7 +146,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, id, vpc_user, vpc_password].hash
+      [type, id, vpc_user, vpc_password, internet_proxy].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

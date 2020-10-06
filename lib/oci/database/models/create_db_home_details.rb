@@ -18,9 +18,27 @@ module OCI
     # @return [String]
     attr_accessor :db_version
 
+    # The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
+    # @return [String]
+    attr_accessor :database_software_image_id
+
     # This attribute is required.
     # @return [OCI::Database::Models::CreateDatabaseDetails]
     attr_accessor :database
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -28,7 +46,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'db_version': :'dbVersion',
-        'database': :'database'
+        'database_software_image_id': :'databaseSoftwareImageId',
+        'database': :'database',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -39,7 +60,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'db_version': :'String',
-        'database': :'OCI::Database::Models::CreateDatabaseDetails'
+        'database_software_image_id': :'String',
+        'database': :'OCI::Database::Models::CreateDatabaseDetails',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,7 +76,10 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
+    # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
     # @option attributes [OCI::Database::Models::CreateDatabaseDetails] :database The value to assign to the {#database} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -71,7 +98,25 @@ module OCI
 
       self.db_version = attributes[:'db_version'] if attributes[:'db_version']
 
+      self.database_software_image_id = attributes[:'databaseSoftwareImageId'] if attributes[:'databaseSoftwareImageId']
+
+      raise 'You cannot provide both :databaseSoftwareImageId and :database_software_image_id' if attributes.key?(:'databaseSoftwareImageId') && attributes.key?(:'database_software_image_id')
+
+      self.database_software_image_id = attributes[:'database_software_image_id'] if attributes[:'database_software_image_id']
+
       self.database = attributes[:'database'] if attributes[:'database']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -87,7 +132,10 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         db_version == other.db_version &&
-        database == other.database
+        database_software_image_id == other.database_software_image_id &&
+        database == other.database &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -103,7 +151,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, db_version, database].hash
+      [display_name, db_version, database_software_image_id, database, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

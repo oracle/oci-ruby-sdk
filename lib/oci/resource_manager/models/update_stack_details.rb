@@ -20,7 +20,7 @@ module OCI
     attr_accessor :config_source
 
     # Terraform variables associated with this resource.
-    # The maximum number of variables supported is 100.
+    # The maximum number of variables supported is 250.
     # The maximum size of each variable, including both name and value, is 4096 bytes.
     # Example: `{\"CompartmentId\": \"compartment-id-value\"}`
     #
@@ -40,7 +40,7 @@ module OCI
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]

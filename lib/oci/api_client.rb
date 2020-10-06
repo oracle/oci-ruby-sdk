@@ -122,7 +122,7 @@ module OCI
       http_method = http_method.to_sym.downcase
 
       if http_method != :get
-        return call_api_inner(http_method, path, endpoint, opts, &block) unless using_instance_principals?
+        return call_api_inner(http_method, path, endpoint, opts, &block) unless using_refresh_eligible_signer?
 
         return instance_principals_signer_wrapped_call do
           call_api_inner(http_method, path, endpoint, opts, &block)
@@ -141,8 +141,8 @@ module OCI
         return call_api_inner(http_method, path, endpoint, opts, &block)
       }
 
-      response = proc.call(nil) unless using_instance_principals?
-      response = instance_principals_signer_wrapped_call { proc.call(nil) } if using_instance_principals?
+      response = proc.call(nil) unless using_refresh_eligible_signer?
+      response = instance_principals_signer_wrapped_call { proc.call(nil) } if using_refresh_eligible_signer?
 
       response.api_call = proc
       response
@@ -623,8 +623,10 @@ module OCI
       end
     end
 
-    def using_instance_principals?
-      @signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner)
+    def using_refresh_eligible_signer?
+      @signer.is_a?(OCI::Auth::Signers::InstancePrincipalsSecurityTokenSigner) || \
+        @signer.is_a?(OCI::Auth::Signers::ResourcePrincipalsFederationSigner) || \
+        @signer.is_a?(OCI::Auth::Signers::EphemeralResourcePrincipalsSigner)
     end
 
     def instance_principals_signer_wrapped_call

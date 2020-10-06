@@ -45,6 +45,7 @@ require 'oci/marketplace/models/report_type_collection'
 require 'oci/marketplace/models/report_type_summary'
 require 'oci/marketplace/models/screenshot'
 require 'oci/marketplace/models/support_contact'
+require 'oci/marketplace/models/tax_summary'
 require 'oci/marketplace/models/update_accepted_agreement_details'
 require 'oci/marketplace/models/upload_data'
 

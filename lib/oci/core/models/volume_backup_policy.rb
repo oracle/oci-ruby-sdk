@@ -27,12 +27,13 @@ module OCI
     # @return [Array<OCI::Core::Models::VolumeBackupSchedule>]
     attr_accessor :schedules
 
-    # The paired destination region (pre-defined by oracle) for scheduled cross region backup calls. Example `us-ashburn-1`
+    # The paired destination region for copying scheduled backups to. Example `us-ashburn-1`.
+    # See [Region Pairs](https://docs.cloud.oracle.com/iaas/Content/Block/Tasks/schedulingvolumebackups.htm#RegionPairs) for details about paired regions.
     #
     # @return [String]
     attr_accessor :destination_region
 
-    # **[Required]** The date and time the volume backup policy was created. Format defined by RFC3339.
+    # **[Required]** The date and time the volume backup policy was created. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_created

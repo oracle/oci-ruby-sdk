@@ -31,6 +31,11 @@ module OCI
   # {#attach_vnic attach_vnic}. To update the hostname
   # for a primary private IP, you use {#update_vnic update_vnic}.
   #
+  # `PrivateIp` objects that are created for use with the Oracle Cloud VMware Solution are
+  # assigned to a VLAN and not a VNIC in a subnet. See the
+  # descriptions of the relevant attributes in the `PrivateIp` object. Also see
+  # {Vlan}.
+  #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
@@ -95,6 +100,10 @@ module OCI
     # The private IP address of the `privateIp` object. The address is within the CIDR
     # of the VNIC's subnet.
     #
+    # However, if the `PrivateIp` object is being used with a VLAN as part of
+    # the Oracle Cloud VMware Solution, the address is from the range specified by the
+    # `cidrBlock` attribute for the VLAN. See {Vlan}.
+    #
     # Example: `10.0.3.3`
     #
     # @return [String]
@@ -108,11 +117,22 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_primary
 
+    # Applicable only if the `PrivateIp` object is being used with a VLAN as part of
+    # the Oracle Cloud VMware Solution. The `vlanId` is the OCID of the VLAN. See
+    # {Vlan}.
+    #
+    # @return [String]
+    attr_accessor :vlan_id
+
     # The OCID of the subnet the VNIC is in.
+    #
+    # However, if the `PrivateIp` object is being used with a VLAN as part of
+    # the Oracle Cloud VMware Solution, the `subnetId` is null.
+    #
     # @return [String]
     attr_accessor :subnet_id
 
-    # The date and time the private IP was created, in the format defined by RFC3339.
+    # The date and time the private IP was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
@@ -121,6 +141,9 @@ module OCI
 
     # The OCID of the VNIC the private IP is assigned to. The VNIC and private IP
     # must be in the same subnet.
+    #
+    # However, if the `PrivateIp` object is being used with a VLAN as part of
+    # the Oracle Cloud VMware Solution, the `vnicId` is null.
     #
     # @return [String]
     attr_accessor :vnic_id
@@ -138,6 +161,7 @@ module OCI
         'id': :'id',
         'ip_address': :'ipAddress',
         'is_primary': :'isPrimary',
+        'vlan_id': :'vlanId',
         'subnet_id': :'subnetId',
         'time_created': :'timeCreated',
         'vnic_id': :'vnicId'
@@ -158,6 +182,7 @@ module OCI
         'id': :'String',
         'ip_address': :'String',
         'is_primary': :'BOOLEAN',
+        'vlan_id': :'String',
         'subnet_id': :'String',
         'time_created': :'DateTime',
         'vnic_id': :'String'
@@ -180,6 +205,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
     # @option attributes [BOOLEAN] :is_primary The value to assign to the {#is_primary} property
+    # @option attributes [String] :vlan_id The value to assign to the {#vlan_id} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vnic_id The value to assign to the {#vnic_id} property
@@ -239,6 +265,12 @@ module OCI
 
       self.is_primary = attributes[:'is_primary'] unless attributes[:'is_primary'].nil?
 
+      self.vlan_id = attributes[:'vlanId'] if attributes[:'vlanId']
+
+      raise 'You cannot provide both :vlanId and :vlan_id' if attributes.key?(:'vlanId') && attributes.key?(:'vlan_id')
+
+      self.vlan_id = attributes[:'vlan_id'] if attributes[:'vlan_id']
+
       self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
 
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
@@ -278,6 +310,7 @@ module OCI
         id == other.id &&
         ip_address == other.ip_address &&
         is_primary == other.is_primary &&
+        vlan_id == other.vlan_id &&
         subnet_id == other.subnet_id &&
         time_created == other.time_created &&
         vnic_id == other.vnic_id
@@ -296,7 +329,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, hostname_label, id, ip_address, is_primary, subnet_id, time_created, vnic_id].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, hostname_label, id, ip_address, is_primary, vlan_id, subnet_id, time_created, vnic_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

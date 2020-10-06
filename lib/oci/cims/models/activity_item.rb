@@ -7,7 +7,7 @@ require_relative 'item'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Activity Item
+  # Details about the ActivityItem object.
   class Cims::Models::ActivityItem < Cims::Models::Item
     ACTIVITY_TYPE_ENUM = [
       ACTIVITY_TYPE_NOTES = 'NOTES'.freeze,
@@ -23,23 +23,23 @@ module OCI
       ACTIVITY_AUTHOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Comments to update as part of Activity
+    # Comments added with the activity on the support ticket.
     # @return [String]
     attr_accessor :comments
 
-    # Epoch time when activity was created
+    # The time when the activity was created, in milliseconds since epoch time.
     # @return [Integer]
     attr_accessor :time_created
 
-    # Epoch time when activity was updated
+    # The time when the activity was updated, in milliseconds since epoch time.
     # @return [Integer]
     attr_accessor :time_updated
 
-    # Type of activity. eg: NOTES, UPDATE
+    # The type of activity occuring on the support ticket.
     # @return [String]
     attr_reader :activity_type
 
-    # Person who updates the activity
+    # The person who updates the activity on the support ticket.
     # @return [String]
     attr_reader :activity_author
 

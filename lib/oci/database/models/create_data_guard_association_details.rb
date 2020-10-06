@@ -102,6 +102,7 @@ module OCI
       type = object_hash[:'creationType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Database::Models::CreateDataGuardAssociationWithNewDbSystemDetails' if type == 'NewDbSystem'
+      return 'OCI::Database::Models::CreateDataGuardAssociationToExistingVmClusterDetails' if type == 'ExistingVmCluster'
       return 'OCI::Database::Models::CreateDataGuardAssociationToExistingDbSystemDetails' if type == 'ExistingDbSystem'
 
       # TODO: Log a warning when the subtype is not found.

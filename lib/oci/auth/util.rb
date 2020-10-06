@@ -1,6 +1,9 @@
 # Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
+require 'openssl'
+require 'securerandom'
+
 module OCI
   module Auth
     # Contains utility methods to support functionality in the {OCI::Auth} module, for example being able
@@ -48,6 +51,18 @@ module OCI
         end
         request[AUTHORIZATION_HEADER] = AUTHORIZATION_HEADER_VALUE
         request
+      end
+
+      def self.load_private_key_from_file(private_key_file, passphrase)
+        private_key_data = File.read(File.expand_path(private_key_file)).to_s.strip
+        load_private_key(private_key_data, passphrase)
+      end
+
+      def self.load_private_key(private_key_date, passphrase)
+        OpenSSL::PKey::RSA.new(
+          private_key_date,
+          passphrase || SecureRandom.uuid
+        )
       end
     end
   end

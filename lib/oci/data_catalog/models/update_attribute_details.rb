@@ -49,6 +49,25 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_external
 
+    # The minimum count for the number of instances of a given type stored in this collection type attribute,applicable if this attribute is a complex type.
+    # @return [Integer]
+    attr_accessor :min_collection_count
+
+    # The maximum count for the number of instances of a given type stored in this collection type attribute,applicable if this attribute is a complex type.
+    # For type specifications in systems that specify only \"capacity\" without upper or lower bound , this property can also be used to just mean \"capacity\".
+    # Some examples are Varray size in Oracle , Occurs Clause in Cobol , capacity in XmlSchemaObjectCollection , maxOccurs in  Xml , maxItems in Json
+    #
+    # @return [Integer]
+    attr_accessor :max_collection_count
+
+    # External entity key that represents the datatype of this attribute , applicable if this attribute is a complex type.
+    # @return [String]
+    attr_accessor :external_datatype_entity_key
+
+    # External attribute key that represents the parent attribute  of this attribute , applicable if the parent attribute is of complex type.
+    # @return [String]
+    attr_accessor :external_parent_attribute_key
+
     # A map of maps that contains the properties which are specific to the attribute type. Each attribute type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -75,6 +94,10 @@ module OCI
         'precision': :'precision',
         'scale': :'scale',
         'time_external': :'timeExternal',
+        'min_collection_count': :'minCollectionCount',
+        'max_collection_count': :'maxCollectionCount',
+        'external_datatype_entity_key': :'externalDatatypeEntityKey',
+        'external_parent_attribute_key': :'externalParentAttributeKey',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -94,6 +117,10 @@ module OCI
         'precision': :'Integer',
         'scale': :'Integer',
         'time_external': :'DateTime',
+        'min_collection_count': :'Integer',
+        'max_collection_count': :'Integer',
+        'external_datatype_entity_key': :'String',
+        'external_parent_attribute_key': :'String',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -115,6 +142,10 @@ module OCI
     # @option attributes [Integer] :precision The value to assign to the {#precision} property
     # @option attributes [Integer] :scale The value to assign to the {#scale} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
+    # @option attributes [Integer] :min_collection_count The value to assign to the {#min_collection_count} property
+    # @option attributes [Integer] :max_collection_count The value to assign to the {#max_collection_count} property
+    # @option attributes [String] :external_datatype_entity_key The value to assign to the {#external_datatype_entity_key} property
+    # @option attributes [String] :external_parent_attribute_key The value to assign to the {#external_parent_attribute_key} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -162,6 +193,30 @@ module OCI
 
       self.time_external = attributes[:'time_external'] if attributes[:'time_external']
 
+      self.min_collection_count = attributes[:'minCollectionCount'] if attributes[:'minCollectionCount']
+
+      raise 'You cannot provide both :minCollectionCount and :min_collection_count' if attributes.key?(:'minCollectionCount') && attributes.key?(:'min_collection_count')
+
+      self.min_collection_count = attributes[:'min_collection_count'] if attributes[:'min_collection_count']
+
+      self.max_collection_count = attributes[:'maxCollectionCount'] if attributes[:'maxCollectionCount']
+
+      raise 'You cannot provide both :maxCollectionCount and :max_collection_count' if attributes.key?(:'maxCollectionCount') && attributes.key?(:'max_collection_count')
+
+      self.max_collection_count = attributes[:'max_collection_count'] if attributes[:'max_collection_count']
+
+      self.external_datatype_entity_key = attributes[:'externalDatatypeEntityKey'] if attributes[:'externalDatatypeEntityKey']
+
+      raise 'You cannot provide both :externalDatatypeEntityKey and :external_datatype_entity_key' if attributes.key?(:'externalDatatypeEntityKey') && attributes.key?(:'external_datatype_entity_key')
+
+      self.external_datatype_entity_key = attributes[:'external_datatype_entity_key'] if attributes[:'external_datatype_entity_key']
+
+      self.external_parent_attribute_key = attributes[:'externalParentAttributeKey'] if attributes[:'externalParentAttributeKey']
+
+      raise 'You cannot provide both :externalParentAttributeKey and :external_parent_attribute_key' if attributes.key?(:'externalParentAttributeKey') && attributes.key?(:'external_parent_attribute_key')
+
+      self.external_parent_attribute_key = attributes[:'external_parent_attribute_key'] if attributes[:'external_parent_attribute_key']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -186,6 +241,10 @@ module OCI
         precision == other.precision &&
         scale == other.scale &&
         time_external == other.time_external &&
+        min_collection_count == other.min_collection_count &&
+        max_collection_count == other.max_collection_count &&
+        external_datatype_entity_key == other.external_datatype_entity_key &&
+        external_parent_attribute_key == other.external_parent_attribute_key &&
         properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -202,7 +261,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, external_data_type, is_incremental_data, is_nullable, length, position, precision, scale, time_external, properties].hash
+      [display_name, description, external_data_type, is_incremental_data, is_nullable, length, position, precision, scale, time_external, min_collection_count, max_collection_count, external_datatype_entity_key, external_parent_attribute_key, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,7 +6,8 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A compute instance shape that can be used in {#launch_instance launch_instance}.
-  # For more information, see [Overview of the Compute Service](https://docs.cloud.oracle.com/Content/Compute/Concepts/computeoverview.htm).
+  # For more information, see [Overview of the Compute Service](https://docs.cloud.oracle.com/Content/Compute/Concepts/computeoverview.htm) and
+  # [Compute Shapes](https://docs.cloud.oracle.com/Content/Compute/References/computeshapes.htm).
   #
   class Core::Models::Shape
     # **[Required]** The name of the shape. You can enumerate all available shapes by calling
@@ -15,55 +16,58 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
-    # A short description of the processors available to an instance of this shape.
+    # A short description of the shape's processor (CPU).
     #
     # @return [String]
     attr_accessor :processor_description
 
-    # The default number of OCPUs available to an instance of this shape.
+    # The default number of OCPUs available for this shape.
     #
     # @return [Float]
     attr_accessor :ocpus
 
-    # The default amount of memory, in gigabytes, available to an instance of this shape.
+    # The default amount of memory available for this shape, in gigabytes.
     #
     # @return [Float]
     attr_accessor :memory_in_gbs
 
-    # The networking bandwidth, in gigabits per second, available to an instance of this shape.
+    # The networking bandwidth available for this shape, in gigabits per second.
     #
     # @return [Float]
     attr_accessor :networking_bandwidth_in_gbps
 
-    # The maximum number of VNIC attachments available to an instance of this shape.
+    # The maximum number of VNIC attachments available for this shape.
     #
     # @return [Integer]
     attr_accessor :max_vnic_attachments
 
-    # The number of GPUs available to an instance of this shape.
+    # The number of GPUs available for this shape.
     #
     # @return [Integer]
     attr_accessor :gpus
 
-    # A short description of the GPUs available to instances of this shape.
-    # This field is `null` if `gpus` is `0`.
+    # A short description of the graphics processing unit (GPU) available for this shape.
+    #
+    # If the shape does not have any GPUs, this field is `null`.
     #
     # @return [String]
     attr_accessor :gpu_description
 
-    # The number of local disks available to the instance.
+    # The number of local disks available for this shape.
     #
     # @return [Integer]
     attr_accessor :local_disks
 
-    # The size of the local disks, aggregated, in gigabytes.
-    # This field is `null` if `localDisks` is equal to `0`.
+    # The aggregate size of the local disks available for this shape, in gigabytes.
+    #
+    # If the shape does not have any local disks, this field is `null`.
     #
     # @return [Float]
     attr_accessor :local_disks_total_size_in_gbs
 
-    # A short description of the local disks available to instances of this shape.
-    # This field is `null` if `localDisks` is equal to `0`.
+    # A short description of the local disks available for this shape.
+    #
+    # If the shape does not have any local disks, this field is `null`.
     #
     # @return [String]
     attr_accessor :local_disk_description

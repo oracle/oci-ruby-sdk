@@ -10,9 +10,30 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::UpdateAutonomousDatabaseDetails
+    DB_WORKLOAD_ENUM = [
+      DB_WORKLOAD_OLTP = 'OLTP'.freeze,
+      DB_WORKLOAD_DW = 'DW'.freeze,
+      DB_WORKLOAD_AJD = 'AJD'.freeze
+    ].freeze
+
     LICENSE_MODEL_ENUM = [
       LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
       LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
+    ].freeze
+
+    REFRESHABLE_MODE_ENUM = [
+      REFRESHABLE_MODE_AUTOMATIC = 'AUTOMATIC'.freeze,
+      REFRESHABLE_MODE_MANUAL = 'MANUAL'.freeze
+    ].freeze
+
+    OPEN_MODE_ENUM = [
+      OPEN_MODE_READ_ONLY = 'READ_ONLY'.freeze,
+      OPEN_MODE_READ_WRITE = 'READ_WRITE'.freeze
+    ].freeze
+
+    PERMISSION_LEVEL_ENUM = [
+      PERMISSION_LEVEL_RESTRICTED = 'RESTRICTED'.freeze,
+      PERMISSION_LEVEL_UNRESTRICTED = 'UNRESTRICTED'.freeze
     ].freeze
 
     # The number of CPU cores to be made available to the database.
@@ -60,6 +81,15 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The Autonomous Database workload type. The following values are valid:
+    #
+    # - OLTP - indicates an Autonomous Transaction Processing database
+    # - DW - indicates an Autonomous Data Warehouse database
+    # - AJD - indicates an Autonomous JSON Database
+    #
+    # @return [String]
+    attr_reader :db_workload
+
     # The Oracle license model that applies to the Oracle Autonomous Database. Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm), this attribute must be null because the attribute is already set at the
     # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
     #
@@ -67,9 +97,11 @@ module OCI
     attr_reader :license_model
 
     # The client IP access control list (ACL). This feature is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
-    # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID. To delete all the existing white listed IP\u2019s, use an array with a single empty string entry.
+    # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
+    #
     # To add the whitelist VCN specific subnet or IP, use a semicoln ';' as a deliminator to add the VCN specific subnets or IPs.
-    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw;1.1.1.1\",\"ocid1.vcn.oc1.sea.aaaaaaaard2hfx2nn3e5xeo6j6o62jga44xjizkw\"]`
+    # For an update operation, if you want to delete all the IPs in the ACL, use an array with a single empty string entry.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.<unique_id>\",\"ocid1.vcn.oc1.sea.<unique_id1>;1.1.1.1\",\"ocid1.vcn.oc1.sea.<unique_id2>;1.1.0.0/16\"]`
     #
     # @return [Array<String>]
     attr_accessor :whitelisted_ips
@@ -79,9 +111,47 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
 
+    # Indicates whether the Autonomous Database is a refreshable clone.
+    # @return [BOOLEAN]
+    attr_accessor :is_refreshable_clone
+
+    # The refresh mode of the clone. AUTOMATIC indicates that the clone is automatically being refreshed with data from the source Autonomous Database.
+    # @return [String]
+    attr_reader :refreshable_mode
+
+    # Indicates whether the Autonomous Database has Data Guard enabled.
+    # @return [BOOLEAN]
+    attr_accessor :is_data_guard_enabled
+
     # A valid Oracle Database version for Autonomous Database.
     # @return [String]
     attr_accessor :db_version
+
+    # The `DATABASE OPEN` mode. You can open the database in `READ_ONLY` or `READ_WRITE` mode.
+    # @return [String]
+    attr_reader :open_mode
+
+    # The Autonomous Database permission level. Restricted mode allows access only to admin users.
+    # @return [String]
+    attr_reader :permission_level
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet the resource is associated with.
+    #
+    # **Subnet Restrictions:**
+    # - For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
+    # - For Exadata and virtual machine 2-node RAC systems, do not use a subnet that overlaps with 192.168.128.0/20.
+    # - For Autonomous Database, setting this will disable public secure access to the database.
+    #
+    # These subnets are used by the Oracle Clusterware private interconnect on the database instance.
+    # Specifying an overlapping subnet will cause the private interconnect to malfunction.
+    # This restriction applies to both the client subnet and the backup subnet.
+    #
+    # @return [String]
+    attr_accessor :subnet_id
+
+    # The private endpoint label for the resource. Setting this to an empty string, after the private endpoint database gets created, will change the same private endpoint database to the public endpoint database.
+    # @return [String]
+    attr_accessor :private_endpoint_label
 
     # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
@@ -102,10 +172,18 @@ module OCI
         'db_name': :'dbName',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'db_workload': :'dbWorkload',
         'license_model': :'licenseModel',
         'whitelisted_ips': :'whitelistedIps',
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
+        'is_refreshable_clone': :'isRefreshableClone',
+        'refreshable_mode': :'refreshableMode',
+        'is_data_guard_enabled': :'isDataGuardEnabled',
         'db_version': :'dbVersion',
+        'open_mode': :'openMode',
+        'permission_level': :'permissionLevel',
+        'subnet_id': :'subnetId',
+        'private_endpoint_label': :'privateEndpointLabel',
         'nsg_ids': :'nsgIds'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -123,10 +201,18 @@ module OCI
         'db_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'db_workload': :'String',
         'license_model': :'String',
         'whitelisted_ips': :'Array<String>',
         'is_auto_scaling_enabled': :'BOOLEAN',
+        'is_refreshable_clone': :'BOOLEAN',
+        'refreshable_mode': :'String',
+        'is_data_guard_enabled': :'BOOLEAN',
         'db_version': :'String',
+        'open_mode': :'String',
+        'permission_level': :'String',
+        'subnet_id': :'String',
+        'private_endpoint_label': :'String',
         'nsg_ids': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -146,10 +232,18 @@ module OCI
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
+    # @option attributes [BOOLEAN] :is_refreshable_clone The value to assign to the {#is_refreshable_clone} property
+    # @option attributes [String] :refreshable_mode The value to assign to the {#refreshable_mode} property
+    # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {#is_data_guard_enabled} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
+    # @option attributes [String] :open_mode The value to assign to the {#open_mode} property
+    # @option attributes [String] :permission_level The value to assign to the {#permission_level} property
+    # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [String] :private_endpoint_label The value to assign to the {#private_endpoint_label} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -207,6 +301,12 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
+      self.db_workload = attributes[:'dbWorkload'] if attributes[:'dbWorkload']
+
+      raise 'You cannot provide both :dbWorkload and :db_workload' if attributes.key?(:'dbWorkload') && attributes.key?(:'db_workload')
+
+      self.db_workload = attributes[:'db_workload'] if attributes[:'db_workload']
+
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
       raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
@@ -225,11 +325,53 @@ module OCI
 
       self.is_auto_scaling_enabled = attributes[:'is_auto_scaling_enabled'] unless attributes[:'is_auto_scaling_enabled'].nil?
 
+      self.is_refreshable_clone = attributes[:'isRefreshableClone'] unless attributes[:'isRefreshableClone'].nil?
+
+      raise 'You cannot provide both :isRefreshableClone and :is_refreshable_clone' if attributes.key?(:'isRefreshableClone') && attributes.key?(:'is_refreshable_clone')
+
+      self.is_refreshable_clone = attributes[:'is_refreshable_clone'] unless attributes[:'is_refreshable_clone'].nil?
+
+      self.refreshable_mode = attributes[:'refreshableMode'] if attributes[:'refreshableMode']
+
+      raise 'You cannot provide both :refreshableMode and :refreshable_mode' if attributes.key?(:'refreshableMode') && attributes.key?(:'refreshable_mode')
+
+      self.refreshable_mode = attributes[:'refreshable_mode'] if attributes[:'refreshable_mode']
+
+      self.is_data_guard_enabled = attributes[:'isDataGuardEnabled'] unless attributes[:'isDataGuardEnabled'].nil?
+
+      raise 'You cannot provide both :isDataGuardEnabled and :is_data_guard_enabled' if attributes.key?(:'isDataGuardEnabled') && attributes.key?(:'is_data_guard_enabled')
+
+      self.is_data_guard_enabled = attributes[:'is_data_guard_enabled'] unless attributes[:'is_data_guard_enabled'].nil?
+
       self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
 
       raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
 
       self.db_version = attributes[:'db_version'] if attributes[:'db_version']
+
+      self.open_mode = attributes[:'openMode'] if attributes[:'openMode']
+
+      raise 'You cannot provide both :openMode and :open_mode' if attributes.key?(:'openMode') && attributes.key?(:'open_mode')
+
+      self.open_mode = attributes[:'open_mode'] if attributes[:'open_mode']
+
+      self.permission_level = attributes[:'permissionLevel'] if attributes[:'permissionLevel']
+
+      raise 'You cannot provide both :permissionLevel and :permission_level' if attributes.key?(:'permissionLevel') && attributes.key?(:'permission_level')
+
+      self.permission_level = attributes[:'permission_level'] if attributes[:'permission_level']
+
+      self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
+
+      raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
+
+      self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.private_endpoint_label = attributes[:'privateEndpointLabel'] if attributes[:'privateEndpointLabel']
+
+      raise 'You cannot provide both :privateEndpointLabel and :private_endpoint_label' if attributes.key?(:'privateEndpointLabel') && attributes.key?(:'private_endpoint_label')
+
+      self.private_endpoint_label = attributes[:'private_endpoint_label'] if attributes[:'private_endpoint_label']
 
       self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
 
@@ -241,11 +383,43 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] db_workload Object to be assigned
+    def db_workload=(db_workload)
+      raise "Invalid value for 'db_workload': this must be one of the values in DB_WORKLOAD_ENUM." if db_workload && !DB_WORKLOAD_ENUM.include?(db_workload)
+
+      @db_workload = db_workload
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] license_model Object to be assigned
     def license_model=(license_model)
       raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
 
       @license_model = license_model
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] refreshable_mode Object to be assigned
+    def refreshable_mode=(refreshable_mode)
+      raise "Invalid value for 'refreshable_mode': this must be one of the values in REFRESHABLE_MODE_ENUM." if refreshable_mode && !REFRESHABLE_MODE_ENUM.include?(refreshable_mode)
+
+      @refreshable_mode = refreshable_mode
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] open_mode Object to be assigned
+    def open_mode=(open_mode)
+      raise "Invalid value for 'open_mode': this must be one of the values in OPEN_MODE_ENUM." if open_mode && !OPEN_MODE_ENUM.include?(open_mode)
+
+      @open_mode = open_mode
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] permission_level Object to be assigned
+    def permission_level=(permission_level)
+      raise "Invalid value for 'permission_level': this must be one of the values in PERMISSION_LEVEL_ENUM." if permission_level && !PERMISSION_LEVEL_ENUM.include?(permission_level)
+
+      @permission_level = permission_level
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -265,10 +439,18 @@ module OCI
         db_name == other.db_name &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        db_workload == other.db_workload &&
         license_model == other.license_model &&
         whitelisted_ips == other.whitelisted_ips &&
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
+        is_refreshable_clone == other.is_refreshable_clone &&
+        refreshable_mode == other.refreshable_mode &&
+        is_data_guard_enabled == other.is_data_guard_enabled &&
         db_version == other.db_version &&
+        open_mode == other.open_mode &&
+        permission_level == other.permission_level &&
+        subnet_id == other.subnet_id &&
+        private_endpoint_label == other.private_endpoint_label &&
         nsg_ids == other.nsg_ids
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -285,7 +467,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, data_storage_size_in_tbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, license_model, whitelisted_ips, is_auto_scaling_enabled, db_version, nsg_ids].hash
+      [cpu_core_count, data_storage_size_in_tbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, db_workload, license_model, whitelisted_ips, is_auto_scaling_enabled, is_refreshable_clone, refreshable_mode, is_data_guard_enabled, db_version, open_mode, permission_level, subnet_id, private_endpoint_label, nsg_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

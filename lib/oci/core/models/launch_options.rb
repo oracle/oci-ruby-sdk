@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Options for tuning compatibility and performance of VM shapes.
+  # Options for tuning the compatibility and performance of VM shapes. The values that you specify override any
+  # default values.
   #
   class Core::Models::LaunchOptions
     BOOT_VOLUME_TYPE_ENUM = [
@@ -40,14 +41,14 @@ module OCI
       REMOTE_DATA_VOLUME_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Emulation type for volume.
-    # * `ISCSI` - ISCSI attached block storage device. This is the default for Boot Volumes and Remote Block
-    # Storage volumes on Oracle provided images.
+    # Emulation type for the boot volume.
+    # * `ISCSI` - ISCSI attached block storage device.
     # * `SCSI` - Emulated SCSI disk.
     # * `IDE` - Emulated IDE disk.
-    # * `VFIO` - Direct attached Virtual Function storage.  This is the default option for Local data
-    # volumes on Oracle provided images.
-    # * `PARAVIRTUALIZED` - Paravirtualized disk.
+    # * `VFIO` - Direct attached Virtual Function storage.  This is the default option for local data
+    # volumes on Oracle-provided images.
+    # * `PARAVIRTUALIZED` - Paravirtualized disk. This is the default for boot volumes and remote block
+    # storage volumes on Oracle-provided images.
     #
     # @return [String]
     attr_reader :boot_volume_type
@@ -56,7 +57,7 @@ module OCI
     # * `BIOS` - Boot VM using BIOS style firmware.  This is compatible with both 32 bit and 64 bit operating
     # systems that boot using MBR style bootloaders.
     # * `UEFI_64` - Boot VM using UEFI style firmware compatible with 64 bit operating systems.  This is the
-    # default for Oracle provided images.
+    # default for Oracle-provided images.
     #
     # @return [String]
     attr_reader :firmware
@@ -65,24 +66,26 @@ module OCI
     # * `E1000` - Emulated Gigabit ethernet controller.  Compatible with Linux e1000 network driver.
     # * `VFIO` - Direct attached Virtual Function network controller. This is the networking type
     # when you launch an instance using hardware-assisted (SR-IOV) networking.
-    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
     #
     # @return [String]
     attr_reader :network_type
 
     # Emulation type for volume.
-    # * `ISCSI` - ISCSI attached block storage device. This is the default for Boot Volumes and Remote Block
-    # Storage volumes on Oracle provided images.
+    # * `ISCSI` - ISCSI attached block storage device.
     # * `SCSI` - Emulated SCSI disk.
     # * `IDE` - Emulated IDE disk.
-    # * `VFIO` - Direct attached Virtual Function storage.  This is the default option for Local data
-    # volumes on Oracle provided images.
-    # * `PARAVIRTUALIZED` - Paravirtualized disk.
+    # * `VFIO` - Direct attached Virtual Function storage.  This is the default option for local data
+    # volumes on Oracle-provided images.
+    # * `PARAVIRTUALIZED` - Paravirtualized disk. This is the default for boot volumes and remote block
+    # storage volumes on Oracle-provided images.
     #
     # @return [String]
     attr_reader :remote_data_volume_type
 
-    # Whether to enable in-transit encryption for the boot volume's paravirtualized attachment. The default value is false.
+    # Deprecated. Instead use `isPvEncryptionInTransitEnabled` in
+    # {#launch_instance_details launch_instance_details}.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 

@@ -25,6 +25,13 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    CONSUMPTION_MODEL_ENUM = [
+      CONSUMPTION_MODEL_UCM = 'UCM'.freeze,
+      CONSUMPTION_MODEL_GOV = 'GOV'.freeze,
+      CONSUMPTION_MODEL_OIC4_SAAS = 'OIC4SAAS'.freeze,
+      CONSUMPTION_MODEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique identifier that is immutable on creation.
     # @return [String]
     attr_accessor :id
@@ -87,6 +94,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_file_server_enabled
 
+    # The entitlement used for billing purposes.
+    # @return [String]
+    attr_reader :consumption_model
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -104,7 +115,8 @@ module OCI
         'is_byol': :'isByol',
         'instance_url': :'instanceUrl',
         'message_packs': :'messagePacks',
-        'is_file_server_enabled': :'isFileServerEnabled'
+        'is_file_server_enabled': :'isFileServerEnabled',
+        'consumption_model': :'consumptionModel'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -126,7 +138,8 @@ module OCI
         'is_byol': :'BOOLEAN',
         'instance_url': :'String',
         'message_packs': :'Integer',
-        'is_file_server_enabled': :'BOOLEAN'
+        'is_file_server_enabled': :'BOOLEAN',
+        'consumption_model': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -151,6 +164,7 @@ module OCI
     # @option attributes [String] :instance_url The value to assign to the {#instance_url} property
     # @option attributes [Integer] :message_packs The value to assign to the {#message_packs} property
     # @option attributes [BOOLEAN] :is_file_server_enabled The value to assign to the {#is_file_server_enabled} property
+    # @option attributes [String] :consumption_model The value to assign to the {#consumption_model} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -236,6 +250,12 @@ module OCI
       raise 'You cannot provide both :isFileServerEnabled and :is_file_server_enabled' if attributes.key?(:'isFileServerEnabled') && attributes.key?(:'is_file_server_enabled')
 
       self.is_file_server_enabled = attributes[:'is_file_server_enabled'] unless attributes[:'is_file_server_enabled'].nil?
+
+      self.consumption_model = attributes[:'consumptionModel'] if attributes[:'consumptionModel']
+
+      raise 'You cannot provide both :consumptionModel and :consumption_model' if attributes.key?(:'consumptionModel') && attributes.key?(:'consumption_model')
+
+      self.consumption_model = attributes[:'consumption_model'] if attributes[:'consumption_model']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -266,6 +286,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] consumption_model Object to be assigned
+    def consumption_model=(consumption_model)
+      # rubocop:disable Style/ConditionalAssignment
+      if consumption_model && !CONSUMPTION_MODEL_ENUM.include?(consumption_model)
+        OCI.logger.debug("Unknown value for 'consumption_model' [" + consumption_model + "]. Mapping to 'CONSUMPTION_MODEL_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @consumption_model = CONSUMPTION_MODEL_UNKNOWN_ENUM_VALUE
+      else
+        @consumption_model = consumption_model
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -288,7 +321,8 @@ module OCI
         is_byol == other.is_byol &&
         instance_url == other.instance_url &&
         message_packs == other.message_packs &&
-        is_file_server_enabled == other.is_file_server_enabled
+        is_file_server_enabled == other.is_file_server_enabled &&
+        consumption_model == other.consumption_model
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -304,7 +338,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, integration_instance_type, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, is_byol, instance_url, message_packs, is_file_server_enabled].hash
+      [id, display_name, compartment_id, integration_instance_type, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, is_byol, instance_url, message_packs, is_file_server_enabled, consumption_model].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

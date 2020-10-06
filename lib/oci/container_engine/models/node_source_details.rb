@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -9,7 +10,8 @@ module OCI
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ContainerEngine::Models::NodeSourceDetails
     SOURCE_TYPE_ENUM = [
-      SOURCE_TYPE_IMAGE = 'IMAGE'.freeze
+      SOURCE_TYPE_IMAGE = 'IMAGE'.freeze,
+      SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The source type for the node.
@@ -76,9 +78,14 @@ module OCI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] source_type Object to be assigned
     def source_type=(source_type)
-      raise "Invalid value for 'source_type': this must be one of the values in SOURCE_TYPE_ENUM." if source_type && !SOURCE_TYPE_ENUM.include?(source_type)
-
-      @source_type = source_type
+      # rubocop:disable Style/ConditionalAssignment
+      if source_type && !SOURCE_TYPE_ENUM.include?(source_type)
+        OCI.logger.debug("Unknown value for 'source_type' [" + source_type + "]. Mapping to 'SOURCE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @source_type = SOURCE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @source_type = source_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines

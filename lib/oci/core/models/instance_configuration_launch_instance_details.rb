@@ -6,7 +6,10 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # See Instance launch details - {LaunchInstanceDetails}
+  # Instance launch details for creating an instance from an instance configuration. Use the `sourceDetails`
+  # parameter to specify whether a boot volume or an image should be used to launch a new instance.
+  #
+  # See {LaunchInstanceDetails} for more information.
   #
   class Core::Models::InstanceConfigurationLaunchInstanceDetails
     LAUNCH_MODE_ENUM = [
@@ -56,9 +59,14 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # Additional metadata key/value pairs that you provide. They serve the same purpose and functionality as fields in the 'metadata' object.
+    # Additional metadata key/value pairs that you provide. They serve the same purpose and
+    # functionality as fields in the `metadata` object.
     #
-    # They are distinguished from 'metadata' fields in that these can be nested JSON objects (whereas 'metadata' fields are string/string maps only).
+    # They are distinguished from `metadata` fields in that these can be nested JSON objects
+    # (whereas `metadata` fields are string/string maps only).
+    #
+    # The combined size of the `metadata` and `extendedMetadata` objects can be a maximum of
+    # 32,000 bytes.
     #
     # @return [Hash<String, Object>]
     attr_accessor :extended_metadata
@@ -127,36 +135,26 @@ module OCI
     #  information about how to take advantage of user data, see the
     #  [Cloud-Init Documentation](http://cloudinit.readthedocs.org/en/latest/topics/format.html).
     #
-    #  **Note:** Cloud-Init does not pull this data from the `http://169.254.169.254/opc/v1/instance/metadata/`
-    #  path. When the instance launches and either of these keys are provided, the key values are formatted as
-    #  OpenStack metadata and copied to the following locations, which are recognized by Cloud-Init:
-    #
-    #  `http://169.254.169.254/openstack/latest/meta_data.json` - This JSON blob
-    #  contains, among other things, the SSH keys that you provided for
-    #   **\"ssh_authorized_keys\"**.
-    #
-    #  `http://169.254.169.254/openstack/latest/user_data` - Contains the
-    #  base64-decoded data that you provided for **\"user_data\"**.
-    #
     #  **Metadata Example**
     #
     #       \"metadata\" : {
     #          \"quake_bot_level\" : \"Severe\",
-    #          \"ssh_authorized_keys\" : \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCZ06fccNTQfq+xubFlJ5ZR3kt+uzspdH9tXL+lAejSM1NXM+CFZev7MIxfEjas06y80ZBZ7DUTQO0GxJPeD8NCOb1VorF8M4xuLwrmzRtkoZzU16umt4y1W0Q4ifdp3IiiU0U8/WxczSXcUVZOLqkz5dc6oMHdMVpkimietWzGZ4LBBsH/LjEVY7E0V+a0sNchlVDIZcm7ErReBLcdTGDq0uLBiuChyl6RUkX1PNhusquTGwK7zc8OBXkRuubn5UKXhI3Ul9Nyk4XESkVWIGNKmw8mSpoJSjR8P9ZjRmcZVo8S+x4KVPMZKQEor== ryan.smith@company.com
-    #          ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAzJSAtwEPoB3Jmr58IXrDGzLuDYkWAYg8AsLYlo6JZvKpjY1xednIcfEVQJm4T2DhVmdWhRrwQ8DmayVZvBkLt+zs2LdoAJEVimKwXcJFD/7wtH8Lnk17HiglbbbNXsemjDY0hea4JUE5CfvkIdZBITuMrfqSmA4n3VNoorXYdvtTMoGG8fxMub46RPtuxtqi9bG9Zqenordkg5FJt2mVNfQRqf83CWojcOkklUWq4CjyxaeLf5i9gv1fRoBo4QhiA8I6NCSppO8GnoV/6Ox6TNoh9BiifqGKC9VGYuC89RvUajRBTZSK2TK4DPfaT+2R+slPsFrwiT/oPEhhEK1S5Q== rsa-key-20160227\",
-    #          \"user_data\" : \"SWYgeW91IGNhbiBzZWUgdGhpcywgdGhlbiBpdCB3b3JrZWQgbWF5YmUuCg==\"
+    #          \"ssh_authorized_keys\" : \"ssh-rsa <your_public_SSH_key>== rsa-key-20160227\",
+    #          \"user_data\" : \"<your_public_SSH_key>==\"
     #       }
     #  **Getting Metadata on the Instance**
     #
     #  To get information about your instance, connect to the instance using SSH and issue any of the
     #  following GET requests:
     #
-    #      curl http://169.254.169.254/opc/v1/instance/
-    #      curl http://169.254.169.254/opc/v1/instance/metadata/
-    #      curl http://169.254.169.254/opc/v1/instance/metadata/<any-key-name>
+    #      curl -H \"Authorization: Bearer Oracle\" http://169.254.169.254/opc/v2/instance/
+    #      curl -H \"Authorization: Bearer Oracle\" http://169.254.169.254/opc/v2/instance/metadata/
+    #      curl -H \"Authorization: Bearer Oracle\" http://169.254.169.254/opc/v2/instance/metadata/<any-key-name>
     #
     #  You'll get back a response that includes all the instance information; only the metadata information; or
     #  the metadata information for the specified key name, respectively.
+    #
+    #  The combined size of the `metadata` and `extendedMetadata` objects can be a maximum of 32,000 bytes.
     #
     # @return [Hash<String, String>]
     attr_accessor :metadata
@@ -184,8 +182,8 @@ module OCI
     # A hardware failure or Compute hardware maintenance that affects one fault domain does not affect
     # instances in other fault domains.
     #
-    # If you do not specify the fault domain, the system selects one for you. To change the fault
-    # domain for an instance, terminate it and launch a new instance in the preferred fault domain.
+    # If you do not specify the fault domain, the system selects one for you.
+    #
     #
     # To get a list of fault domains, use the
     # {#list_fault_domains list_fault_domains} operation in the
@@ -198,18 +196,23 @@ module OCI
 
     # The OCID of dedicated VM host.
     #
+    # Dedicated VM hosts can be used when launching individual instances from an instance configuration. They
+    # cannot be used to launch instance pools.
+    #
     # @return [String]
     attr_accessor :dedicated_vm_host_id
 
     # Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
     # * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
     # * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
-    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using virtio drivers.
+    # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
     # * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
     #
     # @return [String]
     attr_reader :launch_mode
 
+    # Options for tuning the compatibility and performance of VM shapes. The values that you specify override any default values.
+    #
     # @return [OCI::Core::Models::InstanceConfigurationLaunchOptions]
     attr_accessor :launch_options
 
@@ -226,6 +229,14 @@ module OCI
     #
     # @return [String]
     attr_reader :preferred_maintenance_action
+
+    # @return [OCI::Core::Models::InstanceConfigurationInstanceOptions]
+    attr_accessor :instance_options
+
+    # Options for defining the availabiity of a VM instance after a maintenance event that impacts the underlying hardware.
+    #
+    # @return [OCI::Core::Models::InstanceConfigurationAvailabilityConfig]
+    attr_accessor :availability_config
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -249,7 +260,9 @@ module OCI
         'launch_options': :'launchOptions',
         'agent_config': :'agentConfig',
         'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
-        'preferred_maintenance_action': :'preferredMaintenanceAction'
+        'preferred_maintenance_action': :'preferredMaintenanceAction',
+        'instance_options': :'instanceOptions',
+        'availability_config': :'availabilityConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -276,7 +289,9 @@ module OCI
         'launch_options': :'OCI::Core::Models::InstanceConfigurationLaunchOptions',
         'agent_config': :'OCI::Core::Models::InstanceConfigurationLaunchInstanceAgentConfigDetails',
         'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
-        'preferred_maintenance_action': :'String'
+        'preferred_maintenance_action': :'String',
+        'instance_options': :'OCI::Core::Models::InstanceConfigurationInstanceOptions',
+        'availability_config': :'OCI::Core::Models::InstanceConfigurationAvailabilityConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -306,6 +321,8 @@ module OCI
     # @option attributes [OCI::Core::Models::InstanceConfigurationLaunchInstanceAgentConfigDetails] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
     # @option attributes [String] :preferred_maintenance_action The value to assign to the {#preferred_maintenance_action} property
+    # @option attributes [OCI::Core::Models::InstanceConfigurationInstanceOptions] :instance_options The value to assign to the {#instance_options} property
+    # @option attributes [OCI::Core::Models::InstanceConfigurationAvailabilityConfig] :availability_config The value to assign to the {#availability_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -417,6 +434,18 @@ module OCI
       raise 'You cannot provide both :preferredMaintenanceAction and :preferred_maintenance_action' if attributes.key?(:'preferredMaintenanceAction') && attributes.key?(:'preferred_maintenance_action')
 
       self.preferred_maintenance_action = attributes[:'preferred_maintenance_action'] if attributes[:'preferred_maintenance_action']
+
+      self.instance_options = attributes[:'instanceOptions'] if attributes[:'instanceOptions']
+
+      raise 'You cannot provide both :instanceOptions and :instance_options' if attributes.key?(:'instanceOptions') && attributes.key?(:'instance_options')
+
+      self.instance_options = attributes[:'instance_options'] if attributes[:'instance_options']
+
+      self.availability_config = attributes[:'availabilityConfig'] if attributes[:'availabilityConfig']
+
+      raise 'You cannot provide both :availabilityConfig and :availability_config' if attributes.key?(:'availabilityConfig') && attributes.key?(:'availability_config')
+
+      self.availability_config = attributes[:'availability_config'] if attributes[:'availability_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -474,7 +503,9 @@ module OCI
         launch_options == other.launch_options &&
         agent_config == other.agent_config &&
         is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
-        preferred_maintenance_action == other.preferred_maintenance_action
+        preferred_maintenance_action == other.preferred_maintenance_action &&
+        instance_options == other.instance_options &&
+        availability_config == other.availability_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -490,7 +521,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, freeform_tags, ipxe_script, metadata, shape, shape_config, source_details, fault_domain, dedicated_vm_host_id, launch_mode, launch_options, agent_config, is_pv_encryption_in_transit_enabled, preferred_maintenance_action].hash
+      [availability_domain, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, freeform_tags, ipxe_script, metadata, shape, shape_config, source_details, fault_domain, dedicated_vm_host_id, launch_mode, launch_options, agent_config, is_pv_encryption_in_transit_enabled, preferred_maintenance_action, instance_options, availability_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

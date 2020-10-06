@@ -60,16 +60,7 @@ module OCI
       # so try and load the config from the default file.
       config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
-      if signer.nil?
-        signer = OCI::Signer.new(
-          config.user,
-          config.fingerprint,
-          config.tenancy,
-          config.key_file,
-          pass_phrase: config.pass_phrase,
-          private_key_content: config.key_content
-        )
-      end
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
@@ -101,6 +92,75 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Attaches a private reverse connection endpoint resource to a data catalog resource. When provided, 'If-Match' is checked against 'ETag' values of the resource.
+    # @param [OCI::DataCatalog::Models::AttachCatalogPrivateEndpointDetails] attach_catalog_private_endpoint_details Details for private reverse connection endpoint to be used for attachment.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    def attach_catalog_private_endpoint(attach_catalog_private_endpoint_details, catalog_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#attach_catalog_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'attach_catalog_private_endpoint_details' when calling attach_catalog_private_endpoint." if attach_catalog_private_endpoint_details.nil?
+      raise "Missing the required parameter 'catalog_id' when calling attach_catalog_private_endpoint." if catalog_id.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+
+      path = '/catalogs/{catalogId}/actions/attachCatalogPrivateEndpoint'.sub('{catalogId}', catalog_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(attach_catalog_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#attach_catalog_private_endpoint') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -147,6 +207,67 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#change_catalog_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a resource into a different compartment. When provided, 'If-Match' is checked against 'ETag' values of the resource.
+    # @param [OCI::DataCatalog::Models::ChangeCatalogPrivateEndpointCompartmentDetails] change_catalog_private_endpoint_compartment_details Details for the target compartment.
+    # @param [String] catalog_private_endpoint_id Unique private reverse connection identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def change_catalog_private_endpoint_compartment(change_catalog_private_endpoint_compartment_details, catalog_private_endpoint_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#change_catalog_private_endpoint_compartment.' if logger
+
+      raise "Missing the required parameter 'change_catalog_private_endpoint_compartment_details' when calling change_catalog_private_endpoint_compartment." if change_catalog_private_endpoint_compartment_details.nil?
+      raise "Missing the required parameter 'catalog_private_endpoint_id' when calling change_catalog_private_endpoint_compartment." if catalog_private_endpoint_id.nil?
+      raise "Parameter value for 'catalog_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_private_endpoint_id)
+
+      path = '/catalogPrivateEndpoints/{catalogPrivateEndpointId}/actions/changeCompartment'.sub('{catalogPrivateEndpointId}', catalog_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_catalog_private_endpoint_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#change_catalog_private_endpoint_compartment') do
         @api_client.call_api(
           :POST,
           path,
@@ -349,6 +470,65 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#create_catalog') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Create a new private reverse connection endpoint.
+    # @param [OCI::DataCatalog::Models::CreateCatalogPrivateEndpointDetails] create_catalog_private_endpoint_details The information used to create the private reverse connection.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    def create_catalog_private_endpoint(create_catalog_private_endpoint_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#create_catalog_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'create_catalog_private_endpoint_details' when calling create_catalog_private_endpoint." if create_catalog_private_endpoint_details.nil?
+
+      path = '/catalogPrivateEndpoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_catalog_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#create_catalog_private_endpoint') do
         @api_client.call_api(
           :POST,
           path,
@@ -1423,6 +1603,65 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes a private reverse connection endpoint by identifier.
+    # @param [String] catalog_private_endpoint_id Unique private reverse connection identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def delete_catalog_private_endpoint(catalog_private_endpoint_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#delete_catalog_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'catalog_private_endpoint_id' when calling delete_catalog_private_endpoint." if catalog_private_endpoint_id.nil?
+      raise "Parameter value for 'catalog_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_private_endpoint_id)
+
+      path = '/catalogPrivateEndpoints/{catalogPrivateEndpointId}'.sub('{catalogPrivateEndpointId}', catalog_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#delete_catalog_private_endpoint') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes a specific connection of a data asset.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] data_asset_key Unique data asset key.
@@ -2200,6 +2439,67 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Detaches a private reverse connection endpoint resource to a data catalog resource. When provided, 'If-Match' is checked against 'ETag' values of the resource.
+    # @param [OCI::DataCatalog::Models::DetachCatalogPrivateEndpointDetails] detach_catalog_private_endpoint_details Details for private reverse connection endpoint to be used for attachment
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def detach_catalog_private_endpoint(detach_catalog_private_endpoint_details, catalog_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#detach_catalog_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'detach_catalog_private_endpoint_details' when calling detach_catalog_private_endpoint." if detach_catalog_private_endpoint_details.nil?
+      raise "Missing the required parameter 'catalog_id' when calling detach_catalog_private_endpoint." if catalog_id.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+
+      path = '/catalogs/{catalogId}/actions/detachCatalogPrivateEndpoint'.sub('{catalogId}', catalog_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(detach_catalog_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#detach_catalog_private_endpoint') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns the fully expanded tree hierarchy of parent and child terms in this glossary.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] glossary_key Unique glossary key.
@@ -2297,7 +2597,7 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params[:accept] = 'application/json'
+      header_params[:accept] = 'application/json, text/csv'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
@@ -2340,7 +2640,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity attribute response.
     #
-    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties
+    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Attribute Attribute}
     def get_attribute(catalog_id, data_asset_key, entity_key, attribute_key, opts = {})
@@ -2352,11 +2652,11 @@ module OCI
       raise "Missing the required parameter 'attribute_key' when calling get_attribute." if attribute_key.nil?
 
 
-      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated timeUpdated createdById updatedById externalDataType externalKey isIncrementalData isNullable length position precision scale timeExternal uri properties]
+      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated timeUpdated createdById updatedById externalDataType externalKey isIncrementalData isNullable length position precision scale timeExternal uri properties path minCollectionCount maxCollectionCount datatypeEntityKey externalDatatypeEntityKey parentAttributeKey externalParentAttributeKey]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey.'
           end
         end
       end
@@ -2525,6 +2825,59 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::Catalog'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a specific private reverse connection by identifier.
+    # @param [String] catalog_private_endpoint_id Unique private reverse connection identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CatalogPrivateEndpoint CatalogPrivateEndpoint}
+    def get_catalog_private_endpoint(catalog_private_endpoint_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#get_catalog_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'catalog_private_endpoint_id' when calling get_catalog_private_endpoint." if catalog_private_endpoint_id.nil?
+      raise "Parameter value for 'catalog_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_private_endpoint_id)
+
+      path = '/catalogPrivateEndpoints/{catalogPrivateEndpointId}'.sub('{catalogPrivateEndpointId}', catalog_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#get_catalog_private_endpoint') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::CatalogPrivateEndpoint'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2763,7 +3116,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity response.
     #
-    #   Allowed values are: key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, typeKey, path, harvestStatus, lastJobKey, uri, properties
+    #   Allowed values are: key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, folderName, typeKey, path, harvestStatus, lastJobKey, uri, properties
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Entity Entity}
     def get_entity(catalog_id, data_asset_key, entity_key, opts = {})
@@ -2774,11 +3127,11 @@ module OCI
       raise "Missing the required parameter 'entity_key' when calling get_entity." if entity_key.nil?
 
 
-      fields_allowable_values = %w[key displayName description dataAssetKey timeCreated timeUpdated createdById updatedById lifecycleState externalKey timeExternal timeStatusUpdated isLogical isPartition folderKey typeKey path harvestStatus lastJobKey uri properties]
+      fields_allowable_values = %w[key displayName description dataAssetKey timeCreated timeUpdated createdById updatedById lifecycleState externalKey timeExternal timeStatusUpdated isLogical isPartition folderKey folderName typeKey path harvestStatus lastJobKey uri properties]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, typeKey, path, harvestStatus, lastJobKey, uri, properties.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, folderName, typeKey, path, harvestStatus, lastJobKey, uri, properties.'
           end
         end
       end
@@ -3130,7 +3483,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :fields Specifies the fields to return in a job response.
     #
-    #   Allowed values are: key, displayName, description, catalogId, lifecycleState, timeCreated, timeUpdated, jobType, scheduleCronExpression, timeScheduleBegin, timeScheduleEnd, scheduleType, connectionKey, jobDefinitionKey, internalVersion, executionCount, timeOfLatestExecution, executions, createdById, updatedById, uri
+    #   Allowed values are: key, displayName, description, catalogId, lifecycleState, timeCreated, timeUpdated, jobType, scheduleCronExpression, timeScheduleBegin, timeScheduleEnd, scheduleType, connectionKey, jobDefinitionKey, internalVersion, executionCount, timeOfLatestExecution, executions, createdById, updatedById, uri, jobDefinitionName, errorCode, errorMessage
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Job Job}
     def get_job(catalog_id, job_key, opts = {})
@@ -3140,11 +3493,11 @@ module OCI
       raise "Missing the required parameter 'job_key' when calling get_job." if job_key.nil?
 
 
-      fields_allowable_values = %w[key displayName description catalogId lifecycleState timeCreated timeUpdated jobType scheduleCronExpression timeScheduleBegin timeScheduleEnd scheduleType connectionKey jobDefinitionKey internalVersion executionCount timeOfLatestExecution executions createdById updatedById uri]
+      fields_allowable_values = %w[key displayName description catalogId lifecycleState timeCreated timeUpdated jobType scheduleCronExpression timeScheduleBegin timeScheduleEnd scheduleType connectionKey jobDefinitionKey internalVersion executionCount timeOfLatestExecution executions createdById updatedById uri jobDefinitionName errorCode errorMessage]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, lifecycleState, timeCreated, timeUpdated, jobType, scheduleCronExpression, timeScheduleBegin, timeScheduleEnd, scheduleType, connectionKey, jobDefinitionKey, internalVersion, executionCount, timeOfLatestExecution, executions, createdById, updatedById, uri.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, lifecycleState, timeCreated, timeUpdated, jobType, scheduleCronExpression, timeScheduleBegin, timeScheduleEnd, scheduleType, connectionKey, jobDefinitionKey, internalVersion, executionCount, timeOfLatestExecution, executions, createdById, updatedById, uri, jobDefinitionName, errorCode, errorMessage.'
           end
         end
       end
@@ -3200,7 +3553,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :fields Specifies the fields to return in a job definition response.
     #
-    #   Allowed values are: key, displayName, description, catalogId, jobType, isIncremental, dataAssetKey, connectionKey, internalVersion, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, uri, isSampleDataExtracted, sampleDataSizeInMBs, properties
+    #   Allowed values are: key, displayName, description, catalogId, jobType, isIncremental, dataAssetKey, connectionKey, internalVersion, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, uri, isSampleDataExtracted, sampleDataSizeInMBs, timeLatestExecutionStarted, timeLatestExecutionEnded, jobExecutionState, scheduleType, properties
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobDefinition JobDefinition}
     def get_job_definition(catalog_id, job_definition_key, opts = {})
@@ -3210,11 +3563,11 @@ module OCI
       raise "Missing the required parameter 'job_definition_key' when calling get_job_definition." if job_definition_key.nil?
 
 
-      fields_allowable_values = %w[key displayName description catalogId jobType isIncremental dataAssetKey connectionKey internalVersion lifecycleState timeCreated timeUpdated createdById updatedById uri isSampleDataExtracted sampleDataSizeInMBs properties]
+      fields_allowable_values = %w[key displayName description catalogId jobType isIncremental dataAssetKey connectionKey internalVersion lifecycleState timeCreated timeUpdated createdById updatedById uri isSampleDataExtracted sampleDataSizeInMBs timeLatestExecutionStarted timeLatestExecutionEnded jobExecutionState scheduleType properties]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, jobType, isIncremental, dataAssetKey, connectionKey, internalVersion, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, uri, isSampleDataExtracted, sampleDataSizeInMBs, properties.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, jobType, isIncremental, dataAssetKey, connectionKey, internalVersion, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, uri, isSampleDataExtracted, sampleDataSizeInMBs, timeLatestExecutionStarted, timeLatestExecutionEnded, jobExecutionState, scheduleType, properties.'
           end
         end
       end
@@ -4018,6 +4371,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -4034,7 +4391,7 @@ module OCI
     # @option opts [Integer] :scale Scale of the attribute value usually applies to float data type.
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity attribute summary response.
     #
-    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, isNullable, uri
+    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
@@ -4056,11 +4413,11 @@ module OCI
       end
 
 
-      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated externalDataType externalKey length isNullable uri]
+      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated externalDataType externalKey length isNullable uri path minCollectionCount maxCollectionCount datatypeEntityKey externalDatatypeEntityKey parentAttributeKey externalParentAttributeKey]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, isNullable, uri.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey.'
           end
         end
       end
@@ -4083,6 +4440,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
       query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
@@ -4123,6 +4481,87 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::AttributeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of all the catalog private endpoints in the specified compartment.
+    #
+    # @param [String] compartment_id The OCID of the compartment where you want to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::DataCatalog::Models::CatalogPrivateEndpointSummary CatalogPrivateEndpointSummary}>
+    def list_catalog_private_endpoints(compartment_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#list_catalog_private_endpoints.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_catalog_private_endpoints." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      path = '/catalogPrivateEndpoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#list_catalog_private_endpoints') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::DataCatalog::Models::CatalogPrivateEndpointSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -4224,6 +4663,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -4281,6 +4724,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
       query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
@@ -4439,6 +4883,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -4493,6 +4941,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
       query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
@@ -4546,6 +4995,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -4563,7 +5016,7 @@ module OCI
     # @option opts [String] :last_job_key Key of the last harvest process to update this resource.
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity summary response.
     #
-    #   Allowed values are: key, displayName, description, dataAssetKey, timeCreated, timeUpdated, updatedById, lifecycleState, folderKey, externalKey, path, uri
+    #   Allowed values are: key, displayName, description, dataAssetKey, timeCreated, timeUpdated, updatedById, lifecycleState, folderKey, folderName, externalKey, path, uri
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
@@ -4588,11 +5041,11 @@ module OCI
       end
 
 
-      fields_allowable_values = %w[key displayName description dataAssetKey timeCreated timeUpdated updatedById lifecycleState folderKey externalKey path uri]
+      fields_allowable_values = %w[key displayName description dataAssetKey timeCreated timeUpdated updatedById lifecycleState folderKey folderName externalKey path uri]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, dataAssetKey, timeCreated, timeUpdated, updatedById, lifecycleState, folderKey, externalKey, path, uri.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, dataAssetKey, timeCreated, timeUpdated, updatedById, lifecycleState, folderKey, folderName, externalKey, path, uri.'
           end
         end
       end
@@ -4614,6 +5067,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
       query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
@@ -4890,6 +5344,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [String] :parent_folder_key Unique folder key.
     # @option opts [String] :path Full path of the resource for resources that support paths.
@@ -4953,6 +5411,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:parentFolderKey] = opts[:parent_folder_key] if opts[:parent_folder_key]
       query_params[:path] = opts[:path] if opts[:path]
@@ -5008,6 +5467,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -5060,6 +5523,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
       query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
@@ -5110,6 +5574,11 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
+    # @option opts [String] :job_execution_state Job execution state.
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [String] :job_type Job type.
     # @option opts [BOOLEAN] :is_incremental Whether job definition is an incremental harvest (true) or a full harvest (false).
@@ -5122,10 +5591,10 @@ module OCI
     # @option opts [String] :sample_data_size_in_mbs The sample data size in MB, specified as number of rows, for a metadata harvest.
     # @option opts [Array<String>] :fields Specifies the fields to return in a job definition summary response.
     #
-    #   Allowed values are: key, displayName, description, catalogId, jobType, lifecycleState, timeCreated, isSampleDataExtracted, uri
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #   Allowed values are: key, displayName, description, catalogId, jobType, connectionKey, lifecycleState, timeCreated, isSampleDataExtracted, uri, timeLatestExecutionStarted, timeLatestExecutionEnded, jobExecutionState, scheduleType
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. Default order for TIMELATESTEXECUTIONSTARTED is descending. If no value is specified TIMECREATED is default.
     #
-    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    #   Allowed values are: TIMECREATED, DISPLAYNAME, TIMELATESTEXECUTIONSTARTED
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The maximum number of items to return.
@@ -5137,6 +5606,10 @@ module OCI
 
       raise "Missing the required parameter 'catalog_id' when calling list_job_definitions." if catalog_id.nil?
 
+      if opts[:job_execution_state] && !OCI::DataCatalog::Models::JOB_EXECUTION_STATE_ENUM.include?(opts[:job_execution_state])
+        raise 'Invalid value for "job_execution_state", must be one of the values in OCI::DataCatalog::Models::JOB_EXECUTION_STATE_ENUM.'
+      end
+
       if opts[:lifecycle_state] && !OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.'
       end
@@ -5146,17 +5619,17 @@ module OCI
       end
 
 
-      fields_allowable_values = %w[key displayName description catalogId jobType lifecycleState timeCreated isSampleDataExtracted uri]
+      fields_allowable_values = %w[key displayName description catalogId jobType connectionKey lifecycleState timeCreated isSampleDataExtracted uri timeLatestExecutionStarted timeLatestExecutionEnded jobExecutionState scheduleType]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, jobType, lifecycleState, timeCreated, isSampleDataExtracted, uri.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, jobType, connectionKey, lifecycleState, timeCreated, isSampleDataExtracted, uri, timeLatestExecutionStarted, timeLatestExecutionEnded, jobExecutionState, scheduleType.'
           end
         end
       end
 
-      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME TIMELATESTEXECUTIONSTARTED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME, TIMELATESTEXECUTIONSTARTED.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -5171,6 +5644,8 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
+      query_params[:jobExecutionState] = opts[:job_execution_state] if opts[:job_execution_state]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:jobType] = opts[:job_type] if opts[:job_type]
       query_params[:isIncremental] = opts[:is_incremental] if !opts[:is_incremental].nil?
@@ -5471,6 +5946,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :category Category of this metric.
     # @option opts [String] :sub_category Sub category of this metric under the category. Used for aggregating values. May be null.
     # @option opts [String] :unit Unit of this metric.
@@ -5530,6 +6009,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:category] = opts[:category] if opts[:category]
       query_params[:subCategory] = opts[:sub_category] if opts[:sub_category]
       query_params[:unit] = opts[:unit] if opts[:unit]
@@ -5585,6 +6065,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state Job lifecycle state.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -5602,7 +6086,7 @@ module OCI
     # @option opts [String] :connection_key Unique connection key.
     # @option opts [Array<String>] :fields Specifies the fields to return in a job summary response.
     #
-    #   Allowed values are: key, displayName, description, catalogId, jobDefinitionKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, jobType, scheduleCronExpression, timeScheduleBegin, scheduleType, executionCount, timeOfLatestExecution, executions, uri
+    #   Allowed values are: key, displayName, description, catalogId, jobDefinitionKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, jobType, scheduleCronExpression, timeScheduleBegin, scheduleType, executionCount, timeOfLatestExecution, executions, uri, jobDefinitionName, errorCode, errorMessage
     # @option opts [Integer] :execution_count The total number of executions for this job schedule.
     #
     # @option opts [DateTime] :time_of_latest_execution The date and time the most recent execution for this job ,in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
@@ -5635,11 +6119,11 @@ module OCI
       end
 
 
-      fields_allowable_values = %w[key displayName description catalogId jobDefinitionKey lifecycleState timeCreated timeUpdated createdById updatedById jobType scheduleCronExpression timeScheduleBegin scheduleType executionCount timeOfLatestExecution executions uri]
+      fields_allowable_values = %w[key displayName description catalogId jobDefinitionKey lifecycleState timeCreated timeUpdated createdById updatedById jobType scheduleCronExpression timeScheduleBegin scheduleType executionCount timeOfLatestExecution executions uri jobDefinitionName errorCode errorMessage]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, jobDefinitionKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, jobType, scheduleCronExpression, timeScheduleBegin, scheduleType, executionCount, timeOfLatestExecution, executions, uri.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, jobDefinitionKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, jobType, scheduleCronExpression, timeScheduleBegin, scheduleType, executionCount, timeOfLatestExecution, executions, uri, jobDefinitionName, errorCode, errorMessage.'
           end
         end
       end
@@ -5660,6 +6144,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
       query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
@@ -5719,6 +6204,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [Array<String>] :fields Specifies the fields to return in a term summary response.
     #
@@ -5767,6 +6256,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
@@ -5815,6 +6305,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [Array<String>] :fields Specifies the fields to return in a term relationship summary response.
     #
@@ -5867,6 +6361,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
@@ -5914,6 +6409,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [String] :parent_term_key Unique key of the parent term.
     # @option opts [BOOLEAN] :is_allowed_to_have_child_terms Indicates whether a term may contain child terms.
@@ -5972,6 +6471,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:parentTermKey] = opts[:parent_term_key] if opts[:parent_term_key]
       query_params[:isAllowedToHaveChildTerms] = opts[:is_allowed_to_have_child_terms] if !opts[:is_allowed_to_have_child_terms].nil?
@@ -6739,6 +7239,67 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::Catalog'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the private reverse connection endpoint.
+    # @param [String] catalog_private_endpoint_id Unique private reverse connection identifier.
+    # @param [OCI::DataCatalog::Models::UpdateCatalogPrivateEndpointDetails] update_catalog_private_endpoint_details The information to be updated in private reverse connection
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def update_catalog_private_endpoint(catalog_private_endpoint_id, update_catalog_private_endpoint_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#update_catalog_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'catalog_private_endpoint_id' when calling update_catalog_private_endpoint." if catalog_private_endpoint_id.nil?
+      raise "Missing the required parameter 'update_catalog_private_endpoint_details' when calling update_catalog_private_endpoint." if update_catalog_private_endpoint_details.nil?
+      raise "Parameter value for 'catalog_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_private_endpoint_id)
+
+      path = '/catalogPrivateEndpoints/{catalogPrivateEndpointId}'.sub('{catalogPrivateEndpointId}', catalog_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_catalog_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#update_catalog_private_endpoint') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength

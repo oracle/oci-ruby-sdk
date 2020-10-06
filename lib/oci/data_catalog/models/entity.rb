@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -10,6 +11,26 @@ module OCI
   # that one or many files may match.
   #
   class DataCatalog::Models::Entity
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_MOVING = 'MOVING'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    HARVEST_STATUS_ENUM = [
+      HARVEST_STATUS_COMPLETE = 'COMPLETE'.freeze,
+      HARVEST_STATUS_ERROR = 'ERROR'.freeze,
+      HARVEST_STATUS_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      HARVEST_STATUS_DEFERRED = 'DEFERRED'.freeze,
+      HARVEST_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique data entity key that is immutable.
     # @return [String]
     attr_accessor :key
@@ -45,7 +66,7 @@ module OCI
 
     # The current state of the data entity.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # Unique external key of this object in the source system.
     # @return [String]
@@ -77,13 +98,17 @@ module OCI
     # @return [String]
     attr_accessor :folder_key
 
+    # Name of the associated folder. This name is harvested from the source data asset when the parent folder for the entiy is harvested.
+    # @return [String]
+    attr_accessor :folder_name
+
     # Full path of the data entity.
     # @return [String]
     attr_accessor :path
 
     # Status of the object as updated by the harvest process.
     # @return [String]
-    attr_accessor :harvest_status
+    attr_reader :harvest_status
 
     # Key of the last harvest process to update this object.
     # @return [String]
@@ -125,6 +150,7 @@ module OCI
         'is_partition': :'isPartition',
         'data_asset_key': :'dataAssetKey',
         'folder_key': :'folderKey',
+        'folder_name': :'folderName',
         'path': :'path',
         'harvest_status': :'harvestStatus',
         'last_job_key': :'lastJobKey',
@@ -154,6 +180,7 @@ module OCI
         'is_partition': :'BOOLEAN',
         'data_asset_key': :'String',
         'folder_key': :'String',
+        'folder_name': :'String',
         'path': :'String',
         'harvest_status': :'String',
         'last_job_key': :'String',
@@ -185,6 +212,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_partition The value to assign to the {#is_partition} property
     # @option attributes [String] :data_asset_key The value to assign to the {#data_asset_key} property
     # @option attributes [String] :folder_key The value to assign to the {#folder_key} property
+    # @option attributes [String] :folder_name The value to assign to the {#folder_name} property
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [String] :harvest_status The value to assign to the {#harvest_status} property
     # @option attributes [String] :last_job_key The value to assign to the {#last_job_key} property
@@ -279,6 +307,12 @@ module OCI
 
       self.folder_key = attributes[:'folder_key'] if attributes[:'folder_key']
 
+      self.folder_name = attributes[:'folderName'] if attributes[:'folderName']
+
+      raise 'You cannot provide both :folderName and :folder_name' if attributes.key?(:'folderName') && attributes.key?(:'folder_name')
+
+      self.folder_name = attributes[:'folder_name'] if attributes[:'folder_name']
+
       self.path = attributes[:'path'] if attributes[:'path']
 
       self.harvest_status = attributes[:'harvestStatus'] if attributes[:'harvestStatus']
@@ -306,6 +340,32 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] harvest_status Object to be assigned
+    def harvest_status=(harvest_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if harvest_status && !HARVEST_STATUS_ENUM.include?(harvest_status)
+        OCI.logger.debug("Unknown value for 'harvest_status' [" + harvest_status + "]. Mapping to 'HARVEST_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @harvest_status = HARVEST_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @harvest_status = harvest_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -330,6 +390,7 @@ module OCI
         is_partition == other.is_partition &&
         data_asset_key == other.data_asset_key &&
         folder_key == other.folder_key &&
+        folder_name == other.folder_name &&
         path == other.path &&
         harvest_status == other.harvest_status &&
         last_job_key == other.last_job_key &&
@@ -351,7 +412,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, time_created, time_updated, created_by_id, updated_by_id, lifecycle_state, external_key, time_external, time_status_updated, is_logical, is_partition, data_asset_key, folder_key, path, harvest_status, last_job_key, type_key, uri, properties].hash
+      [key, display_name, description, time_created, time_updated, created_by_id, updated_by_id, lifecycle_state, external_key, time_external, time_status_updated, is_logical, is_partition, data_asset_key, folder_key, folder_name, path, harvest_status, last_job_key, type_key, uri, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

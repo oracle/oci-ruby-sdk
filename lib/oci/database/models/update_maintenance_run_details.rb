@@ -5,23 +5,33 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Describes the modification parameters for the Maintenance Run.
+  # Describes the modification parameters for the maintenance run.
   #
   class Database::Models::UpdateMaintenanceRunDetails
-    # If set to false, skips the Maintenance Run.
+    # If `FALSE`, skips the maintenance run.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # The scheduled date and time of the Maintenance Run to update.
+    # The scheduled date and time of the maintenance run to update.
     # @return [DateTime]
     attr_accessor :time_scheduled
+
+    # If set to `TRUE`, starts patching immediately.
+    # @return [BOOLEAN]
+    attr_accessor :is_patch_now_enabled
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the patch to be applied in the maintenance run.
+    # @return [String]
+    attr_accessor :patch_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'is_enabled': :'isEnabled',
-        'time_scheduled': :'timeScheduled'
+        'time_scheduled': :'timeScheduled',
+        'is_patch_now_enabled': :'isPatchNowEnabled',
+        'patch_id': :'patchId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -31,7 +41,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'is_enabled': :'BOOLEAN',
-        'time_scheduled': :'DateTime'
+        'time_scheduled': :'DateTime',
+        'is_patch_now_enabled': :'BOOLEAN',
+        'patch_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,6 +56,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     # @option attributes [DateTime] :time_scheduled The value to assign to the {#time_scheduled} property
+    # @option attributes [BOOLEAN] :is_patch_now_enabled The value to assign to the {#is_patch_now_enabled} property
+    # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -61,6 +75,18 @@ module OCI
       raise 'You cannot provide both :timeScheduled and :time_scheduled' if attributes.key?(:'timeScheduled') && attributes.key?(:'time_scheduled')
 
       self.time_scheduled = attributes[:'time_scheduled'] if attributes[:'time_scheduled']
+
+      self.is_patch_now_enabled = attributes[:'isPatchNowEnabled'] unless attributes[:'isPatchNowEnabled'].nil?
+
+      raise 'You cannot provide both :isPatchNowEnabled and :is_patch_now_enabled' if attributes.key?(:'isPatchNowEnabled') && attributes.key?(:'is_patch_now_enabled')
+
+      self.is_patch_now_enabled = attributes[:'is_patch_now_enabled'] unless attributes[:'is_patch_now_enabled'].nil?
+
+      self.patch_id = attributes[:'patchId'] if attributes[:'patchId']
+
+      raise 'You cannot provide both :patchId and :patch_id' if attributes.key?(:'patchId') && attributes.key?(:'patch_id')
+
+      self.patch_id = attributes[:'patch_id'] if attributes[:'patch_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -75,7 +101,9 @@ module OCI
 
       self.class == other.class &&
         is_enabled == other.is_enabled &&
-        time_scheduled == other.time_scheduled
+        time_scheduled == other.time_scheduled &&
+        is_patch_now_enabled == other.is_patch_now_enabled &&
+        patch_id == other.patch_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -91,7 +119,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_enabled, time_scheduled].hash
+      [is_enabled, time_scheduled, is_patch_now_enabled, patch_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -60,16 +60,7 @@ module OCI
       # so try and load the config from the default file.
       config = OCI::Config.validate_and_build_config_with_signer(config, signer)
 
-      if signer.nil?
-        signer = OCI::Signer.new(
-          config.user,
-          config.fingerprint,
-          config.tenancy,
-          config.key_file,
-          pass_phrase: config.pass_phrase,
-          private_key_content: config.key_content
-        )
-      end
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
 
       @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
       @retry_config = retry_config
@@ -107,14 +98,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # This API enables the customer to Create an Incident
+    # Enables the customer to create an support ticket.
     # @param [OCI::Cims::Models::CreateIncident] create_incident_details Incident information
-    # @param [String] ocid User OCID for IDCS users that have a shadow in OCI
+    # @param [String] ocid User OCID for Oracle Identity Cloud Service (IDCS) users who also have a federated Oracle Cloud Infrastructure account.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token Retry token
-    # @option opts [String] :opc_request_id Unique Header for request id
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::Incident Incident}
     def create_incident(create_incident_details, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#create_incident.' if logger
@@ -134,10 +125,9 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:ocid] = ocid
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:homeregion] = opts[:homeregion] if opts[:homeregion]
       # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_incident_details)
 
@@ -165,14 +155,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # This API fetches the details of a requested Incident
-    # @param [String] incident_key Unique ID that identifies an incident
-    # @param [String] csi Customer Support Identifier of the support account
-    # @param [String] ocid User OCID for IDCS users that have a shadow in OCI
+    # Gets the details of the support ticket.
+    # @param [String] incident_key Unique identifier for the support ticket.
+    # @param [String] csi The Customer Support Identifier associated with the support account.
+    # @param [String] ocid User OCID for Oracle Identity Cloud Service (IDCS) users who also have a federated Oracle Cloud Infrastructure account.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Header for request id
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :homeregion The region of the tenancy.
+    # @option opts [String] :problem_type The kind of support request.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::Incident Incident}
     def get_incident(incident_key, csi, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#get_incident.' if logger
@@ -196,6 +188,8 @@ module OCI
       header_params[:csi] = csi
       header_params[:ocid] = ocid
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:homeregion] = opts[:homeregion] if opts[:homeregion]
+      header_params[:'problem-type'] = opts[:problem_type] if opts[:problem_type]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -224,13 +218,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # GetStatus of the Service
-    # @param [String] source Source is a downstream system. Eg: JIRA or MOS or any other source in future.
-    # @param [String] ocid User OCID for IDCS users that have a shadow in OCI
+    # Gets the status of the service.
+    # @param [String] source The system that generated the support ticket, such as My Oracle Support.
+    # @param [String] ocid User OCID for Oracle Identity Cloud Service (IDCS) users who also have a federated Oracle Cloud Infrastructure account.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Header for request id
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::Status Status}
     def get_status(source, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#get_status.' if logger
@@ -252,6 +247,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:ocid] = ocid
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:homeregion] = opts[:homeregion] if opts[:homeregion]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -280,20 +276,23 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # This API returns the list of all possible product that OCI supports, while creating an incident
-    # @param [String] problem_type Problem Type of Taxonomy - tech/limit
-    # @param [String] compartment_id Tenancy Ocid
-    # @param [String] csi Customer Support Identifier of the support account
-    # @param [String] ocid User OCID for IDCS users that have a shadow in OCI
+    # During support ticket creation, returns the list of all possible products that Oracle Cloud Infrastructure supports.
+    # @param [String] problem_type The kind of support request.
+    # @param [String] compartment_id The OCID of the tenancy.
+    # @param [String] csi The Customer Support Identifier associated with the support account.
+    # @param [String] ocid User OCID for Oracle Identity Cloud Service (IDCS) users who also have a federated Oracle Cloud Infrastructure account.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Header for request id
-    # @option opts [Integer] :limit Limit query for number of returned results (default to 50)
-    # @option opts [String] :page Pagination for Incident list (default to 1)
-    # @option opts [String] :sort_by The key to sort the returned items by (default to dateUpdated)
-    # @option opts [String] :sort_order The order in which to sort the results (default to ASC)
-    # @option opts [String] :name Name of Incident Type. eg: Limit Increase (default to limit)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 50)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 1)
+    # @option opts [String] :sort_by The key to use to sort the returned items. (default to dateUpdated)
+    # @option opts [String] :sort_order The order to sort the results in. (default to ASC)
+    # @option opts [String] :name The user-friendly name of the incident type. (default to limit)
+    # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type Array<{OCI::Cims::Models::IncidentResourceType IncidentResourceType}>
     def list_incident_resource_types(problem_type, compartment_id, csi, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#list_incident_resource_types.' if logger
@@ -332,6 +331,7 @@ module OCI
       header_params[:csi] = csi
       header_params[:ocid] = ocid
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:homeregion] = opts[:homeregion] if opts[:homeregion]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -360,19 +360,23 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # This API returns the list of incidents raised by the tenant
-    # @param [String] csi Customer Support Identifier of the support account
-    # @param [String] compartment_id Tenancy Ocid
-    # @param [String] ocid User OCID for IDCS users that have a shadow in OCI
+    # Returns the list of support tickets raised by the tenancy.
+    # @param [String] csi The Customer Support Identifier associated with the support account.
+    # @param [String] compartment_id The OCID of the tenancy.
+    # @param [String] ocid User OCID for Oracle Identity Cloud Service (IDCS) users who also have a federated Oracle Cloud Infrastructure account.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit Limit query for number of returned results (default to 50)
-    # @option opts [String] :sort_by The key to sort the returned items by (default to dateUpdated)
-    # @option opts [String] :sort_order The order in which to sort the results (default to ASC)
-    # @option opts [String] :lifecycle_state The order in which to sort the results (default to ACTIVE)
-    # @option opts [String] :page Pagination for Incident list (default to 1)
-    # @option opts [String] :opc_request_id Unique Header for request id
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 50)
+    # @option opts [String] :sort_by The key to use to sort the returned items. (default to dateUpdated)
+    # @option opts [String] :sort_order The order to sort the results in. (default to ASC)
+    # @option opts [String] :lifecycle_state The current state of the ticket. (default to ACTIVE)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 1)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :homeregion The region of the tenancy.
+    # @option opts [String] :problem_type The kind of support request.
     # @return [Response] A Response object with data of type Array<{OCI::Cims::Models::IncidentSummary IncidentSummary}>
     def list_incidents(csi, compartment_id, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#list_incidents.' if logger
@@ -405,6 +409,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:problemType] = opts[:problem_type] if opts[:problem_type]
 
       # Header Params
       header_params = {}
@@ -413,6 +418,7 @@ module OCI
       header_params[:csi] = csi
       header_params[:ocid] = ocid
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:homeregion] = opts[:homeregion] if opts[:homeregion]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -441,17 +447,17 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # This API updates an existing incident
-    # @param [String] incident_key Unique ID that identifies an incident
-    # @param [String] csi Customer Support Identifier of the support account
-    # @param [OCI::Cims::Models::UpdateIncident] update_incident_details Details of Resource to be updated
-    # @param [String] ocid User OCID for IDCS users that have a shadow in OCI
+    # Updates the specified support ticket's information.
+    # @param [String] incident_key Unique identifier for the support ticket.
+    # @param [String] csi The Customer Support Identifier associated with the support account.
+    # @param [OCI::Cims::Models::UpdateIncident] update_incident_details Details about the support ticket being updated.
+    # @param [String] ocid User OCID for Oracle Identity Cloud Service (IDCS) users who also have a federated Oracle Cloud Infrastructure account.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token Retry token
-    # @option opts [String] :opc_request_id Unique Header for request id
-    # @option opts [String] :if_match if-match check
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::Incident Incident}
     def update_incident(incident_key, csi, update_incident_details, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#update_incident.' if logger
@@ -475,11 +481,10 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:csi] = csi
       header_params[:ocid] = ocid
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:homeregion] = opts[:homeregion] if opts[:homeregion]
       # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(update_incident_details)
 
@@ -507,15 +512,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # ValidateUser
-    # @param [String] csi Customer support identifier of the support account
-    # @param [String] ocid User OCID for IDCS users that have a shadow in OCI
+    # Checks whether the requested user is valid.
+    # @param [String] csi The Customer Support Identifier number for the support account.
+    # @param [String] ocid User OCID for Oracle Identity Cloud Service (IDCS) users who also have a federated Oracle Cloud Infrastructure account.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token Retry-token header
-    # @option opts [String] :opc_request_id Unique request id
-    # @option opts [String] :problem_type Problem Type of Taxonomy - tech/limit
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :problem_type The kind of support request.
+    # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::ValidationResponse ValidationResponse}
     def validate_user(csi, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#validate_user.' if logger
@@ -537,10 +542,9 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:csi] = csi
       header_params[:ocid] = ocid
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:homeregion] = opts[:homeregion] if opts[:homeregion]
       # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 

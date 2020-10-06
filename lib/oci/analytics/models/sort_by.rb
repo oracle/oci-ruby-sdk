@@ -5,6 +5,7 @@ module OCI
   module Analytics::Models
     SORT_BY_ENUM = [
       SORT_BY_CAPACITY_TYPE = 'capacityType'.freeze,
+      SORT_BY_CAPACITY_VALUE = 'capacityValue'.freeze,
       SORT_BY_FEATURE_SET = 'featureSet'.freeze,
       SORT_BY_LIFECYCLE_STATE = 'lifecycleState'.freeze,
       SORT_BY_NAME = 'name'.freeze,

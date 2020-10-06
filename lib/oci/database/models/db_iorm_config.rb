@@ -5,20 +5,20 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # IORM Config setting response for this database
+  # The IORM configuration settings for the database.
   #
   class Database::Models::DbIormConfig
-    # Database Name. For default DbPlan, the dbName will always be `default`
+    # The database name. For the default `DbPlan`, the `dbName` is `default`.
     #
     # @return [String]
     attr_accessor :db_name
 
-    # Relative priority of a database
+    # The relative priority of this database.
     #
     # @return [Integer]
     attr_accessor :share
 
-    # Flash Cache limit, internally configured based on shares
+    # The flash cache limit for this database. This value is internally configured based on the share value assigned to the database.
     #
     # @return [String]
     attr_accessor :flash_cache_limit

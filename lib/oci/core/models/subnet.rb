@@ -38,7 +38,7 @@ module OCI
 
     # **[Required]** The subnet's CIDR block.
     #
-    # Example: `172.16.1.0/24`
+    # Example: `10.0.1.0/24`
     #
     # @return [String]
     attr_accessor :cidr_block
@@ -162,7 +162,7 @@ module OCI
     # @return [String]
     attr_accessor :subnet_domain_name
 
-    # The date and time the subnet was created, in the format defined by RFC3339.
+    # The date and time the subnet was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
@@ -182,7 +182,7 @@ module OCI
 
     # **[Required]** The MAC address of the virtual router.
     #
-    # Example: `00:00:17:B6:4D:DD`
+    # Example: `00:00:00:00:00:01`
     #
     # @return [String]
     attr_accessor :virtual_router_mac

@@ -110,6 +110,9 @@ module OCI
     # @return [Hash<String, OCI::LoadBalancer::Models::Hostname>]
     attr_accessor :hostnames
 
+    # @return [Hash<String, OCI::LoadBalancer::Models::SSLCipherSuite>]
+    attr_accessor :ssl_cipher_suites
+
     # @return [Hash<String, OCI::LoadBalancer::Models::Certificate>]
     attr_accessor :certificates
 
@@ -163,6 +166,7 @@ module OCI
         'network_security_group_ids': :'networkSecurityGroupIds',
         'listeners': :'listeners',
         'hostnames': :'hostnames',
+        'ssl_cipher_suites': :'sslCipherSuites',
         'certificates': :'certificates',
         'backend_sets': :'backendSets',
         'path_route_sets': :'pathRouteSets',
@@ -190,6 +194,7 @@ module OCI
         'network_security_group_ids': :'Array<String>',
         'listeners': :'Hash<String, OCI::LoadBalancer::Models::Listener>',
         'hostnames': :'Hash<String, OCI::LoadBalancer::Models::Hostname>',
+        'ssl_cipher_suites': :'Hash<String, OCI::LoadBalancer::Models::SSLCipherSuite>',
         'certificates': :'Hash<String, OCI::LoadBalancer::Models::Certificate>',
         'backend_sets': :'Hash<String, OCI::LoadBalancer::Models::BackendSet>',
         'path_route_sets': :'Hash<String, OCI::LoadBalancer::Models::PathRouteSet>',
@@ -219,6 +224,7 @@ module OCI
     # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::Listener>] :listeners The value to assign to the {#listeners} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::Hostname>] :hostnames The value to assign to the {#hostnames} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::SSLCipherSuite>] :ssl_cipher_suites The value to assign to the {#ssl_cipher_suites} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::Certificate>] :certificates The value to assign to the {#certificates} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::BackendSet>] :backend_sets The value to assign to the {#backend_sets} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::PathRouteSet>] :path_route_sets The value to assign to the {#path_route_sets} property
@@ -291,6 +297,12 @@ module OCI
       self.listeners = attributes[:'listeners'] if attributes[:'listeners']
 
       self.hostnames = attributes[:'hostnames'] if attributes[:'hostnames']
+
+      self.ssl_cipher_suites = attributes[:'sslCipherSuites'] if attributes[:'sslCipherSuites']
+
+      raise 'You cannot provide both :sslCipherSuites and :ssl_cipher_suites' if attributes.key?(:'sslCipherSuites') && attributes.key?(:'ssl_cipher_suites')
+
+      self.ssl_cipher_suites = attributes[:'ssl_cipher_suites'] if attributes[:'ssl_cipher_suites']
 
       self.certificates = attributes[:'certificates'] if attributes[:'certificates']
 
@@ -367,6 +379,7 @@ module OCI
         network_security_group_ids == other.network_security_group_ids &&
         listeners == other.listeners &&
         hostnames == other.hostnames &&
+        ssl_cipher_suites == other.ssl_cipher_suites &&
         certificates == other.certificates &&
         backend_sets == other.backend_sets &&
         path_route_sets == other.path_route_sets &&
@@ -389,7 +402,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, is_private, subnet_ids, network_security_group_ids, listeners, hostnames, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, system_tags, rule_sets].hash
+      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, is_private, subnet_ids, network_security_group_ids, listeners, hostnames, ssl_cipher_suites, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, system_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

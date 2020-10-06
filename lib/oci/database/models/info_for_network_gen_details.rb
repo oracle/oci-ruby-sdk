@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Parameters for generation of the client or backup network in a VM cluster network.
+  # Parameters for generation of the client or backup network in a VM cluster network in an Exadata Cloud@Customer system.
   #
   class Database::Models::InfoForNetworkGenDetails
     NETWORK_TYPE_ENUM = [

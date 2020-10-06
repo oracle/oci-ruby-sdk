@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # List of contacts
+  # The list of contacts for the ticket.
   class Cims::Models::ContactList
-    # **[Required]** List of contacts
+    # **[Required]** The list of contacts.
     # @return [Array<OCI::Cims::Models::Contact>]
     attr_accessor :contact_list
 

@@ -14,7 +14,7 @@ module OCI
       PACKAGE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The id of the listing the specified package belongs to.
+    # The ID of the listing that the specified package belongs to.
     # @return [String]
     attr_accessor :listing_id
 
@@ -26,7 +26,8 @@ module OCI
     # @return [String]
     attr_reader :package_type
 
-    # The regions where the package is eligible to be deployed.
+    # The regions where you can deploy the listing package. (Some packages have restrictions that limit their deployment to United States regions only.)
+    #
     # @return [Array<OCI::Marketplace::Models::Region>]
     attr_accessor :regions
 

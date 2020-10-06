@@ -18,6 +18,12 @@ module OCI
   # information, see {#create_private_ip create_private_ip} and
   # [IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPaddresses.htm).
   #
+  #
+  # If you are an Oracle Cloud VMware Solution customer, you will have secondary VNICs
+  # that reside in a VLAN instead of a subnet. These VNICs have other differences, which
+  # are called out in the descriptions of the relevant attributes in the `Vnic` object.
+  # Also see {Vlan}.
+  #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
@@ -98,17 +104,33 @@ module OCI
 
     # The MAC address of the VNIC.
     #
-    # Example: `00:00:17:B6:4D:DD`
+    # If the VNIC belongs to a VLAN as part of the Oracle Cloud VMware Solution,
+    # the MAC address is learned. If the VNIC belongs to a subnet, the
+    # MAC address is a static, Oracle-provided value.
+    #
+    # Example: `00:00:00:00:00:01`
     #
     # @return [String]
     attr_accessor :mac_address
 
-    # A list of the OCIDs of the network security groups that the VNIC belongs to. For more
-    # information about NSGs, see
+    # A list of the OCIDs of the network security groups that the VNIC belongs to.
+    #
+    # If the VNIC belongs to a VLAN as part of the Oracle Cloud VMware Solution (instead of
+    # belonging to a subnet), the value of the `nsgIds` attribute is ignored. Instead, the
+    # VNIC belongs to the NSGs that are associated with the VLAN itself. See {Vlan}.
+    #
+    # For more information about NSGs, see
     # {NetworkSecurityGroup}.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
+
+    # If the VNIC belongs to a VLAN as part of the Oracle Cloud VMware Solution (instead of
+    # belonging to a subnet), the `vlanId` is the OCID of the VLAN the VNIC is in. See
+    # {Vlan}. If the VNIC is instead in a subnet, `subnetId` has a value.
+    #
+    # @return [String]
+    attr_accessor :vlan_id
 
     # The private IP address of the primary `privateIp` object on the VNIC.
     # The address is within the CIDR of the VNIC's subnet.
@@ -128,16 +150,21 @@ module OCI
     # about why you would skip the source/destination check, see
     # [Using a Private IP as a Route Target](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm#privateip).
     #
+    #
+    # If the VNIC belongs to a VLAN as part of the Oracle Cloud VMware Solution (instead of
+    # belonging to a subnet), the `skipSourceDestCheck` attribute is `true`.
+    # This is because the source/destination check is always disabled for VNICs in a VLAN.
+    #
     # Example: `true`
     #
     # @return [BOOLEAN]
     attr_accessor :skip_source_dest_check
 
-    # **[Required]** The OCID of the subnet the VNIC is in.
+    # The OCID of the subnet the VNIC is in.
     # @return [String]
     attr_accessor :subnet_id
 
-    # **[Required]** The date and time the VNIC was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the VNIC was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
@@ -159,6 +186,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'mac_address': :'macAddress',
         'nsg_ids': :'nsgIds',
+        'vlan_id': :'vlanId',
         'private_ip': :'privateIp',
         'public_ip': :'publicIp',
         'skip_source_dest_check': :'skipSourceDestCheck',
@@ -183,6 +211,7 @@ module OCI
         'lifecycle_state': :'String',
         'mac_address': :'String',
         'nsg_ids': :'Array<String>',
+        'vlan_id': :'String',
         'private_ip': :'String',
         'public_ip': :'String',
         'skip_source_dest_check': :'BOOLEAN',
@@ -209,6 +238,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :mac_address The value to assign to the {#mac_address} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
+    # @option attributes [String] :vlan_id The value to assign to the {#vlan_id} property
     # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     # @option attributes [String] :public_ip The value to assign to the {#public_ip} property
     # @option attributes [BOOLEAN] :skip_source_dest_check The value to assign to the {#skip_source_dest_check} property
@@ -282,6 +312,12 @@ module OCI
 
       self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
 
+      self.vlan_id = attributes[:'vlanId'] if attributes[:'vlanId']
+
+      raise 'You cannot provide both :vlanId and :vlan_id' if attributes.key?(:'vlanId') && attributes.key?(:'vlan_id')
+
+      self.vlan_id = attributes[:'vlan_id'] if attributes[:'vlan_id']
+
       self.private_ip = attributes[:'privateIp'] if attributes[:'privateIp']
 
       raise 'You cannot provide both :privateIp and :private_ip' if attributes.key?(:'privateIp') && attributes.key?(:'private_ip')
@@ -348,6 +384,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         mac_address == other.mac_address &&
         nsg_ids == other.nsg_ids &&
+        vlan_id == other.vlan_id &&
         private_ip == other.private_ip &&
         public_ip == other.public_ip &&
         skip_source_dest_check == other.skip_source_dest_check &&
@@ -368,7 +405,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, hostname_label, id, is_primary, lifecycle_state, mac_address, nsg_ids, private_ip, public_ip, skip_source_dest_check, subnet_id, time_created].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, hostname_label, id, is_primary, lifecycle_state, mac_address, nsg_ids, vlan_id, private_ip, public_ip, skip_source_dest_check, subnet_id, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

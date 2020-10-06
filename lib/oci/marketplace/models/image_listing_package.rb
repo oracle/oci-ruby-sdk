@@ -17,11 +17,12 @@ module OCI
     # @return [String]
     attr_accessor :app_catalog_listing_resource_version
 
-    # The id of the image corresponding to the package.
+    # The ID of the image corresponding to the package.
     # @return [String]
     attr_accessor :image_id
 
-    # List of regions in which this ListingPackage is available.
+    # The regions where you can deploy the listing package. (Some packages have restrictions that limit their deployment to United States regions only.)
+    #
     # @return [Array<OCI::Marketplace::Models::Region>]
     attr_accessor :regions
 

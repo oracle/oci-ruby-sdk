@@ -62,8 +62,9 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :expected_properties
 
-    # Date and time when the drift detection was executed. Format defined by RFC3339.
-    # Example: 2020-01-25T21:10:29.600Z
+    # The date and time when the drift detection was executed.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_drift_checked

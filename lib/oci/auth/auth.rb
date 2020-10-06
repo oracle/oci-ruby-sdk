@@ -20,5 +20,7 @@ require 'oci/auth/signers/x509_federation_client_based_security_token_signer'
 require 'oci/auth/signers/instance_principals_security_token_signer'
 require 'oci/auth/signers/resource_principals_signer'
 require 'oci/auth/signers/resource_principals_federation_signer'
+require 'oci/auth/signers/ephemeral_resource_principals_signer'
+require 'oci/auth/signers/instance_principals_delegation_token_signer'
 
 require 'oci/auth/signers/resource_principal_token_path_provider/rpt_path_provider'

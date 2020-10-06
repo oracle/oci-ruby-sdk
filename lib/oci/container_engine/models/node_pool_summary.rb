@@ -37,9 +37,17 @@ module OCI
     # @return [String]
     attr_accessor :node_image_name
 
-    # Source running on the nodes in the node pool.
+    # The shape configuration of the nodes.
+    # @return [OCI::ContainerEngine::Models::NodeShapeConfig]
+    attr_accessor :node_shape_config
+
+    # Deprecated. see `nodeSourceDetails`. Source running on the nodes in the node pool.
     # @return [OCI::ContainerEngine::Models::NodeSourceOption]
     attr_accessor :node_source
+
+    # Source running on the nodes in the node pool.
+    # @return [OCI::ContainerEngine::Models::NodeSourceDetails]
+    attr_accessor :node_source_details
 
     # The name of the node shape of the nodes in the node pool.
     # @return [String]
@@ -49,7 +57,7 @@ module OCI
     # @return [Array<OCI::ContainerEngine::Models::KeyValue>]
     attr_accessor :initial_node_labels
 
-    # The SSH public key on each node in the node pool.
+    # The SSH public key on each node in the node pool on launch.
     # @return [String]
     attr_accessor :ssh_public_key
 
@@ -76,7 +84,9 @@ module OCI
         'kubernetes_version': :'kubernetesVersion',
         'node_image_id': :'nodeImageId',
         'node_image_name': :'nodeImageName',
+        'node_shape_config': :'nodeShapeConfig',
         'node_source': :'nodeSource',
+        'node_source_details': :'nodeSourceDetails',
         'node_shape': :'nodeShape',
         'initial_node_labels': :'initialNodeLabels',
         'ssh_public_key': :'sshPublicKey',
@@ -98,7 +108,9 @@ module OCI
         'kubernetes_version': :'String',
         'node_image_id': :'String',
         'node_image_name': :'String',
+        'node_shape_config': :'OCI::ContainerEngine::Models::NodeShapeConfig',
         'node_source': :'OCI::ContainerEngine::Models::NodeSourceOption',
+        'node_source_details': :'OCI::ContainerEngine::Models::NodeSourceDetails',
         'node_shape': :'String',
         'initial_node_labels': :'Array<OCI::ContainerEngine::Models::KeyValue>',
         'ssh_public_key': :'String',
@@ -122,7 +134,9 @@ module OCI
     # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
     # @option attributes [String] :node_image_id The value to assign to the {#node_image_id} property
     # @option attributes [String] :node_image_name The value to assign to the {#node_image_name} property
+    # @option attributes [OCI::ContainerEngine::Models::NodeShapeConfig] :node_shape_config The value to assign to the {#node_shape_config} property
     # @option attributes [OCI::ContainerEngine::Models::NodeSourceOption] :node_source The value to assign to the {#node_source} property
+    # @option attributes [OCI::ContainerEngine::Models::NodeSourceDetails] :node_source_details The value to assign to the {#node_source_details} property
     # @option attributes [String] :node_shape The value to assign to the {#node_shape} property
     # @option attributes [Array<OCI::ContainerEngine::Models::KeyValue>] :initial_node_labels The value to assign to the {#initial_node_labels} property
     # @option attributes [String] :ssh_public_key The value to assign to the {#ssh_public_key} property
@@ -169,11 +183,23 @@ module OCI
 
       self.node_image_name = attributes[:'node_image_name'] if attributes[:'node_image_name']
 
+      self.node_shape_config = attributes[:'nodeShapeConfig'] if attributes[:'nodeShapeConfig']
+
+      raise 'You cannot provide both :nodeShapeConfig and :node_shape_config' if attributes.key?(:'nodeShapeConfig') && attributes.key?(:'node_shape_config')
+
+      self.node_shape_config = attributes[:'node_shape_config'] if attributes[:'node_shape_config']
+
       self.node_source = attributes[:'nodeSource'] if attributes[:'nodeSource']
 
       raise 'You cannot provide both :nodeSource and :node_source' if attributes.key?(:'nodeSource') && attributes.key?(:'node_source')
 
       self.node_source = attributes[:'node_source'] if attributes[:'node_source']
+
+      self.node_source_details = attributes[:'nodeSourceDetails'] if attributes[:'nodeSourceDetails']
+
+      raise 'You cannot provide both :nodeSourceDetails and :node_source_details' if attributes.key?(:'nodeSourceDetails') && attributes.key?(:'node_source_details')
+
+      self.node_source_details = attributes[:'node_source_details'] if attributes[:'node_source_details']
 
       self.node_shape = attributes[:'nodeShape'] if attributes[:'nodeShape']
 
@@ -230,7 +256,9 @@ module OCI
         kubernetes_version == other.kubernetes_version &&
         node_image_id == other.node_image_id &&
         node_image_name == other.node_image_name &&
+        node_shape_config == other.node_shape_config &&
         node_source == other.node_source &&
+        node_source_details == other.node_source_details &&
         node_shape == other.node_shape &&
         initial_node_labels == other.initial_node_labels &&
         ssh_public_key == other.ssh_public_key &&
@@ -252,7 +280,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, cluster_id, name, kubernetes_version, node_image_id, node_image_name, node_source, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, node_config_details].hash
+      [id, compartment_id, cluster_id, name, kubernetes_version, node_image_id, node_image_name, node_shape_config, node_source, node_source_details, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, node_config_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

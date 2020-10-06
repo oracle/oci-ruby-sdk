@@ -162,7 +162,7 @@ module OCI
     # @return [OCI::Core::Models::TcpOptions]
     attr_accessor :tcp_options
 
-    # The date and time the security rule was created. Format defined by RFC3339.
+    # The date and time the security rule was created. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_created
 

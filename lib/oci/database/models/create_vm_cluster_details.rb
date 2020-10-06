@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for the create VM cluster operation.
+  # Details for the create Exadata Cloud@Customer VM cluster operation.
   #
   class Database::Models::CreateVmClusterDetails
     LICENSE_MODEL_ENUM = [

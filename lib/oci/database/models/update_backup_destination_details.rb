@@ -9,6 +9,11 @@ module OCI
   # For an NFS backup destination, there are 2 mount types - Self mount used for non-autonomous ExaCC and automated mount used for autonomous on ExaCC.
   #
   class Database::Models::UpdateBackupDestinationDetails
+    NFS_MOUNT_TYPE_ENUM = [
+      NFS_MOUNT_TYPE_SELF_MOUNT = 'SELF_MOUNT'.freeze,
+      NFS_MOUNT_TYPE_AUTOMATED_MOUNT = 'AUTOMATED_MOUNT'.freeze
+    ].freeze
+
     # For a RECOVERY_APPLIANCE backup destination, the Virtual Private Catalog (VPC) users that are used to access the Recovery Appliance.
     # @return [Array<String>]
     attr_accessor :vpc_users
@@ -21,6 +26,18 @@ module OCI
     #
     # @return [String]
     attr_accessor :local_mount_point_path
+
+    # NFS Mount type for backup destination.
+    # @return [String]
+    attr_reader :nfs_mount_type
+
+    # IP addresses for NFS Auto mount.
+    # @return [Array<String>]
+    attr_accessor :nfs_server
+
+    # Specifies the directory on which to mount the file system
+    # @return [String]
+    attr_accessor :nfs_server_export
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -43,6 +60,9 @@ module OCI
         'vpc_users': :'vpcUsers',
         'connection_string': :'connectionString',
         'local_mount_point_path': :'localMountPointPath',
+        'nfs_mount_type': :'nfsMountType',
+        'nfs_server': :'nfsServer',
+        'nfs_server_export': :'nfsServerExport',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -56,6 +76,9 @@ module OCI
         'vpc_users': :'Array<String>',
         'connection_string': :'String',
         'local_mount_point_path': :'String',
+        'nfs_mount_type': :'String',
+        'nfs_server': :'Array<String>',
+        'nfs_server_export': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -71,6 +94,9 @@ module OCI
     # @option attributes [Array<String>] :vpc_users The value to assign to the {#vpc_users} property
     # @option attributes [String] :connection_string The value to assign to the {#connection_string} property
     # @option attributes [String] :local_mount_point_path The value to assign to the {#local_mount_point_path} property
+    # @option attributes [String] :nfs_mount_type The value to assign to the {#nfs_mount_type} property
+    # @option attributes [Array<String>] :nfs_server The value to assign to the {#nfs_server} property
+    # @option attributes [String] :nfs_server_export The value to assign to the {#nfs_server_export} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -97,6 +123,24 @@ module OCI
 
       self.local_mount_point_path = attributes[:'local_mount_point_path'] if attributes[:'local_mount_point_path']
 
+      self.nfs_mount_type = attributes[:'nfsMountType'] if attributes[:'nfsMountType']
+
+      raise 'You cannot provide both :nfsMountType and :nfs_mount_type' if attributes.key?(:'nfsMountType') && attributes.key?(:'nfs_mount_type')
+
+      self.nfs_mount_type = attributes[:'nfs_mount_type'] if attributes[:'nfs_mount_type']
+
+      self.nfs_server = attributes[:'nfsServer'] if attributes[:'nfsServer']
+
+      raise 'You cannot provide both :nfsServer and :nfs_server' if attributes.key?(:'nfsServer') && attributes.key?(:'nfs_server')
+
+      self.nfs_server = attributes[:'nfs_server'] if attributes[:'nfs_server']
+
+      self.nfs_server_export = attributes[:'nfsServerExport'] if attributes[:'nfsServerExport']
+
+      raise 'You cannot provide both :nfsServerExport and :nfs_server_export' if attributes.key?(:'nfsServerExport') && attributes.key?(:'nfs_server_export')
+
+      self.nfs_server_export = attributes[:'nfs_server_export'] if attributes[:'nfs_server_export']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -112,6 +156,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] nfs_mount_type Object to be assigned
+    def nfs_mount_type=(nfs_mount_type)
+      raise "Invalid value for 'nfs_mount_type': this must be one of the values in NFS_MOUNT_TYPE_ENUM." if nfs_mount_type && !NFS_MOUNT_TYPE_ENUM.include?(nfs_mount_type)
+
+      @nfs_mount_type = nfs_mount_type
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -124,6 +176,9 @@ module OCI
         vpc_users == other.vpc_users &&
         connection_string == other.connection_string &&
         local_mount_point_path == other.local_mount_point_path &&
+        nfs_mount_type == other.nfs_mount_type &&
+        nfs_server == other.nfs_server &&
+        nfs_server_export == other.nfs_server_export &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -141,7 +196,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [vpc_users, connection_string, local_mount_point_path, freeform_tags, defined_tags].hash
+      [vpc_users, connection_string, local_mount_point_path, nfs_mount_type, nfs_server, nfs_server_export, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

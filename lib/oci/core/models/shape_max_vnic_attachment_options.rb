@@ -5,7 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The possible configurations for the number of VNIC attachments available to an instance of this shape. If this field is null, then all instances of this shape have a fixed maximum number of VNIC attachments equal to `maxVnicAttachments`.
+  # For a flexible shape, the number of VNIC attachments that are available for instances that use this shape.
+  #
+  # If this field is null, then this shape has a fixed maximum number of VNIC attachments equal to `maxVnicAttachments`.
+  #
   class Core::Models::ShapeMaxVnicAttachmentOptions
     # The lowest maximum value of VNIC attachments.
     #

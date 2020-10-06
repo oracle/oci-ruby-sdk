@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Resource Item to be updated
+  # Details about the support ticket being updated.
   class Cims::Models::UpdateIncident
     # This attribute is required.
     # @return [OCI::Cims::Models::UpdateTicketDetails]

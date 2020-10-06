@@ -10,6 +10,25 @@ module OCI
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class LoadBalancer::Models::SSLConfigurationDetails
+    SERVER_ORDER_PREFERENCE_ENUM = [
+      SERVER_ORDER_PREFERENCE_ENABLED = 'ENABLED'.freeze,
+      SERVER_ORDER_PREFERENCE_DISABLED = 'DISABLED'.freeze
+    ].freeze
+
+    # The maximum depth for peer certificate chain verification.
+    #
+    # Example: `3`
+    #
+    # @return [Integer]
+    attr_accessor :verify_depth
+
+    # Whether the load balancer listener should verify peer certificates.
+    #
+    # Example: `true`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :verify_peer_certificate
+
     # **[Required]** A friendly name for the certificate bundle. It must be unique and it cannot be changed.
     # Valid certificate bundle names include only alphanumeric characters, dashes, and underscores.
     # Certificate bundle names cannot contain spaces. Avoid entering confidential information.
@@ -19,27 +38,82 @@ module OCI
     # @return [String]
     attr_accessor :certificate_name
 
-    # Whether the load balancer listener should verify peer certificates.
+    # A list of SSL protocols the load balancer must support for HTTPS or SSL connections.
     #
-    # Example: `true`
+    # The load balancer uses SSL protocols to establish a secure connection between a client and a server. A secure
+    # connection ensures that all data passed between the client and the server is private.
     #
-    # @return [BOOLEAN]
-    attr_accessor :verify_peer_certificate
+    # The Load Balancing service supports the following protocols:
+    #
+    # *  TLSv1
+    # *  TLSv1.1
+    # *  TLSv1.2
+    #
+    # If this field is not specified, TLSv1.2 is the default.
+    #
+    # **Warning:** All SSL listeners created on a given port must use the same set of SSL protocols.
+    #
+    # **Notes:**
+    #
+    # *  The handshake to establish an SSL connection fails if the client supports none of the specified protocols.
+    # *  You must ensure compatibility between the specified SSL protocols and the ciphers configured in the cipher
+    #    suite.
+    # *  For all existing load balancer listeners and backend sets that predate this feature, the `GET` operation
+    #    displays a list of SSL protocols currently used by those resources.
+    #
+    # example: `[\"TLSv1.1\", \"TLSv1.2\"]`
+    #
+    # @return [Array<String>]
+    attr_accessor :protocols
 
-    # The maximum depth for peer certificate chain verification.
+    # The name of the cipher suite to use for HTTPS or SSL connections.
     #
-    # Example: `3`
+    # If this field is not specified, the default is `oci-default-ssl-cipher-suite-v1`.
     #
-    # @return [Integer]
-    attr_accessor :verify_depth
+    # **Notes:**
+    #
+    # *  You must ensure compatibility between the specified SSL protocols and the ciphers configured in the cipher
+    #    suite. Clients cannot perform an SSL handshake if there is an incompatible configuration.
+    # *  You must ensure compatibility between the ciphers configured in the cipher suite and the configured
+    #    certificates. For example, RSA-based ciphers require RSA certificates and ECDSA-based ciphers require ECDSA
+    #    certificates.
+    # *  If the cipher configuration is not modified after load balancer creation, the `GET` operation returns
+    #    `oci-default-ssl-cipher-suite-v1` as the value of this field in the SSL configuration for existing listeners
+    #    that predate this feature.
+    # *  If the cipher configuration was modified using Oracle operations after load balancer creation, the `GET`
+    #    operation returns `oci-customized-ssl-cipher-suite` as the value of this field in the SSL configuration for
+    #    existing listeners that predate this feature.
+    # *  The `GET` operation returns `oci-wider-compatible-ssl-cipher-suite-v1` as the value of this field in the SSL
+    #    configuration for existing backend sets that predate this feature.
+    # *  If the `GET` operation on a listener returns `oci-customized-ssl-cipher-suite` as the value of this field,
+    #    you must specify an appropriate predefined or custom cipher suite name when updating the resource.
+    # *  The `oci-customized-ssl-cipher-suite` Oracle reserved cipher suite name is not accepted as valid input for
+    #    this field.
+    #
+    # example: `example_cipher_suite`
+    #
+    # @return [String]
+    attr_accessor :cipher_suite_name
+
+    # When this attribute is set to ENABLED, the system gives preference to the server ciphers over the client
+    # ciphers.
+    #
+    # **Note:** This configuration is applicable only when the load balancer is acting as an SSL/HTTPS server. This
+    #           field is ignored when the `SSLConfiguration` object is associated with a backend set.
+    #
+    # @return [String]
+    attr_reader :server_order_preference
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'certificate_name': :'certificateName',
+        'verify_depth': :'verifyDepth',
         'verify_peer_certificate': :'verifyPeerCertificate',
-        'verify_depth': :'verifyDepth'
+        'certificate_name': :'certificateName',
+        'protocols': :'protocols',
+        'cipher_suite_name': :'cipherSuiteName',
+        'server_order_preference': :'serverOrderPreference'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,9 +122,12 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'certificate_name': :'String',
+        'verify_depth': :'Integer',
         'verify_peer_certificate': :'BOOLEAN',
-        'verify_depth': :'Integer'
+        'certificate_name': :'String',
+        'protocols': :'Array<String>',
+        'cipher_suite_name': :'String',
+        'server_order_preference': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,20 +138,23 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :certificate_name The value to assign to the {#certificate_name} property
-    # @option attributes [BOOLEAN] :verify_peer_certificate The value to assign to the {#verify_peer_certificate} property
     # @option attributes [Integer] :verify_depth The value to assign to the {#verify_depth} property
+    # @option attributes [BOOLEAN] :verify_peer_certificate The value to assign to the {#verify_peer_certificate} property
+    # @option attributes [String] :certificate_name The value to assign to the {#certificate_name} property
+    # @option attributes [Array<String>] :protocols The value to assign to the {#protocols} property
+    # @option attributes [String] :cipher_suite_name The value to assign to the {#cipher_suite_name} property
+    # @option attributes [String] :server_order_preference The value to assign to the {#server_order_preference} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.certificate_name = attributes[:'certificateName'] if attributes[:'certificateName']
+      self.verify_depth = attributes[:'verifyDepth'] if attributes[:'verifyDepth']
 
-      raise 'You cannot provide both :certificateName and :certificate_name' if attributes.key?(:'certificateName') && attributes.key?(:'certificate_name')
+      raise 'You cannot provide both :verifyDepth and :verify_depth' if attributes.key?(:'verifyDepth') && attributes.key?(:'verify_depth')
 
-      self.certificate_name = attributes[:'certificate_name'] if attributes[:'certificate_name']
+      self.verify_depth = attributes[:'verify_depth'] if attributes[:'verify_depth']
 
       self.verify_peer_certificate = attributes[:'verifyPeerCertificate'] unless attributes[:'verifyPeerCertificate'].nil?
       self.verify_peer_certificate = false if verify_peer_certificate.nil? && !attributes.key?(:'verifyPeerCertificate') # rubocop:disable Style/StringLiterals
@@ -84,14 +164,40 @@ module OCI
       self.verify_peer_certificate = attributes[:'verify_peer_certificate'] unless attributes[:'verify_peer_certificate'].nil?
       self.verify_peer_certificate = false if verify_peer_certificate.nil? && !attributes.key?(:'verifyPeerCertificate') && !attributes.key?(:'verify_peer_certificate') # rubocop:disable Style/StringLiterals
 
-      self.verify_depth = attributes[:'verifyDepth'] if attributes[:'verifyDepth']
+      self.certificate_name = attributes[:'certificateName'] if attributes[:'certificateName']
 
-      raise 'You cannot provide both :verifyDepth and :verify_depth' if attributes.key?(:'verifyDepth') && attributes.key?(:'verify_depth')
+      raise 'You cannot provide both :certificateName and :certificate_name' if attributes.key?(:'certificateName') && attributes.key?(:'certificate_name')
 
-      self.verify_depth = attributes[:'verify_depth'] if attributes[:'verify_depth']
+      self.certificate_name = attributes[:'certificate_name'] if attributes[:'certificate_name']
+
+      self.protocols = attributes[:'protocols'] if attributes[:'protocols']
+
+      self.cipher_suite_name = attributes[:'cipherSuiteName'] if attributes[:'cipherSuiteName']
+      self.cipher_suite_name = "oci-default-ssl-cipher-suite-v1" if cipher_suite_name.nil? && !attributes.key?(:'cipherSuiteName') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :cipherSuiteName and :cipher_suite_name' if attributes.key?(:'cipherSuiteName') && attributes.key?(:'cipher_suite_name')
+
+      self.cipher_suite_name = attributes[:'cipher_suite_name'] if attributes[:'cipher_suite_name']
+      self.cipher_suite_name = "oci-default-ssl-cipher-suite-v1" if cipher_suite_name.nil? && !attributes.key?(:'cipherSuiteName') && !attributes.key?(:'cipher_suite_name') # rubocop:disable Style/StringLiterals
+
+      self.server_order_preference = attributes[:'serverOrderPreference'] if attributes[:'serverOrderPreference']
+      self.server_order_preference = "ENABLED" if server_order_preference.nil? && !attributes.key?(:'serverOrderPreference') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :serverOrderPreference and :server_order_preference' if attributes.key?(:'serverOrderPreference') && attributes.key?(:'server_order_preference')
+
+      self.server_order_preference = attributes[:'server_order_preference'] if attributes[:'server_order_preference']
+      self.server_order_preference = "ENABLED" if server_order_preference.nil? && !attributes.key?(:'serverOrderPreference') && !attributes.key?(:'server_order_preference') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] server_order_preference Object to be assigned
+    def server_order_preference=(server_order_preference)
+      raise "Invalid value for 'server_order_preference': this must be one of the values in SERVER_ORDER_PREFERENCE_ENUM." if server_order_preference && !SERVER_ORDER_PREFERENCE_ENUM.include?(server_order_preference)
+
+      @server_order_preference = server_order_preference
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -102,9 +208,12 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        certificate_name == other.certificate_name &&
+        verify_depth == other.verify_depth &&
         verify_peer_certificate == other.verify_peer_certificate &&
-        verify_depth == other.verify_depth
+        certificate_name == other.certificate_name &&
+        protocols == other.protocols &&
+        cipher_suite_name == other.cipher_suite_name &&
+        server_order_preference == other.server_order_preference
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -120,7 +229,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [certificate_name, verify_peer_certificate, verify_depth].hash
+      [verify_depth, verify_peer_certificate, certificate_name, protocols, cipher_suite_name, server_order_preference].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -67,17 +67,23 @@ module OCI
     # @return [String]
     attr_accessor :resolved_plan_job_id
 
-    # The date and time at which the job was created.
+    # The date and time when the job was created.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The date and time at which the job stopped running, irrespective of whether the job ran successfully.
+    # The date and time when the job stopped running, irrespective of whether the job ran successfully.
+    # Format is defined by RFC3339.
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
     # @return [DateTime]
     attr_accessor :time_finished
 
     # Current state of the specified job.
-    # For more information about resource states in Resource Manager, see
-    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#concepts).
+    # For more information about job lifecycle states in Resource Manager, see
+    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#JobStates).
     #
     # @return [String]
     attr_reader :lifecycle_state
@@ -85,17 +91,23 @@ module OCI
     # @return [OCI::ResourceManager::Models::FailureDetails]
     attr_accessor :failure_details
 
-    # The file path to the directory within the configuration from which the job runs.
+    # File path to the directory from which Terraform runs.
+    # If not specified, the root directory is used.
+    # This parameter is ignored for the `configSourceType` value of `COMPARTMENT_CONFIG_SOURCE`.
+    #
     # @return [String]
     attr_accessor :working_directory
 
     # Terraform variables associated with this resource.
-    # Maximum number of variables supported is 100.
+    # Maximum number of variables supported is 250.
     # The maximum size of each variable, including both name and value, is 4096 bytes.
     # Example: `{\"CompartmentId\": \"compartment-id-value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :variables
+
+    # @return [OCI::ResourceManager::Models::ConfigSourceRecord]
+    attr_accessor :config_source
 
     # Free-form tags associated with this resource. Each tag is a key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
@@ -129,6 +141,7 @@ module OCI
         'failure_details': :'failureDetails',
         'working_directory': :'workingDirectory',
         'variables': :'variables',
+        'config_source': :'configSource',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -153,6 +166,7 @@ module OCI
         'failure_details': :'OCI::ResourceManager::Models::FailureDetails',
         'working_directory': :'String',
         'variables': :'Hash<String, String>',
+        'config_source': :'OCI::ResourceManager::Models::ConfigSourceRecord',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -179,6 +193,7 @@ module OCI
     # @option attributes [OCI::ResourceManager::Models::FailureDetails] :failure_details The value to assign to the {#failure_details} property
     # @option attributes [String] :working_directory The value to assign to the {#working_directory} property
     # @option attributes [Hash<String, String>] :variables The value to assign to the {#variables} property
+    # @option attributes [OCI::ResourceManager::Models::ConfigSourceRecord] :config_source The value to assign to the {#config_source} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -259,6 +274,12 @@ module OCI
 
       self.variables = attributes[:'variables'] if attributes[:'variables']
 
+      self.config_source = attributes[:'configSource'] if attributes[:'configSource']
+
+      raise 'You cannot provide both :configSource and :config_source' if attributes.key?(:'configSource') && attributes.key?(:'config_source')
+
+      self.config_source = attributes[:'config_source'] if attributes[:'config_source']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -323,6 +344,7 @@ module OCI
         failure_details == other.failure_details &&
         working_directory == other.working_directory &&
         variables == other.variables &&
+        config_source == other.config_source &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -340,7 +362,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, stack_id, compartment_id, display_name, operation, job_operation_details, apply_job_plan_resolution, resolved_plan_job_id, time_created, time_finished, lifecycle_state, failure_details, working_directory, variables, freeform_tags, defined_tags].hash
+      [id, stack_id, compartment_id, display_name, operation, job_operation_details, apply_job_plan_resolution, resolved_plan_job_id, time_created, time_finished, lifecycle_state, failure_details, working_directory, variables, config_source, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

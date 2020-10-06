@@ -7,20 +7,30 @@ require 'date'
 module OCI
   # VaultUsage model.
   class KeyManagement::Models::VaultUsage
-    # This attribute is required.
+    # **[Required]** The number of keys in this vault that persist on a hardware security module (HSM), across all compartments, excluding keys in a `DELETED` state.
     # @return [Integer]
     attr_accessor :key_count
 
-    # This attribute is required.
+    # **[Required]** The number of key versions in this vault that persist on a hardware security module (HSM), across all compartments, excluding key versions in a `DELETED` state.
     # @return [Integer]
     attr_accessor :key_version_count
+
+    # The number of keys in this vault that persist on the server, across all compartments, excluding keys in a `DELETED` state.
+    # @return [Integer]
+    attr_accessor :software_key_count
+
+    # The number of key versions in this vault that persist on the server, across all compartments, excluding key versions in a `DELETED` state.
+    # @return [Integer]
+    attr_accessor :software_key_version_count
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'key_count': :'keyCount',
-        'key_version_count': :'keyVersionCount'
+        'key_version_count': :'keyVersionCount',
+        'software_key_count': :'softwareKeyCount',
+        'software_key_version_count': :'softwareKeyVersionCount'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,7 +40,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'key_count': :'Integer',
-        'key_version_count': :'Integer'
+        'key_version_count': :'Integer',
+        'software_key_count': :'Integer',
+        'software_key_version_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,6 +55,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :key_count The value to assign to the {#key_count} property
     # @option attributes [Integer] :key_version_count The value to assign to the {#key_version_count} property
+    # @option attributes [Integer] :software_key_count The value to assign to the {#software_key_count} property
+    # @option attributes [Integer] :software_key_version_count The value to assign to the {#software_key_version_count} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -60,6 +74,18 @@ module OCI
       raise 'You cannot provide both :keyVersionCount and :key_version_count' if attributes.key?(:'keyVersionCount') && attributes.key?(:'key_version_count')
 
       self.key_version_count = attributes[:'key_version_count'] if attributes[:'key_version_count']
+
+      self.software_key_count = attributes[:'softwareKeyCount'] if attributes[:'softwareKeyCount']
+
+      raise 'You cannot provide both :softwareKeyCount and :software_key_count' if attributes.key?(:'softwareKeyCount') && attributes.key?(:'software_key_count')
+
+      self.software_key_count = attributes[:'software_key_count'] if attributes[:'software_key_count']
+
+      self.software_key_version_count = attributes[:'softwareKeyVersionCount'] if attributes[:'softwareKeyVersionCount']
+
+      raise 'You cannot provide both :softwareKeyVersionCount and :software_key_version_count' if attributes.key?(:'softwareKeyVersionCount') && attributes.key?(:'software_key_version_count')
+
+      self.software_key_version_count = attributes[:'software_key_version_count'] if attributes[:'software_key_version_count']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -74,7 +100,9 @@ module OCI
 
       self.class == other.class &&
         key_count == other.key_count &&
-        key_version_count == other.key_version_count
+        key_version_count == other.key_version_count &&
+        software_key_count == other.software_key_count &&
+        software_key_version_count == other.software_key_version_count
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -90,7 +118,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key_count, key_version_count].hash
+      [key_count, key_version_count, software_key_count, software_key_version_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

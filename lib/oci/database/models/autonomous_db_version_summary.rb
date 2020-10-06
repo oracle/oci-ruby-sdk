@@ -12,6 +12,7 @@ module OCI
     DB_WORKLOAD_ENUM = [
       DB_WORKLOAD_OLTP = 'OLTP'.freeze,
       DB_WORKLOAD_DW = 'DW'.freeze,
+      DB_WORKLOAD_AJD = 'AJD'.freeze,
       DB_WORKLOAD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -23,6 +24,7 @@ module OCI
     #
     # - OLTP - indicates an Autonomous Transaction Processing database
     # - DW - indicates an Autonomous Data Warehouse database
+    # - AJD - indicates an Autonomous JSON Database
     #
     # @return [String]
     attr_reader :db_workload

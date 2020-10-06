@@ -5,10 +5,19 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Configures the pushing of access logs to OCI Public Logging.
+  # Configures the logging policies for the access logs of an API Deployment.
   #
   class Apigateway::Models::AccessLogPolicy
-    # Enables pushing of access logs to OCI Public Logging.
+    # Enables pushing of access logs to the legacy OCI Object Storage log archival bucket.
+    #
+    # Oracle recommends using the OCI Logging service to enable, retrieve, and query access logs
+    # for an API Deployment. If there is an active log object for the API Deployment and its
+    # category is set to 'access' in OCI Logging service, the logs will not be uploaded to the
+    # legacy OCI Object Storage log archival bucket.
+    #
+    # Please note that the functionality to push to the legacy OCI Object Storage log
+    # archival bucket has been deprecated and will be removed in the future.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 

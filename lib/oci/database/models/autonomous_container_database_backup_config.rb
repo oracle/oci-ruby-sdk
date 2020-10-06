@@ -8,6 +8,10 @@ module OCI
   # Backup options for the Autonomous Container Database.
   #
   class Database::Models::AutonomousContainerDatabaseBackupConfig
+    # Backup destination details.
+    # @return [Array<OCI::Database::Models::BackupDestinationDetails>]
+    attr_accessor :backup_destination_details
+
     # Number of days between the current and the earliest point of recoverability covered by automatic backups.
     # This value applies to automatic backups. After a new automatic backup has been created, Oracle removes old automatic backups that are created before the window.
     # When the value is updated, it is applied to all existing automatic backups.
@@ -19,6 +23,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'backup_destination_details': :'backupDestinationDetails',
         'recovery_window_in_days': :'recoveryWindowInDays'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -28,6 +33,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'backup_destination_details': :'Array<OCI::Database::Models::BackupDestinationDetails>',
         'recovery_window_in_days': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -39,12 +45,19 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Array<OCI::Database::Models::BackupDestinationDetails>] :backup_destination_details The value to assign to the {#backup_destination_details} property
     # @option attributes [Integer] :recovery_window_in_days The value to assign to the {#recovery_window_in_days} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.backup_destination_details = attributes[:'backupDestinationDetails'] if attributes[:'backupDestinationDetails']
+
+      raise 'You cannot provide both :backupDestinationDetails and :backup_destination_details' if attributes.key?(:'backupDestinationDetails') && attributes.key?(:'backup_destination_details')
+
+      self.backup_destination_details = attributes[:'backup_destination_details'] if attributes[:'backup_destination_details']
 
       self.recovery_window_in_days = attributes[:'recoveryWindowInDays'] if attributes[:'recoveryWindowInDays']
 
@@ -64,6 +77,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        backup_destination_details == other.backup_destination_details &&
         recovery_window_in_days == other.recovery_window_in_days
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -80,7 +94,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [recovery_window_in_days].hash
+      [backup_destination_details, recovery_window_in_days].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
