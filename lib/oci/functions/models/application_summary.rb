@@ -8,7 +8,7 @@ module OCI
   # Summary of an application.
   #
   class Functions::Models::ApplicationSummary
-    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the application.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the application.
     #
     # @return [String]
     attr_accessor :id

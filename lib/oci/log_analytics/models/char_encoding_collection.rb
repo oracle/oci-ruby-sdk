@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Set of valid character encodings
+  # List of supported character encodings
   class LogAnalytics::Models::CharEncodingCollection
-    # **[Required]** character encodings
+    # **[Required]** List of supported character encodings
     # @return [Array<String>]
     attr_accessor :items
 

@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Set of supported timezones.
+  # List of supported timezones.
   class LogAnalytics::Models::TimezoneCollection
-    # **[Required]** timezones.
+    # **[Required]** List of supported timezones.
     # @return [Array<String>]
     attr_accessor :items
 

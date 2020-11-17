@@ -72,6 +72,14 @@ module OCI
     # @return [String]
     attr_accessor :external_key
 
+    # Key of the associated pattern if this is a logical entity.
+    # @return [String]
+    attr_accessor :pattern_key
+
+    # The expression realized after resolving qualifiers . Used in deriving this logical entity
+    # @return [String]
+    attr_accessor :realized_expression
+
     # Last modified timestamp of this object in the external system.
     # @return [DateTime]
     attr_accessor :time_external
@@ -122,6 +130,10 @@ module OCI
     # @return [String]
     attr_accessor :uri
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>]
+    attr_accessor :custom_property_members
+
     # A map of maps that contains the properties which are specific to the entity type. Each entity type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -144,6 +156,8 @@ module OCI
         'updated_by_id': :'updatedById',
         'lifecycle_state': :'lifecycleState',
         'external_key': :'externalKey',
+        'pattern_key': :'patternKey',
+        'realized_expression': :'realizedExpression',
         'time_external': :'timeExternal',
         'time_status_updated': :'timeStatusUpdated',
         'is_logical': :'isLogical',
@@ -156,6 +170,7 @@ module OCI
         'last_job_key': :'lastJobKey',
         'type_key': :'typeKey',
         'uri': :'uri',
+        'custom_property_members': :'customPropertyMembers',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -174,6 +189,8 @@ module OCI
         'updated_by_id': :'String',
         'lifecycle_state': :'String',
         'external_key': :'String',
+        'pattern_key': :'String',
+        'realized_expression': :'String',
         'time_external': :'DateTime',
         'time_status_updated': :'DateTime',
         'is_logical': :'BOOLEAN',
@@ -186,6 +203,7 @@ module OCI
         'last_job_key': :'String',
         'type_key': :'String',
         'uri': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -206,6 +224,8 @@ module OCI
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
+    # @option attributes [String] :pattern_key The value to assign to the {#pattern_key} property
+    # @option attributes [String] :realized_expression The value to assign to the {#realized_expression} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
     # @option attributes [DateTime] :time_status_updated The value to assign to the {#time_status_updated} property
     # @option attributes [BOOLEAN] :is_logical The value to assign to the {#is_logical} property
@@ -218,6 +238,7 @@ module OCI
     # @option attributes [String] :last_job_key The value to assign to the {#last_job_key} property
     # @option attributes [String] :type_key The value to assign to the {#type_key} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -270,6 +291,18 @@ module OCI
       raise 'You cannot provide both :externalKey and :external_key' if attributes.key?(:'externalKey') && attributes.key?(:'external_key')
 
       self.external_key = attributes[:'external_key'] if attributes[:'external_key']
+
+      self.pattern_key = attributes[:'patternKey'] if attributes[:'patternKey']
+
+      raise 'You cannot provide both :patternKey and :pattern_key' if attributes.key?(:'patternKey') && attributes.key?(:'pattern_key')
+
+      self.pattern_key = attributes[:'pattern_key'] if attributes[:'pattern_key']
+
+      self.realized_expression = attributes[:'realizedExpression'] if attributes[:'realizedExpression']
+
+      raise 'You cannot provide both :realizedExpression and :realized_expression' if attributes.key?(:'realizedExpression') && attributes.key?(:'realized_expression')
+
+      self.realized_expression = attributes[:'realized_expression'] if attributes[:'realized_expression']
 
       self.time_external = attributes[:'timeExternal'] if attributes[:'timeExternal']
 
@@ -335,6 +368,12 @@ module OCI
 
       self.uri = attributes[:'uri'] if attributes[:'uri']
 
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -384,6 +423,8 @@ module OCI
         updated_by_id == other.updated_by_id &&
         lifecycle_state == other.lifecycle_state &&
         external_key == other.external_key &&
+        pattern_key == other.pattern_key &&
+        realized_expression == other.realized_expression &&
         time_external == other.time_external &&
         time_status_updated == other.time_status_updated &&
         is_logical == other.is_logical &&
@@ -396,6 +437,7 @@ module OCI
         last_job_key == other.last_job_key &&
         type_key == other.type_key &&
         uri == other.uri &&
+        custom_property_members == other.custom_property_members &&
         properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -412,7 +454,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, time_created, time_updated, created_by_id, updated_by_id, lifecycle_state, external_key, time_external, time_status_updated, is_logical, is_partition, data_asset_key, folder_key, folder_name, path, harvest_status, last_job_key, type_key, uri, properties].hash
+      [key, display_name, description, time_created, time_updated, created_by_id, updated_by_id, lifecycle_state, external_key, pattern_key, realized_expression, time_external, time_status_updated, is_logical, is_partition, data_asset_key, folder_key, folder_name, path, harvest_status, last_job_key, type_key, uri, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

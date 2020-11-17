@@ -5,16 +5,16 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The dimension use for filtering.
+  # The dimension used for filtering. availabe dimension are \"service\", \"skuName\", \"skuPartNumber\", \"unit\", \"compartmentName\", \"compartmentPath\", \"compartmentId\", \"platform\", \"region\", \"logicalAd\", \"resourceId\", \"tenantId\", \"tenantName\"
   # example:
   # `[{value: \"COMPUTE\", key: \"service\"}]`
   #
   class UsageApi::Models::Dimension
-    # **[Required]** The key of the dimension.
+    # **[Required]** The dimension key.
     # @return [String]
     attr_accessor :key
 
-    # **[Required]** The value of the dimension.
+    # **[Required]** The dimension value.
     # @return [String]
     attr_accessor :value
 

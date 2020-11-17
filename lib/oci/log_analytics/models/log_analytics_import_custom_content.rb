@@ -19,7 +19,6 @@ module OCI
     # @return [Array<String>]
     attr_accessor :field_names
 
-    # changeList
     # @return [OCI::LogAnalytics::Models::LogAnalyticsImportCustomChangeList]
     attr_accessor :change_list
 

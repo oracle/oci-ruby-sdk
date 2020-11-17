@@ -75,6 +75,10 @@ require 'oci/loggingsearch/loggingsearch'
 require 'oci/log_analytics/log_analytics'
 require 'oci/sch/sch'
 require 'oci/cloud_guard/cloud_guard'
+require 'oci/opsi/opsi'
+require 'oci/compute_instance_agent/compute_instance_agent'
+require 'oci/tenant_manager_control_plane/tenant_manager_control_plane'
+require 'oci/optimizer/optimizer'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

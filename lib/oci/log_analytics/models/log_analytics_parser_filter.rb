@@ -8,7 +8,7 @@ module OCI
   # LogAnalyticsParserFilter
   class LogAnalytics::Models::LogAnalyticsParserFilter
     # id
-    # @return [Object]
+    # @return [String]
     attr_accessor :id
 
     # @return [OCI::LogAnalytics::Models::LogAnalyticsParser]
@@ -53,7 +53,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'id': :'Object',
+        'id': :'String',
         'parser': :'OCI::LogAnalytics::Models::LogAnalyticsParser',
         'agent_version': :'String',
         'is_in_use': :'Integer',
@@ -70,7 +70,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Object] :id The value to assign to the {#id} property
+    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [OCI::LogAnalytics::Models::LogAnalyticsParser] :parser The value to assign to the {#parser} property
     # @option attributes [String] :agent_version The value to assign to the {#agent_version} property
     # @option attributes [Integer] :is_in_use The value to assign to the {#is_in_use} property

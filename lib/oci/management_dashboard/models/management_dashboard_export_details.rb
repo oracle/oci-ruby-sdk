@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Array of dashboards to export.  Response from export must be directly acceptable to import (compartmentIds may have to be changed).
   class ManagementDashboard::Models::ManagementDashboardExportDetails
-    # **[Required]** Array of dashboards
+    # **[Required]** Array of dashboards.
     # @return [Array<OCI::ManagementDashboard::Models::ManagementDashboardForImportExportDetails>]
     attr_accessor :dashboards
 

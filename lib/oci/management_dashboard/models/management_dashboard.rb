@@ -5,61 +5,61 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties for a dashboard, including dashboard id.
+  # Properties of a dashboard, including dashboard ID.
   class ManagementDashboard::Models::ManagementDashboard
-    # **[Required]** Dashboard Id. Must be providied if OOB, otherwise must not be provided.
+    # **[Required]** ID of the dashboard.
     # @return [String]
     attr_accessor :dashboard_id
 
-    # **[Required]** Provider Id.
+    # **[Required]** ID of the service (for example, log-analytics) that owns the dashboard. Each service has a unique ID.
     # @return [String]
     attr_accessor :provider_id
 
-    # **[Required]** Provider name.
+    # **[Required]** Name of the service (for example, Logging Analytics) that owns the dashboard.
     # @return [String]
     attr_accessor :provider_name
 
-    # **[Required]** Provider version.
+    # **[Required]** Version of the service that owns the dashboard.
     # @return [String]
     attr_accessor :provider_version
 
-    # **[Required]** Dashboard tiles array
+    # **[Required]** Array of dashboard tiles.
     # @return [Array<OCI::ManagementDashboard::Models::ManagementDashboardTileDetails>]
     attr_accessor :tiles
 
-    # **[Required]** Display name for dashboard.
+    # **[Required]** Display name of the dashboard.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Dashboard's description.
+    # **[Required]** Description of the dashboard.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The ocid of the compartment that owns the dashboard.
+    # **[Required]** OCID of the compartment in which the dashboard resides.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** String boolean (\"true\" or \"false\"). OOB (Out of the Box) dashboards are only provided by Oracle.  They cannot be modified by non-Oracle.
+    # **[Required]** Determines whether the dashboard is an Out-of-the-Box (OOB) dashboard. Note that OOB dashboards are only provided by Oracle and cannot be modified.
     # @return [BOOLEAN]
     attr_accessor :is_oob_dashboard
 
-    # **[Required]** String boolean (\"true\" or \"false\").  When false, dashboard is not shown in dashboard home.
+    # **[Required]** Determines whether the dashboard will be displayed in Dashboard Home.
     # @return [BOOLEAN]
     attr_accessor :is_show_in_home
 
-    # **[Required]** Created by which user.
+    # **[Required]** User who created the dashboard.
     # @return [String]
     attr_accessor :created_by
 
-    # **[Required]** Time created.
+    # **[Required]** Date and time the dashboard was created.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** Updated by which user.
+    # **[Required]** User who updated the dashboard.
     # @return [String]
     attr_accessor :updated_by
 
-    # **[Required]** Time updated.
+    # **[Required]** Date and time the dashboard was updated.
     # @return [DateTime]
     attr_accessor :time_updated
 
@@ -67,35 +67,35 @@ module OCI
     # @return [String]
     attr_accessor :metadata_version
 
-    # **[Required]** String boolean (\"true\" or \"false\").  When false, dashboard is not automatically refreshed in intervals.
+    # **[Required]** Determines whether the description of the dashboard is displayed.
     # @return [BOOLEAN]
     attr_accessor :is_show_description
 
-    # **[Required]** screen image.
+    # **[Required]** Screen image of the dashboard.
     # @return [String]
     attr_accessor :screen_image
 
-    # **[Required]** Json for internationalization.
+    # **[Required]** JSON that contains internationalization options.
     # @return [Object]
     attr_accessor :nls
 
-    # **[Required]** Json to contain options for UI.
+    # **[Required]** JSON that contains user interface options.
     # @return [Object]
     attr_accessor :ui_config
 
-    # **[Required]** Array of Json to contain options for source of data.
+    # **[Required]** Array of JSON that contain data source options.
     # @return [Array<Object>]
     attr_accessor :data_config
 
-    # **[Required]** NORMAL means single dashboard, SET means dashboard set.
+    # **[Required]** Type of dashboard. NORMAL denotes a single dashboard and SET denotes a dashboard set.
     # @return [String]
     attr_accessor :type
 
-    # **[Required]** String boolean (\"true\" or \"false\").
+    # **[Required]** Determines whether the dashboard is set as favorite.
     # @return [BOOLEAN]
     attr_accessor :is_favorite
 
-    # **[Required]** Array of saved searches.
+    # **[Required]** Array of saved searches in the dashboard.
     # @return [Array<OCI::ManagementDashboard::Models::ManagementSavedSearch>]
     attr_accessor :saved_searches
 

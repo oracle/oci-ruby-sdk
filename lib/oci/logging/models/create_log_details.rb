@@ -12,13 +12,13 @@ module OCI
       LOG_TYPE_SERVICE = 'SERVICE'.freeze
     ].freeze
 
-    # **[Required]** The display name of a user-friendly name. It has to be unique within enclosing resource,
+    # **[Required]** The user-friendly display name. This must be unique within the enclosing resource,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The logType that the log object is for, custom or service.
+    # **[Required]** The logType that the log object is for, whether custom or service.
     # @return [String]
     attr_reader :log_type
 
@@ -44,7 +44,7 @@ module OCI
     # @return [OCI::Logging::Models::Configuration]
     attr_accessor :configuration
 
-    # Log retention duration in days.
+    # Log retention duration in 30-day increments (30, 60, 90 and so on).
     # @return [Integer]
     attr_accessor :retention_duration
 

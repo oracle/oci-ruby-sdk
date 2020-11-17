@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # List of errors for the specified work request if any.
+  # This is a list of errors for the work request.
   #
   class LogAnalytics::Models::WorkRequestErrorCollection
-    # **[Required]** List of errors for the specified work request if any.
+    # **[Required]** This is an array of errors for the work request.
     #
     # @return [Array<OCI::LogAnalytics::Models::WorkRequestError>]
     attr_accessor :items

@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The usage of the account (tenant)
+  # The account (tenant) usage.
   class UsageApi::Models::UsageAggregation
     # Aggregate the result by.
     # @return [Array<String>]

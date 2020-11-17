@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Storage usage of a tenancy in Logan Analytics application
+  # This is the storage usage information of a tenancy in Logan Analytics application
   class LogAnalytics::Models::StorageUsage
-    # **[Required]** number of bytes
+    # **[Required]** This is the number of bytes of active data (non-archived)
     # @return [Integer]
     attr_accessor :active_data_size_in_bytes
 
-    # **[Required]** number of bytes archived in object store
+    # **[Required]** This is the number of bytes of archived data in object storage
     # @return [Integer]
     attr_accessor :archived_data_size_in_bytes
 
-    # **[Required]** number of bytes recalled from archived data in object store
+    # **[Required]** This is the number of bytes of recalled data from archived in object store
     # @return [Integer]
     attr_accessor :recalled_archived_data_size_in_bytes
 

@@ -578,9 +578,7 @@ module OCI
       path = "/#{path}".gsub(/\/+/, '/')
       endpoint = endpoint.chop if endpoint.end_with? '/'
 
-      # rubocop:disable Lint/UriEscapeUnescape
-      URI.encode(endpoint + path)
-      # rubocop:enable Lint/UriEscapeUnescape
+      endpoint + path
     end
 
     # Builds the HTTP request body

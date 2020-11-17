@@ -11,6 +11,14 @@ module OCI
 end
 
 # Require models
+require 'oci/mysql/models/add_analytics_cluster_details'
+require 'oci/mysql/models/analytics_cluster'
+require 'oci/mysql/models/analytics_cluster_memory_estimate'
+require 'oci/mysql/models/analytics_cluster_memory_estimate_status'
+require 'oci/mysql/models/analytics_cluster_node'
+require 'oci/mysql/models/analytics_cluster_schema_memory_estimate'
+require 'oci/mysql/models/analytics_cluster_summary'
+require 'oci/mysql/models/analytics_cluster_table_memory_estimate'
 require 'oci/mysql/models/backup'
 require 'oci/mysql/models/backup_policy'
 require 'oci/mysql/models/backup_summary'
@@ -36,6 +44,7 @@ require 'oci/mysql/models/maintenance_details'
 require 'oci/mysql/models/restart_db_system_details'
 require 'oci/mysql/models/shape_summary'
 require 'oci/mysql/models/stop_db_system_details'
+require 'oci/mysql/models/update_analytics_cluster_details'
 require 'oci/mysql/models/update_backup_details'
 require 'oci/mysql/models/update_backup_policy_details'
 require 'oci/mysql/models/update_configuration_details'

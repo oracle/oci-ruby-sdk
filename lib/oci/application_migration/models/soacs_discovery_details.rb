@@ -6,14 +6,16 @@ require_relative 'discovery_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the credentials to access the source SOACS instance
+  # Credentials to access the Oracle SOA Cloud Service application in the source environment. When you create and update a migration,
+  # Application Migration connects to the application in the source environment with the supplied credentials and exports the domain
+  # configuration.
   #
   class ApplicationMigration::Models::SoacsDiscoveryDetails < ApplicationMigration::Models::DiscoveryDetails
-    # **[Required]** The SOACS instance weblogic admin user
+    # **[Required]** WebLogic administrator username for the Oracle SOA Cloud Service application in the source environment.
     # @return [String]
     attr_accessor :weblogic_user
 
-    # **[Required]** The SOACS instance weblogic admin password
+    # **[Required]** Password for this user.
     # @return [String]
     attr_accessor :weblogic_password
 

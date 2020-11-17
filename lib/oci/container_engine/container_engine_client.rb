@@ -1073,7 +1073,6 @@ module OCI
     # @option opts [String] :resource_type Type of the resource associated with a work request
     #   Allowed values are: CLUSTER, NODEPOOL
     # @option opts [Array<String>] :status A work request status to filter on. Can have multiple parameters of this name.
-    #   Allowed values are: ACCEPTED, IN_PROGRESS, FAILED, SUCCEEDED, CANCELING, CANCELED
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum. For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
@@ -1095,16 +1094,6 @@ module OCI
 
       if opts[:resource_type] && !%w[CLUSTER NODEPOOL].include?(opts[:resource_type])
         raise 'Invalid value for "resource_type", must be one of CLUSTER, NODEPOOL.'
-      end
-
-
-      status_allowable_values = %w[ACCEPTED IN_PROGRESS FAILED SUCCEEDED CANCELING CANCELED]
-      if opts[:status] && !opts[:status].empty?
-        opts[:status].each do |val_to_check|
-          unless status_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "status", must be one of ACCEPTED, IN_PROGRESS, FAILED, SUCCEEDED, CANCELING, CANCELED.'
-          end
-        end
       end
 
       if opts[:sort_order] && !OCI::ContainerEngine::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])

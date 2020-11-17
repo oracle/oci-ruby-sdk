@@ -26,6 +26,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_preview_db_version
 
+    # True if this version of the Oracle Database software is supported for Upgrade.
+    # @return [BOOLEAN]
+    attr_accessor :is_upgrade_supported
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -33,7 +37,8 @@ module OCI
         'version': :'version',
         'is_latest_for_major_version': :'isLatestForMajorVersion',
         'supports_pdb': :'supportsPdb',
-        'is_preview_db_version': :'isPreviewDbVersion'
+        'is_preview_db_version': :'isPreviewDbVersion',
+        'is_upgrade_supported': :'isUpgradeSupported'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,7 +50,8 @@ module OCI
         'version': :'String',
         'is_latest_for_major_version': :'BOOLEAN',
         'supports_pdb': :'BOOLEAN',
-        'is_preview_db_version': :'BOOLEAN'
+        'is_preview_db_version': :'BOOLEAN',
+        'is_upgrade_supported': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -60,6 +66,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_latest_for_major_version The value to assign to the {#is_latest_for_major_version} property
     # @option attributes [BOOLEAN] :supports_pdb The value to assign to the {#supports_pdb} property
     # @option attributes [BOOLEAN] :is_preview_db_version The value to assign to the {#is_preview_db_version} property
+    # @option attributes [BOOLEAN] :is_upgrade_supported The value to assign to the {#is_upgrade_supported} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -85,6 +92,12 @@ module OCI
       raise 'You cannot provide both :isPreviewDbVersion and :is_preview_db_version' if attributes.key?(:'isPreviewDbVersion') && attributes.key?(:'is_preview_db_version')
 
       self.is_preview_db_version = attributes[:'is_preview_db_version'] unless attributes[:'is_preview_db_version'].nil?
+
+      self.is_upgrade_supported = attributes[:'isUpgradeSupported'] unless attributes[:'isUpgradeSupported'].nil?
+
+      raise 'You cannot provide both :isUpgradeSupported and :is_upgrade_supported' if attributes.key?(:'isUpgradeSupported') && attributes.key?(:'is_upgrade_supported')
+
+      self.is_upgrade_supported = attributes[:'is_upgrade_supported'] unless attributes[:'is_upgrade_supported'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -101,7 +114,8 @@ module OCI
         version == other.version &&
         is_latest_for_major_version == other.is_latest_for_major_version &&
         supports_pdb == other.supports_pdb &&
-        is_preview_db_version == other.is_preview_db_version
+        is_preview_db_version == other.is_preview_db_version &&
+        is_upgrade_supported == other.is_upgrade_supported
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -117,7 +131,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [version, is_latest_for_major_version, supports_pdb, is_preview_db_version].hash
+      [version, is_latest_for_major_version, supports_pdb, is_preview_db_version, is_upgrade_supported].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

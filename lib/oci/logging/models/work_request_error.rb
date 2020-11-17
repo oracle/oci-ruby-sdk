@@ -8,8 +8,8 @@ require 'logger'
 module OCI
   # An error encountered while executing a work request.
   class Logging::Models::WorkRequestError
-    # **[Required]** A machine-usable code for the error that occured. Error codes are listed on
-    # (https://docs.cloud.oracle.com/Content/API/References/apierrors.htm)
+    # **[Required]** A machine-usable code for the error that occured. Error codes are listed at
+    # https://docs.cloud.oracle.com/Content/API/References/apierrors.htm.
     #
     # @return [String]
     attr_accessor :code
@@ -18,7 +18,7 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The time the error occured. An RFC3339 formatted datetime string.
+    # **[Required]** The time the error occured. An RFC3339-formatted date and time string.
     # @return [DateTime]
     attr_accessor :timestamp
 

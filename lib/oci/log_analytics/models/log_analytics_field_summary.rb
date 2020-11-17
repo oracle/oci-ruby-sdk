@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # LogAnalyticsFieldSummary model.
+  # summary of fields
   class LogAnalytics::Models::LogAnalyticsFieldSummary
     # The name this field is given in the common event expression standard from mitre.org.
     # This is used for reference when exporting content conforming to CEE standard

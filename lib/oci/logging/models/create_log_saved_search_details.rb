@@ -12,7 +12,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The display name of a user-friendly name. It has to be unique within enclosing resource,
+    # **[Required]** The user-friendly display name. This must be unique within the enclosing resource,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
@@ -26,10 +26,6 @@ module OCI
     #
     # @return [String]
     attr_accessor :query
-
-    # **[Required]** True if the LogSavedSearch should be show as quickstart in the UI
-    # @return [BOOLEAN]
-    attr_accessor :is_quick_start
 
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -54,7 +50,6 @@ module OCI
         'name': :'name',
         'description': :'description',
         'query': :'query',
-        'is_quick_start': :'isQuickStart',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
@@ -69,7 +64,6 @@ module OCI
         'name': :'String',
         'description': :'String',
         'query': :'String',
-        'is_quick_start': :'BOOLEAN',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
@@ -86,7 +80,6 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :query The value to assign to the {#query} property
-    # @option attributes [BOOLEAN] :is_quick_start The value to assign to the {#is_quick_start} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
@@ -106,12 +99,6 @@ module OCI
       self.description = attributes[:'description'] if attributes[:'description']
 
       self.query = attributes[:'query'] if attributes[:'query']
-
-      self.is_quick_start = attributes[:'isQuickStart'] unless attributes[:'isQuickStart'].nil?
-
-      raise 'You cannot provide both :isQuickStart and :is_quick_start' if attributes.key?(:'isQuickStart') && attributes.key?(:'is_quick_start')
-
-      self.is_quick_start = attributes[:'is_quick_start'] unless attributes[:'is_quick_start'].nil?
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -141,7 +128,6 @@ module OCI
         name == other.name &&
         description == other.description &&
         query == other.query &&
-        is_quick_start == other.is_quick_start &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags
     end
@@ -159,7 +145,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, name, description, query, is_quick_start, defined_tags, freeform_tags].hash
+      [compartment_id, name, description, query, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

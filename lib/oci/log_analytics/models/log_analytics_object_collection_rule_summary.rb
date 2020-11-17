@@ -43,9 +43,7 @@ module OCI
     attr_accessor :os_bucket_name
 
     # **[Required]** The type of collection.
-    # Accepted values are: LIVE.
-    # Collection type LIVE indicates to enable log collection from the time of this rule creation,
-    # and continue until the rule exists.
+    # Supported collection types: LIVE, HISTORIC, HISTORIC_LIVE
     #
     # @return [String]
     attr_reader :collection_type

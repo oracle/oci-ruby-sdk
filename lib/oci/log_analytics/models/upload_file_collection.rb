@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Collection of UploadFileSummary objects.
   class LogAnalytics::Models::UploadFileCollection
-    # **[Required]** list of UploadFileSummary objects.
+    # **[Required]** List of UploadFileSummary objects.
     # @return [Array<OCI::LogAnalytics::Models::UploadFileSummary>]
     attr_accessor :items
 

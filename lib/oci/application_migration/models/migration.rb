@@ -6,7 +6,13 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An application being migrated from a source environment to OCI.
+  # The properties that define a migration. A migration represents the end-to-end workflow of moving an application from a source
+  # environment to Oracle Cloud Infrastructure. Each migration moves a single application to Oracle Cloud Infrastructure.
+  # For more information, see [Manage Migrations](https://docs.cloud.oracle.com/iaas/application-migration/manage_migrations.htm).
+  #
+  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator.
+  # If you're an administrator who needs to write policies to give users access, see
+  # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ApplicationMigration::Models::Migration
     APPLICATION_TYPE_ENUM = [
@@ -19,16 +25,44 @@ module OCI
       APPLICATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Unique identifier (OCID) for the application
+    PRE_CREATED_TARGET_DATABASE_TYPE_ENUM = [
+      PRE_CREATED_TARGET_DATABASE_TYPE_DATABASE_SYSTEM = 'DATABASE_SYSTEM'.freeze,
+      PRE_CREATED_TARGET_DATABASE_TYPE_NOT_SET = 'NOT_SET'.freeze,
+      PRE_CREATED_TARGET_DATABASE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_SUCCEEDED = 'SUCCEEDED'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    MIGRATION_STATE_ENUM = [
+      MIGRATION_STATE_DISCOVERING_APPLICATION = 'DISCOVERING_APPLICATION'.freeze,
+      MIGRATION_STATE_DISCOVERY_FAILED = 'DISCOVERY_FAILED'.freeze,
+      MIGRATION_STATE_MISSING_CONFIG_VALUES = 'MISSING_CONFIG_VALUES'.freeze,
+      MIGRATION_STATE_READY = 'READY'.freeze,
+      MIGRATION_STATE_MIGRATING = 'MIGRATING'.freeze,
+      MIGRATION_STATE_MIGRATION_FAILED = 'MIGRATION_FAILED'.freeze,
+      MIGRATION_STATE_MIGRATION_SUCCEEDED = 'MIGRATION_SUCCEEDED'.freeze,
+      MIGRATION_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the migration.
     # @return [String]
     attr_accessor :id
 
-    # Unique idenfifier (OCID) for the compartment where the Source is located.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment that contains the migration.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # Human-readable name of the migration.
+    # User-friendly name of the migration.
     # @return [String]
     attr_accessor :display_name
 
@@ -36,15 +70,15 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # The date and time at which the migration was created.
+    # The date and time at which the migration was created, in the format defined by RFC3339.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # Unique identifier (OCID) of the application source.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the source with which this migration is associated.
     # @return [String]
     attr_accessor :source_id
 
-    # Name of the application being migrated from the source.
+    # Name of the application which is being migrated. This is the name of the application in the source environment.
     # @return [String]
     attr_accessor :application_name
 
@@ -52,36 +86,46 @@ module OCI
     # @return [String]
     attr_reader :application_type
 
-    # Configuration required to migrate the application. In addition to the key and value, additional fields are provided to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the CreateMigration operation.
+    # The pre-existing database type to be used in this migration. Currently, Application migration only supports Oracle Cloud
+    # Infrastrure databases and this option is currently available only for `JAVA_CLOUD_SERVICE` and `WEBLOGIC_CLOUD_SERVICE` target instance types.
+    #
+    # @return [String]
+    attr_reader :pre_created_target_database_type
+
+    # Configuration required to migrate the application. In addition to the key and value, additional fields are provided
+    # to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the
+    # CreateMigration operation.
     #
     # @return [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>]
     attr_accessor :service_config
 
-    # Configuration required to migrate the application. In addition to the key and value, additional fields are provided to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the CreateMigration operation.
+    # Configuration required to migrate the application. In addition to the key and value, additional fields are provided
+    # to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the
+    # CreateMigration operation.
     #
     # @return [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>]
     attr_accessor :application_config
 
-    # The current state of the Migration
+    # The current state of the migration.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
-    # Details about the current lifecycle state
+    # Details about the current lifecycle state of the migration.
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # The current state of the overall Migration process
+    # The current state of the overall migration process.
     # @return [String]
-    attr_accessor :migration_state
+    attr_reader :migration_state
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
@@ -98,6 +142,7 @@ module OCI
         'source_id': :'sourceId',
         'application_name': :'applicationName',
         'application_type': :'applicationType',
+        'pre_created_target_database_type': :'preCreatedTargetDatabaseType',
         'service_config': :'serviceConfig',
         'application_config': :'applicationConfig',
         'lifecycle_state': :'lifecycleState',
@@ -121,6 +166,7 @@ module OCI
         'source_id': :'String',
         'application_name': :'String',
         'application_type': :'String',
+        'pre_created_target_database_type': :'String',
         'service_config': :'Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>',
         'application_config': :'Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>',
         'lifecycle_state': :'String',
@@ -146,6 +192,7 @@ module OCI
     # @option attributes [String] :source_id The value to assign to the {#source_id} property
     # @option attributes [String] :application_name The value to assign to the {#application_name} property
     # @option attributes [String] :application_type The value to assign to the {#application_type} property
+    # @option attributes [String] :pre_created_target_database_type The value to assign to the {#pre_created_target_database_type} property
     # @option attributes [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>] :service_config The value to assign to the {#service_config} property
     # @option attributes [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>] :application_config The value to assign to the {#application_config} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -198,6 +245,12 @@ module OCI
       raise 'You cannot provide both :applicationType and :application_type' if attributes.key?(:'applicationType') && attributes.key?(:'application_type')
 
       self.application_type = attributes[:'application_type'] if attributes[:'application_type']
+
+      self.pre_created_target_database_type = attributes[:'preCreatedTargetDatabaseType'] if attributes[:'preCreatedTargetDatabaseType']
+
+      raise 'You cannot provide both :preCreatedTargetDatabaseType and :pre_created_target_database_type' if attributes.key?(:'preCreatedTargetDatabaseType') && attributes.key?(:'pre_created_target_database_type')
+
+      self.pre_created_target_database_type = attributes[:'pre_created_target_database_type'] if attributes[:'pre_created_target_database_type']
 
       self.service_config = attributes[:'serviceConfig'] if attributes[:'serviceConfig']
 
@@ -257,6 +310,45 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] pre_created_target_database_type Object to be assigned
+    def pre_created_target_database_type=(pre_created_target_database_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if pre_created_target_database_type && !PRE_CREATED_TARGET_DATABASE_TYPE_ENUM.include?(pre_created_target_database_type)
+        OCI.logger.debug("Unknown value for 'pre_created_target_database_type' [" + pre_created_target_database_type + "]. Mapping to 'PRE_CREATED_TARGET_DATABASE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @pre_created_target_database_type = PRE_CREATED_TARGET_DATABASE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @pre_created_target_database_type = pre_created_target_database_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] migration_state Object to be assigned
+    def migration_state=(migration_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if migration_state && !MIGRATION_STATE_ENUM.include?(migration_state)
+        OCI.logger.debug("Unknown value for 'migration_state' [" + migration_state + "]. Mapping to 'MIGRATION_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @migration_state = MIGRATION_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @migration_state = migration_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -274,6 +366,7 @@ module OCI
         source_id == other.source_id &&
         application_name == other.application_name &&
         application_type == other.application_type &&
+        pre_created_target_database_type == other.pre_created_target_database_type &&
         service_config == other.service_config &&
         application_config == other.application_config &&
         lifecycle_state == other.lifecycle_state &&
@@ -296,7 +389,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, time_created, source_id, application_name, application_type, service_config, application_config, lifecycle_state, lifecycle_details, migration_state, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, description, time_created, source_id, application_name, application_type, pre_created_target_database_type, service_config, application_config, lifecycle_state, lifecycle_details, migration_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

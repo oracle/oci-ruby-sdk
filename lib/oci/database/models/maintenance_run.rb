@@ -98,6 +98,10 @@ module OCI
     # @return [String]
     attr_reader :maintenance_subtype
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the maintenance run for the Autonomous Data Guard association's peer container database.
+    # @return [String]
+    attr_accessor :peer_maintenance_run_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -115,7 +119,8 @@ module OCI
         'target_resource_id': :'targetResourceId',
         'maintenance_type': :'maintenanceType',
         'patch_id': :'patchId',
-        'maintenance_subtype': :'maintenanceSubtype'
+        'maintenance_subtype': :'maintenanceSubtype',
+        'peer_maintenance_run_id': :'peerMaintenanceRunId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -137,7 +142,8 @@ module OCI
         'target_resource_id': :'String',
         'maintenance_type': :'String',
         'patch_id': :'String',
-        'maintenance_subtype': :'String'
+        'maintenance_subtype': :'String',
+        'peer_maintenance_run_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -162,6 +168,7 @@ module OCI
     # @option attributes [String] :maintenance_type The value to assign to the {#maintenance_type} property
     # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
     # @option attributes [String] :maintenance_subtype The value to assign to the {#maintenance_subtype} property
+    # @option attributes [String] :peer_maintenance_run_id The value to assign to the {#peer_maintenance_run_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -240,6 +247,12 @@ module OCI
       raise 'You cannot provide both :maintenanceSubtype and :maintenance_subtype' if attributes.key?(:'maintenanceSubtype') && attributes.key?(:'maintenance_subtype')
 
       self.maintenance_subtype = attributes[:'maintenance_subtype'] if attributes[:'maintenance_subtype']
+
+      self.peer_maintenance_run_id = attributes[:'peerMaintenanceRunId'] if attributes[:'peerMaintenanceRunId']
+
+      raise 'You cannot provide both :peerMaintenanceRunId and :peer_maintenance_run_id' if attributes.key?(:'peerMaintenanceRunId') && attributes.key?(:'peer_maintenance_run_id')
+
+      self.peer_maintenance_run_id = attributes[:'peer_maintenance_run_id'] if attributes[:'peer_maintenance_run_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -318,7 +331,8 @@ module OCI
         target_resource_id == other.target_resource_id &&
         maintenance_type == other.maintenance_type &&
         patch_id == other.patch_id &&
-        maintenance_subtype == other.maintenance_subtype
+        maintenance_subtype == other.maintenance_subtype &&
+        peer_maintenance_run_id == other.peer_maintenance_run_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -334,7 +348,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, patch_id, maintenance_subtype].hash
+      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, patch_id, maintenance_subtype, peer_maintenance_run_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

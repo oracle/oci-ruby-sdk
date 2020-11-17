@@ -7,7 +7,7 @@ require_relative 'unified_agent_parser'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # json parser.
+  # JSON parser.
   class Logging::Models::UnifiedJSONParser < Logging::Models::UnifiedAgentParser
     TIME_TYPE_ENUM = [
       TIME_TYPE_FLOAT = 'FLOAT'.freeze,

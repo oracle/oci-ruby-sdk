@@ -15,52 +15,52 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The OCID of the attached steering policy.
+    # **[Required]** The OCID of the attached steering policy.
     # @return [String]
     attr_accessor :steering_policy_id
 
-    # The OCID of the attached zone.
+    # **[Required]** The OCID of the attached zone.
     # @return [String]
     attr_accessor :zone_id
 
-    # The attached domain within the attached zone.
+    # **[Required]** The attached domain within the attached zone.
     # @return [String]
     attr_accessor :domain_name
 
-    # A user-friendly name for the steering policy attachment.
+    # **[Required]** A user-friendly name for the steering policy attachment.
     # Does not have to be unique and can be changed.
     # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
 
-    # The record types covered by the attachment at the domain. The set of record types is
+    # **[Required]** The record types covered by the attachment at the domain. The set of record types is
     # determined by aggregating the record types from the answers defined in the steering
     # policy.
     #
     # @return [Array<String>]
     attr_accessor :rtypes
 
-    # The OCID of the compartment containing the steering policy attachment.
+    # **[Required]** The OCID of the compartment containing the steering policy attachment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The canonical absolute URL of the resource.
+    # **[Required]** The canonical absolute URL of the resource.
     # @return [String]
     attr_accessor :_self
 
-    # The OCID of the resource.
+    # **[Required]** The OCID of the resource.
     # @return [String]
     attr_accessor :id
 
-    # The date and time the resource was created, expressed in RFC 3339 timestamp format.
+    # **[Required]** The date and time the resource was created, expressed in RFC 3339 timestamp format.
     #
     # **Example:** `2016-07-22T17:23:59:60Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The current state of the resource.
+    # **[Required]** The current state of the resource.
     # @return [String]
     attr_reader :lifecycle_state
 

@@ -23,6 +23,7 @@ module OCI
     ].freeze
 
     UPDATE_TYPE_ENUM = [
+      UPDATE_TYPE_GI_UPGRADE = 'GI_UPGRADE'.freeze,
       UPDATE_TYPE_GI_PATCH = 'GI_PATCH'.freeze,
       UPDATE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze

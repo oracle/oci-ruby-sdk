@@ -6,7 +6,7 @@ require_relative 'unified_agent_parser'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # regexp parser
+  # regexp parser.
   class Logging::Models::UnifiedAgentRegexParser < Logging::Models::UnifiedAgentParser
     # @return [String]
     attr_accessor :expression

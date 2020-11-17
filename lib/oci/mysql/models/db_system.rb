@@ -41,6 +41,14 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # If the DB System has an Analytics Cluster attached.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_analytics_cluster_attached
+
+    # @return [OCI::Mysql::Models::AnalyticsClusterSummary]
+    attr_accessor :analytics_cluster
+
     # The Availability Domain where the primary DB System should be located.
     #
     # @return [String]
@@ -150,6 +158,8 @@ module OCI
         'description': :'description',
         'compartment_id': :'compartmentId',
         'subnet_id': :'subnetId',
+        'is_analytics_cluster_attached': :'isAnalyticsClusterAttached',
+        'analytics_cluster': :'analyticsCluster',
         'availability_domain': :'availabilityDomain',
         'fault_domain': :'faultDomain',
         'shape_name': :'shapeName',
@@ -183,6 +193,8 @@ module OCI
         'description': :'String',
         'compartment_id': :'String',
         'subnet_id': :'String',
+        'is_analytics_cluster_attached': :'BOOLEAN',
+        'analytics_cluster': :'OCI::Mysql::Models::AnalyticsClusterSummary',
         'availability_domain': :'String',
         'fault_domain': :'String',
         'shape_name': :'String',
@@ -218,6 +230,8 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [BOOLEAN] :is_analytics_cluster_attached The value to assign to the {#is_analytics_cluster_attached} property
+    # @option attributes [OCI::Mysql::Models::AnalyticsClusterSummary] :analytics_cluster The value to assign to the {#analytics_cluster} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
     # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
@@ -265,6 +279,20 @@ module OCI
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.is_analytics_cluster_attached = attributes[:'isAnalyticsClusterAttached'] unless attributes[:'isAnalyticsClusterAttached'].nil?
+      self.is_analytics_cluster_attached = false if is_analytics_cluster_attached.nil? && !attributes.key?(:'isAnalyticsClusterAttached') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isAnalyticsClusterAttached and :is_analytics_cluster_attached' if attributes.key?(:'isAnalyticsClusterAttached') && attributes.key?(:'is_analytics_cluster_attached')
+
+      self.is_analytics_cluster_attached = attributes[:'is_analytics_cluster_attached'] unless attributes[:'is_analytics_cluster_attached'].nil?
+      self.is_analytics_cluster_attached = false if is_analytics_cluster_attached.nil? && !attributes.key?(:'isAnalyticsClusterAttached') && !attributes.key?(:'is_analytics_cluster_attached') # rubocop:disable Style/StringLiterals
+
+      self.analytics_cluster = attributes[:'analyticsCluster'] if attributes[:'analyticsCluster']
+
+      raise 'You cannot provide both :analyticsCluster and :analytics_cluster' if attributes.key?(:'analyticsCluster') && attributes.key?(:'analytics_cluster')
+
+      self.analytics_cluster = attributes[:'analytics_cluster'] if attributes[:'analytics_cluster']
 
       self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
 
@@ -400,6 +428,8 @@ module OCI
         description == other.description &&
         compartment_id == other.compartment_id &&
         subnet_id == other.subnet_id &&
+        is_analytics_cluster_attached == other.is_analytics_cluster_attached &&
+        analytics_cluster == other.analytics_cluster &&
         availability_domain == other.availability_domain &&
         fault_domain == other.fault_domain &&
         shape_name == other.shape_name &&
@@ -435,7 +465,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, subnet_id, availability_domain, fault_domain, shape_name, mysql_version, backup_policy, source, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, endpoints, lifecycle_state, lifecycle_details, maintenance, time_created, time_updated, freeform_tags, defined_tags].hash
+      [id, display_name, description, compartment_id, subnet_id, is_analytics_cluster_attached, analytics_cluster, availability_domain, fault_domain, shape_name, mysql_version, backup_policy, source, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, endpoints, lifecycle_state, lifecycle_details, maintenance, time_created, time_updated, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

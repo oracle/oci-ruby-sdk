@@ -89,6 +89,10 @@ module OCI
     # @return [String]
     attr_accessor :uri
 
+    # Custom properties associated with this Type.
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertySummary>]
+    attr_accessor :custom_properties
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -104,7 +108,8 @@ module OCI
         'is_approved': :'isApproved',
         'type_category': :'typeCategory',
         'external_type_name': :'externalTypeName',
-        'uri': :'uri'
+        'uri': :'uri',
+        'custom_properties': :'customProperties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -124,7 +129,8 @@ module OCI
         'is_approved': :'BOOLEAN',
         'type_category': :'String',
         'external_type_name': :'String',
-        'uri': :'String'
+        'uri': :'String',
+        'custom_properties': :'Array<OCI::DataCatalog::Models::CustomPropertySummary>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -147,6 +153,7 @@ module OCI
     # @option attributes [String] :type_category The value to assign to the {#type_category} property
     # @option attributes [String] :external_type_name The value to assign to the {#external_type_name} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertySummary>] :custom_properties The value to assign to the {#custom_properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -204,6 +211,12 @@ module OCI
       self.external_type_name = attributes[:'external_type_name'] if attributes[:'external_type_name']
 
       self.uri = attributes[:'uri'] if attributes[:'uri']
+
+      self.custom_properties = attributes[:'customProperties'] if attributes[:'customProperties']
+
+      raise 'You cannot provide both :customProperties and :custom_properties' if attributes.key?(:'customProperties') && attributes.key?(:'custom_properties')
+
+      self.custom_properties = attributes[:'custom_properties'] if attributes[:'custom_properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -241,7 +254,8 @@ module OCI
         is_approved == other.is_approved &&
         type_category == other.type_category &&
         external_type_name == other.external_type_name &&
-        uri == other.uri
+        uri == other.uri &&
+        custom_properties == other.custom_properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -257,7 +271,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, name, description, catalog_id, properties, lifecycle_state, is_internal, is_tag, is_approved, type_category, external_type_name, uri].hash
+      [key, name, description, catalog_id, properties, lifecycle_state, is_internal, is_tag, is_approved, type_category, external_type_name, uri, custom_properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -17,6 +17,18 @@ module OCI
     # @return [String]
     attr_accessor :db_home_id
 
+    # A new strong password for SYS, SYSTEM, and the plugbable database ADMIN user. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numeric, and two special characters. The special characters must be _, \\#, or -.
+    # @return [String]
+    attr_accessor :new_admin_password
+
+    # The existing password to open the TDE wallet. It is required to set a new tde password.
+    # @return [String]
+    attr_accessor :old_tde_wallet_password
+
+    # The new password to open the TDE wallet. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numeric, and two special characters. The special characters must be _, \\#, or -.
+    # @return [String]
+    attr_accessor :new_tde_wallet_password
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -37,6 +49,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'db_backup_config': :'dbBackupConfig',
         'db_home_id': :'dbHomeId',
+        'new_admin_password': :'newAdminPassword',
+        'old_tde_wallet_password': :'oldTdeWalletPassword',
+        'new_tde_wallet_password': :'newTdeWalletPassword',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -49,6 +64,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
         'db_home_id': :'String',
+        'new_admin_password': :'String',
+        'old_tde_wallet_password': :'String',
+        'new_tde_wallet_password': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -63,6 +81,9 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::Database::Models::DbBackupConfig] :db_backup_config The value to assign to the {#db_backup_config} property
     # @option attributes [String] :db_home_id The value to assign to the {#db_home_id} property
+    # @option attributes [String] :new_admin_password The value to assign to the {#new_admin_password} property
+    # @option attributes [String] :old_tde_wallet_password The value to assign to the {#old_tde_wallet_password} property
+    # @option attributes [String] :new_tde_wallet_password The value to assign to the {#new_tde_wallet_password} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -82,6 +103,24 @@ module OCI
       raise 'You cannot provide both :dbHomeId and :db_home_id' if attributes.key?(:'dbHomeId') && attributes.key?(:'db_home_id')
 
       self.db_home_id = attributes[:'db_home_id'] if attributes[:'db_home_id']
+
+      self.new_admin_password = attributes[:'newAdminPassword'] if attributes[:'newAdminPassword']
+
+      raise 'You cannot provide both :newAdminPassword and :new_admin_password' if attributes.key?(:'newAdminPassword') && attributes.key?(:'new_admin_password')
+
+      self.new_admin_password = attributes[:'new_admin_password'] if attributes[:'new_admin_password']
+
+      self.old_tde_wallet_password = attributes[:'oldTdeWalletPassword'] if attributes[:'oldTdeWalletPassword']
+
+      raise 'You cannot provide both :oldTdeWalletPassword and :old_tde_wallet_password' if attributes.key?(:'oldTdeWalletPassword') && attributes.key?(:'old_tde_wallet_password')
+
+      self.old_tde_wallet_password = attributes[:'old_tde_wallet_password'] if attributes[:'old_tde_wallet_password']
+
+      self.new_tde_wallet_password = attributes[:'newTdeWalletPassword'] if attributes[:'newTdeWalletPassword']
+
+      raise 'You cannot provide both :newTdeWalletPassword and :new_tde_wallet_password' if attributes.key?(:'newTdeWalletPassword') && attributes.key?(:'new_tde_wallet_password')
+
+      self.new_tde_wallet_password = attributes[:'new_tde_wallet_password'] if attributes[:'new_tde_wallet_password']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -109,6 +148,9 @@ module OCI
       self.class == other.class &&
         db_backup_config == other.db_backup_config &&
         db_home_id == other.db_home_id &&
+        new_admin_password == other.new_admin_password &&
+        old_tde_wallet_password == other.old_tde_wallet_password &&
+        new_tde_wallet_password == other.new_tde_wallet_password &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -126,7 +168,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_backup_config, db_home_id, freeform_tags, defined_tags].hash
+      [db_backup_config, db_home_id, new_admin_password, old_tde_wallet_password, new_tde_wallet_password, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Unified Agent configuration creation object.
   class Logging::Models::CreateUnifiedAgentConfigurationDetails
-    # The display name of a user-friendly name. It has to be unique within enclosing resource,
+    # The user-friendly display name. This must be unique within the enclosing resource,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]

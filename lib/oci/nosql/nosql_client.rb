@@ -822,7 +822,7 @@ module OCI
     #
     # @option opts [String] :name A shell-globbing-style (*?[]) filter for names. (default to *)
     # @option opts [String] :lifecycle_state Filter list by the lifecycle state of the item. (default to ALL)
-    #   Allowed values are: ALL, CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED
+    #   Allowed values are: ALL, CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, INACTIVE
     # @option opts [Integer] :limit The maximum number of items to return. (default to 1000)
     # @option opts [String] :page The page token representing the page at which to start
     #   retrieving results. This is usually retrieved from a previous
@@ -843,8 +843,8 @@ module OCI
 
       raise "Missing the required parameter 'table_name_or_id' when calling list_indexes." if table_name_or_id.nil?
 
-      if opts[:lifecycle_state] && !%w[ALL CREATING UPDATING ACTIVE DELETING DELETED FAILED].include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of ALL, CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED.'
+      if opts[:lifecycle_state] && !%w[ALL CREATING UPDATING ACTIVE DELETING DELETED FAILED INACTIVE].include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of ALL, CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, INACTIVE.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -996,7 +996,7 @@ module OCI
     #   Allowed values are: timeCreated, name
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :lifecycle_state Filter list by the lifecycle state of the item. (default to ALL)
-    #   Allowed values are: ALL, CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED
+    #   Allowed values are: ALL, CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, INACTIVE
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::TableCollection TableCollection}
     def list_tables(compartment_id, opts = {})
       logger.debug 'Calling operation NosqlClient#list_tables.' if logger
@@ -1011,8 +1011,8 @@ module OCI
         raise 'Invalid value for "sort_by", must be one of timeCreated, name.'
       end
 
-      if opts[:lifecycle_state] && !%w[ALL CREATING UPDATING ACTIVE DELETING DELETED FAILED].include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of ALL, CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED.'
+      if opts[:lifecycle_state] && !%w[ALL CREATING UPDATING ACTIVE DELETING DELETED FAILED INACTIVE].include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of ALL, CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, INACTIVE.'
       end
 
       path = '/tables'

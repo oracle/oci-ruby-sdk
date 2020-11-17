@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of Services that are integrated with public logging
+  # Summary of services that are integrated with public logging.
   class Logging::Models::ServiceSummary
     # **[Required]** Tenant OCID.
     # @return [String]
     attr_accessor :tenant_id
 
-    # Apollo project namespace if any.
+    # Apollo project namespace, if any.
     # @return [String]
     attr_accessor :namespace
 
-    # **[Required]** Service id as set in Service Principal.
+    # **[Required]** Service ID as set in Service Principal.
     # @return [String]
     attr_accessor :service_principal_name
 
@@ -23,15 +23,15 @@ module OCI
     # @return [String]
     attr_accessor :endpoint
 
-    # **[Required]** User friendly service name.
+    # **[Required]** User-friendly service name.
     # @return [String]
     attr_accessor :name
 
-    # Service id.
+    # Service ID.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** Type of Resource that a Service provides.
+    # **[Required]** Type of resource that a service provides.
     # @return [Array<OCI::Logging::Models::ResourceType>]
     attr_accessor :resource_types
 

@@ -12,11 +12,30 @@ module OCI
     # @return [String]
     attr_accessor :query
 
+    # Query string that a dataObject is to be searched with. Used in the faceted query request
+    # @return [String]
+    attr_accessor :faceted_query
+
+    # List of properties of dataObjects that needs to aggregated on for facets.
+    # @return [Array<String>]
+    attr_accessor :dimensions
+
+    # Array of objects having details about sort field and order.
+    # @return [Array<OCI::DataCatalog::Models::FacetedSearchSortRequest>]
+    attr_accessor :sort
+
+    # @return [OCI::DataCatalog::Models::FacetedSearchFilterRequest]
+    attr_accessor :filters
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'query': :'query'
+        'query': :'query',
+        'faceted_query': :'facetedQuery',
+        'dimensions': :'dimensions',
+        'sort': :'sort',
+        'filters': :'filters'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +44,11 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'query': :'String'
+        'query': :'String',
+        'faceted_query': :'String',
+        'dimensions': :'Array<String>',
+        'sort': :'Array<OCI::DataCatalog::Models::FacetedSearchSortRequest>',
+        'filters': :'OCI::DataCatalog::Models::FacetedSearchFilterRequest'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,6 +60,10 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :query The value to assign to the {#query} property
+    # @option attributes [String] :faceted_query The value to assign to the {#faceted_query} property
+    # @option attributes [Array<String>] :dimensions The value to assign to the {#dimensions} property
+    # @option attributes [Array<OCI::DataCatalog::Models::FacetedSearchSortRequest>] :sort The value to assign to the {#sort} property
+    # @option attributes [OCI::DataCatalog::Models::FacetedSearchFilterRequest] :filters The value to assign to the {#filters} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -44,6 +71,18 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.query = attributes[:'query'] if attributes[:'query']
+
+      self.faceted_query = attributes[:'facetedQuery'] if attributes[:'facetedQuery']
+
+      raise 'You cannot provide both :facetedQuery and :faceted_query' if attributes.key?(:'facetedQuery') && attributes.key?(:'faceted_query')
+
+      self.faceted_query = attributes[:'faceted_query'] if attributes[:'faceted_query']
+
+      self.dimensions = attributes[:'dimensions'] if attributes[:'dimensions']
+
+      self.sort = attributes[:'sort'] if attributes[:'sort']
+
+      self.filters = attributes[:'filters'] if attributes[:'filters']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -57,7 +96,11 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        query == other.query
+        query == other.query &&
+        faceted_query == other.faceted_query &&
+        dimensions == other.dimensions &&
+        sort == other.sort &&
+        filters == other.filters
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -73,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [query].hash
+      [query, faceted_query, dimensions, sort, filters].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

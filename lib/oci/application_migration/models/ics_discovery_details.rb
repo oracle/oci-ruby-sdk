@@ -6,14 +6,15 @@ require_relative 'discovery_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the credentials to access the source ICS instance
+  # Credentials to access the Oracle Integration Cloud Service application in the source environment. Application Migration connects
+  # to the application in the source environment with the supplied credentials.
   #
   class ApplicationMigration::Models::IcsDiscoveryDetails < ApplicationMigration::Models::DiscoveryDetails
-    # **[Required]** The ICS instance admin user
+    # **[Required]** Application administrator username to access the Oracle Integration Cloud Service application in the source environment.
     # @return [String]
     attr_accessor :service_instance_user
 
-    # **[Required]** The ICS instance admin password
+    # **[Required]** Password for this user.
     # @return [String]
     attr_accessor :service_instance_password
 

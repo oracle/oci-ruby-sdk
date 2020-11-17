@@ -98,6 +98,81 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Adds an Analytics Cluster to the DB System.
+    #
+    # @param [String] db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Mysql::Models::AddAnalyticsClusterDetails] add_analytics_cluster_details Request to add an Analytics Cluster.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a
+    #   resource, set the `If-Match` header to the value of the etag from a
+    #   previous GET or POST response for that resource. The resource will be
+    #   updated or deleted only if the etag you provide matches the resource's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Mysql::Models::AnalyticsCluster AnalyticsCluster}
+    def add_analytics_cluster(db_system_id, add_analytics_cluster_details, opts = {})
+      logger.debug 'Calling operation DbSystemClient#add_analytics_cluster.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling add_analytics_cluster." if db_system_id.nil?
+      raise "Missing the required parameter 'add_analytics_cluster_details' when calling add_analytics_cluster." if add_analytics_cluster_details.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/analyticsCluster/actions/add'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(add_analytics_cluster_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#add_analytics_cluster') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Mysql::Models::AnalyticsCluster'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates and launches a DB System.
     #
     # @param [OCI::Mysql::Models::CreateDbSystemDetails] create_db_system_details Request to create a DB System.
@@ -163,6 +238,70 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the Analytics Cluster including terminating, detaching, removing, finalizing and
+    # otherwise deleting all related resources.
+    #
+    # @param [String] db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a
+    #   resource, set the `If-Match` header to the value of the etag from a
+    #   previous GET or POST response for that resource. The resource will be
+    #   updated or deleted only if the etag you provide matches the resource's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_analytics_cluster(db_system_id, opts = {})
+      logger.debug 'Calling operation DbSystemClient#delete_analytics_cluster.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling delete_analytics_cluster." if db_system_id.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/analyticsCluster'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#delete_analytics_cluster') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Delete a DB System, including terminating, detaching,
     # removing, finalizing and otherwise deleting all related resources.
     #
@@ -214,6 +353,193 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Sends a request to estimate the memory footprints of user tables when loaded to Analytics Cluster memory.
+    #
+    # @param [String] db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Mysql::Models::AnalyticsClusterMemoryEstimate AnalyticsClusterMemoryEstimate}
+    def generate_analytics_cluster_memory_estimate(db_system_id, opts = {})
+      logger.debug 'Calling operation DbSystemClient#generate_analytics_cluster_memory_estimate.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling generate_analytics_cluster_memory_estimate." if db_system_id.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/analyticsClusterMemoryEstimate/actions/generate'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#generate_analytics_cluster_memory_estimate') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Mysql::Models::AnalyticsClusterMemoryEstimate'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets information about the Analytics Cluster.
+    # @param [String] db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @option opts [String] :if_none_match For conditional requests. In the GET call for a resource, set the
+    #   `If-None-Match` header to the value of the ETag from a previous GET (or
+    #   POST or PUT) response for that resource. The server will return with
+    #   either a 304 Not Modified response if the resource has not changed, or a
+    #   200 OK response with the updated representation.
+    #
+    # @return [Response] A Response object with data of type {OCI::Mysql::Models::AnalyticsCluster AnalyticsCluster}
+    def get_analytics_cluster(db_system_id, opts = {})
+      logger.debug 'Calling operation DbSystemClient#get_analytics_cluster.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling get_analytics_cluster." if db_system_id.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/analyticsCluster'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#get_analytics_cluster') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Mysql::Models::AnalyticsCluster'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the most recent Analytics Cluster memory estimate that can be used to determine a suitable
+    # Analytics Cluster size.
+    #
+    # @param [String] db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Mysql::Models::AnalyticsClusterMemoryEstimate AnalyticsClusterMemoryEstimate}
+    def get_analytics_cluster_memory_estimate(db_system_id, opts = {})
+      logger.debug 'Calling operation DbSystemClient#get_analytics_cluster_memory_estimate.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling get_analytics_cluster_memory_estimate." if db_system_id.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/analyticsClusterMemoryEstimate'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#get_analytics_cluster_memory_estimate') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Mysql::Models::AnalyticsClusterMemoryEstimate'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -301,6 +627,10 @@ module OCI
     #   contact Oracle about a specific request, please provide the request
     #   ID that you supplied in this header with the request.
     #
+    # @option opts [BOOLEAN] :is_analytics_cluster_attached If true, return only DB Systems with an Analytics Cluster attached, if false
+    #   return only DB Systems with no Analytics Cluster attached. If not
+    #   present, return all DB Systems.
+    #    (default to false)
     # @option opts [String] :db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @option opts [String] :display_name A filter to return only the resource matching the given display name exactly.
     # @option opts [String] :lifecycle_state DbSystem Lifecycle State (default to AVAILABLE)
@@ -345,6 +675,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
+      query_params[:isAnalyticsClusterAttached] = opts[:is_analytics_cluster_attached] if !opts[:is_analytics_cluster_attached].nil?
       query_params[:dbSystemId] = opts[:db_system_id] if opts[:db_system_id]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
@@ -375,6 +706,77 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Mysql::Models::DbSystemSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Restarts the Analytics Cluster.
+    # @param [String] db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a
+    #   resource, set the `If-Match` header to the value of the etag from a
+    #   previous GET or POST response for that resource. The resource will be
+    #   updated or deleted only if the etag you provide matches the resource's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def restart_analytics_cluster(db_system_id, opts = {})
+      logger.debug 'Calling operation DbSystemClient#restart_analytics_cluster.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling restart_analytics_cluster." if db_system_id.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/analyticsCluster/actions/restart'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#restart_analytics_cluster') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -440,6 +842,77 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#restart_db_system') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Starts the Analytics Cluster.
+    # @param [String] db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a
+    #   resource, set the `If-Match` header to the value of the etag from a
+    #   previous GET or POST response for that resource. The resource will be
+    #   updated or deleted only if the etag you provide matches the resource's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def start_analytics_cluster(db_system_id, opts = {})
+      logger.debug 'Calling operation DbSystemClient#start_analytics_cluster.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling start_analytics_cluster." if db_system_id.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/analyticsCluster/actions/start'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#start_analytics_cluster') do
         @api_client.call_api(
           :POST,
           path,
@@ -532,6 +1005,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Stops the Analytics Cluster.
+    # @param [String] db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a
+    #   resource, set the `If-Match` header to the value of the etag from a
+    #   previous GET or POST response for that resource. The resource will be
+    #   updated or deleted only if the etag you provide matches the resource's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    def stop_analytics_cluster(db_system_id, opts = {})
+      logger.debug 'Calling operation DbSystemClient#stop_analytics_cluster.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling stop_analytics_cluster." if db_system_id.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/analyticsCluster/actions/stop'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#stop_analytics_cluster') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Stops the specified DB System.
     #
     # A stopped DB System is not billed.
@@ -589,6 +1133,71 @@ module OCI
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#stop_db_system') do
         @api_client.call_api(
           :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the Analytics Cluster.
+    #
+    # @param [String] db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Mysql::Models::UpdateAnalyticsClusterDetails] update_analytics_cluster_details Request to update an Analytics Cluster.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a
+    #   resource, set the `If-Match` header to the value of the etag from a
+    #   previous GET or POST response for that resource. The resource will be
+    #   updated or deleted only if the etag you provide matches the resource's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @return [Response] A Response object with data of type nil
+    def update_analytics_cluster(db_system_id, update_analytics_cluster_details, opts = {})
+      logger.debug 'Calling operation DbSystemClient#update_analytics_cluster.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling update_analytics_cluster." if db_system_id.nil?
+      raise "Missing the required parameter 'update_analytics_cluster_details' when calling update_analytics_cluster." if update_analytics_cluster_details.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/analyticsCluster'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_analytics_cluster_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbSystemClient#update_analytics_cluster') do
+        @api_client.call_api(
+          :PUT,
           path,
           endpoint,
           header_params: header_params,

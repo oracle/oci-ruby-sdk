@@ -19,11 +19,11 @@ module OCI
     # @return [Array<OCI::LogAnalytics::Models::ParsedField>]
     attr_accessor :parsed_field_values
 
-    # Log Content
+    # Sample log entries picked up from the given file for validation
     # @return [String]
     attr_accessor :log_content
 
-    # Sample Size
+    # Sample Size taken for validation
     # @return [Integer]
     attr_accessor :sample_size
 

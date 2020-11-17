@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A log message from the execution of a work request.
+  # This is a log message from the execution of a work request.
   class LogAnalytics::Models::WorkRequestLog
-    # **[Required]** Human-readable log message.
+    # **[Required]** This is a human-readable log message.
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The time the log message was written. An RFC3339 formatted datetime string
+    # **[Required]** This is the time the log message was written. An RFC3339 formatted datetime string
     # @return [DateTime]
     attr_accessor :timestamp
 

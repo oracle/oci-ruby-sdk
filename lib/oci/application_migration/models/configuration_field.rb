@@ -5,10 +5,12 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Information required to migrate an application. Populated by the service as the source application is introspected
+  # Provide configuration information about the application in the target environment. Application Migration migrates the application to
+  # the target environment only after you provide this information. The information that you must provide varies depending on the type of
+  # application that you are migrating.
   #
   class ApplicationMigration::Models::ConfigurationField
-    # The name of the configuration field
+    # The name of the configuration field.
     # @return [String]
     attr_accessor :name
 
@@ -16,24 +18,24 @@ module OCI
     # @return [String]
     attr_accessor :group
 
-    # The configuration field type
+    # The type of the configuration field.
     # @return [String]
     attr_accessor :type
 
-    # The value of the field
+    # The value of the field.
     # @return [String]
     attr_accessor :value
 
-    # Help text to guide the customer in setting the configuration value
+    # Help text to guide the user in setting the configuration value.
     # @return [String]
     attr_accessor :description
 
-    # Indicates whether or not the field is required (defaults to true)
+    # Indicates whether or not the field is required (defaults to `true`).
     #
     # @return [BOOLEAN]
     attr_accessor :is_required
 
-    # Indicates whether or not the field may be modified (defaults to true)
+    # Indicates whether or not the field may be modified (defaults to `true`).
     #
     # @return [BOOLEAN]
     attr_accessor :is_mutable

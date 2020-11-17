@@ -522,7 +522,7 @@ module OCI
     #
     # @option opts [String] :display_name A filter to return only applications with display names that match the display name string. Matching is exact.
     #
-    # @option opts [String] :id A filter to return only applications with the specfied OCID.
+    # @option opts [String] :id A filter to return only applications with the specified OCID.
     #
     # @option opts [String] :sort_order Specifies sort order.
     #

@@ -99,6 +99,90 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a resolver into a different compartment along with its protected default view and any endpoints.
+    # Zones in the default view are not moved.
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [OCI::Dns::Models::ChangeResolverCompartmentDetails] change_resolver_compartment_details Details for moving a resolver, along with its protected default view and endpoints, into a
+    #   different compartment.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_resolver_compartment(resolver_id, change_resolver_compartment_details, opts = {})
+      logger.debug 'Calling operation DnsClient#change_resolver_compartment.' if logger
+
+      raise "Missing the required parameter 'resolver_id' when calling change_resolver_compartment." if resolver_id.nil?
+      raise "Missing the required parameter 'change_resolver_compartment_details' when calling change_resolver_compartment." if change_resolver_compartment_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'resolver_id' must not be blank" if OCI::Internal::Util.blank_string?(resolver_id)
+
+      path = '/resolvers/{resolverId}/actions/changeCompartment'.sub('{resolverId}', resolver_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_resolver_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#change_resolver_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves a steering policy into a different compartment.
     # @param [String] steering_policy_id The OCID of the target steering policy.
     # @param [OCI::Dns::Models::ChangeSteeringPolicyCompartmentDetails] change_steering_policy_compartment_details Details for moving a steering policy into a different compartment.
@@ -110,24 +194,30 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
     #   of a timeout or server error without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated before
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type nil
     def change_steering_policy_compartment(steering_policy_id, change_steering_policy_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_steering_policy_compartment.' if logger
 
       raise "Missing the required parameter 'steering_policy_id' when calling change_steering_policy_compartment." if steering_policy_id.nil?
       raise "Missing the required parameter 'change_steering_policy_compartment_details' when calling change_steering_policy_compartment." if change_steering_policy_compartment_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'steering_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(steering_policy_id)
 
       path = '/steeringPolicies/{steeringPolicyId}/actions/changeCompartment'.sub('{steeringPolicyId}', steering_policy_id.to_s)
@@ -136,6 +226,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -183,24 +274,30 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
     #   of a timeout or server error without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated before
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type nil
     def change_tsig_key_compartment(tsig_key_id, change_tsig_key_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_tsig_key_compartment.' if logger
 
       raise "Missing the required parameter 'tsig_key_id' when calling change_tsig_key_compartment." if tsig_key_id.nil?
       raise "Missing the required parameter 'change_tsig_key_compartment_details' when calling change_tsig_key_compartment." if change_tsig_key_compartment_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'tsig_key_id' must not be blank" if OCI::Internal::Util.blank_string?(tsig_key_id)
 
       path = '/tsigKeys/{tsigKeyId}/actions/changeCompartment'.sub('{tsigKeyId}', tsig_key_id.to_s)
@@ -209,6 +306,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -245,8 +343,91 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a zone into a different compartment.
+    # Moves a view into a different compartment. Protected views cannot have their compartment changed.
+    #
+    # @param [String] view_id The OCID of the target view.
+    # @param [OCI::Dns::Models::ChangeViewCompartmentDetails] change_view_compartment_details Details for moving a view into a different compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type nil
+    def change_view_compartment(view_id, change_view_compartment_details, opts = {})
+      logger.debug 'Calling operation DnsClient#change_view_compartment.' if logger
+
+      raise "Missing the required parameter 'view_id' when calling change_view_compartment." if view_id.nil?
+      raise "Missing the required parameter 'change_view_compartment_details' when calling change_view_compartment." if change_view_compartment_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'view_id' must not be blank" if OCI::Internal::Util.blank_string?(view_id)
+
+      path = '/views/{viewId}/actions/changeCompartment'.sub('{viewId}', view_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_view_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#change_view_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a zone into a different compartment. Protected zones cannot have their compartment changed.
+    #
     # **Note:** All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
+    #
     # @param [String] zone_id The OCID of the target zone.
     # @param [OCI::Dns::Models::ChangeZoneCompartmentDetails] change_zone_compartment_details Details for moving a zone into a different compartment.
     # @param [Hash] opts the optional parameters
@@ -257,24 +438,30 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
     #   of a timeout or server error without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated before
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type nil
     def change_zone_compartment(zone_id, change_zone_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_zone_compartment.' if logger
 
       raise "Missing the required parameter 'zone_id' when calling change_zone_compartment." if zone_id.nil?
       raise "Missing the required parameter 'change_zone_compartment_details' when calling change_zone_compartment." if change_zone_compartment_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_id)
 
       path = '/zones/{zoneId}/actions/changeCompartment'.sub('{zoneId}', zone_id.to_s)
@@ -283,6 +470,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -319,6 +507,81 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new resolver endpoint.
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [OCI::Dns::Models::CreateResolverEndpointDetails] create_resolver_endpoint_details Details for creating a new resolver endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::ResolverEndpoint ResolverEndpoint}
+    def create_resolver_endpoint(resolver_id, create_resolver_endpoint_details, opts = {})
+      logger.debug 'Calling operation DnsClient#create_resolver_endpoint.' if logger
+
+      raise "Missing the required parameter 'resolver_id' when calling create_resolver_endpoint." if resolver_id.nil?
+      raise "Missing the required parameter 'create_resolver_endpoint_details' when calling create_resolver_endpoint." if create_resolver_endpoint_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'resolver_id' must not be blank" if OCI::Internal::Util.blank_string?(resolver_id)
+
+      path = '/resolvers/{resolverId}/endpoints'.sub('{resolverId}', resolver_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_resolver_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#create_resolver_endpoint') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::ResolverEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new steering policy in the specified compartment. For more information on
     # creating policies with templates, see [Traffic Management API Guide](https://docs.cloud.oracle.com/iaas/Content/TrafficManagement/Concepts/trafficmanagementapi.htm).
     #
@@ -332,16 +595,22 @@ module OCI
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
     def create_steering_policy(create_steering_policy_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_steering_policy.' if logger
 
       raise "Missing the required parameter 'create_steering_policy_details' when calling create_steering_policy." if create_steering_policy_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
 
       path = '/steeringPolicies'
       operation_signing_strategy = :standard
@@ -349,6 +618,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -402,16 +672,22 @@ module OCI
     #   then due to conflicting operations (for example, if a resource has been
     #   deleted and purged from the system, then a retry of the original creation
     #   request may be rejected).
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
     def create_steering_policy_attachment(create_steering_policy_attachment_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_steering_policy_attachment.' if logger
 
       raise "Missing the required parameter 'create_steering_policy_attachment_details' when calling create_steering_policy_attachment." if create_steering_policy_attachment_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
 
       path = '/steeringPolicyAttachments'
       operation_signing_strategy = :standard
@@ -419,6 +695,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -465,12 +742,18 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::TsigKey TsigKey}
     def create_tsig_key(create_tsig_key_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_tsig_key.' if logger
 
       raise "Missing the required parameter 'create_tsig_key_details' when calling create_tsig_key." if create_tsig_key_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
 
       path = '/tsigKeys'
       operation_signing_strategy = :standard
@@ -478,6 +761,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -512,9 +796,81 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new zone in the specified compartment. The `compartmentId`
-    # query parameter is required if the `Content-Type` header for the
-    # request is `text/dns`.
+    # Creates a new view in the specified compartment.
+    #
+    # @param [OCI::Dns::Models::CreateViewDetails] create_view_details Details for creating a new view.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::View View}
+    def create_view(create_view_details, opts = {})
+      logger.debug 'Calling operation DnsClient#create_view.' if logger
+
+      raise "Missing the required parameter 'create_view_details' when calling create_view." if create_view_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+
+      path = '/views'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_view_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#create_view') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::View'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new zone in the specified compartment. If the `Content-Type` header for the request is `text/dns`, the
+    # `compartmentId` query parameter is required. Additionally, for `text/dns`, the `scope` and `viewId` query
+    # parameters are required to create a private zone.
     #
     # @param [OCI::Dns::Models::CreateZoneBaseDetails] create_zone_details Details for creating a new zone.
     # @param [Hash] opts the optional parameters
@@ -523,13 +879,20 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def create_zone(create_zone_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_zone.' if logger
 
       raise "Missing the required parameter 'create_zone_details' when calling create_zone." if create_zone_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
 
       path = '/zones'
       operation_signing_strategy = :standard
@@ -538,6 +901,8 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
 
       # Header Params
       header_params = {}
@@ -583,24 +948,31 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type nil
     def delete_domain_records(zone_name_or_id, domain, opts = {})
       logger.debug 'Calling operation DnsClient#delete_domain_records.' if logger
 
       raise "Missing the required parameter 'zone_name_or_id' when calling delete_domain_records." if zone_name_or_id.nil?
       raise "Missing the required parameter 'domain' when calling delete_domain_records." if domain.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
       raise "Parameter value for 'domain' must not be blank" if OCI::Internal::Util.blank_string?(domain)
 
@@ -610,6 +982,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -646,6 +1020,88 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the specified resolver endpoint. Note that attempting to delete a resolver endpoint in the
+    # DELETED lifecycle state will result in a 404 to be consistent with other operations of the API.
+    # Resolver endpoints may not be deleted if they are referenced by a resolver rule.
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [String] resolver_endpoint_name The name of the target resolver endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #
+    # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
+    #   conditional on the selected representation's last modification date being
+    #   earlier than or equal to the date provided in the field-value.  This
+    #   field accomplishes the same purpose as If-Match for cases where the user
+    #   agent does not have an entity-tag for the representation.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_resolver_endpoint(resolver_id, resolver_endpoint_name, opts = {})
+      logger.debug 'Calling operation DnsClient#delete_resolver_endpoint.' if logger
+
+      raise "Missing the required parameter 'resolver_id' when calling delete_resolver_endpoint." if resolver_id.nil?
+      raise "Missing the required parameter 'resolver_endpoint_name' when calling delete_resolver_endpoint." if resolver_endpoint_name.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'resolver_id' must not be blank" if OCI::Internal::Util.blank_string?(resolver_id)
+      raise "Parameter value for 'resolver_endpoint_name' must not be blank" if OCI::Internal::Util.blank_string?(resolver_endpoint_name)
+
+      path = '/resolvers/{resolverId}/endpoints/{resolverEndpointName}'.sub('{resolverId}', resolver_id.to_s).sub('{resolverEndpointName}', resolver_endpoint_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#delete_resolver_endpoint') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes all records in the specified RRSet.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
@@ -659,18 +1115,21 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type nil
     def delete_rr_set(zone_name_or_id, domain, rtype, opts = {})
       logger.debug 'Calling operation DnsClient#delete_rr_set.' if logger
@@ -678,6 +1137,10 @@ module OCI
       raise "Missing the required parameter 'zone_name_or_id' when calling delete_rr_set." if zone_name_or_id.nil?
       raise "Missing the required parameter 'domain' when calling delete_rr_set." if domain.nil?
       raise "Missing the required parameter 'rtype' when calling delete_rr_set." if rtype.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
       raise "Parameter value for 'domain' must not be blank" if OCI::Internal::Util.blank_string?(domain)
       raise "Parameter value for 'rtype' must not be blank" if OCI::Internal::Util.blank_string?(rtype)
@@ -689,6 +1152,8 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
 
       # Header Params
       header_params = {}
@@ -738,22 +1203,28 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type nil
     def delete_steering_policy(steering_policy_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_steering_policy.' if logger
 
       raise "Missing the required parameter 'steering_policy_id' when calling delete_steering_policy." if steering_policy_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'steering_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(steering_policy_id)
 
       path = '/steeringPolicies/{steeringPolicyId}'.sub('{steeringPolicyId}', steering_policy_id.to_s)
@@ -762,6 +1233,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -809,22 +1281,28 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type nil
     def delete_steering_policy_attachment(steering_policy_attachment_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_steering_policy_attachment.' if logger
 
       raise "Missing the required parameter 'steering_policy_attachment_id' when calling delete_steering_policy_attachment." if steering_policy_attachment_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'steering_policy_attachment_id' must not be blank" if OCI::Internal::Util.blank_string?(steering_policy_attachment_id)
 
       path = '/steeringPolicyAttachments/{steeringPolicyAttachmentId}'.sub('{steeringPolicyAttachmentId}', steering_policy_attachment_id.to_s)
@@ -833,6 +1311,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -879,22 +1358,28 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type nil
     def delete_tsig_key(tsig_key_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_tsig_key.' if logger
 
       raise "Missing the required parameter 'tsig_key_id' when calling delete_tsig_key." if tsig_key_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'tsig_key_id' must not be blank" if OCI::Internal::Util.blank_string?(tsig_key_id)
 
       path = '/tsigKeys/{tsigKeyId}'.sub('{tsigKeyId}', tsig_key_id.to_s)
@@ -903,6 +1388,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -938,8 +1424,90 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the specified view. Note that attempting to delete a
+    # view in the DELETED lifecycleState will result in a 404 to be
+    # consistent with other operations of the API. Views can not be
+    # deleted if they are referenced by non-deleted zones or resolvers.
+    # Protected views cannot be deleted.
+    #
+    # @param [String] view_id The OCID of the target view.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #
+    # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
+    #   conditional on the selected representation's last modification date being
+    #   earlier than or equal to the date provided in the field-value.  This
+    #   field accomplishes the same purpose as If-Match for cases where the user
+    #   agent does not have an entity-tag for the representation.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type nil
+    def delete_view(view_id, opts = {})
+      logger.debug 'Calling operation DnsClient#delete_view.' if logger
+
+      raise "Missing the required parameter 'view_id' when calling delete_view." if view_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'view_id' must not be blank" if OCI::Internal::Util.blank_string?(view_id)
+
+      path = '/views/{viewId}'.sub('{viewId}', view_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#delete_view') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified zone and all its steering policy attachments.
-    # A `204` response indicates that zone has been successfully deleted.
+    # A `204` response indicates that the zone has been successfully deleted.
+    # Protected zones cannot be deleted.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
@@ -950,23 +1518,30 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type nil
     def delete_zone(zone_name_or_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_zone.' if logger
 
       raise "Missing the required parameter 'zone_name_or_id' when calling delete_zone." if zone_name_or_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
 
       path = '/zones/{zoneNameOrId}'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
@@ -975,6 +1550,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -1024,36 +1601,43 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #    (default to nil)
+    #
     # @option opts [String] :zone_version The version of the zone for which data is requested.
-    #    (default to nil)
+    #
     # @option opts [String] :rtype Search by record type.
     #   Will match any record whose [type](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4) (case-insensitive) equals the provided value.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :sort_by The field by which to sort records. (default to rtype)
     #   Allowed values are: rtype, ttl
     # @option opts [String] :sort_order The order to sort the resources.
-    #    (default to DESC)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #    (default to ASC)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def get_domain_records(zone_name_or_id, domain, opts = {})
       logger.debug 'Calling operation DnsClient#get_domain_records.' if logger
 
       raise "Missing the required parameter 'zone_name_or_id' when calling get_domain_records." if zone_name_or_id.nil?
       raise "Missing the required parameter 'domain' when calling get_domain_records." if domain.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
 
       if opts[:sort_by] && !%w[rtype ttl].include?(opts[:sort_by])
         raise 'Invalid value for "sort_by", must be one of rtype, ttl.'
@@ -1075,6 +1659,8 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:zoneVersion] = opts[:zone_version] if opts[:zone_version]
       query_params[:rtype] = opts[:rtype] if opts[:rtype]
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
@@ -1114,6 +1700,164 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Get information about a specific resolver. Note that attempting to get a
+    # resolver in the DELETED lifecycleState will result in a 404 to be
+    # consistent with other operations of the API.
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
+    #   conditional on the selected representation's modification date being more
+    #   recent than the date provided in the field-value.  Transfer of the
+    #   selected representation's data is avoided if that data has not changed.
+    #
+    # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
+    #   the absence of any current representation of the target resource, when
+    #   the field-value is `*`, or having a selected representation with an
+    #   entity-tag that does not match any of those listed in the field-value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::Resolver Resolver}
+    def get_resolver(resolver_id, opts = {})
+      logger.debug 'Calling operation DnsClient#get_resolver.' if logger
+
+      raise "Missing the required parameter 'resolver_id' when calling get_resolver." if resolver_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'resolver_id' must not be blank" if OCI::Internal::Util.blank_string?(resolver_id)
+
+      path = '/resolvers/{resolverId}'.sub('{resolverId}', resolver_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#get_resolver') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::Resolver'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get information about a specific resolver endpoint. Note that attempting to get a resolver endpoint
+    # in the DELETED lifecycle state will result in a 404 to be consistent with other operations of the API.
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [String] resolver_endpoint_name The name of the target resolver endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
+    #   conditional on the selected representation's modification date being more
+    #   recent than the date provided in the field-value.  Transfer of the
+    #   selected representation's data is avoided if that data has not changed.
+    #
+    # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
+    #   the absence of any current representation of the target resource, when
+    #   the field-value is `*`, or having a selected representation with an
+    #   entity-tag that does not match any of those listed in the field-value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::ResolverEndpoint ResolverEndpoint}
+    def get_resolver_endpoint(resolver_id, resolver_endpoint_name, opts = {})
+      logger.debug 'Calling operation DnsClient#get_resolver_endpoint.' if logger
+
+      raise "Missing the required parameter 'resolver_id' when calling get_resolver_endpoint." if resolver_id.nil?
+      raise "Missing the required parameter 'resolver_endpoint_name' when calling get_resolver_endpoint." if resolver_endpoint_name.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'resolver_id' must not be blank" if OCI::Internal::Util.blank_string?(resolver_id)
+      raise "Parameter value for 'resolver_endpoint_name' must not be blank" if OCI::Internal::Util.blank_string?(resolver_endpoint_name)
+
+      path = '/resolvers/{resolverId}/endpoints/{resolverEndpointName}'.sub('{resolverId}', resolver_id.to_s).sub('{resolverEndpointName}', resolver_endpoint_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#get_resolver_endpoint') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::ResolverEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a list of all records in the specified RRSet. The results are
     # sorted by `recordHash` by default.
     #
@@ -1127,23 +1871,26 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #    (default to nil)
+    #
     # @option opts [String] :zone_version The version of the zone for which data is requested.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RRSet RRSet}
     def get_rr_set(zone_name_or_id, domain, rtype, opts = {})
       logger.debug 'Calling operation DnsClient#get_rr_set.' if logger
@@ -1151,6 +1898,10 @@ module OCI
       raise "Missing the required parameter 'zone_name_or_id' when calling get_rr_set." if zone_name_or_id.nil?
       raise "Missing the required parameter 'domain' when calling get_rr_set." if domain.nil?
       raise "Missing the required parameter 'rtype' when calling get_rr_set." if rtype.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
       raise "Parameter value for 'domain' must not be blank" if OCI::Internal::Util.blank_string?(domain)
       raise "Parameter value for 'rtype' must not be blank" if OCI::Internal::Util.blank_string?(rtype)
@@ -1165,6 +1916,8 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:zoneVersion] = opts[:zone_version] if opts[:zone_version]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
 
       # Header Params
       header_params = {}
@@ -1211,21 +1964,27 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
     def get_steering_policy(steering_policy_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_steering_policy.' if logger
 
       raise "Missing the required parameter 'steering_policy_id' when calling get_steering_policy." if steering_policy_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'steering_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(steering_policy_id)
 
       path = '/steeringPolicies/{steeringPolicyId}'.sub('{steeringPolicyId}', steering_policy_id.to_s)
@@ -1234,6 +1993,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -1280,21 +2040,27 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
     def get_steering_policy_attachment(steering_policy_attachment_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_steering_policy_attachment.' if logger
 
       raise "Missing the required parameter 'steering_policy_attachment_id' when calling get_steering_policy_attachment." if steering_policy_attachment_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'steering_policy_attachment_id' must not be blank" if OCI::Internal::Util.blank_string?(steering_policy_attachment_id)
 
       path = '/steeringPolicyAttachments/{steeringPolicyAttachmentId}'.sub('{steeringPolicyAttachmentId}', steering_policy_attachment_id.to_s)
@@ -1303,6 +2069,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -1349,21 +2116,27 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::TsigKey TsigKey}
     def get_tsig_key(tsig_key_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_tsig_key.' if logger
 
       raise "Missing the required parameter 'tsig_key_id' when calling get_tsig_key." if tsig_key_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'tsig_key_id' must not be blank" if OCI::Internal::Util.blank_string?(tsig_key_id)
 
       path = '/tsigKeys/{tsigKeyId}'.sub('{tsigKeyId}', tsig_key_id.to_s)
@@ -1372,6 +2145,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -1408,6 +2182,84 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Get information about a specific view. Note that attempting to get a
+    # view in the DELETED lifecycleState will result in a 404 to be
+    # consistent with other operations of the API.
+    #
+    # @param [String] view_id The OCID of the target view.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
+    #   conditional on the selected representation's modification date being more
+    #   recent than the date provided in the field-value.  Transfer of the
+    #   selected representation's data is avoided if that data has not changed.
+    #
+    # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
+    #   the absence of any current representation of the target resource, when
+    #   the field-value is `*`, or having a selected representation with an
+    #   entity-tag that does not match any of those listed in the field-value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::View View}
+    def get_view(view_id, opts = {})
+      logger.debug 'Calling operation DnsClient#get_view.' if logger
+
+      raise "Missing the required parameter 'view_id' when calling get_view." if view_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'view_id' must not be blank" if OCI::Internal::Util.blank_string?(view_id)
+
+      path = '/views/{viewId}'.sub('{viewId}', view_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#get_view') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::View'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets information about the specified zone, including its creation date,
     # zone type, and serial.
     #
@@ -1419,22 +2271,29 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def get_zone(zone_name_or_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_zone.' if logger
 
       raise "Missing the required parameter 'zone_name_or_id' when calling get_zone." if zone_name_or_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
 
       path = '/zones/{zoneNameOrId}'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
@@ -1443,6 +2302,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -1492,36 +2353,39 @@ module OCI
     #   the absence of any current representation of the target resource, when
     #   the field-value is `*`, or having a selected representation with an
     #   entity-tag that does not match any of those listed in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
     #   conditional on the selected representation's modification date being more
     #   recent than the date provided in the field-value.  Transfer of the
     #   selected representation's data is avoided if that data has not changed.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #    (default to nil)
+    #
     # @option opts [String] :zone_version The version of the zone for which data is requested.
-    #    (default to nil)
+    #
     # @option opts [String] :domain Search by domain.
     #   Will match any record whose domain (case-insensitive) equals the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :domain_contains Search by domain.
     #   Will match any record whose domain (case-insensitive) contains the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :rtype Search by record type.
     #   Will match any record whose [type](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4) (case-insensitive) equals the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :sort_by The field by which to sort records. (default to domain)
     #   Allowed values are: domain, rtype, ttl
     # @option opts [String] :sort_order The order to sort the resources.
-    #    (default to DESC)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #    (default to ASC)
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def get_zone_records(zone_name_or_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_zone_records.' if logger
@@ -1534,6 +2398,10 @@ module OCI
 
       if opts[:sort_order] && !OCI::Dns::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
       end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
 
@@ -1552,6 +2420,8 @@ module OCI
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
 
       # Header Params
       header_params = {}
@@ -1588,6 +2458,200 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a list of all endpoints within a resolver. The collection can be filtered by name or lifecycle state.
+    # It can be sorted on creation time or name both in ASC or DESC order. Note that when no lifecycleState
+    # query parameter is provided that the collection does not include resolver endpoints in the DELETED
+    # lifecycle state to be consistent with other operations of the API.
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :name The name of a resource.
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
+    #    (default to 50)
+    # @option opts [String] :sort_order The order to sort the resources.
+    #    (default to DESC)
+    # @option opts [String] :sort_by The field by which to sort resolver endpoints. (default to timeCreated)
+    #   Allowed values are: name, timeCreated
+    # @option opts [String] :lifecycle_state The state of a resource.
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ResolverEndpointSummary ResolverEndpointSummary}>
+    def list_resolver_endpoints(resolver_id, opts = {})
+      logger.debug 'Calling operation DnsClient#list_resolver_endpoints.' if logger
+
+      raise "Missing the required parameter 'resolver_id' when calling list_resolver_endpoints." if resolver_id.nil?
+
+      if opts[:sort_order] && !OCI::Dns::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[name timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of name, timeCreated.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Dns::Models::ResolverEndpointSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Dns::Models::ResolverEndpointSummary::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'resolver_id' must not be blank" if OCI::Internal::Util.blank_string?(resolver_id)
+
+      path = '/resolvers/{resolverId}/endpoints'.sub('{resolverId}', resolver_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#list_resolver_endpoints') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Dns::Models::ResolverEndpointSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of all resolvers within a compartment. The collection can
+    # be filtered by display name, id, or lifecycle state. It can be sorted
+    # on creation time or displayName both in ASC or DESC order. Note that
+    # when no lifecycleState query parameter is provided that the collection
+    # does not include resolvers in the DELETED lifecycleState to be consistent
+    # with other operations of the API.
+    #
+    # @param [String] compartment_id The OCID of the compartment the resource belongs to.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :display_name The displayName of a resource.
+    # @option opts [String] :id The OCID of a resource.
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
+    #    (default to 50)
+    # @option opts [String] :sort_order The order to sort the resources.
+    #    (default to DESC)
+    # @option opts [String] :sort_by The field by which to sort resolvers. (default to timeCreated)
+    #   Allowed values are: displayName, timeCreated
+    # @option opts [String] :lifecycle_state The state of a resource.
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ResolverSummary ResolverSummary}>
+    def list_resolvers(compartment_id, opts = {})
+      logger.debug 'Calling operation DnsClient#list_resolvers.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_resolvers." if compartment_id.nil?
+
+      if opts[:sort_order] && !OCI::Dns::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[displayName timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of displayName, timeCreated.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Dns::Models::ResolverSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Dns::Models::ResolverSummary::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+
+      path = '/resolvers'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#list_resolvers') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Dns::Models::ResolverSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a list of all steering policies in the specified compartment.
     #
     # @param [String] compartment_id The OCID of the compartment the resource belongs to.
@@ -1597,33 +2661,35 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #    (default to nil)
-    # @option opts [String] :id The OCID of a resource. (default to nil)
-    # @option opts [String] :display_name The displayName of a resource. (default to nil)
+    #
+    # @option opts [String] :id The OCID of a resource.
+    # @option opts [String] :display_name The displayName of a resource.
     # @option opts [String] :display_name_contains The partial displayName of a resource. Will match any resource whose name
     #   (case-insensitive) contains the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :health_check_monitor_id Search by health check monitor OCID.
     #   Will match any resource whose health check monitor ID matches the provided value.
-    #    (default to nil)
+    #
     # @option opts [DateTime] :time_created_greater_than_or_equal_to An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created on or after the indicated time.
-    #    (default to nil)
+    #
     # @option opts [DateTime] :time_created_less_than An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created before the indicated time.
-    #    (default to nil)
+    #
     # @option opts [String] :template Search by steering template type.
     #   Will match any resource whose template type matches the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :lifecycle_state The state of a resource. (default to ACTIVE)
     # @option opts [String] :sort_by The field by which to sort steering policies. If unspecified, defaults to `timeCreated`. (default to timeCreated)
     #   Allowed values are: displayName, timeCreated, template
     # @option opts [String] :sort_order The order to sort the resources.
     #    (default to DESC)
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::SteeringPolicySummary SteeringPolicySummary}>
     def list_steering_policies(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_steering_policies.' if logger
@@ -1640,6 +2706,10 @@ module OCI
 
       if opts[:sort_order] && !OCI::Dns::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
       end
 
       path = '/steeringPolicies'
@@ -1661,6 +2731,7 @@ module OCI
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -1704,36 +2775,38 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #    (default to nil)
-    # @option opts [String] :id The OCID of a resource. (default to nil)
-    # @option opts [String] :display_name The displayName of a resource. (default to nil)
+    #
+    # @option opts [String] :id The OCID of a resource.
+    # @option opts [String] :display_name The displayName of a resource.
     # @option opts [String] :steering_policy_id Search by steering policy OCID.
     #   Will match any resource whose steering policy ID matches the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :zone_id Search by zone OCID.
     #   Will match any resource whose zone ID matches the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :domain Search by domain.
     #   Will match any record whose domain (case-insensitive) equals the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :domain_contains Search by domain.
     #   Will match any record whose domain (case-insensitive) contains the provided value.
-    #    (default to nil)
+    #
     # @option opts [DateTime] :time_created_greater_than_or_equal_to An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created on or after the indicated time.
-    #    (default to nil)
+    #
     # @option opts [DateTime] :time_created_less_than An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created before the indicated time.
-    #    (default to nil)
+    #
     # @option opts [String] :lifecycle_state The state of a resource. (default to ACTIVE)
     # @option opts [String] :sort_by The field by which to sort steering policy attachments. If unspecified, defaults to `timeCreated`. (default to timeCreated)
     #   Allowed values are: displayName, timeCreated, domainName
     # @option opts [String] :sort_order The order to sort the resources.
     #    (default to DESC)
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::SteeringPolicyAttachmentSummary SteeringPolicyAttachmentSummary}>
     def list_steering_policy_attachments(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_steering_policy_attachments.' if logger
@@ -1750,6 +2823,10 @@ module OCI
 
       if opts[:sort_order] && !OCI::Dns::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
       end
 
       path = '/steeringPolicyAttachments'
@@ -1772,6 +2849,7 @@ module OCI
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -1815,18 +2893,20 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #    (default to nil)
-    # @option opts [String] :id The OCID of a resource. (default to nil)
-    # @option opts [String] :name The name of a resource. (default to nil)
-    # @option opts [String] :lifecycle_state The state of a resource. (default to nil)
+    #
+    # @option opts [String] :id The OCID of a resource.
+    # @option opts [String] :name The name of a resource.
+    # @option opts [String] :lifecycle_state The state of a resource.
     # @option opts [String] :sort_by The field by which to sort TSIG keys. If unspecified, defaults to `timeCreated`. (default to timeCreated)
     #   Allowed values are: name, timeCreated
     # @option opts [String] :sort_order The order to sort the resources.
     #    (default to DESC)
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::TsigKeySummary TsigKeySummary}>
     def list_tsig_keys(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_tsig_keys.' if logger
@@ -1845,6 +2925,10 @@ module OCI
         raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
       end
 
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+
       path = '/tsigKeys'
       operation_signing_strategy = :standard
 
@@ -1859,6 +2943,7 @@ module OCI
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -1893,8 +2978,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of all zones in the specified compartment. The collection
-    # can be filtered by name, time created, and zone type.
+    # Gets a list of all views within a compartment. The collection can
+    # be filtered by display name, id, or lifecycle state. It can be sorted
+    # on creation time or displayName both in ASC or DESC order. Note that
+    # when no lifecycleState query parameter is provided that the collection
+    # does not include views in the DELETED lifecycleState to be consistent
+    # with other operations of the API.
     #
     # @param [String] compartment_id The OCID of the compartment the resource belongs to.
     # @param [Hash] opts the optional parameters
@@ -1903,33 +2992,131 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :display_name The displayName of a resource.
+    # @option opts [String] :id The OCID of a resource.
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
+    #    (default to 50)
+    # @option opts [String] :sort_order The order to sort the resources.
+    #    (default to DESC)
+    # @option opts [String] :sort_by The field by which to sort views. (default to timeCreated)
+    #   Allowed values are: displayName, timeCreated
+    # @option opts [String] :lifecycle_state The state of a resource.
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ViewSummary ViewSummary}>
+    def list_views(compartment_id, opts = {})
+      logger.debug 'Calling operation DnsClient#list_views.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_views." if compartment_id.nil?
+
+      if opts[:sort_order] && !OCI::Dns::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[displayName timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of displayName, timeCreated.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Dns::Models::ViewSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Dns::Models::ViewSummary::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+
+      path = '/views'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#list_views') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Dns::Models::ViewSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of all zones in the specified compartment. The collection
+    # can be filtered by name, time created, scope, associated view, and zone type.
+    #
+    # @param [String] compartment_id The OCID of the compartment the resource belongs to.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
     # @option opts [Integer] :limit The maximum number of items to return in a page of the collection.
     #    (default to 50)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #    (default to nil)
+    #
     # @option opts [String] :name A case-sensitive filter for zone names.
     #   Will match any zone with a name that equals the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :name_contains Search by zone name.
     #   Will match any zone whose name (case-insensitive) contains the provided value.
-    #    (default to nil)
+    #
     # @option opts [String] :zone_type Search by zone type, `PRIMARY` or `SECONDARY`.
     #   Will match any zone whose type equals the provided value.
-    #    (default to nil)
+    #
     #   Allowed values are: PRIMARY, SECONDARY
     # @option opts [DateTime] :time_created_greater_than_or_equal_to An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created on or after the indicated time.
-    #    (default to nil)
+    #
     # @option opts [DateTime] :time_created_less_than An [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) timestamp that states
     #   all returned resources were created before the indicated time.
-    #    (default to nil)
+    #
     # @option opts [String] :lifecycle_state The state of a resource. (default to ACTIVE)
     #   Allowed values are: ACTIVE, CREATING, DELETED, DELETING, FAILED
     # @option opts [String] :sort_by The field by which to sort zones. (default to timeCreated)
     #   Allowed values are: name, zoneType, timeCreated
     # @option opts [String] :sort_order The order to sort the resources.
     #    (default to DESC)
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ZoneSummary ZoneSummary}>
     def list_zones(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_zones.' if logger
@@ -1952,6 +3139,10 @@ module OCI
         raise 'Invalid value for "sort_order", must be one of the values in OCI::Dns::Models::SORT_ORDER_ENUM.'
       end
 
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+
       path = '/zones'
       operation_signing_strategy = :standard
 
@@ -1969,6 +3160,8 @@ module OCI
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
 
       # Header Params
       header_params = {}
@@ -2019,18 +3212,21 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def patch_domain_records(zone_name_or_id, domain, patch_domain_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#patch_domain_records.' if logger
@@ -2038,6 +3234,10 @@ module OCI
       raise "Missing the required parameter 'zone_name_or_id' when calling patch_domain_records." if zone_name_or_id.nil?
       raise "Missing the required parameter 'domain' when calling patch_domain_records." if domain.nil?
       raise "Missing the required parameter 'patch_domain_records_details' when calling patch_domain_records." if patch_domain_records_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
       raise "Parameter value for 'domain' must not be blank" if OCI::Internal::Util.blank_string?(domain)
 
@@ -2047,6 +3247,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -2097,18 +3299,21 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def patch_rr_set(zone_name_or_id, domain, rtype, patch_rr_set_details, opts = {})
       logger.debug 'Calling operation DnsClient#patch_rr_set.' if logger
@@ -2117,6 +3322,10 @@ module OCI
       raise "Missing the required parameter 'domain' when calling patch_rr_set." if domain.nil?
       raise "Missing the required parameter 'rtype' when calling patch_rr_set." if rtype.nil?
       raise "Missing the required parameter 'patch_rr_set_details' when calling patch_rr_set." if patch_rr_set_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
       raise "Parameter value for 'domain' must not be blank" if OCI::Internal::Util.blank_string?(domain)
       raise "Parameter value for 'rtype' must not be blank" if OCI::Internal::Util.blank_string?(rtype)
@@ -2127,6 +3336,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -2180,24 +3391,31 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def patch_zone_records(zone_name_or_id, patch_zone_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#patch_zone_records.' if logger
 
       raise "Missing the required parameter 'zone_name_or_id' when calling patch_zone_records." if zone_name_or_id.nil?
       raise "Missing the required parameter 'patch_zone_records_details' when calling patch_zone_records." if patch_zone_records_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
 
       path = '/zones/{zoneNameOrId}/records'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
@@ -2206,6 +3424,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -2261,18 +3481,21 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def update_domain_records(zone_name_or_id, domain, update_domain_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_domain_records.' if logger
@@ -2280,6 +3503,10 @@ module OCI
       raise "Missing the required parameter 'zone_name_or_id' when calling update_domain_records." if zone_name_or_id.nil?
       raise "Missing the required parameter 'domain' when calling update_domain_records." if domain.nil?
       raise "Missing the required parameter 'update_domain_records_details' when calling update_domain_records." if update_domain_records_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
       raise "Parameter value for 'domain' must not be blank" if OCI::Internal::Util.blank_string?(domain)
 
@@ -2289,6 +3516,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -2326,6 +3555,169 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the specified resolver with your new information.
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [OCI::Dns::Models::UpdateResolverDetails] update_resolver_details New data for the resolver.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #
+    # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
+    #   conditional on the selected representation's last modification date being
+    #   earlier than or equal to the date provided in the field-value.  This
+    #   field accomplishes the same purpose as If-Match for cases where the user
+    #   agent does not have an entity-tag for the representation.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::Resolver Resolver}
+    def update_resolver(resolver_id, update_resolver_details, opts = {})
+      logger.debug 'Calling operation DnsClient#update_resolver.' if logger
+
+      raise "Missing the required parameter 'resolver_id' when calling update_resolver." if resolver_id.nil?
+      raise "Missing the required parameter 'update_resolver_details' when calling update_resolver." if update_resolver_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'resolver_id' must not be blank" if OCI::Internal::Util.blank_string?(resolver_id)
+
+      path = '/resolvers/{resolverId}'.sub('{resolverId}', resolver_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_resolver_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#update_resolver') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::Resolver'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the specified resolver endpoint with your new information.
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [String] resolver_endpoint_name The name of the target resolver endpoint.
+    # @param [OCI::Dns::Models::UpdateResolverEndpointDetails] update_resolver_endpoint_details New data for the resolver endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #
+    # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
+    #   conditional on the selected representation's last modification date being
+    #   earlier than or equal to the date provided in the field-value.  This
+    #   field accomplishes the same purpose as If-Match for cases where the user
+    #   agent does not have an entity-tag for the representation.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::ResolverEndpoint ResolverEndpoint}
+    def update_resolver_endpoint(resolver_id, resolver_endpoint_name, update_resolver_endpoint_details, opts = {})
+      logger.debug 'Calling operation DnsClient#update_resolver_endpoint.' if logger
+
+      raise "Missing the required parameter 'resolver_id' when calling update_resolver_endpoint." if resolver_id.nil?
+      raise "Missing the required parameter 'resolver_endpoint_name' when calling update_resolver_endpoint." if resolver_endpoint_name.nil?
+      raise "Missing the required parameter 'update_resolver_endpoint_details' when calling update_resolver_endpoint." if update_resolver_endpoint_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'resolver_id' must not be blank" if OCI::Internal::Util.blank_string?(resolver_id)
+      raise "Parameter value for 'resolver_endpoint_name' must not be blank" if OCI::Internal::Util.blank_string?(resolver_endpoint_name)
+
+      path = '/resolvers/{resolverId}/endpoints/{resolverEndpointName}'.sub('{resolverId}', resolver_id.to_s).sub('{resolverEndpointName}', resolver_endpoint_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_resolver_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#update_resolver_endpoint') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::ResolverEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Replaces records in the specified RRSet.
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
@@ -2339,18 +3731,21 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def update_rr_set(zone_name_or_id, domain, rtype, update_rr_set_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_rr_set.' if logger
@@ -2359,6 +3754,10 @@ module OCI
       raise "Missing the required parameter 'domain' when calling update_rr_set." if domain.nil?
       raise "Missing the required parameter 'rtype' when calling update_rr_set." if rtype.nil?
       raise "Missing the required parameter 'update_rr_set_details' when calling update_rr_set." if update_rr_set_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
       raise "Parameter value for 'domain' must not be blank" if OCI::Internal::Util.blank_string?(domain)
       raise "Parameter value for 'rtype' must not be blank" if OCI::Internal::Util.blank_string?(rtype)
@@ -2369,6 +3768,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -2418,23 +3819,29 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
     def update_steering_policy(steering_policy_id, update_steering_policy_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_steering_policy.' if logger
 
       raise "Missing the required parameter 'steering_policy_id' when calling update_steering_policy." if steering_policy_id.nil?
       raise "Missing the required parameter 'update_steering_policy_details' when calling update_steering_policy." if update_steering_policy_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'steering_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(steering_policy_id)
 
       path = '/steeringPolicies/{steeringPolicyId}'.sub('{steeringPolicyId}', steering_policy_id.to_s)
@@ -2443,6 +3850,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -2491,23 +3899,29 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
     def update_steering_policy_attachment(steering_policy_attachment_id, update_steering_policy_attachment_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_steering_policy_attachment.' if logger
 
       raise "Missing the required parameter 'steering_policy_attachment_id' when calling update_steering_policy_attachment." if steering_policy_attachment_id.nil?
       raise "Missing the required parameter 'update_steering_policy_attachment_details' when calling update_steering_policy_attachment." if update_steering_policy_attachment_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'steering_policy_attachment_id' must not be blank" if OCI::Internal::Util.blank_string?(steering_policy_attachment_id)
 
       path = '/steeringPolicyAttachments/{steeringPolicyAttachmentId}'.sub('{steeringPolicyAttachmentId}', steering_policy_attachment_id.to_s)
@@ -2516,6 +3930,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -2564,23 +3979,29 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::TsigKey TsigKey}
     def update_tsig_key(tsig_key_id, update_tsig_key_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_tsig_key.' if logger
 
       raise "Missing the required parameter 'tsig_key_id' when calling update_tsig_key." if tsig_key_id.nil?
       raise "Missing the required parameter 'update_tsig_key_details' when calling update_tsig_key." if update_tsig_key_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'tsig_key_id' must not be blank" if OCI::Internal::Util.blank_string?(tsig_key_id)
 
       path = '/tsigKeys/{tsigKeyId}'.sub('{tsigKeyId}', tsig_key_id.to_s)
@@ -2589,6 +4010,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
 
       # Header Params
       header_params = {}
@@ -2625,6 +4047,86 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the specified view with your new information.
+    #
+    # @param [String] view_id The OCID of the target view.
+    # @param [OCI::Dns::Models::UpdateViewDetails] update_view_details New data for the view.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match The `If-Match` header field makes the request method conditional on the
+    #   existence of at least one current representation of the target resource,
+    #   when the field-value is `*`, or having a current representation of the
+    #   target resource that has an entity-tag matching a member of the list of
+    #   entity-tags provided in the field-value.
+    #
+    # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
+    #   conditional on the selected representation's last modification date being
+    #   earlier than or equal to the date provided in the field-value.  This
+    #   field accomplishes the same purpose as If-Match for cases where the user
+    #   agent does not have an entity-tag for the representation.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @return [Response] A Response object with data of type {OCI::Dns::Models::View View}
+    def update_view(view_id, update_view_details, opts = {})
+      logger.debug 'Calling operation DnsClient#update_view.' if logger
+
+      raise "Missing the required parameter 'view_id' when calling update_view." if view_id.nil?
+      raise "Missing the required parameter 'update_view_details' when calling update_view." if update_view_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'view_id' must not be blank" if OCI::Internal::Util.blank_string?(view_id)
+
+      path = '/views/{viewId}'.sub('{viewId}', view_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'if-unmodified-since'] = opts[:if_unmodified_since] if opts[:if_unmodified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_view_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#update_view') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Dns::Models::View'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the specified secondary zone with your new external master
     # server information. For more information about secondary zone, see
     # [Manage DNS Service Zone](https://docs.cloud.oracle.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
@@ -2639,24 +4141,31 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
     def update_zone(zone_name_or_id, update_zone_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_zone.' if logger
 
       raise "Missing the required parameter 'zone_name_or_id' when calling update_zone." if zone_name_or_id.nil?
       raise "Missing the required parameter 'update_zone_details' when calling update_zone." if update_zone_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
 
       path = '/zones/{zoneNameOrId}'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
@@ -2665,6 +4174,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -2718,24 +4229,31 @@ module OCI
     #   when the field-value is `*`, or having a current representation of the
     #   target resource that has an entity-tag matching a member of the list of
     #   entity-tags provided in the field-value.
-    #    (default to nil)
+    #
     # @option opts [String] :if_unmodified_since The `If-Unmodified-Since` header field makes the request method
     #   conditional on the selected representation's last modification date being
     #   earlier than or equal to the date provided in the field-value.  This
     #   field accomplishes the same purpose as If-Match for cases where the user
     #   agent does not have an entity-tag for the representation.
-    #    (default to nil)
+    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
     #   to contact Oracle about a particular request, please provide
     #   the request ID.
-    #    (default to nil)
-    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to. (default to nil)
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
     def update_zone_records(zone_name_or_id, update_zone_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_zone_records.' if logger
 
       raise "Missing the required parameter 'zone_name_or_id' when calling update_zone_records." if zone_name_or_id.nil?
       raise "Missing the required parameter 'update_zone_records_details' when calling update_zone_records." if update_zone_records_details.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
       raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
 
       path = '/zones/{zoneNameOrId}/records'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
@@ -2744,6 +4262,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params

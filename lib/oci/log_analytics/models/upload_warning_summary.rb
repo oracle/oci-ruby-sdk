@@ -11,7 +11,7 @@ module OCI
     # @return [String]
     attr_accessor :reference
 
-    # Status
+    # Status of the upload. Ex - Failed
     # @return [String]
     attr_accessor :status
 

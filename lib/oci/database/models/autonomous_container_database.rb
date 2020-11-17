@@ -11,6 +11,7 @@ module OCI
     SERVICE_LEVEL_AGREEMENT_TYPE_ENUM = [
       SERVICE_LEVEL_AGREEMENT_TYPE_STANDARD = 'STANDARD'.freeze,
       SERVICE_LEVEL_AGREEMENT_TYPE_MISSION_CRITICAL = 'MISSION_CRITICAL'.freeze,
+      SERVICE_LEVEL_AGREEMENT_TYPE_AUTONOMOUS_DATAGUARD = 'AUTONOMOUS_DATAGUARD'.freeze,
       SERVICE_LEVEL_AGREEMENT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -32,6 +33,7 @@ module OCI
       LIFECYCLE_STATE_RESTORE_FAILED = 'RESTORE_FAILED'.freeze,
       LIFECYCLE_STATE_RESTARTING = 'RESTARTING'.freeze,
       LIFECYCLE_STATE_MAINTENANCE_IN_PROGRESS = 'MAINTENANCE_IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_ROLE_CHANGE_IN_PROGRESS = 'ROLE_CHANGE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -39,6 +41,13 @@ module OCI
       PATCH_MODEL_RELEASE_UPDATES = 'RELEASE_UPDATES'.freeze,
       PATCH_MODEL_RELEASE_UPDATE_REVISIONS = 'RELEASE_UPDATE_REVISIONS'.freeze,
       PATCH_MODEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    ROLE_ENUM = [
+      ROLE_PRIMARY = 'PRIMARY'.freeze,
+      ROLE_STANDBY = 'STANDBY'.freeze,
+      ROLE_DISABLED_STANDBY = 'DISABLED_STANDBY'.freeze,
+      ROLE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The OCID of the Autonomous Container Database.
@@ -112,6 +121,12 @@ module OCI
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window
 
+    # The scheduling detail for the quarterly maintenance window of standby Autonomous Container Database.
+    # This value represents the number of days before the primary database maintenance schedule.
+    #
+    # @return [Integer]
+    attr_accessor :standby_maintenance_buffer_in_days
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -126,6 +141,10 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The role of the Autonomous Data Guard-enabled Autonomous Container Database.
+    # @return [String]
+    attr_reader :role
+
     # The availability domain of the Autonomous Container Database.
     # @return [String]
     attr_accessor :availability_domain
@@ -136,6 +155,14 @@ module OCI
 
     # @return [OCI::Database::Models::AutonomousContainerDatabaseBackupConfig]
     attr_accessor :backup_config
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the key store.
+    # @return [String]
+    attr_accessor :key_store_id
+
+    # The wallet name for Oracle Key Vault.
+    # @return [String]
+    attr_accessor :key_store_wallet_name
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -159,11 +186,15 @@ module OCI
         'last_maintenance_run_id': :'lastMaintenanceRunId',
         'next_maintenance_run_id': :'nextMaintenanceRunId',
         'maintenance_window': :'maintenanceWindow',
+        'standby_maintenance_buffer_in_days': :'standbyMaintenanceBufferInDays',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'role': :'role',
         'availability_domain': :'availabilityDomain',
         'db_version': :'dbVersion',
-        'backup_config': :'backupConfig'
+        'backup_config': :'backupConfig',
+        'key_store_id': :'keyStoreId',
+        'key_store_wallet_name': :'keyStoreWalletName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -190,11 +221,15 @@ module OCI
         'last_maintenance_run_id': :'String',
         'next_maintenance_run_id': :'String',
         'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
+        'standby_maintenance_buffer_in_days': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'role': :'String',
         'availability_domain': :'String',
         'db_version': :'String',
-        'backup_config': :'OCI::Database::Models::AutonomousContainerDatabaseBackupConfig'
+        'backup_config': :'OCI::Database::Models::AutonomousContainerDatabaseBackupConfig',
+        'key_store_id': :'String',
+        'key_store_wallet_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -223,11 +258,15 @@ module OCI
     # @option attributes [String] :last_maintenance_run_id The value to assign to the {#last_maintenance_run_id} property
     # @option attributes [String] :next_maintenance_run_id The value to assign to the {#next_maintenance_run_id} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
+    # @option attributes [Integer] :standby_maintenance_buffer_in_days The value to assign to the {#standby_maintenance_buffer_in_days} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :role The value to assign to the {#role} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [OCI::Database::Models::AutonomousContainerDatabaseBackupConfig] :backup_config The value to assign to the {#backup_config} property
+    # @option attributes [String] :key_store_id The value to assign to the {#key_store_id} property
+    # @option attributes [String] :key_store_wallet_name The value to assign to the {#key_store_wallet_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -335,6 +374,12 @@ module OCI
 
       self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
 
+      self.standby_maintenance_buffer_in_days = attributes[:'standbyMaintenanceBufferInDays'] if attributes[:'standbyMaintenanceBufferInDays']
+
+      raise 'You cannot provide both :standbyMaintenanceBufferInDays and :standby_maintenance_buffer_in_days' if attributes.key?(:'standbyMaintenanceBufferInDays') && attributes.key?(:'standby_maintenance_buffer_in_days')
+
+      self.standby_maintenance_buffer_in_days = attributes[:'standby_maintenance_buffer_in_days'] if attributes[:'standby_maintenance_buffer_in_days']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -346,6 +391,8 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.role = attributes[:'role'] if attributes[:'role']
 
       self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
 
@@ -364,6 +411,18 @@ module OCI
       raise 'You cannot provide both :backupConfig and :backup_config' if attributes.key?(:'backupConfig') && attributes.key?(:'backup_config')
 
       self.backup_config = attributes[:'backup_config'] if attributes[:'backup_config']
+
+      self.key_store_id = attributes[:'keyStoreId'] if attributes[:'keyStoreId']
+
+      raise 'You cannot provide both :keyStoreId and :key_store_id' if attributes.key?(:'keyStoreId') && attributes.key?(:'key_store_id')
+
+      self.key_store_id = attributes[:'key_store_id'] if attributes[:'key_store_id']
+
+      self.key_store_wallet_name = attributes[:'keyStoreWalletName'] if attributes[:'keyStoreWalletName']
+
+      raise 'You cannot provide both :keyStoreWalletName and :key_store_wallet_name' if attributes.key?(:'keyStoreWalletName') && attributes.key?(:'key_store_wallet_name')
+
+      self.key_store_wallet_name = attributes[:'key_store_wallet_name'] if attributes[:'key_store_wallet_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -420,6 +479,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] role Object to be assigned
+    def role=(role)
+      # rubocop:disable Style/ConditionalAssignment
+      if role && !ROLE_ENUM.include?(role)
+        OCI.logger.debug("Unknown value for 'role' [" + role + "]. Mapping to 'ROLE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @role = ROLE_UNKNOWN_ENUM_VALUE
+      else
+        @role = role
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -447,11 +519,15 @@ module OCI
         last_maintenance_run_id == other.last_maintenance_run_id &&
         next_maintenance_run_id == other.next_maintenance_run_id &&
         maintenance_window == other.maintenance_window &&
+        standby_maintenance_buffer_in_days == other.standby_maintenance_buffer_in_days &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        role == other.role &&
         availability_domain == other.availability_domain &&
         db_version == other.db_version &&
-        backup_config == other.backup_config
+        backup_config == other.backup_config &&
+        key_store_id == other.key_store_id &&
+        key_store_wallet_name == other.key_store_wallet_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -467,7 +543,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, infrastructure_type, kms_key_id, vault_id, lifecycle_state, lifecycle_details, time_created, patch_model, patch_id, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, freeform_tags, defined_tags, availability_domain, db_version, backup_config].hash
+      [id, compartment_id, display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, infrastructure_type, kms_key_id, vault_id, lifecycle_state, lifecycle_details, time_created, patch_model, patch_id, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, role, availability_domain, db_version, backup_config, key_store_id, key_store_wallet_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

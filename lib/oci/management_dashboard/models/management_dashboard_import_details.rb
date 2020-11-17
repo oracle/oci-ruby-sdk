@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Array of dashboards to import.
   class ManagementDashboard::Models::ManagementDashboardImportDetails
-    # **[Required]** Array of dashboards
+    # **[Required]** Array of dashboards.
     # @return [Array<OCI::ManagementDashboard::Models::ManagementDashboardForImportExportDetails>]
     attr_accessor :dashboards
 

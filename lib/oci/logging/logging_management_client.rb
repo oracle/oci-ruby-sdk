@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # loggingManagementControlplane API specification
+  # Use the Logging Management API to create, read, list, update, and delete log groups, log objects, and agent configurations.
   class Logging::LoggingManagementClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,7 +98,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a log group into a different compartment within the same tenancy.  When provided, If-Match is checked against ETag values of the resource.
+    # Moves a log group into a different compartment within the same tenancy.  When provided, the If-Match is checked against the resource ETag values.
     # For information about moving resources between compartments, see [Moving Resources Between Compartments](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
     # @param [String] log_group_id OCID of a log group to work with.
@@ -163,7 +163,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a log into a different log group within the same tenancy.  When provided, If-Match is checked against ETag values of the resource.
+    # Moves a log into a different log group within the same tenancy.  When provided, the If-Match is checked against the ETag values of the resource.
     #
     # @param [String] log_group_id OCID of a log group to work with.
     # @param [String] log_id OCID of a log to work with.
@@ -235,12 +235,12 @@ module OCI
     #
     # @param [String] log_saved_search_id OCID of the logSavedSearch
     #
-    # @param [OCI::Logging::Models::ChangeLogSavedSearchCompartmentDetails] change_log_saved_search_compartment_details Contains details indicating which compartment the resource should move to
+    # @param [OCI::Logging::Models::ChangeLogSavedSearchCompartmentDetails] change_log_saved_search_compartment_details Contains details indicating which compartment the resource should move to.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
-    #   of a timeout or server error without risk of executing that same action
+    #   of a timeout or server error, without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated
     #   before then due to conflicting operations (e.g., if a resource has been
     #   deleted and purged from the system, then a retry of the original
@@ -305,16 +305,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves unified agent configuration into a different compartment within the same tenancy.  When provided, If-Match is checked against ETag values of the resource.
+    # Moves the unified agent configuration into a different compartment within the same tenancy.  When provided, the If-Match is checked against the ETag values of the resource.
     # For information about moving resources between compartments, see [Moving Resources Between Compartments](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
-    # @param [String] unified_agent_configuration_id The OCID of the unified agent configuration.
-    # @param [OCI::Logging::Models::ChangeUnifiedAgentConfigurationCompartmentDetails] change_unified_agent_configuration_compartment_details Request to change the compartment of a given resource
+    # @param [String] unified_agent_configuration_id The OCID of the Unified Agent configuration.
+    # @param [OCI::Logging::Models::ChangeUnifiedAgentConfigurationCompartmentDetails] change_unified_agent_configuration_compartment_details Request to change the compartment of a given resource.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
-    #   of a timeout or server error without risk of executing that same action
+    #   of a timeout or server error, without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated
     #   before then due to conflicting operations (e.g., if a resource has been
     #   deleted and purged from the system, then a retry of the original
@@ -379,16 +379,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a log within specified log group. This call fails if log group is already created
-    # with same displayName or (service, resource, category) triplet.
+    # Creates a log within the specified log group. This call fails if a log group has already been created
+    # with the same displayName or (service, resource, category) triplet.
     #
     # @param [String] log_group_id OCID of a log group to work with.
-    # @param [OCI::Logging::Models::CreateLogDetails] create_log_details Log object config details.
+    # @param [OCI::Logging::Models::CreateLogDetails] create_log_details Log object configuration details.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
-    #   of a timeout or server error without risk of executing that same action
+    #   of a timeout or server error, without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated
     #   before then due to conflicting operations (e.g., if a resource has been
     #   deleted and purged from the system, then a retry of the original
@@ -446,15 +446,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create new log group with unique display name. This call fails
-    # if log group is already created with same displayName in the compartment.
+    # Create a new log group with a unique display name. This call fails
+    # if the log group is already created with the same displayName in the compartment.
     #
     # @param [OCI::Logging::Models::CreateLogGroupDetails] create_log_group_details Details to create log group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
-    #   of a timeout or server error without risk of executing that same action
+    #   of a timeout or server error, without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated
     #   before then due to conflicting operations (e.g., if a resource has been
     #   deleted and purged from the system, then a retry of the original
@@ -517,7 +517,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
-    #   of a timeout or server error without risk of executing that same action
+    #   of a timeout or server error, without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated
     #   before then due to conflicting operations (e.g., if a resource has been
     #   deleted and purged from the system, then a retry of the original
@@ -574,8 +574,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create unified agent config registration
-    # @param [OCI::Logging::Models::CreateUnifiedAgentConfigurationDetails] create_unified_agent_configuration_details Unified Agent configuration creation object.
+    # Create unified agent configuration registration.
+    # @param [OCI::Logging::Models::CreateUnifiedAgentConfigurationDetails] create_unified_agent_configuration_details Unified agent configuration creation object.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -583,7 +583,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
-    #   of a timeout or server error without risk of executing that same action
+    #   of a timeout or server error, without risk of executing that same action
     #   again. Retry tokens expire after 24 hours, but can be invalidated
     #   before then due to conflicting operations (e.g., if a resource has been
     #   deleted and purged from the system, then a retry of the original
@@ -823,8 +823,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete unified agent configuration
-    # @param [String] unified_agent_configuration_id The OCID of the unified agent configuration.
+    # Delete unified agent configuration.
+    # @param [String] unified_agent_configuration_id The OCID of the Unified Agent configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -886,7 +886,7 @@ module OCI
 
     # Cancel a work request that has not started yet.
     #
-    # @param [String] work_request_id The ID of the asynchronous request.
+    # @param [String] work_request_id The asynchronous request ID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -946,7 +946,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the log object config for log object OCID.
+    # Gets the log object configuration for the log object OCID.
     #
     # @param [String] log_group_id OCID of a log group to work with.
     # @param [String] log_id OCID of a log to work with.
@@ -1061,7 +1061,7 @@ module OCI
 
 
     # Retrieves a LogIncludedSearch.
-    # @param [String] compartment_id Compartment OCID to list resources in. Please see compartmentIdInSubtree
+    # @param [String] compartment_id Compartment OCID to list resources in. See compartmentIdInSubtree
     #        for nested compartments traversal.
     #
     # @param [String] log_included_search_id OCID of the included search
@@ -1177,8 +1177,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get unified agent configuration for an id
-    # @param [String] unified_agent_configuration_id The OCID of the unified agent configuration.
+    # Get the unified agent configuration for an ID.
+    # @param [String] unified_agent_configuration_id The OCID of the Unified Agent configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1233,7 +1233,7 @@ module OCI
 
 
     # Gets the details of the work request with the given ID.
-    # @param [String] work_request_id The ID of the asynchronous request.
+    # @param [String] work_request_id The asynchronous request ID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1288,7 +1288,7 @@ module OCI
 
 
     # Lists all log groups for the specified compartment or tenancy.
-    # @param [String] compartment_id Compartment OCID to list resources in. Please see compartmentIdInSubtree
+    # @param [String] compartment_id Compartment OCID to list resources in. See compartmentIdInSubtree
     #        for nested compartments traversal.
     #
     # @param [Hash] opts the optional parameters
@@ -1305,7 +1305,7 @@ module OCI
     #   ascending exception of `timeCreated` and `timeLastModified` columns (descending).
     #
     #   Allowed values are: timeCreated, displayName
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
@@ -1374,7 +1374,7 @@ module OCI
 
     # Lists Logging Included Searches for this compartment.
     #
-    # @param [String] compartment_id Compartment OCID to list resources in. Please see compartmentIdInSubtree
+    # @param [String] compartment_id Compartment OCID to list resources in. See compartmentIdInSubtree
     #        for nested compartments traversal.
     #
     # @param [Hash] opts the optional parameters
@@ -1392,7 +1392,7 @@ module OCI
     #   ascending exception of `timeCreated` and `timeLastModified` columns (descending).
     #
     #   Allowed values are: timeCreated, displayName
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
@@ -1461,7 +1461,7 @@ module OCI
 
     # Lists Logging Saved Searches for this compartment.
     #
-    # @param [String] compartment_id Compartment OCID to list resources in. Please see compartmentIdInSubtree
+    # @param [String] compartment_id Compartment OCID to list resources in. See compartmentIdInSubtree
     #        for nested compartments traversal.
     #
     # @param [Hash] opts the optional parameters
@@ -1479,7 +1479,7 @@ module OCI
     #   ascending exception of `timeCreated` and `timeLastModified` columns (descending).
     #
     #   Allowed values are: timeCreated, displayName
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
@@ -1551,10 +1551,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :log_type The logType that the log object is for, custom or service.
+    # @option opts [String] :log_type The logType that the log object is for, whether custom or service.
     #   Allowed values are: CUSTOM, SERVICE
-    # @option opts [String] :source_service Service created the log object
-    # @option opts [String] :source_resource Log object resource
+    # @option opts [String] :source_service Service that created the log object.
+    # @option opts [String] :source_resource Log object resource.
     # @option opts [String] :display_name Resource name
     # @option opts [String] :lifecycle_state Lifecycle state of the log object
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` or `opc-previous-page` response header from the previous \"List\" call.
@@ -1566,7 +1566,7 @@ module OCI
     #   ascending exception of `timeCreated` and `timeLastModified` columns (descending).
     #
     #   Allowed values are: timeCreated, displayName
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
@@ -1644,7 +1644,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all services supporting logging.
+    # Lists all services that support logging.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1696,8 +1696,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all unified agent configurations in the specified compartment
-    # @param [String] compartment_id Compartment OCID to list resources in. Please see compartmentIdInSubtree
+    # Lists all unified agent configurations in the specified compartment.
+    # @param [String] compartment_id Compartment OCID to list resources in. See compartmentIdInSubtree
     #        for nested compartments traversal.
     #
     # @param [Hash] opts the optional parameters
@@ -1718,7 +1718,7 @@ module OCI
     #   ascending exception of `timeCreated` and `timeLastModified` columns (descending).
     #
     #   Allowed values are: timeCreated, displayName
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
@@ -1794,7 +1794,7 @@ module OCI
 
     # Return a list of errors for a given work request.
     #
-    # @param [String] work_request_id The ID of the asynchronous request.
+    # @param [String] work_request_id The asynchronous request ID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1857,7 +1857,7 @@ module OCI
 
     # Return a list of logs for a given work request.
     #
-    # @param [String] work_request_id The ID of the asynchronous request.
+    # @param [String] work_request_id The asynchronous request ID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1920,7 +1920,7 @@ module OCI
 
     # Lists the work requests in a compartment.
     #
-    # @param [String] compartment_id Compartment OCID to list resources in. Please see compartmentIdInSubtree
+    # @param [String] compartment_id Compartment OCID to list resources in. See compartmentIdInSubtree
     #        for nested compartments traversal.
     #
     # @param [Hash] opts the optional parameters
@@ -1937,7 +1937,7 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 100)
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order.
@@ -2008,8 +2008,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates existing log object with the associated config. This call
-    #       fails if log object does not exist.
+    # Updates the existing log object with the associated configuration. This call
+    #       fails if the log object does not exist.
     #
     # @param [String] log_group_id OCID of a log group to work with.
     # @param [String] log_id OCID of a log to work with.
@@ -2076,8 +2076,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates existing log group with the associated config. This call
-    #       fails if log group does not exist.
+    # Updates the existing log group with the associated configuration. This call
+    #       fails if the log group does not exist.
     #
     # @param [String] log_group_id OCID of a log group to work with.
     # @param [OCI::Logging::Models::UpdateLogGroupDetails] update_log_group_details LogGroup config parameters to update.
@@ -2208,9 +2208,9 @@ module OCI
 
 
     # Update an existing unified agent configuration. This call
-    #       fails if log group does not exist.
+    #       fails if the log group does not exist.
     #
-    # @param [String] unified_agent_configuration_id The OCID of the unified agent configuration.
+    # @param [String] unified_agent_configuration_id The OCID of the Unified Agent configuration.
     # @param [OCI::Logging::Models::UpdateUnifiedAgentConfigurationDetails] update_unified_agent_configuration_details Unified agent configuration to update. Empty group associations list doesn't modify the list, null value for group association clears all the previous associations.
     #
     # @param [Hash] opts the optional parameters

@@ -8,7 +8,7 @@ module OCI
   # A record to add to a zone in replacement of contents that cannot be migrated.
   #
   class Dns::Models::MigrationReplacement
-    # **[Required]** The canonical name for the type of the replacement record, such as A or CNAME.
+    # **[Required]** The type of DNS record, such as A or CNAME. For more information, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
     #
     # @return [String]
     attr_accessor :rtype

@@ -98,6 +98,153 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Add data selector pattern to the data asset.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] data_asset_key Unique data asset key.
+    # @param [OCI::DataCatalog::Models::DataSelectorPatternDetails] data_selector_pattern_details The information used to add the patterns for deriving logical entities.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAsset DataAsset}
+    def add_data_selector_patterns(catalog_id, data_asset_key, data_selector_pattern_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#add_data_selector_patterns.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling add_data_selector_patterns." if catalog_id.nil?
+      raise "Missing the required parameter 'data_asset_key' when calling add_data_selector_patterns." if data_asset_key.nil?
+      raise "Missing the required parameter 'data_selector_pattern_details' when calling add_data_selector_patterns." if data_selector_pattern_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'data_asset_key' must not be blank" if OCI::Internal::Util.blank_string?(data_asset_key)
+
+      path = '/catalogs/{catalogId}/dataAssets/{dataAssetKey}/actions/addDataSelectorPatterns'.sub('{catalogId}', catalog_id.to_s).sub('{dataAssetKey}', data_asset_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(data_selector_pattern_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#add_data_selector_patterns') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::DataAsset'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Associate the custom property for the given type
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] type_key Unique type key.
+    # @param [OCI::DataCatalog::Models::TypeCustomPropertyDetails] associate_custom_property_details The information used to associate the custom property for the type.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Type Type}
+    def associate_custom_property(catalog_id, type_key, associate_custom_property_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#associate_custom_property.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling associate_custom_property." if catalog_id.nil?
+      raise "Missing the required parameter 'type_key' when calling associate_custom_property." if type_key.nil?
+      raise "Missing the required parameter 'associate_custom_property_details' when calling associate_custom_property." if associate_custom_property_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'type_key' must not be blank" if OCI::Internal::Util.blank_string?(type_key)
+
+      path = '/catalogs/{catalogId}/types/{typeKey}/actions/associateCustomProperties'.sub('{catalogId}', catalog_id.to_s).sub('{typeKey}', type_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(associate_custom_property_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#associate_custom_property') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Type'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Attaches a private reverse connection endpoint resource to a data catalog resource. When provided, 'If-Match' is checked against 'ETag' values of the resource.
     # @param [OCI::DataCatalog::Models::AttachCatalogPrivateEndpointDetails] attach_catalog_private_endpoint_details Details for private reverse connection endpoint to be used for attachment.
     # @param [String] catalog_id Unique catalog identifier.
@@ -603,6 +750,73 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::Connection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Create a new Custom Property
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [OCI::DataCatalog::Models::CreateCustomPropertyDetails] create_custom_property_details The information used to create the Custom Property.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CustomProperty CustomProperty}
+    def create_custom_property(catalog_id, namespace_id, create_custom_property_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#create_custom_property.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling create_custom_property." if catalog_id.nil?
+      raise "Missing the required parameter 'namespace_id' when calling create_custom_property." if namespace_id.nil?
+      raise "Missing the required parameter 'create_custom_property_details' when calling create_custom_property." if create_custom_property_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(namespace_id)
+
+      path = '/catalogs/{catalogId}/namespaces/{namespaceId}/customProperties'.sub('{catalogId}', catalog_id.to_s).sub('{namespaceId}', namespace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_custom_property_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#create_custom_property') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::CustomProperty'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1270,6 +1484,133 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Create a new Namespace to be used by a custom property
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [OCI::DataCatalog::Models::CreateNamespaceDetails] create_namespace_details The information used to create the Namespace.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Namespace Namespace}
+    def create_namespace(catalog_id, create_namespace_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#create_namespace.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling create_namespace." if catalog_id.nil?
+      raise "Missing the required parameter 'create_namespace_details' when calling create_namespace." if create_namespace_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+
+      path = '/catalogs/{catalogId}/namespaces'.sub('{catalogId}', catalog_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_namespace_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#create_namespace') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Namespace'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Create a new pattern.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [OCI::DataCatalog::Models::CreatePatternDetails] create_pattern_details The information used to create the pattern.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Pattern Pattern}
+    def create_pattern(catalog_id, create_pattern_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#create_pattern.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling create_pattern." if catalog_id.nil?
+      raise "Missing the required parameter 'create_pattern_details' when calling create_pattern." if create_pattern_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+
+      path = '/catalogs/{catalogId}/patterns'.sub('{catalogId}', catalog_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_pattern_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#create_pattern') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Pattern'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Create a new term within a glossary.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] glossary_key Unique glossary key.
@@ -1706,6 +2047,71 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#delete_connection') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a specific custom property identified by it's key.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [String] custom_property_key Unique Custom Property key
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def delete_custom_property(catalog_id, namespace_id, custom_property_key, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#delete_custom_property.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling delete_custom_property." if catalog_id.nil?
+      raise "Missing the required parameter 'namespace_id' when calling delete_custom_property." if namespace_id.nil?
+      raise "Missing the required parameter 'custom_property_key' when calling delete_custom_property." if custom_property_key.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(namespace_id)
+      raise "Parameter value for 'custom_property_key' must not be blank" if OCI::Internal::Util.blank_string?(custom_property_key)
+
+      path = '/catalogs/{catalogId}/namespaces/{namespaceId}/customProperties/{customPropertyKey}'.sub('{catalogId}', catalog_id.to_s).sub('{namespaceId}', namespace_id.to_s).sub('{customPropertyKey}', custom_property_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#delete_custom_property') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -2306,6 +2712,130 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes a specific Namespace identified by it's key.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def delete_namespace(catalog_id, namespace_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#delete_namespace.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling delete_namespace." if catalog_id.nil?
+      raise "Missing the required parameter 'namespace_id' when calling delete_namespace." if namespace_id.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(namespace_id)
+
+      path = '/catalogs/{catalogId}/namespaces/{namespaceId}'.sub('{catalogId}', catalog_id.to_s).sub('{namespaceId}', namespace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#delete_namespace') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a specific pattern identified by it's key.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] pattern_key Unique pattern key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    def delete_pattern(catalog_id, pattern_key, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#delete_pattern.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling delete_pattern." if catalog_id.nil?
+      raise "Missing the required parameter 'pattern_key' when calling delete_pattern." if pattern_key.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'pattern_key' must not be blank" if OCI::Internal::Util.blank_string?(pattern_key)
+
+      path = '/catalogs/{catalogId}/patterns/{patternKey}'.sub('{catalogId}', catalog_id.to_s).sub('{patternKey}', pattern_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#delete_pattern') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes a specific glossary term.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] glossary_key Unique glossary key.
@@ -2487,6 +3017,80 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Remove the custom property for the given type
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] type_key Unique type key.
+    # @param [OCI::DataCatalog::Models::TypeCustomPropertyDetails] disassociate_custom_property_details The information used to remove the custom properties.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Type Type}
+    def disassociate_custom_property(catalog_id, type_key, disassociate_custom_property_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#disassociate_custom_property.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling disassociate_custom_property." if catalog_id.nil?
+      raise "Missing the required parameter 'type_key' when calling disassociate_custom_property." if type_key.nil?
+      raise "Missing the required parameter 'disassociate_custom_property_details' when calling disassociate_custom_property." if disassociate_custom_property_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'type_key' must not be blank" if OCI::Internal::Util.blank_string?(type_key)
+
+      path = '/catalogs/{catalogId}/types/{typeKey}/actions/disassociateCustomProperties'.sub('{catalogId}', catalog_id.to_s).sub('{typeKey}', type_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(disassociate_custom_property_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#disassociate_custom_property') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Type'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2951,6 +3555,79 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::Connection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a specific custom property for the given key within a data catalog.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [String] custom_property_key Unique Custom Property key
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<String>] :fields Specifies the fields to return in a custom property response.
+    #
+    #   Allowed values are: key, displayName, description, dataType, namespaceName, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, properties
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CustomProperty CustomProperty}
+    def get_custom_property(catalog_id, namespace_id, custom_property_key, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#get_custom_property.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling get_custom_property." if catalog_id.nil?
+      raise "Missing the required parameter 'namespace_id' when calling get_custom_property." if namespace_id.nil?
+      raise "Missing the required parameter 'custom_property_key' when calling get_custom_property." if custom_property_key.nil?
+
+
+      fields_allowable_values = %w[key displayName description dataType namespaceName lifecycleState timeCreated timeUpdated createdById updatedById properties]
+      if opts[:fields] && !opts[:fields].empty?
+        opts[:fields].each do |val_to_check|
+          unless fields_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "fields", must be one of key, displayName, description, dataType, namespaceName, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, properties.'
+          end
+        end
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(namespace_id)
+      raise "Parameter value for 'custom_property_key' must not be blank" if OCI::Internal::Util.blank_string?(custom_property_key)
+
+      path = '/catalogs/{catalogId}/namespaces/{namespaceId}/customProperties/{customPropertyKey}'.sub('{catalogId}', catalog_id.to_s).sub('{namespaceId}', namespace_id.to_s).sub('{customPropertyKey}', custom_property_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#get_custom_property') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::CustomProperty'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -3840,6 +4517,146 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a specific namespace for the given key within a data catalog.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<String>] :fields Specifies the fields to return in a namespace response.
+    #
+    #   Allowed values are: key, displayName, description, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, properties
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Namespace Namespace}
+    def get_namespace(catalog_id, namespace_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#get_namespace.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling get_namespace." if catalog_id.nil?
+      raise "Missing the required parameter 'namespace_id' when calling get_namespace." if namespace_id.nil?
+
+
+      fields_allowable_values = %w[key displayName description lifecycleState timeCreated timeUpdated createdById updatedById properties]
+      if opts[:fields] && !opts[:fields].empty?
+        opts[:fields].each do |val_to_check|
+          unless fields_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "fields", must be one of key, displayName, description, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, properties.'
+          end
+        end
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(namespace_id)
+
+      path = '/catalogs/{catalogId}/namespaces/{namespaceId}'.sub('{catalogId}', catalog_id.to_s).sub('{namespaceId}', namespace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#get_namespace') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Namespace'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a specific pattern for the given key within a data catalog.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] pattern_key Unique pattern key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<String>] :fields Specifies the fields to return in a pattern response.
+    #
+    #   Allowed values are: key, displayName, description, catalogId, expression, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, properties
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Pattern Pattern}
+    def get_pattern(catalog_id, pattern_key, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#get_pattern.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling get_pattern." if catalog_id.nil?
+      raise "Missing the required parameter 'pattern_key' when calling get_pattern." if pattern_key.nil?
+
+
+      fields_allowable_values = %w[key displayName description catalogId expression lifecycleState timeCreated timeUpdated createdById updatedById properties]
+      if opts[:fields] && !opts[:fields].empty?
+        opts[:fields].each do |val_to_check|
+          unless fields_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, expression, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, properties.'
+          end
+        end
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'pattern_key' must not be blank" if OCI::Internal::Util.blank_string?(pattern_key)
+
+      path = '/catalogs/{catalogId}/patterns/{patternKey}'.sub('{catalogId}', catalog_id.to_s).sub('{patternKey}', pattern_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#get_pattern') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Pattern'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a specific glossary term by key.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] glossary_key Unique glossary key.
@@ -4239,6 +5056,79 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List the physical entities aggregated by this logical entity.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] data_asset_key Unique data asset key.
+    # @param [String] entity_key Unique entity key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<String>] :fields Specifies the fields to return in an entity response.
+    #
+    #   Allowed values are: key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, folderName, typeKey, path, harvestStatus, lastJobKey, uri, properties
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::EntityCollection EntityCollection}
+    def list_aggregated_physical_entities(catalog_id, data_asset_key, entity_key, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#list_aggregated_physical_entities.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling list_aggregated_physical_entities." if catalog_id.nil?
+      raise "Missing the required parameter 'data_asset_key' when calling list_aggregated_physical_entities." if data_asset_key.nil?
+      raise "Missing the required parameter 'entity_key' when calling list_aggregated_physical_entities." if entity_key.nil?
+
+
+      fields_allowable_values = %w[key displayName description dataAssetKey timeCreated timeUpdated createdById updatedById lifecycleState externalKey timeExternal timeStatusUpdated isLogical isPartition folderKey folderName typeKey path harvestStatus lastJobKey uri properties]
+      if opts[:fields] && !opts[:fields].empty?
+        opts[:fields].each do |val_to_check|
+          unless fields_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "fields", must be one of key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, folderName, typeKey, path, harvestStatus, lastJobKey, uri, properties.'
+          end
+        end
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'data_asset_key' must not be blank" if OCI::Internal::Util.blank_string?(data_asset_key)
+      raise "Parameter value for 'entity_key' must not be blank" if OCI::Internal::Util.blank_string?(entity_key)
+
+      path = '/catalogs/{catalogId}/dataAssets/{dataAssetKey}/entities/{entityKey}/actions/listAggregatedPhysicalEntities'.sub('{catalogId}', catalog_id.to_s).sub('{dataAssetKey}', data_asset_key.to_s).sub('{entityKey}', entity_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#list_aggregated_physical_entities') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::EntityCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -4772,6 +5662,143 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of custom properties within a data catalog.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
+    # @option opts [Array<String>] :data_types Return the custom properties which has specified data types
+    #
+    #   Allowed values are: TEXT, RICH_TEXT, BOOLEAN, NUMBER, DATE
+    # @option opts [Array<String>] :type_name A filter to return only resources that match the entire type name given. The match is not case sensitive
+    #   Allowed values are: DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
+    # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    # @option opts [String] :created_by_id OCID of the user who created the resource.
+    # @option opts [String] :updated_by_id OCID of the user who updated the resource.
+    # @option opts [Array<String>] :fields Specifies the fields to return in a custom property summary response.
+    #
+    #   Allowed values are: key, displayName, description, dataType, namespaceName, lifecycleState, timeCreated
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for USAGECOUNT and DISPLAYNAME is Ascending
+    #
+    #   Allowed values are: DISPLAYNAME, USAGECOUNT
+    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CustomPropertyCollection CustomPropertyCollection}
+    def list_custom_properties(catalog_id, namespace_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#list_custom_properties.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling list_custom_properties." if catalog_id.nil?
+      raise "Missing the required parameter 'namespace_id' when calling list_custom_properties." if namespace_id.nil?
+
+
+      data_types_allowable_values = %w[TEXT RICH_TEXT BOOLEAN NUMBER DATE]
+      if opts[:data_types] && !opts[:data_types].empty?
+        opts[:data_types].each do |val_to_check|
+          unless data_types_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "data_types", must be one of TEXT, RICH_TEXT, BOOLEAN, NUMBER, DATE.'
+          end
+        end
+      end
+
+
+      type_name_allowable_values = %w[DATA_ASSET AUTONOMOUS_DATA_WAREHOUSE HIVE KAFKA MYSQL ORACLE_OBJECT_STORAGE AUTONOMOUS_TRANSACTION_PROCESSING ORACLE POSTGRESQL MICROSOFT_AZURE_SQL_DATABASE MICROSOFT_SQL_SERVER IBM_DB2 DATA_ENTITY LOGICAL_ENTITY TABLE VIEW ATTRIBUTE FOLDER CONNECTION GLOSSARY TERM CATEGORY FILE BUCKET]
+      if opts[:type_name] && !opts[:type_name].empty?
+        opts[:type_name].each do |val_to_check|
+          unless type_name_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "type_name", must be one of DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET.'
+          end
+        end
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+
+      fields_allowable_values = %w[key displayName description dataType namespaceName lifecycleState timeCreated]
+      if opts[:fields] && !opts[:fields].empty?
+        opts[:fields].each do |val_to_check|
+          unless fields_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "fields", must be one of key, displayName, description, dataType, namespaceName, lifecycleState, timeCreated.'
+          end
+        end
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[DISPLAYNAME USAGECOUNT].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of DISPLAYNAME, USAGECOUNT.'
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(namespace_id)
+
+      path = '/catalogs/{catalogId}/namespaces/{namespaceId}/customProperties'.sub('{catalogId}', catalog_id.to_s).sub('{namespaceId}', namespace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
+      query_params[:dataTypes] = OCI::ApiClient.build_collection_params(opts[:data_types], :multi) if opts[:data_types] && !opts[:data_types].empty?
+      query_params[:typeName] = OCI::ApiClient.build_collection_params(opts[:type_name], :multi) if opts[:type_name] && !opts[:type_name].empty?
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
+      query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
+      query_params[:createdById] = opts[:created_by_id] if opts[:created_by_id]
+      query_params[:updatedById] = opts[:updated_by_id] if opts[:updated_by_id]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#list_custom_properties') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::CustomPropertyCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of all tags for a data asset.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] data_asset_key Unique data asset key.
@@ -4988,6 +6015,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # List logical entities derived from this pattern.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] pattern_key Unique pattern key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::EntityCollection EntityCollection}
+    def list_derived_logical_entities(catalog_id, pattern_key, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#list_derived_logical_entities.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling list_derived_logical_entities." if catalog_id.nil?
+      raise "Missing the required parameter 'pattern_key' when calling list_derived_logical_entities." if pattern_key.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'pattern_key' must not be blank" if OCI::Internal::Util.blank_string?(pattern_key)
+
+      path = '/catalogs/{catalogId}/patterns/{patternKey}/actions/listDerivedLogicalEntities'.sub('{catalogId}', catalog_id.to_s).sub('{patternKey}', pattern_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#list_derived_logical_entities') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::EntityCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of all entities of a data asset.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] data_asset_key Unique data asset key.
@@ -5005,6 +6103,7 @@ module OCI
     # @option opts [String] :created_by_id OCID of the user who created the resource.
     # @option opts [String] :updated_by_id OCID of the user who updated the resource.
     # @option opts [String] :external_key Unique external identifier of this resource in the external source system.
+    # @option opts [String] :pattern_key Unique pattern key.
     # @option opts [DateTime] :time_external Last modified timestamp of this object in the external system.
     # @option opts [DateTime] :time_status_updated Time that the resource's status was last updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [BOOLEAN] :is_logical Identifies if the object is a physical object (materialized) or virtual/logical object defined on other objects.
@@ -5074,6 +6173,7 @@ module OCI
       query_params[:createdById] = opts[:created_by_id] if opts[:created_by_id]
       query_params[:updatedById] = opts[:updated_by_id] if opts[:updated_by_id]
       query_params[:externalKey] = opts[:external_key] if opts[:external_key]
+      query_params[:patternKey] = opts[:pattern_key] if opts[:pattern_key]
       query_params[:timeExternal] = opts[:time_external] if opts[:time_external]
       query_params[:timeStatusUpdated] = opts[:time_status_updated] if opts[:time_status_updated]
       query_params[:isLogical] = opts[:is_logical] if !opts[:is_logical].nil?
@@ -6198,6 +7298,220 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of namespaces within a data catalog.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
+    # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    # @option opts [String] :created_by_id OCID of the user who created the resource.
+    # @option opts [String] :updated_by_id OCID of the user who updated the resource.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #   Allowed values are: ASC, DESC
+    # @option opts [Array<String>] :fields Specifies the fields to return in a namespace summary response.
+    #
+    #   Allowed values are: key, displayName, description, lifecycleState, timeCreated
+    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::NamespaceCollection NamespaceCollection}
+    def list_namespaces(catalog_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#list_namespaces.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling list_namespaces." if catalog_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+
+      fields_allowable_values = %w[key displayName description lifecycleState timeCreated]
+      if opts[:fields] && !opts[:fields].empty?
+        opts[:fields].each do |val_to_check|
+          unless fields_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "fields", must be one of key, displayName, description, lifecycleState, timeCreated.'
+          end
+        end
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+
+      path = '/catalogs/{catalogId}/namespaces'.sub('{catalogId}', catalog_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
+      query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
+      query_params[:createdById] = opts[:created_by_id] if opts[:created_by_id]
+      query_params[:updatedById] = opts[:updated_by_id] if opts[:updated_by_id]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#list_namespaces') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::NamespaceCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of patterns within a data catalog.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
+    # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    # @option opts [String] :created_by_id OCID of the user who created the resource.
+    # @option opts [String] :updated_by_id OCID of the user who updated the resource.
+    # @option opts [Array<String>] :fields Specifies the fields to return in a pattern summary response.
+    #
+    #   Allowed values are: key, displayName, description, catalogId, expression, lifecycleState, timeCreated
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #   Allowed values are: ASC, DESC
+    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::PatternCollection PatternCollection}
+    def list_patterns(catalog_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#list_patterns.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling list_patterns." if catalog_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+
+      fields_allowable_values = %w[key displayName description catalogId expression lifecycleState timeCreated]
+      if opts[:fields] && !opts[:fields].empty?
+        opts[:fields].each do |val_to_check|
+          unless fields_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "fields", must be one of key, displayName, description, catalogId, expression, lifecycleState, timeCreated.'
+          end
+        end
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+
+      path = '/catalogs/{catalogId}/patterns'.sub('{catalogId}', catalog_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
+      query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
+      query_params[:createdById] = opts[:created_by_id] if opts[:created_by_id]
+      query_params[:updatedById] = opts[:updated_by_id] if opts[:updated_by_id]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#list_patterns') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::PatternCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of all user created tags in the system.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [Hash] opts the optional parameters
@@ -6964,6 +8278,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Remove data selector pattern from the data asset.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] data_asset_key Unique data asset key.
+    # @param [OCI::DataCatalog::Models::DataSelectorPatternDetails] data_selector_pattern_details The information used to remove the data selector patterns.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAsset DataAsset}
+    def remove_data_selector_patterns(catalog_id, data_asset_key, data_selector_pattern_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#remove_data_selector_patterns.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling remove_data_selector_patterns." if catalog_id.nil?
+      raise "Missing the required parameter 'data_asset_key' when calling remove_data_selector_patterns." if data_asset_key.nil?
+      raise "Missing the required parameter 'data_selector_pattern_details' when calling remove_data_selector_patterns." if data_selector_pattern_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'data_asset_key' must not be blank" if OCI::Internal::Util.blank_string?(data_asset_key)
+
+      path = '/catalogs/{catalogId}/dataAssets/{dataAssetKey}/actions/removeDataSelectorPatterns'.sub('{catalogId}', catalog_id.to_s).sub('{dataAssetKey}', data_asset_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(data_selector_pattern_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#remove_data_selector_patterns') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::DataAsset'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of search results within a data catalog.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [Hash] opts the optional parameters
@@ -7381,6 +8768,74 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates a specific custom property identified by the given key.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [String] custom_property_key Unique Custom Property key
+    # @param [OCI::DataCatalog::Models::UpdateCustomPropertyDetails] update_custom_property_details The information to be updated in the custom property.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CustomProperty CustomProperty}
+    def update_custom_property(catalog_id, namespace_id, custom_property_key, update_custom_property_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#update_custom_property.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling update_custom_property." if catalog_id.nil?
+      raise "Missing the required parameter 'namespace_id' when calling update_custom_property." if namespace_id.nil?
+      raise "Missing the required parameter 'custom_property_key' when calling update_custom_property." if custom_property_key.nil?
+      raise "Missing the required parameter 'update_custom_property_details' when calling update_custom_property." if update_custom_property_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(namespace_id)
+      raise "Parameter value for 'custom_property_key' must not be blank" if OCI::Internal::Util.blank_string?(custom_property_key)
+
+      path = '/catalogs/{catalogId}/namespaces/{namespaceId}/customProperties/{customPropertyKey}'.sub('{catalogId}', catalog_id.to_s).sub('{namespaceId}', namespace_id.to_s).sub('{customPropertyKey}', custom_property_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_custom_property_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#update_custom_property') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::CustomProperty'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates a specific data asset identified by the given key.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] data_asset_key Unique data asset key.
@@ -7777,6 +9232,136 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates a specific namespace identified by the given key.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [OCI::DataCatalog::Models::UpdateNamespaceDetails] update_namespace_details The information to be updated in the namespace.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Namespace Namespace}
+    def update_namespace(catalog_id, namespace_id, update_namespace_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#update_namespace.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling update_namespace." if catalog_id.nil?
+      raise "Missing the required parameter 'namespace_id' when calling update_namespace." if namespace_id.nil?
+      raise "Missing the required parameter 'update_namespace_details' when calling update_namespace." if update_namespace_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(namespace_id)
+
+      path = '/catalogs/{catalogId}/namespaces/{namespaceId}'.sub('{catalogId}', catalog_id.to_s).sub('{namespaceId}', namespace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_namespace_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#update_namespace') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Namespace'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a specific pattern identified by the given key.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] pattern_key Unique pattern key.
+    # @param [OCI::DataCatalog::Models::UpdatePatternDetails] update_pattern_details The information to be updated in the pattern.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Pattern Pattern}
+    def update_pattern(catalog_id, pattern_key, update_pattern_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#update_pattern.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling update_pattern." if catalog_id.nil?
+      raise "Missing the required parameter 'pattern_key' when calling update_pattern." if pattern_key.nil?
+      raise "Missing the required parameter 'update_pattern_details' when calling update_pattern." if update_pattern_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'pattern_key' must not be blank" if OCI::Internal::Util.blank_string?(pattern_key)
+
+      path = '/catalogs/{catalogId}/patterns/{patternKey}'.sub('{catalogId}', catalog_id.to_s).sub('{patternKey}', pattern_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_pattern_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#update_pattern') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Pattern'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates a specific glossary term.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] glossary_key Unique glossary key.
@@ -8117,6 +9702,72 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::ValidateConnectionResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Validate pattern by deriving file groups representing logical entities using the expression
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] pattern_key Unique pattern key.
+    # @param [OCI::DataCatalog::Models::ValidatePatternDetails] validate_pattern_details The information used to validate the pattern.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::ValidatePatternResult ValidatePatternResult}
+    def validate_pattern(catalog_id, pattern_key, validate_pattern_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#validate_pattern.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling validate_pattern." if catalog_id.nil?
+      raise "Missing the required parameter 'pattern_key' when calling validate_pattern." if pattern_key.nil?
+      raise "Missing the required parameter 'validate_pattern_details' when calling validate_pattern." if validate_pattern_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'pattern_key' must not be blank" if OCI::Internal::Util.blank_string?(pattern_key)
+
+      path = '/catalogs/{catalogId}/patterns/{patternKey}/actions/validate'.sub('{catalogId}', catalog_id.to_s).sub('{patternKey}', pattern_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(validate_pattern_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#validate_pattern') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::ValidatePatternResult'
         )
       end
       # rubocop:enable Metrics/BlockLength

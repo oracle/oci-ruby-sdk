@@ -8,7 +8,7 @@ module OCI
   # Scope filter to reduce the scope of the query.
   #
   class LogAnalytics::Models::ScopeFilter
-    # **[Required]** Field must be a valid enterprise logging out-of-the-box field.
+    # **[Required]** Field must be a valid logging-analytics out-of-the-box field.
     #
     # @return [String]
     attr_accessor :field_name

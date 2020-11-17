@@ -6,8 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Management Dashboard micro-service provides a set of CRUD, import, export, and compartment related APIs (such as change compartment)   to support dashboard and saved search metadata preservation.  These APIs are mainly for client UIs, for various UI activities such as get list of all saved searches in a compartment, create a dashboard, open a saved search, etc.  Use export to retrieve  dashboards and their saved searches, then edit the Json if necessary (for example change compartmentIds), then import the result to  destination dashboard service.
-  # APIs validate all required properties to ensure properties are present and have correct type and values.
+  # API for the Management Dashboard micro-service. Use this API for dashboard and saved search metadata preservation and to perform  tasks such as creating a dashboard, creating a saved search, and obtaining a list of dashboards and saved searches in a compartment.
   #
   class ManagementDashboard::DashxApisClient
     # Client used to make HTTP requests.
@@ -100,10 +99,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Move the dashboard from existing compartment to a new compartment.
+    # Moves the dashboard from the existing compartment to a new compartment.
     #
-    # @param [String] management_dashboard_id unique dashboard identifier
-    # @param [OCI::ManagementDashboard::Models::ChangeManagementDashboardsCompartmentDetails] change_management_dashboards_compartment_details Id for dashboard to be moved.
+    # @param [String] management_dashboard_id A unique dashboard identifier.
+    # @param [OCI::ManagementDashboard::Models::ChangeManagementDashboardsCompartmentDetails] change_management_dashboards_compartment_details ID of the dashboard that is being moved.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -170,10 +169,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Move the saved search from existing compartment to a new compartment.
+    # Moves the saved search from the existing compartment to a new compartment.
     #
-    # @param [String] management_saved_search_id unique saved search identifier
-    # @param [OCI::ManagementDashboard::Models::ChangeManagementSavedSearchesCompartmentDetails] change_management_saved_searches_compartment_details Compartment id to move the saved search to.
+    # @param [String] management_saved_search_id A unique saved search identifier.
+    # @param [OCI::ManagementDashboard::Models::ChangeManagementSavedSearchesCompartmentDetails] change_management_saved_searches_compartment_details ID of the saved search that is being moved.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -242,7 +241,7 @@ module OCI
 
     # Creates a new dashboard.  Limit for number of saved searches in a dashboard is 20.
     #
-    # @param [OCI::ManagementDashboard::Models::CreateManagementDashboardDetails] create_management_dashboard_details Json metadata for creating a new dashboard.
+    # @param [OCI::ManagementDashboard::Models::CreateManagementDashboardDetails] create_management_dashboard_details JSON metadata for creating a new dashboard.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -303,7 +302,7 @@ module OCI
 
     # Creates a new saved search.
     #
-    # @param [OCI::ManagementDashboard::Models::CreateManagementSavedSearchDetails] create_management_saved_search_details Json metadata for the saved search.
+    # @param [OCI::ManagementDashboard::Models::CreateManagementSavedSearchDetails] create_management_saved_search_details JSON metadata for the saved search.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -362,8 +361,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a Dashboard by id.
-    # @param [String] management_dashboard_id unique dashboard identifier
+    # Deletes a Dashboard by ID.
+    # @param [String] management_dashboard_id A unique dashboard identifier.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -421,8 +420,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a saved search by Id
-    # @param [String] management_saved_search_id unique saved search identifier
+    # Deletes a saved search by ID.
+    # @param [String] management_saved_search_id A unique saved search identifier.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -541,8 +540,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get a Dashboard and its saved searches by id.  Deleted or unauthorized saved searches are marked by tile's state property.
-    # @param [String] management_dashboard_id unique dashboard identifier
+    # Gets a dashboard and its saved searches by ID.  Deleted or unauthorized saved searches are marked by tile's state property.
+    # @param [String] management_dashboard_id A unique dashboard identifier.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -602,8 +601,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get a saved search by Id.
-    # @param [String] management_saved_search_id unique saved search identifier
+    # Gets a saved search by ID.
+    # @param [String] management_saved_search_id A unique saved search identifier.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -663,9 +662,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Import an array of dashboards and their saved searches.
+    # Imports an array of dashboards and their saved searches.
     #
-    # @param [OCI::ManagementDashboard::Models::ManagementDashboardImportDetails] management_dashboard_import_details Json metadata for dashboards and their saved searches to import.
+    # @param [OCI::ManagementDashboard::Models::ManagementDashboardImportDetails] management_dashboard_import_details JSON metadata for importing dashboards and their saved searches.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -730,7 +729,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets list of dashboards and their saved searches for compartment with pagination.  Returned properties are a summary.
+    # Gets the list of dashboards and their saved searches in a compartment with pagination.  Returned properties are the summary.
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -738,9 +737,9 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
-    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :page The page token representing the page on which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is the default.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementDashboardCollection ManagementDashboardCollection}
@@ -803,7 +802,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets list of saved searches with pagination.  Returned properties are a summary.
+    # Gets the list of saved searches in a compartment with pagination.  Returned properties are the summary.
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -811,9 +810,9 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
-    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :page The page token representing the page on which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is the default.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementSavedSearchCollection ManagementSavedSearchCollection}
@@ -876,10 +875,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates an existing dashboard identified by id path parameter.  Limit for number of saved searches in a dashboard is 20.
+    # Updates an existing dashboard identified by ID path parameter.  CompartmentId can be modified only by the changeCompartment API. Limit for number of saved searches in a dashboard is 20.
     #
-    # @param [String] management_dashboard_id unique dashboard identifier
-    # @param [OCI::ManagementDashboard::Models::UpdateManagementDashboardDetails] update_management_dashboard_details Json Metadata for changed dashboard properties.
+    # @param [String] management_dashboard_id A unique dashboard identifier.
+    # @param [OCI::ManagementDashboard::Models::UpdateManagementDashboardDetails] update_management_dashboard_details JSON metadata for changed dashboard properties.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -947,10 +946,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update an existing saved search.  Id cannot be updated.
+    # Updates an existing saved search identified by ID path parameter.  CompartmentId can be modified only by the changeCompartment API.
     #
-    # @param [String] management_saved_search_id unique saved search identifier
-    # @param [OCI::ManagementDashboard::Models::UpdateManagementSavedSearchDetails] update_management_saved_search_details Json metadata for changed properties in existing saved search.
+    # @param [String] management_saved_search_id A unique saved search identifier.
+    # @param [OCI::ManagementDashboard::Models::UpdateManagementSavedSearchDetails] update_management_saved_search_details JSON metadata for changed saved search properties.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

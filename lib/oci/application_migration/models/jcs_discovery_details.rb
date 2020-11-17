@@ -6,14 +6,16 @@ require_relative 'discovery_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the credentials to access the source JCS instance
+  # Credentials to access the Oracle Java Cloud Service application in the source environment. When you create and update a migration,
+  # Application Migration connects to the application in the source environment with the supplied credentials and exports the domain
+  # configuration.
   #
   class ApplicationMigration::Models::JcsDiscoveryDetails < ApplicationMigration::Models::DiscoveryDetails
-    # **[Required]** The JCS instance weblogic admin user
+    # **[Required]** WebLogic administrator username for the Oracle Java Cloud Service application in the source environment.
     # @return [String]
     attr_accessor :weblogic_user
 
-    # **[Required]** The JCS instance weblogic admin password
+    # **[Required]** The password of the WebLogic administrator for the Oracle Java Cloud Service application in the source environment.
     # @return [String]
     attr_accessor :weblogic_password
 

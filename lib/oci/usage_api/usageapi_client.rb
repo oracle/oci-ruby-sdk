@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the UsageApi API.
+  # Use the Usage API to view your Oracle Cloud usage and costs. The API allows you to request data that meets the specified filter criteria, and to group that data by the dimension of your choosing. The Usage API is used by the Cost Analysis tool in the Console.
   class UsageApi::UsageapiClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,7 +98,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns the list of config for UI dropdown list
+    # Returns the configurations list for the UI drop-down list.
     #
     # @param [String] tenant_id tenant id
     # @param [Hash] opts the optional parameters
@@ -154,9 +154,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns the usage for the given account
+    # Returns usage for the given account.
     #
-    # @param [OCI::UsageApi::Models::RequestSummarizedUsagesDetails] request_summarized_usages_details getUsageRequest contain query inforamtion
+    # @param [OCI::UsageApi::Models::RequestSummarizedUsagesDetails] request_summarized_usages_details getUsageRequest contains query inforamtion.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

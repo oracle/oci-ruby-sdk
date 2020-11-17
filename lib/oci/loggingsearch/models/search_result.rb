@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A log search result entry
+  # A log search result entry.
   class Loggingsearch::Models::SearchResult
-    # **[Required]** JSON blob containing the search entry with projected fields.
+    # **[Required]** JSON blob containing the search entry with the projected fields.
     # @return [Object]
     attr_accessor :data
 

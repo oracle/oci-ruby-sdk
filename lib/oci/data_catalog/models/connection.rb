@@ -53,6 +53,10 @@ module OCI
     # @return [String]
     attr_accessor :updated_by_id
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>]
+    attr_accessor :custom_property_members
+
     # A map of maps that contains the properties which are specific to the connection type. Each connection type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -101,6 +105,7 @@ module OCI
         'time_updated': :'timeUpdated',
         'created_by_id': :'createdById',
         'updated_by_id': :'updatedById',
+        'custom_property_members': :'customPropertyMembers',
         'properties': :'properties',
         'external_key': :'externalKey',
         'time_status_updated': :'timeStatusUpdated',
@@ -124,6 +129,7 @@ module OCI
         'time_updated': :'DateTime',
         'created_by_id': :'String',
         'updated_by_id': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
         'properties': :'Hash<String, Hash<String, String>>',
         'external_key': :'String',
         'time_status_updated': :'DateTime',
@@ -149,6 +155,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
     # @option attributes [DateTime] :time_status_updated The value to assign to the {#time_status_updated} property
@@ -196,6 +203,12 @@ module OCI
       raise 'You cannot provide both :updatedById and :updated_by_id' if attributes.key?(:'updatedById') && attributes.key?(:'updated_by_id')
 
       self.updated_by_id = attributes[:'updated_by_id'] if attributes[:'updated_by_id']
+
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
 
       self.properties = attributes[:'properties'] if attributes[:'properties']
 
@@ -269,6 +282,7 @@ module OCI
         time_updated == other.time_updated &&
         created_by_id == other.created_by_id &&
         updated_by_id == other.updated_by_id &&
+        custom_property_members == other.custom_property_members &&
         properties == other.properties &&
         external_key == other.external_key &&
         time_status_updated == other.time_status_updated &&
@@ -292,7 +306,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, description, display_name, time_created, time_updated, created_by_id, updated_by_id, properties, external_key, time_status_updated, lifecycle_state, is_default, data_asset_key, type_key, uri].hash
+      [key, description, display_name, time_created, time_updated, created_by_id, updated_by_id, custom_property_members, properties, external_key, time_status_updated, lifecycle_state, is_default, data_asset_key, type_key, uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

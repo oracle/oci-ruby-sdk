@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # ExtractLogHeaderDetails model.
+  # log header values
   class LogAnalytics::Models::ExtractLogHeaderDetails
     # key
     # @return [String]

@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An application running in the source environment that is available for export.
+  # The properties that define an application, that is running in the source environment and which can be migrated to Oracle
+  # Cloud Infrastructure.
   #
   class ApplicationMigration::Models::SourceApplicationSummary
     TYPE_ENUM = [
@@ -19,23 +20,23 @@ module OCI
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The name of the application
+    # The name of the application.
     # @return [String]
     attr_accessor :name
 
-    # The type of application
+    # The type of the application.
     # @return [String]
     attr_reader :type
 
-    # Unique identifier (OCID) for the Source to which the application belongs
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the source to which the application belongs.
     # @return [String]
     attr_accessor :source_id
 
-    # The version of the application server
+    # The version of the application.
     # @return [String]
     attr_accessor :version
 
-    # The current application running state
+    # The current state of the application.
     # @return [String]
     attr_accessor :state
 

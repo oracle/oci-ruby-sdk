@@ -23,7 +23,7 @@ module OCI
     # @return [String]
     attr_reader :action_type
 
-    # **[Required]** The resource type the work request affects.
+    # **[Required]** The resource type that the work request affects, source or migration.
     # @return [String]
     attr_accessor :entity_type
 

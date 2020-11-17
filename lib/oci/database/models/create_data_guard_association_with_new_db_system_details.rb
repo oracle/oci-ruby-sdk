@@ -58,6 +58,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'database_software_image_id': :'databaseSoftwareImageId',
         'database_admin_password': :'databaseAdminPassword',
         'protection_mode': :'protectionMode',
         'transport_type': :'transportType',
@@ -77,6 +78,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'database_software_image_id': :'String',
         'database_admin_password': :'String',
         'protection_mode': :'String',
         'transport_type': :'String',
@@ -98,6 +100,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :database_software_image_id The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#database_software_image_id #database_software_image_id} proprety
     # @option attributes [String] :database_admin_password The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#database_admin_password #database_admin_password} proprety
     # @option attributes [String] :protection_mode The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#protection_mode #protection_mode} proprety
     # @option attributes [String] :transport_type The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#transport_type #transport_type} proprety
@@ -164,6 +167,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        database_software_image_id == other.database_software_image_id &&
         database_admin_password == other.database_admin_password &&
         protection_mode == other.protection_mode &&
         transport_type == other.transport_type &&
@@ -190,7 +194,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_admin_password, protection_mode, transport_type, creation_type, display_name, availability_domain, shape, subnet_id, nsg_ids, backup_network_nsg_ids, hostname].hash
+      [database_software_image_id, database_admin_password, protection_mode, transport_type, creation_type, display_name, availability_domain, shape, subnet_id, nsg_ids, backup_network_nsg_ids, hostname].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -35,6 +35,10 @@ module OCI
     # @return [String]
     attr_accessor :admin_password
 
+    # The optional password to open the TDE wallet. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numeric, and two special characters. The special characters must be _, \\#, or -.
+    # @return [String]
+    attr_accessor :tde_wallet_password
+
     # The character set for the database.  The default is AL32UTF8. Allowed values are:
     #
     # AL32UTF8, AR8ADOS710, AR8ADOS720, AR8APTEC715, AR8ARABICMACS, AR8ASMO8X, AR8ISO8859P6, AR8MSWIN1256, AR8MUSSAD768, AR8NAFITHA711, AR8NAFITHA721, AR8SAKHR706, AR8SAKHR707, AZ8ISO8859P9E, BG8MSWIN, BG8PC437S, BLT8CP921, BLT8ISO8859P13, BLT8MSWIN1257, BLT8PC775, BN8BSCII, CDN8PC863, CEL8ISO8859P14, CL8ISO8859P5, CL8ISOIR111, CL8KOI8R, CL8KOI8U, CL8MACCYRILLICS, CL8MSWIN1251, EE8ISO8859P2, EE8MACCES, EE8MACCROATIANS, EE8MSWIN1250, EE8PC852, EL8DEC, EL8ISO8859P7, EL8MACGREEKS, EL8MSWIN1253, EL8PC437S, EL8PC851, EL8PC869, ET8MSWIN923, HU8ABMOD, HU8CWI2, IN8ISCII, IS8PC861, IW8ISO8859P8, IW8MACHEBREWS, IW8MSWIN1255, IW8PC1507, JA16EUC, JA16EUCTILDE, JA16SJIS, JA16SJISTILDE, JA16VMS, KO16KSC5601, KO16KSCCS, KO16MSWIN949, LA8ISO6937, LA8PASSPORT, LT8MSWIN921, LT8PC772, LT8PC774, LV8PC1117, LV8PC8LR, LV8RST104090, N8PC865, NE8ISO8859P10, NEE8ISO8859P4, RU8BESTA, RU8PC855, RU8PC866, SE8ISO8859P3, TH8MACTHAIS, TH8TISASCII, TR8DEC, TR8MACTURKISHS, TR8MSWIN1254, TR8PC857, US7ASCII, US8PC437, UTF8, VN8MSWIN1258, VN8VN3, WE8DEC, WE8DG, WE8ISO8859P1, WE8ISO8859P15, WE8ISO8859P9, WE8MACROMAN8S, WE8MSWIN1252, WE8NCR4970, WE8NEXTSTEP, WE8PC850, WE8PC858, WE8PC860, WE8ROMAN8, ZHS16CGB231280, ZHS16GBK, ZHT16BIG5, ZHT16CCDC, ZHT16DBT, ZHT16HKSCS, ZHT16MSWIN950, ZHT32EUC, ZHT32SOPS, ZHT32TRIS
@@ -78,6 +82,7 @@ module OCI
         'database_software_image_id': :'databaseSoftwareImageId',
         'pdb_name': :'pdbName',
         'admin_password': :'adminPassword',
+        'tde_wallet_password': :'tdeWalletPassword',
         'character_set': :'characterSet',
         'ncharacter_set': :'ncharacterSet',
         'db_workload': :'dbWorkload',
@@ -97,6 +102,7 @@ module OCI
         'database_software_image_id': :'String',
         'pdb_name': :'String',
         'admin_password': :'String',
+        'tde_wallet_password': :'String',
         'character_set': :'String',
         'ncharacter_set': :'String',
         'db_workload': :'String',
@@ -118,6 +124,7 @@ module OCI
     # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
     # @option attributes [String] :pdb_name The value to assign to the {#pdb_name} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
+    # @option attributes [String] :tde_wallet_password The value to assign to the {#tde_wallet_password} property
     # @option attributes [String] :character_set The value to assign to the {#character_set} property
     # @option attributes [String] :ncharacter_set The value to assign to the {#ncharacter_set} property
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
@@ -159,6 +166,12 @@ module OCI
       raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
 
       self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
+
+      self.tde_wallet_password = attributes[:'tdeWalletPassword'] if attributes[:'tdeWalletPassword']
+
+      raise 'You cannot provide both :tdeWalletPassword and :tde_wallet_password' if attributes.key?(:'tdeWalletPassword') && attributes.key?(:'tde_wallet_password')
+
+      self.tde_wallet_password = attributes[:'tde_wallet_password'] if attributes[:'tde_wallet_password']
 
       self.character_set = attributes[:'characterSet'] if attributes[:'characterSet']
 
@@ -221,6 +234,7 @@ module OCI
         database_software_image_id == other.database_software_image_id &&
         pdb_name == other.pdb_name &&
         admin_password == other.admin_password &&
+        tde_wallet_password == other.tde_wallet_password &&
         character_set == other.character_set &&
         ncharacter_set == other.ncharacter_set &&
         db_workload == other.db_workload &&
@@ -242,7 +256,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_name, db_unique_name, database_software_image_id, pdb_name, admin_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags].hash
+      [db_name, db_unique_name, database_software_image_id, pdb_name, admin_password, tde_wallet_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

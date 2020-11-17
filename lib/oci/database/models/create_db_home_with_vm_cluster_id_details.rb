@@ -13,7 +13,7 @@ module OCI
     # @return [String]
     attr_accessor :vm_cluster_id
 
-    # **[Required]** A valid Oracle Database version. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
+    # A valid Oracle Database version. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
     # @return [String]
     attr_accessor :db_version
 

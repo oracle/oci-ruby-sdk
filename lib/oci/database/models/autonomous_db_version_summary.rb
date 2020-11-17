@@ -42,6 +42,18 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_free_tier_enabled
 
+    # True if this version of the Oracle Database software has payments enabled.
+    # @return [BOOLEAN]
+    attr_accessor :is_paid_enabled
+
+    # True if this version of the Oracle Database software's default is free.
+    # @return [BOOLEAN]
+    attr_accessor :is_default_for_free
+
+    # True if this version of the Oracle Database software's default is paid.
+    # @return [BOOLEAN]
+    attr_accessor :is_default_for_paid
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -50,7 +62,10 @@ module OCI
         'db_workload': :'dbWorkload',
         'is_dedicated': :'isDedicated',
         'details': :'details',
-        'is_free_tier_enabled': :'isFreeTierEnabled'
+        'is_free_tier_enabled': :'isFreeTierEnabled',
+        'is_paid_enabled': :'isPaidEnabled',
+        'is_default_for_free': :'isDefaultForFree',
+        'is_default_for_paid': :'isDefaultForPaid'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -63,7 +78,10 @@ module OCI
         'db_workload': :'String',
         'is_dedicated': :'BOOLEAN',
         'details': :'String',
-        'is_free_tier_enabled': :'BOOLEAN'
+        'is_free_tier_enabled': :'BOOLEAN',
+        'is_paid_enabled': :'BOOLEAN',
+        'is_default_for_free': :'BOOLEAN',
+        'is_default_for_paid': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -79,6 +97,9 @@ module OCI
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
     # @option attributes [String] :details The value to assign to the {#details} property
     # @option attributes [BOOLEAN] :is_free_tier_enabled The value to assign to the {#is_free_tier_enabled} property
+    # @option attributes [BOOLEAN] :is_paid_enabled The value to assign to the {#is_paid_enabled} property
+    # @option attributes [BOOLEAN] :is_default_for_free The value to assign to the {#is_default_for_free} property
+    # @option attributes [BOOLEAN] :is_default_for_paid The value to assign to the {#is_default_for_paid} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -106,6 +127,24 @@ module OCI
       raise 'You cannot provide both :isFreeTierEnabled and :is_free_tier_enabled' if attributes.key?(:'isFreeTierEnabled') && attributes.key?(:'is_free_tier_enabled')
 
       self.is_free_tier_enabled = attributes[:'is_free_tier_enabled'] unless attributes[:'is_free_tier_enabled'].nil?
+
+      self.is_paid_enabled = attributes[:'isPaidEnabled'] unless attributes[:'isPaidEnabled'].nil?
+
+      raise 'You cannot provide both :isPaidEnabled and :is_paid_enabled' if attributes.key?(:'isPaidEnabled') && attributes.key?(:'is_paid_enabled')
+
+      self.is_paid_enabled = attributes[:'is_paid_enabled'] unless attributes[:'is_paid_enabled'].nil?
+
+      self.is_default_for_free = attributes[:'isDefaultForFree'] unless attributes[:'isDefaultForFree'].nil?
+
+      raise 'You cannot provide both :isDefaultForFree and :is_default_for_free' if attributes.key?(:'isDefaultForFree') && attributes.key?(:'is_default_for_free')
+
+      self.is_default_for_free = attributes[:'is_default_for_free'] unless attributes[:'is_default_for_free'].nil?
+
+      self.is_default_for_paid = attributes[:'isDefaultForPaid'] unless attributes[:'isDefaultForPaid'].nil?
+
+      raise 'You cannot provide both :isDefaultForPaid and :is_default_for_paid' if attributes.key?(:'isDefaultForPaid') && attributes.key?(:'is_default_for_paid')
+
+      self.is_default_for_paid = attributes[:'is_default_for_paid'] unless attributes[:'is_default_for_paid'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -136,7 +175,10 @@ module OCI
         db_workload == other.db_workload &&
         is_dedicated == other.is_dedicated &&
         details == other.details &&
-        is_free_tier_enabled == other.is_free_tier_enabled
+        is_free_tier_enabled == other.is_free_tier_enabled &&
+        is_paid_enabled == other.is_paid_enabled &&
+        is_default_for_free == other.is_default_for_free &&
+        is_default_for_paid == other.is_default_for_paid
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -152,7 +194,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [version, db_workload, is_dedicated, details, is_free_tier_enabled].hash
+      [version, db_workload, is_dedicated, details, is_free_tier_enabled, is_paid_enabled, is_default_for_free, is_default_for_paid].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # List of work request summaries.
+  # This is a list of work request summaries.
   #
   class LogAnalytics::Models::StorageWorkRequestCollection
-    # **[Required]** List of work request summaries.
+    # **[Required]** This is an array of work request summaries.
     #
     # @return [Array<OCI::LogAnalytics::Models::StorageWorkRequestSummary>]
     attr_accessor :items

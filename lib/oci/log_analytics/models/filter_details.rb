@@ -12,7 +12,7 @@ module OCI
       SUB_SYSTEM_LOG = 'LOG'.freeze
     ].freeze
 
-    # **[Required]** Query to update.
+    # **[Required]** Query to apply edits to.
     # @return [String]
     attr_accessor :query_string
 

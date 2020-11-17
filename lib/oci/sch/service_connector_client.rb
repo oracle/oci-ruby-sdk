@@ -8,7 +8,7 @@ require 'logger'
 module OCI
   # Use the Service Connector Hub API to transfer data between services in Oracle Cloud Infrastructure.
   # For more information about Service Connector Hub, see
-  # [Service Connector Hub Overview](/iaas/service-connector-hub/using/index.htm).
+  # [Service Connector Hub Overview](/iaas/Content/service-connector-hub/overview.htm).
   class Sch::ServiceConnectorClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -104,9 +104,9 @@ module OCI
     #
     # After you send your request, the service connector's state is temporarily
     # UPDATING. When the state changes to ACTIVE, data begins transferring from the
-    # source service to the target service. For instructions on deactivating and
-    # activating service connectors, see
-    # [To activate or deactivate a service connector](https://docs.cloud.oracle.com/iaas/service-connector-hub/using/index.htm).
+    # source service to the target service. For instructions on activating service
+    # connectors, see
+    # [To activate a service connector](https://docs.cloud.oracle.com/iaas/Content/service-connector-hub/managingconnectors.htm#activate).
     #
     # @param [String] service_connector_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the service connector.
     #
@@ -251,7 +251,7 @@ module OCI
     # A service connector is a logically defined flow for moving data from
     # a source service to a destination service in Oracle Cloud Infrastructure.
     # For general information about service connectors, see
-    # [Service Connector Hub Overview](https://docs.cloud.oracle.com/iaas/service-connector-hub/using/index.htm).
+    # [Service Connector Hub Overview](https://docs.cloud.oracle.com/iaas/Content/service-connector-hub/overview.htm).
     #
     # For purposes of access control, you must provide the
     # [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where
@@ -264,7 +264,7 @@ module OCI
     # CREATING. When the state changes to ACTIVE, data begins transferring from the
     # source service to the target service. For instructions on deactivating and
     # activating service connectors, see
-    # [To activate or deactivate a service connector](https://docs.cloud.oracle.com/iaas/service-connector-hub/using/index.htm).
+    # [To activate or deactivate a service connector](https://docs.cloud.oracle.com/iaas/Content/service-connector-hub/overview.htm).
     #
     # @param [OCI::Sch::Models::CreateServiceConnectorDetails] create_service_connector_details Configuration details for the new service connector.
     #
@@ -331,8 +331,8 @@ module OCI
     #
     # After you send your request, the service connector's state is temporarily
     # UPDATING and any data transfer stops. The state then changes to INACTIVE.
-    # For instructions on deactivating and activating service connectors, see
-    # [To activate or deactivate a service connector](https://docs.cloud.oracle.com/iaas/service-connector-hub/using/index.htm).
+    # For instructions on deactivating service connectors, see
+    # [To deactivate a service connector](https://docs.cloud.oracle.com/iaas/Content/service-connector-hub/managingconnectors.htm#deactivate).
     #
     # @param [String] service_connector_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the service connector.
     #

@@ -2,11 +2,22 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Log group configuration summary.
   class Logging::Models::LogGroupSummary
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the resource.
     # @return [String]
     attr_accessor :id
@@ -15,7 +26,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The display name of a user-friendly name. It has to be unique within enclosing resource,
+    # **[Required]** The user-friendly display name. This must be unique within the enclosing resource,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
@@ -48,6 +59,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_last_modified
 
+    # The log group object state.
+    # @return [String]
+    attr_reader :lifecycle_state
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -59,7 +74,8 @@ module OCI
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
         'time_created': :'timeCreated',
-        'time_last_modified': :'timeLastModified'
+        'time_last_modified': :'timeLastModified',
+        'lifecycle_state': :'lifecycleState'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,7 +91,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
         'time_created': :'DateTime',
-        'time_last_modified': :'DateTime'
+        'time_last_modified': :'DateTime',
+        'lifecycle_state': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -94,6 +111,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_last_modified The value to assign to the {#time_last_modified} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -139,9 +157,28 @@ module OCI
       raise 'You cannot provide both :timeLastModified and :time_last_modified' if attributes.key?(:'timeLastModified') && attributes.key?(:'time_last_modified')
 
       self.time_last_modified = attributes[:'time_last_modified'] if attributes[:'time_last_modified']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -159,7 +196,8 @@ module OCI
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
         time_created == other.time_created &&
-        time_last_modified == other.time_last_modified
+        time_last_modified == other.time_last_modified &&
+        lifecycle_state == other.lifecycle_state
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -175,7 +213,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, defined_tags, freeform_tags, time_created, time_last_modified].hash
+      [id, compartment_id, display_name, description, defined_tags, freeform_tags, time_created, time_last_modified, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

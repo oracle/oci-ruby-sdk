@@ -129,8 +129,8 @@ module OCI
     # Calls {OCI::Logging::LoggingManagementClient#change_unified_agent_configuration_compartment} and then waits for the {OCI::Logging::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] unified_agent_configuration_id The OCID of the unified agent configuration.
-    # @param [OCI::Logging::Models::ChangeUnifiedAgentConfigurationCompartmentDetails] change_unified_agent_configuration_compartment_details Request to change the compartment of a given resource
+    # @param [String] unified_agent_configuration_id The OCID of the Unified Agent configuration.
+    # @param [OCI::Logging::Models::ChangeUnifiedAgentConfigurationCompartmentDetails] change_unified_agent_configuration_compartment_details Request to change the compartment of a given resource.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Logging::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Logging::LoggingManagementClient#change_unified_agent_configuration_compartment}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -180,7 +180,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [String] log_group_id OCID of a log group to work with.
-    # @param [OCI::Logging::Models::CreateLogDetails] create_log_details Log object config details.
+    # @param [OCI::Logging::Models::CreateLogDetails] create_log_details Log object configuration details.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Logging::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Logging::LoggingManagementClient#create_log}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -275,10 +275,49 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Logging::LoggingManagementClient#create_log_saved_search} and then waits for the {OCI::Logging::Models::LogSavedSearch} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::Logging::Models::CreateLogSavedSearchDetails] create_log_saved_search_details Specification of the Saved Search to create
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Logging::Models::LogSavedSearch#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Logging::LoggingManagementClient#create_log_saved_search}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Logging::Models::LogSavedSearch}
+    def create_log_saved_search_and_wait_for_state(create_log_saved_search_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_log_saved_search(create_log_saved_search_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_log_saved_search(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Logging::LoggingManagementClient#create_unified_agent_configuration} and then waits for the {OCI::Logging::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::Logging::Models::CreateUnifiedAgentConfigurationDetails] create_unified_agent_configuration_details Unified Agent configuration creation object.
+    # @param [OCI::Logging::Models::CreateUnifiedAgentConfigurationDetails] create_unified_agent_configuration_details Unified agent configuration creation object.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Logging::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Logging::LoggingManagementClient#create_unified_agent_configuration}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -423,10 +462,51 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Logging::LoggingManagementClient#delete_log_saved_search} and then waits for the {OCI::Logging::Models::LogSavedSearch} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] log_saved_search_id OCID of the logSavedSearch
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Logging::Models::LogSavedSearch#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Logging::LoggingManagementClient#delete_log_saved_search}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_log_saved_search_and_wait_for_state(log_saved_search_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_log_saved_search(log_saved_search_id)
+      operation_result = @service_client.delete_log_saved_search(log_saved_search_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Logging::LoggingManagementClient#delete_unified_agent_configuration} and then waits for the {OCI::Logging::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] unified_agent_configuration_id The OCID of the unified agent configuration.
+    # @param [String] unified_agent_configuration_id The OCID of the Unified Agent configuration.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Logging::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Logging::LoggingManagementClient#delete_unified_agent_configuration}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -475,7 +555,7 @@ module OCI
     # Calls {OCI::Logging::LoggingManagementClient#delete_work_request} and then waits for the {OCI::Logging::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] work_request_id The ID of the asynchronous request.
+    # @param [String] work_request_id The asynchronous request ID.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Logging::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Logging::LoggingManagementClient#delete_work_request}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -622,10 +702,51 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Logging::LoggingManagementClient#update_log_saved_search} and then waits for the {OCI::Logging::Models::LogSavedSearch} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] log_saved_search_id OCID of the logSavedSearch
+    #
+    # @param [OCI::Logging::Models::UpdateLogSavedSearchDetails] update_log_saved_search_details Updates to the saved search.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Logging::Models::LogSavedSearch#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Logging::LoggingManagementClient#update_log_saved_search}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Logging::Models::LogSavedSearch}
+    def update_log_saved_search_and_wait_for_state(log_saved_search_id, update_log_saved_search_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_log_saved_search(log_saved_search_id, update_log_saved_search_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_log_saved_search(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Logging::LoggingManagementClient#update_unified_agent_configuration} and then waits for the {OCI::Logging::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] unified_agent_configuration_id The OCID of the unified agent configuration.
+    # @param [String] unified_agent_configuration_id The OCID of the Unified Agent configuration.
     # @param [OCI::Logging::Models::UpdateUnifiedAgentConfigurationDetails] update_unified_agent_configuration_details Unified agent configuration to update. Empty group associations list doesn't modify the list, null value for group association clears all the previous associations.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Logging::Models::WorkRequest#status}

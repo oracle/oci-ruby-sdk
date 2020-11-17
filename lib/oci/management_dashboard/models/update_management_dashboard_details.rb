@@ -5,41 +5,41 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties for a dashboard.  Dashboard id must not be provided.
+  # Properties of a dashboard.  Dashboard ID must not be provided.
   class ManagementDashboard::Models::UpdateManagementDashboardDetails
-    # Provider Id.
+    # ID of the service (for example, log-analytics) that owns the dashboard. Each service has a unique ID.
     # @return [String]
     attr_accessor :provider_id
 
-    # Provider name.
+    # Name of the service (for example, Logging Analytics) that owns the dashboard.
     # @return [String]
     attr_accessor :provider_name
 
-    # Provider version.
+    # Version of the service that owns the dashboard.
     # @return [String]
     attr_accessor :provider_version
 
-    # Dashboard tiles array.
+    # Array of dashboard tiles.
     # @return [Array<OCI::ManagementDashboard::Models::ManagementDashboardTileDetails>]
     attr_accessor :tiles
 
-    # Display name for dashboard.
+    # Display name of the dashboard.
     # @return [String]
     attr_accessor :display_name
 
-    # Dashboard's description.
+    # Description of the dashboard.
     # @return [String]
     attr_accessor :description
 
-    # The ocid of the compartment that owns the dashboard.
+    # OCID of the compartment in which the dashboard resides.
     # @return [String]
     attr_accessor :compartment_id
 
-    # String boolean (\"true\" or \"false\").  OOB (Out of the Box) dashboards are only provided by Oracle.  They cannot be modified by non-Oracle.
+    # Determines whether the dashboard is an Out-of-the-Box (OOB) dashboard. Note that OOB dashboards are only provided by Oracle and cannot be modified.
     # @return [BOOLEAN]
     attr_accessor :is_oob_dashboard
 
-    # String boolean (\"true\" or \"false\").  When false, dashboard is not shown in dashboard home.
+    # Determines whether the dashboard will be displayed in Dashboard Home.
     # @return [BOOLEAN]
     attr_accessor :is_show_in_home
 
@@ -47,31 +47,31 @@ module OCI
     # @return [String]
     attr_accessor :metadata_version
 
-    # String boolean (\"true\" or \"false\").  Whether to show the dashboard description.
+    # Determines whether the description of the dashboard is displayed.
     # @return [BOOLEAN]
     attr_accessor :is_show_description
 
-    # Screen image.
+    # Screen image of the dashboard.
     # @return [String]
     attr_accessor :screen_image
 
-    # Json for internationalization.
+    # JSON that contains internationalization options.
     # @return [Object]
     attr_accessor :nls
 
-    # Json to contain options for UI.
+    # JSON that contains user interface options.
     # @return [Object]
     attr_accessor :ui_config
 
-    # Array of Json to contain options for source of data.
+    # Array of JSON that contain data source options.
     # @return [Array<Object>]
     attr_accessor :data_config
 
-    # NORMAL meaning single dashboard, or SET meaning dashboard set.
+    # Type of dashboard. NORMAL denotes a single dashboard and SET denotes a dashboard set.
     # @return [String]
     attr_accessor :type
 
-    # String boolean (\"true\" or \"false\").
+    # Determines whether the dashboard is set as favorite.
     # @return [BOOLEAN]
     attr_accessor :is_favorite
 

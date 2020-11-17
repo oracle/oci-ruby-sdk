@@ -7,11 +7,23 @@ require 'date'
 module OCI
   # CreateVcnDetails model.
   class Core::Models::CreateVcnDetails
-    # **[Required]** The CIDR IP address block of the VCN.
+    # Deprecated. Instead use 'cidrBlocks'. It is an error to set both cidrBlock and
+    # cidrBlocks.
     # Example: `10.0.0.0/16`
     #
     # @return [String]
     attr_accessor :cidr_block
+
+    # List of IPv4 CIDR blocks associated with the VCN. The CIDRs must maintain the following
+    # rules -
+    #
+    # a. The list of CIDRs provided are valid
+    # b. There is no overlap between different CIDRs
+    # c. The number of CIDRs should not exceed the max limit of CIDRs per VCN
+    # d. It is an error to set both cidrBlock and cidrBlocks.
+    #
+    # @return [Array<String>]
+    attr_accessor :cidr_blocks
 
     # **[Required]** The OCID of the compartment to contain the VCN.
     # @return [String]
@@ -93,6 +105,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'cidrBlock',
+        'cidr_blocks': :'cidrBlocks',
         'compartment_id': :'compartmentId',
         'ipv6_cidr_block': :'ipv6CidrBlock',
         'defined_tags': :'definedTags',
@@ -109,6 +122,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'String',
+        'cidr_blocks': :'Array<String>',
         'compartment_id': :'String',
         'ipv6_cidr_block': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -127,6 +141,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
+    # @option attributes [Array<String>] :cidr_blocks The value to assign to the {#cidr_blocks} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -145,6 +160,12 @@ module OCI
       raise 'You cannot provide both :cidrBlock and :cidr_block' if attributes.key?(:'cidrBlock') && attributes.key?(:'cidr_block')
 
       self.cidr_block = attributes[:'cidr_block'] if attributes[:'cidr_block']
+
+      self.cidr_blocks = attributes[:'cidrBlocks'] if attributes[:'cidrBlocks']
+
+      raise 'You cannot provide both :cidrBlocks and :cidr_blocks' if attributes.key?(:'cidrBlocks') && attributes.key?(:'cidr_blocks')
+
+      self.cidr_blocks = attributes[:'cidr_blocks'] if attributes[:'cidr_blocks']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -201,6 +222,7 @@ module OCI
 
       self.class == other.class &&
         cidr_block == other.cidr_block &&
+        cidr_blocks == other.cidr_blocks &&
         compartment_id == other.compartment_id &&
         ipv6_cidr_block == other.ipv6_cidr_block &&
         defined_tags == other.defined_tags &&
@@ -223,7 +245,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, compartment_id, ipv6_cidr_block, defined_tags, display_name, dns_label, freeform_tags, is_ipv6_enabled].hash
+      [cidr_block, cidr_blocks, compartment_id, ipv6_cidr_block, defined_tags, display_name, dns_label, freeform_tags, is_ipv6_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

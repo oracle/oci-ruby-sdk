@@ -6,7 +6,7 @@ require_relative 'authorization_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the credentials to access the source Oracle Cloud Infrastructure - Classic environment.
+  # Credentials to access Oracle Cloud Infrastructure - Classic, which is the source environment from which you want to migrate the application.
   #
   class ApplicationMigration::Models::OcicAuthorizationDetails < ApplicationMigration::Models::AuthorizationDetails
     # **[Required]** User with Compute Operations role in Oracle Cloud Infrastructure - Classic.

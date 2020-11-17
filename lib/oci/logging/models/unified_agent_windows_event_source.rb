@@ -6,7 +6,7 @@ require_relative 'unified_agent_logging_source'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # windows events log source object.
+  # Windows events log source object.
   class Logging::Models::UnifiedAgentWindowsEventSource < Logging::Models::UnifiedAgentLoggingSource
     # @return [Array<String>]
     attr_accessor :channels

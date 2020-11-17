@@ -7,8 +7,8 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A `CustomerSecretKey` is an Oracle-provided key for using the Object Storage Service's
-  # [Amazon S3 compatible API](https://docs.cloud.oracle.com/Content/Object/Tasks/s3compatibleapi.htm).
-  # A user can have up to two secret keys at a time.
+  # [Amazon S3 compatible API](https://docs.cloud.oracle.com/Content/Object/Tasks/s3compatibleapi.htm). The key consists of a
+  # secret key/access key pair. A user can have up to two secret keys at a time.
   #
   # **Note:** The secret key is always an Oracle-generated string; you can't change it to a string of your choice.
   #
@@ -29,7 +29,7 @@ module OCI
     # @return [String]
     attr_accessor :key
 
-    # The OCID of the secret key.
+    # The access key portion of the key pair.
     # @return [String]
     attr_accessor :id
 

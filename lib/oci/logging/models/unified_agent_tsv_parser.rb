@@ -6,7 +6,7 @@ require_relative 'unified_agent_parser'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # TSV Parser
+  # TSV Parser.
   class Logging::Models::UnifiedAgentTsvParser < Logging::Models::UnifiedAgentParser
     # @return [String]
     attr_accessor :delimiter

@@ -3,5 +3,5 @@
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI
-  VERSION = ('2.10.0'.freeze unless ENV['RUBY_SDK_VERSION']) || ENV['RUBY_SDK_VERSION']
+  VERSION = ('2.11.0'.freeze unless ENV['RUBY_SDK_VERSION']) || ENV['RUBY_SDK_VERSION']
 end

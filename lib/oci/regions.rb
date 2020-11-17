@@ -32,9 +32,11 @@ module OCI
 
       REGION_SA_SAOPAULO_1 = 'sa-saopaulo-1'.freeze,
 
-      REGION_UK_GOV_LONDON_1 = 'uk-gov-london-1'.freeze,
+      REGION_UK_CARDIFF_1 = 'uk-cardiff-1'.freeze,
       REGION_UK_LONDON_1 = 'uk-london-1'.freeze,
+
       REGION_UK_GOV_CARDIFF_1 = 'uk-gov-cardiff-1'.freeze,
+      REGION_UK_GOV_LONDON_1 = 'uk-gov-london-1'.freeze,
 
       REGION_US_PHOENIX_1 = 'us-phoenix-1'.freeze,
       REGION_US_ASHBURN_1 = 'us-ashburn-1'.freeze,
@@ -51,6 +53,7 @@ module OCI
       'ams': REGION_EU_AMSTERDAM_1,
       'bom': REGION_AP_MUMBAI_1,
       'brs': REGION_UK_GOV_CARDIFF_1,
+      'cwl': REGION_UK_CARDIFF_1,
       'dxb': REGION_ME_DUBAI_1,
       'fra': REGION_EU_FRANKFURT_1,
       'gru': REGION_SA_SAOPAULO_1,
@@ -97,6 +100,7 @@ module OCI
 
       'sa-saopaulo-1': 'oc1'.freeze,
 
+      'uk-cardiff-1': 'oc1'.freeze,
       'uk-london-1': 'oc1'.freeze,
 
       'uk-gov-london-1': 'oc4'.freeze,

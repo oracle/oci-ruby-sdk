@@ -11,11 +11,21 @@ module OCI
     # @return [Array<OCI::Nosql::Models::TableSummary>]
     attr_accessor :items
 
+    # The maximum number of reclaimable tables allowed in the tenancy.
+    # @return [Integer]
+    attr_accessor :max_auto_reclaimable_tables
+
+    # The current number of reclaimable tables in the tenancy.
+    # @return [Integer]
+    attr_accessor :auto_reclaimable_tables
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'items': :'items'
+        'items': :'items',
+        'max_auto_reclaimable_tables': :'maxAutoReclaimableTables',
+        'auto_reclaimable_tables': :'autoReclaimableTables'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +34,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'items': :'Array<OCI::Nosql::Models::TableSummary>'
+        'items': :'Array<OCI::Nosql::Models::TableSummary>',
+        'max_auto_reclaimable_tables': :'Integer',
+        'auto_reclaimable_tables': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +48,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<OCI::Nosql::Models::TableSummary>] :items The value to assign to the {#items} property
+    # @option attributes [Integer] :max_auto_reclaimable_tables The value to assign to the {#max_auto_reclaimable_tables} property
+    # @option attributes [Integer] :auto_reclaimable_tables The value to assign to the {#auto_reclaimable_tables} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -43,6 +57,18 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.items = attributes[:'items'] if attributes[:'items']
+
+      self.max_auto_reclaimable_tables = attributes[:'maxAutoReclaimableTables'] if attributes[:'maxAutoReclaimableTables']
+
+      raise 'You cannot provide both :maxAutoReclaimableTables and :max_auto_reclaimable_tables' if attributes.key?(:'maxAutoReclaimableTables') && attributes.key?(:'max_auto_reclaimable_tables')
+
+      self.max_auto_reclaimable_tables = attributes[:'max_auto_reclaimable_tables'] if attributes[:'max_auto_reclaimable_tables']
+
+      self.auto_reclaimable_tables = attributes[:'autoReclaimableTables'] if attributes[:'autoReclaimableTables']
+
+      raise 'You cannot provide both :autoReclaimableTables and :auto_reclaimable_tables' if attributes.key?(:'autoReclaimableTables') && attributes.key?(:'auto_reclaimable_tables')
+
+      self.auto_reclaimable_tables = attributes[:'auto_reclaimable_tables'] if attributes[:'auto_reclaimable_tables']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -56,7 +82,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        items == other.items
+        items == other.items &&
+        max_auto_reclaimable_tables == other.max_auto_reclaimable_tables &&
+        auto_reclaimable_tables == other.auto_reclaimable_tables
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -72,7 +100,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [items].hash
+      [items, max_auto_reclaimable_tables, auto_reclaimable_tables].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

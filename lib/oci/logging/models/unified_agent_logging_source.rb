@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # logging source object.
+  # Logging source object.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Logging::Models::UnifiedAgentLoggingSource
     SOURCE_TYPE_ENUM = [
@@ -19,7 +19,7 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** unified schema logging source Type
+    # **[Required]** Unified schema logging source type.
     # @return [String]
     attr_reader :source_type
 

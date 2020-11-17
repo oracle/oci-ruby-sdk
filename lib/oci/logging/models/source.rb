@@ -14,7 +14,7 @@ module OCI
       SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The source of the log.
+    # **[Required]** The log source.
     # * **OCISERVICE:** Oracle Service.
     #
     # @return [String]
