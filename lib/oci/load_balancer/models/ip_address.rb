@@ -23,12 +23,16 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_public
 
+    # @return [OCI::LoadBalancer::Models::ReservedIP]
+    attr_accessor :reserved_ip
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'ip_address': :'ipAddress',
-        'is_public': :'isPublic'
+        'is_public': :'isPublic',
+        'reserved_ip': :'reservedIp'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,7 +42,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'ip_address': :'String',
-        'is_public': :'BOOLEAN'
+        'is_public': :'BOOLEAN',
+        'reserved_ip': :'OCI::LoadBalancer::Models::ReservedIP'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,6 +56,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
     # @option attributes [BOOLEAN] :is_public The value to assign to the {#is_public} property
+    # @option attributes [OCI::LoadBalancer::Models::ReservedIP] :reserved_ip The value to assign to the {#reserved_ip} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -68,6 +74,12 @@ module OCI
       raise 'You cannot provide both :isPublic and :is_public' if attributes.key?(:'isPublic') && attributes.key?(:'is_public')
 
       self.is_public = attributes[:'is_public'] unless attributes[:'is_public'].nil?
+
+      self.reserved_ip = attributes[:'reservedIp'] if attributes[:'reservedIp']
+
+      raise 'You cannot provide both :reservedIp and :reserved_ip' if attributes.key?(:'reservedIp') && attributes.key?(:'reserved_ip')
+
+      self.reserved_ip = attributes[:'reserved_ip'] if attributes[:'reserved_ip']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -82,7 +94,8 @@ module OCI
 
       self.class == other.class &&
         ip_address == other.ip_address &&
-        is_public == other.is_public
+        is_public == other.is_public &&
+        reserved_ip == other.reserved_ip
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -98,7 +111,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [ip_address, is_public].hash
+      [ip_address, is_public, reserved_ip].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

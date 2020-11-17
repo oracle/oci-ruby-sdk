@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # ExtractLogFieldResults model.
+  # log field path values
   class LogAnalytics::Models::ExtractLogFieldResults
     # log field path values
     # @return [Array<String>]

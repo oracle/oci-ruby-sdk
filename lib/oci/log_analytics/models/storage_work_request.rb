@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Storage work request details.
+  # This shows the storage work request details.
   #
   class LogAnalytics::Models::StorageWorkRequest
     STATUS_ENUM = [
@@ -34,7 +34,7 @@ module OCI
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Unique OCID identifier to reference this storage work Request with.
+    # **[Required]** This is the OCID of the storage work Request.
     #
     # @return [String]
     attr_accessor :id
@@ -65,52 +65,52 @@ module OCI
     # @return [Integer]
     attr_accessor :percent_complete
 
-    # **[Required]** Work request status.
+    # **[Required]** This is the work request status.
     #
     # @return [String]
     attr_reader :status
 
-    # the start of the time interval
+    # This is the start of the time interval
     # @return [DateTime]
     attr_accessor :time_data_started
 
-    # **[Required]** the end of the time interval
+    # **[Required]** This is the end of the time interval
     # @return [DateTime]
     attr_accessor :time_data_ended
 
-    # the solr data filter query, '*' means all
+    # This is the solr query used to filter data for purge, '*' means all
     # @return [String]
     attr_accessor :purge_query_string
 
-    # **[Required]** the type of the log data to be purged
+    # **[Required]** Thie is the type of data to be purged
     # @return [String]
     attr_reader :data_type
 
-    # more detailed status if applicable
+    # This provides more detailed status if applicable
     # @return [String]
     attr_accessor :status_details
 
-    # more detailed info about this operation if applicable
+    # This provides more detailed info about the work request if applicable
     # @return [String]
     attr_accessor :operation_details
 
-    # policy name if applicable (e.g. purge policy)
+    # This is the policy name if applicable (e.g. purge policy)
     # @return [String]
     attr_accessor :policy_name
 
-    # purge policy ID
+    # This is the purge policy ID if applicable
     # @return [String]
     attr_accessor :policy_id
 
-    # storage usage in bytes if applicable
+    # This is the data usage in bytes if applicable
     # @return [Integer]
     attr_accessor :storage_usage_in_bytes
 
-    # if true, purge child compartments data, only applicable to purge request
+    # If true, purge child compartments data, only applicable to purge request
     # @return [BOOLEAN]
     attr_accessor :compartment_id_in_subtree
 
-    # **[Required]** Asynchronous storage request name.
+    # **[Required]** This is the type of the work request.
     #
     # @return [String]
     attr_reader :operation_type

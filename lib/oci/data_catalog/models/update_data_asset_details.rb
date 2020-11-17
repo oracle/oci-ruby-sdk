@@ -17,6 +17,10 @@ module OCI
     # @return [String]
     attr_accessor :description
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>]
+    attr_accessor :custom_property_members
+
     # A map of maps that contains the properties which are specific to the asset type. Each data asset type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -32,6 +36,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'description': :'description',
+        'custom_property_members': :'customPropertyMembers',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -43,6 +48,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'description': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertySetUsage>',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -56,6 +62,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -70,6 +77,12 @@ module OCI
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
 
       self.properties = attributes[:'properties'] if attributes[:'properties']
     end
@@ -87,6 +100,7 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         description == other.description &&
+        custom_property_members == other.custom_property_members &&
         properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -103,7 +117,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, properties].hash
+      [display_name, description, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

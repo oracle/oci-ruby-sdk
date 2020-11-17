@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Provides the updated compartment OCID
+  # Moves the resource to the specified compartment.
   class ApplicationMigration::Models::ChangeCompartmentDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment
-    # into which the resource should be moved.
+    # to move the resource to.
     #
     # @return [String]
     attr_accessor :compartment_id

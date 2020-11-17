@@ -7,7 +7,7 @@ require_relative 'unified_agent_parser'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Syslog Parser
+  # Syslog Parser.
   class Logging::Models::UnifiedAgentSyslogParser < Logging::Models::UnifiedAgentParser
     MESSAGE_FORMAT_ENUM = [
       MESSAGE_FORMAT_RFC3164 = 'RFC3164'.freeze,

@@ -47,6 +47,19 @@ module OCI
     # @return [Array<String>]
     attr_accessor :security_list_ids
 
+    # The CIDR IP address block of the Subnet. The CIDR must maintain the following rules -
+    #
+    # a. The CIDR block is valid and correctly formatted.
+    # b. The new range is within one of the parent VCN ranges.
+    # c. The old and new CIDR ranges both use the same base address. Example: 10.0.0.0/25 and 10.0.0.0/24.
+    # d. The new CIDR range contains all previously allocated private IP addresses in the old CIDR range.
+    # e. No previously allocated IP address overlaps the broadcast address (the last IP of a subnet CIDR range) of the new CIDR range.
+    #
+    # Example: `172.16.0.0/16`
+    #
+    # @return [String]
+    attr_accessor :cidr_block
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -56,7 +69,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'route_table_id': :'routeTableId',
-        'security_list_ids': :'securityListIds'
+        'security_list_ids': :'securityListIds',
+        'cidr_block': :'cidrBlock'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -70,7 +84,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'route_table_id': :'String',
-        'security_list_ids': :'Array<String>'
+        'security_list_ids': :'Array<String>',
+        'cidr_block': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -87,6 +102,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [Array<String>] :security_list_ids The value to assign to the {#security_list_ids} property
+    # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -128,6 +144,12 @@ module OCI
       raise 'You cannot provide both :securityListIds and :security_list_ids' if attributes.key?(:'securityListIds') && attributes.key?(:'security_list_ids')
 
       self.security_list_ids = attributes[:'security_list_ids'] if attributes[:'security_list_ids']
+
+      self.cidr_block = attributes[:'cidrBlock'] if attributes[:'cidrBlock']
+
+      raise 'You cannot provide both :cidrBlock and :cidr_block' if attributes.key?(:'cidrBlock') && attributes.key?(:'cidr_block')
+
+      self.cidr_block = attributes[:'cidr_block'] if attributes[:'cidr_block']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -146,7 +168,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         route_table_id == other.route_table_id &&
-        security_list_ids == other.security_list_ids
+        security_list_ids == other.security_list_ids &&
+        cidr_block == other.cidr_block
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -162,7 +185,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, dhcp_options_id, display_name, freeform_tags, route_table_id, security_list_ids].hash
+      [defined_tags, dhcp_options_id, display_name, freeform_tags, route_table_id, security_list_ids, cidr_block].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

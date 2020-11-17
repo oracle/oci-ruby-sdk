@@ -28,7 +28,7 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#create_log_analytics_entity} and then waits for the {OCI::LogAnalytics::Models::LogAnalyticsEntity} acted upon
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsEntityDetails] create_log_analytics_entity_details Details for the new log analytics entity.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::LogAnalyticsEntity#lifecycle_state}
@@ -69,7 +69,7 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#create_log_analytics_object_collection_rule} and then waits for the {OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule} acted upon
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsObjectCollectionRuleDetails] create_log_analytics_object_collection_rule_details Details of the rule to be created.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule#lifecycle_state}
@@ -110,7 +110,7 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#create_scheduled_task} and then waits for the {OCI::LogAnalytics::Models::ScheduledTask} acted upon
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateScheduledTaskDetails] create_scheduled_task_details Scheduled task to be created.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::ScheduledTask#lifecycle_state}
@@ -148,10 +148,61 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#delete_associations} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [OCI::LogAnalytics::Models::DeleteLogAnalyticsAssociationDetails] delete_log_analytics_association_details details for association
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#delete_associations}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LogAnalytics::Models::WorkRequest}
+    def delete_associations_and_wait_for_state(namespace_name, delete_log_analytics_association_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.delete_associations(namespace_name, delete_log_analytics_association_details, base_operation_opts)
+      use_util = OCI::LogAnalytics::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::LogAnalytics::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#offboard_namespace} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#offboard_namespace}
@@ -201,7 +252,7 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#onboard_namespace} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#onboard_namespace}
@@ -251,9 +302,9 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#purge_storage_data} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [OCI::LogAnalytics::Models::PurgeStorageDataDetails] purge_storage_data_details purge old data request details
+    # @param [OCI::LogAnalytics::Models::PurgeStorageDataDetails] purge_storage_data_details This is the input to purge old data.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#purge_storage_data}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -302,7 +353,7 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#query} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::QueryDetails] query_details Query to be executed.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
@@ -353,9 +404,9 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#recall_archived_data} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [OCI::LogAnalytics::Models::RecallArchivedDataDetails] recall_archived_data_details recall archived data request details
+    # @param [OCI::LogAnalytics::Models::RecallArchivedDataDetails] recall_archived_data_details This is the input to recall archived data.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#recall_archived_data}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -404,9 +455,9 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#release_recalled_data} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [OCI::LogAnalytics::Models::ReleaseRecalledDataDetails] release_recalled_data_details release recalled data request details
+    # @param [OCI::LogAnalytics::Models::ReleaseRecalledDataDetails] release_recalled_data_details This is the input to release recalled data
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#release_recalled_data}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -455,7 +506,7 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#update_log_analytics_entity} and then waits for the {OCI::LogAnalytics::Models::LogAnalyticsEntity} acted upon
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
@@ -498,9 +549,9 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#update_log_analytics_object_collection_rule} and then waits for the {OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule} acted upon
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The log analytics os collection rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
     # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsObjectCollectionRuleDetails] update_log_analytics_object_collection_rule_details The rule config to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#update_log_analytics_object_collection_rule}
@@ -540,7 +591,7 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#update_scheduled_task} and then waits for the {OCI::LogAnalytics::Models::ScheduledTask} acted upon
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
     #   If invalid will lead to a 404 not found.
@@ -586,7 +637,7 @@ module OCI
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#upsert_associations} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsAssociationDetails] upsert_log_analytics_association_details list of association details
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}

@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An application running in the source environment that is available for export.
+  # Details about an application running in the source environment that you can migrate to Oracle Cloud Infrastructure.
   #
   class ApplicationMigration::Models::SourceApplication
     TYPE_ENUM = [
@@ -17,23 +17,23 @@ module OCI
       TYPE_PCS = 'PCS'.freeze
     ].freeze
 
-    # The name of the application
+    # The name of the application.
     # @return [String]
     attr_accessor :name
 
-    # The type of application
+    # The type of application.
     # @return [String]
     attr_reader :type
 
-    # Unique identifier (OCID) for the Source to which the application belongs
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the source to which the application belongs.
     # @return [String]
     attr_accessor :source_id
 
-    # The version of the application server
+    # The version of the application.
     # @return [String]
     attr_accessor :version
 
-    # The current application running state
+    # The current state of the application.
     # @return [String]
     attr_accessor :state
 

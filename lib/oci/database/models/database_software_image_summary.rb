@@ -110,6 +110,10 @@ module OCI
     # @return [String]
     attr_accessor :ls_inventory
 
+    # True if this Database software image is supported for Upgrade.
+    # @return [BOOLEAN]
+    attr_accessor :is_upgrade_supported
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -129,7 +133,8 @@ module OCI
         'database_software_image_included_patches': :'databaseSoftwareImageIncludedPatches',
         'included_patches_summary': :'includedPatchesSummary',
         'database_software_image_one_off_patches': :'databaseSoftwareImageOneOffPatches',
-        'ls_inventory': :'lsInventory'
+        'ls_inventory': :'lsInventory',
+        'is_upgrade_supported': :'isUpgradeSupported'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -153,7 +158,8 @@ module OCI
         'database_software_image_included_patches': :'Array<String>',
         'included_patches_summary': :'String',
         'database_software_image_one_off_patches': :'Array<String>',
-        'ls_inventory': :'String'
+        'ls_inventory': :'String',
+        'is_upgrade_supported': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -180,6 +186,7 @@ module OCI
     # @option attributes [String] :included_patches_summary The value to assign to the {#included_patches_summary} property
     # @option attributes [Array<String>] :database_software_image_one_off_patches The value to assign to the {#database_software_image_one_off_patches} property
     # @option attributes [String] :ls_inventory The value to assign to the {#ls_inventory} property
+    # @option attributes [BOOLEAN] :is_upgrade_supported The value to assign to the {#is_upgrade_supported} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -277,6 +284,12 @@ module OCI
       raise 'You cannot provide both :lsInventory and :ls_inventory' if attributes.key?(:'lsInventory') && attributes.key?(:'ls_inventory')
 
       self.ls_inventory = attributes[:'ls_inventory'] if attributes[:'ls_inventory']
+
+      self.is_upgrade_supported = attributes[:'isUpgradeSupported'] unless attributes[:'isUpgradeSupported'].nil?
+
+      raise 'You cannot provide both :isUpgradeSupported and :is_upgrade_supported' if attributes.key?(:'isUpgradeSupported') && attributes.key?(:'is_upgrade_supported')
+
+      self.is_upgrade_supported = attributes[:'is_upgrade_supported'] unless attributes[:'is_upgrade_supported'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -344,7 +357,8 @@ module OCI
         database_software_image_included_patches == other.database_software_image_included_patches &&
         included_patches_summary == other.included_patches_summary &&
         database_software_image_one_off_patches == other.database_software_image_one_off_patches &&
-        ls_inventory == other.ls_inventory
+        ls_inventory == other.ls_inventory &&
+        is_upgrade_supported == other.is_upgrade_supported
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -360,7 +374,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, database_version, display_name, lifecycle_state, lifecycle_details, time_created, image_type, image_shape_family, patch_set, freeform_tags, defined_tags, database_software_image_included_patches, included_patches_summary, database_software_image_one_off_patches, ls_inventory].hash
+      [id, compartment_id, database_version, display_name, lifecycle_state, lifecycle_details, time_created, image_type, image_shape_family, patch_set, freeform_tags, defined_tags, database_software_image_included_patches, included_patches_summary, database_software_image_one_off_patches, ls_inventory, is_upgrade_supported].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

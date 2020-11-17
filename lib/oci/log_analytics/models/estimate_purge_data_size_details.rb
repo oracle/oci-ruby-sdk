@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Parameters used to estimate purge data size
+  # This is the input used to estimate the size of data that might be purged
   #
   class LogAnalytics::Models::EstimatePurgeDataSizeDetails
     DATA_TYPE_ENUM = [
@@ -13,23 +13,23 @@ module OCI
       DATA_TYPE_LOOKUP = 'LOOKUP'.freeze
     ].freeze
 
-    # **[Required]** the compartment OCID under which the data will be purged
+    # **[Required]** This is the compartment OCID under which the data will be purged
     # @return [String]
     attr_accessor :compartment_id
 
-    # if true, purge child compartments data
+    # If true, purge child compartments data
     # @return [BOOLEAN]
     attr_accessor :compartment_id_in_subtree
 
-    # **[Required]** the time before which data will be purged
+    # **[Required]** This is the time before which data will be purged
     # @return [DateTime]
     attr_accessor :time_data_ended
 
-    # the solr data filter query, '*' means all
+    # This is the solr data filter query, '*' means all
     # @return [String]
     attr_accessor :purge_query_string
 
-    # the type of the log data to be purged
+    # This is the type of the log data to be purged
     # @return [String]
     attr_reader :data_type
 

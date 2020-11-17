@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Parameters that a category of resource supports.
+  # Parameters that a resource category supports.
   class Logging::Models::Parameter
     TYPE_ENUM = [
       TYPE_INTEGER = 'integer'.freeze,
@@ -23,7 +23,7 @@ module OCI
     # @return [String]
     attr_reader :type
 
-    # Java regex pattern to validate parameter value.
+    # Java regex pattern to validate a parameter value.
     # @return [String]
     attr_accessor :pattern
 

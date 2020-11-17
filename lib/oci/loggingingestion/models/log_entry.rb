@@ -6,11 +6,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contains the content of the log with associated timestamp and id. Each
+  # Contains the log content with the associated timestamp and ID. Each
   # entry should be less than 1 MB size.
   #
   class Loggingingestion::Models::LogEntry
-    # **[Required]** The content of the log entry.
+    # **[Required]** The log entry content.
     # @return [String]
     attr_accessor :data
 
@@ -20,9 +20,8 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # Optional. The timestamp associated with the log entry. Defaults to
-    # PutLogsDetails.defaultlogentrytime if unspecified. An RFC3339 formatted
-    # datetime string.
+    # Optional. The timestamp associated with the log entry. An RFC3339-formatted date-time string.
+    # If unspecified, defaults to PutLogsDetails.defaultlogentrytime.
     #
     # @return [DateTime]
     attr_accessor :time

@@ -85,6 +85,28 @@ module OCI
     # @return [String]
     attr_reader :workflow_status
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>]
+    attr_accessor :custom_property_members
+
+    # The unique key of the job definition resource that was used in the Glossary import.
+    # @return [String]
+    attr_accessor :import_job_definition_key
+
+    # The unique key of the job policy for Glossary import.
+    # @return [String]
+    attr_accessor :import_job_key
+
+    # The unique key of the parent job execution for which the log resource was created.
+    # @return [String]
+    attr_accessor :latest_import_job_execution_key
+
+    # Status of the latest glossary import job execution, such as running, paused, or completed.
+    # This may include additional information like time import started , import file size and % of completion
+    #
+    # @return [String]
+    attr_accessor :latest_import_job_execution_status
+
     # URI to the tag instance in the API.
     # @return [String]
     attr_accessor :uri
@@ -104,6 +126,11 @@ module OCI
         'updated_by_id': :'updatedById',
         'owner': :'owner',
         'workflow_status': :'workflowStatus',
+        'custom_property_members': :'customPropertyMembers',
+        'import_job_definition_key': :'importJobDefinitionKey',
+        'import_job_key': :'importJobKey',
+        'latest_import_job_execution_key': :'latestImportJobExecutionKey',
+        'latest_import_job_execution_status': :'latestImportJobExecutionStatus',
         'uri': :'uri'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -124,6 +151,11 @@ module OCI
         'updated_by_id': :'String',
         'owner': :'String',
         'workflow_status': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
+        'import_job_definition_key': :'String',
+        'import_job_key': :'String',
+        'latest_import_job_execution_key': :'String',
+        'latest_import_job_execution_status': :'String',
         'uri': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -146,6 +178,11 @@ module OCI
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [String] :owner The value to assign to the {#owner} property
     # @option attributes [String] :workflow_status The value to assign to the {#workflow_status} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
+    # @option attributes [String] :import_job_definition_key The value to assign to the {#import_job_definition_key} property
+    # @option attributes [String] :import_job_key The value to assign to the {#import_job_key} property
+    # @option attributes [String] :latest_import_job_execution_key The value to assign to the {#latest_import_job_execution_key} property
+    # @option attributes [String] :latest_import_job_execution_status The value to assign to the {#latest_import_job_execution_status} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -207,6 +244,36 @@ module OCI
 
       self.workflow_status = attributes[:'workflow_status'] if attributes[:'workflow_status']
 
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
+
+      self.import_job_definition_key = attributes[:'importJobDefinitionKey'] if attributes[:'importJobDefinitionKey']
+
+      raise 'You cannot provide both :importJobDefinitionKey and :import_job_definition_key' if attributes.key?(:'importJobDefinitionKey') && attributes.key?(:'import_job_definition_key')
+
+      self.import_job_definition_key = attributes[:'import_job_definition_key'] if attributes[:'import_job_definition_key']
+
+      self.import_job_key = attributes[:'importJobKey'] if attributes[:'importJobKey']
+
+      raise 'You cannot provide both :importJobKey and :import_job_key' if attributes.key?(:'importJobKey') && attributes.key?(:'import_job_key')
+
+      self.import_job_key = attributes[:'import_job_key'] if attributes[:'import_job_key']
+
+      self.latest_import_job_execution_key = attributes[:'latestImportJobExecutionKey'] if attributes[:'latestImportJobExecutionKey']
+
+      raise 'You cannot provide both :latestImportJobExecutionKey and :latest_import_job_execution_key' if attributes.key?(:'latestImportJobExecutionKey') && attributes.key?(:'latest_import_job_execution_key')
+
+      self.latest_import_job_execution_key = attributes[:'latest_import_job_execution_key'] if attributes[:'latest_import_job_execution_key']
+
+      self.latest_import_job_execution_status = attributes[:'latestImportJobExecutionStatus'] if attributes[:'latestImportJobExecutionStatus']
+
+      raise 'You cannot provide both :latestImportJobExecutionStatus and :latest_import_job_execution_status' if attributes.key?(:'latestImportJobExecutionStatus') && attributes.key?(:'latest_import_job_execution_status')
+
+      self.latest_import_job_execution_status = attributes[:'latest_import_job_execution_status'] if attributes[:'latest_import_job_execution_status']
+
       self.uri = attributes[:'uri'] if attributes[:'uri']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -258,6 +325,11 @@ module OCI
         updated_by_id == other.updated_by_id &&
         owner == other.owner &&
         workflow_status == other.workflow_status &&
+        custom_property_members == other.custom_property_members &&
+        import_job_definition_key == other.import_job_definition_key &&
+        import_job_key == other.import_job_key &&
+        latest_import_job_execution_key == other.latest_import_job_execution_key &&
+        latest_import_job_execution_status == other.latest_import_job_execution_status &&
         uri == other.uri
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -274,7 +346,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, catalog_id, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, owner, workflow_status, uri].hash
+      [key, display_name, description, catalog_id, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, owner, workflow_status, custom_property_members, import_job_definition_key, import_job_key, latest_import_job_execution_key, latest_import_job_execution_status, uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

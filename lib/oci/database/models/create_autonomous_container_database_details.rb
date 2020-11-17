@@ -9,7 +9,13 @@ module OCI
   #
   class Database::Models::CreateAutonomousContainerDatabaseDetails
     SERVICE_LEVEL_AGREEMENT_TYPE_ENUM = [
-      SERVICE_LEVEL_AGREEMENT_TYPE_STANDARD = 'STANDARD'.freeze
+      SERVICE_LEVEL_AGREEMENT_TYPE_STANDARD = 'STANDARD'.freeze,
+      SERVICE_LEVEL_AGREEMENT_TYPE_AUTONOMOUS_DATAGUARD = 'AUTONOMOUS_DATAGUARD'.freeze
+    ].freeze
+
+    PROTECTION_MODE_ENUM = [
+      PROTECTION_MODE_MAXIMUM_AVAILABILITY = 'MAXIMUM_AVAILABILITY'.freeze,
+      PROTECTION_MODE_MAXIMUM_PERFORMANCE = 'MAXIMUM_PERFORMANCE'.freeze
     ].freeze
 
     PATCH_MODEL_ENUM = [
@@ -33,6 +39,35 @@ module OCI
     # @return [String]
     attr_accessor :autonomous_exadata_infrastructure_id
 
+    # The OCID of the peer Autonomous Exadata Infrastructure for Autonomous Data Guard.
+    # @return [String]
+    attr_accessor :peer_autonomous_exadata_infrastructure_id
+
+    # The display name for the peer Autonomous Container Database.
+    # @return [String]
+    attr_accessor :peer_autonomous_container_database_display_name
+
+    # The protection mode of this Autonomous Data Guard association. For more information, see
+    # [Oracle Data Guard Protection Modes](http://docs.oracle.com/database/122/SBYDB/oracle-data-guard-protection-modes.htm#SBYDB02000)
+    # in the Oracle Data Guard documentation.
+    #
+    # @return [String]
+    attr_reader :protection_mode
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the peer Autonomous VM cluster for Autonomous Data Guard. Required to enable Data Guard.
+    #
+    # @return [String]
+    attr_accessor :peer_autonomous_vm_cluster_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment where the standby Autonomous Container Database
+    # will be created.
+    #
+    # @return [String]
+    attr_accessor :peer_autonomous_container_database_compartment_id
+
+    # @return [OCI::Database::Models::PeerAutonomousContainerDatabaseBackupConfig]
+    attr_accessor :peer_autonomous_container_database_backup_config
+
     # The OCID of the Autonomous VM Cluster.
     # @return [String]
     attr_accessor :autonomous_vm_cluster_id
@@ -47,6 +82,12 @@ module OCI
 
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window_details
+
+    # The scheduling detail for the quarterly maintenance window of the standby Autonomous Container Database.
+    # This value represents the number of days before the primary database maintenance schedule.
+    #
+    # @return [Integer]
+    attr_accessor :standby_maintenance_buffer_in_days
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -78,6 +119,10 @@ module OCI
     # @return [String]
     attr_accessor :vault_id
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the key store.
+    # @return [String]
+    attr_accessor :key_store_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -86,16 +131,24 @@ module OCI
         'db_unique_name': :'dbUniqueName',
         'service_level_agreement_type': :'serviceLevelAgreementType',
         'autonomous_exadata_infrastructure_id': :'autonomousExadataInfrastructureId',
+        'peer_autonomous_exadata_infrastructure_id': :'peerAutonomousExadataInfrastructureId',
+        'peer_autonomous_container_database_display_name': :'peerAutonomousContainerDatabaseDisplayName',
+        'protection_mode': :'protectionMode',
+        'peer_autonomous_vm_cluster_id': :'peerAutonomousVmClusterId',
+        'peer_autonomous_container_database_compartment_id': :'peerAutonomousContainerDatabaseCompartmentId',
+        'peer_autonomous_container_database_backup_config': :'peerAutonomousContainerDatabaseBackupConfig',
         'autonomous_vm_cluster_id': :'autonomousVmClusterId',
         'compartment_id': :'compartmentId',
         'patch_model': :'patchModel',
         'maintenance_window_details': :'maintenanceWindowDetails',
+        'standby_maintenance_buffer_in_days': :'standbyMaintenanceBufferInDays',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'backup_config': :'backupConfig',
         'kms_key_id': :'kmsKeyId',
         'kms_key_version_id': :'kmsKeyVersionId',
-        'vault_id': :'vaultId'
+        'vault_id': :'vaultId',
+        'key_store_id': :'keyStoreId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -108,16 +161,24 @@ module OCI
         'db_unique_name': :'String',
         'service_level_agreement_type': :'String',
         'autonomous_exadata_infrastructure_id': :'String',
+        'peer_autonomous_exadata_infrastructure_id': :'String',
+        'peer_autonomous_container_database_display_name': :'String',
+        'protection_mode': :'String',
+        'peer_autonomous_vm_cluster_id': :'String',
+        'peer_autonomous_container_database_compartment_id': :'String',
+        'peer_autonomous_container_database_backup_config': :'OCI::Database::Models::PeerAutonomousContainerDatabaseBackupConfig',
         'autonomous_vm_cluster_id': :'String',
         'compartment_id': :'String',
         'patch_model': :'String',
         'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow',
+        'standby_maintenance_buffer_in_days': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'backup_config': :'OCI::Database::Models::AutonomousContainerDatabaseBackupConfig',
         'kms_key_id': :'String',
         'kms_key_version_id': :'String',
-        'vault_id': :'String'
+        'vault_id': :'String',
+        'key_store_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -132,16 +193,24 @@ module OCI
     # @option attributes [String] :db_unique_name The value to assign to the {#db_unique_name} property
     # @option attributes [String] :service_level_agreement_type The value to assign to the {#service_level_agreement_type} property
     # @option attributes [String] :autonomous_exadata_infrastructure_id The value to assign to the {#autonomous_exadata_infrastructure_id} property
+    # @option attributes [String] :peer_autonomous_exadata_infrastructure_id The value to assign to the {#peer_autonomous_exadata_infrastructure_id} property
+    # @option attributes [String] :peer_autonomous_container_database_display_name The value to assign to the {#peer_autonomous_container_database_display_name} property
+    # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
+    # @option attributes [String] :peer_autonomous_vm_cluster_id The value to assign to the {#peer_autonomous_vm_cluster_id} property
+    # @option attributes [String] :peer_autonomous_container_database_compartment_id The value to assign to the {#peer_autonomous_container_database_compartment_id} property
+    # @option attributes [OCI::Database::Models::PeerAutonomousContainerDatabaseBackupConfig] :peer_autonomous_container_database_backup_config The value to assign to the {#peer_autonomous_container_database_backup_config} property
     # @option attributes [String] :autonomous_vm_cluster_id The value to assign to the {#autonomous_vm_cluster_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :patch_model The value to assign to the {#patch_model} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
+    # @option attributes [Integer] :standby_maintenance_buffer_in_days The value to assign to the {#standby_maintenance_buffer_in_days} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Database::Models::AutonomousContainerDatabaseBackupConfig] :backup_config The value to assign to the {#backup_config} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
+    # @option attributes [String] :key_store_id The value to assign to the {#key_store_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -172,6 +241,42 @@ module OCI
 
       self.autonomous_exadata_infrastructure_id = attributes[:'autonomous_exadata_infrastructure_id'] if attributes[:'autonomous_exadata_infrastructure_id']
 
+      self.peer_autonomous_exadata_infrastructure_id = attributes[:'peerAutonomousExadataInfrastructureId'] if attributes[:'peerAutonomousExadataInfrastructureId']
+
+      raise 'You cannot provide both :peerAutonomousExadataInfrastructureId and :peer_autonomous_exadata_infrastructure_id' if attributes.key?(:'peerAutonomousExadataInfrastructureId') && attributes.key?(:'peer_autonomous_exadata_infrastructure_id')
+
+      self.peer_autonomous_exadata_infrastructure_id = attributes[:'peer_autonomous_exadata_infrastructure_id'] if attributes[:'peer_autonomous_exadata_infrastructure_id']
+
+      self.peer_autonomous_container_database_display_name = attributes[:'peerAutonomousContainerDatabaseDisplayName'] if attributes[:'peerAutonomousContainerDatabaseDisplayName']
+
+      raise 'You cannot provide both :peerAutonomousContainerDatabaseDisplayName and :peer_autonomous_container_database_display_name' if attributes.key?(:'peerAutonomousContainerDatabaseDisplayName') && attributes.key?(:'peer_autonomous_container_database_display_name')
+
+      self.peer_autonomous_container_database_display_name = attributes[:'peer_autonomous_container_database_display_name'] if attributes[:'peer_autonomous_container_database_display_name']
+
+      self.protection_mode = attributes[:'protectionMode'] if attributes[:'protectionMode']
+
+      raise 'You cannot provide both :protectionMode and :protection_mode' if attributes.key?(:'protectionMode') && attributes.key?(:'protection_mode')
+
+      self.protection_mode = attributes[:'protection_mode'] if attributes[:'protection_mode']
+
+      self.peer_autonomous_vm_cluster_id = attributes[:'peerAutonomousVmClusterId'] if attributes[:'peerAutonomousVmClusterId']
+
+      raise 'You cannot provide both :peerAutonomousVmClusterId and :peer_autonomous_vm_cluster_id' if attributes.key?(:'peerAutonomousVmClusterId') && attributes.key?(:'peer_autonomous_vm_cluster_id')
+
+      self.peer_autonomous_vm_cluster_id = attributes[:'peer_autonomous_vm_cluster_id'] if attributes[:'peer_autonomous_vm_cluster_id']
+
+      self.peer_autonomous_container_database_compartment_id = attributes[:'peerAutonomousContainerDatabaseCompartmentId'] if attributes[:'peerAutonomousContainerDatabaseCompartmentId']
+
+      raise 'You cannot provide both :peerAutonomousContainerDatabaseCompartmentId and :peer_autonomous_container_database_compartment_id' if attributes.key?(:'peerAutonomousContainerDatabaseCompartmentId') && attributes.key?(:'peer_autonomous_container_database_compartment_id')
+
+      self.peer_autonomous_container_database_compartment_id = attributes[:'peer_autonomous_container_database_compartment_id'] if attributes[:'peer_autonomous_container_database_compartment_id']
+
+      self.peer_autonomous_container_database_backup_config = attributes[:'peerAutonomousContainerDatabaseBackupConfig'] if attributes[:'peerAutonomousContainerDatabaseBackupConfig']
+
+      raise 'You cannot provide both :peerAutonomousContainerDatabaseBackupConfig and :peer_autonomous_container_database_backup_config' if attributes.key?(:'peerAutonomousContainerDatabaseBackupConfig') && attributes.key?(:'peer_autonomous_container_database_backup_config')
+
+      self.peer_autonomous_container_database_backup_config = attributes[:'peer_autonomous_container_database_backup_config'] if attributes[:'peer_autonomous_container_database_backup_config']
+
       self.autonomous_vm_cluster_id = attributes[:'autonomousVmClusterId'] if attributes[:'autonomousVmClusterId']
 
       raise 'You cannot provide both :autonomousVmClusterId and :autonomous_vm_cluster_id' if attributes.key?(:'autonomousVmClusterId') && attributes.key?(:'autonomous_vm_cluster_id')
@@ -195,6 +300,12 @@ module OCI
       raise 'You cannot provide both :maintenanceWindowDetails and :maintenance_window_details' if attributes.key?(:'maintenanceWindowDetails') && attributes.key?(:'maintenance_window_details')
 
       self.maintenance_window_details = attributes[:'maintenance_window_details'] if attributes[:'maintenance_window_details']
+
+      self.standby_maintenance_buffer_in_days = attributes[:'standbyMaintenanceBufferInDays'] if attributes[:'standbyMaintenanceBufferInDays']
+
+      raise 'You cannot provide both :standbyMaintenanceBufferInDays and :standby_maintenance_buffer_in_days' if attributes.key?(:'standbyMaintenanceBufferInDays') && attributes.key?(:'standby_maintenance_buffer_in_days')
+
+      self.standby_maintenance_buffer_in_days = attributes[:'standby_maintenance_buffer_in_days'] if attributes[:'standby_maintenance_buffer_in_days']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -231,6 +342,12 @@ module OCI
       raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
 
       self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
+
+      self.key_store_id = attributes[:'keyStoreId'] if attributes[:'keyStoreId']
+
+      raise 'You cannot provide both :keyStoreId and :key_store_id' if attributes.key?(:'keyStoreId') && attributes.key?(:'key_store_id')
+
+      self.key_store_id = attributes[:'key_store_id'] if attributes[:'key_store_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -241,6 +358,14 @@ module OCI
       raise "Invalid value for 'service_level_agreement_type': this must be one of the values in SERVICE_LEVEL_AGREEMENT_TYPE_ENUM." if service_level_agreement_type && !SERVICE_LEVEL_AGREEMENT_TYPE_ENUM.include?(service_level_agreement_type)
 
       @service_level_agreement_type = service_level_agreement_type
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] protection_mode Object to be assigned
+    def protection_mode=(protection_mode)
+      raise "Invalid value for 'protection_mode': this must be one of the values in PROTECTION_MODE_ENUM." if protection_mode && !PROTECTION_MODE_ENUM.include?(protection_mode)
+
+      @protection_mode = protection_mode
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -264,16 +389,24 @@ module OCI
         db_unique_name == other.db_unique_name &&
         service_level_agreement_type == other.service_level_agreement_type &&
         autonomous_exadata_infrastructure_id == other.autonomous_exadata_infrastructure_id &&
+        peer_autonomous_exadata_infrastructure_id == other.peer_autonomous_exadata_infrastructure_id &&
+        peer_autonomous_container_database_display_name == other.peer_autonomous_container_database_display_name &&
+        protection_mode == other.protection_mode &&
+        peer_autonomous_vm_cluster_id == other.peer_autonomous_vm_cluster_id &&
+        peer_autonomous_container_database_compartment_id == other.peer_autonomous_container_database_compartment_id &&
+        peer_autonomous_container_database_backup_config == other.peer_autonomous_container_database_backup_config &&
         autonomous_vm_cluster_id == other.autonomous_vm_cluster_id &&
         compartment_id == other.compartment_id &&
         patch_model == other.patch_model &&
         maintenance_window_details == other.maintenance_window_details &&
+        standby_maintenance_buffer_in_days == other.standby_maintenance_buffer_in_days &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         backup_config == other.backup_config &&
         kms_key_id == other.kms_key_id &&
         kms_key_version_id == other.kms_key_version_id &&
-        vault_id == other.vault_id
+        vault_id == other.vault_id &&
+        key_store_id == other.key_store_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -289,7 +422,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, compartment_id, patch_model, maintenance_window_details, freeform_tags, defined_tags, backup_config, kms_key_id, kms_key_version_id, vault_id].hash
+      [display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, peer_autonomous_exadata_infrastructure_id, peer_autonomous_container_database_display_name, protection_mode, peer_autonomous_vm_cluster_id, peer_autonomous_container_database_compartment_id, peer_autonomous_container_database_backup_config, autonomous_vm_cluster_id, compartment_id, patch_model, maintenance_window_details, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, backup_config, kms_key_id, kms_key_version_id, vault_id, key_store_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

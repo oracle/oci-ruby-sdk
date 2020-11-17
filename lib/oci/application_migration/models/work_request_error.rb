@@ -12,7 +12,7 @@ module OCI
     # @return [String]
     attr_accessor :code
 
-    # **[Required]** A human-readable error string.
+    # **[Required]** A user-friendly error string.
     # @return [String]
     attr_accessor :message
 

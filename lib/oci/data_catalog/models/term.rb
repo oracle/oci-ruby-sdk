@@ -104,6 +104,10 @@ module OCI
     # @return [Array<OCI::DataCatalog::Models::TermAssociatedObject>]
     attr_accessor :associated_objects
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>]
+    attr_accessor :custom_property_members
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -124,7 +128,8 @@ module OCI
         'workflow_status': :'workflowStatus',
         'uri': :'uri',
         'associated_object_count': :'associatedObjectCount',
-        'associated_objects': :'associatedObjects'
+        'associated_objects': :'associatedObjects',
+        'custom_property_members': :'customPropertyMembers'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -149,7 +154,8 @@ module OCI
         'workflow_status': :'String',
         'uri': :'String',
         'associated_object_count': :'Integer',
-        'associated_objects': :'Array<OCI::DataCatalog::Models::TermAssociatedObject>'
+        'associated_objects': :'Array<OCI::DataCatalog::Models::TermAssociatedObject>',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -177,6 +183,7 @@ module OCI
     # @option attributes [String] :uri The value to assign to the {#uri} property
     # @option attributes [Integer] :associated_object_count The value to assign to the {#associated_object_count} property
     # @option attributes [Array<OCI::DataCatalog::Models::TermAssociatedObject>] :associated_objects The value to assign to the {#associated_objects} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -266,6 +273,12 @@ module OCI
       raise 'You cannot provide both :associatedObjects and :associated_objects' if attributes.key?(:'associatedObjects') && attributes.key?(:'associated_objects')
 
       self.associated_objects = attributes[:'associated_objects'] if attributes[:'associated_objects']
+
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -321,7 +334,8 @@ module OCI
         workflow_status == other.workflow_status &&
         uri == other.uri &&
         associated_object_count == other.associated_object_count &&
-        associated_objects == other.associated_objects
+        associated_objects == other.associated_objects &&
+        custom_property_members == other.custom_property_members
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -337,7 +351,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, glossary_key, parent_term_key, is_allowed_to_have_child_terms, path, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, owner, workflow_status, uri, associated_object_count, associated_objects].hash
+      [key, display_name, description, glossary_key, parent_term_key, is_allowed_to_have_child_terms, path, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, owner, workflow_status, uri, associated_object_count, associated_objects, custom_property_members].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

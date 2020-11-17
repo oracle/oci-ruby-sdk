@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contains details indicating which compartment the resource should move to
+  # Contains details indicating which compartment the resource should move to.
   class Logging::Models::ChangeLogGroupCompartmentDetails
-    # The of the compartment into which the resource should be moved.
+    # The compartment into which the resource should be moved.
     # @return [String]
     attr_accessor :compartment_id
 

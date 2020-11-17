@@ -27,12 +27,12 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :compartment_id_in_subtree
 
-    # Saved search OCID for this query if known, used to track usage of saved search queryString.
+    # Saved search OCID for this query if known.
     #
     # @return [String]
     attr_accessor :saved_search_id
 
-    # **[Required]** Query to perform.
+    # **[Required]** Query to perform. Must conform to logging analytic querylanguage syntax. Syntax errors will be returned if present.
     # @return [String]
     attr_accessor :query_string
 
@@ -58,12 +58,12 @@ module OCI
     # @return [Integer]
     attr_accessor :query_timeout_in_seconds
 
-    # Option to run the query asynchronously. This will lead to a LogAnalyticsQueryJobWorkRequest being submitted and the {workRequestId} will be returned to fetch the results.
+    # Option to run the query asynchronously. This will lead to a LogAnalyticsQueryJobWorkRequest being submitted and the {workRequestId} will be returned to use for fetching the results.
     #
     # @return [BOOLEAN]
     attr_accessor :should_run_async
 
-    # Execution mode for the query if running asynchronously  (shouldRunAsync is true).
+    # Execution mode for the query if running asynchronously i.e (shouldRunAsync is set to true).
     # @return [String]
     attr_reader :async_mode
 
@@ -79,7 +79,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :should_include_fields
 
-    # Controls if query should ignore pre-calculated results if available and only use raw data.
+    # Controls if query should ignore pre-calculated results if available and only use raw data. If set and no acceleration data is found it will fallback to raw data.
     #
     # @return [BOOLEAN]
     attr_accessor :should_use_acceleration

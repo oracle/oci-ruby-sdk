@@ -99,7 +99,7 @@ module OCI
 
 
     # Adds association between input source log analytics entity and destination entities.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
@@ -173,7 +173,7 @@ module OCI
 
 
     # get basic information about a specified set of labels
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::LabelNames] basic_details List of label names to get information on
     # @param [BOOLEAN] is_include_deleted flag for whether or not to include information on deleted labels
@@ -251,7 +251,7 @@ module OCI
 
 
     # Cancel/Remove query job work request.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -314,7 +314,7 @@ module OCI
 
 
     # Update the compartment of the log analytics entity with the given id.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
@@ -388,7 +388,7 @@ module OCI
 
 
     # Updates the compartment of the Log-Analytics group with the given id.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_log_group_id unique logAnalytics log group identifier
     # @param [OCI::LogAnalytics::Models::ChangeLogAnalyticsLogGroupCompartmentDetails] change_log_analytics_log_group_compartment_details The information to be updated.
@@ -461,10 +461,10 @@ module OCI
 
 
     # Move the rule from it's current compartment to given compartment.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The log analytics os collection rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
-    # @param [OCI::LogAnalytics::Models::ChangeLogAnalyticsObjectCollectionRuleCompartmentDetails] change_log_analytics_object_collection_rule_compartment_details Log Analytics Object Storage based collection rule compartment to be updated to.
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [OCI::LogAnalytics::Models::ChangeLogAnalyticsObjectCollectionRuleCompartmentDetails] change_log_analytics_object_collection_rule_compartment_details The new compartment this Object Collection Rule will be moved to.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -527,7 +527,7 @@ module OCI
 
     # Move the scheduled task into a different compartment within the same tenancy.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
     #   If invalid will lead to a 404 not found.
@@ -604,7 +604,7 @@ module OCI
     # Clean accumulated acceleration data stored for the accelerated saved search.
     # The ScheduledTask taskType must be ACCELERATION.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
     #   If invalid will lead to a 404 not found.
@@ -678,7 +678,7 @@ module OCI
 
 
     # Create a new log analytics entity.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsEntityDetails] create_log_analytics_entity_details Details for the new log analytics entity.
     # @param [Hash] opts the optional parameters
@@ -742,7 +742,7 @@ module OCI
 
 
     # Add custom log analytics entity type.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsEntityTypeDetails] create_log_analytics_entity_type_details Definition for custom log analytics entity type.
     # @param [Hash] opts the optional parameters
@@ -805,7 +805,7 @@ module OCI
 
 
     # Creates a new Log-Analytics group.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsLogGroupDetails] create_log_analytics_log_group_details Details for the new Log-Analytics group.
     # @param [Hash] opts the optional parameters
@@ -869,7 +869,7 @@ module OCI
 
 
     # Create a configuration to collect logs from object storage bucket.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsObjectCollectionRuleDetails] create_log_analytics_object_collection_rule_details Details of the rule to be created.
     # @param [Hash] opts the optional parameters
@@ -925,7 +925,7 @@ module OCI
 
 
     # Schedule a task as specified and return task info.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateScheduledTaskDetails] create_scheduled_task_details Scheduled task to be created.
     # @param [Hash] opts the optional parameters
@@ -989,7 +989,7 @@ module OCI
 
 
     # delete associations
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::DeleteLogAnalyticsAssociationDetails] delete_log_analytics_association_details details for association
     # @param [Hash] opts the optional parameters
@@ -1002,7 +1002,7 @@ module OCI
     #   might be rejected.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ErrorDetails ErrorDetails}
+    # @return [Response] A Response object with data of type nil
     def delete_associations(namespace_name, delete_log_analytics_association_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_associations.' if logger
 
@@ -1037,8 +1037,7 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::LogAnalytics::Models::ErrorDetails'
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1053,7 +1052,7 @@ module OCI
 
 
     # delete field with specified name
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] field_name name of the field to get
     # @param [Hash] opts the optional parameters
@@ -1124,7 +1123,7 @@ module OCI
 
 
     # delete a label
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] label_name name of the label to get
     # @param [Hash] opts the optional parameters
@@ -1195,7 +1194,7 @@ module OCI
 
 
     # Delete log analytics entity with the given id.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
@@ -1259,7 +1258,7 @@ module OCI
 
 
     # Delete the log analytics entity type with the given name.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] entity_type_name Log analytics entity type name.
     #
@@ -1323,7 +1322,7 @@ module OCI
 
 
     # Deletes the Log-Analytics group with the given id.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_log_group_id unique logAnalytics log group identifier
     # @param [Hash] opts the optional parameters
@@ -1388,9 +1387,9 @@ module OCI
     # Deletes a configured object storage bucket based collection rule to stop the log collection of the configured bucket .
     # It will not delete the already collected log data from the configured bucket.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The log analytics os collection rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1451,7 +1450,7 @@ module OCI
 
 
     # delete parser with specified name
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] parser_name parserName
     # @param [Hash] opts the optional parameters
@@ -1522,7 +1521,7 @@ module OCI
 
 
     # Delete the scheduled task.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
     #   If invalid will lead to a 404 not found.
@@ -1587,7 +1586,7 @@ module OCI
 
 
     # delete source with specified ID
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] source_name source name
     # @param [Hash] opts the optional parameters
@@ -1660,7 +1659,7 @@ module OCI
     # Deletes an Upload by its reference.
     # It deletes all the logs in storage asscoiated with the upload and the corresponding upload metadata.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] upload_reference Unique internal identifier to refer to upload container
     # @param [Hash] opts the optional parameters
@@ -1725,7 +1724,7 @@ module OCI
     # Deletes a specific log file inside an upload by providing upload file reference.
     # It deletes all the logs in storage asscoiated with the upload file and the corresponding upload metadata.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] upload_reference Unique internal identifier to refer to upload container
     # @param [String] file_reference Unique internal identifier to refer to upload file
@@ -1785,7 +1784,7 @@ module OCI
 
     # Suppresses a specific warning inside an upload.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] upload_reference Unique internal identifier to refer to upload container
     # @param [String] warning_reference Unique internal identifier to refer to upload warning
@@ -1843,9 +1842,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # disable archiving
+    # This API disables archiving.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1905,9 +1904,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # enable archiving.
+    # THis API enables archiving.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1967,11 +1966,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # estimate the size of data to be purged based on query parameters.
+    # This API estimates the size of data to be purged based based on time interval, purge query etc.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [OCI::LogAnalytics::Models::EstimatePurgeDataSizeDetails] estimate_purge_data_size_details Parameters used to estimate purge data size
+    # @param [OCI::LogAnalytics::Models::EstimatePurgeDataSizeDetails] estimate_purge_data_size_details This is the input to estimate the size of data to be purged.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2040,9 +2039,9 @@ module OCI
 
 
     # export
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [OCI::LogAnalytics::Models::ExportContent] export_custom_content_details
+    # @param [OCI::LogAnalytics::Models::ExportContent] export_custom_content_details content to export
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2150,7 +2149,7 @@ module OCI
 
 
     # Export data based on query. Endpoint returns a stream of data. Endpoint is synchronous. Queries must deliver first result within 60 seconds or calls are subject to timeout.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::ExportDetails] export_details Query to be exported
     # @param [Hash] opts the optional parameters
@@ -2252,7 +2251,7 @@ module OCI
 
 
     # structured log fieldpaths
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::LogAnalyticsParser] logan_parser_details parser definition
     # @param [Hash] opts the optional parameters
@@ -2323,7 +2322,7 @@ module OCI
 
 
     # structured log header paths
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::LogAnalyticsParser] logan_parser_details parser definition
     # @param [Hash] opts the optional parameters
@@ -2393,8 +2392,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Each filter specifies an operator, a field and one or more values.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # Each filter specifies an operator, a field and one or more values to be inserted into the provided query as criteria.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::FilterDetails] filter_details Query string and filters to add or remove
     # @param [Hash] opts the optional parameters
@@ -2450,7 +2449,7 @@ module OCI
 
 
     # association summary
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -2507,7 +2506,7 @@ module OCI
 
 
     # extract column names from SQL query
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] sql_query sql query to get the columns
     # @param [Hash] opts the optional parameters
@@ -2520,7 +2519,7 @@ module OCI
     #   might be rejected.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @return [Response] A Response object with data of type nil
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ColumnNameCollection ColumnNameCollection}
     def get_column_names(namespace_name, sql_query, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_column_names.' if logger
 
@@ -2556,7 +2555,8 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::ColumnNameCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2571,7 +2571,7 @@ module OCI
 
 
     # association summary by source
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -2628,7 +2628,7 @@ module OCI
 
 
     # get common field with specified name
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] field_name name of the field to get
     # @param [Hash] opts the optional parameters
@@ -2685,7 +2685,7 @@ module OCI
 
 
     # get field summary
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2741,7 +2741,7 @@ module OCI
 
 
     # get label with specified name
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] label_name name of the label to get
     # @param [Hash] opts the optional parameters
@@ -2798,7 +2798,7 @@ module OCI
 
 
     # get total count
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2852,7 +2852,7 @@ module OCI
 
 
     # Returns log analytics entities count summary.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -2909,7 +2909,7 @@ module OCI
 
 
     # Retrieve the log analytics entity with the given id.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
@@ -2967,7 +2967,7 @@ module OCI
 
 
     # Retrieve the log analytics entity type with the given name.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] entity_type_name Log analytics entity type name.
     #
@@ -3025,7 +3025,7 @@ module OCI
 
 
     # Retrieves the Log-Analytics group with the given id.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_log_group_id unique logAnalytics log group identifier
     # @param [Hash] opts the optional parameters
@@ -3082,7 +3082,7 @@ module OCI
 
 
     # Returns a count of Log-Analytics groups.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -3139,9 +3139,9 @@ module OCI
 
 
     # Gets a configured object storage based collection rule by given id
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The log analytics os collection rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3195,9 +3195,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get Namespace of a tenancy already onboarded in Log Analytics Application
+    # This API gets the namespace details of a tenancy already onboarded in Logging Analytics Application
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3251,7 +3251,7 @@ module OCI
 
 
     # get parser with fields by Name
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] parser_name parserName
     # @param [Hash] opts the optional parameters
@@ -3308,7 +3308,7 @@ module OCI
 
 
     # parser summary
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3364,7 +3364,7 @@ module OCI
     # Returns the intermediate results for a query that was specified to run asynchronously if the query has not completed,
     # otherwise the final query results identified by a queryWorkRequestId returned when submitting the query execute asynchronously.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -3436,7 +3436,7 @@ module OCI
 
 
     # Retrieve work request details by workRequestId. This endpoint can be polled for status tracking of work request. Clients should poll using the interval returned in the retry-after header.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -3493,7 +3493,7 @@ module OCI
 
 
     # Get the scheduled task for the specified task identifier.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
     #   If invalid will lead to a 404 not found.
@@ -3552,7 +3552,7 @@ module OCI
 
 
     # get source with specified name
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] source_name source name
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -3612,7 +3612,7 @@ module OCI
 
 
     # source summary
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3665,9 +3665,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Storage configuration and status.
+    # This API gets the storage configuration of a tenancy
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3720,9 +3720,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Storage usage info includes active, archived or recalled data.  The unit of return value is in bytes.
+    # This API gets storage usage information of a tenancy.  Storage usage information includes active, archived or recalled
+    # data.  The unit of return data is in bytes.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3775,11 +3776,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Retrieve work request details by key. This endpoint can be polled for status tracking of work request.
-    # Clients should poll using the interval returned in retry-after header.
+    # This API returns work request details specified by {workRequestId}. This API can be polled for status tracking of
+    # work request.  Clients should poll using the interval returned in retry-after header.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3835,7 +3836,7 @@ module OCI
 
 
     # Gets an On-Demand Upload info by reference
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] upload_reference Unique internal identifier to refer to upload container
     # @param [Hash] opts the optional parameters
@@ -3892,7 +3893,7 @@ module OCI
 
 
     # Gets the status of the work request with the given ID.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -3949,7 +3950,7 @@ module OCI
 
 
     # register custom content
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String, IO] import_custom_content_file_body The file to upload which contains the custom content.
     # @param [Hash] opts the optional parameters
@@ -4015,7 +4016,7 @@ module OCI
 
 
     # list of entities that have been associated to at least one source
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -4098,7 +4099,7 @@ module OCI
 
 
     # association summary by source
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -4172,7 +4173,7 @@ module OCI
 
 
     # Return a list of log analytics entities associated with input source log analytics entity.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
@@ -4259,7 +4260,7 @@ module OCI
 
 
     # entity associations summary
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -4351,7 +4352,7 @@ module OCI
 
 
     # get all common field with specified display name and description
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -4445,7 +4446,7 @@ module OCI
 
 
     # get list of priorities
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -4503,7 +4504,7 @@ module OCI
 
 
     # get details of sources using the label
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -4578,7 +4579,7 @@ module OCI
 
 
     # get labels passing specified filter
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -4674,7 +4675,7 @@ module OCI
 
 
     # Return a list of log analytics entities.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -4796,7 +4797,7 @@ module OCI
 
 
     # Return a list of log analytics entity types.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -4894,13 +4895,13 @@ module OCI
 
 
     # Returns a list of Log-Analytics groups.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :display_name A filter to return only log analytics entities whose displayName matches the entire display name given.
+    # @option opts [String] :display_name A filter to return only log analytics log groups whose displayName matches the entire display name given.
     #   The match is case-insensitive.
     #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
@@ -4975,7 +4976,7 @@ module OCI
 
 
     # Gets list of configuration details of Object Storage based collection rules.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -5062,14 +5063,14 @@ module OCI
 
 
     # get all meta source types
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by orderBy (default to name)
+    # @option opts [String] :sort_by sort by field (default to name)
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5129,7 +5130,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List Namespaces.
+    # Given a tenancy OCID, this API returns the namespace of the tenancy if it is valid and subscribed to the region.  The
+    # result also indicates if the tenancy is onboarded with Logging Analytics.
+    #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -5183,7 +5186,7 @@ module OCI
 
 
     # get pre-process plugin instance
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -5191,7 +5194,7 @@ module OCI
     # @option opts [String] :parser_name parserName
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by orderBy (default to name)
+    # @option opts [String] :sort_by sort by field (default to name)
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5253,14 +5256,14 @@ module OCI
 
 
     # get pre-process Meta plugins
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by orderBy (default to name)
+    # @option opts [String] :sort_by sort by field (default to name)
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5321,7 +5324,7 @@ module OCI
 
 
     # List parsers passing specified filter
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -5422,7 +5425,7 @@ module OCI
 
 
     # List active asynchronous queries.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -5505,7 +5508,7 @@ module OCI
 
 
     # Lists scheduled tasks.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] task_type Required parameter to specify schedule task type.
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -5592,7 +5595,7 @@ module OCI
 
 
     # association summary by source
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] source_name sourceName
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -5683,7 +5686,7 @@ module OCI
 
 
     # get source extended fields for source with specified Id
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] source_name source name
     # @param [Hash] opts the optional parameters
@@ -5759,14 +5762,14 @@ module OCI
 
 
     # list source label operators
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by orderBy (default to name)
+    # @option opts [String] :sort_by sort by field (default to name)
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5827,14 +5830,14 @@ module OCI
 
 
     # get source meta functions
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by orderBy (default to name)
+    # @option opts [String] :sort_by sort by field (default to name)
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5895,7 +5898,7 @@ module OCI
 
 
     # get source patterns for source with specified Id
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] source_name source name
     # @param [Hash] opts the optional parameters
@@ -5973,7 +5976,7 @@ module OCI
 
 
     # source list
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -6068,10 +6071,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Retrieve work request errors if any
+    # This API returns the list of work request errors if any.
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -6148,9 +6151,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List non-expired storage manager work requests.
+    # This API lists storage work requests.  Use query parameters to narrow down or sort the result list.
+    #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -6161,15 +6165,16 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeAccepted is descending. If no value is specified timeAccepted is default.
+    # @option opts [String] :sort_by This is the query parameter of which field to sort by. Only one sort order may be provided. Default order for timeAccepted
+    #   is descending. If no value is specified timeAccepted is default.
     #    (default to timeAccepted)
     #   Allowed values are: timeAccepted, timeExpires, timeFinished
-    # @option opts [String] :operation_type storage operation type
-    # @option opts [String] :status storage operation status
-    # @option opts [DateTime] :time_started storage operation started time
-    # @option opts [DateTime] :time_finished storage operation time finished
-    # @option opts [String] :policy_name policy name e.g. purge policy
-    # @option opts [String] :policy_id policy ID e.g. purge policy ID
+    # @option opts [String] :operation_type The is the work request type query parameter
+    # @option opts [String] :status The is the work request status query parameter
+    # @option opts [DateTime] :time_started The is the query parameter of when the processing of work request was started
+    # @option opts [DateTime] :time_finished The is the query parameter of when the processing of work request was finished
+    # @option opts [String] :policy_name This is the query parameter of purge policy name
+    # @option opts [String] :policy_id This is the query parameter of purge policy ID
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::StorageWorkRequestCollection StorageWorkRequestCollection}
     def list_storage_work_requests(compartment_id, namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_storage_work_requests.' if logger
@@ -6246,7 +6251,7 @@ module OCI
 
 
     # Gets the list of character encodings supported for log files.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -6304,7 +6309,7 @@ module OCI
 
 
     # Gets timezones that are supported when performing uploads.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -6362,7 +6367,7 @@ module OCI
 
 
     # Gets list of files in an upload.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] upload_reference Unique internal identifier to refer to upload container
     # @param [Hash] opts the optional parameters
@@ -6376,8 +6381,8 @@ module OCI
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, fileName, logGroup, sourceName, status
-    # @option opts [String] :search_str Search string
-    # @option opts [Array<String>] :status Status (default to [])
+    # @option opts [String] :search_str Search string used to filtering uploads based on file name, log group name and log source name.
+    # @option opts [Array<String>] :status Upload Status. (default to [])
     #   Allowed values are: IN_PROGRESS, SUCCESSFUL, FAILED
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::UploadFileCollection UploadFileCollection}
@@ -6454,7 +6459,7 @@ module OCI
 
 
     # Gets list of warnings in an upload explaining the failures due to incorrect configuration.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] upload_reference Unique internal identifier to refer to upload container
     # @param [Hash] opts the optional parameters
@@ -6517,7 +6522,7 @@ module OCI
     # Gets a list of all On-demand uploads.
     # To use this and other API operations, you must be authorized in an IAM policy.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -6598,7 +6603,7 @@ module OCI
 
     # Return a (paginated) list of errors for a given work request.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -6660,7 +6665,7 @@ module OCI
 
     # Return a (paginated) list of logs for a given work request.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -6722,7 +6727,7 @@ module OCI
 
     # Lists the work requests in a compartment.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -6783,12 +6788,18 @@ module OCI
 
 
     # Off-boards a tenant from Logging Analytics
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
     # @return [Response] A Response object with data of type nil
     def offboard_namespace(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#offboard_namespace.' if logger
@@ -6808,7 +6819,9 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 
@@ -6837,7 +6850,7 @@ module OCI
 
     # On-boards a tenant to Logging Analytics.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -6898,7 +6911,7 @@ module OCI
 
 
     # Describe query
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::ParseQueryDetails] parse_query_details Query string to be parsed
     # @param [Hash] opts the optional parameters
@@ -6953,11 +6966,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # submit work requests to purge old data based on the type.
+    # This API submits a work request to purge data. Only data from log groups that the user has permission to delete
+    # will be purged.  To purge all data, the user must have permission to all log groups.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [OCI::LogAnalytics::Models::PurgeStorageDataDetails] purge_storage_data_details purge old data request details
+    # @param [OCI::LogAnalytics::Models::PurgeStorageDataDetails] purge_storage_data_details This is the input to purge old data.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -7024,8 +7038,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Put the work request specified by {workRequestId} into the background.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # Put the work request specified by {workRequestId} into the background. Backgrounded queries will preserve query results on query completion for up to 7 days for recall. After 7 days the results and query expire.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -7090,7 +7104,7 @@ module OCI
 
     # Performs a log analytics search, if shouldRunAsync is false returns the query results once they become available subject to 60 second timeout. If a query is subject to exceed that time then it should be run asynchronously. Asynchronous query submissions return the queryWorkRequestId to use for execution tracking, query submission lifecycle actions and to poll for query results.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::QueryDetails] query_details Query to be executed.
     # @param [Hash] opts the optional parameters
@@ -7149,11 +7163,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # submit work requests to recall archived data.
+    # This API submits a work request to recall archived data based on time interval and data type.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [OCI::LogAnalytics::Models::RecallArchivedDataDetails] recall_archived_data_details recall archived data request details
+    # @param [OCI::LogAnalytics::Models::RecallArchivedDataDetails] recall_archived_data_details This is the input to recall archived data.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -7221,7 +7235,7 @@ module OCI
 
 
     # register lookup
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] type type - possible values are Lookup or Dictionary
     #   Allowed values are: Lookup, Dictionary
@@ -7233,7 +7247,7 @@ module OCI
     #   is case-insensitive.
     #
     # @option opts [String] :description Description of the fields to get
-    # @option opts [String] :char_encoding character Encoding (default to UTF-8)
+    # @option opts [String] :char_encoding Character Encoding (default to UTF-8)
     # @option opts [BOOLEAN] :is_hidden is hidden
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -7301,11 +7315,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # submit work requests to release recalled data.
+    # This API submits a work request to release recalled data based on time interval and data type.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [OCI::LogAnalytics::Models::ReleaseRecalledDataDetails] release_recalled_data_details release recalled data request details
+    # @param [OCI::LogAnalytics::Models::ReleaseRecalledDataDetails] release_recalled_data_details This is the input to release recalled data
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -7373,7 +7387,7 @@ module OCI
 
 
     # Delete association between input source log analytics entity and destination entities.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
@@ -7450,7 +7464,7 @@ module OCI
     # The ScheduledTask taskType must be ACCELERATION.
     # Optionally specify time range (timeStart and timeEnd). The default is all time.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
     #   If invalid will lead to a 404 not found.
@@ -7523,8 +7537,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a context specific list of either commands, fields, or values to add to the end of the query string.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # Returns a context specific list of either commands, fields, or values to append to the end of the specified query string if applicable.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::SuggestDetails] suggest_details Query string seeking suggestions for.
     # @param [Hash] opts the optional parameters
@@ -7580,7 +7594,7 @@ module OCI
 
 
     # test parser
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::TestParserPayloadDetails] test_parser_payload_details Details for test payload
     # @param [Hash] opts the optional parameters
@@ -7653,7 +7667,7 @@ module OCI
 
 
     # Update the log analytics entity with the given id.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
@@ -7720,7 +7734,7 @@ module OCI
 
 
     # Update custom log analytics entity type. Out of box entity types cannot be udpated.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsEntityTypeDetails] update_log_analytics_entity_type_details Log analytics entity type update details.
     # @param [String] entity_type_name Log analytics entity type name.
@@ -7786,7 +7800,7 @@ module OCI
 
 
     # Updates the Log-Analytics group with the given id.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_log_group_id unique logAnalytics log group identifier
     # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsLogGroupDetails] update_log_analytics_log_group_details The information to be updated.
@@ -7852,9 +7866,9 @@ module OCI
 
 
     # Update the rule with the given id.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The log analytics os collection rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
     # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsObjectCollectionRuleDetails] update_log_analytics_object_collection_rule_details The rule config to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -7918,7 +7932,7 @@ module OCI
 
 
     # Update the scheduled task. Schedules may be updated only for taskType SAVED_SEARCH and PURGE.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
     #   If invalid will lead to a 404 not found.
@@ -7987,11 +8001,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # update the archiving configuration
+    # This API updates the archiving configuration
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [OCI::LogAnalytics::Models::UpdateStorageDetails] update_storage_details archiving configuration
+    # @param [OCI::LogAnalytics::Models::UpdateStorageDetails] update_storage_details This is the archiving configuration
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -8051,9 +8065,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Accepts log data for processing by Log Analytics.
+    # Accepts log data for processing by Logging Analytics.
     #
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] upload_name The name of the upload. This can be considered as a container name where different kind of logs will be collected and searched together. This upload name/id can further be used for retrieving the details of the upload, including its status or deleting the upload.
     #
@@ -8062,7 +8076,6 @@ module OCI
     # @param [String] filename The name of the file being uploaded. The extension of the filename part will be used to detect the type of file (like zip, tar).
     #
     # @param [String] opc_meta_loggrpid The log group OCID to which the log data in this upload will be mapped to.
-    #     Example: `ocid1.loganalyticsloggroup.oc1..aaaaaaaad3q4sosi5i7z7onw2kgbwyk1581620537198`
     #
     # @param [String, IO] upload_log_file_body Log data
     # @param [Hash] opts the optional parameters
@@ -8072,20 +8085,20 @@ module OCI
     #
     # @option opts [String] :timezone Timezone to be used when processing log entries whose timestamps do not include an explicit timezone. When this property is not specified, the timezone of the entity specified is used. If the entity is also not specified or do not have a valid timezone then UTC is used
     #
-    # @option opts [String] :char_encoding character Encoding (default to UTF-8)
+    # @option opts [String] :char_encoding Character Encoding (default to UTF-8)
     # @option opts [String] :date_format This property is used to specify the format of the date. This is to be used for ambiguous dates like 12/11/10. This property can take any of the following values -  MONTH_DAY_YEAR, DAY_MONTH_YEAR, YEAR_MONTH_DAY, MONTH_DAY, DAY_MONTH.
     #
     # @option opts [String] :date_year Used to indicate the year where the log entries timestamp do not mention year (Ex: Nov  8 20:45:56).
     #
     # @option opts [BOOLEAN] :invalidate_cache This property can be used to reset configuration cache in case of an issue with the upload. (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Log Analytics performs an integrity check
+    # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body. If the Content-MD5 header is present, Logging Analytics performs an integrity check
     #   on the body of the HTTP request by computing the MD5 hash for the body and comparing it to the MD5 hash supplied in the header.
     #   If the two hashes do not match, the log data is rejected and an HTTP-400 Unmatched Content MD5 error is returned with the message:
     #
     #   \"The computed MD5 of the request body (ACTUAL_MD5) does not match the Content-MD5 header (HEADER_MD5)\"
     #
-    # @option opts [String] :content_type The content type of the log data. Defaults to 'application/octet-stream' if not overridden during the UploadLogFile call.
+    # @option opts [String] :content_type The content type of the log data.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
@@ -8159,7 +8172,7 @@ module OCI
 
 
     # create or update associations for a source
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsAssociationDetails] upsert_log_analytics_association_details list of association details
     # @param [Hash] opts the optional parameters
@@ -8224,7 +8237,7 @@ module OCI
 
 
     # Defines or update a field.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsFieldDetails] upsert_log_analytics_field_details Details for the new LogAnalyticsFieldDetails.
     # @param [Hash] opts the optional parameters
@@ -8295,7 +8308,7 @@ module OCI
 
 
     # Define or update a label.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsLabelDetails] upsert_log_analytics_label_details Details for the new LogAnalyticsTagDetails.
     # @param [Hash] opts the optional parameters
@@ -8366,7 +8379,7 @@ module OCI
 
 
     # Define or update parser
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsParserDetails] upsert_log_analytics_parser_details Details for the new LoganParserDetails.
     # @param [Hash] opts the optional parameters
@@ -8437,7 +8450,7 @@ module OCI
 
 
     # Define or update a source
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsSourceDetails] upsert_log_analytics_source_details Details for the new LoganSourceDetails.
     # @param [Hash] opts the optional parameters
@@ -8514,7 +8527,7 @@ module OCI
 
 
     # association parameter validation
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsAssociationDetails] upsert_log_analytics_association_details Details for the new log analytics associations.
     # @param [Hash] opts the optional parameters
@@ -8597,7 +8610,7 @@ module OCI
 
 
     # Validates a log file to check whether it is eligible to upload or not.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] object_location Location of the log file
     # @param [String] filename The name of the file being uploaded. The extension of the filename part will be used to detect the type of file (like zip, tar).
@@ -8658,7 +8671,7 @@ module OCI
 
 
     # Pre-define or update a source
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsSourceDetails] upsert_log_analytics_source_details Details for the new LoganSourceDetails.
     # @param [Hash] opts the optional parameters
@@ -8728,7 +8741,7 @@ module OCI
 
 
     # test extended fields
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::LogAnalyticsSource] log_analytics_source Details for the new LogAnalyticsSource.
     # @param [Hash] opts the optional parameters
@@ -8792,7 +8805,7 @@ module OCI
 
 
     # Validates the source mapping for given file and provides match status and parsed representation of log data.
-    # @param [String] namespace_name The Log Analytics namespace used for the request.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] object_location Location of the log file
     # @param [String] filename The name of the file being uploaded. The extension of the filename part will be used to detect the type of file (like zip, tar).

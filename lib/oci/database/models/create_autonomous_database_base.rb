@@ -94,12 +94,27 @@ module OCI
     # @return [String]
     attr_accessor :autonomous_container_database_id
 
-    # The client IP access control list (ACL). This feature is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
-    # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance. This is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
+    # Indicates if the database-level access control is enabled.
+    # If disabled, database access is defined by the network security rules.
+    # If enabled, database access is restricted to the IP addresses defined by the rules specified with the `whitelistedIps` property. While specifying `whitelistedIps` rules is optional,
+    #  if database-level access control is enabled and no rules are specified, the database will become inaccessible. The rules can be added later using the `UpdateAutonomousDatabase` API operation or edit option in console.
+    # When creating a database clone, the desired access control setting should be specified. By default, database-level access control will be disabled for the clone.
     #
-    # To add the whitelist VCN specific subnet or IP, use a semicoln ';' as a deliminator to add the VCN specific subnets or IPs.
-    # For an update operation, if you want to delete all the IPs in the ACL, use an array with a single empty string entry.
+    # This property is applicable only to Autonomous Databases on the Exadata Cloud@Customer platform.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_access_control_enabled
+
+    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) and on Exadata Cloud@Customer.
+    # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance.
+    #
+    # For shared Exadata infrastructure, this is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
+    # Use a semicolon (;) as a deliminator between the VCN-specific subnets or IPs.
     # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.<unique_id>\",\"ocid1.vcn.oc1.sea.<unique_id1>;1.1.1.1\",\"ocid1.vcn.oc1.sea.<unique_id2>;1.1.0.0/16\"]`
+    # For Exadata Cloud@Customer, this is an array of IP addresses or CIDR (Classless Inter-Domain Routing) notations.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"1.1.2.25\"]`
+    #
+    # For an update operation, if you want to delete all the IPs in the ACL, use an array with a single empty string entry.
     #
     # @return [Array<String>]
     attr_accessor :whitelisted_ips
@@ -175,6 +190,7 @@ module OCI
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'is_dedicated': :'isDedicated',
         'autonomous_container_database_id': :'autonomousContainerDatabaseId',
+        'is_access_control_enabled': :'isAccessControlEnabled',
         'whitelisted_ips': :'whitelistedIps',
         'is_data_guard_enabled': :'isDataGuardEnabled',
         'subnet_id': :'subnetId',
@@ -205,6 +221,7 @@ module OCI
         'is_auto_scaling_enabled': :'BOOLEAN',
         'is_dedicated': :'BOOLEAN',
         'autonomous_container_database_id': :'String',
+        'is_access_control_enabled': :'BOOLEAN',
         'whitelisted_ips': :'Array<String>',
         'is_data_guard_enabled': :'BOOLEAN',
         'subnet_id': :'String',
@@ -256,6 +273,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
     # @option attributes [String] :autonomous_container_database_id The value to assign to the {#autonomous_container_database_id} property
+    # @option attributes [BOOLEAN] :is_access_control_enabled The value to assign to the {#is_access_control_enabled} property
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
     # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {#is_data_guard_enabled} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
@@ -354,6 +372,12 @@ module OCI
       raise 'You cannot provide both :autonomousContainerDatabaseId and :autonomous_container_database_id' if attributes.key?(:'autonomousContainerDatabaseId') && attributes.key?(:'autonomous_container_database_id')
 
       self.autonomous_container_database_id = attributes[:'autonomous_container_database_id'] if attributes[:'autonomous_container_database_id']
+
+      self.is_access_control_enabled = attributes[:'isAccessControlEnabled'] unless attributes[:'isAccessControlEnabled'].nil?
+
+      raise 'You cannot provide both :isAccessControlEnabled and :is_access_control_enabled' if attributes.key?(:'isAccessControlEnabled') && attributes.key?(:'is_access_control_enabled')
+
+      self.is_access_control_enabled = attributes[:'is_access_control_enabled'] unless attributes[:'is_access_control_enabled'].nil?
 
       self.whitelisted_ips = attributes[:'whitelistedIps'] if attributes[:'whitelistedIps']
 
@@ -455,6 +479,7 @@ module OCI
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         is_dedicated == other.is_dedicated &&
         autonomous_container_database_id == other.autonomous_container_database_id &&
+        is_access_control_enabled == other.is_access_control_enabled &&
         whitelisted_ips == other.whitelisted_ips &&
         is_data_guard_enabled == other.is_data_guard_enabled &&
         subnet_id == other.subnet_id &&
@@ -479,7 +504,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

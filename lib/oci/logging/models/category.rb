@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # categories for resources.
+  # Categories for resources.
   class Logging::Models::Category
-    # Category name
+    # Category name.
     # @return [String]
     attr_accessor :name
 
-    # Category display name
+    # Category display name.
     # @return [String]
     attr_accessor :display_name
 
-    # Parameters category supports.
+    # Parameters the category supports.
     # @return [Array<OCI::Logging::Models::Parameter>]
     attr_accessor :parameters
 

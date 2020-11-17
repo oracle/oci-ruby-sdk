@@ -16,10 +16,25 @@ module OCI
       ZONE_TYPE_SECONDARY = 'SECONDARY'.freeze
     ].freeze
 
-    # The type of the zone. Must be either `PRIMARY` or `SECONDARY`.
+    SCOPE_ENUM = [
+      SCOPE_GLOBAL = 'GLOBAL'.freeze,
+      SCOPE_PRIVATE = 'PRIVATE'.freeze
+    ].freeze
+
+    # The type of the zone. Must be either `PRIMARY` or `SECONDARY`. `SECONDARY` is only supported for GLOBAL
+    # zones.
     #
     # @return [String]
     attr_reader :zone_type
+
+    # This value will be null for zones in the global DNS.
+    #
+    # @return [String]
+    attr_accessor :view_id
+
+    # The scope of the zone.
+    # @return [String]
+    attr_reader :scope
 
     # External master servers for the zone. `externalMasters` becomes a
     # required parameter when the `zoneType` value is `SECONDARY`.
@@ -37,6 +52,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'zone_type': :'zoneType',
+        'view_id': :'viewId',
+        'scope': :'scope',
         'external_masters': :'externalMasters'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -52,6 +69,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'zone_type': :'String',
+        'view_id': :'String',
+        'scope': :'String',
         'external_masters': :'Array<OCI::Dns::Models::ExternalMaster>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -68,6 +87,8 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Dns::Models::CreateZoneBaseDetails#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Dns::Models::CreateZoneBaseDetails#defined_tags #defined_tags} proprety
     # @option attributes [String] :zone_type The value to assign to the {#zone_type} property
+    # @option attributes [String] :view_id The value to assign to the {#view_id} property
+    # @option attributes [String] :scope The value to assign to the {#scope} property
     # @option attributes [Array<OCI::Dns::Models::ExternalMaster>] :external_masters The value to assign to the {#external_masters} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -84,6 +105,14 @@ module OCI
       raise 'You cannot provide both :zoneType and :zone_type' if attributes.key?(:'zoneType') && attributes.key?(:'zone_type')
 
       self.zone_type = attributes[:'zone_type'] if attributes[:'zone_type']
+
+      self.view_id = attributes[:'viewId'] if attributes[:'viewId']
+
+      raise 'You cannot provide both :viewId and :view_id' if attributes.key?(:'viewId') && attributes.key?(:'view_id')
+
+      self.view_id = attributes[:'view_id'] if attributes[:'view_id']
+
+      self.scope = attributes[:'scope'] if attributes[:'scope']
 
       self.external_masters = attributes[:'externalMasters'] if attributes[:'externalMasters']
 
@@ -102,6 +131,14 @@ module OCI
       @zone_type = zone_type
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] scope Object to be assigned
+    def scope=(scope)
+      raise "Invalid value for 'scope': this must be one of the values in SCOPE_ENUM." if scope && !SCOPE_ENUM.include?(scope)
+
+      @scope = scope
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -117,6 +154,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         zone_type == other.zone_type &&
+        view_id == other.view_id &&
+        scope == other.scope &&
         external_masters == other.external_masters
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -133,7 +172,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [migration_source, name, compartment_id, freeform_tags, defined_tags, zone_type, external_masters].hash
+      [migration_source, name, compartment_id, freeform_tags, defined_tags, zone_type, view_id, scope, external_masters].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

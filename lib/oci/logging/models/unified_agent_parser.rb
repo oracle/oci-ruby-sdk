@@ -26,27 +26,27 @@ module OCI
       PARSER_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** type of fluent parser.
+    # **[Required]** Type of fluent parser.
     # @return [String]
     attr_reader :parser_type
 
-    # Specify time field for event time. If the event doesn't have this field, current time is used.
+    # Specify time field for the event time. If the event doesn't have this field, the current time is used.
     # @return [String]
     attr_accessor :field_time_key
 
-    # Specify types for converting field into other type.
+    # Specify types for converting a field into another type.
     # @return [Hash<String, String>]
     attr_accessor :types
 
-    # Specify null value pattern
+    # Specify the null value pattern.
     # @return [String]
     attr_accessor :null_value_pattern
 
-    # If true, empty string field is replaced with nil
+    # If true, an empty string field is replaced with nil.
     # @return [BOOLEAN]
     attr_accessor :is_null_empty_string
 
-    # If true, use Fluent::EventTime.now(current time) as a timestamp when time_key is specified
+    # If true, use Fluent::EventTime.now(current time) as a timestamp when time_key is specified.
     # @return [BOOLEAN]
     attr_accessor :is_estimate_current_event
 
@@ -54,7 +54,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_keep_time_key
 
-    # Specify timeout for parse processing. This is mainly for detecting wrong regexp pattern.
+    # Specify the timeout for parse processing. This is mainly for detecting an incorrect regexp pattern.
     # @return [Integer]
     attr_accessor :timeout_in_milliseconds
 

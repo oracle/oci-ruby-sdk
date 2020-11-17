@@ -62,6 +62,11 @@ module OCI
     # @return [String]
     attr_reader :ip_mode
 
+    # An array of reserved Ips.
+    #
+    # @return [Array<OCI::LoadBalancer::Models::ReservedIP>]
+    attr_accessor :reserved_ips
+
     # @return [Hash<String, OCI::LoadBalancer::Models::ListenerDetails>]
     attr_accessor :listeners
 
@@ -128,6 +133,7 @@ module OCI
         'shape_name': :'shapeName',
         'is_private': :'isPrivate',
         'ip_mode': :'ipMode',
+        'reserved_ips': :'reservedIps',
         'listeners': :'listeners',
         'hostnames': :'hostnames',
         'backend_sets': :'backendSets',
@@ -152,6 +158,7 @@ module OCI
         'shape_name': :'String',
         'is_private': :'BOOLEAN',
         'ip_mode': :'String',
+        'reserved_ips': :'Array<OCI::LoadBalancer::Models::ReservedIP>',
         'listeners': :'Hash<String, OCI::LoadBalancer::Models::ListenerDetails>',
         'hostnames': :'Hash<String, OCI::LoadBalancer::Models::HostnameDetails>',
         'backend_sets': :'Hash<String, OCI::LoadBalancer::Models::BackendSetDetails>',
@@ -178,6 +185,7 @@ module OCI
     # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
     # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
     # @option attributes [String] :ip_mode The value to assign to the {#ip_mode} property
+    # @option attributes [Array<OCI::LoadBalancer::Models::ReservedIP>] :reserved_ips The value to assign to the {#reserved_ips} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::ListenerDetails>] :listeners The value to assign to the {#listeners} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::HostnameDetails>] :hostnames The value to assign to the {#hostnames} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::BackendSetDetails>] :backend_sets The value to assign to the {#backend_sets} property
@@ -228,6 +236,12 @@ module OCI
 
       self.ip_mode = attributes[:'ip_mode'] if attributes[:'ip_mode']
       self.ip_mode = "IPV4" if ip_mode.nil? && !attributes.key?(:'ipMode') && !attributes.key?(:'ip_mode') # rubocop:disable Style/StringLiterals
+
+      self.reserved_ips = attributes[:'reservedIps'] if attributes[:'reservedIps']
+
+      raise 'You cannot provide both :reservedIps and :reserved_ips' if attributes.key?(:'reservedIps') && attributes.key?(:'reserved_ips')
+
+      self.reserved_ips = attributes[:'reserved_ips'] if attributes[:'reserved_ips']
 
       self.listeners = attributes[:'listeners'] if attributes[:'listeners']
 
@@ -308,6 +322,7 @@ module OCI
         shape_name == other.shape_name &&
         is_private == other.is_private &&
         ip_mode == other.ip_mode &&
+        reserved_ips == other.reserved_ips &&
         listeners == other.listeners &&
         hostnames == other.hostnames &&
         backend_sets == other.backend_sets &&
@@ -334,7 +349,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, shape_name, is_private, ip_mode, listeners, hostnames, backend_sets, network_security_group_ids, subnet_ids, certificates, ssl_cipher_suites, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
+      [compartment_id, display_name, shape_name, is_private, ip_mode, reserved_ips, listeners, hostnames, backend_sets, network_security_group_ids, subnet_ids, certificates, ssl_cipher_suites, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

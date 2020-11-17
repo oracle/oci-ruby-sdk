@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The available configurations
+  # The available configurations.
   class UsageApi::Models::ConfigurationAggregation
-    # **[Required]** The list of available configurations
+    # **[Required]** The list of available configurations.
     # @return [Array<OCI::UsageApi::Models::Configuration>]
     attr_accessor :items
 

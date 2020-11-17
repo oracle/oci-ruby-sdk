@@ -26,6 +26,7 @@ module OCI
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'is_dedicated': :'isDedicated',
         'autonomous_container_database_id': :'autonomousContainerDatabaseId',
+        'is_access_control_enabled': :'isAccessControlEnabled',
         'whitelisted_ips': :'whitelistedIps',
         'is_data_guard_enabled': :'isDataGuardEnabled',
         'subnet_id': :'subnetId',
@@ -56,6 +57,7 @@ module OCI
         'is_auto_scaling_enabled': :'BOOLEAN',
         'is_dedicated': :'BOOLEAN',
         'autonomous_container_database_id': :'String',
+        'is_access_control_enabled': :'BOOLEAN',
         'whitelisted_ips': :'Array<String>',
         'is_data_guard_enabled': :'BOOLEAN',
         'subnet_id': :'String',
@@ -88,6 +90,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_auto_scaling_enabled #is_auto_scaling_enabled} proprety
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_dedicated #is_dedicated} proprety
     # @option attributes [String] :autonomous_container_database_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#autonomous_container_database_id #autonomous_container_database_id} proprety
+    # @option attributes [BOOLEAN] :is_access_control_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_access_control_enabled #is_access_control_enabled} proprety
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#whitelisted_ips #whitelisted_ips} proprety
     # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_data_guard_enabled #is_data_guard_enabled} proprety
     # @option attributes [String] :subnet_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#subnet_id #subnet_id} proprety
@@ -128,6 +131,7 @@ module OCI
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         is_dedicated == other.is_dedicated &&
         autonomous_container_database_id == other.autonomous_container_database_id &&
+        is_access_control_enabled == other.is_access_control_enabled &&
         whitelisted_ips == other.whitelisted_ips &&
         is_data_guard_enabled == other.is_data_guard_enabled &&
         subnet_id == other.subnet_id &&
@@ -152,7 +156,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

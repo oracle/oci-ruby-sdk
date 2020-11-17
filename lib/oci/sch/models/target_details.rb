@@ -9,7 +9,7 @@ module OCI
   # An object that represents the target of the flow defined by the service connector.
   # An example target is a stream.
   # For more information about flows defined by service connectors, see
-  # [Service Connector Hub Overview](https://docs.cloud.oracle.com/iaas/service-connector-hub/using/index.htm).
+  # [Service Connector Hub Overview](https://docs.cloud.oracle.com/iaas/Content/service-connector-hub/overview.htm).
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Sch::Models::TargetDetails

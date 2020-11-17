@@ -18,6 +18,15 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :config
 
+    # A syslog URL to which to send all function logs. Supports tcp, udp, and tcp+tls.
+    # The syslog URL must be reachable from all of the subnets configured for the application.
+    # Note: If you enable the OCI Logging service for this application, the syslogUrl value is ignored. Function logs are sent to the OCI Logging service, and not to the syslog URL.
+    #
+    # Example: `tcp://logserver.myserver:1234`
+    #
+    # @return [String]
+    attr_accessor :syslog_url
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
@@ -38,6 +47,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'config': :'config',
+        'syslog_url': :'syslogUrl',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -49,6 +59,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'config': :'Hash<String, String>',
+        'syslog_url': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -62,6 +73,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Hash<String, String>] :config The value to assign to the {#config} property
+    # @option attributes [String] :syslog_url The value to assign to the {#syslog_url} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -71,6 +83,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.config = attributes[:'config'] if attributes[:'config']
+
+      self.syslog_url = attributes[:'syslogUrl'] if attributes[:'syslogUrl']
+
+      raise 'You cannot provide both :syslogUrl and :syslog_url' if attributes.key?(:'syslogUrl') && attributes.key?(:'syslog_url')
+
+      self.syslog_url = attributes[:'syslog_url'] if attributes[:'syslog_url']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -97,6 +115,7 @@ module OCI
 
       self.class == other.class &&
         config == other.config &&
+        syslog_url == other.syslog_url &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -114,7 +133,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [config, freeform_tags, defined_tags].hash
+      [config, syslog_url, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

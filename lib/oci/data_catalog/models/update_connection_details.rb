@@ -17,6 +17,10 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>]
+    attr_accessor :custom_property_members
+
     # A map of maps that contains the properties which are specific to the connection type. Each connection type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -51,6 +55,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'description': :'description',
         'display_name': :'displayName',
+        'custom_property_members': :'customPropertyMembers',
         'properties': :'properties',
         'enc_properties': :'encProperties',
         'is_default': :'isDefault'
@@ -64,6 +69,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'description': :'String',
         'display_name': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertySetUsage>',
         'properties': :'Hash<String, Hash<String, String>>',
         'enc_properties': :'Hash<String, Hash<String, String>>',
         'is_default': :'BOOLEAN'
@@ -79,6 +85,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     # @option attributes [Hash<String, Hash<String, String>>] :enc_properties The value to assign to the {#enc_properties} property
     # @option attributes [BOOLEAN] :is_default The value to assign to the {#is_default} property
@@ -95,6 +102,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
 
       self.properties = attributes[:'properties'] if attributes[:'properties']
 
@@ -124,6 +137,7 @@ module OCI
       self.class == other.class &&
         description == other.description &&
         display_name == other.display_name &&
+        custom_property_members == other.custom_property_members &&
         properties == other.properties &&
         enc_properties == other.enc_properties &&
         is_default == other.is_default
@@ -142,7 +156,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, display_name, properties, enc_properties, is_default].hash
+      [description, display_name, custom_property_members, properties, enc_properties, is_default].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

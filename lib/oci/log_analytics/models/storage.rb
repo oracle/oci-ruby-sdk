@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Storage configuration and status of a tenancy in Logan Analytics application
+  # This is the storage configuration and status of a tenancy in Logan Analytics application
   class LogAnalytics::Models::Storage
-    # **[Required]** if old data can be archived for a tenancy
+    # **[Required]** This indicates if old data can be archived for a tenancy
     # @return [BOOLEAN]
     attr_accessor :is_archiving_enabled
 

@@ -6,14 +6,15 @@ require_relative 'discovery_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the credentials to access the source PCS instance
+  # Credentials to access the Oracle Process Cloud Service application in the source environment. Application Migration connects to the
+  # application in the source environment with the supplied credentials.
   #
   class ApplicationMigration::Models::PcsDiscoveryDetails < ApplicationMigration::Models::DiscoveryDetails
-    # **[Required]** The PCS instance admin user
+    # **[Required]** Application administrator username to access the Oracle Process Cloud Service application in the source environment.
     # @return [String]
     attr_accessor :service_instance_user
 
-    # **[Required]** The PCS instance admin password
+    # **[Required]** Password for this user.
     # @return [String]
     attr_accessor :service_instance_password
 

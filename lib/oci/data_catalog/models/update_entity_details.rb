@@ -40,6 +40,14 @@ module OCI
     # @return [String]
     attr_accessor :folder_key
 
+    # Key of the associated pattern if this is a logical entity.
+    # @return [String]
+    attr_accessor :pattern_key
+
+    # The expression realized after resolving qualifiers . Used in deriving this logical entity
+    # @return [String]
+    attr_accessor :realized_expression
+
     # Status of the object as updated by the harvest process. When an entity object is created, it's harvest status
     # will indicate if the entity's metadata has been fully harvested or not. The harvest process can perform
     # shallow harvesting to allow users to browse the metadata and can on-demand deep harvest on any object
@@ -51,6 +59,10 @@ module OCI
     # Key of the last harvest process to update this object.
     # @return [String]
     attr_accessor :last_job_key
+
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>]
+    attr_accessor :custom_property_members
 
     # A map of maps that contains the properties which are specific to the entity type. Each entity type
     # definition defines it's set of required and optional properties. The map keys are category names and the
@@ -74,8 +86,11 @@ module OCI
         'is_logical': :'isLogical',
         'is_partition': :'isPartition',
         'folder_key': :'folderKey',
+        'pattern_key': :'patternKey',
+        'realized_expression': :'realizedExpression',
         'harvest_status': :'harvestStatus',
         'last_job_key': :'lastJobKey',
+        'custom_property_members': :'customPropertyMembers',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -91,8 +106,11 @@ module OCI
         'is_logical': :'BOOLEAN',
         'is_partition': :'BOOLEAN',
         'folder_key': :'String',
+        'pattern_key': :'String',
+        'realized_expression': :'String',
         'harvest_status': :'String',
         'last_job_key': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertySetUsage>',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -110,8 +128,11 @@ module OCI
     # @option attributes [BOOLEAN] :is_logical The value to assign to the {#is_logical} property
     # @option attributes [BOOLEAN] :is_partition The value to assign to the {#is_partition} property
     # @option attributes [String] :folder_key The value to assign to the {#folder_key} property
+    # @option attributes [String] :pattern_key The value to assign to the {#pattern_key} property
+    # @option attributes [String] :realized_expression The value to assign to the {#realized_expression} property
     # @option attributes [String] :harvest_status The value to assign to the {#harvest_status} property
     # @option attributes [String] :last_job_key The value to assign to the {#last_job_key} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -151,6 +172,18 @@ module OCI
 
       self.folder_key = attributes[:'folder_key'] if attributes[:'folder_key']
 
+      self.pattern_key = attributes[:'patternKey'] if attributes[:'patternKey']
+
+      raise 'You cannot provide both :patternKey and :pattern_key' if attributes.key?(:'patternKey') && attributes.key?(:'pattern_key')
+
+      self.pattern_key = attributes[:'pattern_key'] if attributes[:'pattern_key']
+
+      self.realized_expression = attributes[:'realizedExpression'] if attributes[:'realizedExpression']
+
+      raise 'You cannot provide both :realizedExpression and :realized_expression' if attributes.key?(:'realizedExpression') && attributes.key?(:'realized_expression')
+
+      self.realized_expression = attributes[:'realized_expression'] if attributes[:'realized_expression']
+
       self.harvest_status = attributes[:'harvestStatus'] if attributes[:'harvestStatus']
 
       raise 'You cannot provide both :harvestStatus and :harvest_status' if attributes.key?(:'harvestStatus') && attributes.key?(:'harvest_status')
@@ -162,6 +195,12 @@ module OCI
       raise 'You cannot provide both :lastJobKey and :last_job_key' if attributes.key?(:'lastJobKey') && attributes.key?(:'last_job_key')
 
       self.last_job_key = attributes[:'last_job_key'] if attributes[:'last_job_key']
+
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
 
       self.properties = attributes[:'properties'] if attributes[:'properties']
     end
@@ -191,8 +230,11 @@ module OCI
         is_logical == other.is_logical &&
         is_partition == other.is_partition &&
         folder_key == other.folder_key &&
+        pattern_key == other.pattern_key &&
+        realized_expression == other.realized_expression &&
         harvest_status == other.harvest_status &&
         last_job_key == other.last_job_key &&
+        custom_property_members == other.custom_property_members &&
         properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -209,7 +251,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, time_external, is_logical, is_partition, folder_key, harvest_status, last_job_key, properties].hash
+      [display_name, description, time_external, is_logical, is_partition, folder_key, pattern_key, realized_expression, harvest_status, last_job_key, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

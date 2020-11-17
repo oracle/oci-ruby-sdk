@@ -118,6 +118,36 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_mfa_activated
 
+    # The date and time of when the user most recently logged in the
+    # format defined by RFC3339 (ex. `2016-08-25T21:10:29.600Z`).
+    # If there is no login history, this field is null.
+    #
+    # For illustrative purposes, suppose we have a user who has logged in
+    # at July 1st, 2020 at 1200 PST and logged out 30 minutes later.
+    # They then login again on July 2nd, 2020 at 1500 PST.
+    #
+    # Their previousSuccessfulLoginTime would be `2020-07-01:19:00.000Z`.
+    #
+    # Their lastSuccessfulLoginTime would be `2020-07-02:22:00.000Z`.
+    #
+    # @return [DateTime]
+    attr_accessor :last_successful_login_time
+
+    # The date and time of when the user most recently logged in the
+    # format defined by RFC3339 (ex. `2016-08-25T21:10:29.600Z`).
+    # If there is no login history, this field is null.
+    #
+    # For illustrative purposes, suppose we have a user who has logged in
+    # at July 1st, 2020 at 1200 PST and logged out 30 minutes later.
+    # They then login again on July 2nd, 2020 at 1500 PST.
+    #
+    # Their previousSuccessfulLoginTime would be `2020-07-01:19:00.000Z`.
+    #
+    # Their lastSuccessfulLoginTime would be `2020-07-02:22:00.000Z`.
+    #
+    # @return [DateTime]
+    attr_accessor :previous_successful_login_time
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -136,7 +166,9 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'capabilities': :'capabilities',
-        'is_mfa_activated': :'isMfaActivated'
+        'is_mfa_activated': :'isMfaActivated',
+        'last_successful_login_time': :'lastSuccessfulLoginTime',
+        'previous_successful_login_time': :'previousSuccessfulLoginTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -159,7 +191,9 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'capabilities': :'OCI::Identity::Models::UserCapabilities',
-        'is_mfa_activated': :'BOOLEAN'
+        'is_mfa_activated': :'BOOLEAN',
+        'last_successful_login_time': :'DateTime',
+        'previous_successful_login_time': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -185,6 +219,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Identity::Models::UserCapabilities] :capabilities The value to assign to the {#capabilities} property
     # @option attributes [BOOLEAN] :is_mfa_activated The value to assign to the {#is_mfa_activated} property
+    # @option attributes [DateTime] :last_successful_login_time The value to assign to the {#last_successful_login_time} property
+    # @option attributes [DateTime] :previous_successful_login_time The value to assign to the {#previous_successful_login_time} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -260,6 +296,18 @@ module OCI
       raise 'You cannot provide both :isMfaActivated and :is_mfa_activated' if attributes.key?(:'isMfaActivated') && attributes.key?(:'is_mfa_activated')
 
       self.is_mfa_activated = attributes[:'is_mfa_activated'] unless attributes[:'is_mfa_activated'].nil?
+
+      self.last_successful_login_time = attributes[:'lastSuccessfulLoginTime'] if attributes[:'lastSuccessfulLoginTime']
+
+      raise 'You cannot provide both :lastSuccessfulLoginTime and :last_successful_login_time' if attributes.key?(:'lastSuccessfulLoginTime') && attributes.key?(:'last_successful_login_time')
+
+      self.last_successful_login_time = attributes[:'last_successful_login_time'] if attributes[:'last_successful_login_time']
+
+      self.previous_successful_login_time = attributes[:'previousSuccessfulLoginTime'] if attributes[:'previousSuccessfulLoginTime']
+
+      raise 'You cannot provide both :previousSuccessfulLoginTime and :previous_successful_login_time' if attributes.key?(:'previousSuccessfulLoginTime') && attributes.key?(:'previous_successful_login_time')
+
+      self.previous_successful_login_time = attributes[:'previous_successful_login_time'] if attributes[:'previous_successful_login_time']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -300,7 +348,9 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         capabilities == other.capabilities &&
-        is_mfa_activated == other.is_mfa_activated
+        is_mfa_activated == other.is_mfa_activated &&
+        last_successful_login_time == other.last_successful_login_time &&
+        previous_successful_login_time == other.previous_successful_login_time
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -316,7 +366,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, email, email_verified, identity_provider_id, external_identifier, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags, capabilities, is_mfa_activated].hash
+      [id, compartment_id, name, description, email, email_verified, identity_provider_id, external_identifier, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags, capabilities, is_mfa_activated, last_successful_login_time, previous_successful_login_time].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

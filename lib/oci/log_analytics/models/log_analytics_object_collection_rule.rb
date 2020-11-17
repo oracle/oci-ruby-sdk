@@ -49,9 +49,7 @@ module OCI
     attr_accessor :os_bucket_name
 
     # **[Required]** The type of collection.
-    # Accepted values are: LIVE.
-    # Collection type LIVE indicates to enable log collection from the time of this rule creation,
-    # and continue until the rule exists.
+    # Supported collection types: LIVE, HISTORIC, HISTORIC_LIVE
     #
     # @return [String]
     attr_reader :collection_type
@@ -70,15 +68,15 @@ module OCI
     # @return [String]
     attr_accessor :poll_till
 
-    # **[Required]** Log Analytics Log group OCID to associate the processed logs with.
+    # **[Required]** Logging Analytics Log group OCID to associate the processed logs with.
     # @return [String]
     attr_accessor :log_group_id
 
-    # **[Required]** Name of the Log Analytics Source to use for the processing.
+    # **[Required]** Name of the Logging Analytics Source to use for the processing.
     # @return [String]
     attr_accessor :log_source_name
 
-    # Log Analytics entity OCID to associate the processed logs with.
+    # Logging Analytics entity OCID to associate the processed logs with.
     # @return [String]
     attr_accessor :entity_id
 

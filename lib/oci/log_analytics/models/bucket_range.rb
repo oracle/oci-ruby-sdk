@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Represents querylanguage bucket command input arguments in parse endpoint output.
+  # Represents querylanguage bucket command input arguments in parse output.
   #
   class LogAnalytics::Models::BucketRange
     # Lower bound of the bucket range specified in the querystring for the numeric field referenced in tbe bucket command.

@@ -25,6 +25,46 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Dns::DnsClient#create_resolver_endpoint} and then waits for the {OCI::Dns::Models::ResolverEndpoint} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [OCI::Dns::Models::CreateResolverEndpointDetails] create_resolver_endpoint_details Details for creating a new resolver endpoint.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Dns::Models::ResolverEndpoint#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Dns::DnsClient#create_resolver_endpoint}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Dns::Models::ResolverEndpoint}
+    def create_resolver_endpoint_and_wait_for_state(resolver_id, create_resolver_endpoint_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_resolver_endpoint(resolver_id, create_resolver_endpoint_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_resolver_endpoint(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Dns::DnsClient#create_steering_policy} and then waits for the {OCI::Dns::Models::SteeringPolicy} acted upon
     # to enter the given state(s).
     #
@@ -124,6 +164,45 @@ module OCI
 
       begin
         waiter_result = @service_client.get_tsig_key(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Dns::DnsClient#create_view} and then waits for the {OCI::Dns::Models::View} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::Dns::Models::CreateViewDetails] create_view_details Details for creating a new view.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Dns::Models::View#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Dns::DnsClient#create_view}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Dns::Models::View}
+    def create_view_and_wait_for_state(create_view_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_view(create_view_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_view(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -301,6 +380,46 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Dns::DnsClient#delete_view} and then waits for the {OCI::Dns::Models::View} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] view_id The OCID of the target view.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Dns::Models::View#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Dns::DnsClient#delete_view}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_view_and_wait_for_state(view_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_view(view_id)
+      operation_result = @service_client.delete_view(view_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Dns::DnsClient#delete_zone} and then waits for the {OCI::Dns::Models::Zone} acted upon
     # to enter the given state(s).
     #
@@ -326,6 +445,87 @@ module OCI
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
           succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Dns::DnsClient#update_resolver} and then waits for the {OCI::Dns::Models::Resolver} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [OCI::Dns::Models::UpdateResolverDetails] update_resolver_details New data for the resolver.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Dns::Models::Resolver#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Dns::DnsClient#update_resolver}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Dns::Models::Resolver}
+    def update_resolver_and_wait_for_state(resolver_id, update_resolver_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_resolver(resolver_id, update_resolver_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_resolver(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Dns::DnsClient#update_resolver_endpoint} and then waits for the {OCI::Dns::Models::ResolverEndpoint} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] resolver_id The OCID of the target resolver.
+    # @param [String] resolver_endpoint_name The name of the target resolver endpoint.
+    # @param [OCI::Dns::Models::UpdateResolverEndpointDetails] update_resolver_endpoint_details New data for the resolver endpoint.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Dns::Models::ResolverEndpoint#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Dns::DnsClient#update_resolver_endpoint}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Dns::Models::ResolverEndpoint}
+    def update_resolver_endpoint_and_wait_for_state(resolver_id, resolver_endpoint_name, update_resolver_endpoint_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_resolver_endpoint(resolver_id, resolver_endpoint_name, update_resolver_endpoint_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_resolver_endpoint(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
         )
         result_to_return = waiter_result
 
@@ -443,6 +643,46 @@ module OCI
 
       begin
         waiter_result = @service_client.get_tsig_key(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Dns::DnsClient#update_view} and then waits for the {OCI::Dns::Models::View} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] view_id The OCID of the target view.
+    # @param [OCI::Dns::Models::UpdateViewDetails] update_view_details New data for the view.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Dns::Models::View#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Dns::DnsClient#update_view}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Dns::Models::View}
+    def update_view_and_wait_for_state(view_id, update_view_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_view(view_id, update_view_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_view(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200

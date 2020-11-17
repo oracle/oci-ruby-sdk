@@ -1,6 +1,6 @@
 # Oracle Cloud Infrastructure Ruby SDK
 
-:warning: This project is no longer being actively developed by Oracle.  We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on GitHub, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork the project and enhance it as they desire.
+This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source, in active development and maintained by Oracle Corp. The home page for the project is <a href="https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/rubysdk.htm">here</a>.
 
 **Version 2.10.0**
 
@@ -20,6 +20,7 @@ The Ruby SDK supports the following services:
 * Blockchain Platform
 * Budgets
 * Cloud Guard
+* Compute Instance Agent
 * Compute Autoscaling
 * Container Engine
 * Content and Experience

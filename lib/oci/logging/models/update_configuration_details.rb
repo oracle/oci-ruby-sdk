@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The updateable configuration properties
+  # The updatable configuration properties.
   class Logging::Models::UpdateConfigurationDetails
     # This attribute is required.
     # @return [OCI::Logging::Models::SourceUpdateDetails]

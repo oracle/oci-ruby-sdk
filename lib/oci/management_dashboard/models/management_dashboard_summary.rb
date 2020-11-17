@@ -6,46 +6,46 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of properties for a dashboard.
+  # Summary of the properties of a dashboard.
   class ManagementDashboard::Models::ManagementDashboardSummary
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Dashboard Id. Must be providied if OOB, otherwise must not be provided.
+    # **[Required]** ID of the dashboard.
     # @return [String]
     attr_accessor :dashboard_id
 
-    # **[Required]** Display name for dashboard.
+    # **[Required]** Display name of the dashboard.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Dashboard's description.
+    # **[Required]** Description of the dashboard.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The ocid of the compartment that owns the dashboard.
+    # **[Required]** OCID of the compartment in which the dashboard resides.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** String boolean (\"true\" or \"false\").  OOB (Out of the Box) dashboards are only provided by Oracle.  They cannot be modified by non-Oracle.
+    # **[Required]** Determines whether the dashboard is an Out-of-the-Box (OOB) dashboard. Note that OOB dashboards are only provided by Oracle and cannot be modified.
     # @return [BOOLEAN]
     attr_accessor :is_oob_dashboard
 
-    # **[Required]** Created by which user.
+    # **[Required]** User who created the dashboard.
     # @return [String]
     attr_accessor :created_by
 
-    # **[Required]** Time created.
+    # **[Required]** Date and time the dashboard was created.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** Updated by which user.
+    # **[Required]** User who updated the dashboard.
     # @return [String]
     attr_accessor :updated_by
 
-    # **[Required]** Time updated.
+    # **[Required]** Date and time the dashboard was updated.
     # @return [DateTime]
     attr_accessor :time_updated
 
@@ -53,19 +53,19 @@ module OCI
     # @return [String]
     attr_accessor :metadata_version
 
-    # **[Required]** screen image.
+    # **[Required]** Screen image of the dashboard.
     # @return [String]
     attr_accessor :screen_image
 
-    # **[Required]** Json for internationalization.
+    # **[Required]** JSON that contains internationalization options.
     # @return [Object]
     attr_accessor :nls
 
-    # **[Required]** NORMAL means single dashboard, SET means dashboard set.
+    # **[Required]** Type of dashboard. NORMAL denotes a single dashboard and SET denotes a dashboard set.
     # @return [String]
     attr_accessor :type
 
-    # **[Required]** State of dashboard.
+    # **[Required]** Current lifecycle state of the dashboard.
     # @return [String]
     attr_reader :lifecycle_state
 

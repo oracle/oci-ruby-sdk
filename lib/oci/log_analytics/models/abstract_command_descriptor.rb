@@ -22,7 +22,7 @@ module OCI
       NAME_LINK_DETAILS = 'LINK_DETAILS'.freeze,
       NAME_CLUSTER = 'CLUSTER'.freeze,
       NAME_CLUSTER_DETAILS = 'CLUSTER_DETAILS'.freeze,
-      NAME_CUSLTER_SPLIT = 'CUSLTER_SPLIT'.freeze,
+      NAME_CLUSTER_SPLIT = 'CLUSTER_SPLIT'.freeze,
       NAME_EVAL = 'EVAL'.freeze,
       NAME_EXTRACT = 'EXTRACT'.freeze,
       NAME_EVENT_STATS = 'EVENT_STATS'.freeze,

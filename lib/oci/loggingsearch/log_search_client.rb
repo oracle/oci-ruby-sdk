@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Search for logs in your compartements / log groups / log objects.
+  # Search for logs in your compartments, log groups, and log objects.
   class Loggingsearch::LogSearchClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -109,10 +109,10 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. For information about pagination, see
-    #   [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to 100)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call. For information about
-    #   pagination, see [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
+    #   pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type {OCI::Loggingsearch::Models::SearchResponse SearchResponse}
     def search_logs(search_logs_details, opts = {})

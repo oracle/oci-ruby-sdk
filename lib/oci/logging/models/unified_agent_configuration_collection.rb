@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Results of a UnifiedAgentConfiguration search. Contains UnifiedAgentConfigurationSummary items
+  # Results of a UnifiedAgentConfiguration search. Contains UnifiedAgentConfigurationSummary items.
   class Logging::Models::UnifiedAgentConfigurationCollection
     # **[Required]** List of UnifiedAgentConfigurationSummary.
     # @return [Array<OCI::Logging::Models::UnifiedAgentConfigurationSummary>]

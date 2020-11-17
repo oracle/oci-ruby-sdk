@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Represents a LogGroup object
+  # Represents a LogGroup object.
   class Logging::Models::LogGroup
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -26,7 +26,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The display name of a user-friendly name. It has to be unique within enclosing resource,
+    # **[Required]** The user-friendly display name. This must be unique within the enclosing resource,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
@@ -36,7 +36,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # The state of the log group object.
+    # The log group object state.
     # @return [String]
     attr_reader :lifecycle_state
 

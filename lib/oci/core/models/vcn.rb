@@ -22,15 +22,21 @@ module OCI
       LIFECYCLE_STATE_AVAILABLE = 'AVAILABLE'.freeze,
       LIFECYCLE_STATE_TERMINATING = 'TERMINATING'.freeze,
       LIFECYCLE_STATE_TERMINATED = 'TERMINATED'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The CIDR IP address block of the VCN.
+    # **[Required]** Deprecated. The first CIDR IP address from cidrBlocks.
     #
     # Example: `172.16.0.0/16`
     #
     # @return [String]
     attr_accessor :cidr_block
+
+    # **[Required]** The list of IPv4 CIDR blocks the VCN will use.
+    #
+    # @return [Array<String>]
+    attr_accessor :cidr_blocks
 
     # **[Required]** The OCID of the compartment containing the VCN.
     # @return [String]
@@ -142,6 +148,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'cidrBlock',
+        'cidr_blocks': :'cidrBlocks',
         'compartment_id': :'compartmentId',
         'default_dhcp_options_id': :'defaultDhcpOptionsId',
         'default_route_table_id': :'defaultRouteTableId',
@@ -165,6 +172,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'String',
+        'cidr_blocks': :'Array<String>',
         'compartment_id': :'String',
         'default_dhcp_options_id': :'String',
         'default_route_table_id': :'String',
@@ -190,6 +198,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
+    # @option attributes [Array<String>] :cidr_blocks The value to assign to the {#cidr_blocks} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :default_dhcp_options_id The value to assign to the {#default_dhcp_options_id} property
     # @option attributes [String] :default_route_table_id The value to assign to the {#default_route_table_id} property
@@ -215,6 +224,12 @@ module OCI
       raise 'You cannot provide both :cidrBlock and :cidr_block' if attributes.key?(:'cidrBlock') && attributes.key?(:'cidr_block')
 
       self.cidr_block = attributes[:'cidr_block'] if attributes[:'cidr_block']
+
+      self.cidr_blocks = attributes[:'cidrBlocks'] if attributes[:'cidrBlocks']
+
+      raise 'You cannot provide both :cidrBlocks and :cidr_blocks' if attributes.key?(:'cidrBlocks') && attributes.key?(:'cidr_blocks')
+
+      self.cidr_blocks = attributes[:'cidr_blocks'] if attributes[:'cidr_blocks']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -322,6 +337,7 @@ module OCI
 
       self.class == other.class &&
         cidr_block == other.cidr_block &&
+        cidr_blocks == other.cidr_blocks &&
         compartment_id == other.compartment_id &&
         default_dhcp_options_id == other.default_dhcp_options_id &&
         default_route_table_id == other.default_route_table_id &&
@@ -351,7 +367,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, compartment_id, default_dhcp_options_id, default_route_table_id, default_security_list_id, defined_tags, display_name, dns_label, freeform_tags, id, ipv6_cidr_block, ipv6_public_cidr_block, lifecycle_state, time_created, vcn_domain_name].hash
+      [cidr_block, cidr_blocks, compartment_id, default_dhcp_options_id, default_route_table_id, default_security_list_id, defined_tags, display_name, dns_label, freeform_tags, id, ipv6_cidr_block, ipv6_public_cidr_block, lifecycle_state, time_created, vcn_domain_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

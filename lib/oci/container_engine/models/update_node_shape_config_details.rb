@@ -13,11 +13,17 @@ module OCI
     # @return [Float]
     attr_accessor :ocpus
 
+    # The total amount of memory available to each node, in gigabytes.
+    #
+    # @return [Float]
+    attr_accessor :memory_in_gbs
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'ocpus': :'ocpus'
+        'ocpus': :'ocpus',
+        'memory_in_gbs': :'memoryInGBs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -26,7 +32,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'ocpus': :'Float'
+        'ocpus': :'Float',
+        'memory_in_gbs': :'Float'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,10 +45,17 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Float] :ocpus The value to assign to the {#ocpus} property
+    # @option attributes [Float] :memory_in_gbs The value to assign to the {#memory_in_gbs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       self.ocpus = attributes[:'ocpus'] if attributes[:'ocpus']
+
+      self.memory_in_gbs = attributes[:'memoryInGBs'] if attributes[:'memoryInGBs']
+
+      raise 'You cannot provide both :memoryInGBs and :memory_in_gbs' if attributes.key?(:'memoryInGBs') && attributes.key?(:'memory_in_gbs')
+
+      self.memory_in_gbs = attributes[:'memory_in_gbs'] if attributes[:'memory_in_gbs']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -55,7 +69,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        ocpus == other.ocpus
+        ocpus == other.ocpus &&
+        memory_in_gbs == other.memory_in_gbs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -71,7 +86,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [ocpus].hash
+      [ocpus, memory_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

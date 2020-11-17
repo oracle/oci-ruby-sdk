@@ -40,7 +40,7 @@ module OCI
                        signing_strategy: OCI::BaseSigner::STANDARD,
                        body_headers_to_sign: OCI::BaseSigner::BODY_HEADERS,
                        additional_auth_params: {})
-          raise 'Delegation Token File not exist' unless File.exist?(File.expand_path(delegation_token_file))
+          raise 'Delegation Token not exist' if delegation_token.nil?
 
           @delegation_token = delegation_token
           super(federation_endpoint: federation_endpoint,

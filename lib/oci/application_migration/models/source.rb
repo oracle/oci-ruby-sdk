@@ -2,53 +2,68 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The Source object. Sources represent external locations from which
-  # applications may be imported into an OCI tenancy.
+  # The properties that define a source. Source refers to the source environment from which you migrate an application to Oracle Cloud
+  # Infrastructure. For more information, see [Manage Sources](https://docs.cloud.oracle.com/iaas/application-migration/manage_sources.htm).
+  #
+  # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized, talk to an administrator. If you're
+  # an administrator who needs to write policies to give users access, see [Getting Started with
+  # Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ApplicationMigration::Models::Source
-    # Unique identifier (OCID) for the source
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the source.
     # @return [String]
     attr_accessor :id
 
-    # Unique idenfifier (OCID) for the compartment where the Source is located.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment that contains the source.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # Human-readable name of the source.
+    # Name of the source. This helps you to identify the appropriate source environment when you have multiple sources defined.
     # @return [String]
     attr_accessor :display_name
 
-    # Description of the source.
+    # Description of the source. This helps you to identify the appropriate source environment when you have multiple sources defined.
     # @return [String]
     attr_accessor :description
 
-    # The date and time at which the source was created
+    # The date and time at which the source was created, in the format defined by RFC3339.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The current state of the Source
+    # The current state of the source.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
-    # Details about the current lifecycle state
+    # Details about the current lifecycle state of the source.
     # @return [String]
     attr_accessor :lifecycle_details
 
     # @return [OCI::ApplicationMigration::Models::SourceDetails]
     attr_accessor :source_details
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
@@ -165,6 +180,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 

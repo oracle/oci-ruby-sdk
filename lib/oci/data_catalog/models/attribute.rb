@@ -138,6 +138,10 @@ module OCI
     # @return [String]
     attr_accessor :path
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>]
+    attr_accessor :custom_property_members
+
     # A map of maps that contains the properties which are specific to the attribute type. Each attribute type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -177,6 +181,7 @@ module OCI
         'time_external': :'timeExternal',
         'uri': :'uri',
         'path': :'path',
+        'custom_property_members': :'customPropertyMembers',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -212,6 +217,7 @@ module OCI
         'time_external': :'DateTime',
         'uri': :'String',
         'path': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -249,6 +255,7 @@ module OCI
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
     # @option attributes [String] :path The value to assign to the {#path} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -380,6 +387,12 @@ module OCI
 
       self.path = attributes[:'path'] if attributes[:'path']
 
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -433,6 +446,7 @@ module OCI
         time_external == other.time_external &&
         uri == other.uri &&
         path == other.path &&
+        custom_property_members == other.custom_property_members &&
         properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -449,7 +463,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, length, position, precision, scale, time_external, uri, path, properties].hash
+      [key, display_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, length, position, precision, scale, time_external, uri, path, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

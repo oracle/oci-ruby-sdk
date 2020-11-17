@@ -13,7 +13,7 @@ module OCI
       OPERATOR_OR = 'OR'.freeze
     ].freeze
 
-    # The operator of the filter. Example: 'AND', 'OR', 'NOT'.
+    # The filter operator. Example: 'AND', 'OR', 'NOT'.
     # @return [String]
     attr_reader :operator
 

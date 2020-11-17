@@ -5,14 +5,15 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The configuration details for update a load balancer to a different shape.
-  #
+  # UpdateLoadBalancerShapeDetails model.
   class LoadBalancer::Models::UpdateLoadBalancerShapeDetails
-    # **[Required]** A template that determines the total pre-provisioned bandwidth (ingress plus egress).
-    # To get a list of available shapes, use the {#list_shapes list_shapes}
-    # operation.
+    # **[Required]** The new shape name for the load balancer.
     #
-    # Example: `100Mbps`
+    # Allowed values are :
+    #   *  10Mbps
+    #   *  100Mbps
+    #   *  400Mbps
+    #   *  8000Mbps
     #
     # @return [String]
     attr_accessor :shape_name

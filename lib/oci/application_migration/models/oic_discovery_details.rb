@@ -6,14 +6,15 @@ require_relative 'discovery_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the credentials to access the source OIC instance
+  # Credentials to access the Oracle Integration application in the source environment. Application Migration connects to the
+  # application in the source environment with the supplied credentials.
   #
   class ApplicationMigration::Models::OicDiscoveryDetails < ApplicationMigration::Models::DiscoveryDetails
-    # **[Required]** The OIC instance admin user
+    # **[Required]** Application administrator username to access the Oracle Integration Classic instance in the source environment.
     # @return [String]
     attr_accessor :service_instance_user
 
-    # **[Required]** The OIC instance admin password
+    # **[Required]** Password for this user.
     # @return [String]
     attr_accessor :service_instance_password
 

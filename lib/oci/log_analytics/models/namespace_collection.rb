@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # List of NamespaceSummary: there is at most one item.
+  # This is a list of NamespaceSummary: there is at most one item in the list.
   #
   class LogAnalytics::Models::NamespaceCollection
-    # **[Required]** List of NamespaceSummary: there is at most one item.
+    # **[Required]** There is at most one item in the items array.
     #
     # @return [Array<OCI::LogAnalytics::Models::NamespaceSummary>]
     attr_accessor :items

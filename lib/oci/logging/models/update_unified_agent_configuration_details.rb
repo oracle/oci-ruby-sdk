@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Update Object for Unified Agent configuration.
+  # Update Object for the Unified Agent configuration.
   class Logging::Models::UpdateUnifiedAgentConfigurationDetails
-    # **[Required]** The display name of a user-friendly name. It has to be unique within enclosing resource,
+    # **[Required]** The user-friendly display name. This must be unique within the enclosing resource,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]

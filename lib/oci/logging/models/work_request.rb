@@ -34,7 +34,7 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the work request.
+    # **[Required]** The work request OCID.
     # @return [String]
     attr_accessor :id
 
@@ -46,7 +46,7 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # **[Required]** The OCID of the work request\u2019s compartment.
+    # **[Required]** The work request\u2019s compartment OCID.
     # @return [String]
     attr_accessor :compartment_id
 

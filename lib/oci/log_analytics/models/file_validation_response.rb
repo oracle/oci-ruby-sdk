@@ -7,15 +7,15 @@ require 'date'
 module OCI
   # Response object containing details about file upload eligibility.
   class LogAnalytics::Models::FileValidationResponse
-    # **[Required]** Input File
+    # **[Required]** Input File Name.
     # @return [String]
     attr_accessor :input_file
 
-    # **[Required]** Object Location
+    # **[Required]** Object Location where file content is available.
     # @return [String]
     attr_accessor :object_location
 
-    # Files
+    # List of files inside the given archive file and their corresponding status information.
     # @return [Array<OCI::LogAnalytics::Models::UploadFileStatus>]
     attr_accessor :files
 

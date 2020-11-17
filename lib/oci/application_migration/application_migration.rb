@@ -42,6 +42,7 @@ require 'oci/application_migration/models/source_details'
 require 'oci/application_migration/models/source_lifecycle_states'
 require 'oci/application_migration/models/source_summary'
 require 'oci/application_migration/models/source_types'
+require 'oci/application_migration/models/target_database_types'
 require 'oci/application_migration/models/update_migration_details'
 require 'oci/application_migration/models/update_source_details'
 require 'oci/application_migration/models/work_request'
@@ -52,6 +53,7 @@ require 'oci/application_migration/models/work_request_summary'
 
 # Require generated clients
 require 'oci/application_migration/application_migration_client'
+require 'oci/application_migration/application_migration_client_composite_operations'
 
 # Require service utilities
 require 'oci/application_migration/util'

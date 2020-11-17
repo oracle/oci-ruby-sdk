@@ -28,6 +28,10 @@ module OCI
     # @return [String]
     attr_accessor :parent_folder_key
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>]
+    attr_accessor :custom_property_members
+
     # A map of maps that contains the properties which are specific to the folder type. Each folder type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -59,6 +63,7 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'parent_folder_key': :'parentFolderKey',
+        'custom_property_members': :'customPropertyMembers',
         'properties': :'properties',
         'time_external': :'timeExternal',
         'harvest_status': :'harvestStatus',
@@ -74,6 +79,7 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'parent_folder_key': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertySetUsage>',
         'properties': :'Hash<String, Hash<String, String>>',
         'time_external': :'DateTime',
         'harvest_status': :'String',
@@ -91,6 +97,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :parent_folder_key The value to assign to the {#parent_folder_key} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
     # @option attributes [String] :harvest_status The value to assign to the {#harvest_status} property
@@ -114,6 +121,12 @@ module OCI
       raise 'You cannot provide both :parentFolderKey and :parent_folder_key' if attributes.key?(:'parentFolderKey') && attributes.key?(:'parent_folder_key')
 
       self.parent_folder_key = attributes[:'parent_folder_key'] if attributes[:'parent_folder_key']
+
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
 
       self.properties = attributes[:'properties'] if attributes[:'properties']
 
@@ -158,6 +171,7 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         parent_folder_key == other.parent_folder_key &&
+        custom_property_members == other.custom_property_members &&
         properties == other.properties &&
         time_external == other.time_external &&
         harvest_status == other.harvest_status &&
@@ -177,7 +191,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, parent_folder_key, properties, time_external, harvest_status, last_job_key].hash
+      [display_name, description, parent_folder_key, custom_property_members, properties, time_external, harvest_status, last_job_key].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

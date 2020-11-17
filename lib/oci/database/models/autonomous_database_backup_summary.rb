@@ -76,6 +76,14 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_restorable
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the key store.
+    # @return [String]
+    attr_accessor :key_store_id
+
+    # The wallet name for Oracle Key Vault.
+    # @return [String]
+    attr_accessor :key_store_wallet_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -91,7 +99,9 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'database_size_in_tbs': :'databaseSizeInTBs',
         'lifecycle_state': :'lifecycleState',
-        'is_restorable': :'isRestorable'
+        'is_restorable': :'isRestorable',
+        'key_store_id': :'keyStoreId',
+        'key_store_wallet_name': :'keyStoreWalletName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -111,7 +121,9 @@ module OCI
         'lifecycle_details': :'String',
         'database_size_in_tbs': :'Float',
         'lifecycle_state': :'String',
-        'is_restorable': :'BOOLEAN'
+        'is_restorable': :'BOOLEAN',
+        'key_store_id': :'String',
+        'key_store_wallet_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -134,6 +146,8 @@ module OCI
     # @option attributes [Float] :database_size_in_tbs The value to assign to the {#database_size_in_tbs} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [BOOLEAN] :is_restorable The value to assign to the {#is_restorable} property
+    # @option attributes [String] :key_store_id The value to assign to the {#key_store_id} property
+    # @option attributes [String] :key_store_wallet_name The value to assign to the {#key_store_wallet_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -205,6 +219,18 @@ module OCI
 
       self.is_restorable = attributes[:'is_restorable'] unless attributes[:'is_restorable'].nil?
       self.is_restorable = true if is_restorable.nil? && !attributes.key?(:'isRestorable') && !attributes.key?(:'is_restorable') # rubocop:disable Style/StringLiterals
+
+      self.key_store_id = attributes[:'keyStoreId'] if attributes[:'keyStoreId']
+
+      raise 'You cannot provide both :keyStoreId and :key_store_id' if attributes.key?(:'keyStoreId') && attributes.key?(:'key_store_id')
+
+      self.key_store_id = attributes[:'key_store_id'] if attributes[:'key_store_id']
+
+      self.key_store_wallet_name = attributes[:'keyStoreWalletName'] if attributes[:'keyStoreWalletName']
+
+      raise 'You cannot provide both :keyStoreWalletName and :key_store_wallet_name' if attributes.key?(:'keyStoreWalletName') && attributes.key?(:'key_store_wallet_name')
+
+      self.key_store_wallet_name = attributes[:'key_store_wallet_name'] if attributes[:'key_store_wallet_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -255,7 +281,9 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         database_size_in_tbs == other.database_size_in_tbs &&
         lifecycle_state == other.lifecycle_state &&
-        is_restorable == other.is_restorable
+        is_restorable == other.is_restorable &&
+        key_store_id == other.key_store_id &&
+        key_store_wallet_name == other.key_store_wallet_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -271,7 +299,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, autonomous_database_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, database_size_in_tbs, lifecycle_state, is_restorable].hash
+      [id, compartment_id, autonomous_database_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, database_size_in_tbs, lifecycle_state, is_restorable, key_store_id, key_store_wallet_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

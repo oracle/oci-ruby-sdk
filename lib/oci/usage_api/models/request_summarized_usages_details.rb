@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # details for the '/usage' query
+  # Details for the '/usage' query.
   class UsageApi::Models::RequestSummarizedUsagesDetails
     GRANULARITY_ENUM = [
       GRANULARITY_HOURLY = 'HOURLY'.freeze,
@@ -19,30 +19,30 @@ module OCI
       QUERY_TYPE_COST = 'COST'.freeze
     ].freeze
 
-    # **[Required]** tenant id
+    # **[Required]** Tenant ID
     # @return [String]
     attr_accessor :tenant_id
 
-    # **[Required]** The start time of the usage.
+    # **[Required]** The usage start time.
     # @return [DateTime]
     attr_accessor :time_usage_started
 
-    # **[Required]** The end time of the usage.
+    # **[Required]** The usage end time.
     # @return [DateTime]
     attr_accessor :time_usage_ended
 
-    # **[Required]** The granularity of the usage.
-    # HOURLY - Hourly aggregation of data
-    # DAILY - Daily aggregation of data
-    # MONTHLY - Monthly aggregation of data
-    # TOTAL - Not Supported Yet
+    # **[Required]** The usage granularity.
+    # HOURLY - Hourly data aggregation.
+    # DAILY - Daily data aggregation.
+    # MONTHLY - Monthly data aggregation.
+    # TOTAL - Not yet supported.
     #
     # @return [String]
     attr_reader :granularity
 
-    # The type of query of the usage.
+    # The query usage type.
     # Usage - Query the usage data.
-    # Cost - Query the cost / billing data.
+    # Cost - Query the cost/billing data.
     #
     # @return [String]
     attr_reader :query_type
@@ -54,7 +54,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :group_by
 
-    # The depth level of the compartment.
+    # The compartment depth level.
     # @return [Float]
     attr_accessor :compartment_depth
 

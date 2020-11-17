@@ -25,6 +25,89 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::DataCatalog::DataCatalogClient#add_data_selector_patterns} and then waits for the {OCI::DataCatalog::Models::DataAsset} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] data_asset_key Unique data asset key.
+    # @param [OCI::DataCatalog::Models::DataSelectorPatternDetails] data_selector_pattern_details The information used to add the patterns for deriving logical entities.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::DataAsset#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#add_data_selector_patterns}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::DataAsset}
+    def add_data_selector_patterns_and_wait_for_state(catalog_id, data_asset_key, data_selector_pattern_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.add_data_selector_patterns(catalog_id, data_asset_key, data_selector_pattern_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_data_asset(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataCatalog::DataCatalogClient#associate_custom_property} and then waits for the {OCI::DataCatalog::Models::Type} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] type_key Unique type key.
+    # @param [OCI::DataCatalog::Models::TypeCustomPropertyDetails] associate_custom_property_details The information used to associate the custom property for the type.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::Type#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#associate_custom_property}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::Type}
+    def associate_custom_property_and_wait_for_state(catalog_id, type_key, associate_custom_property_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.associate_custom_property(catalog_id, type_key, associate_custom_property_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_type(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::DataCatalog::DataCatalogClient#attach_catalog_private_endpoint} and then waits for the {OCI::DataCatalog::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -381,6 +464,48 @@ module OCI
 
       begin
         waiter_result = @service_client.get_connection(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataCatalog::DataCatalogClient#create_custom_property} and then waits for the {OCI::DataCatalog::Models::CustomProperty} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [OCI::DataCatalog::Models::CreateCustomPropertyDetails] create_custom_property_details The information used to create the Custom Property.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::CustomProperty#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#create_custom_property}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::CustomProperty}
+    def create_custom_property_and_wait_for_state(catalog_id, namespace_id, create_custom_property_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_custom_property(catalog_id, namespace_id, create_custom_property_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_custom_property(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -807,6 +932,87 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::DataCatalog::DataCatalogClient#create_namespace} and then waits for the {OCI::DataCatalog::Models::Namespace} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [OCI::DataCatalog::Models::CreateNamespaceDetails] create_namespace_details The information used to create the Namespace.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::Namespace#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#create_namespace}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::Namespace}
+    def create_namespace_and_wait_for_state(catalog_id, create_namespace_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_namespace(catalog_id, create_namespace_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_namespace(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataCatalog::DataCatalogClient#create_pattern} and then waits for the {OCI::DataCatalog::Models::Pattern} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [OCI::DataCatalog::Models::CreatePatternDetails] create_pattern_details The information used to create the pattern.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::Pattern#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#create_pattern}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::Pattern}
+    def create_pattern_and_wait_for_state(catalog_id, create_pattern_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_pattern(catalog_id, create_pattern_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_pattern(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::DataCatalog::DataCatalogClient#create_term} and then waits for the {OCI::DataCatalog::Models::Term} acted upon
     # to enter the given state(s).
     #
@@ -1038,6 +1244,89 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::DataCatalog::DataCatalogClient#disassociate_custom_property} and then waits for the {OCI::DataCatalog::Models::Type} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] type_key Unique type key.
+    # @param [OCI::DataCatalog::Models::TypeCustomPropertyDetails] disassociate_custom_property_details The information used to remove the custom properties.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::Type#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#disassociate_custom_property}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::Type}
+    def disassociate_custom_property_and_wait_for_state(catalog_id, type_key, disassociate_custom_property_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.disassociate_custom_property(catalog_id, type_key, disassociate_custom_property_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_type(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataCatalog::DataCatalogClient#remove_data_selector_patterns} and then waits for the {OCI::DataCatalog::Models::DataAsset} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] data_asset_key Unique data asset key.
+    # @param [OCI::DataCatalog::Models::DataSelectorPatternDetails] data_selector_pattern_details The information used to remove the data selector patterns.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::DataAsset#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#remove_data_selector_patterns}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::DataAsset}
+    def remove_data_selector_patterns_and_wait_for_state(catalog_id, data_asset_key, data_selector_pattern_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.remove_data_selector_patterns(catalog_id, data_asset_key, data_selector_pattern_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_data_asset(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::DataCatalog::DataCatalogClient#update_attribute} and then waits for the {OCI::DataCatalog::Models::Attribute} acted upon
     # to enter the given state(s).
     #
@@ -1195,6 +1484,48 @@ module OCI
 
       begin
         waiter_result = @service_client.get_connection(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataCatalog::DataCatalogClient#update_custom_property} and then waits for the {OCI::DataCatalog::Models::CustomProperty} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [String] custom_property_key Unique Custom Property key
+    # @param [OCI::DataCatalog::Models::UpdateCustomPropertyDetails] update_custom_property_details The information to be updated in the custom property.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::CustomProperty#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#update_custom_property}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::CustomProperty}
+    def update_custom_property_and_wait_for_state(catalog_id, namespace_id, custom_property_key, update_custom_property_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_custom_property(catalog_id, namespace_id, custom_property_key, update_custom_property_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_custom_property(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -1443,6 +1774,88 @@ module OCI
 
       begin
         waiter_result = @service_client.get_job_definition(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataCatalog::DataCatalogClient#update_namespace} and then waits for the {OCI::DataCatalog::Models::Namespace} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] namespace_id Unique namespace identifier.
+    # @param [OCI::DataCatalog::Models::UpdateNamespaceDetails] update_namespace_details The information to be updated in the namespace.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::Namespace#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#update_namespace}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::Namespace}
+    def update_namespace_and_wait_for_state(catalog_id, namespace_id, update_namespace_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_namespace(catalog_id, namespace_id, update_namespace_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_namespace(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataCatalog::DataCatalogClient#update_pattern} and then waits for the {OCI::DataCatalog::Models::Pattern} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] pattern_key Unique pattern key.
+    # @param [OCI::DataCatalog::Models::UpdatePatternDetails] update_pattern_details The information to be updated in the pattern.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataCatalog::Models::Pattern#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataCatalog::DataCatalogClient#update_pattern}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataCatalog::Models::Pattern}
+    def update_pattern_and_wait_for_state(catalog_id, pattern_key, update_pattern_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_pattern(catalog_id, pattern_key, update_pattern_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_pattern(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200

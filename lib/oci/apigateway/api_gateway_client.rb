@@ -100,6 +100,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Changes the API compartment.
+    # @param [String] api_id The ocid of the API.
+    # @param [OCI::Apigateway::Models::ChangeApiCompartmentDetails] change_api_compartment_details Details of the target compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #    (default to null)
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to null)
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type nil
+    def change_api_compartment(api_id, change_api_compartment_details, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#change_api_compartment.' if logger
+
+      raise "Missing the required parameter 'api_id' when calling change_api_compartment." if api_id.nil?
+      raise "Missing the required parameter 'change_api_compartment_details' when calling change_api_compartment." if change_api_compartment_details.nil?
+      raise "Parameter value for 'api_id' must not be blank" if OCI::Internal::Util.blank_string?(api_id)
+
+      path = '/apis/{apiId}/actions/changeCompartment'.sub('{apiId}', api_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_api_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#change_api_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Changes the certificate compartment.
     # @param [String] certificate_id The ocid of the certificate.
     # @param [OCI::Apigateway::Models::ChangeCertificateCompartmentDetails] change_certificate_compartment_details Details of the target compartment.
@@ -156,6 +225,67 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new API.
+    #
+    # @param [OCI::Apigateway::Models::CreateApiDetails] create_api_details Details for the new API.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #    (default to null)
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Api Api}
+    def create_api(create_api_details, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#create_api.' if logger
+
+      raise "Missing the required parameter 'create_api_details' when calling create_api." if create_api_details.nil?
+
+      path = '/apis'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_api_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#create_api') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Apigateway::Models::Api'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -230,6 +360,65 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the API with the given identifier.
+    # @param [String] api_id The ocid of the API.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to null)
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type nil
+    def delete_api(api_id, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#delete_api.' if logger
+
+      raise "Missing the required parameter 'api_id' when calling delete_api." if api_id.nil?
+      raise "Parameter value for 'api_id' must not be blank" if OCI::Internal::Util.blank_string?(api_id)
+
+      path = '/apis/{apiId}'.sub('{apiId}', api_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#delete_api') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the certificate with the given identifier.
     # @param [String] certificate_id The ocid of the certificate.
     # @param [Hash] opts the optional parameters
@@ -289,6 +478,285 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets an API by identifier.
+    # @param [String] api_id The ocid of the API.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Api Api}
+    def get_api(api_id, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#get_api.' if logger
+
+      raise "Missing the required parameter 'api_id' when calling get_api." if api_id.nil?
+      raise "Parameter value for 'api_id' must not be blank" if OCI::Internal::Util.blank_string?(api_id)
+
+      path = '/apis/{apiId}'.sub('{apiId}', api_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#get_api') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Apigateway::Models::Api'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get the raw API content.
+    # @param [String] api_id The ocid of the API.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to null)
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    def get_api_content(api_id, opts = {}, &block)
+      logger.debug 'Calling operation ApiGatewayClient#get_api_content.' if logger
+
+      raise "Missing the required parameter 'api_id' when calling get_api_content." if api_id.nil?
+      raise "Parameter value for 'api_id' must not be blank" if OCI::Internal::Util.blank_string?(api_id)
+
+      path = '/apis/{apiId}/content'.sub('{apiId}', api_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/json'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#get_api_content') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets an API Deployment specification by identifier.
+    # @param [String] api_id The ocid of the API.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to null)
+    # @return [Response] A Response object with data of type {OCI::Apigateway::Models::ApiSpecification ApiSpecification}
+    def get_api_deployment_specification(api_id, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#get_api_deployment_specification.' if logger
+
+      raise "Missing the required parameter 'api_id' when calling get_api_deployment_specification." if api_id.nil?
+      raise "Parameter value for 'api_id' must not be blank" if OCI::Internal::Util.blank_string?(api_id)
+
+      path = '/apis/{apiId}/deploymentSpecification'.sub('{apiId}', api_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#get_api_deployment_specification') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Apigateway::Models::ApiSpecification'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the API validation results.
+    # @param [String] api_id The ocid of the API.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to null)
+    # @return [Response] A Response object with data of type {OCI::Apigateway::Models::ApiValidations ApiValidations}
+    def get_api_validations(api_id, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#get_api_validations.' if logger
+
+      raise "Missing the required parameter 'api_id' when calling get_api_validations." if api_id.nil?
+      raise "Parameter value for 'api_id' must not be blank" if OCI::Internal::Util.blank_string?(api_id)
+
+      path = '/apis/{apiId}/validations'.sub('{apiId}', api_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#get_api_validations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Apigateway::Models::ApiValidations'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a certificate by identifier.
     # @param [String] certificate_id The ocid of the certificate.
     # @param [Hash] opts the optional parameters
@@ -329,6 +797,96 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Apigateway::Models::Certificate'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of APIs.
+    #
+    # @param [String] compartment_id The ocid of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
+    #
+    #   Example: `My new resource`
+    #    (default to null)
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state.
+    #
+    #   Example: `ACTIVE`
+    #    (default to null)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call. (default to null)
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. The default order depends on the sortBy value. (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`).
+    #   Default order for `timeCreated` is descending. Default order for
+    #   `displayName` is ascending. The `displayName` sort order is case
+    #   sensitive.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type {OCI::Apigateway::Models::ApiCollection ApiCollection}
+    def list_apis(compartment_id, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#list_apis.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_apis." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::Apigateway::Models::ApiSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Apigateway::Models::ApiSummary::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/apis'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#list_apis') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Apigateway::Models::ApiCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -419,6 +977,67 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Apigateway::Models::CertificateCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the API with the given identifier.
+    # @param [String] api_id The ocid of the API.
+    # @param [OCI::Apigateway::Models::UpdateApiDetails] update_api_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to null)
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type nil
+    def update_api(api_id, update_api_details, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#update_api.' if logger
+
+      raise "Missing the required parameter 'api_id' when calling update_api." if api_id.nil?
+      raise "Missing the required parameter 'update_api_details' when calling update_api." if update_api_details.nil?
+      raise "Parameter value for 'api_id' must not be blank" if OCI::Internal::Util.blank_string?(api_id)
+
+      path = '/apis/{apiId}'.sub('{apiId}', api_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_api_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#update_api') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength

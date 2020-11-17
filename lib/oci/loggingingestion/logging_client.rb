@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # PublicLoggingDataplane API specification
+  # Use the Logging Ingestion API to ingest your application logs.
   class Loggingingestion::LoggingClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,7 +98,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # This Api allows ingesting logs associated with a logId. Success
+    # This API allows ingesting logs associated with a logId. A success
     # response implies the data has been accepted.
     #
     # @param [String] log_id OCID of a log to work with.
@@ -107,7 +107,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [DateTime] :timestamp_opc_agent_processing Effective timestamp, for when the agent started processing the log
-    #   segment being sent. An RFC3339 formatted datetime string.
+    #   segment being sent. An RFC3339-formatted date-time string.
     #
     # @option opts [String] :opc_agent_version Version of the agent sending the request.
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about

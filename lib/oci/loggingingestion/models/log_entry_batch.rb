@@ -11,28 +11,28 @@ module OCI
     # @return [Array<OCI::Loggingingestion::Models::LogEntry>]
     attr_accessor :entries
 
-    # **[Required]** Source of the logs that generated the message. It could be the
-    # instance name, hostname or the source used to read the event.
+    # **[Required]** Source of the logs that generated the message. This could be the
+    # instance name, hostname, or the source used to read the event. For example, \"ServerA\".
     #
     # @return [String]
     attr_accessor :source
 
     # **[Required]** This field signifies the type of logs being ingested.
-    # For example: ServerA.requestLogs
+    # For example: ServerA.requestLogs.
     #
     # @return [String]
     attr_accessor :type
 
-    # This optional field is useful for specifying the specific subresource
+    # This optional field is useful for specifying the specific sub-resource
     # or input file used to read the event.
-    # For example: \"/var/log/application.log\"
+    # For example: \"/var/log/application.log\".
     #
     # @return [String]
     attr_accessor :subject
 
-    # **[Required]** The timestamp for all log entries in this request. This can be
+    # **[Required]** The timestamp for all log entries in this batch. This can be
     # considered as the default timestamp for each entry, unless it is
-    # overwritten by the entry time. An RFC3339 formatted datetime
+    # overwritten by the entry time. An RFC3339-formatted date-time
     # string.
     #
     # @return [DateTime]

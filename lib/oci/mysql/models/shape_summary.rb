@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -11,6 +12,12 @@ module OCI
   # shapes, see [DB System Shape Options](https://docs.cloud.oracle.com/mysql-database/doc/shapes.htm).
   #
   class Mysql::Models::ShapeSummary
+    IS_SUPPORTED_FOR_ENUM = [
+      IS_SUPPORTED_FOR_DBSYSTEM = 'DBSYSTEM'.freeze,
+      IS_SUPPORTED_FOR_ANALYTICSCLUSTER = 'ANALYTICSCLUSTER'.freeze,
+      IS_SUPPORTED_FOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The name of the shape used for the DB System.
     # @return [String]
     attr_accessor :name
@@ -23,13 +30,19 @@ module OCI
     # @return [Integer]
     attr_accessor :memory_size_in_gbs
 
+    # What service features the shape is supported for.
+    #
+    # @return [Array<String>]
+    attr_reader :is_supported_for
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'cpu_core_count': :'cpuCoreCount',
-        'memory_size_in_gbs': :'memorySizeInGBs'
+        'memory_size_in_gbs': :'memorySizeInGBs',
+        'is_supported_for': :'isSupportedFor'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -40,7 +53,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'cpu_core_count': :'Integer',
-        'memory_size_in_gbs': :'Integer'
+        'memory_size_in_gbs': :'Integer',
+        'is_supported_for': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -54,6 +68,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
+    # @option attributes [Array<String>] :is_supported_for The value to assign to the {#is_supported_for} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -73,9 +88,35 @@ module OCI
       raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
 
       self.memory_size_in_gbs = attributes[:'memory_size_in_gbs'] if attributes[:'memory_size_in_gbs']
+
+      self.is_supported_for = attributes[:'isSupportedFor'] if attributes[:'isSupportedFor']
+
+      raise 'You cannot provide both :isSupportedFor and :is_supported_for' if attributes.key?(:'isSupportedFor') && attributes.key?(:'is_supported_for')
+
+      self.is_supported_for = attributes[:'is_supported_for'] if attributes[:'is_supported_for']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] is_supported_for Object to be assigned
+    def is_supported_for=(is_supported_for)
+      # rubocop:disable Style/ConditionalAssignment
+      if is_supported_for.nil?
+        @is_supported_for = nil
+      else
+        @is_supported_for =
+          is_supported_for.collect do |item|
+            if IS_SUPPORTED_FOR_ENUM.include?(item)
+              item
+            else
+              OCI.logger.debug("Unknown value for 'is_supported_for' [#{item}]. Mapping to 'IS_SUPPORTED_FOR_UNKNOWN_ENUM_VALUE'") if OCI.logger
+              IS_SUPPORTED_FOR_UNKNOWN_ENUM_VALUE
+            end
+          end
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -88,7 +129,8 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         cpu_core_count == other.cpu_core_count &&
-        memory_size_in_gbs == other.memory_size_in_gbs
+        memory_size_in_gbs == other.memory_size_in_gbs &&
+        is_supported_for == other.is_supported_for
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -104,7 +146,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, cpu_core_count, memory_size_in_gbs].hash
+      [name, cpu_core_count, memory_size_in_gbs, is_supported_for].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

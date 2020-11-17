@@ -363,7 +363,7 @@ module OCI
 
 
     # Deletes the specified tag key definitions. This operation triggers a process that removes the
-    # tags from all resources in your tenancy.
+    # tags from all resources in your tenancy. The tag key definitions must be within the same tag namespace.
     #
     # The following actions happen immediately:
     # \u00A0
@@ -423,6 +423,80 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#bulk_delete_tags') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Edits the specified list of tag key definitions for the selected resources.
+    # This operation triggers a process that edits the tags on all selected resources. The possible actions are:
+    #
+    #   * Add a defined tag when the tag does not already exist on the resource.
+    #   * Update the value for a defined tag when the tag is present on the resource.
+    #   * Add a defined tag when it does not already exist on the resource or update the value for a defined tag when the tag is present on the resource.
+    #   * Remove a defined tag from a resource. The tag is removed from the resource regardless of the tag value.
+    #
+    # See {#bulk_edit_operation_details bulk_edit_operation_details} for more information.
+    #
+    # The edits can include a combination of operations and tag sets.
+    # However, multiple operations cannot apply to one key definition in the same request.
+    # For example, if one request adds `tag set-1` to a resource and sets a tag value to `tag set-2`,
+    # `tag set-1` and `tag set-2` cannot have any common tag definitions.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [OCI::Identity::Models::BulkEditTagsDetails] :bulk_edit_tags_details The request object for bulk editing tags on resources in the compartment.
+    # @return [Response] A Response object with data of type nil
+    def bulk_edit_tags(opts = {})
+      logger.debug 'Calling operation IdentityClient#bulk_edit_tags.' if logger
+
+
+      path = '/tags/actions/bulkEdit'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(opts[:bulk_edit_tags_details])
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#bulk_edit_tags') do
         @api_client.call_api(
           :POST,
           path,
@@ -816,7 +890,7 @@ module OCI
 
 
     # Creates a new secret key for the specified user. Secret keys are used for authentication with the Object Storage Service's Amazon S3
-    # compatible API. For information, see
+    # compatible API. The secret key consists of an Access Key/Secret Key pair. For information, see
     # [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm).
     #
     # You must specify a *description* for the secret key (although it can be an empty string). It does not
@@ -4363,7 +4437,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @return [Response] A Response object with data of type {OCI::Identity::Models::BulkActionResourceTypeCollection BulkActionResourceTypeCollection}
     def list_bulk_action_resource_types(bulk_action_type, opts = {})
       logger.debug 'Calling operation IdentityClient#list_bulk_action_resource_types.' if logger
@@ -4415,6 +4489,61 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the resource types that support bulk tag editing.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #    (default to 20)
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::BulkEditTagsResourceTypeCollection BulkEditTagsResourceTypeCollection}
+    def list_bulk_edit_tags_resource_types(opts = {})
+      logger.debug 'Calling operation IdentityClient#list_bulk_edit_tags_resource_types.' if logger
+
+
+      path = '/tags/bulkEditResourceTypes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_bulk_edit_tags_resource_types') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::BulkEditTagsResourceTypeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the compartments in a specified compartment. The members of the list
     # returned depends on the values set for several parameters.
     #
@@ -4442,7 +4571,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :access_level Valid values are `ANY` and `ACCESSIBLE`. Default is `ANY`.
     #   Setting this to `ACCESSIBLE` returns only those compartments for which the
     #   user has INSPECT permissions directly or indirectly (permissions can be on a
@@ -4557,7 +4686,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Tag Tag}>
     def list_cost_tracking_tags(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_cost_tracking_tags.' if logger
@@ -4673,7 +4802,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -4829,7 +4958,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -4920,7 +5049,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
@@ -4994,7 +5123,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -5091,7 +5220,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IdpGroupMapping IdpGroupMapping}>
     def list_idp_group_mappings(identity_provider_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_idp_group_mappings.' if logger
@@ -5150,7 +5279,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
     #   sort order is case sensitive.
@@ -5235,7 +5364,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -5327,7 +5456,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::OAuth2ClientCredentialSummary OAuth2ClientCredentialSummary}>
@@ -5397,7 +5526,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -5703,7 +5832,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :id A filter to only return resources that match the specified OCID exactly.
     #
     # @option opts [String] :compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
@@ -5776,7 +5905,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [BOOLEAN] :include_subcompartments An optional boolean parameter indicating whether to retrieve all tag namespaces in subcompartments. If this
     #   parameter is not specified, only the tag namespaces defined in the specified compartment are retrieved.
     #
@@ -5845,7 +5974,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestErrorSummary TaggingWorkRequestErrorSummary}>
     def list_tagging_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_tagging_work_request_errors.' if logger
@@ -5903,7 +6032,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestLogSummary TaggingWorkRequestLogSummary}>
     def list_tagging_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_tagging_work_request_logs.' if logger
@@ -5962,7 +6091,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :resource_identifier The identifier of the resource the work request affects.
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestSummary TaggingWorkRequestSummary}>
     def list_tagging_work_requests(compartment_id, opts = {})
@@ -6023,7 +6152,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TagSummary TagSummary}>
@@ -6100,7 +6229,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::UserGroupMembership UserGroupMembership}>
     def list_user_group_memberships(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_user_group_memberships.' if logger
@@ -6163,7 +6292,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :identity_provider_id The id of the identity provider.
     #
     # @option opts [String] :external_identifier The id of a user in the identity provider.
@@ -6262,7 +6391,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #
+    #    (default to 20)
     # @option opts [String] :resource_identifier The identifier of the resource the work request affects.
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::WorkRequestSummary WorkRequestSummary}>
     def list_work_requests(compartment_id, opts = {})
