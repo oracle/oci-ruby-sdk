@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contains details indicating which log group the log should move to
+  # Contains details indicating which log group the log should move to.
   class Logging::Models::ChangeLogLogGroupDetails
     # Log group OCID.
     # @return [String]

@@ -14,7 +14,7 @@ module OCI
       CONFIGURATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Type of unified agent service configuration.
+    # **[Required]** Type of Unified Agent service configuration.
     # @return [String]
     attr_reader :configuration_type
 

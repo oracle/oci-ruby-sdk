@@ -6,7 +6,7 @@ require_relative 'unified_agent_parser'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # apache 2 log parser
+  # Apache 2 log parser.
   class Logging::Models::UnifiedAgentApache2Parser < Logging::Models::UnifiedAgentParser
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

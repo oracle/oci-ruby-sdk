@@ -5,15 +5,15 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The Source object. Sources represent external locations from which
-  # applications may be imported into an OCI tenancy.
+  # You can update the authorization details to access the source environment from which you want to migrate applications to
+  # Oracle Cloud Infrastructure. You can also update the description and tags of a source.
   #
   class ApplicationMigration::Models::UpdateSourceDetails
-    # Human-readable name of the source.
+    # Name of the source. This helps you to identify the appropriate source environment when you have multiple sources defined.
     # @return [String]
     attr_accessor :display_name
 
-    # Description of the source.
+    # Description of the source. This helps you to identify the appropriate source environment when you have multiple sources defined.
     # @return [String]
     attr_accessor :description
 
@@ -23,14 +23,14 @@ module OCI
     # @return [OCI::ApplicationMigration::Models::AuthorizationDetails]
     attr_accessor :authorization_details
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

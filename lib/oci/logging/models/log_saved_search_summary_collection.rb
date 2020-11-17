@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A collection of LogSavedSearchSummary items
+  # A collection of LogSavedSearchSummary items.
   #
   class Logging::Models::LogSavedSearchSummaryCollection
     # **[Required]** The Saved Seach Summaries

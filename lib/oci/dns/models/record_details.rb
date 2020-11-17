@@ -37,8 +37,7 @@ module OCI
     # @return [String]
     attr_accessor :rrset_version
 
-    # **[Required]** The canonical name for the record's type, such as A or CNAME. For more
-    # information, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
+    # **[Required]** The type of DNS record, such as A or CNAME. For more information, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
     #
     # @return [String]
     attr_accessor :rtype

@@ -29,17 +29,17 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The OCID of the compartment containing the steering policy.
+    # **[Required]** The OCID of the compartment containing the steering policy.
     # @return [String]
     attr_accessor :compartment_id
 
-    # A user-friendly name for the steering policy. Does not have to be unique and can be changed.
+    # **[Required]** A user-friendly name for the steering policy. Does not have to be unique and can be changed.
     # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
 
-    # The Time To Live (TTL) for responses from the steering policy, in seconds.
+    # **[Required]** The Time To Live (TTL) for responses from the steering policy, in seconds.
     # If not specified during creation, a value of 30 seconds will be used.
     #
     # @return [Integer]
@@ -58,7 +58,7 @@ module OCI
     # @return [String]
     attr_accessor :health_check_monitor_id
 
-    # A set of predefined rules based on the desired purpose of the steering policy. Each
+    # **[Required]** A set of predefined rules based on the desired purpose of the steering policy. Each
     # template utilizes Traffic Management's rules in a different order to produce the desired
     # results when answering DNS queries.
     #
@@ -103,7 +103,7 @@ module OCI
     # @return [String]
     attr_reader :template
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # **[Required]** Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     #
@@ -112,7 +112,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # **[Required]** Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     #
@@ -121,12 +121,12 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The set of all answers that can potentially issue from the steering policy.
+    # **[Required]** The set of all answers that can potentially issue from the steering policy.
     #
     # @return [Array<OCI::Dns::Models::SteeringPolicyAnswer>]
     attr_accessor :answers
 
-    # The series of rules that will be processed in sequence to reduce the pool of answers
+    # **[Required]** The series of rules that will be processed in sequence to reduce the pool of answers
     # to a response for any given request.
     #
     #
@@ -137,22 +137,22 @@ module OCI
     # @return [Array<OCI::Dns::Models::SteeringPolicyRule>]
     attr_accessor :rules
 
-    # The canonical absolute URL of the resource.
+    # **[Required]** The canonical absolute URL of the resource.
     # @return [String]
     attr_accessor :_self
 
-    # The OCID of the resource.
+    # **[Required]** The OCID of the resource.
     # @return [String]
     attr_accessor :id
 
-    # The date and time the resource was created, expressed in RFC 3339 timestamp format.
+    # **[Required]** The date and time the resource was created, expressed in RFC 3339 timestamp format.
     #
     # **Example:** `2016-07-22T17:23:59:60Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The current state of the resource.
+    # **[Required]** The current state of the resource.
     # @return [String]
     attr_reader :lifecycle_state
 

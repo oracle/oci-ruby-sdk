@@ -32,7 +32,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The display name of a user-friendly name. It has to be unique within enclosing resource,
+    # **[Required]** The user-friendly display name. This must be unique within the enclosing resource,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
@@ -65,7 +65,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_last_modified
 
-    # **[Required]** The state of an pipeline.
+    # **[Required]** The pipeline state.
     # @return [String]
     attr_reader :lifecycle_state
 

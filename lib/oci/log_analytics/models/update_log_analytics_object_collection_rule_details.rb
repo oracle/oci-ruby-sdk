@@ -14,15 +14,15 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # Log Analytics Log group OCID to associate the processed logs with.
+    # Logging Analytics Log group OCID to associate the processed logs with.
     # @return [String]
     attr_accessor :log_group_id
 
-    # Name of the Log Analytics Source to use for the processing.
+    # Name of the Logging Analytics Source to use for the processing.
     # @return [String]
     attr_accessor :log_source_name
 
-    # Log Analytics entity OCID. Associates the processed logs with the given entity (optional).
+    # Logging Analytics entity OCID. Associates the processed logs with the given entity (optional).
     # @return [String]
     attr_accessor :entity_id
 

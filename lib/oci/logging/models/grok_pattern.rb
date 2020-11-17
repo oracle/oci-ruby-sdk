@@ -5,25 +5,25 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # grok pattern object
+  # grok pattern object.
   class Logging::Models::GrokPattern
-    # **[Required]** The grok pattern
+    # **[Required]** The grok pattern.
     # @return [String]
     attr_accessor :pattern
 
-    # The name key to tag this grok pattern
+    # The name key to tag this grok pattern.
     # @return [String]
     attr_accessor :name
 
-    # Specify time field for event time. If the event doesn't have this field, current time is used.
+    # Specify the time field for the event time. If the event doesn't have this field, the current time is used.
     # @return [String]
     attr_accessor :field_time_key
 
-    # Process value using specified format. This is available only when time_type is string.
+    # Process value using the specified format. This is available only when time_type is a string.
     # @return [String]
     attr_accessor :field_time_format
 
-    # Use specified timezone. One can parse/format the time value in the specified timezone.
+    # Use the specified time zone. The time value can be parsed or formatted in the specified time zone.
     # @return [String]
     attr_accessor :field_time_zone
 

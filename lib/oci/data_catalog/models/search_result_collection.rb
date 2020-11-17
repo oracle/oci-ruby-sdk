@@ -17,12 +17,22 @@ module OCI
     # @return [Array<OCI::DataCatalog::Models::SearchResult>]
     attr_accessor :items
 
+    # String that data objects are to be searched with.
+    # @return [String]
+    attr_accessor :query
+
+    # Aggregations/facets on properties of data objects.
+    # @return [Array<OCI::DataCatalog::Models::FacetedSearchAggregation>]
+    attr_accessor :faceted_search_aggregation
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'count': :'count',
-        'items': :'items'
+        'items': :'items',
+        'query': :'query',
+        'faceted_search_aggregation': :'facetedSearchAggregation'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,7 +42,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'count': :'Integer',
-        'items': :'Array<OCI::DataCatalog::Models::SearchResult>'
+        'items': :'Array<OCI::DataCatalog::Models::SearchResult>',
+        'query': :'String',
+        'faceted_search_aggregation': :'Array<OCI::DataCatalog::Models::FacetedSearchAggregation>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,6 +57,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :count The value to assign to the {#count} property
     # @option attributes [Array<OCI::DataCatalog::Models::SearchResult>] :items The value to assign to the {#items} property
+    # @option attributes [String] :query The value to assign to the {#query} property
+    # @option attributes [Array<OCI::DataCatalog::Models::FacetedSearchAggregation>] :faceted_search_aggregation The value to assign to the {#faceted_search_aggregation} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -54,6 +68,14 @@ module OCI
       self.count = attributes[:'count'] if attributes[:'count']
 
       self.items = attributes[:'items'] if attributes[:'items']
+
+      self.query = attributes[:'query'] if attributes[:'query']
+
+      self.faceted_search_aggregation = attributes[:'facetedSearchAggregation'] if attributes[:'facetedSearchAggregation']
+
+      raise 'You cannot provide both :facetedSearchAggregation and :faceted_search_aggregation' if attributes.key?(:'facetedSearchAggregation') && attributes.key?(:'faceted_search_aggregation')
+
+      self.faceted_search_aggregation = attributes[:'faceted_search_aggregation'] if attributes[:'faceted_search_aggregation']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -68,7 +90,9 @@ module OCI
 
       self.class == other.class &&
         count == other.count &&
-        items == other.items
+        items == other.items &&
+        query == other.query &&
+        faceted_search_aggregation == other.faceted_search_aggregation
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -84,7 +108,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [count, items].hash
+      [count, items, query, faceted_search_aggregation].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

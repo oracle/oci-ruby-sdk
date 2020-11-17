@@ -11,6 +11,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :field_names
 
+    # parserNames
     # @return [Array<String>]
     attr_accessor :parser_names
 

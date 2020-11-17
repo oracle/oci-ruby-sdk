@@ -23,7 +23,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :are_partial_results
 
-    # Explanation of why results may be partial. Only set if isPartialResults is true.
+    # Explanation of why results may be partial. Only set if arePartialResults is true.
     #
     # @return [String]
     attr_accessor :partial_result_reason

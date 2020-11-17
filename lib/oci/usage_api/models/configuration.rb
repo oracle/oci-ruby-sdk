@@ -6,13 +6,13 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A configuration
+  # A configuration.
   class UsageApi::Models::Configuration
-    # **[Required]** The key of the config
+    # **[Required]** The configuration key.
     # @return [String]
     attr_accessor :key
 
-    # The value of the config
+    # The configuration value.
     # @return [Array<String>]
     attr_accessor :values
 

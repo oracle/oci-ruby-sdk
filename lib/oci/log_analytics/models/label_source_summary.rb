@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # LabelSourceSummary model.
+  # source summary
   class LogAnalytics::Models::LabelSourceSummary
     # display name
     # @return [String]

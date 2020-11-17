@@ -5,7 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Base model for different source authorization methods
+  # Details of the source environment from which you want to migrate applications to Oracle Cloud Infrastructure. It also contains access
+  # credentials.
+  #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ApplicationMigration::Models::AuthorizationDetails
     TYPE_ENUM = [
@@ -13,7 +15,7 @@ module OCI
       TYPE_INTERNAL_COMPUTE = 'INTERNAL_COMPUTE'.freeze
     ].freeze
 
-    # **[Required]** The type of source environment
+    # **[Required]** Type of the source environment from which you are migrating applications to Oracle Cloud Infrastructure.
     # @return [String]
     attr_reader :type
 

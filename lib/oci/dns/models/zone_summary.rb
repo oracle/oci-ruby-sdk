@@ -17,6 +17,12 @@ module OCI
       ZONE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    SCOPE_ENUM = [
+      SCOPE_GLOBAL = 'GLOBAL'.freeze,
+      SCOPE_PRIVATE = 'PRIVATE'.freeze,
+      SCOPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -26,20 +32,31 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The name of the zone.
+    # **[Required]** The name of the zone.
     # @return [String]
     attr_accessor :name
 
-    # The type of the zone. Must be either `PRIMARY` or `SECONDARY`.
+    # **[Required]** The type of the zone. Must be either `PRIMARY` or `SECONDARY`. `SECONDARY` is only supported for GLOBAL zones.
     #
     # @return [String]
     attr_reader :zone_type
 
-    # The OCID of the compartment containing the zone.
+    # **[Required]** The OCID of the compartment containing the zone.
     # @return [String]
     attr_accessor :compartment_id
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # The OCID of the private view containing the zone. This value will
+    # be null for zones in the global DNS, which are publicly resolvable and
+    # not part of a private view.
+    #
+    # @return [String]
+    attr_accessor :view_id
+
+    # **[Required]** The scope of the zone.
+    # @return [String]
+    attr_reader :scope
+
+    # **[Required]** Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     #
@@ -48,7 +65,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # **[Required]** Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     #
@@ -57,15 +74,15 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The canonical absolute URL of the resource.
+    # **[Required]** The canonical absolute URL of the resource.
     # @return [String]
     attr_accessor :self_uri
 
-    # The OCID of the zone.
+    # **[Required]** The OCID of the zone.
     # @return [String]
     attr_accessor :id
 
-    # The date and time the resource was created in \"YYYY-MM-ddThh:mmZ\" format
+    # **[Required]** The date and time the resource was created in \"YYYY-MM-ddThh:mm:ssZ\" format
     # with a Z offset, as defined by RFC 3339.
     #
     # **Example:** `2016-07-22T17:23:59:60Z`
@@ -73,21 +90,26 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # Version is the never-repeating, totally-orderable, version of the
+    # **[Required]** Version is the never-repeating, totally-orderable, version of the
     # zone, from which the serial field of the zone's SOA record is
     # derived.
     #
     # @return [String]
     attr_accessor :version
 
-    # The current serial of the zone. As seen in the zone's SOA record.
+    # **[Required]** The current serial of the zone. As seen in the zone's SOA record.
     #
     # @return [Integer]
     attr_accessor :serial
 
-    # The current state of the zone resource.
+    # **[Required]** The current state of the zone resource.
     # @return [String]
     attr_reader :lifecycle_state
+
+    # **[Required]** A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_protected
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -96,6 +118,8 @@ module OCI
         'name': :'name',
         'zone_type': :'zoneType',
         'compartment_id': :'compartmentId',
+        'view_id': :'viewId',
+        'scope': :'scope',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'self_uri': :'self',
@@ -103,7 +127,8 @@ module OCI
         'time_created': :'timeCreated',
         'version': :'version',
         'serial': :'serial',
-        'lifecycle_state': :'lifecycleState'
+        'lifecycle_state': :'lifecycleState',
+        'is_protected': :'isProtected'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -115,6 +140,8 @@ module OCI
         'name': :'String',
         'zone_type': :'String',
         'compartment_id': :'String',
+        'view_id': :'String',
+        'scope': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'self_uri': :'String',
@@ -122,7 +149,8 @@ module OCI
         'time_created': :'DateTime',
         'version': :'String',
         'serial': :'Integer',
-        'lifecycle_state': :'String'
+        'lifecycle_state': :'String',
+        'is_protected': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -136,6 +164,8 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :zone_type The value to assign to the {#zone_type} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :view_id The value to assign to the {#view_id} property
+    # @option attributes [String] :scope The value to assign to the {#scope} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :self_uri The value to assign to the {#self_uri} property
@@ -144,6 +174,7 @@ module OCI
     # @option attributes [String] :version The value to assign to the {#version} property
     # @option attributes [Integer] :serial The value to assign to the {#serial} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [BOOLEAN] :is_protected The value to assign to the {#is_protected} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -163,6 +194,14 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.view_id = attributes[:'viewId'] if attributes[:'viewId']
+
+      raise 'You cannot provide both :viewId and :view_id' if attributes.key?(:'viewId') && attributes.key?(:'view_id')
+
+      self.view_id = attributes[:'view_id'] if attributes[:'view_id']
+
+      self.scope = attributes[:'scope'] if attributes[:'scope']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -199,6 +238,12 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.is_protected = attributes[:'isProtected'] unless attributes[:'isProtected'].nil?
+
+      raise 'You cannot provide both :isProtected and :is_protected' if attributes.key?(:'isProtected') && attributes.key?(:'is_protected')
+
+      self.is_protected = attributes[:'is_protected'] unless attributes[:'is_protected'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -212,6 +257,19 @@ module OCI
         @zone_type = ZONE_TYPE_UNKNOWN_ENUM_VALUE
       else
         @zone_type = zone_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] scope Object to be assigned
+    def scope=(scope)
+      # rubocop:disable Style/ConditionalAssignment
+      if scope && !SCOPE_ENUM.include?(scope)
+        OCI.logger.debug("Unknown value for 'scope' [" + scope + "]. Mapping to 'SCOPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @scope = SCOPE_UNKNOWN_ENUM_VALUE
+      else
+        @scope = scope
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -241,6 +299,8 @@ module OCI
         name == other.name &&
         zone_type == other.zone_type &&
         compartment_id == other.compartment_id &&
+        view_id == other.view_id &&
+        scope == other.scope &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         self_uri == other.self_uri &&
@@ -248,7 +308,8 @@ module OCI
         time_created == other.time_created &&
         version == other.version &&
         serial == other.serial &&
-        lifecycle_state == other.lifecycle_state
+        lifecycle_state == other.lifecycle_state &&
+        is_protected == other.is_protected
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -264,7 +325,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, zone_type, compartment_id, freeform_tags, defined_tags, self_uri, id, time_created, version, serial, lifecycle_state].hash
+      [name, zone_type, compartment_id, view_id, scope, freeform_tags, defined_tags, self_uri, id, time_created, version, serial, lifecycle_state, is_protected].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

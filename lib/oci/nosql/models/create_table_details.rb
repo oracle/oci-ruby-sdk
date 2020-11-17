@@ -23,6 +23,10 @@ module OCI
     # @return [OCI::Nosql::Models::TableLimits]
     attr_accessor :table_limits
 
+    # True if table can be reclaimed after an idle period.
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_reclaimable
+
     # Simple key-value pair that is applied without any predefined
     # name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
@@ -45,6 +49,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'ddl_statement': :'ddlStatement',
         'table_limits': :'tableLimits',
+        'is_auto_reclaimable': :'isAutoReclaimable',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -59,6 +64,7 @@ module OCI
         'compartment_id': :'String',
         'ddl_statement': :'String',
         'table_limits': :'OCI::Nosql::Models::TableLimits',
+        'is_auto_reclaimable': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -75,6 +81,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :ddl_statement The value to assign to the {#ddl_statement} property
     # @option attributes [OCI::Nosql::Models::TableLimits] :table_limits The value to assign to the {#table_limits} property
+    # @option attributes [BOOLEAN] :is_auto_reclaimable The value to assign to the {#is_auto_reclaimable} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -102,6 +109,12 @@ module OCI
       raise 'You cannot provide both :tableLimits and :table_limits' if attributes.key?(:'tableLimits') && attributes.key?(:'table_limits')
 
       self.table_limits = attributes[:'table_limits'] if attributes[:'table_limits']
+
+      self.is_auto_reclaimable = attributes[:'isAutoReclaimable'] unless attributes[:'isAutoReclaimable'].nil?
+
+      raise 'You cannot provide both :isAutoReclaimable and :is_auto_reclaimable' if attributes.key?(:'isAutoReclaimable') && attributes.key?(:'is_auto_reclaimable')
+
+      self.is_auto_reclaimable = attributes[:'is_auto_reclaimable'] unless attributes[:'is_auto_reclaimable'].nil?
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -131,6 +144,7 @@ module OCI
         compartment_id == other.compartment_id &&
         ddl_statement == other.ddl_statement &&
         table_limits == other.table_limits &&
+        is_auto_reclaimable == other.is_auto_reclaimable &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -148,7 +162,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, compartment_id, ddl_statement, table_limits, freeform_tags, defined_tags].hash
+      [name, compartment_id, ddl_statement, table_limits, is_auto_reclaimable, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

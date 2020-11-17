@@ -9,6 +9,7 @@ module OCI
   # information about record types, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
   #
   class Dns::Models::RRSet
+    # This attribute is required.
     # @return [Array<OCI::Dns::Models::Record>]
     attr_accessor :items
 

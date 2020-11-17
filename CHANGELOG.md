@@ -3,6 +3,55 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.11.0 - 2020-11-17
+### Added
+- Support for API definitions in the API Gateway service
+- Support for pattern-based logical entities, namespace-bound custom properties, and faceted search in the Data Catalog service
+- Support for autonomous Data Guard on autonomous infrastructure in the Database service
+- Support for creating a Data Guard association on an existing standby database home in the Database service
+- Support for upgrading cloud VM cluster grid infrastructure in the Database service
+- Support for applying same retry policy across multiple requests in the same service
+- Support for resource principal v1.1 authentication.
+- Support for the Operations Insights service
+- Support for updating autonomous databases to enable/disable Operations Insights service integration, in the Database service
+- Support for the NEEDS_ATTENTION lifecycle state on database systems in the Database service
+- Support for HCX in the VMware Solutions service
+- Support for the Compute Instance Agent service
+- Support for key store resources and operations in the Database service
+- Support for specifying a key store when creating autonomous container databases in the Database service
+- Support for calling Oracle Cloud Infrastructure services in the uk-cardiff-1 region
+- Support for the Organizations service
+- Support for the Optimizer service
+- Support for tenancy ID and name on responses in the Usage service
+- Support for object versioning in object lifecycle management in the Object Storage service
+- Support for specifying a syslog URL for applications in the Functions service
+- Support for creation of always-free NoSQL database tables in the NoSQL Database service
+- Support for the 21C autonomous database version in the Database service
+- Support for creating a Data Guard association with a standby database from a database software image in the Database service
+- Support for specifying a TDE wallet password when creating a database or database system in the Database service
+- Support for enabling access control lists for autonomous databases on Exadata Cloud At Customer in the Database service
+- Support for private DNS resolvers, resolver endpoints, and views in the DNS service
+- Support for getting a VCN and resolver association in the Networking service
+- Support for additional parameters when updating subnets and VLANs in the Networking service
+- Support for analytics clusters (database accelerators) in the MySQL Database service
+- Support for migrations to Java Cloud Service and Oracle Weblogic Server instances that use existing databases in the Application Migration service
+- Support for specifying reserved IPs when creating load balancers in the Load Balancing service
+- Fix once request header content-length is 0, request body is not nil, then send chunked-encoding header issue
+- Support for specifying memory for AMD E3 shapes during node pool creation and update in the Container Engine for Kubernetes service
+- Support for upgrading a database on a VM database system in the Database service
+- Support for listing autonomous database clones in the Database service
+- Support for Data Guard with autonomous container databases on Exadata Cloud at Customer in the Database service
+- Support for getting the last login time of a user in the Identity service
+- Support to bulk editing tags on resources in the Identity service
+- Fix URI.escape obsolete issue
+
+### Breaking
+- Removed models `AgentUpload`, `Attribute`, `CreateNamespaceDetails`, `FieldMap`, `GenerateAgentObjectNameDetails`, `LogAnalytics`, `LogAnalyticsCollectionWarning`, `LogAnalyticsSummary`, `OutOfBoxEntityTypeDetails`, `Query`, `QueryWorkRequestResource`, `RegisterEntityTypesDetails`, `ServiceTenancy`, `StringListDetails` from Log Analytics service
+- Removed value `CUSLTER_SPLIT` and added `CLUSTER_SPLIT` in the Log Analytics service enum `name`
+- The value for enum `status` is not validated against allowed values and will not raise `ValueError` in the Container Engine service
+- Attribute `is_quick_start` in models `CreateLogSavedSearchDetails`, `LogSavedSearchSummary` and `LogSavedSearch` is removed from the Logging Management service
+- Lifecycle State `DELETED` is removed from the Logging Management service
+
 ## 2.10.0 - 2020-10-06
 ### Added
 - Support for the Data Integration service

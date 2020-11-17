@@ -6,7 +6,7 @@ require_relative 'unified_agent_parser'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # this parser signifies a non parser and puts entire log line in a message_key.
+  # This parser signifies a non-parser, and puts the entire log line in a message_key.
   class Logging::Models::UnifiedAgentNoneParser < Logging::Models::UnifiedAgentParser
     # @return [String]
     attr_accessor :message_key

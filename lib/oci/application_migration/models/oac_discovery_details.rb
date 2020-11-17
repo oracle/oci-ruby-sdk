@@ -6,14 +6,14 @@ require_relative 'discovery_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the credentials to access the source OAC instance
+  # Details about the Oracle Analytics Cloud - Classic application in the source environment.
   #
   class ApplicationMigration::Models::OacDiscoveryDetails < ApplicationMigration::Models::DiscoveryDetails
-    # **[Required]** The OAC instance admin user
+    # **[Required]** This field is currently not supported. You must enter a value, such as <code>unused</code>. However, the value that you enter is ignored.
     # @return [String]
     attr_accessor :service_instance_user
 
-    # **[Required]** The OAC instance admin password
+    # **[Required]** This field is currently not supported. You must enter a value, such as <code>unused</code>. However, the value that you enter is ignored.
     # @return [String]
     attr_accessor :service_instance_password
 

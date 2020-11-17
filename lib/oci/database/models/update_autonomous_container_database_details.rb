@@ -24,6 +24,12 @@ module OCI
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window_details
 
+    # The scheduling detail for the quarterly maintenance window of the standby Autonomous Container Database.
+    # This value represents the number of days before the primary database maintenance schedule.
+    #
+    # @return [Integer]
+    attr_accessor :standby_maintenance_buffer_in_days
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -48,6 +54,7 @@ module OCI
         'display_name': :'displayName',
         'patch_model': :'patchModel',
         'maintenance_window_details': :'maintenanceWindowDetails',
+        'standby_maintenance_buffer_in_days': :'standbyMaintenanceBufferInDays',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'backup_config': :'backupConfig'
@@ -62,6 +69,7 @@ module OCI
         'display_name': :'String',
         'patch_model': :'String',
         'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow',
+        'standby_maintenance_buffer_in_days': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'backup_config': :'OCI::Database::Models::AutonomousContainerDatabaseBackupConfig'
@@ -78,6 +86,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :patch_model The value to assign to the {#patch_model} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
+    # @option attributes [Integer] :standby_maintenance_buffer_in_days The value to assign to the {#standby_maintenance_buffer_in_days} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Database::Models::AutonomousContainerDatabaseBackupConfig] :backup_config The value to assign to the {#backup_config} property
@@ -104,6 +113,12 @@ module OCI
       raise 'You cannot provide both :maintenanceWindowDetails and :maintenance_window_details' if attributes.key?(:'maintenanceWindowDetails') && attributes.key?(:'maintenance_window_details')
 
       self.maintenance_window_details = attributes[:'maintenance_window_details'] if attributes[:'maintenance_window_details']
+
+      self.standby_maintenance_buffer_in_days = attributes[:'standbyMaintenanceBufferInDays'] if attributes[:'standbyMaintenanceBufferInDays']
+
+      raise 'You cannot provide both :standbyMaintenanceBufferInDays and :standby_maintenance_buffer_in_days' if attributes.key?(:'standbyMaintenanceBufferInDays') && attributes.key?(:'standby_maintenance_buffer_in_days')
+
+      self.standby_maintenance_buffer_in_days = attributes[:'standby_maintenance_buffer_in_days'] if attributes[:'standby_maintenance_buffer_in_days']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -146,6 +161,7 @@ module OCI
         display_name == other.display_name &&
         patch_model == other.patch_model &&
         maintenance_window_details == other.maintenance_window_details &&
+        standby_maintenance_buffer_in_days == other.standby_maintenance_buffer_in_days &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         backup_config == other.backup_config
@@ -164,7 +180,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, patch_model, maintenance_window_details, freeform_tags, defined_tags, backup_config].hash
+      [display_name, patch_model, maintenance_window_details, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, backup_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

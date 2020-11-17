@@ -416,6 +416,9 @@ module OCI
     #   contact Oracle about a specific request, please provide the request
     #   ID that you supplied in this header with the request.
     #
+    # @option opts [Array<String>] :is_supported_for Return shapes that are supported by the service feature.
+    #    (default to [DBSYSTEM])
+    #   Allowed values are: DBSYSTEM, ANALYTICSCLUSTER
     # @option opts [String] :availability_domain The name of the Availability Domain.
     # @option opts [String] :name Name
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::ShapeSummary ShapeSummary}>
@@ -424,6 +427,16 @@ module OCI
 
       raise "Missing the required parameter 'compartment_id' when calling list_shapes." if compartment_id.nil?
 
+
+      is_supported_for_allowable_values = %w[DBSYSTEM ANALYTICSCLUSTER]
+      if opts[:is_supported_for] && !opts[:is_supported_for].empty?
+        opts[:is_supported_for].each do |val_to_check|
+          unless is_supported_for_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "is_supported_for", must be one of DBSYSTEM, ANALYTICSCLUSTER.'
+          end
+        end
+      end
+
       path = '/shapes'
       operation_signing_strategy = :standard
 
@@ -431,6 +444,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
+      query_params[:isSupportedFor] = OCI::ApiClient.build_collection_params(opts[:is_supported_for], :multi) if opts[:is_supported_for] && !opts[:is_supported_for].empty?
       query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
       query_params[:name] = opts[:name] if opts[:name]
 

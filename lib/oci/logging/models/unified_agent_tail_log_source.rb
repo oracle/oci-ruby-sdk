@@ -6,7 +6,7 @@ require_relative 'unified_agent_logging_source'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # tail log source object.
+  # Tail log source object.
   class Logging::Models::UnifiedAgentTailLogSource < Logging::Models::UnifiedAgentLoggingSource
     # @return [Array<String>]
     attr_accessor :paths

@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Work request details to release recalled data
+  # This is the input used to release recalled data
   #
   class LogAnalytics::Models::ReleaseRecalledDataDetails
     DATA_TYPE_ENUM = [
@@ -13,19 +13,19 @@ module OCI
       DATA_TYPE_LOOKUP = 'LOOKUP'.freeze
     ].freeze
 
-    # **[Required]** the compartment OCID for permission checking
+    # **[Required]** This is the compartment OCID for permission checking
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** the end of the time interval
+    # **[Required]** This is the end of the time interval
     # @return [DateTime]
     attr_accessor :time_data_ended
 
-    # **[Required]** the start of the time interval
+    # **[Required]** This is the start of the time interval
     # @return [DateTime]
     attr_accessor :time_data_started
 
-    # the type of the log data to be purged
+    # This is the type of the recalled data to be released
     # @return [String]
     attr_reader :data_type
 

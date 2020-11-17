@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Update storage configuration of a tenancy in Logan Analytics application
+  # This is the input to update storage configuration of a tenancy in Logan Analytics application
   class LogAnalytics::Models::UpdateStorageDetails
     # This attribute is required.
     # @return [OCI::LogAnalytics::Models::ArchivingConfiguration]

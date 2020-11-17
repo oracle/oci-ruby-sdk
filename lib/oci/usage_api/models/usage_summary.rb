@@ -5,29 +5,37 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The result from usage store.
+  # The usage store result.
   class UsageApi::Models::UsageSummary
-    # The OCID of the compartment.
+    # The tenancy OCID.
+    # @return [String]
+    attr_accessor :tenant_id
+
+    # The tenancy name.
+    # @return [String]
+    attr_accessor :tenant_name
+
+    # The compartment OCID.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The path of the compartment, starting from root.
+    # The compartment path, starting from root.
     # @return [String]
     attr_accessor :compartment_path
 
-    # The name of the compartment.
+    # The compartment name.
     # @return [String]
     attr_accessor :compartment_name
 
-    # The name of the service that is incurring the cost.
+    # The service name that is incurring the cost.
     # @return [String]
     attr_accessor :service
 
-    # The name of the resource that is incurring the cost.
+    # The resource name that is incurring the cost.
     # @return [String]
     attr_accessor :resource_name
 
-    # The Ocid of the resource that is incurring the cost.
+    # The resource OCID that is incurring the cost.
     # @return [String]
     attr_accessor :resource_id
 
@@ -39,23 +47,23 @@ module OCI
     # @return [String]
     attr_accessor :ad
 
-    # The size of resource being metered.
+    # The resource size being metered.
     # @return [Float]
     attr_accessor :weight
 
-    # The shape of the resource.
+    # The resource shape.
     # @return [String]
     attr_accessor :shape
 
-    # The part number of the SKU.
+    # The SKU part number.
     # @return [String]
     attr_accessor :sku_part_number
 
-    # The friendly name for the SKU.
+    # The SKU friendly name.
     # @return [String]
     attr_accessor :sku_name
 
-    # The unit of the usage.
+    # The usage unit.
     # @return [String]
     attr_accessor :unit
 
@@ -63,7 +71,7 @@ module OCI
     # @return [Float]
     attr_accessor :discount
 
-    # The list rate for the SKU (not discount).
+    # The SKU list rate (not discount).
     # @return [Float]
     attr_accessor :list_rate
 
@@ -71,11 +79,11 @@ module OCI
     # @return [String]
     attr_accessor :platform
 
-    # **[Required]** The start time of the usage.
+    # **[Required]** The usage start time.
     # @return [DateTime]
     attr_accessor :time_usage_started
 
-    # **[Required]** The end time of the usage.
+    # **[Required]** The usage end time.
     # @return [DateTime]
     attr_accessor :time_usage_ended
 
@@ -95,11 +103,11 @@ module OCI
     # @return [Float]
     attr_accessor :unit_price
 
-    # The currency for the price.
+    # The price currency.
     # @return [String]
     attr_accessor :currency
 
-    # The subscription Id.
+    # The subscription ID.
     # @return [String]
     attr_accessor :subscription_id
 
@@ -107,7 +115,7 @@ module OCI
     # @return [String]
     attr_accessor :overage
 
-    # For grouping, a tag definition. For filtering, a definition and key
+    # For grouping, a tag definition. For filtering, a definition and key.
     # @return [Array<OCI::UsageApi::Models::Tag>]
     attr_accessor :tags
 
@@ -115,6 +123,8 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'tenant_id': :'tenantId',
+        'tenant_name': :'tenantName',
         'compartment_id': :'compartmentId',
         'compartment_path': :'compartmentPath',
         'compartment_name': :'compartmentName',
@@ -149,6 +159,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'tenant_id': :'String',
+        'tenant_name': :'String',
         'compartment_id': :'String',
         'compartment_path': :'String',
         'compartment_name': :'String',
@@ -185,6 +197,8 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :tenant_id The value to assign to the {#tenant_id} property
+    # @option attributes [String] :tenant_name The value to assign to the {#tenant_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :compartment_path The value to assign to the {#compartment_path} property
     # @option attributes [String] :compartment_name The value to assign to the {#compartment_name} property
@@ -216,6 +230,18 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.tenant_id = attributes[:'tenantId'] if attributes[:'tenantId']
+
+      raise 'You cannot provide both :tenantId and :tenant_id' if attributes.key?(:'tenantId') && attributes.key?(:'tenant_id')
+
+      self.tenant_id = attributes[:'tenant_id'] if attributes[:'tenant_id']
+
+      self.tenant_name = attributes[:'tenantName'] if attributes[:'tenantName']
+
+      raise 'You cannot provide both :tenantName and :tenant_name' if attributes.key?(:'tenantName') && attributes.key?(:'tenant_name')
+
+      self.tenant_name = attributes[:'tenant_name'] if attributes[:'tenant_name']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -341,6 +367,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        tenant_id == other.tenant_id &&
+        tenant_name == other.tenant_name &&
         compartment_id == other.compartment_id &&
         compartment_path == other.compartment_path &&
         compartment_name == other.compartment_name &&
@@ -382,7 +410,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, compartment_path, compartment_name, service, resource_name, resource_id, region, ad, weight, shape, sku_part_number, sku_name, unit, discount, list_rate, platform, time_usage_started, time_usage_ended, computed_amount, computed_quantity, overages_flag, unit_price, currency, subscription_id, overage, tags].hash
+      [tenant_id, tenant_name, compartment_id, compartment_path, compartment_name, service, resource_name, resource_id, region, ad, weight, shape, sku_part_number, sku_name, unit, discount, list_rate, platform, time_usage_started, time_usage_ended, computed_amount, computed_quantity, overages_flag, unit_price, currency, subscription_id, overage, tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

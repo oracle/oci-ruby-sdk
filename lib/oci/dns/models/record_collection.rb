@@ -7,6 +7,7 @@ require 'date'
 module OCI
   # A collection of DNS resource records.
   class Dns::Models::RecordCollection
+    # This attribute is required.
     # @return [Array<OCI::Dns::Models::Record>]
     attr_accessor :items
 

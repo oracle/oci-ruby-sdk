@@ -6,7 +6,14 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Base model for different source environment types
+  # Specify one of the following values depending for the 'type' attribute based on the application that you want to migrate.
+  #
+  # Specify `OCIC` if you want to migrate Oracle Java Cloud Service, Oracle Analytics Cloud - Classic, Oracle Integration, and Oracle
+  # SOA Cloud Service applications from Oracle Cloud Infrastructure - Classic.
+  #
+  # Specify `INTERNAL_COMPUTE` if you have a traditional Oracle Cloud Infrastructure - Classic account and you want to migrate Oracle
+  # Process Cloud Service or Oracle Integration Cloud Service applications.
+  #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ApplicationMigration::Models::SourceDetails
     TYPE_ENUM = [
@@ -15,7 +22,8 @@ module OCI
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The type of source environment
+    # **[Required]** The type of source environment.
+    #
     # @return [String]
     attr_reader :type
 

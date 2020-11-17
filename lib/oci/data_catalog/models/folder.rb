@@ -58,6 +58,10 @@ module OCI
     # @return [String]
     attr_accessor :data_asset_key
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>]
+    attr_accessor :custom_property_members
+
     # A map of maps that contains the properties which are specific to the folder type. Each folder type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -120,6 +124,7 @@ module OCI
         'parent_folder_key': :'parentFolderKey',
         'path': :'path',
         'data_asset_key': :'dataAssetKey',
+        'custom_property_members': :'customPropertyMembers',
         'properties': :'properties',
         'external_key': :'externalKey',
         'time_created': :'timeCreated',
@@ -145,6 +150,7 @@ module OCI
         'parent_folder_key': :'String',
         'path': :'String',
         'data_asset_key': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
         'properties': :'Hash<String, Hash<String, String>>',
         'external_key': :'String',
         'time_created': :'DateTime',
@@ -172,6 +178,7 @@ module OCI
     # @option attributes [String] :parent_folder_key The value to assign to the {#parent_folder_key} property
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [String] :data_asset_key The value to assign to the {#data_asset_key} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -212,6 +219,12 @@ module OCI
       raise 'You cannot provide both :dataAssetKey and :data_asset_key' if attributes.key?(:'dataAssetKey') && attributes.key?(:'data_asset_key')
 
       self.data_asset_key = attributes[:'data_asset_key'] if attributes[:'data_asset_key']
+
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
 
       self.properties = attributes[:'properties'] if attributes[:'properties']
 
@@ -315,6 +328,7 @@ module OCI
         parent_folder_key == other.parent_folder_key &&
         path == other.path &&
         data_asset_key == other.data_asset_key &&
+        custom_property_members == other.custom_property_members &&
         properties == other.properties &&
         external_key == other.external_key &&
         time_created == other.time_created &&
@@ -341,7 +355,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, parent_folder_key, path, data_asset_key, properties, external_key, time_created, time_updated, created_by_id, updated_by_id, time_external, lifecycle_state, harvest_status, last_job_key, uri].hash
+      [key, display_name, description, parent_folder_key, path, data_asset_key, custom_property_members, properties, external_key, time_created, time_updated, created_by_id, updated_by_id, time_external, lifecycle_state, harvest_status, last_job_key, uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

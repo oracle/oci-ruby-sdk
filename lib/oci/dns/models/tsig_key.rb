@@ -17,7 +17,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # TSIG key algorithms are encoded as domain names, but most consist of only one
+    # **[Required]** TSIG key algorithms are encoded as domain names, but most consist of only one
     # non-empty label, which is not required to be explicitly absolute.
     # Applicable algorithms include: hmac-sha1, hmac-sha224, hmac-sha256,
     # hmac-sha512. For more information on these algorithms, see [RFC 4635](https://tools.ietf.org/html/rfc4635#section-2).
@@ -25,19 +25,19 @@ module OCI
     # @return [String]
     attr_accessor :algorithm
 
-    # A globally unique domain name identifying the key for a given pair of hosts.
+    # **[Required]** A globally unique domain name identifying the key for a given pair of hosts.
     # @return [String]
     attr_accessor :name
 
-    # The OCID of the compartment containing the TSIG key.
+    # **[Required]** The OCID of the compartment containing the TSIG key.
     # @return [String]
     attr_accessor :compartment_id
 
-    # A base64 string encoding the binary shared secret.
+    # **[Required]** A base64 string encoding the binary shared secret.
     # @return [String]
     attr_accessor :secret
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # **[Required]** Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     #
@@ -46,7 +46,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # **[Required]** Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
     #
@@ -55,22 +55,22 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of the resource.
+    # **[Required]** The OCID of the resource.
     # @return [String]
     attr_accessor :id
 
-    # The canonical absolute URL of the resource.
+    # **[Required]** The canonical absolute URL of the resource.
     # @return [String]
     attr_accessor :_self
 
-    # The date and time the resource was created, expressed in RFC 3339 timestamp format.
+    # **[Required]** The date and time the resource was created, expressed in RFC 3339 timestamp format.
     #
     # **Example:** `2016-07-22T17:23:59:60Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The current state of the resource.
+    # **[Required]** The current state of the resource.
     # @return [String]
     attr_reader :lifecycle_state
 

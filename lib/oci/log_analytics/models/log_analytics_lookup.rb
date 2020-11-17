@@ -47,11 +47,9 @@ module OCI
     # @return [String]
     attr_accessor :lookup_display_name
 
-    # sources using
     # @return [OCI::LogAnalytics::Models::AutoLookups]
     attr_accessor :referring_sources
 
-    # status summary
     # @return [OCI::LogAnalytics::Models::StatusSummary]
     attr_accessor :status_summary
 

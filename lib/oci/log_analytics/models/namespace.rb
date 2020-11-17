@@ -2,20 +2,21 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Namespace of a tenancy in Logan Analytics application
+  # This is the namespace details of a tenancy in Logan Analytics application
   class LogAnalytics::Models::Namespace
-    # **[Required]** namespace name
+    # **[Required]** This is the namespace name of a tenancy
     # @return [String]
     attr_accessor :namespace_name
 
-    # **[Required]** Tenancy ID
+    # **[Required]** The is the tenancy ID
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** if tenancy is onboarded to logging analytics
+    # **[Required]** This indicates if the tenancy is onboarded to Logging Analytics
     # @return [BOOLEAN]
     attr_accessor :is_onboarded
 

@@ -12,8 +12,8 @@ module OCI
     # @return [String]
     attr_accessor :compute_availability_domain
 
-    # A descriptive name for the SDDC. It must be unique, start with a letter, and contain only letters, digits,
-    # whitespaces, dashes and underscores.
+    # A descriptive name for the SDDC.
+    # SDDC name requirements are 1-16 character length limit, Must start with a letter, Must be English letters, numbers, - only, No repeating hyphens, Must be unique within the region.
     # Avoid entering confidential information.
     #
     # @return [String]
@@ -52,6 +52,16 @@ module OCI
     #
     # @return [Integer]
     attr_accessor :esxi_hosts_count
+
+    # This flag tells us if HCX is enabled or not.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_hcx_enabled
+
+    # This id is required only when hcxEnabled is true
+    #
+    # @return [String]
+    attr_accessor :hcx_vlan_id
 
     # **[Required]** One or more public SSH keys to be included in the `~/.ssh/authorized_keys` file for
     # the default user on each ESXi host. Use a newline character to separate multiple keys.
@@ -140,6 +150,8 @@ module OCI
         'compartment_id': :'compartmentId',
         'instance_display_name_prefix': :'instanceDisplayNamePrefix',
         'esxi_hosts_count': :'esxiHostsCount',
+        'is_hcx_enabled': :'isHcxEnabled',
+        'hcx_vlan_id': :'hcxVlanId',
         'ssh_authorized_keys': :'sshAuthorizedKeys',
         'workload_network_cidr': :'workloadNetworkCidr',
         'provisioning_subnet_id': :'provisioningSubnetId',
@@ -166,6 +178,8 @@ module OCI
         'compartment_id': :'String',
         'instance_display_name_prefix': :'String',
         'esxi_hosts_count': :'Integer',
+        'is_hcx_enabled': :'BOOLEAN',
+        'hcx_vlan_id': :'String',
         'ssh_authorized_keys': :'String',
         'workload_network_cidr': :'String',
         'provisioning_subnet_id': :'String',
@@ -194,6 +208,8 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :instance_display_name_prefix The value to assign to the {#instance_display_name_prefix} property
     # @option attributes [Integer] :esxi_hosts_count The value to assign to the {#esxi_hosts_count} property
+    # @option attributes [BOOLEAN] :is_hcx_enabled The value to assign to the {#is_hcx_enabled} property
+    # @option attributes [String] :hcx_vlan_id The value to assign to the {#hcx_vlan_id} property
     # @option attributes [String] :ssh_authorized_keys The value to assign to the {#ssh_authorized_keys} property
     # @option attributes [String] :workload_network_cidr The value to assign to the {#workload_network_cidr} property
     # @option attributes [String] :provisioning_subnet_id The value to assign to the {#provisioning_subnet_id} property
@@ -247,6 +263,20 @@ module OCI
       raise 'You cannot provide both :esxiHostsCount and :esxi_hosts_count' if attributes.key?(:'esxiHostsCount') && attributes.key?(:'esxi_hosts_count')
 
       self.esxi_hosts_count = attributes[:'esxi_hosts_count'] if attributes[:'esxi_hosts_count']
+
+      self.is_hcx_enabled = attributes[:'isHcxEnabled'] unless attributes[:'isHcxEnabled'].nil?
+      self.is_hcx_enabled = false if is_hcx_enabled.nil? && !attributes.key?(:'isHcxEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isHcxEnabled and :is_hcx_enabled' if attributes.key?(:'isHcxEnabled') && attributes.key?(:'is_hcx_enabled')
+
+      self.is_hcx_enabled = attributes[:'is_hcx_enabled'] unless attributes[:'is_hcx_enabled'].nil?
+      self.is_hcx_enabled = false if is_hcx_enabled.nil? && !attributes.key?(:'isHcxEnabled') && !attributes.key?(:'is_hcx_enabled') # rubocop:disable Style/StringLiterals
+
+      self.hcx_vlan_id = attributes[:'hcxVlanId'] if attributes[:'hcxVlanId']
+
+      raise 'You cannot provide both :hcxVlanId and :hcx_vlan_id' if attributes.key?(:'hcxVlanId') && attributes.key?(:'hcx_vlan_id')
+
+      self.hcx_vlan_id = attributes[:'hcx_vlan_id'] if attributes[:'hcx_vlan_id']
 
       self.ssh_authorized_keys = attributes[:'sshAuthorizedKeys'] if attributes[:'sshAuthorizedKeys']
 
@@ -338,6 +368,8 @@ module OCI
         compartment_id == other.compartment_id &&
         instance_display_name_prefix == other.instance_display_name_prefix &&
         esxi_hosts_count == other.esxi_hosts_count &&
+        is_hcx_enabled == other.is_hcx_enabled &&
+        hcx_vlan_id == other.hcx_vlan_id &&
         ssh_authorized_keys == other.ssh_authorized_keys &&
         workload_network_cidr == other.workload_network_cidr &&
         provisioning_subnet_id == other.provisioning_subnet_id &&
@@ -365,7 +397,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compute_availability_domain, display_name, vmware_software_version, compartment_id, instance_display_name_prefix, esxi_hosts_count, ssh_authorized_keys, workload_network_cidr, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, freeform_tags, defined_tags].hash
+      [compute_availability_domain, display_name, vmware_software_version, compartment_id, instance_display_name_prefix, esxi_hosts_count, is_hcx_enabled, hcx_vlan_id, ssh_authorized_keys, workload_network_cidr, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

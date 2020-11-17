@@ -10,8 +10,12 @@ module OCI
   #
   class Logging::Models::LogSavedSearchSummary
     LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
-      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -23,7 +27,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The display name of a user-friendly name. It has to be unique within enclosing resource,
+    # **[Required]** The user-friendly display name. This must be unique within the enclosing resource,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
@@ -33,13 +37,33 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** True if the LogSavedSearch should be show as quickstart in the UI
-    # @return [BOOLEAN]
-    attr_accessor :is_quick_start
-
     # Time the resource was last modified.
     # @return [DateTime]
     attr_accessor :time_last_modified
+
+    # Description for this resource.
+    # @return [String]
+    attr_accessor :description
+
+    # The search query that is saved.
+    #
+    # @return [String]
+    attr_accessor :query
+
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
 
     # The state of the LogSavedSearch
     #
@@ -54,8 +78,11 @@ module OCI
         'compartment_id': :'compartmentId',
         'name': :'name',
         'time_created': :'timeCreated',
-        'is_quick_start': :'isQuickStart',
         'time_last_modified': :'timeLastModified',
+        'description': :'description',
+        'query': :'query',
+        'defined_tags': :'definedTags',
+        'freeform_tags': :'freeformTags',
         'lifecycle_state': :'lifecycleState'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -69,8 +96,11 @@ module OCI
         'compartment_id': :'String',
         'name': :'String',
         'time_created': :'DateTime',
-        'is_quick_start': :'BOOLEAN',
         'time_last_modified': :'DateTime',
+        'description': :'String',
+        'query': :'String',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'freeform_tags': :'Hash<String, String>',
         'lifecycle_state': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -86,8 +116,11 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
-    # @option attributes [BOOLEAN] :is_quick_start The value to assign to the {#is_quick_start} property
     # @option attributes [DateTime] :time_last_modified The value to assign to the {#time_last_modified} property
+    # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :query The value to assign to the {#query} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -111,17 +144,27 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
-      self.is_quick_start = attributes[:'isQuickStart'] unless attributes[:'isQuickStart'].nil?
-
-      raise 'You cannot provide both :isQuickStart and :is_quick_start' if attributes.key?(:'isQuickStart') && attributes.key?(:'is_quick_start')
-
-      self.is_quick_start = attributes[:'is_quick_start'] unless attributes[:'is_quick_start'].nil?
-
       self.time_last_modified = attributes[:'timeLastModified'] if attributes[:'timeLastModified']
 
       raise 'You cannot provide both :timeLastModified and :time_last_modified' if attributes.key?(:'timeLastModified') && attributes.key?(:'time_last_modified')
 
       self.time_last_modified = attributes[:'time_last_modified'] if attributes[:'time_last_modified']
+
+      self.description = attributes[:'description'] if attributes[:'description']
+
+      self.query = attributes[:'query'] if attributes[:'query']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -158,8 +201,11 @@ module OCI
         compartment_id == other.compartment_id &&
         name == other.name &&
         time_created == other.time_created &&
-        is_quick_start == other.is_quick_start &&
         time_last_modified == other.time_last_modified &&
+        description == other.description &&
+        query == other.query &&
+        defined_tags == other.defined_tags &&
+        freeform_tags == other.freeform_tags &&
         lifecycle_state == other.lifecycle_state
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -176,7 +222,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, time_created, is_quick_start, time_last_modified, lifecycle_state].hash
+      [id, compartment_id, name, time_created, time_last_modified, description, query, defined_tags, freeform_tags, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

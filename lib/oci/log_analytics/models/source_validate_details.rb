@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # SourceValidateDetails model.
+  # source validation details
   class LogAnalytics::Models::SourceValidateDetails
     # key
     # @return [String]

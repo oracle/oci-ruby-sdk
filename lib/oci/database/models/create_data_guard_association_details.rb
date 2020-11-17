@@ -23,6 +23,10 @@ module OCI
       TRANSPORT_TYPE_FASTSYNC = 'FASTSYNC'.freeze
     ].freeze
 
+    # The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
+    # @return [String]
+    attr_accessor :database_software_image_id
+
     # **[Required]** A strong password for the `SYS`, `SYSTEM`, and `PDB Admin` users to apply during standby creation.
     #
     # The password must contain no fewer than nine characters and include:
@@ -73,6 +77,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'database_software_image_id': :'databaseSoftwareImageId',
         'database_admin_password': :'databaseAdminPassword',
         'protection_mode': :'protectionMode',
         'transport_type': :'transportType',
@@ -85,6 +90,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'database_software_image_id': :'String',
         'database_admin_password': :'String',
         'protection_mode': :'String',
         'transport_type': :'String',
@@ -116,6 +122,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
     # @option attributes [String] :database_admin_password The value to assign to the {#database_admin_password} property
     # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
     # @option attributes [String] :transport_type The value to assign to the {#transport_type} property
@@ -125,6 +132,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.database_software_image_id = attributes[:'databaseSoftwareImageId'] if attributes[:'databaseSoftwareImageId']
+
+      raise 'You cannot provide both :databaseSoftwareImageId and :database_software_image_id' if attributes.key?(:'databaseSoftwareImageId') && attributes.key?(:'database_software_image_id')
+
+      self.database_software_image_id = attributes[:'database_software_image_id'] if attributes[:'database_software_image_id']
 
       self.database_admin_password = attributes[:'databaseAdminPassword'] if attributes[:'databaseAdminPassword']
 
@@ -178,6 +191,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        database_software_image_id == other.database_software_image_id &&
         database_admin_password == other.database_admin_password &&
         protection_mode == other.protection_mode &&
         transport_type == other.transport_type &&
@@ -197,7 +211,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_admin_password, protection_mode, transport_type, creation_type].hash
+      [database_software_image_id, database_admin_password, protection_mode, transport_type, creation_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

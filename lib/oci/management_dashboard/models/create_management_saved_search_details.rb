@@ -14,55 +14,55 @@ module OCI
       TYPE_WIDGET_DONT_SHOW_IN_DASHBOARD = 'WIDGET_DONT_SHOW_IN_DASHBOARD'.freeze
     ].freeze
 
-    # **[Required]** id for saved search.  Must be provided if OOB, otherwise must not be provided.
+    # ID of the saved search, which must only be provided for Out-of-the-Box (OOB) saved search.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** Display name for saved search.
+    # **[Required]** Display name of the saved search.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Id for application (LA, APM, etc.) that owners this saved search.  Each owner has a unique Id.
+    # **[Required]** ID of the service (for example log-analytics) that owns the saved search. Each service has a unique ID.
     # @return [String]
     attr_accessor :provider_id
 
-    # **[Required]** Version.
+    # **[Required]** Version of the service that owns this saved search.
     # @return [String]
     attr_accessor :provider_version
 
-    # **[Required]** Name for application (LA, APM, etc.) that owners this saved search.
+    # **[Required]** Name of the service (for example, Logging Analytics) that owns the saved search.
     # @return [String]
     attr_accessor :provider_name
 
-    # **[Required]** The ocid of the compartment that owns the saved search.
+    # **[Required]** OCID of the compartment in which the saved search resides.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** String boolean (\"true\" or \"false\") to indicate Out Of the Box saved search.
+    # **[Required]** Determines whether the saved search is an Out-of-the-Box (OOB) saved search. Note that OOB saved searches are only provided by Oracle and cannot be modified.
     # @return [BOOLEAN]
     attr_accessor :is_oob_saved_search
 
-    # **[Required]** Description.
+    # **[Required]** Description of the saved search.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Json for internationalization.
+    # **[Required]** JSON that contains internationalization options.
     # @return [Object]
     attr_accessor :nls
 
-    # **[Required]** How to show the saved search.
+    # **[Required]** Determines how the saved search is displayed in a dashboard.
     # @return [String]
     attr_reader :type
 
-    # **[Required]** Json to contain options for UI.
+    # **[Required]** JSON that contains user interface options.
     # @return [Object]
     attr_accessor :ui_config
 
-    # **[Required]** Array of Json to contain options for source of data.
+    # **[Required]** Array of JSON that contain data source options.
     # @return [Array<Object>]
     attr_accessor :data_config
 
-    # **[Required]** Screenshot.
+    # **[Required]** Screen image of the saved search.
     # @return [String]
     attr_accessor :screen_image
 
@@ -70,11 +70,11 @@ module OCI
     # @return [String]
     attr_accessor :metadata_version
 
-    # **[Required]** Template.
+    # **[Required]** Reference to the HTML file of the widget.
     # @return [String]
     attr_accessor :widget_template
 
-    # **[Required]** View Model
+    # **[Required]** Reference to the view model of the widget.
     # @return [String]
     attr_accessor :widget_vm
 

@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details required for changing the compartment of saved search.
+  # Compartment to which the saved search is being moved.
   class ManagementDashboard::Models::ChangeManagementSavedSearchesCompartmentDetails
-    # **[Required]** Compartment Identifier
+    # **[Required]** OCID of the compartment to which the saved search is being moved.
     # @return [String]
     attr_accessor :compartment_id
 

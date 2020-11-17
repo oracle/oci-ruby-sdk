@@ -77,6 +77,14 @@ module OCI
     # @return [String]
     attr_accessor :uri
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>]
+    attr_accessor :custom_property_members
+
+    # The list of data selector patterns used in the harvest for this data asset to derive logical entities.
+    # @return [Array<OCI::DataCatalog::Models::PatternSummary>]
+    attr_accessor :data_selector_patterns
+
     # A map of maps that contains the properties which are specific to the asset type. Each data asset type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -102,6 +110,8 @@ module OCI
         'created_by_id': :'createdById',
         'updated_by_id': :'updatedById',
         'uri': :'uri',
+        'custom_property_members': :'customPropertyMembers',
+        'data_selector_patterns': :'dataSelectorPatterns',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -123,6 +133,8 @@ module OCI
         'created_by_id': :'String',
         'updated_by_id': :'String',
         'uri': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
+        'data_selector_patterns': :'Array<OCI::DataCatalog::Models::PatternSummary>',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -146,6 +158,8 @@ module OCI
     # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
+    # @option attributes [Array<OCI::DataCatalog::Models::PatternSummary>] :data_selector_patterns The value to assign to the {#data_selector_patterns} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -213,6 +227,18 @@ module OCI
 
       self.uri = attributes[:'uri'] if attributes[:'uri']
 
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
+
+      self.data_selector_patterns = attributes[:'dataSelectorPatterns'] if attributes[:'dataSelectorPatterns']
+
+      raise 'You cannot provide both :dataSelectorPatterns and :data_selector_patterns' if attributes.key?(:'dataSelectorPatterns') && attributes.key?(:'data_selector_patterns')
+
+      self.data_selector_patterns = attributes[:'data_selector_patterns'] if attributes[:'data_selector_patterns']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -252,6 +278,8 @@ module OCI
         created_by_id == other.created_by_id &&
         updated_by_id == other.updated_by_id &&
         uri == other.uri &&
+        custom_property_members == other.custom_property_members &&
+        data_selector_patterns == other.data_selector_patterns &&
         properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -268,7 +296,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, catalog_id, external_key, type_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, uri, properties].hash
+      [key, display_name, description, catalog_id, external_key, type_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, uri, custom_property_members, data_selector_patterns, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

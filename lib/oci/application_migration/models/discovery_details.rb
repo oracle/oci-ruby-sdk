@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Base model for different application discovery requirements
+  # Base model for different application discovery requirements.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ApplicationMigration::Models::DiscoveryDetails
     TYPE_ENUM = [
@@ -17,7 +17,7 @@ module OCI
       TYPE_PCS = 'PCS'.freeze
     ].freeze
 
-    # **[Required]** The type of migration
+    # **[Required]** The type of application that you want to migrate.
     # @return [String]
     attr_reader :type
 

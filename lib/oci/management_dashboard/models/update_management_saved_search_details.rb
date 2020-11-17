@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties of a saved search.  Saved search id must not be provided.
+  # Properties of a saved search.  Saved search ID must not be provided.
   class ManagementDashboard::Models::UpdateManagementSavedSearchDetails
     TYPE_ENUM = [
       TYPE_SEARCH_SHOW_IN_DASHBOARD = 'SEARCH_SHOW_IN_DASHBOARD'.freeze,
@@ -14,51 +14,51 @@ module OCI
       TYPE_WIDGET_DONT_SHOW_IN_DASHBOARD = 'WIDGET_DONT_SHOW_IN_DASHBOARD'.freeze
     ].freeze
 
-    # Display name for saved search.
+    # Display name of the saved search.
     # @return [String]
     attr_accessor :display_name
 
-    # Id for application (LA, APM, etc.) that owners this saved search.  Each owner has a unique Id.
+    # ID of the service (for example log-analytics) that owns the saved search. Each service has a unique ID.
     # @return [String]
     attr_accessor :provider_id
 
-    # Version.
+    # Version of the service that owns this saved search.
     # @return [String]
     attr_accessor :provider_version
 
-    # Name for application (LA, APM, etc.) that owners this saved search.
+    # Name of the service (for example, Logging Analytics) that owns the saved search.
     # @return [String]
     attr_accessor :provider_name
 
-    # The ocid of the compartment that owns the saved search.
+    # OCID of the compartment in which the saved search resides.
     # @return [String]
     attr_accessor :compartment_id
 
-    # String boolean (\"true\" or \"false\") to indicate Out Of the Box saved search.
+    # Determines whether the saved search is an Out-of-the-Box (OOB) saved search. Note that OOB saved searches are only provided by Oracle and cannot be modified.
     # @return [BOOLEAN]
     attr_accessor :is_oob_saved_search
 
-    # Description.
+    # Description of the saved search.
     # @return [String]
     attr_accessor :description
 
-    # Json for internationalization.
+    # JSON that contains internationalization options.
     # @return [Object]
     attr_accessor :nls
 
-    # How to show the saved search.
+    # Determines how the saved search is displayed in a dashboard.
     # @return [String]
     attr_reader :type
 
-    # Json to contain options for UI.
+    # JSON that contains user interface options.
     # @return [Object]
     attr_accessor :ui_config
 
-    # Array of Json to contain options for source of data.
+    # Array of JSON that contain data source options.
     # @return [Array<Object>]
     attr_accessor :data_config
 
-    # Screenshot.
+    # Screen image of the saved search.
     # @return [String]
     attr_accessor :screen_image
 
@@ -66,11 +66,11 @@ module OCI
     # @return [String]
     attr_accessor :metadata_version
 
-    # Template.
+    # Reference to the HTML file of the widget.
     # @return [String]
     attr_accessor :widget_template
 
-    # View Model
+    # Reference to the view model of the widget.
     # @return [String]
     attr_accessor :widget_vm
 

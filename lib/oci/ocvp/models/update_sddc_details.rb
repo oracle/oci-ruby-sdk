@@ -15,6 +15,7 @@ module OCI
   #
   class Ocvp::Models::UpdateSddcDetails
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SDDC.
+    # SDDC name requirements are 1-16 character length limit, Must start with a letter, Must be English letters, numbers, - only, No repeating hyphens, Must be unique within the region.
     #
     # @return [String]
     attr_accessor :display_name
@@ -80,6 +81,11 @@ module OCI
     # @return [String]
     attr_accessor :nsx_edge_uplink2_vlan_id
 
+    # This id is editable only when hcxEnabled is true
+    #
+    # @return [String]
+    attr_accessor :hcx_vlan_id
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -110,6 +116,7 @@ module OCI
         'nsx_edge_v_tep_vlan_id': :'nsxEdgeVTepVlanId',
         'nsx_edge_uplink1_vlan_id': :'nsxEdgeUplink1VlanId',
         'nsx_edge_uplink2_vlan_id': :'nsxEdgeUplink2VlanId',
+        'hcx_vlan_id': :'hcxVlanId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -130,6 +137,7 @@ module OCI
         'nsx_edge_v_tep_vlan_id': :'String',
         'nsx_edge_uplink1_vlan_id': :'String',
         'nsx_edge_uplink2_vlan_id': :'String',
+        'hcx_vlan_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -152,6 +160,7 @@ module OCI
     # @option attributes [String] :nsx_edge_v_tep_vlan_id The value to assign to the {#nsx_edge_v_tep_vlan_id} property
     # @option attributes [String] :nsx_edge_uplink1_vlan_id The value to assign to the {#nsx_edge_uplink1_vlan_id} property
     # @option attributes [String] :nsx_edge_uplink2_vlan_id The value to assign to the {#nsx_edge_uplink2_vlan_id} property
+    # @option attributes [String] :hcx_vlan_id The value to assign to the {#hcx_vlan_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -220,6 +229,12 @@ module OCI
 
       self.nsx_edge_uplink2_vlan_id = attributes[:'nsx_edge_uplink2_vlan_id'] if attributes[:'nsx_edge_uplink2_vlan_id']
 
+      self.hcx_vlan_id = attributes[:'hcxVlanId'] if attributes[:'hcxVlanId']
+
+      raise 'You cannot provide both :hcxVlanId and :hcx_vlan_id' if attributes.key?(:'hcxVlanId') && attributes.key?(:'hcx_vlan_id')
+
+      self.hcx_vlan_id = attributes[:'hcx_vlan_id'] if attributes[:'hcx_vlan_id']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -254,6 +269,7 @@ module OCI
         nsx_edge_v_tep_vlan_id == other.nsx_edge_v_tep_vlan_id &&
         nsx_edge_uplink1_vlan_id == other.nsx_edge_uplink1_vlan_id &&
         nsx_edge_uplink2_vlan_id == other.nsx_edge_uplink2_vlan_id &&
+        hcx_vlan_id == other.hcx_vlan_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -271,7 +287,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, vmware_software_version, ssh_authorized_keys, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, freeform_tags, defined_tags].hash
+      [display_name, vmware_software_version, ssh_authorized_keys, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, hcx_vlan_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

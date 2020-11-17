@@ -66,6 +66,14 @@ module OCI
     # @return [Integer]
     attr_accessor :esxi_hosts_count
 
+    # HCX Fully Qualified Domain Name
+    # @return [String]
+    attr_accessor :hcx_fqdn
+
+    # HCX enabled or not
+    # @return [BOOLEAN]
+    attr_accessor :is_hcx_enabled
+
     # FQDN for vCenter
     #
     # Example: `vcenter-my-sddc.sddc.us-phoenix-1.oraclecloud.com`
@@ -124,6 +132,8 @@ module OCI
         'vmware_software_version': :'vmwareSoftwareVersion',
         'compartment_id': :'compartmentId',
         'esxi_hosts_count': :'esxiHostsCount',
+        'hcx_fqdn': :'hcxFqdn',
+        'is_hcx_enabled': :'isHcxEnabled',
         'vcenter_fqdn': :'vcenterFqdn',
         'nsx_manager_fqdn': :'nsxManagerFqdn',
         'time_created': :'timeCreated',
@@ -145,6 +155,8 @@ module OCI
         'vmware_software_version': :'String',
         'compartment_id': :'String',
         'esxi_hosts_count': :'Integer',
+        'hcx_fqdn': :'String',
+        'is_hcx_enabled': :'BOOLEAN',
         'vcenter_fqdn': :'String',
         'nsx_manager_fqdn': :'String',
         'time_created': :'DateTime',
@@ -168,6 +180,8 @@ module OCI
     # @option attributes [String] :vmware_software_version The value to assign to the {#vmware_software_version} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Integer] :esxi_hosts_count The value to assign to the {#esxi_hosts_count} property
+    # @option attributes [String] :hcx_fqdn The value to assign to the {#hcx_fqdn} property
+    # @option attributes [BOOLEAN] :is_hcx_enabled The value to assign to the {#is_hcx_enabled} property
     # @option attributes [String] :vcenter_fqdn The value to assign to the {#vcenter_fqdn} property
     # @option attributes [String] :nsx_manager_fqdn The value to assign to the {#nsx_manager_fqdn} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -212,6 +226,18 @@ module OCI
       raise 'You cannot provide both :esxiHostsCount and :esxi_hosts_count' if attributes.key?(:'esxiHostsCount') && attributes.key?(:'esxi_hosts_count')
 
       self.esxi_hosts_count = attributes[:'esxi_hosts_count'] if attributes[:'esxi_hosts_count']
+
+      self.hcx_fqdn = attributes[:'hcxFqdn'] if attributes[:'hcxFqdn']
+
+      raise 'You cannot provide both :hcxFqdn and :hcx_fqdn' if attributes.key?(:'hcxFqdn') && attributes.key?(:'hcx_fqdn')
+
+      self.hcx_fqdn = attributes[:'hcx_fqdn'] if attributes[:'hcx_fqdn']
+
+      self.is_hcx_enabled = attributes[:'isHcxEnabled'] unless attributes[:'isHcxEnabled'].nil?
+
+      raise 'You cannot provide both :isHcxEnabled and :is_hcx_enabled' if attributes.key?(:'isHcxEnabled') && attributes.key?(:'is_hcx_enabled')
+
+      self.is_hcx_enabled = attributes[:'is_hcx_enabled'] unless attributes[:'is_hcx_enabled'].nil?
 
       self.vcenter_fqdn = attributes[:'vcenterFqdn'] if attributes[:'vcenterFqdn']
 
@@ -286,6 +312,8 @@ module OCI
         vmware_software_version == other.vmware_software_version &&
         compartment_id == other.compartment_id &&
         esxi_hosts_count == other.esxi_hosts_count &&
+        hcx_fqdn == other.hcx_fqdn &&
+        is_hcx_enabled == other.is_hcx_enabled &&
         vcenter_fqdn == other.vcenter_fqdn &&
         nsx_manager_fqdn == other.nsx_manager_fqdn &&
         time_created == other.time_created &&
@@ -308,7 +336,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compute_availability_domain, display_name, vmware_software_version, compartment_id, esxi_hosts_count, vcenter_fqdn, nsx_manager_fqdn, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compute_availability_domain, display_name, vmware_software_version, compartment_id, esxi_hosts_count, hcx_fqdn, is_hcx_enabled, vcenter_fqdn, nsx_manager_fqdn, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

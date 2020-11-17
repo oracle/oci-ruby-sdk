@@ -31,7 +31,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_latest_log_entry
 
-    # Warnings summary.
+    # Number of warnings associated to the upload.
     # @return [Integer]
     attr_accessor :warnings_count
 

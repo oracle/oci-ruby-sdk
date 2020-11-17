@@ -6,7 +6,7 @@ require_relative 'unified_agent_parser'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # multiline parser
+  # Multiline parser.
   class Logging::Models::UnifiedAgentMultilineParser < Logging::Models::UnifiedAgentParser
     # @return [String]
     attr_accessor :format_firstline

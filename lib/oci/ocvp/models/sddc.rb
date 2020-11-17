@@ -299,6 +299,34 @@ module OCI
     # @return [String]
     attr_accessor :nsx_edge_uplink2_vlan_id
 
+    # HCX Private IP
+    #
+    # @return [String]
+    attr_accessor :hcx_private_ip_id
+
+    # HCX Fully Qualified Domain Name
+    # @return [String]
+    attr_accessor :hcx_fqdn
+
+    # HCX initial password
+    #
+    # @return [String]
+    attr_accessor :hcx_initial_password
+
+    # HCX vlan id
+    #
+    # @return [String]
+    attr_accessor :hcx_vlan_id
+
+    # HCX enabled or not
+    # @return [BOOLEAN]
+    attr_accessor :is_hcx_enabled
+
+    # HCX on-premise license key
+    #
+    # @return [String]
+    attr_accessor :hcx_on_prem_key
+
     # **[Required]** The date and time the SDDC was created, in the format defined by
     # [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
@@ -364,6 +392,12 @@ module OCI
         'nsx_edge_v_tep_vlan_id': :'nsxEdgeVTepVlanId',
         'nsx_edge_uplink1_vlan_id': :'nsxEdgeUplink1VlanId',
         'nsx_edge_uplink2_vlan_id': :'nsxEdgeUplink2VlanId',
+        'hcx_private_ip_id': :'hcxPrivateIpId',
+        'hcx_fqdn': :'hcxFqdn',
+        'hcx_initial_password': :'hcxInitialPassword',
+        'hcx_vlan_id': :'hcxVlanId',
+        'is_hcx_enabled': :'isHcxEnabled',
+        'hcx_on_prem_key': :'hcxOnPremKey',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
@@ -404,6 +438,12 @@ module OCI
         'nsx_edge_v_tep_vlan_id': :'String',
         'nsx_edge_uplink1_vlan_id': :'String',
         'nsx_edge_uplink2_vlan_id': :'String',
+        'hcx_private_ip_id': :'String',
+        'hcx_fqdn': :'String',
+        'hcx_initial_password': :'String',
+        'hcx_vlan_id': :'String',
+        'is_hcx_enabled': :'BOOLEAN',
+        'hcx_on_prem_key': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
@@ -446,6 +486,12 @@ module OCI
     # @option attributes [String] :nsx_edge_v_tep_vlan_id The value to assign to the {#nsx_edge_v_tep_vlan_id} property
     # @option attributes [String] :nsx_edge_uplink1_vlan_id The value to assign to the {#nsx_edge_uplink1_vlan_id} property
     # @option attributes [String] :nsx_edge_uplink2_vlan_id The value to assign to the {#nsx_edge_uplink2_vlan_id} property
+    # @option attributes [String] :hcx_private_ip_id The value to assign to the {#hcx_private_ip_id} property
+    # @option attributes [String] :hcx_fqdn The value to assign to the {#hcx_fqdn} property
+    # @option attributes [String] :hcx_initial_password The value to assign to the {#hcx_initial_password} property
+    # @option attributes [String] :hcx_vlan_id The value to assign to the {#hcx_vlan_id} property
+    # @option attributes [BOOLEAN] :is_hcx_enabled The value to assign to the {#is_hcx_enabled} property
+    # @option attributes [String] :hcx_on_prem_key The value to assign to the {#hcx_on_prem_key} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -615,6 +661,42 @@ module OCI
 
       self.nsx_edge_uplink2_vlan_id = attributes[:'nsx_edge_uplink2_vlan_id'] if attributes[:'nsx_edge_uplink2_vlan_id']
 
+      self.hcx_private_ip_id = attributes[:'hcxPrivateIpId'] if attributes[:'hcxPrivateIpId']
+
+      raise 'You cannot provide both :hcxPrivateIpId and :hcx_private_ip_id' if attributes.key?(:'hcxPrivateIpId') && attributes.key?(:'hcx_private_ip_id')
+
+      self.hcx_private_ip_id = attributes[:'hcx_private_ip_id'] if attributes[:'hcx_private_ip_id']
+
+      self.hcx_fqdn = attributes[:'hcxFqdn'] if attributes[:'hcxFqdn']
+
+      raise 'You cannot provide both :hcxFqdn and :hcx_fqdn' if attributes.key?(:'hcxFqdn') && attributes.key?(:'hcx_fqdn')
+
+      self.hcx_fqdn = attributes[:'hcx_fqdn'] if attributes[:'hcx_fqdn']
+
+      self.hcx_initial_password = attributes[:'hcxInitialPassword'] if attributes[:'hcxInitialPassword']
+
+      raise 'You cannot provide both :hcxInitialPassword and :hcx_initial_password' if attributes.key?(:'hcxInitialPassword') && attributes.key?(:'hcx_initial_password')
+
+      self.hcx_initial_password = attributes[:'hcx_initial_password'] if attributes[:'hcx_initial_password']
+
+      self.hcx_vlan_id = attributes[:'hcxVlanId'] if attributes[:'hcxVlanId']
+
+      raise 'You cannot provide both :hcxVlanId and :hcx_vlan_id' if attributes.key?(:'hcxVlanId') && attributes.key?(:'hcx_vlan_id')
+
+      self.hcx_vlan_id = attributes[:'hcx_vlan_id'] if attributes[:'hcx_vlan_id']
+
+      self.is_hcx_enabled = attributes[:'isHcxEnabled'] unless attributes[:'isHcxEnabled'].nil?
+
+      raise 'You cannot provide both :isHcxEnabled and :is_hcx_enabled' if attributes.key?(:'isHcxEnabled') && attributes.key?(:'is_hcx_enabled')
+
+      self.is_hcx_enabled = attributes[:'is_hcx_enabled'] unless attributes[:'is_hcx_enabled'].nil?
+
+      self.hcx_on_prem_key = attributes[:'hcxOnPremKey'] if attributes[:'hcxOnPremKey']
+
+      raise 'You cannot provide both :hcxOnPremKey and :hcx_on_prem_key' if attributes.key?(:'hcxOnPremKey') && attributes.key?(:'hcx_on_prem_key')
+
+      self.hcx_on_prem_key = attributes[:'hcx_on_prem_key'] if attributes[:'hcx_on_prem_key']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -697,6 +779,12 @@ module OCI
         nsx_edge_v_tep_vlan_id == other.nsx_edge_v_tep_vlan_id &&
         nsx_edge_uplink1_vlan_id == other.nsx_edge_uplink1_vlan_id &&
         nsx_edge_uplink2_vlan_id == other.nsx_edge_uplink2_vlan_id &&
+        hcx_private_ip_id == other.hcx_private_ip_id &&
+        hcx_fqdn == other.hcx_fqdn &&
+        hcx_initial_password == other.hcx_initial_password &&
+        hcx_vlan_id == other.hcx_vlan_id &&
+        is_hcx_enabled == other.is_hcx_enabled &&
+        hcx_on_prem_key == other.hcx_on_prem_key &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
@@ -717,7 +805,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, hcx_private_ip_id, hcx_fqdn, hcx_initial_password, hcx_vlan_id, is_hcx_enabled, hcx_on_prem_key, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

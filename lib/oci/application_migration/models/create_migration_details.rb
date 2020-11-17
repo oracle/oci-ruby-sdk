@@ -5,27 +5,41 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An application being migrated from a source environment to OCI.
+  # While creating a migration, specify the source and the application that you want migrate.
+  # Each migration moves a single application from a specified source to a specified Oracle Cloud Infrastructure tenancy.
+  # If required, provide the credentials of the application administrator in the source environment.
+  # Application Migration uses this information to access the application, as well as discover application artifacts,
+  # such as the complete domain configuration along with data sources and other dependencies.
+  #
+  # You must also assign a name and provide a description for the migration.
+  # This helps you to identify the appropriate source environment when you have multiple sources defined.
+  #
+  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class ApplicationMigration::Models::CreateMigrationDetails
-    # **[Required]** Unique idenfifier (OCID) for the compartment where the Source is located.
+    PRE_CREATED_TARGET_DATABASE_TYPE_ENUM = [
+      PRE_CREATED_TARGET_DATABASE_TYPE_DATABASE_SYSTEM = 'DATABASE_SYSTEM'.freeze,
+      PRE_CREATED_TARGET_DATABASE_TYPE_NOT_SET = 'NOT_SET'.freeze
+    ].freeze
+
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment that contains the source.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # Human-readable name of the application.
+    # User-friendly name of the application. This will be the name of the migrated application in Oracle Cloud Infrastructure.
     # @return [String]
     attr_accessor :display_name
 
-    # Description of the application.
+    # Description of the application that you are migrating.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Unique identifier (OCID) of the application source.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the source.
     # @return [String]
     attr_accessor :source_id
 
-    # **[Required]** Name of the application being migrated from the source.
+    # **[Required]** Name of the application that you want to migrate from the source environment.
     # @return [String]
     attr_accessor :application_name
 
@@ -33,24 +47,34 @@ module OCI
     # @return [OCI::ApplicationMigration::Models::DiscoveryDetails]
     attr_accessor :discovery_details
 
-    # Configuration required to migrate the application. In addition to the key and value, additional fields are provided to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the CreateMigration operation.
+    # The pre-existing database type to be used in this migration. Currently, Application migration only supports Oracle Cloud
+    # Infrastrure databases and this option is currently available only for `JAVA_CLOUD_SERVICE` and `WEBLOGIC_CLOUD_SERVICE` target instance types.
+    #
+    # @return [String]
+    attr_reader :pre_created_target_database_type
+
+    # Configuration required to migrate the application. In addition to the key and value, additional fields are provided
+    # to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the
+    # CreateMigration operation.
     #
     # @return [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>]
     attr_accessor :service_config
 
-    # Configuration required to migrate the application. In addition to the key and value, additional fields are provided to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the CreateMigration operation.
+    # Configuration required to migrate the application. In addition to the key and value, additional fields are provided
+    # to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the
+    # CreateMigration operation.
     #
     # @return [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>]
     attr_accessor :application_config
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
@@ -65,6 +89,7 @@ module OCI
         'source_id': :'sourceId',
         'application_name': :'applicationName',
         'discovery_details': :'discoveryDetails',
+        'pre_created_target_database_type': :'preCreatedTargetDatabaseType',
         'service_config': :'serviceConfig',
         'application_config': :'applicationConfig',
         'freeform_tags': :'freeformTags',
@@ -83,6 +108,7 @@ module OCI
         'source_id': :'String',
         'application_name': :'String',
         'discovery_details': :'OCI::ApplicationMigration::Models::DiscoveryDetails',
+        'pre_created_target_database_type': :'String',
         'service_config': :'Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>',
         'application_config': :'Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>',
         'freeform_tags': :'Hash<String, String>',
@@ -103,6 +129,7 @@ module OCI
     # @option attributes [String] :source_id The value to assign to the {#source_id} property
     # @option attributes [String] :application_name The value to assign to the {#application_name} property
     # @option attributes [OCI::ApplicationMigration::Models::DiscoveryDetails] :discovery_details The value to assign to the {#discovery_details} property
+    # @option attributes [String] :pre_created_target_database_type The value to assign to the {#pre_created_target_database_type} property
     # @option attributes [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>] :service_config The value to assign to the {#service_config} property
     # @option attributes [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>] :application_config The value to assign to the {#application_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -145,6 +172,12 @@ module OCI
 
       self.discovery_details = attributes[:'discovery_details'] if attributes[:'discovery_details']
 
+      self.pre_created_target_database_type = attributes[:'preCreatedTargetDatabaseType'] if attributes[:'preCreatedTargetDatabaseType']
+
+      raise 'You cannot provide both :preCreatedTargetDatabaseType and :pre_created_target_database_type' if attributes.key?(:'preCreatedTargetDatabaseType') && attributes.key?(:'pre_created_target_database_type')
+
+      self.pre_created_target_database_type = attributes[:'pre_created_target_database_type'] if attributes[:'pre_created_target_database_type']
+
       self.service_config = attributes[:'serviceConfig'] if attributes[:'serviceConfig']
 
       raise 'You cannot provide both :serviceConfig and :service_config' if attributes.key?(:'serviceConfig') && attributes.key?(:'service_config')
@@ -172,6 +205,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] pre_created_target_database_type Object to be assigned
+    def pre_created_target_database_type=(pre_created_target_database_type)
+      raise "Invalid value for 'pre_created_target_database_type': this must be one of the values in PRE_CREATED_TARGET_DATABASE_TYPE_ENUM." if pre_created_target_database_type && !PRE_CREATED_TARGET_DATABASE_TYPE_ENUM.include?(pre_created_target_database_type)
+
+      @pre_created_target_database_type = pre_created_target_database_type
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -187,6 +228,7 @@ module OCI
         source_id == other.source_id &&
         application_name == other.application_name &&
         discovery_details == other.discovery_details &&
+        pre_created_target_database_type == other.pre_created_target_database_type &&
         service_config == other.service_config &&
         application_config == other.application_config &&
         freeform_tags == other.freeform_tags &&
@@ -206,7 +248,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, description, source_id, application_name, discovery_details, service_config, application_config, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, description, source_id, application_name, discovery_details, pre_created_target_database_type, service_config, application_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

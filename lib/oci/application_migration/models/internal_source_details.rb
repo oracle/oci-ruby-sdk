@@ -6,10 +6,10 @@ require_relative 'source_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies configuration specific to the source environment.
+  # Details about the Oracle Cloud Infrastructure - Classic account, the source environment from which you want to migrate the application.
   #
   class ApplicationMigration::Models::InternalSourceDetails < ApplicationMigration::Models::SourceDetails
-    # **[Required]** The tradition cloud account name
+    # **[Required]** The identity domain ID of your traditional Oracle Cloud Infrastructure - Classic account.
     # @return [String]
     attr_accessor :account_name
 

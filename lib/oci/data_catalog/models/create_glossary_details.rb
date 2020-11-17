@@ -32,6 +32,10 @@ module OCI
     # @return [String]
     attr_accessor :owner
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>]
+    attr_accessor :custom_property_members
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -39,7 +43,8 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'workflow_status': :'workflowStatus',
-        'owner': :'owner'
+        'owner': :'owner',
+        'custom_property_members': :'customPropertyMembers'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,7 +56,8 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'workflow_status': :'String',
-        'owner': :'String'
+        'owner': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertySetUsage>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,6 +72,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :workflow_status The value to assign to the {#workflow_status} property
     # @option attributes [String] :owner The value to assign to the {#owner} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -87,6 +94,12 @@ module OCI
       self.workflow_status = attributes[:'workflow_status'] if attributes[:'workflow_status']
 
       self.owner = attributes[:'owner'] if attributes[:'owner']
+
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -111,7 +124,8 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         workflow_status == other.workflow_status &&
-        owner == other.owner
+        owner == other.owner &&
+        custom_property_members == other.custom_property_members
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -127,7 +141,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, workflow_status, owner].hash
+      [display_name, description, workflow_status, owner, custom_property_members].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

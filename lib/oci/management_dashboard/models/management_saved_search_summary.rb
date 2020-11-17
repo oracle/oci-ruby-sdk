@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of properties of a saved search.
+  # Summary of the properties of a saved search.
   class ManagementDashboard::Models::ManagementSavedSearchSummary
     TYPE_ENUM = [
       TYPE_SEARCH_SHOW_IN_DASHBOARD = 'SEARCH_SHOW_IN_DASHBOARD'.freeze,
@@ -21,55 +21,63 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** id for saved search.  Must be provided if OOB, otherwise must not be provided.
+    # **[Required]** ID of the saved search.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** Display name for saved search.
+    # **[Required]** Display name of the saved search.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** String boolean (\"true\" or \"false\") to indicate Out Of the Box saved search.
+    # **[Required]** Determines whether the saved search is an Out-of-the-Box (OOB) saved search. Note that OOB saved searches are only provided by Oracle and cannot be modified.
     # @return [BOOLEAN]
     attr_accessor :is_oob_saved_search
 
-    # **[Required]** Id for application (LA, APM, etc.) that owners this saved search.  Each owner has a unique Id.
+    # **[Required]** ID of the service (for example log-analytics) that owns the saved search. Each service has a unique ID.
     # @return [String]
     attr_accessor :provider_id
 
-    # **[Required]** The ocid of the compartment that owns the saved search.
+    # **[Required]** OCID of the compartment in which the saved search resides.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Description.
+    # **[Required]** Description of the saved search.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Json for internationalization.
+    # **[Required]** JSON that contains internationalization options.
     # @return [Object]
     attr_accessor :nls
 
-    # **[Required]** How to show the saved search.
+    # **[Required]** Determines how the saved search is displayed in a dashboard.
     # @return [String]
     attr_reader :type
 
-    # **[Required]** Json to contain options for UI.
+    # **[Required]** JSON that contains user interface options.
     # @return [Object]
     attr_accessor :ui_config
 
-    # **[Required]** Array of Json to contain options for source of data.
+    # **[Required]** Array of JSON that contain data source options.
     # @return [Array<Object>]
     attr_accessor :data_config
 
-    # **[Required]** Created by which user.
+    # **[Required]** User who created the saved search.
     # @return [String]
     attr_accessor :created_by
 
-    # **[Required]** Updated by which user.
+    # **[Required]** User who updated the saved search.
     # @return [String]
     attr_accessor :updated_by
 
-    # **[Required]** Screenshot.
+    # **[Required]** Date and time the saved search was created.
+    # @return [DateTime]
+    attr_accessor :time_created
+
+    # **[Required]** Date and time the saved search was updated.
+    # @return [DateTime]
+    attr_accessor :time_updated
+
+    # **[Required]** Screen image of the saved search.
     # @return [String]
     attr_accessor :screen_image
 
@@ -77,15 +85,15 @@ module OCI
     # @return [String]
     attr_accessor :metadata_version
 
-    # **[Required]** Template.
+    # **[Required]** Reference to the HTML file of the widget.
     # @return [String]
     attr_accessor :widget_template
 
-    # **[Required]** View Model
+    # **[Required]** Reference to the view model of the widget.
     # @return [String]
     attr_accessor :widget_vm
 
-    # **[Required]** Current state of saved search.
+    # **[Required]** Current lifecycle state of the saved search.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -117,6 +125,8 @@ module OCI
         'data_config': :'dataConfig',
         'created_by': :'createdBy',
         'updated_by': :'updatedBy',
+        'time_created': :'timeCreated',
+        'time_updated': :'timeUpdated',
         'screen_image': :'screenImage',
         'metadata_version': :'metadataVersion',
         'widget_template': :'widgetTemplate',
@@ -144,6 +154,8 @@ module OCI
         'data_config': :'Array<Object>',
         'created_by': :'String',
         'updated_by': :'String',
+        'time_created': :'DateTime',
+        'time_updated': :'DateTime',
         'screen_image': :'String',
         'metadata_version': :'String',
         'widget_template': :'String',
@@ -173,6 +185,8 @@ module OCI
     # @option attributes [Array<Object>] :data_config The value to assign to the {#data_config} property
     # @option attributes [String] :created_by The value to assign to the {#created_by} property
     # @option attributes [String] :updated_by The value to assign to the {#updated_by} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :screen_image The value to assign to the {#screen_image} property
     # @option attributes [String] :metadata_version The value to assign to the {#metadata_version} property
     # @option attributes [String] :widget_template The value to assign to the {#widget_template} property
@@ -241,6 +255,18 @@ module OCI
       raise 'You cannot provide both :updatedBy and :updated_by' if attributes.key?(:'updatedBy') && attributes.key?(:'updated_by')
 
       self.updated_by = attributes[:'updated_by'] if attributes[:'updated_by']
+
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
+
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
+
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
 
       self.screen_image = attributes[:'screenImage'] if attributes[:'screenImage']
 
@@ -334,6 +360,8 @@ module OCI
         data_config == other.data_config &&
         created_by == other.created_by &&
         updated_by == other.updated_by &&
+        time_created == other.time_created &&
+        time_updated == other.time_updated &&
         screen_image == other.screen_image &&
         metadata_version == other.metadata_version &&
         widget_template == other.widget_template &&
@@ -356,7 +384,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, is_oob_saved_search, provider_id, compartment_id, description, nls, type, ui_config, data_config, created_by, updated_by, screen_image, metadata_version, widget_template, widget_vm, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, display_name, is_oob_saved_search, provider_id, compartment_id, description, nls, type, ui_config, data_config, created_by, updated_by, time_created, time_updated, screen_image, metadata_version, widget_template, widget_vm, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

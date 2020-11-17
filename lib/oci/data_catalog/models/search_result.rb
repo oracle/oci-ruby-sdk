@@ -118,6 +118,14 @@ module OCI
     # @return [String]
     attr_accessor :path
 
+    # Expression for logical entities against which names of dataObjects will be matched.
+    # @return [String]
+    attr_accessor :expression
+
+    # Custom properties defined by users.
+    # @return [Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>]
+    attr_accessor :custom_properties
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -147,7 +155,9 @@ module OCI
         'parent_term_name': :'parentTermName',
         'created_by_id': :'createdById',
         'updated_by_id': :'updatedById',
-        'path': :'path'
+        'path': :'path',
+        'expression': :'expression',
+        'custom_properties': :'customProperties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -181,7 +191,9 @@ module OCI
         'parent_term_name': :'String',
         'created_by_id': :'String',
         'updated_by_id': :'String',
-        'path': :'String'
+        'path': :'String',
+        'expression': :'String',
+        'custom_properties': :'Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -218,6 +230,8 @@ module OCI
     # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [String] :path The value to assign to the {#path} property
+    # @option attributes [String] :expression The value to assign to the {#expression} property
+    # @option attributes [Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>] :custom_properties The value to assign to the {#custom_properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -359,6 +373,14 @@ module OCI
       self.updated_by_id = attributes[:'updated_by_id'] if attributes[:'updated_by_id']
 
       self.path = attributes[:'path'] if attributes[:'path']
+
+      self.expression = attributes[:'expression'] if attributes[:'expression']
+
+      self.custom_properties = attributes[:'customProperties'] if attributes[:'customProperties']
+
+      raise 'You cannot provide both :customProperties and :custom_properties' if attributes.key?(:'customProperties') && attributes.key?(:'custom_properties')
+
+      self.custom_properties = attributes[:'custom_properties'] if attributes[:'custom_properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -397,7 +419,9 @@ module OCI
         parent_term_name == other.parent_term_name &&
         created_by_id == other.created_by_id &&
         updated_by_id == other.updated_by_id &&
-        path == other.path
+        path == other.path &&
+        expression == other.expression &&
+        custom_properties == other.custom_properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -413,7 +437,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, name, description, time_created, time_updated, tag_summary, term_summary, type_name, external_type_name, external_data_type, data_asset_key, data_asset_type, data_asset_name, folder_key, folder_type, folder_name, entitykey, entity_type, entity_name, glossary_key, glossary_name, parent_term_key, parent_term_name, created_by_id, updated_by_id, path].hash
+      [key, name, description, time_created, time_updated, tag_summary, term_summary, type_name, external_type_name, external_data_type, data_asset_key, data_asset_type, data_asset_name, folder_key, folder_type, folder_name, entitykey, entity_type, entity_name, glossary_key, glossary_name, parent_term_key, parent_term_name, created_by_id, updated_by_id, path, expression, custom_properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -53,6 +53,14 @@ module OCI
     # @return [String]
     attr_accessor :external_key
 
+    # Key of the associated pattern if this is a logical entity.
+    # @return [String]
+    attr_accessor :pattern_key
+
+    # The expression realized after resolving qualifiers . Used in deriving this logical entity
+    # @return [String]
+    attr_accessor :realized_expression
+
     # Full path of the data entity.
     # @return [String]
     attr_accessor :path
@@ -91,6 +99,8 @@ module OCI
         'folder_key': :'folderKey',
         'folder_name': :'folderName',
         'external_key': :'externalKey',
+        'pattern_key': :'patternKey',
+        'realized_expression': :'realizedExpression',
         'path': :'path',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
@@ -112,6 +122,8 @@ module OCI
         'folder_key': :'String',
         'folder_name': :'String',
         'external_key': :'String',
+        'pattern_key': :'String',
+        'realized_expression': :'String',
         'path': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
@@ -135,6 +147,8 @@ module OCI
     # @option attributes [String] :folder_key The value to assign to the {#folder_key} property
     # @option attributes [String] :folder_name The value to assign to the {#folder_name} property
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
+    # @option attributes [String] :pattern_key The value to assign to the {#pattern_key} property
+    # @option attributes [String] :realized_expression The value to assign to the {#realized_expression} property
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
@@ -180,6 +194,18 @@ module OCI
       raise 'You cannot provide both :externalKey and :external_key' if attributes.key?(:'externalKey') && attributes.key?(:'external_key')
 
       self.external_key = attributes[:'external_key'] if attributes[:'external_key']
+
+      self.pattern_key = attributes[:'patternKey'] if attributes[:'patternKey']
+
+      raise 'You cannot provide both :patternKey and :pattern_key' if attributes.key?(:'patternKey') && attributes.key?(:'pattern_key')
+
+      self.pattern_key = attributes[:'pattern_key'] if attributes[:'pattern_key']
+
+      self.realized_expression = attributes[:'realizedExpression'] if attributes[:'realizedExpression']
+
+      raise 'You cannot provide both :realizedExpression and :realized_expression' if attributes.key?(:'realizedExpression') && attributes.key?(:'realized_expression')
+
+      self.realized_expression = attributes[:'realized_expression'] if attributes[:'realized_expression']
 
       self.path = attributes[:'path'] if attributes[:'path']
 
@@ -241,6 +267,8 @@ module OCI
         folder_key == other.folder_key &&
         folder_name == other.folder_name &&
         external_key == other.external_key &&
+        pattern_key == other.pattern_key &&
+        realized_expression == other.realized_expression &&
         path == other.path &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
@@ -262,7 +290,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, data_asset_key, folder_key, folder_name, external_key, path, time_created, time_updated, updated_by_id, uri, lifecycle_state].hash
+      [key, display_name, description, data_asset_key, folder_key, folder_name, external_key, pattern_key, realized_expression, path, time_created, time_updated, updated_by_id, uri, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

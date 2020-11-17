@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Type of Resource that Service provides.
+  # Type of resource that a service provides.
   class Logging::Models::ResourceType
     # Resource type name.
     # @return [String]
     attr_accessor :name
 
-    # categories for resources.
+    # Categories for resources.
     # @return [Array<OCI::Logging::Models::Category>]
     attr_accessor :categories
 

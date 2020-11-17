@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Unified Agent configuration summary object returned by list API.
+  # Unified Agent configuration summary object returned by the list API.
   class Logging::Models::UnifiedAgentConfigurationSummary
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -37,7 +37,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The display name of a user-friendly name. It has to be unique within enclosing resource,
+    # **[Required]** The user-friendly display name. This must be unique within the enclosing resource,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
@@ -70,7 +70,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_last_modified
 
-    # **[Required]** The state of an pipeline.
+    # **[Required]** The pipeline state.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -78,7 +78,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # **[Required]** Type of unified agent service configuration.
+    # **[Required]** Type of Unified Agent service configuration.
     # @return [String]
     attr_reader :configuration_type
 

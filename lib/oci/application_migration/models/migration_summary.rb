@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An application being migrated from a source environment to OCI.
+  # Details about the migration. Each migration moves a single application from a specified source to Oracle Cloud Infrastructure.
   #
   class ApplicationMigration::Models::MigrationSummary
     APPLICATION_TYPE_ENUM = [
@@ -19,16 +19,38 @@ module OCI
       APPLICATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Unique identifier (OCID) for the application
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_SUCCEEDED = 'SUCCEEDED'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    MIGRATION_STATE_ENUM = [
+      MIGRATION_STATE_DISCOVERING_APPLICATION = 'DISCOVERING_APPLICATION'.freeze,
+      MIGRATION_STATE_DISCOVERY_FAILED = 'DISCOVERY_FAILED'.freeze,
+      MIGRATION_STATE_MISSING_CONFIG_VALUES = 'MISSING_CONFIG_VALUES'.freeze,
+      MIGRATION_STATE_READY = 'READY'.freeze,
+      MIGRATION_STATE_MIGRATING = 'MIGRATING'.freeze,
+      MIGRATION_STATE_MIGRATION_FAILED = 'MIGRATION_FAILED'.freeze,
+      MIGRATION_STATE_MIGRATION_SUCCEEDED = 'MIGRATION_SUCCEEDED'.freeze,
+      MIGRATION_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the migration.
     # @return [String]
     attr_accessor :id
 
-    # Unique idenfifier (OCID) for the compartment where the Source is located.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment that contains the migration.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # Human-readable name of the migration.
+    # User-friendly name of the migration.
     # @return [String]
     attr_accessor :display_name
 
@@ -36,15 +58,15 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # The date and time at which the migration was created.
+    # The date and time at which the migration was created, in the format defined by RFC3339.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # Unique identifier (OCID) of the source.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the source.
     # @return [String]
     attr_accessor :source_id
 
-    # Name of the application being migrated from the source.
+    # Name of the application which is being migrated from the source environment.
     # @return [String]
     attr_accessor :application_name
 
@@ -52,26 +74,26 @@ module OCI
     # @return [String]
     attr_reader :application_type
 
-    # The current state of the Migration
+    # The current state of the migration.
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
-    # Details about the current lifecycle state
+    # Details about the current lifecycle state.
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # The current state of the overall Migration process
+    # The current state of the overall migration process.
     # @return [String]
-    attr_accessor :migration_state
+    attr_reader :migration_state
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm). Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
@@ -225,6 +247,32 @@ module OCI
         @application_type = APPLICATION_TYPE_UNKNOWN_ENUM_VALUE
       else
         @application_type = application_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] migration_state Object to be assigned
+    def migration_state=(migration_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if migration_state && !MIGRATION_STATE_ENUM.include?(migration_state)
+        OCI.logger.debug("Unknown value for 'migration_state' [" + migration_state + "]. Mapping to 'MIGRATION_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @migration_state = MIGRATION_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @migration_state = migration_state
       end
       # rubocop:enable Style/ConditionalAssignment
     end

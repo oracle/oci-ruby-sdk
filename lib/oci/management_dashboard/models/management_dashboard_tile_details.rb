@@ -6,7 +6,9 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties of dashboard tile representing a saved search.
+  # Properties of the dashboard tile representing a saved search.
+  # Tiles are laid out in a twelve column grid system with (0,0) at upper left corner.
+  #
   class ManagementDashboard::Models::ManagementDashboardTileDetails
     STATE_ENUM = [
       STATE_DELETED = 'DELETED'.freeze,
@@ -15,47 +17,47 @@ module OCI
       STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Display name for saved search.
+    # **[Required]** Display name of the saved search.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Id of saved search.
+    # **[Required]** ID of the saved search.
     # @return [String]
     attr_accessor :saved_search_id
 
-    # **[Required]** Row, Y position
+    # **[Required]** Tile's row number.
     # @return [Integer]
     attr_accessor :row
 
-    # **[Required]** Column, X position
+    # **[Required]** Tile's column number.
     # @return [Integer]
     attr_accessor :column
 
-    # **[Required]** Height position
+    # **[Required]** The number of rows the tile occupies.
     # @return [Integer]
     attr_accessor :height
 
-    # **[Required]** Width position
+    # **[Required]** The number of columns the tile occupies.
     # @return [Integer]
     attr_accessor :width
 
-    # **[Required]** Json for internationalization.
+    # **[Required]** JSON that contains internationalization options.
     # @return [Object]
     attr_accessor :nls
 
-    # **[Required]** Json to contain options for UI.
+    # **[Required]** JSON that contains user interface options.
     # @return [Object]
     attr_accessor :ui_config
 
-    # **[Required]** Array of Json to contain options for source of data.
+    # **[Required]** Array of JSON that contain data source options.
     # @return [Array<Object>]
     attr_accessor :data_config
 
-    # **[Required]** State of saved search.
+    # **[Required]** Current state of the saved search.
     # @return [String]
     attr_reader :state
 
-    # **[Required]** Drill down configuration
+    # **[Required]** Drill-down configuration to define the destination of a drill-down action.
     # @return [Object]
     attr_accessor :drilldown_config
 

@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # logging destination object.
+  # Logging destination object.
   class Logging::Models::UnifiedAgentLoggingDestination
     # **[Required]** The OCID of the resource.
     # @return [String]

@@ -46,8 +46,10 @@ module OCI
       case config.authentication_type
       when 'instance_principal'
         unless config.delegation_token_file.nil?
+          raise 'Delegation Token File not exist' unless File.exist?(File.expand_path(config.delegation_token_file))
+
           delegation_token = File.read(File.expand_path(config.delegation_token_file)).to_s.strip
-          signer ||= OCI::Auth::Signers::InstancePrincipalsDelegationTokenSigner.new(delegation_token) unless config.delegation_token_file.nil?
+          signer ||= OCI::Auth::Signers::InstancePrincipalsDelegationTokenSigner.new(delegation_token) unless delegation_token.nil?
         end
       when 'resource_principal'
         signer ||= OCI::Auth::Signers.resource_principals_signer

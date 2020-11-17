@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Compartment to move the dashboard to.
+  # Compartment to which the dashboard is being moved.
   class ManagementDashboard::Models::ChangeManagementDashboardsCompartmentDetails
-    # **[Required]** Compartment Identifier
+    # **[Required]** OCID of the compartment to which the dashboard is being moved.
     # @return [String]
     attr_accessor :compartment_id
 

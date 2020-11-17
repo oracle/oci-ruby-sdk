@@ -10,6 +10,7 @@ lib/oci/blockchain/blockchain.rb
 lib/oci/budget/budget.rb
 lib/oci/cims/cims.rb
 lib/oci/cloud_guard/cloud_guard.rb
+lib/oci/compute_instance_agent/compute_instance_agent.rb
 lib/oci/container_engine/container_engine.rb
 lib/oci/core/core.rb
 lib/oci/data_catalog/data_catalog.rb
@@ -45,12 +46,15 @@ lib/oci/oce/oce.rb
 lib/oci/ocvp/ocvp.rb
 lib/oci/oda/oda.rb
 lib/oci/ons/ons.rb
+lib/oci/opsi/opsi.rb
+lib/oci/optimizer/optimizer.rb
 lib/oci/os_management/os_management.rb
 lib/oci/resource_manager/resource_manager.rb
 lib/oci/resource_search/resource_search.rb
 lib/oci/sch/sch.rb
 lib/oci/secrets/secrets.rb
 lib/oci/streaming/streaming.rb
+lib/oci/tenant_manager_control_plane/tenant_manager_control_plane.rb
 lib/oci/usage_api/usage_api.rb
 lib/oci/vault/vault.rb
 lib/oci/waas/waas.rb

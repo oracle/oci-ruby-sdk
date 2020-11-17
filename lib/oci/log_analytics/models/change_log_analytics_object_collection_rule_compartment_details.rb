@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Log Analytics Object Storage based collection rule compartment to be updated to.
+  # The new compartment this Object Collection Rule will be moved to.
   #
   class LogAnalytics::Models::ChangeLogAnalyticsObjectCollectionRuleCompartmentDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment into which the rule should be moved.

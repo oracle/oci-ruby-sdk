@@ -8,13 +8,38 @@ require 'logger'
 module OCI
   # A summary of the status of a work request.
   class ApplicationMigration::Models::WorkRequestSummary
+    OPERATION_TYPE_ENUM = [
+      OPERATION_TYPE_CREATE_SOURCE = 'CREATE_SOURCE'.freeze,
+      OPERATION_TYPE_UPDATE_SOURCE = 'UPDATE_SOURCE'.freeze,
+      OPERATION_TYPE_DELETE_SOURCE = 'DELETE_SOURCE'.freeze,
+      OPERATION_TYPE_CREATE_MIGRATION = 'CREATE_MIGRATION'.freeze,
+      OPERATION_TYPE_UPDATE_MIGRATION = 'UPDATE_MIGRATION'.freeze,
+      OPERATION_TYPE_DELETE_MIGRATION = 'DELETE_MIGRATION'.freeze,
+      OPERATION_TYPE_AUTHORIZE_SOURCE = 'AUTHORIZE_SOURCE'.freeze,
+      OPERATION_TYPE_DISCOVER_APPLICATION = 'DISCOVER_APPLICATION'.freeze,
+      OPERATION_TYPE_MIGRATE_APPLICATION = 'MIGRATE_APPLICATION'.freeze,
+      OPERATION_TYPE_CHANGE_SOURCE_COMPARTMENT = 'CHANGE_SOURCE_COMPARTMENT'.freeze,
+      OPERATION_TYPE_CHANGE_MIGRATION_COMPARTMENT = 'CHANGE_MIGRATION_COMPARTMENT'.freeze,
+      OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    STATUS_ENUM = [
+      STATUS_ACCEPTED = 'ACCEPTED'.freeze,
+      STATUS_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      STATUS_FAILED = 'FAILED'.freeze,
+      STATUS_SUCCEEDED = 'SUCCEEDED'.freeze,
+      STATUS_CANCELING = 'CANCELING'.freeze,
+      STATUS_CANCELED = 'CANCELED'.freeze,
+      STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The asynchronous operation tracked by this work request.
     # @return [String]
-    attr_accessor :operation_type
+    attr_reader :operation_type
 
     # **[Required]** The status of the work request.
     # @return [String]
-    attr_accessor :status
+    attr_reader :status
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @return [String]
@@ -26,7 +51,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The percentage complete of the operation tracked by this work request.
+    # **[Required]** The percentage completion of the operation tracked by this work request.
     # @return [Float]
     attr_accessor :percent_complete
 
@@ -140,6 +165,32 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] operation_type Object to be assigned
+    def operation_type=(operation_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if operation_type && !OPERATION_TYPE_ENUM.include?(operation_type)
+        OCI.logger.debug("Unknown value for 'operation_type' [" + operation_type + "]. Mapping to 'OPERATION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @operation_type = OPERATION_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @operation_type = operation_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] status Object to be assigned
+    def status=(status)
+      # rubocop:disable Style/ConditionalAssignment
+      if status && !STATUS_ENUM.include?(status)
+        OCI.logger.debug("Unknown value for 'status' [" + status + "]. Mapping to 'STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @status = STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @status = status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 

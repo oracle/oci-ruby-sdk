@@ -6,17 +6,17 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The tag use for filtering.
+  # The tag used for filtering.
   class UsageApi::Models::Tag
     # The tag namespace.
     # @return [String]
     attr_accessor :namespace
 
-    # The key of the tag.
+    # The tag key.
     # @return [String]
     attr_accessor :key
 
-    # The value of the tag.
+    # The tag value.
     # @return [String]
     attr_accessor :value
 

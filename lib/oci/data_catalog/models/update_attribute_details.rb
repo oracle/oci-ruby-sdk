@@ -68,6 +68,10 @@ module OCI
     # @return [String]
     attr_accessor :external_parent_attribute_key
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>]
+    attr_accessor :custom_property_members
+
     # A map of maps that contains the properties which are specific to the attribute type. Each attribute type
     # definition defines it's set of required and optional properties. The map keys are category names and the
     # values are maps of property name to property value. Every property is contained inside of a category. Most
@@ -98,6 +102,7 @@ module OCI
         'max_collection_count': :'maxCollectionCount',
         'external_datatype_entity_key': :'externalDatatypeEntityKey',
         'external_parent_attribute_key': :'externalParentAttributeKey',
+        'custom_property_members': :'customPropertyMembers',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -121,6 +126,7 @@ module OCI
         'max_collection_count': :'Integer',
         'external_datatype_entity_key': :'String',
         'external_parent_attribute_key': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertySetUsage>',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -146,6 +152,7 @@ module OCI
     # @option attributes [Integer] :max_collection_count The value to assign to the {#max_collection_count} property
     # @option attributes [String] :external_datatype_entity_key The value to assign to the {#external_datatype_entity_key} property
     # @option attributes [String] :external_parent_attribute_key The value to assign to the {#external_parent_attribute_key} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertySetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -217,6 +224,12 @@ module OCI
 
       self.external_parent_attribute_key = attributes[:'external_parent_attribute_key'] if attributes[:'external_parent_attribute_key']
 
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -245,6 +258,7 @@ module OCI
         max_collection_count == other.max_collection_count &&
         external_datatype_entity_key == other.external_datatype_entity_key &&
         external_parent_attribute_key == other.external_parent_attribute_key &&
+        custom_property_members == other.custom_property_members &&
         properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -261,7 +275,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, external_data_type, is_incremental_data, is_nullable, length, position, precision, scale, time_external, min_collection_count, max_collection_count, external_datatype_entity_key, external_parent_attribute_key, properties].hash
+      [display_name, description, external_data_type, is_incremental_data, is_nullable, length, position, precision, scale, time_external, min_collection_count, max_collection_count, external_datatype_entity_key, external_parent_attribute_key, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

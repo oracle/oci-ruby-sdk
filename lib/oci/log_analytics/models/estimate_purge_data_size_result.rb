@@ -8,7 +8,7 @@ module OCI
   # purge data size in bytes
   #
   class LogAnalytics::Models::EstimatePurgeDataSizeResult
-    # **[Required]** purge data size in bytes
+    # **[Required]** This is the size of data to be purged in bytes
     # @return [Integer]
     attr_accessor :purge_data_size_in_bytes
 

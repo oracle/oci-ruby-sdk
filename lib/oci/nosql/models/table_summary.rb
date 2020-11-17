@@ -43,6 +43,17 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
+    # True if this table can be reclaimed after an idle period.
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_reclaimable
+
+    # If lifecycleState is INACTIVE, indicates when
+    # this table will be automatically removed.
+    # An RFC3339 formatted datetime string.
+    #
+    # @return [DateTime]
+    attr_accessor :time_of_expiration
+
     # Simple key-value pair that is applied without any predefined
     # name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
@@ -57,6 +68,15 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # Read-only system tag. These predefined keys are scoped to
+    # namespaces.  At present the only supported namespace is
+    # `\"orcl-cloud\"`; and the only key in that namespace is
+    # `\"free-tier-retained\"`.
+    # Example: `{\"orcl-cloud\"\": {\"free-tier-retained\": \"true\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -69,8 +89,11 @@ module OCI
         'table_limits': :'tableLimits',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
+        'is_auto_reclaimable': :'isAutoReclaimable',
+        'time_of_expiration': :'timeOfExpiration',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'system_tags': :'systemTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -87,8 +110,11 @@ module OCI
         'table_limits': :'OCI::Nosql::Models::TableLimits',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
+        'is_auto_reclaimable': :'BOOLEAN',
+        'time_of_expiration': :'DateTime',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -107,8 +133,11 @@ module OCI
     # @option attributes [OCI::Nosql::Models::TableLimits] :table_limits The value to assign to the {#table_limits} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [BOOLEAN] :is_auto_reclaimable The value to assign to the {#is_auto_reclaimable} property
+    # @option attributes [DateTime] :time_of_expiration The value to assign to the {#time_of_expiration} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -155,6 +184,18 @@ module OCI
 
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
+      self.is_auto_reclaimable = attributes[:'isAutoReclaimable'] unless attributes[:'isAutoReclaimable'].nil?
+
+      raise 'You cannot provide both :isAutoReclaimable and :is_auto_reclaimable' if attributes.key?(:'isAutoReclaimable') && attributes.key?(:'is_auto_reclaimable')
+
+      self.is_auto_reclaimable = attributes[:'is_auto_reclaimable'] unless attributes[:'is_auto_reclaimable'].nil?
+
+      self.time_of_expiration = attributes[:'timeOfExpiration'] if attributes[:'timeOfExpiration']
+
+      raise 'You cannot provide both :timeOfExpiration and :time_of_expiration' if attributes.key?(:'timeOfExpiration') && attributes.key?(:'time_of_expiration')
+
+      self.time_of_expiration = attributes[:'time_of_expiration'] if attributes[:'time_of_expiration']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -166,6 +207,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -187,8 +234,11 @@ module OCI
         table_limits == other.table_limits &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
+        is_auto_reclaimable == other.is_auto_reclaimable &&
+        time_of_expiration == other.time_of_expiration &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        system_tags == other.system_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -204,7 +254,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, time_created, time_updated, table_limits, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
+      [id, compartment_id, name, time_created, time_updated, table_limits, lifecycle_state, lifecycle_details, is_auto_reclaimable, time_of_expiration, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

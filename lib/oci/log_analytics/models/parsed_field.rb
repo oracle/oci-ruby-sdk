@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Parsed field response
   class LogAnalytics::Models::ParsedField
-    # Log Content
+    # Sample log entries picked up from the given file for validation
     # @return [String]
     attr_accessor :log_content
 
