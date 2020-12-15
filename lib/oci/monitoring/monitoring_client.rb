@@ -124,6 +124,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/change_alarm_compartment.rb.html) to see an example of how to use change_alarm_compartment API.
     def change_alarm_compartment(alarm_id, change_alarm_compartment_details, opts = {})
       logger.debug 'Calling operation MonitoringClient#change_alarm_compartment.' if logger
 
@@ -194,6 +195,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::Monitoring::Models::Alarm Alarm}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/create_alarm.rb.html) to see an example of how to use create_alarm API.
     def create_alarm(create_alarm_details, opts = {})
       logger.debug 'Calling operation MonitoringClient#create_alarm.' if logger
 
@@ -261,6 +263,7 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/delete_alarm.rb.html) to see an example of how to use delete_alarm API.
     def delete_alarm(alarm_id, opts = {})
       logger.debug 'Calling operation MonitoringClient#delete_alarm.' if logger
 
@@ -323,6 +326,7 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Monitoring::Models::Alarm Alarm}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/get_alarm.rb.html) to see an example of how to use get_alarm API.
     def get_alarm(alarm_id, opts = {})
       logger.debug 'Calling operation MonitoringClient#get_alarm.' if logger
 
@@ -409,6 +413,7 @@ module OCI
     #   Example: `2019-01-02T01:00:00.789Z`
     #
     # @return [Response] A Response object with data of type {OCI::Monitoring::Models::AlarmHistoryCollection AlarmHistoryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/get_alarm_history.rb.html) to see an example of how to use get_alarm_history API.
     def get_alarm_history(alarm_id, opts = {})
       logger.debug 'Calling operation MonitoringClient#get_alarm_history.' if logger
 
@@ -515,6 +520,7 @@ module OCI
     #   compartmentId. Default is false.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Monitoring::Models::AlarmSummary AlarmSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/list_alarms.rb.html) to see an example of how to use list_alarms API.
     def list_alarms(compartment_id, opts = {})
       logger.debug 'Calling operation MonitoringClient#list_alarms.' if logger
 
@@ -629,6 +635,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Monitoring::Models::AlarmStatusSummary AlarmStatusSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/list_alarms_status.rb.html) to see an example of how to use list_alarms_status API.
     def list_alarms_status(compartment_id, opts = {})
       logger.debug 'Calling operation MonitoringClient#list_alarms_status.' if logger
 
@@ -725,6 +732,7 @@ module OCI
     #   compartmentId. Default is false.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Monitoring::Models::Metric Metric}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/list_metrics.rb.html) to see an example of how to use list_metrics API.
     def list_metrics(compartment_id, list_metrics_details, opts = {})
       logger.debug 'Calling operation MonitoringClient#list_metrics.' if logger
 
@@ -803,6 +811,7 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Monitoring::Models::PostMetricDataResponseDetails PostMetricDataResponseDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/post_metric_data.rb.html) to see an example of how to use post_metric_data API.
     def post_metric_data(post_metric_data_details, opts = {})
       logger.debug 'Calling operation MonitoringClient#post_metric_data.' if logger
 
@@ -868,6 +877,7 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/remove_alarm_suppression.rb.html) to see an example of how to use remove_alarm_suppression API.
     def remove_alarm_suppression(alarm_id, opts = {})
       logger.debug 'Calling operation MonitoringClient#remove_alarm_suppression.' if logger
 
@@ -940,6 +950,7 @@ module OCI
     #   compartmentId. Default is false.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Monitoring::Models::MetricData MetricData}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/summarize_metrics_data.rb.html) to see an example of how to use summarize_metrics_data API.
     def summarize_metrics_data(compartment_id, summarize_metrics_data_details, opts = {})
       logger.debug 'Calling operation MonitoringClient#summarize_metrics_data.' if logger
 
@@ -1009,6 +1020,7 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Monitoring::Models::Alarm Alarm}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/monitoring/update_alarm.rb.html) to see an example of how to use update_alarm API.
     def update_alarm(alarm_id, update_alarm_details, opts = {})
       logger.debug 'Calling operation MonitoringClient#update_alarm.' if logger
 

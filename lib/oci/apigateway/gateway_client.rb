@@ -120,6 +120,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/change_gateway_compartment.rb.html) to see an example of how to use change_gateway_compartment API.
     def change_gateway_compartment(gateway_id, change_gateway_compartment_details, opts = {})
       logger.debug 'Calling operation GatewayClient#change_gateway_compartment.' if logger
 
@@ -183,6 +184,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Gateway Gateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/create_gateway.rb.html) to see an example of how to use create_gateway API.
     def create_gateway(create_gateway_details, opts = {})
       logger.debug 'Calling operation GatewayClient#create_gateway.' if logger
 
@@ -243,6 +245,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/delete_gateway.rb.html) to see an example of how to use delete_gateway API.
     def delete_gateway(gateway_id, opts = {})
       logger.debug 'Calling operation GatewayClient#delete_gateway.' if logger
 
@@ -296,6 +299,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Gateway Gateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/get_gateway.rb.html) to see an example of how to use get_gateway API.
     def get_gateway(gateway_id, opts = {})
       logger.debug 'Calling operation GatewayClient#get_gateway.' if logger
 
@@ -369,6 +373,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::GatewayCollection GatewayCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/list_gateways.rb.html) to see an example of how to use list_gateways API.
     def list_gateways(compartment_id, opts = {})
       logger.debug 'Calling operation GatewayClient#list_gateways.' if logger
 
@@ -448,6 +453,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/update_gateway.rb.html) to see an example of how to use update_gateway API.
     def update_gateway(gateway_id, update_gateway_details, opts = {})
       logger.debug 'Calling operation GatewayClient#update_gateway.' if logger
 

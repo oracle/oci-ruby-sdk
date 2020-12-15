@@ -117,6 +117,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/change_appliance_export_job_compartment.rb.html) to see an example of how to use change_appliance_export_job_compartment API.
     def change_appliance_export_job_compartment(appliance_export_job_id, change_appliance_export_job_compartment_details, opts = {})
       logger.debug 'Calling operation ApplianceExportJobClient#change_appliance_export_job_compartment.' if logger
 
@@ -181,6 +182,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::ApplianceExportJob ApplianceExportJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/create_appliance_export_job.rb.html) to see an example of how to use create_appliance_export_job API.
     def create_appliance_export_job(create_appliance_export_job_details, opts = {})
       logger.debug 'Calling operation ApplianceExportJobClient#create_appliance_export_job.' if logger
 
@@ -240,6 +242,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/delete_appliance_export_job.rb.html) to see an example of how to use delete_appliance_export_job API.
     def delete_appliance_export_job(appliance_export_job_id, opts = {})
       logger.debug 'Calling operation ApplianceExportJobClient#delete_appliance_export_job.' if logger
 
@@ -295,6 +298,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::ApplianceExportJob ApplianceExportJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/get_appliance_export_job.rb.html) to see an example of how to use get_appliance_export_job API.
     def get_appliance_export_job(appliance_export_job_id, opts = {})
       logger.debug 'Calling operation ApplianceExportJobClient#get_appliance_export_job.' if logger
 
@@ -363,6 +367,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Dts::Models::ApplianceExportJobSummary ApplianceExportJobSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/list_appliance_export_jobs.rb.html) to see an example of how to use list_appliance_export_jobs API.
     def list_appliance_export_jobs(compartment_id, opts = {})
       logger.debug 'Calling operation ApplianceExportJobClient#list_appliance_export_jobs.' if logger
 
@@ -430,6 +435,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::ApplianceExportJob ApplianceExportJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/update_appliance_export_job.rb.html) to see an example of how to use update_appliance_export_job API.
     def update_appliance_export_job(appliance_export_job_id, update_appliance_export_job_details, opts = {})
       logger.debug 'Calling operation ApplianceExportJobClient#update_appliance_export_job.' if logger
 

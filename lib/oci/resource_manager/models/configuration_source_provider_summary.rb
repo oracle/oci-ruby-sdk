@@ -42,7 +42,8 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_state
 
-    # **[Required]** The type of configuration source provider. The `GITLAB_ACCESS_TOKEN` type corresponds to Git.
+    # **[Required]** The type of configuration source provider. The `GITLAB_ACCESS_TOKEN` type corresponds to GitLab.
+    # The `GITHUB_ACCESS_TOKEN` type corresponds to GitHub.
     #
     # @return [String]
     attr_accessor :config_source_provider_type
@@ -104,6 +105,7 @@ module OCI
       type = object_hash[:'configSourceProviderType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::ResourceManager::Models::GitlabAccessTokenConfigurationSourceProviderSummary' if type == 'GITLAB_ACCESS_TOKEN'
+      return 'OCI::ResourceManager::Models::GithubAccessTokenConfigurationSourceProviderSummary' if type == 'GITHUB_ACCESS_TOKEN'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::ResourceManager::Models::ConfigurationSourceProviderSummary'

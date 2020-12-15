@@ -61,7 +61,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_ended
 
-    # Additional information about the current lifecycleState.
+    # Additional information about the current lifecycle state.
     # @return [String]
     attr_accessor :lifecycle_details
 
@@ -91,6 +91,10 @@ module OCI
     # @return [String]
     attr_accessor :version
 
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -108,7 +112,8 @@ module OCI
         'database_edition': :'databaseEdition',
         'database_size_in_gbs': :'databaseSizeInGBs',
         'shape': :'shape',
-        'version': :'version'
+        'version': :'version',
+        'kms_key_id': :'kmsKeyId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -130,7 +135,8 @@ module OCI
         'database_edition': :'String',
         'database_size_in_gbs': :'Float',
         'shape': :'String',
-        'version': :'String'
+        'version': :'String',
+        'kms_key_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -155,6 +161,7 @@ module OCI
     # @option attributes [Float] :database_size_in_gbs The value to assign to the {#database_size_in_gbs} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :version The value to assign to the {#version} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -225,6 +232,12 @@ module OCI
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
       self.version = attributes[:'version'] if attributes[:'version']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -290,7 +303,8 @@ module OCI
         database_edition == other.database_edition &&
         database_size_in_gbs == other.database_size_in_gbs &&
         shape == other.shape &&
-        version == other.version
+        version == other.version &&
+        kms_key_id == other.kms_key_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -306,7 +320,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, database_id, display_name, type, time_started, time_ended, lifecycle_details, availability_domain, lifecycle_state, database_edition, database_size_in_gbs, shape, version].hash
+      [id, compartment_id, database_id, display_name, type, time_started, time_ended, lifecycle_details, availability_domain, lifecycle_state, database_edition, database_size_in_gbs, shape, version, kms_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

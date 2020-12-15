@@ -116,6 +116,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::Backup Backup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/create_backup.rb.html) to see an example of how to use create_backup API.
     def create_backup(create_backup_details, opts = {})
       logger.debug 'Calling operation DbBackupsClient#create_backup.' if logger
 
@@ -180,6 +181,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/delete_backup.rb.html) to see an example of how to use delete_backup API.
     def delete_backup(backup_id, opts = {})
       logger.debug 'Calling operation DbBackupsClient#delete_backup.' if logger
 
@@ -242,6 +244,7 @@ module OCI
     #   200 OK response with the updated representation.
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::Backup Backup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/get_backup.rb.html) to see an example of how to use get_backup API.
     def get_backup(backup_id, opts = {})
       logger.debug 'Calling operation DbBackupsClient#get_backup.' if logger
 
@@ -303,6 +306,7 @@ module OCI
     # @option opts [String] :lifecycle_state Backup Lifecycle State (default to AVAILABLE)
     # @option opts [String] :db_system_id The DB System [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @option opts [String] :display_name A filter to return only the resource matching the given display name exactly.
+    # @option opts [String] :creation_type Backup creationType
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Time fields are default ordered as descending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, timeUpdated, displayName
@@ -316,6 +320,7 @@ module OCI
     #   Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::BackupSummary BackupSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/list_backups.rb.html) to see an example of how to use list_backups API.
     def list_backups(compartment_id, opts = {})
       logger.debug 'Calling operation DbBackupsClient#list_backups.' if logger
 
@@ -323,6 +328,10 @@ module OCI
 
       if opts[:lifecycle_state] && !OCI::Mysql::Models::Backup::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Mysql::Models::Backup::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:creation_type] && !OCI::Mysql::Models::Backup::CREATION_TYPE_ENUM.include?(opts[:creation_type])
+        raise 'Invalid value for "creation_type", must be one of the values in OCI::Mysql::Models::Backup::CREATION_TYPE_ENUM.'
       end
 
       if opts[:sort_by] && !%w[timeCreated timeUpdated displayName].include?(opts[:sort_by])
@@ -344,6 +353,7 @@ module OCI
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:dbSystemId] = opts[:db_system_id] if opts[:db_system_id]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:creationType] = opts[:creation_type] if opts[:creation_type]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -399,6 +409,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/update_backup.rb.html) to see an example of how to use update_backup API.
     def update_backup(backup_id, update_backup_details, opts = {})
       logger.debug 'Calling operation DbBackupsClient#update_backup.' if logger
 

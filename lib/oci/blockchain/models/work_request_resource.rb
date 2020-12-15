@@ -37,6 +37,10 @@ module OCI
     # @return [String]
     attr_accessor :entity_uri
 
+    # Collection of SubType information for a work request resource\u00A9
+    # @return [Array<OCI::Blockchain::Models::WorkRequestResourceSubTypeDetail>]
+    attr_accessor :sub_type_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -44,7 +48,8 @@ module OCI
         'entity_type': :'entityType',
         'action_type': :'actionType',
         'identifier': :'identifier',
-        'entity_uri': :'entityUri'
+        'entity_uri': :'entityUri',
+        'sub_type_details': :'subTypeDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -56,7 +61,8 @@ module OCI
         'entity_type': :'String',
         'action_type': :'String',
         'identifier': :'String',
-        'entity_uri': :'String'
+        'entity_uri': :'String',
+        'sub_type_details': :'Array<OCI::Blockchain::Models::WorkRequestResourceSubTypeDetail>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -71,6 +77,7 @@ module OCI
     # @option attributes [String] :action_type The value to assign to the {#action_type} property
     # @option attributes [String] :identifier The value to assign to the {#identifier} property
     # @option attributes [String] :entity_uri The value to assign to the {#entity_uri} property
+    # @option attributes [Array<OCI::Blockchain::Models::WorkRequestResourceSubTypeDetail>] :sub_type_details The value to assign to the {#sub_type_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -96,6 +103,12 @@ module OCI
       raise 'You cannot provide both :entityUri and :entity_uri' if attributes.key?(:'entityUri') && attributes.key?(:'entity_uri')
 
       self.entity_uri = attributes[:'entity_uri'] if attributes[:'entity_uri']
+
+      self.sub_type_details = attributes[:'subTypeDetails'] if attributes[:'subTypeDetails']
+
+      raise 'You cannot provide both :subTypeDetails and :sub_type_details' if attributes.key?(:'subTypeDetails') && attributes.key?(:'sub_type_details')
+
+      self.sub_type_details = attributes[:'sub_type_details'] if attributes[:'sub_type_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -125,7 +138,8 @@ module OCI
         entity_type == other.entity_type &&
         action_type == other.action_type &&
         identifier == other.identifier &&
-        entity_uri == other.entity_uri
+        entity_uri == other.entity_uri &&
+        sub_type_details == other.sub_type_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -141,7 +155,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [entity_type, action_type, identifier, entity_uri].hash
+      [entity_type, action_type, identifier, entity_uri, sub_type_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

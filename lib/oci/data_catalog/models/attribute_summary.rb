@@ -20,6 +20,13 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    ASSOCIATED_RULE_TYPES_ENUM = [
+      ASSOCIATED_RULE_TYPES_PRIMARYKEY = 'PRIMARYKEY'.freeze,
+      ASSOCIATED_RULE_TYPES_FOREIGNKEY = 'FOREIGNKEY'.freeze,
+      ASSOCIATED_RULE_TYPES_UNIQUEKEY = 'UNIQUEKEY'.freeze,
+      ASSOCIATED_RULE_TYPES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique attribute key that is immutable.
     # @return [String]
     attr_accessor :key
@@ -99,6 +106,10 @@ module OCI
     # @return [String]
     attr_accessor :path
 
+    # Rule types associated with attribute.
+    # @return [Array<String>]
+    attr_reader :associated_rule_types
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -120,7 +131,8 @@ module OCI
         'external_datatype_entity_key': :'externalDatatypeEntityKey',
         'parent_attribute_key': :'parentAttributeKey',
         'external_parent_attribute_key': :'externalParentAttributeKey',
-        'path': :'path'
+        'path': :'path',
+        'associated_rule_types': :'associatedRuleTypes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -146,7 +158,8 @@ module OCI
         'external_datatype_entity_key': :'String',
         'parent_attribute_key': :'String',
         'external_parent_attribute_key': :'String',
-        'path': :'String'
+        'path': :'String',
+        'associated_rule_types': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -175,6 +188,7 @@ module OCI
     # @option attributes [String] :parent_attribute_key The value to assign to the {#parent_attribute_key} property
     # @option attributes [String] :external_parent_attribute_key The value to assign to the {#external_parent_attribute_key} property
     # @option attributes [String] :path The value to assign to the {#path} property
+    # @option attributes [Array<String>] :associated_rule_types The value to assign to the {#associated_rule_types} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -268,6 +282,12 @@ module OCI
       self.external_parent_attribute_key = attributes[:'external_parent_attribute_key'] if attributes[:'external_parent_attribute_key']
 
       self.path = attributes[:'path'] if attributes[:'path']
+
+      self.associated_rule_types = attributes[:'associatedRuleTypes'] if attributes[:'associatedRuleTypes']
+
+      raise 'You cannot provide both :associatedRuleTypes and :associated_rule_types' if attributes.key?(:'associatedRuleTypes') && attributes.key?(:'associated_rule_types')
+
+      self.associated_rule_types = attributes[:'associated_rule_types'] if attributes[:'associated_rule_types']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -281,6 +301,26 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] associated_rule_types Object to be assigned
+    def associated_rule_types=(associated_rule_types)
+      # rubocop:disable Style/ConditionalAssignment
+      if associated_rule_types.nil?
+        @associated_rule_types = nil
+      else
+        @associated_rule_types =
+          associated_rule_types.collect do |item|
+            if ASSOCIATED_RULE_TYPES_ENUM.include?(item)
+              item
+            else
+              OCI.logger.debug("Unknown value for 'associated_rule_types' [#{item}]. Mapping to 'ASSOCIATED_RULE_TYPES_UNKNOWN_ENUM_VALUE'") if OCI.logger
+              ASSOCIATED_RULE_TYPES_UNKNOWN_ENUM_VALUE
+            end
+          end
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -311,7 +351,8 @@ module OCI
         external_datatype_entity_key == other.external_datatype_entity_key &&
         parent_attribute_key == other.parent_attribute_key &&
         external_parent_attribute_key == other.external_parent_attribute_key &&
-        path == other.path
+        path == other.path &&
+        associated_rule_types == other.associated_rule_types
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -327,7 +368,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, entity_key, external_key, length, is_nullable, uri, lifecycle_state, time_created, external_data_type, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path].hash
+      [key, display_name, description, entity_key, external_key, length, is_nullable, uri, lifecycle_state, time_created, external_data_type, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path, associated_rule_types].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

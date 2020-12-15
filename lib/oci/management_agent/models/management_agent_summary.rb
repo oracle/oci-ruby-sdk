@@ -14,6 +14,13 @@ module OCI
       PLATFORM_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    AVAILABILITY_STATUS_ENUM = [
+      AVAILABILITY_STATUS_ACTIVE = 'ACTIVE'.freeze,
+      AVAILABILITY_STATUS_SILENT = 'SILENT'.freeze,
+      AVAILABILITY_STATUS_NOT_AVAILABLE = 'NOT_AVAILABLE'.freeze,
+      AVAILABILITY_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -74,6 +81,14 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # The time the Management Agent has last recorded its heartbeat. An RFC3339 formatted datetime string
+    # @return [DateTime]
+    attr_accessor :time_last_heartbeat
+
+    # The current availability status of managementAgent
+    # @return [String]
+    attr_reader :availability_status
+
     # The current state of managementAgent
     # @return [String]
     attr_reader :lifecycle_state
@@ -110,6 +125,8 @@ module OCI
         'host': :'host',
         'plugin_list': :'pluginList',
         'compartment_id': :'compartmentId',
+        'time_last_heartbeat': :'timeLastHeartbeat',
+        'availability_status': :'availabilityStatus',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'freeform_tags': :'freeformTags',
@@ -134,6 +151,8 @@ module OCI
         'host': :'String',
         'plugin_list': :'Array<OCI::ManagementAgent::Models::ManagementAgentPluginDetails>',
         'compartment_id': :'String',
+        'time_last_heartbeat': :'DateTime',
+        'availability_status': :'String',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -160,6 +179,8 @@ module OCI
     # @option attributes [String] :host The value to assign to the {#host} property
     # @option attributes [Array<OCI::ManagementAgent::Models::ManagementAgentPluginDetails>] :plugin_list The value to assign to the {#plugin_list} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [DateTime] :time_last_heartbeat The value to assign to the {#time_last_heartbeat} property
+    # @option attributes [String] :availability_status The value to assign to the {#availability_status} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -230,6 +251,18 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
+      self.time_last_heartbeat = attributes[:'timeLastHeartbeat'] if attributes[:'timeLastHeartbeat']
+
+      raise 'You cannot provide both :timeLastHeartbeat and :time_last_heartbeat' if attributes.key?(:'timeLastHeartbeat') && attributes.key?(:'time_last_heartbeat')
+
+      self.time_last_heartbeat = attributes[:'time_last_heartbeat'] if attributes[:'time_last_heartbeat']
+
+      self.availability_status = attributes[:'availabilityStatus'] if attributes[:'availabilityStatus']
+
+      raise 'You cannot provide both :availabilityStatus and :availability_status' if attributes.key?(:'availabilityStatus') && attributes.key?(:'availability_status')
+
+      self.availability_status = attributes[:'availability_status'] if attributes[:'availability_status']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -271,6 +304,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] availability_status Object to be assigned
+    def availability_status=(availability_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if availability_status && !AVAILABILITY_STATUS_ENUM.include?(availability_status)
+        OCI.logger.debug("Unknown value for 'availability_status' [" + availability_status + "]. Mapping to 'AVAILABILITY_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @availability_status = AVAILABILITY_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @availability_status = availability_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -304,6 +350,8 @@ module OCI
         host == other.host &&
         plugin_list == other.plugin_list &&
         compartment_id == other.compartment_id &&
+        time_last_heartbeat == other.time_last_heartbeat &&
+        availability_status == other.availability_status &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         freeform_tags == other.freeform_tags &&
@@ -323,7 +371,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, install_key_id, display_name, platform_type, platform_name, platform_version, version, is_agent_auto_upgradable, time_created, host, plugin_list, compartment_id, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
+      [id, install_key_id, display_name, platform_type, platform_name, platform_version, version, is_agent_auto_upgradable, time_created, host, plugin_list, compartment_id, time_last_heartbeat, availability_status, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

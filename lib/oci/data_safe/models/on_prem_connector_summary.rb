@@ -6,80 +6,79 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # **Deprecated.** See {#autonomous_data_warehouse_backup_summary autonomous_data_warehouse_backup_summary} for reference information about Autonomous Data Warehouse backups.
-  #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-  #
-  class Database::Models::AutonomousDataWarehouseBackupSummary
-    TYPE_ENUM = [
-      TYPE_INCREMENTAL = 'INCREMENTAL'.freeze,
-      TYPE_FULL = 'FULL'.freeze,
-      TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
-    ].freeze
-
+  # Summary of a Data Safe on-premises connector.
+  class DataSafe::Models::OnPremConnectorSummary
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse backup.
+    # **[Required]** The OCID of the on-premises connector.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
-    # @return [String]
-    attr_accessor :compartment_id
-
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse.
-    # @return [String]
-    attr_accessor :autonomous_data_warehouse_id
-
-    # **[Required]** The user-friendly name for the backup. The name does not have to be unique.
+    # **[Required]** The display name of the on-premises connector.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The type of backup.
+    # **[Required]** The OCID of the compartment that contains the on-premises connector.
     # @return [String]
-    attr_reader :type
+    attr_accessor :compartment_id
 
-    # **[Required]** Indicates whether the backup is user-initiated or automatic.
-    # @return [BOOLEAN]
-    attr_accessor :is_automatic
+    # The description of the on-premises connector.
+    # @return [String]
+    attr_accessor :description
 
-    # The date and time the backup started.
+    # **[Required]** The date and time the on-premises connector was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
-    attr_accessor :time_started
+    attr_accessor :time_created
 
-    # The date and time the backup completed.
-    # @return [DateTime]
-    attr_accessor :time_ended
+    # **[Required]** The current state of the on-premises connector.
+    # @return [String]
+    attr_reader :lifecycle_state
 
-    # Additional information about the current lifecycle state.
+    # Details about the current state of the on-premises connector.
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # **[Required]** The current state of the backup.
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Created version of the on-premises connector.
     # @return [String]
-    attr_reader :lifecycle_state
+    attr_accessor :created_version
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
-        'compartment_id': :'compartmentId',
-        'autonomous_data_warehouse_id': :'autonomousDataWarehouseId',
         'display_name': :'displayName',
-        'type': :'type',
-        'is_automatic': :'isAutomatic',
-        'time_started': :'timeStarted',
-        'time_ended': :'timeEnded',
+        'compartment_id': :'compartmentId',
+        'description': :'description',
+        'time_created': :'timeCreated',
+        'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
-        'lifecycle_state': :'lifecycleState'
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
+        'created_version': :'createdVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -89,15 +88,15 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
-        'compartment_id': :'String',
-        'autonomous_data_warehouse_id': :'String',
         'display_name': :'String',
-        'type': :'String',
-        'is_automatic': :'BOOLEAN',
-        'time_started': :'DateTime',
-        'time_ended': :'DateTime',
+        'compartment_id': :'String',
+        'description': :'String',
+        'time_created': :'DateTime',
+        'lifecycle_state': :'String',
         'lifecycle_details': :'String',
-        'lifecycle_state': :'String'
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'created_version': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -109,15 +108,15 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :autonomous_data_warehouse_id The value to assign to the {#autonomous_data_warehouse_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [String] :type The value to assign to the {#type} property
-    # @option attributes [BOOLEAN] :is_automatic The value to assign to the {#is_automatic} property
-    # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
-    # @option attributes [DateTime] :time_ended The value to assign to the {#time_ended} property
-    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :created_version The value to assign to the {#created_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -126,43 +125,31 @@ module OCI
 
       self.id = attributes[:'id'] if attributes[:'id']
 
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
-
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
-
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
-
-      self.autonomous_data_warehouse_id = attributes[:'autonomousDataWarehouseId'] if attributes[:'autonomousDataWarehouseId']
-
-      raise 'You cannot provide both :autonomousDataWarehouseId and :autonomous_data_warehouse_id' if attributes.key?(:'autonomousDataWarehouseId') && attributes.key?(:'autonomous_data_warehouse_id')
-
-      self.autonomous_data_warehouse_id = attributes[:'autonomous_data_warehouse_id'] if attributes[:'autonomous_data_warehouse_id']
-
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.type = attributes[:'type'] if attributes[:'type']
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
-      self.is_automatic = attributes[:'isAutomatic'] unless attributes[:'isAutomatic'].nil?
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
-      raise 'You cannot provide both :isAutomatic and :is_automatic' if attributes.key?(:'isAutomatic') && attributes.key?(:'is_automatic')
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.is_automatic = attributes[:'is_automatic'] unless attributes[:'is_automatic'].nil?
+      self.description = attributes[:'description'] if attributes[:'description']
 
-      self.time_started = attributes[:'timeStarted'] if attributes[:'timeStarted']
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
-      raise 'You cannot provide both :timeStarted and :time_started' if attributes.key?(:'timeStarted') && attributes.key?(:'time_started')
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
-      self.time_started = attributes[:'time_started'] if attributes[:'time_started']
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
-      self.time_ended = attributes[:'timeEnded'] if attributes[:'timeEnded']
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
-      raise 'You cannot provide both :timeEnded and :time_ended' if attributes.key?(:'timeEnded') && attributes.key?(:'time_ended')
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
-      self.time_ended = attributes[:'time_ended'] if attributes[:'time_ended']
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
       self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
 
@@ -170,27 +157,26 @@ module OCI
 
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
-      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
-      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
-      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.created_version = attributes[:'createdVersion'] if attributes[:'createdVersion']
+
+      raise 'You cannot provide both :createdVersion and :created_version' if attributes.key?(:'createdVersion') && attributes.key?(:'created_version')
+
+      self.created_version = attributes[:'created_version'] if attributes[:'created_version']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] type Object to be assigned
-    def type=(type)
-      # rubocop:disable Style/ConditionalAssignment
-      if type && !TYPE_ENUM.include?(type)
-        OCI.logger.debug("Unknown value for 'type' [" + type + "]. Mapping to 'TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        @type = TYPE_UNKNOWN_ENUM_VALUE
-      else
-        @type = type
-      end
-      # rubocop:enable Style/ConditionalAssignment
-    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
@@ -215,15 +201,15 @@ module OCI
 
       self.class == other.class &&
         id == other.id &&
-        compartment_id == other.compartment_id &&
-        autonomous_data_warehouse_id == other.autonomous_data_warehouse_id &&
         display_name == other.display_name &&
-        type == other.type &&
-        is_automatic == other.is_automatic &&
-        time_started == other.time_started &&
-        time_ended == other.time_ended &&
+        compartment_id == other.compartment_id &&
+        description == other.description &&
+        time_created == other.time_created &&
+        lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
-        lifecycle_state == other.lifecycle_state
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
+        created_version == other.created_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -239,7 +225,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, autonomous_data_warehouse_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, lifecycle_state].hash
+      [id, display_name, compartment_id, description, time_created, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, created_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

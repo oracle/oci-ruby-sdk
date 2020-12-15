@@ -124,6 +124,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/change_sddc_compartment.rb.html) to see an example of how to use change_sddc_compartment API.
     def change_sddc_compartment(sddc_id, change_sddc_compartment_details, opts = {})
       logger.debug 'Calling operation SddcClient#change_sddc_compartment.' if logger
 
@@ -192,6 +193,7 @@ module OCI
     #   request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/create_sddc.rb.html) to see an example of how to use create_sddc API.
     def create_sddc(create_sddc_details, opts = {})
       logger.debug 'Calling operation SddcClient#create_sddc.' if logger
 
@@ -260,6 +262,7 @@ module OCI
     #   request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/delete_sddc.rb.html) to see an example of how to use delete_sddc API.
     def delete_sddc(sddc_id, opts = {})
       logger.debug 'Calling operation SddcClient#delete_sddc.' if logger
 
@@ -316,6 +319,7 @@ module OCI
     #   request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ocvp::Models::Sddc Sddc}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/get_sddc.rb.html) to see an example of how to use get_sddc API.
     def get_sddc(sddc_id, opts = {})
       logger.debug 'Calling operation SddcClient#get_sddc.' if logger
 
@@ -400,6 +404,7 @@ module OCI
     #
     # @option opts [String] :lifecycle_state The lifecycle state of the resource.
     # @return [Response] A Response object with data of type {OCI::Ocvp::Models::SddcCollection SddcCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/list_sddcs.rb.html) to see an example of how to use list_sddcs API.
     def list_sddcs(compartment_id, opts = {})
       logger.debug 'Calling operation SddcClient#list_sddcs.' if logger
 
@@ -484,6 +489,7 @@ module OCI
     #   request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ocvp::Models::SupportedVmwareSoftwareVersionCollection SupportedVmwareSoftwareVersionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/list_supported_vmware_software_versions.rb.html) to see an example of how to use list_supported_vmware_software_versions API.
     def list_supported_vmware_software_versions(compartment_id, opts = {})
       logger.debug 'Calling operation SddcClient#list_supported_vmware_software_versions.' if logger
 
@@ -555,6 +561,7 @@ module OCI
     #   request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ocvp::Models::Sddc Sddc}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/update_sddc.rb.html) to see an example of how to use update_sddc API.
     def update_sddc(sddc_id, update_sddc_details, opts = {})
       logger.debug 'Calling operation SddcClient#update_sddc.' if logger
 

@@ -8,7 +8,7 @@ module OCI
   # All the attributes of an audit event. For more information, see [Viewing Audit Log Events](https://docs.cloud.oracle.com/iaas/Content/Audit/Tasks/viewinglogevents.htm).
   #
   class Audit::Models::AuditEvent
-    # The type of event that happened.
+    # **[Required]** The type of event that happened.
     #
     # The service that produces the event can also add, remove, or change the meaning of a field.
     # A service implementing these type changes would publish a new version of an `eventType` and
@@ -19,7 +19,7 @@ module OCI
     # @return [String]
     attr_accessor :event_type
 
-    # The version of the CloudEvents specification. The structure of the envelope follows the
+    # **[Required]** The version of the CloudEvents specification. The structure of the envelope follows the
     # [CloudEvents](https://github.com/cloudevents/spec) industry standard format hosted by the
     # [Cloud Native Computing Foundation ( CNCF)](https://www.cncf.io/).
     #
@@ -30,7 +30,7 @@ module OCI
     # @return [String]
     attr_accessor :cloud_events_version
 
-    # The version of the event type. This version applies to the payload of the event, not the envelope.
+    # **[Required]** The version of the event type. This version applies to the payload of the event, not the envelope.
     # Use `cloudEventsVersion` to determine the version of the envelope.
     #
     # Example: `2.0`
@@ -38,32 +38,33 @@ module OCI
     # @return [String]
     attr_accessor :event_type_version
 
-    # The source of the event.
+    # **[Required]** The source of the event.
     #
     # Example: `ComputeApi`
     #
     # @return [String]
     attr_accessor :source
 
-    # The GUID of the event.
+    # **[Required]** The GUID of the event.
     #
     # @return [String]
     attr_accessor :event_id
 
-    # The time the event occurred, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
+    # **[Required]** The time the event occurred, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
     #
     # Example: `2019-09-18T00:10:59.252Z`
     #
     # @return [DateTime]
     attr_accessor :event_time
 
-    # The content type of the data contained in `data`.
+    # **[Required]** The content type of the data contained in `data`.
     #
     # Example: `application/json`
     #
     # @return [String]
     attr_accessor :content_type
 
+    # This attribute is required.
     # @return [OCI::Audit::Models::Data]
     attr_accessor :data
 

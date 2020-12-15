@@ -115,6 +115,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/abort_multipart_upload.rb.html) to see an example of how to use abort_multipart_upload API.
     def abort_multipart_upload(namespace_name, bucket_name, object_name, upload_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#abort_multipart_upload.' if logger
 
@@ -174,6 +175,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/cancel_work_request.rb.html) to see an example of how to use cancel_work_request API.
     def cancel_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#cancel_work_request.' if logger
 
@@ -242,6 +244,7 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/commit_multipart_upload.rb.html) to see an example of how to use commit_multipart_upload API.
     def commit_multipart_upload(namespace_name, bucket_name, object_name, upload_id, commit_multipart_upload_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#commit_multipart_upload.' if logger
 
@@ -332,6 +335,7 @@ module OCI
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/copy_object.rb.html) to see an example of how to use copy_object API.
     def copy_object(namespace_name, bucket_name, copy_object_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#copy_object.' if logger
 
@@ -396,6 +400,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::Bucket Bucket}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/create_bucket.rb.html) to see an example of how to use create_bucket API.
     def create_bucket(namespace_name, create_bucket_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#create_bucket.' if logger
 
@@ -473,6 +478,7 @@ module OCI
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::MultipartUpload MultipartUpload}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/create_multipart_upload.rb.html) to see an example of how to use create_multipart_upload API.
     def create_multipart_upload(namespace_name, bucket_name, create_multipart_upload_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#create_multipart_upload.' if logger
 
@@ -539,6 +545,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::PreauthenticatedRequest PreauthenticatedRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/create_preauthenticated_request.rb.html) to see an example of how to use create_preauthenticated_request API.
     def create_preauthenticated_request(namespace_name, bucket_name, create_preauthenticated_request_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#create_preauthenticated_request.' if logger
 
@@ -600,6 +607,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ReplicationPolicy ReplicationPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/create_replication_policy.rb.html) to see an example of how to use create_replication_policy API.
     def create_replication_policy(namespace_name, bucket_name, create_replication_policy_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#create_replication_policy.' if logger
 
@@ -662,6 +670,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRule RetentionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/create_retention_rule.rb.html) to see an example of how to use create_retention_rule API.
     def create_retention_rule(namespace_name, bucket_name, create_retention_rule_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#create_retention_rule.' if logger
 
@@ -728,6 +737,7 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/delete_bucket.rb.html) to see an example of how to use delete_bucket API.
     def delete_bucket(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#delete_bucket.' if logger
 
@@ -794,6 +804,7 @@ module OCI
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :version_id VersionId used to identify a particular version of the object
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/delete_object.rb.html) to see an example of how to use delete_object API.
     def delete_object(namespace_name, bucket_name, object_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#delete_object.' if logger
 
@@ -859,6 +870,7 @@ module OCI
     #   For uploading a part, this is the entity tag of the target part.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/delete_object_lifecycle_policy.rb.html) to see an example of how to use delete_object_lifecycle_policy API.
     def delete_object_lifecycle_policy(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#delete_object_lifecycle_policy.' if logger
 
@@ -920,6 +932,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/delete_preauthenticated_request.rb.html) to see an example of how to use delete_preauthenticated_request API.
     def delete_preauthenticated_request(namespace_name, bucket_name, par_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#delete_preauthenticated_request.' if logger
 
@@ -981,6 +994,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/delete_replication_policy.rb.html) to see an example of how to use delete_replication_policy API.
     def delete_replication_policy(namespace_name, bucket_name, replication_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#delete_replication_policy.' if logger
 
@@ -1044,6 +1058,7 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/delete_retention_rule.rb.html) to see an example of how to use delete_retention_rule API.
     def delete_retention_rule(namespace_name, bucket_name, retention_rule_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#delete_retention_rule.' if logger
 
@@ -1117,6 +1132,7 @@ module OCI
     #
     #   Allowed values are: approximateCount, approximateSize
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::Bucket Bucket}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_bucket.rb.html) to see an example of how to use get_bucket API.
     def get_bucket(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_bucket.' if logger
 
@@ -1194,6 +1210,7 @@ module OCI
     #   [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) within the tenancy whose Object Storage namespace is to be retrieved.
     #
     # @return [Response] A Response object with data of type String
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_namespace.rb.html) to see an example of how to use get_namespace API.
     def get_namespace(opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_namespace.' if logger
 
@@ -1253,6 +1270,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::NamespaceMetadata NamespaceMetadata}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_namespace_metadata.rb.html) to see an example of how to use get_namespace_metadata API.
     def get_namespace_metadata(namespace_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_namespace_metadata.' if logger
 
@@ -1334,15 +1352,16 @@ module OCI
     #   value is used to check the integrity of the encryption key. For more information, see
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
-    # @option opts [String] :http_response_content_disposition This value will be used in Content-Disposition header of the response.
-    # @option opts [String] :http_response_cache_control This value will be used in Cache-Control header of the response.
-    # @option opts [String] :http_response_content_type This value will be used in Content-Type header of the response.
-    # @option opts [String] :http_response_content_language This value will be used in Content-Language header of the response.
-    # @option opts [String] :http_response_content_encoding This value will be used in Content-Encoding header of the response
-    # @option opts [String] :http_response_expires This value will be used in Expires header of the response
+    # @option opts [String] :http_response_content_disposition Specify this query parameter to override the value of the Content-Disposition response header in the GetObject response.
+    # @option opts [String] :http_response_cache_control Specify this query parameter to override the Cache-Control response header in the GetObject response.
+    # @option opts [String] :http_response_content_type Specify this query parameter to override the Content-Type response header in the GetObject response.
+    # @option opts [String] :http_response_content_language Specify this query parameter to override the Content-Language response header in the GetObject response.
+    # @option opts [String] :http_response_content_encoding Specify this query parameter to override the Content-Encoding response header in the GetObject response.
+    # @option opts [String] :http_response_expires Specify this query parameter to override the Expires response header in the GetObject response.
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_object.rb.html) to see an example of how to use get_object API.
     def get_object(namespace_name, bucket_name, object_name, opts = {}, &block)
       logger.debug 'Calling operation ObjectStorageClient#get_object.' if logger
 
@@ -1461,6 +1480,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ObjectLifecyclePolicy ObjectLifecyclePolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_object_lifecycle_policy.rb.html) to see an example of how to use get_object_lifecycle_policy API.
     def get_object_lifecycle_policy(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_object_lifecycle_policy.' if logger
 
@@ -1522,6 +1542,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::PreauthenticatedRequestSummary PreauthenticatedRequestSummary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_preauthenticated_request.rb.html) to see an example of how to use get_preauthenticated_request API.
     def get_preauthenticated_request(namespace_name, bucket_name, par_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_preauthenticated_request.' if logger
 
@@ -1584,6 +1605,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ReplicationPolicy ReplicationPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_replication_policy.rb.html) to see an example of how to use get_replication_policy API.
     def get_replication_policy(namespace_name, bucket_name, replication_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_replication_policy.' if logger
 
@@ -1645,6 +1667,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRule RetentionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_retention_rule.rb.html) to see an example of how to use get_retention_rule API.
     def get_retention_rule(namespace_name, bucket_name, retention_rule_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_retention_rule.' if logger
 
@@ -1702,6 +1725,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#get_work_request.' if logger
 
@@ -1766,6 +1790,7 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/head_bucket.rb.html) to see an example of how to use head_bucket API.
     def head_bucket(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#head_bucket.' if logger
 
@@ -1848,6 +1873,7 @@ module OCI
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/head_object.rb.html) to see an example of how to use head_object API.
     def head_object(namespace_name, bucket_name, object_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#head_object.' if logger
 
@@ -1924,6 +1950,7 @@ module OCI
     #   Allowed values are: tags
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::BucketSummary BucketSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_buckets.rb.html) to see an example of how to use list_buckets API.
     def list_buckets(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_buckets.' if logger
 
@@ -2002,6 +2029,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::MultipartUploadPartSummary MultipartUploadPartSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_multipart_upload_parts.rb.html) to see an example of how to use list_multipart_upload_parts API.
     def list_multipart_upload_parts(namespace_name, bucket_name, object_name, upload_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_multipart_upload_parts.' if logger
 
@@ -2069,6 +2097,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::MultipartUpload MultipartUpload}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_multipart_uploads.rb.html) to see an example of how to use list_multipart_uploads API.
     def list_multipart_uploads(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_multipart_uploads.' if logger
 
@@ -2153,6 +2182,7 @@ module OCI
     # @option opts [String] :start_after Object names returned by a list query must be greater than this parameter.
     # @option opts [String] :page The page at which to start retrieving results.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ObjectVersionCollection ObjectVersionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_object_versions.rb.html) to see an example of how to use list_object_versions API.
     def list_object_versions(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_object_versions.' if logger
 
@@ -2245,6 +2275,7 @@ module OCI
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :start_after Object names returned by a list query must be greater than this parameter.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ListObjects ListObjects}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_objects.rb.html) to see an example of how to use list_objects API.
     def list_objects(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_objects.' if logger
 
@@ -2314,6 +2345,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::PreauthenticatedRequestSummary PreauthenticatedRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_preauthenticated_requests.rb.html) to see an example of how to use list_preauthenticated_requests API.
     def list_preauthenticated_requests(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_preauthenticated_requests.' if logger
 
@@ -2378,6 +2410,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::ReplicationPolicySummary ReplicationPolicySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_replication_policies.rb.html) to see an example of how to use list_replication_policies API.
     def list_replication_policies(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_replication_policies.' if logger
 
@@ -2441,6 +2474,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::ReplicationSource ReplicationSource}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_replication_sources.rb.html) to see an example of how to use list_replication_sources API.
     def list_replication_sources(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_replication_sources.' if logger
 
@@ -2503,6 +2537,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The page at which to start retrieving results.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRuleCollection RetentionRuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_retention_rules.rb.html) to see an example of how to use list_retention_rules API.
     def list_retention_rules(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_retention_rules.' if logger
 
@@ -2560,6 +2595,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_work_request_errors.' if logger
 
@@ -2617,6 +2653,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_work_request_logs.' if logger
 
@@ -2675,6 +2712,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Integer] :limit The maximum number of items to return.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#list_work_requests.' if logger
 
@@ -2737,6 +2775,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/make_bucket_writable.rb.html) to see an example of how to use make_bucket_writable API.
     def make_bucket_writable(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#make_bucket_writable.' if logger
 
@@ -2861,6 +2900,7 @@ module OCI
     # @option opts [Hash<String, String>] :opc_meta Optional user-defined metadata key and value.
     #   "opc-meta-" will be appended to each Hash key before it is sent to the server.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/put_object.rb.html) to see an example of how to use put_object API.
     def put_object(namespace_name, bucket_name, object_name, put_object_body, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#put_object.' if logger
 
@@ -2949,6 +2989,7 @@ module OCI
     #   part, this is the entity tag of the target part.
     #
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ObjectLifecyclePolicy ObjectLifecyclePolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/put_object_lifecycle_policy.rb.html) to see an example of how to use put_object_lifecycle_policy API.
     def put_object_lifecycle_policy(namespace_name, bucket_name, put_object_lifecycle_policy_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#put_object_lifecycle_policy.' if logger
 
@@ -3025,6 +3066,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/reencrypt_bucket.rb.html) to see an example of how to use reencrypt_bucket API.
     def reencrypt_bucket(namespace_name, bucket_name, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#reencrypt_bucket.' if logger
 
@@ -3096,6 +3138,7 @@ module OCI
     # @option opts [String] :version_id VersionId used to identify a particular version of the object
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/reencrypt_object.rb.html) to see an example of how to use reencrypt_object API.
     def reencrypt_object(namespace_name, bucket_name, object_name, reencrypt_object_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#reencrypt_object.' if logger
 
@@ -3162,6 +3205,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/rename_object.rb.html) to see an example of how to use rename_object API.
     def rename_object(namespace_name, bucket_name, rename_object_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#rename_object.' if logger
 
@@ -3223,6 +3267,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/restore_objects.rb.html) to see an example of how to use restore_objects API.
     def restore_objects(namespace_name, bucket_name, restore_objects_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#restore_objects.' if logger
 
@@ -3290,6 +3335,7 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::Bucket Bucket}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/update_bucket.rb.html) to see an example of how to use update_bucket API.
     def update_bucket(namespace_name, bucket_name, update_bucket_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#update_bucket.' if logger
 
@@ -3355,6 +3401,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::NamespaceMetadata NamespaceMetadata}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/update_namespace_metadata.rb.html) to see an example of how to use update_namespace_metadata API.
     def update_namespace_metadata(namespace_name, update_namespace_metadata_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#update_namespace_metadata.' if logger
 
@@ -3418,6 +3465,7 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRule RetentionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/update_retention_rule.rb.html) to see an example of how to use update_retention_rule API.
     def update_retention_rule(namespace_name, bucket_name, retention_rule_id, update_retention_rule_details, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#update_retention_rule.' if logger
 
@@ -3514,6 +3562,7 @@ module OCI
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/upload_part.rb.html) to see an example of how to use upload_part API.
     def upload_part(namespace_name, bucket_name, object_name, upload_id, upload_part_num, upload_part_body, opts = {})
       logger.debug 'Calling operation ObjectStorageClient#upload_part.' if logger
 

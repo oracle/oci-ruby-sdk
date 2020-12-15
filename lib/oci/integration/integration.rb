@@ -12,9 +12,12 @@ end
 
 # Require models
 require 'oci/integration/models/change_integration_instance_compartment_details'
+require 'oci/integration/models/create_custom_endpoint_details'
 require 'oci/integration/models/create_integration_instance_details'
+require 'oci/integration/models/custom_endpoint_details'
 require 'oci/integration/models/integration_instance'
 require 'oci/integration/models/integration_instance_summary'
+require 'oci/integration/models/update_custom_endpoint_details'
 require 'oci/integration/models/update_integration_instance_details'
 require 'oci/integration/models/work_request'
 require 'oci/integration/models/work_request_error'

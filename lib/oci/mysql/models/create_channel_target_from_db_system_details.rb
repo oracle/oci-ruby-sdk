@@ -2,26 +2,35 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require_relative 'create_channel_target_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # **Deprecated.** See {#autonomous_database_console_token_details autonomous_database_console_token_details} for reference information about the token that allows the OCI Console to access the Autonomous Data Warehouse Service Console.
-  #
-  class Database::Models::AutonomousDataWarehouseConsoleTokenDetails
-    # The token that allows the OCI Console to access the Autonomous Data Warehouse Service Console.
+  # Parameters detailing how to provision the target endpoint that is a DB System.
+  class Mysql::Models::CreateChannelTargetFromDbSystemDetails < Mysql::Models::CreateChannelTargetDetails
+    # **[Required]** The OCID of the target DB System.
     # @return [String]
-    attr_accessor :token
+    attr_accessor :db_system_id
 
-    # The login URL that allows the OCI Console to access the Autonomous Data Warehouse Service Console.
+    # The case-insensitive name that identifies the replication channel. Channel names
+    # must follow the rules defined for [MySQL identifiers](https://dev.mysql.com/doc/refman/8.0/en/identifiers.html).
+    # The names of non-Deleted Channels must be unique for each DB System.
+    #
     # @return [String]
-    attr_accessor :login_url
+    attr_accessor :channel_name
+
+    # The username for the replication applier of the target MySQL DB System.
+    # @return [String]
+    attr_accessor :applier_username
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'token': :'token',
-        'login_url': :'loginUrl'
+        'target_type': :'targetType',
+        'db_system_id': :'dbSystemId',
+        'channel_name': :'channelName',
+        'applier_username': :'applierUsername'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,8 +39,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'token': :'String',
-        'login_url': :'String'
+        'target_type': :'String',
+        'db_system_id': :'String',
+        'channel_name': :'String',
+        'applier_username': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,21 +53,36 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :token The value to assign to the {#token} property
-    # @option attributes [String] :login_url The value to assign to the {#login_url} property
+    # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
+    # @option attributes [String] :channel_name The value to assign to the {#channel_name} property
+    # @option attributes [String] :applier_username The value to assign to the {#applier_username} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
+
+      attributes['targetType'] = 'DBSYSTEM'
+
+      super(attributes)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.token = attributes[:'token'] if attributes[:'token']
+      self.db_system_id = attributes[:'dbSystemId'] if attributes[:'dbSystemId']
 
-      self.login_url = attributes[:'loginUrl'] if attributes[:'loginUrl']
+      raise 'You cannot provide both :dbSystemId and :db_system_id' if attributes.key?(:'dbSystemId') && attributes.key?(:'db_system_id')
 
-      raise 'You cannot provide both :loginUrl and :login_url' if attributes.key?(:'loginUrl') && attributes.key?(:'login_url')
+      self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
 
-      self.login_url = attributes[:'login_url'] if attributes[:'login_url']
+      self.channel_name = attributes[:'channelName'] if attributes[:'channelName']
+
+      raise 'You cannot provide both :channelName and :channel_name' if attributes.key?(:'channelName') && attributes.key?(:'channel_name')
+
+      self.channel_name = attributes[:'channel_name'] if attributes[:'channel_name']
+
+      self.applier_username = attributes[:'applierUsername'] if attributes[:'applierUsername']
+
+      raise 'You cannot provide both :applierUsername and :applier_username' if attributes.key?(:'applierUsername') && attributes.key?(:'applier_username')
+
+      self.applier_username = attributes[:'applier_username'] if attributes[:'applier_username']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -70,8 +96,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        token == other.token &&
-        login_url == other.login_url
+        target_type == other.target_type &&
+        db_system_id == other.db_system_id &&
+        channel_name == other.channel_name &&
+        applier_username == other.applier_username
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -87,7 +115,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [token, login_url].hash
+      [target_type, db_system_id, channel_name, applier_username].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

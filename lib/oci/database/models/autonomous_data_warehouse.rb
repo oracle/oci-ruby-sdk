@@ -2,7 +2,6 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
-require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -22,14 +21,12 @@ module OCI
       LIFECYCLE_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_SCALE_IN_PROGRESS = 'SCALE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_AVAILABLE_NEEDS_ATTENTION = 'AVAILABLE_NEEDS_ATTENTION'.freeze,
-      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
-      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze
     ].freeze
 
     LICENSE_MODEL_ENUM = [
       LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
-      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze,
-      LICENSE_MODEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse.
@@ -261,27 +258,17 @@ module OCI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
-      # rubocop:disable Style/ConditionalAssignment
-      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
-        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
-      else
-        @lifecycle_state = lifecycle_state
-      end
-      # rubocop:enable Style/ConditionalAssignment
+      raise "Invalid value for 'lifecycle_state': this must be one of the values in LIFECYCLE_STATE_ENUM." if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+
+      @lifecycle_state = lifecycle_state
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] license_model Object to be assigned
     def license_model=(license_model)
-      # rubocop:disable Style/ConditionalAssignment
-      if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
-        OCI.logger.debug("Unknown value for 'license_model' [" + license_model + "]. Mapping to 'LICENSE_MODEL_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        @license_model = LICENSE_MODEL_UNKNOWN_ENUM_VALUE
-      else
-        @license_model = license_model
-      end
-      # rubocop:enable Style/ConditionalAssignment
+      raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
+
+      @license_model = license_model
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines

@@ -5,73 +5,71 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # **Deprecated.** See {#create_autonomous_database_details create_autonomous_database_details} for reference information about creating an Oracle Autonomous Data Warehouse.
-  #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-  #
-  class Database::Models::CreateAutonomousDataWarehouseDetails
-    LICENSE_MODEL_ENUM = [
-      LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
-      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
-    ].freeze
+  # Rover entitlement summary.
+  class Rover::Models::RoverEntitlementSummary
+    # Id of the entitlement.
+    # @return [String]
+    attr_accessor :id
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment of the Autonomous Data Warehouse.
+    # **[Required]** The compartment Id.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The database name. The name must begin with an alphabetic character and can contain a maximum of 14 alphanumeric characters. Special characters are not permitted. The database name must be unique in the tenancy.
-    # @return [String]
-    attr_accessor :db_name
-
-    # **[Required]** The number of CPU Cores to be made available to the database.
-    # @return [Integer]
-    attr_accessor :cpu_core_count
-
-    # **[Required]** Size, in terabytes, of the data volume that will be created and attached to the database. This storage can later be scaled up if needed.
-    #
-    # @return [Integer]
-    attr_accessor :data_storage_size_in_tbs
-
-    # **[Required]** The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing.
-    # @return [String]
-    attr_accessor :admin_password
-
-    # The user-friendly name for the Autonomous Data Warehouse. The name does not have to be unique.
+    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
-    # The Oracle license model that applies to the Oracle Autonomous Data Warehouse. The default is BRING_YOUR_OWN_LICENSE.
-    #
+    # Requestor name for the entitlement.
     # @return [String]
-    attr_reader :license_model
+    attr_accessor :requestor_name
 
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
-    #
+    # Email id of the requestor for entitlement.
+    # @return [String]
+    attr_accessor :requestor_email
+
+    # **[Required]** Lifecyclestate for the entitlement.
+    # @return [String]
+    attr_accessor :lifecycle_state
+
+    # A property that can contain details on the lifecycle.
+    # @return [String]
+    attr_accessor :lifecycle_state_details
+
+    # The freeform tags associated with this resource, if any. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # The defined tags associated with this resource, if any. Each key is predefined and scoped to namespaces.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
+
+    # The system tags associated with this resource, if any. The system tags are set by Oracle cloud infrastructure services. Each key is predefined and scoped to namespaces.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+    # Example: `{orcl-cloud: {free-tier-retain: true}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'id',
         'compartment_id': :'compartmentId',
-        'db_name': :'dbName',
-        'cpu_core_count': :'cpuCoreCount',
-        'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
-        'admin_password': :'adminPassword',
         'display_name': :'displayName',
-        'license_model': :'licenseModel',
+        'requestor_name': :'requestorName',
+        'requestor_email': :'requestorEmail',
+        'lifecycle_state': :'lifecycleState',
+        'lifecycle_state_details': :'lifecycleStateDetails',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'system_tags': :'systemTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -80,15 +78,16 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'String',
         'compartment_id': :'String',
-        'db_name': :'String',
-        'cpu_core_count': :'Integer',
-        'data_storage_size_in_tbs': :'Integer',
-        'admin_password': :'String',
         'display_name': :'String',
-        'license_model': :'String',
+        'requestor_name': :'String',
+        'requestor_email': :'String',
+        'lifecycle_state': :'String',
+        'lifecycle_state_details': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -99,20 +98,23 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :db_name The value to assign to the {#db_name} property
-    # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
-    # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
-    # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [String] :requestor_name The value to assign to the {#requestor_name} property
+    # @option attributes [String] :requestor_email The value to assign to the {#requestor_email} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_state_details The value to assign to the {#lifecycle_state_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -120,41 +122,35 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.db_name = attributes[:'dbName'] if attributes[:'dbName']
-
-      raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
-
-      self.db_name = attributes[:'db_name'] if attributes[:'db_name']
-
-      self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
-
-      raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
-
-      self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
-
-      self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
-
-      raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
-
-      self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
-
-      self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
-
-      raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
-
-      self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
-
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
+      self.requestor_name = attributes[:'requestorName'] if attributes[:'requestorName']
 
-      raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
+      raise 'You cannot provide both :requestorName and :requestor_name' if attributes.key?(:'requestorName') && attributes.key?(:'requestor_name')
 
-      self.license_model = attributes[:'license_model'] if attributes[:'license_model']
+      self.requestor_name = attributes[:'requestor_name'] if attributes[:'requestor_name']
+
+      self.requestor_email = attributes[:'requestorEmail'] if attributes[:'requestorEmail']
+
+      raise 'You cannot provide both :requestorEmail and :requestor_email' if attributes.key?(:'requestorEmail') && attributes.key?(:'requestor_email')
+
+      self.requestor_email = attributes[:'requestor_email'] if attributes[:'requestor_email']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.lifecycle_state_details = attributes[:'lifecycleStateDetails'] if attributes[:'lifecycleStateDetails']
+
+      raise 'You cannot provide both :lifecycleStateDetails and :lifecycle_state_details' if attributes.key?(:'lifecycleStateDetails') && attributes.key?(:'lifecycle_state_details')
+
+      self.lifecycle_state_details = attributes[:'lifecycle_state_details'] if attributes[:'lifecycle_state_details']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -167,17 +163,15 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] license_model Object to be assigned
-    def license_model=(license_model)
-      raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
-
-      @license_model = license_model
-    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -188,15 +182,16 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        id == other.id &&
         compartment_id == other.compartment_id &&
-        db_name == other.db_name &&
-        cpu_core_count == other.cpu_core_count &&
-        data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
-        admin_password == other.admin_password &&
         display_name == other.display_name &&
-        license_model == other.license_model &&
+        requestor_name == other.requestor_name &&
+        requestor_email == other.requestor_email &&
+        lifecycle_state == other.lifecycle_state &&
+        lifecycle_state_details == other.lifecycle_state_details &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        system_tags == other.system_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -212,7 +207,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, data_storage_size_in_tbs, admin_password, display_name, license_model, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, requestor_name, requestor_email, lifecycle_state, lifecycle_state_details, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

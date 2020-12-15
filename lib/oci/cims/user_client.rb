@@ -107,6 +107,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::User User}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cims/create_user.rb.html) to see an example of how to use create_user API.
     def create_user(create_user_details, ocid, opts = {})
       logger.debug 'Calling operation UserClient#create_user.' if logger
 

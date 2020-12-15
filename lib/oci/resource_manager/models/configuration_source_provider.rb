@@ -19,6 +19,7 @@ module OCI
 
     CONFIG_SOURCE_PROVIDER_TYPE_ENUM = [
       CONFIG_SOURCE_PROVIDER_TYPE_GITLAB_ACCESS_TOKEN = 'GITLAB_ACCESS_TOKEN'.freeze,
+      CONFIG_SOURCE_PROVIDER_TYPE_GITHUB_ACCESS_TOKEN = 'GITHUB_ACCESS_TOKEN'.freeze,
       CONFIG_SOURCE_PROVIDER_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -52,7 +53,9 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** The type of configuration source provider. The `GITLAB_ACCESS_TOKEN` type corresponds to Git.
+    # **[Required]** The type of configuration source provider.
+    # The `GITLAB_ACCESS_TOKEN` type corresponds to GitLab.
+    # The `GITHUB_ACCESS_TOKEN` type corresponds to GitHub.
     #
     # @return [String]
     attr_reader :config_source_provider_type
@@ -113,6 +116,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'configSourceProviderType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::ResourceManager::Models::GithubAccessTokenConfigurationSourceProvider' if type == 'GITHUB_ACCESS_TOKEN'
       return 'OCI::ResourceManager::Models::GitlabAccessTokenConfigurationSourceProvider' if type == 'GITLAB_ACCESS_TOKEN'
 
       # TODO: Log a warning when the subtype is not found.

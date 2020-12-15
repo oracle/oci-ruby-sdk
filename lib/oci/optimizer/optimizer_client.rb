@@ -115,6 +115,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/bulk_apply_recommendations.rb.html) to see an example of how to use bulk_apply_recommendations API.
     def bulk_apply_recommendations(recommendation_id, bulk_apply_recommendations_details, opts = {})
       logger.debug 'Calling operation OptimizerClient#bulk_apply_recommendations.' if logger
 
@@ -179,6 +180,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::Profile Profile}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/create_profile.rb.html) to see an example of how to use create_profile API.
     def create_profile(create_profile_details, opts = {})
       logger.debug 'Calling operation OptimizerClient#create_profile.' if logger
 
@@ -242,6 +244,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/delete_profile.rb.html) to see an example of how to use delete_profile API.
     def delete_profile(profile_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#delete_profile.' if logger
 
@@ -298,6 +301,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::Category Category}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/get_category.rb.html) to see an example of how to use get_category API.
     def get_category(category_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#get_category.' if logger
 
@@ -354,6 +358,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::EnrollmentStatus EnrollmentStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/get_enrollment_status.rb.html) to see an example of how to use get_enrollment_status API.
     def get_enrollment_status(enrollment_status_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#get_enrollment_status.' if logger
 
@@ -410,6 +415,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::Profile Profile}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/get_profile.rb.html) to see an example of how to use get_profile API.
     def get_profile(profile_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#get_profile.' if logger
 
@@ -466,6 +472,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::Recommendation Recommendation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/get_recommendation.rb.html) to see an example of how to use get_recommendation API.
     def get_recommendation(recommendation_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#get_recommendation.' if logger
 
@@ -522,6 +529,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::ResourceAction ResourceAction}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/get_resource_action.rb.html) to see an example of how to use get_resource_action API.
     def get_resource_action(resource_action_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#get_resource_action.' if logger
 
@@ -577,6 +585,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#get_work_request.' if logger
 
@@ -647,6 +656,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::CategoryCollection CategoryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_categories.rb.html) to see an example of how to use list_categories API.
     def list_categories(compartment_id, compartment_id_in_subtree, opts = {})
       logger.debug 'Calling operation OptimizerClient#list_categories.' if logger
 
@@ -734,6 +744,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::EnrollmentStatusCollection EnrollmentStatusCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_enrollment_statuses.rb.html) to see an example of how to use list_enrollment_statuses API.
     def list_enrollment_statuses(compartment_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#list_enrollment_statuses.' if logger
 
@@ -832,6 +843,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::HistoryCollection HistoryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_histories.rb.html) to see an example of how to use list_histories API.
     def list_histories(compartment_id, compartment_id_in_subtree, opts = {})
       logger.debug 'Calling operation OptimizerClient#list_histories.' if logger
 
@@ -926,6 +938,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::ProfileCollection ProfileCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_profiles.rb.html) to see an example of how to use list_profiles API.
     def list_profiles(compartment_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#list_profiles.' if logger
 
@@ -1017,6 +1030,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::RecommendationCollection RecommendationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_recommendations.rb.html) to see an example of how to use list_recommendations API.
     def list_recommendations(compartment_id, compartment_id_in_subtree, category_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#list_recommendations.' if logger
 
@@ -1118,6 +1132,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::ResourceActionCollection ResourceActionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_resource_actions.rb.html) to see an example of how to use list_resource_actions API.
     def list_resource_actions(compartment_id, compartment_id_in_subtree, recommendation_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#list_resource_actions.' if logger
 
@@ -1205,6 +1220,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#list_work_request_errors.' if logger
 
@@ -1266,6 +1282,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::WorkRequestLogEntryCollection WorkRequestLogEntryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#list_work_request_logs.' if logger
 
@@ -1327,6 +1344,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::WorkRequestCollection WorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation OptimizerClient#list_work_requests.' if logger
 
@@ -1392,6 +1410,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::EnrollmentStatus EnrollmentStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/update_enrollment_status.rb.html) to see an example of how to use update_enrollment_status API.
     def update_enrollment_status(enrollment_status_id, update_enrollment_status_details, opts = {})
       logger.debug 'Calling operation OptimizerClient#update_enrollment_status.' if logger
 
@@ -1457,6 +1476,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::Profile Profile}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/update_profile.rb.html) to see an example of how to use update_profile API.
     def update_profile(profile_id, update_profile_details, opts = {})
       logger.debug 'Calling operation OptimizerClient#update_profile.' if logger
 
@@ -1527,6 +1547,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::Recommendation Recommendation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/update_recommendation.rb.html) to see an example of how to use update_recommendation API.
     def update_recommendation(recommendation_id, update_recommendation_details, opts = {})
       logger.debug 'Calling operation OptimizerClient#update_recommendation.' if logger
 
@@ -1597,6 +1618,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Optimizer::Models::ResourceAction ResourceAction}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/update_resource_action.rb.html) to see an example of how to use update_resource_action API.
     def update_resource_action(resource_action_id, update_resource_action_details, opts = {})
       logger.debug 'Calling operation OptimizerClient#update_resource_action.' if logger
 

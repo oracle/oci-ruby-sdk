@@ -23,6 +23,15 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
+
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
     # The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)
     # @return [String]
     attr_accessor :database_software_image_id
@@ -51,6 +60,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId',
         'database_software_image_id': :'databaseSoftwareImageId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -64,6 +75,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'kms_key_id': :'String',
+        'kms_key_version_id': :'String',
         'database_software_image_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -98,6 +111,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
     # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -113,6 +128,18 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
 
       self.database_software_image_id = attributes[:'databaseSoftwareImageId'] if attributes[:'databaseSoftwareImageId']
 
@@ -156,6 +183,8 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id &&
         database_software_image_id == other.database_software_image_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -175,7 +204,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, database_software_image_id, freeform_tags, defined_tags, source].hash
+      [display_name, kms_key_id, kms_key_version_id, database_software_image_id, freeform_tags, defined_tags, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

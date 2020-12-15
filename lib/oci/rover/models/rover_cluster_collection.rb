@@ -5,25 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # **Deprecated.** See {#create_autonomous_database_backup_details create_autonomous_database_backup_details} for reference information about creating Autonomous Data Warehouse backups.
-  #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-  #
-  class Database::Models::CreateAutonomousDataWarehouseBackupDetails
-    # **[Required]** The user-friendly name for the backup. The name does not have to be unique.
-    # @return [String]
-    attr_accessor :display_name
-
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse backup.
-    # @return [String]
-    attr_accessor :autonomous_data_warehouse_id
+  # Results of a roverCluster search. Contains both RoverClusterSummary items and other data.
+  class Rover::Models::RoverClusterCollection
+    # **[Required]** List of roverClusterSummary.
+    # @return [Array<OCI::Rover::Models::RoverClusterSummary>]
+    attr_accessor :items
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'display_name': :'displayName',
-        'autonomous_data_warehouse_id': :'autonomousDataWarehouseId'
+        'items': :'items'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,8 +24,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'display_name': :'String',
-        'autonomous_data_warehouse_id': :'String'
+        'items': :'Array<OCI::Rover::Models::RoverClusterSummary>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,25 +35,14 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [String] :autonomous_data_warehouse_id The value to assign to the {#autonomous_data_warehouse_id} property
+    # @option attributes [Array<OCI::Rover::Models::RoverClusterSummary>] :items The value to assign to the {#items} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
-
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
-
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
-
-      self.autonomous_data_warehouse_id = attributes[:'autonomousDataWarehouseId'] if attributes[:'autonomousDataWarehouseId']
-
-      raise 'You cannot provide both :autonomousDataWarehouseId and :autonomous_data_warehouse_id' if attributes.key?(:'autonomousDataWarehouseId') && attributes.key?(:'autonomous_data_warehouse_id')
-
-      self.autonomous_data_warehouse_id = attributes[:'autonomous_data_warehouse_id'] if attributes[:'autonomous_data_warehouse_id']
+      self.items = attributes[:'items'] if attributes[:'items']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -76,8 +56,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        display_name == other.display_name &&
-        autonomous_data_warehouse_id == other.autonomous_data_warehouse_id
+        items == other.items
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -93,7 +72,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, autonomous_data_warehouse_id].hash
+      [items].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -129,6 +129,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/activate_service_connector.rb.html) to see an example of how to use activate_service_connector API.
     def activate_service_connector(service_connector_id, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#activate_service_connector.' if logger
 
@@ -200,6 +201,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/change_service_connector_compartment.rb.html) to see an example of how to use change_service_connector_compartment API.
     def change_service_connector_compartment(service_connector_id, change_service_connector_compartment_details, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#change_service_connector_compartment.' if logger
 
@@ -281,6 +283,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/create_service_connector.rb.html) to see an example of how to use create_service_connector API.
     def create_service_connector(create_service_connector_details, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#create_service_connector.' if logger
 
@@ -355,6 +358,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/deactivate_service_connector.rb.html) to see an example of how to use deactivate_service_connector API.
     def deactivate_service_connector(service_connector_id, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#deactivate_service_connector.' if logger
 
@@ -423,6 +427,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/delete_service_connector.rb.html) to see an example of how to use delete_service_connector API.
     def delete_service_connector(service_connector_id, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#delete_service_connector.' if logger
 
@@ -480,6 +485,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Sch::Models::ServiceConnector ServiceConnector}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/get_service_connector.rb.html) to see an example of how to use get_service_connector API.
     def get_service_connector(service_connector_id, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#get_service_connector.' if logger
 
@@ -537,6 +543,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Sch::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#get_work_request.' if logger
 
@@ -616,6 +623,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Sch::Models::ServiceConnectorCollection ServiceConnectorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/list_service_connectors.rb.html) to see an example of how to use list_service_connectors API.
     def list_service_connectors(compartment_id, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#list_service_connectors.' if logger
 
@@ -699,6 +707,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to 10)
     # @return [Response] A Response object with data of type {OCI::Sch::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#list_work_request_errors.' if logger
 
@@ -766,6 +775,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to 10)
     # @return [Response] A Response object with data of type {OCI::Sch::Models::WorkRequestLogEntryCollection WorkRequestLogEntryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#list_work_request_logs.' if logger
 
@@ -833,6 +843,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to 10)
     # @return [Response] A Response object with data of type {OCI::Sch::Models::WorkRequestCollection WorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#list_work_requests.' if logger
 
@@ -904,6 +915,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/sch/update_service_connector.rb.html) to see an example of how to use update_service_connector API.
     def update_service_connector(service_connector_id, update_service_connector_details, opts = {})
       logger.debug 'Calling operation ServiceConnectorClient#update_service_connector.' if logger
 

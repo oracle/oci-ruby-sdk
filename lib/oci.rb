@@ -79,6 +79,7 @@ require 'oci/opsi/opsi'
 require 'oci/compute_instance_agent/compute_instance_agent'
 require 'oci/tenant_manager_control_plane/tenant_manager_control_plane'
 require 'oci/optimizer/optimizer'
+require 'oci/rover/rover'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

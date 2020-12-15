@@ -32,13 +32,24 @@ module OCI
     # @return [String]
     attr_reader :source
 
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
+
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'db_home_id': :'dbHomeId',
         'db_version': :'dbVersion',
-        'source': :'source'
+        'source': :'source',
+        'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,7 +60,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'db_home_id': :'String',
         'db_version': :'String',
-        'source': :'String'
+        'source': :'String',
+        'kms_key_id': :'String',
+        'kms_key_version_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -79,6 +92,8 @@ module OCI
     # @option attributes [String] :db_home_id The value to assign to the {#db_home_id} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :source The value to assign to the {#source} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -99,6 +114,18 @@ module OCI
 
       self.source = attributes[:'source'] if attributes[:'source']
       self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -122,7 +149,9 @@ module OCI
       self.class == other.class &&
         db_home_id == other.db_home_id &&
         db_version == other.db_version &&
-        source == other.source
+        source == other.source &&
+        kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -138,7 +167,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_home_id, db_version, source].hash
+      [db_home_id, db_version, source, kms_key_id, kms_key_version_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

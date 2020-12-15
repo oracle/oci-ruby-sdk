@@ -118,6 +118,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/change_oce_instance_compartment.rb.html) to see an example of how to use change_oce_instance_compartment API.
     def change_oce_instance_compartment(oce_instance_id, change_oce_instance_compartment_details, opts = {})
       logger.debug 'Calling operation OceInstanceClient#change_oce_instance_compartment.' if logger
 
@@ -181,6 +182,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/create_oce_instance.rb.html) to see an example of how to use create_oce_instance API.
     def create_oce_instance(create_oce_instance_details, opts = {})
       logger.debug 'Calling operation OceInstanceClient#create_oce_instance.' if logger
 
@@ -240,6 +242,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/delete_oce_instance.rb.html) to see an example of how to use delete_oce_instance API.
     def delete_oce_instance(oce_instance_id, opts = {})
       logger.debug 'Calling operation OceInstanceClient#delete_oce_instance.' if logger
 
@@ -293,6 +296,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Oce::Models::OceInstance OceInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/get_oce_instance.rb.html) to see an example of how to use get_oce_instance API.
     def get_oce_instance(oce_instance_id, opts = {})
       logger.debug 'Calling operation OceInstanceClient#get_oce_instance.' if logger
 
@@ -346,6 +350,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Oce::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation OceInstanceClient#get_work_request.' if logger
 
@@ -413,6 +418,7 @@ module OCI
     #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Oce::Models::OceInstanceSummary OceInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/list_oce_instances.rb.html) to see an example of how to use list_oce_instances API.
     def list_oce_instances(compartment_id, opts = {})
       logger.debug 'Calling operation OceInstanceClient#list_oce_instances.' if logger
 
@@ -487,6 +493,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call. (default to null)
     # @option opts [Integer] :limit The maximum number of items to return. (default to 50)
     # @return [Response] A Response object with data of type Array<{OCI::Oce::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation OceInstanceClient#list_work_request_errors.' if logger
 
@@ -545,6 +552,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call. (default to null)
     # @option opts [Integer] :limit The maximum number of items to return. (default to 50)
     # @return [Response] A Response object with data of type Array<{OCI::Oce::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation OceInstanceClient#list_work_request_logs.' if logger
 
@@ -604,6 +612,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call. (default to null)
     # @option opts [Integer] :limit The maximum number of items to return. (default to 50)
     # @return [Response] A Response object with data of type Array<{OCI::Oce::Models::WorkRequest WorkRequest}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation OceInstanceClient#list_work_requests.' if logger
 
@@ -667,6 +676,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/update_oce_instance.rb.html) to see an example of how to use update_oce_instance API.
     def update_oce_instance(oce_instance_id, update_oce_instance_details, opts = {})
       logger.debug 'Calling operation OceInstanceClient#update_oce_instance.' if logger
 

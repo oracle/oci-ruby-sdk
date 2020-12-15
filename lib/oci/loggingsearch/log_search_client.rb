@@ -115,6 +115,7 @@ module OCI
     #   pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type {OCI::Loggingsearch::Models::SearchResponse SearchResponse}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loggingsearch/search_logs.rb.html) to see an example of how to use search_logs API.
     def search_logs(search_logs_details, opts = {})
       logger.debug 'Calling operation LogSearchClient#search_logs.' if logger
 

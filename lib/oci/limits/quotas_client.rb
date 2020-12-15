@@ -113,6 +113,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Limits::Models::Quota Quota}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/create_quota.rb.html) to see an example of how to use create_quota API.
     def create_quota(create_quota_details, opts = {})
       logger.debug 'Calling operation QuotasClient#create_quota.' if logger
 
@@ -173,6 +174,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/delete_quota.rb.html) to see an example of how to use delete_quota API.
     def delete_quota(quota_id, opts = {})
       logger.debug 'Calling operation QuotasClient#delete_quota.' if logger
 
@@ -228,6 +230,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Limits::Models::Quota Quota}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/get_quota.rb.html) to see an example of how to use get_quota API.
     def get_quota(quota_id, opts = {})
       logger.debug 'Calling operation QuotasClient#get_quota.' if logger
 
@@ -297,6 +300,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Limits::Models::QuotaSummary QuotaSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/list_quotas.rb.html) to see an example of how to use list_quotas API.
     def list_quotas(compartment_id, opts = {})
       logger.debug 'Calling operation QuotasClient#list_quotas.' if logger
 
@@ -375,6 +379,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Limits::Models::Quota Quota}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/update_quota.rb.html) to see an example of how to use update_quota API.
     def update_quota(quota_id, update_quota_details, opts = {})
       logger.debug 'Calling operation QuotasClient#update_quota.' if logger
 

@@ -94,7 +94,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Additional information about the current lifecycleState.
+    # Additional information about the current lifecycle state.
     # @return [String]
     attr_accessor :lifecycle_details
 
@@ -121,8 +121,8 @@ module OCI
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window
 
-    # The scheduling detail for the quarterly maintenance window of standby Autonomous Container Database.
-    # This value represents the number of days before the primary database maintenance schedule.
+    # The scheduling detail for the quarterly maintenance window of the standby Autonomous Container Database.
+    # This value represents the number of days before scheduled maintenance of the primary database.
     #
     # @return [Integer]
     attr_accessor :standby_maintenance_buffer_in_days

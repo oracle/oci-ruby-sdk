@@ -108,6 +108,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/add_packages_to_software_source.rb.html) to see an example of how to use add_packages_to_software_source API.
     def add_packages_to_software_source(software_source_id, add_packages_to_software_source_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#add_packages_to_software_source.' if logger
 
@@ -171,6 +172,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/attach_child_software_source_to_managed_instance.rb.html) to see an example of how to use attach_child_software_source_to_managed_instance API.
     def attach_child_software_source_to_managed_instance(managed_instance_id, attach_child_software_source_to_managed_instance_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#attach_child_software_source_to_managed_instance.' if logger
 
@@ -237,6 +239,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/attach_managed_instance_to_managed_instance_group.rb.html) to see an example of how to use attach_managed_instance_to_managed_instance_group API.
     def attach_managed_instance_to_managed_instance_group(managed_instance_group_id, managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#attach_managed_instance_to_managed_instance_group.' if logger
 
@@ -304,6 +307,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/attach_parent_software_source_to_managed_instance.rb.html) to see an example of how to use attach_parent_software_source_to_managed_instance API.
     def attach_parent_software_source_to_managed_instance(managed_instance_id, attach_parent_software_source_to_managed_instance_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#attach_parent_software_source_to_managed_instance.' if logger
 
@@ -374,6 +378,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/change_managed_instance_group_compartment.rb.html) to see an example of how to use change_managed_instance_group_compartment API.
     def change_managed_instance_group_compartment(managed_instance_group_id, change_managed_instance_group_compartment_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#change_managed_instance_group_compartment.' if logger
 
@@ -445,6 +450,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/change_scheduled_job_compartment.rb.html) to see an example of how to use change_scheduled_job_compartment API.
     def change_scheduled_job_compartment(scheduled_job_id, change_scheduled_job_compartment_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#change_scheduled_job_compartment.' if logger
 
@@ -516,6 +522,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/change_software_source_compartment.rb.html) to see an example of how to use change_software_source_compartment API.
     def change_software_source_compartment(software_source_id, change_software_source_compartment_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#change_software_source_compartment.' if logger
 
@@ -581,6 +588,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ManagedInstanceGroup ManagedInstanceGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/create_managed_instance_group.rb.html) to see an example of how to use create_managed_instance_group API.
     def create_managed_instance_group(create_managed_instance_group_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#create_managed_instance_group.' if logger
 
@@ -645,6 +653,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ScheduledJob ScheduledJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/create_scheduled_job.rb.html) to see an example of how to use create_scheduled_job API.
     def create_scheduled_job(create_scheduled_job_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#create_scheduled_job.' if logger
 
@@ -708,6 +717,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::SoftwareSource SoftwareSource}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/create_software_source.rb.html) to see an example of how to use create_software_source API.
     def create_software_source(create_software_source_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#create_software_source.' if logger
 
@@ -769,6 +779,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/delete_managed_instance_group.rb.html) to see an example of how to use delete_managed_instance_group API.
     def delete_managed_instance_group(managed_instance_group_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#delete_managed_instance_group.' if logger
 
@@ -829,6 +840,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/delete_scheduled_job.rb.html) to see an example of how to use delete_scheduled_job API.
     def delete_scheduled_job(scheduled_job_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#delete_scheduled_job.' if logger
 
@@ -889,6 +901,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/delete_software_source.rb.html) to see an example of how to use delete_software_source API.
     def delete_software_source(software_source_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#delete_software_source.' if logger
 
@@ -951,6 +964,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/detach_child_software_source_from_managed_instance.rb.html) to see an example of how to use detach_child_software_source_from_managed_instance API.
     def detach_child_software_source_from_managed_instance(managed_instance_id, detach_child_software_source_from_managed_instance_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#detach_child_software_source_from_managed_instance.' if logger
 
@@ -1014,6 +1028,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/detach_managed_instance_from_managed_instance_group.rb.html) to see an example of how to use detach_managed_instance_from_managed_instance_group API.
     def detach_managed_instance_from_managed_instance_group(managed_instance_group_id, managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#detach_managed_instance_from_managed_instance_group.' if logger
 
@@ -1079,6 +1094,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/detach_parent_software_source_from_managed_instance.rb.html) to see an example of how to use detach_parent_software_source_from_managed_instance API.
     def detach_parent_software_source_from_managed_instance(managed_instance_id, detach_parent_software_source_from_managed_instance_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#detach_parent_software_source_from_managed_instance.' if logger
 
@@ -1135,6 +1151,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::Erratum Erratum}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_erratum.rb.html) to see an example of how to use get_erratum API.
     def get_erratum(erratum_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#get_erratum.' if logger
 
@@ -1189,6 +1206,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ManagedInstance ManagedInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_managed_instance.rb.html) to see an example of how to use get_managed_instance API.
     def get_managed_instance(managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#get_managed_instance.' if logger
 
@@ -1243,6 +1261,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ManagedInstanceGroup ManagedInstanceGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_managed_instance_group.rb.html) to see an example of how to use get_managed_instance_group API.
     def get_managed_instance_group(managed_instance_group_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#get_managed_instance_group.' if logger
 
@@ -1297,6 +1316,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ScheduledJob ScheduledJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_scheduled_job.rb.html) to see an example of how to use get_scheduled_job API.
     def get_scheduled_job(scheduled_job_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#get_scheduled_job.' if logger
 
@@ -1352,6 +1372,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::SoftwarePackage SoftwarePackage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_software_package.rb.html) to see an example of how to use get_software_package API.
     def get_software_package(software_source_id, software_package_name, opts = {})
       logger.debug 'Calling operation OsManagementClient#get_software_package.' if logger
 
@@ -1408,6 +1429,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::SoftwareSource SoftwareSource}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_software_source.rb.html) to see an example of how to use get_software_source API.
     def get_software_source(software_source_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#get_software_source.' if logger
 
@@ -1462,6 +1484,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::WindowsUpdate WindowsUpdate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_windows_update.rb.html) to see an example of how to use get_windows_update API.
     def get_windows_update(windows_update, opts = {})
       logger.debug 'Calling operation OsManagementClient#get_windows_update.' if logger
 
@@ -1515,6 +1538,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#get_work_request.' if logger
 
@@ -1575,6 +1599,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/install_all_package_updates_on_managed_instance.rb.html) to see an example of how to use install_all_package_updates_on_managed_instance API.
     def install_all_package_updates_on_managed_instance(managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#install_all_package_updates_on_managed_instance.' if logger
 
@@ -1636,6 +1661,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/install_all_windows_updates_on_managed_instance.rb.html) to see an example of how to use install_all_windows_updates_on_managed_instance API.
     def install_all_windows_updates_on_managed_instance(managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#install_all_windows_updates_on_managed_instance.' if logger
 
@@ -1698,6 +1724,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/install_package_on_managed_instance.rb.html) to see an example of how to use install_package_on_managed_instance API.
     def install_package_on_managed_instance(managed_instance_id, software_package_name, opts = {})
       logger.debug 'Calling operation OsManagementClient#install_package_on_managed_instance.' if logger
 
@@ -1762,6 +1789,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/install_package_update_on_managed_instance.rb.html) to see an example of how to use install_package_update_on_managed_instance API.
     def install_package_update_on_managed_instance(managed_instance_id, software_package_name, opts = {})
       logger.debug 'Calling operation OsManagementClient#install_package_update_on_managed_instance.' if logger
 
@@ -1829,6 +1857,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/install_windows_update_on_managed_instance.rb.html) to see an example of how to use install_windows_update_on_managed_instance API.
     def install_windows_update_on_managed_instance(managed_instance_id, windows_update_name, opts = {})
       logger.debug 'Calling operation OsManagementClient#install_windows_update_on_managed_instance.' if logger
 
@@ -1898,6 +1927,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::InstallablePackageSummary InstallablePackageSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_available_packages_for_managed_instance.rb.html) to see an example of how to use list_available_packages_for_managed_instance API.
     def list_available_packages_for_managed_instance(managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_available_packages_for_managed_instance.' if logger
 
@@ -1978,6 +2008,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::AvailableSoftwareSourceSummary AvailableSoftwareSourceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_available_software_sources_for_managed_instance.rb.html) to see an example of how to use list_available_software_sources_for_managed_instance API.
     def list_available_software_sources_for_managed_instance(managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_available_software_sources_for_managed_instance.' if logger
 
@@ -2058,6 +2089,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::AvailableUpdateSummary AvailableUpdateSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_available_updates_for_managed_instance.rb.html) to see an example of how to use list_available_updates_for_managed_instance API.
     def list_available_updates_for_managed_instance(managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_available_updates_for_managed_instance.' if logger
 
@@ -2139,6 +2171,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :is_eligible_for_installation Indicator of whether the update can be installed using OSMS.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::AvailableWindowsUpdateSummary AvailableWindowsUpdateSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_available_windows_updates_for_managed_instance.rb.html) to see an example of how to use list_available_windows_updates_for_managed_instance API.
     def list_available_windows_updates_for_managed_instance(managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_available_windows_updates_for_managed_instance.' if logger
 
@@ -2225,6 +2258,7 @@ module OCI
     # @option opts [String] :lifecycle_state The current lifecycle state for the object.
     # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ManagedInstanceGroupSummary ManagedInstanceGroupSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_managed_instance_groups.rb.html) to see an example of how to use list_managed_instance_groups API.
     def list_managed_instance_groups(compartment_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_managed_instance_groups.' if logger
 
@@ -2314,6 +2348,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ManagedInstanceSummary ManagedInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_managed_instances.rb.html) to see an example of how to use list_managed_instances API.
     def list_managed_instances(compartment_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_managed_instances.' if logger
 
@@ -2398,6 +2433,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::InstalledPackageSummary InstalledPackageSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_packages_installed_on_managed_instance.rb.html) to see an example of how to use list_packages_installed_on_managed_instance API.
     def list_packages_installed_on_managed_instance(managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_packages_installed_on_managed_instance.' if logger
 
@@ -2482,6 +2518,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ScheduledJobSummary ScheduledJobSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_scheduled_jobs.rb.html) to see an example of how to use list_scheduled_jobs API.
     def list_scheduled_jobs(compartment_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_scheduled_jobs.' if logger
 
@@ -2578,6 +2615,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::SoftwarePackageSummary SoftwarePackageSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_software_source_packages.rb.html) to see an example of how to use list_software_source_packages API.
     def list_software_source_packages(software_source_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_software_source_packages.' if logger
 
@@ -2658,6 +2696,7 @@ module OCI
     # @option opts [String] :lifecycle_state The current lifecycle state for the object.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::SoftwareSourceSummary SoftwareSourceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_software_sources.rb.html) to see an example of how to use list_software_sources API.
     def list_software_sources(compartment_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_software_sources.' if logger
 
@@ -2749,6 +2788,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ScheduledJobSummary ScheduledJobSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_upcoming_scheduled_jobs.rb.html) to see an example of how to use list_upcoming_scheduled_jobs API.
     def list_upcoming_scheduled_jobs(compartment_id, time_end, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_upcoming_scheduled_jobs.' if logger
 
@@ -2841,6 +2881,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::WindowsUpdateSummary WindowsUpdateSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_windows_updates.rb.html) to see an example of how to use list_windows_updates API.
     def list_windows_updates(opts = {})
       logger.debug 'Calling operation OsManagementClient#list_windows_updates.' if logger
 
@@ -2919,6 +2960,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::InstalledWindowsUpdateSummary InstalledWindowsUpdateSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_windows_updates_installed_on_managed_instance.rb.html) to see an example of how to use list_windows_updates_installed_on_managed_instance API.
     def list_windows_updates_installed_on_managed_instance(managed_instance_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_windows_updates_installed_on_managed_instance.' if logger
 
@@ -2993,6 +3035,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_work_request_errors.' if logger
 
@@ -3065,6 +3108,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_work_request_logs.' if logger
 
@@ -3144,6 +3188,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :os_family The OS family for which to list resources.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#list_work_requests.' if logger
 
@@ -3224,6 +3269,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/remove_package_from_managed_instance.rb.html) to see an example of how to use remove_package_from_managed_instance API.
     def remove_package_from_managed_instance(managed_instance_id, software_package_name, opts = {})
       logger.debug 'Calling operation OsManagementClient#remove_package_from_managed_instance.' if logger
 
@@ -3282,6 +3328,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/remove_packages_from_software_source.rb.html) to see an example of how to use remove_packages_from_software_source API.
     def remove_packages_from_software_source(software_source_id, remove_packages_from_software_source_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#remove_packages_from_software_source.' if logger
 
@@ -3349,6 +3396,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/run_scheduled_job_now.rb.html) to see an example of how to use run_scheduled_job_now API.
     def run_scheduled_job_now(scheduled_job_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#run_scheduled_job_now.' if logger
 
@@ -3420,6 +3468,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::SoftwarePackageSearchSummary SoftwarePackageSearchSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/search_software_packages.rb.html) to see an example of how to use search_software_packages API.
     def search_software_packages(opts = {})
       logger.debug 'Calling operation OsManagementClient#search_software_packages.' if logger
 
@@ -3500,6 +3549,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/skip_next_scheduled_job_execution.rb.html) to see an example of how to use skip_next_scheduled_job_execution API.
     def skip_next_scheduled_job_execution(scheduled_job_id, opts = {})
       logger.debug 'Calling operation OsManagementClient#skip_next_scheduled_job_execution.' if logger
 
@@ -3563,6 +3613,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ManagedInstanceGroup ManagedInstanceGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/update_managed_instance_group.rb.html) to see an example of how to use update_managed_instance_group API.
     def update_managed_instance_group(managed_instance_group_id, update_managed_instance_group_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#update_managed_instance_group.' if logger
 
@@ -3626,6 +3677,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ScheduledJob ScheduledJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/update_scheduled_job.rb.html) to see an example of how to use update_scheduled_job API.
     def update_scheduled_job(scheduled_job_id, update_scheduled_job_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#update_scheduled_job.' if logger
 
@@ -3689,6 +3741,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::OsManagement::Models::SoftwareSource SoftwareSource}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/update_software_source.rb.html) to see an example of how to use update_software_source API.
     def update_software_source(software_source_id, update_software_source_details, opts = {})
       logger.debug 'Calling operation OsManagementClient#update_software_source.' if logger
 

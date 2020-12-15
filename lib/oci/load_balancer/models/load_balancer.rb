@@ -68,6 +68,9 @@ module OCI
     # @return [String]
     attr_accessor :shape_name
 
+    # @return [OCI::LoadBalancer::Models::ShapeDetails]
+    attr_accessor :shape_details
+
     # Whether the load balancer has a VCN-local (private) IP address.
     #
     # If \"true\", the service assigns a private IP address to the load balancer.
@@ -161,6 +164,7 @@ module OCI
         'time_created': :'timeCreated',
         'ip_addresses': :'ipAddresses',
         'shape_name': :'shapeName',
+        'shape_details': :'shapeDetails',
         'is_private': :'isPrivate',
         'subnet_ids': :'subnetIds',
         'network_security_group_ids': :'networkSecurityGroupIds',
@@ -189,6 +193,7 @@ module OCI
         'time_created': :'DateTime',
         'ip_addresses': :'Array<OCI::LoadBalancer::Models::IpAddress>',
         'shape_name': :'String',
+        'shape_details': :'OCI::LoadBalancer::Models::ShapeDetails',
         'is_private': :'BOOLEAN',
         'subnet_ids': :'Array<String>',
         'network_security_group_ids': :'Array<String>',
@@ -219,6 +224,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Array<OCI::LoadBalancer::Models::IpAddress>] :ip_addresses The value to assign to the {#ip_addresses} property
     # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
+    # @option attributes [OCI::LoadBalancer::Models::ShapeDetails] :shape_details The value to assign to the {#shape_details} property
     # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
     # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
     # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
@@ -275,6 +281,12 @@ module OCI
       raise 'You cannot provide both :shapeName and :shape_name' if attributes.key?(:'shapeName') && attributes.key?(:'shape_name')
 
       self.shape_name = attributes[:'shape_name'] if attributes[:'shape_name']
+
+      self.shape_details = attributes[:'shapeDetails'] if attributes[:'shapeDetails']
+
+      raise 'You cannot provide both :shapeDetails and :shape_details' if attributes.key?(:'shapeDetails') && attributes.key?(:'shape_details')
+
+      self.shape_details = attributes[:'shape_details'] if attributes[:'shape_details']
 
       self.is_private = attributes[:'isPrivate'] unless attributes[:'isPrivate'].nil?
 
@@ -374,6 +386,7 @@ module OCI
         time_created == other.time_created &&
         ip_addresses == other.ip_addresses &&
         shape_name == other.shape_name &&
+        shape_details == other.shape_details &&
         is_private == other.is_private &&
         subnet_ids == other.subnet_ids &&
         network_security_group_ids == other.network_security_group_ids &&
@@ -402,7 +415,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, is_private, subnet_ids, network_security_group_ids, listeners, hostnames, ssl_cipher_suites, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, system_tags, rule_sets].hash
+      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, shape_details, is_private, subnet_ids, network_security_group_ids, listeners, hostnames, ssl_cipher_suites, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, system_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

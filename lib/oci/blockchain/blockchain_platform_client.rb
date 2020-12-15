@@ -119,6 +119,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/change_blockchain_platform_compartment.rb.html) to see an example of how to use change_blockchain_platform_compartment API.
     def change_blockchain_platform_compartment(blockchain_platform_id, change_blockchain_platform_compartment_details, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#change_blockchain_platform_compartment.' if logger
 
@@ -182,6 +183,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/create_blockchain_platform.rb.html) to see an example of how to use create_blockchain_platform API.
     def create_blockchain_platform(create_blockchain_platform_details, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#create_blockchain_platform.' if logger
 
@@ -249,6 +251,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/create_osn.rb.html) to see an example of how to use create_osn API.
     def create_osn(blockchain_platform_id, create_osn_details, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#create_osn.' if logger
 
@@ -313,6 +316,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/create_peer.rb.html) to see an example of how to use create_peer API.
     def create_peer(blockchain_platform_id, create_peer_details, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#create_peer.' if logger
 
@@ -374,6 +378,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/delete_blockchain_platform.rb.html) to see an example of how to use delete_blockchain_platform API.
     def delete_blockchain_platform(blockchain_platform_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#delete_blockchain_platform.' if logger
 
@@ -434,6 +439,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/delete_osn.rb.html) to see an example of how to use delete_osn API.
     def delete_osn(blockchain_platform_id, osn_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#delete_osn.' if logger
 
@@ -496,6 +502,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/delete_peer.rb.html) to see an example of how to use delete_peer API.
     def delete_peer(blockchain_platform_id, peer_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#delete_peer.' if logger
 
@@ -557,6 +564,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/delete_work_request.rb.html) to see an example of how to use delete_work_request API.
     def delete_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#delete_work_request.' if logger
 
@@ -610,6 +618,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::BlockchainPlatform BlockchainPlatform}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/get_blockchain_platform.rb.html) to see an example of how to use get_blockchain_platform API.
     def get_blockchain_platform(blockchain_platform_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#get_blockchain_platform.' if logger
 
@@ -664,6 +673,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::Osn Osn}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/get_osn.rb.html) to see an example of how to use get_osn API.
     def get_osn(blockchain_platform_id, osn_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#get_osn.' if logger
 
@@ -720,6 +730,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::Peer Peer}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/get_peer.rb.html) to see an example of how to use get_peer API.
     def get_peer(blockchain_platform_id, peer_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#get_peer.' if logger
 
@@ -775,6 +786,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#get_work_request.' if logger
 
@@ -841,6 +853,7 @@ module OCI
     #   The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::BlockchainPlatformCollection BlockchainPlatformCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/list_blockchain_platforms.rb.html) to see an example of how to use list_blockchain_platforms API.
     def list_blockchain_platforms(compartment_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#list_blockchain_platforms.' if logger
 
@@ -928,6 +941,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::OsnCollection OsnCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/list_osns.rb.html) to see an example of how to use list_osns API.
     def list_osns(blockchain_platform_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#list_osns.' if logger
 
@@ -1012,6 +1026,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::PeerCollection PeerCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/list_peers.rb.html) to see an example of how to use list_peers API.
     def list_peers(blockchain_platform_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#list_peers.' if logger
 
@@ -1083,6 +1098,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#list_work_request_errors.' if logger
 
@@ -1141,6 +1157,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::WorkRequestLogEntryCollection WorkRequestLogEntryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#list_work_request_logs.' if logger
 
@@ -1205,6 +1222,7 @@ module OCI
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::WorkRequestCollection WorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, blockchain_platform_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#list_work_requests.' if logger
 
@@ -1274,6 +1292,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Blockchain::Models::ScaledBlockchainPlatformPreview ScaledBlockchainPlatformPreview}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/preview_scale_blockchain_platform.rb.html) to see an example of how to use preview_scale_blockchain_platform API.
     def preview_scale_blockchain_platform(blockchain_platform_id, scale_blockchain_platform_details, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#preview_scale_blockchain_platform.' if logger
 
@@ -1342,6 +1361,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/scale_blockchain_platform.rb.html) to see an example of how to use scale_blockchain_platform API.
     def scale_blockchain_platform(blockchain_platform_id, scale_blockchain_platform_details, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#scale_blockchain_platform.' if logger
 
@@ -1403,7 +1423,14 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/start_blockchain_platform.rb.html) to see an example of how to use start_blockchain_platform API.
     def start_blockchain_platform(blockchain_platform_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#start_blockchain_platform.' if logger
 
@@ -1423,7 +1450,9 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 
@@ -1462,7 +1491,14 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/stop_blockchain_platform.rb.html) to see an example of how to use stop_blockchain_platform API.
     def stop_blockchain_platform(blockchain_platform_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#stop_blockchain_platform.' if logger
 
@@ -1482,7 +1518,9 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 
@@ -1522,7 +1560,14 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/update_blockchain_platform.rb.html) to see an example of how to use update_blockchain_platform API.
     def update_blockchain_platform(update_blockchain_platform_details, blockchain_platform_id, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#update_blockchain_platform.' if logger
 
@@ -1543,7 +1588,9 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(update_blockchain_platform_details)
 
@@ -1592,6 +1639,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/update_osn.rb.html) to see an example of how to use update_osn API.
     def update_osn(blockchain_platform_id, osn_id, update_osn_details, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#update_osn.' if logger
 
@@ -1658,7 +1706,14 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/update_peer.rb.html) to see an example of how to use update_peer API.
     def update_peer(blockchain_platform_id, peer_id, update_peer_details, opts = {})
       logger.debug 'Calling operation BlockchainPlatformClient#update_peer.' if logger
 
@@ -1681,7 +1736,9 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(update_peer_details)
 

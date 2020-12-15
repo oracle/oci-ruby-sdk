@@ -21,7 +21,7 @@ module OCI
     # @return [String]
     attr_accessor :new_admin_password
 
-    # The existing password to open the TDE wallet. It is required to set a new tde password.
+    # The existing TDE wallet password. You must provide the existing password in order to set a new TDE wallet password.
     # @return [String]
     attr_accessor :old_tde_wallet_password
 

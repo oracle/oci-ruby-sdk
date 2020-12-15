@@ -113,6 +113,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferApplianceEntitlement TransferApplianceEntitlement}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/create_transfer_appliance_entitlement.rb.html) to see an example of how to use create_transfer_appliance_entitlement API.
     def create_transfer_appliance_entitlement(create_transfer_appliance_entitlement_details, opts = {})
       logger.debug 'Calling operation TransferApplianceEntitlementClient#create_transfer_appliance_entitlement.' if logger
 
@@ -175,6 +176,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferApplianceEntitlement TransferApplianceEntitlement}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/get_transfer_appliance_entitlement.rb.html) to see an example of how to use get_transfer_appliance_entitlement API.
     def get_transfer_appliance_entitlement(id, opts = {})
       logger.debug 'Calling operation TransferApplianceEntitlementClient#get_transfer_appliance_entitlement.' if logger
 
@@ -234,6 +236,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Dts::Models::TransferApplianceEntitlementSummary TransferApplianceEntitlementSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/list_transfer_appliance_entitlement.rb.html) to see an example of how to use list_transfer_appliance_entitlement API.
     def list_transfer_appliance_entitlement(compartment_id, opts = {})
       logger.debug 'Calling operation TransferApplianceEntitlementClient#list_transfer_appliance_entitlement.' if logger
 

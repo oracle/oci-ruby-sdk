@@ -38,6 +38,10 @@ module OCI
     # @return [String]
     attr_accessor :backup_type
 
+    # **[Required]** If the backup was created automatically, or by a manual request.
+    # @return [String]
+    attr_accessor :creation_type
+
     # **[Required]** The OCID of the DB System the Backup is associated with.
     # @return [String]
     attr_accessor :db_system_id
@@ -62,13 +66,13 @@ module OCI
     # @return [String]
     attr_accessor :shape_name
 
-    # Simple key-value pair applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
@@ -84,6 +88,7 @@ module OCI
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
         'backup_type': :'backupType',
+        'creation_type': :'creationType',
         'db_system_id': :'dbSystemId',
         'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'backup_size_in_gbs': :'backupSizeInGBs',
@@ -106,6 +111,7 @@ module OCI
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
         'backup_type': :'String',
+        'creation_type': :'String',
         'db_system_id': :'String',
         'data_storage_size_in_gbs': :'Integer',
         'backup_size_in_gbs': :'Integer',
@@ -130,6 +136,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :backup_type The value to assign to the {#backup_type} property
+    # @option attributes [String] :creation_type The value to assign to the {#creation_type} property
     # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
     # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [Integer] :backup_size_in_gbs The value to assign to the {#backup_size_in_gbs} property
@@ -171,6 +178,12 @@ module OCI
       raise 'You cannot provide both :backupType and :backup_type' if attributes.key?(:'backupType') && attributes.key?(:'backup_type')
 
       self.backup_type = attributes[:'backup_type'] if attributes[:'backup_type']
+
+      self.creation_type = attributes[:'creationType'] if attributes[:'creationType']
+
+      raise 'You cannot provide both :creationType and :creation_type' if attributes.key?(:'creationType') && attributes.key?(:'creation_type')
+
+      self.creation_type = attributes[:'creation_type'] if attributes[:'creation_type']
 
       self.db_system_id = attributes[:'dbSystemId'] if attributes[:'dbSystemId']
 
@@ -238,6 +251,7 @@ module OCI
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
         backup_type == other.backup_type &&
+        creation_type == other.creation_type &&
         db_system_id == other.db_system_id &&
         data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         backup_size_in_gbs == other.backup_size_in_gbs &&
@@ -261,7 +275,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, time_created, lifecycle_state, backup_type, db_system_id, data_storage_size_in_gbs, backup_size_in_gbs, retention_in_days, mysql_version, shape_name, freeform_tags, defined_tags].hash
+      [id, display_name, description, time_created, lifecycle_state, backup_type, creation_type, db_system_id, data_storage_size_in_gbs, backup_size_in_gbs, retention_in_days, mysql_version, shape_name, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

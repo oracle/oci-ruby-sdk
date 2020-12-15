@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of the cloud VM cluster.
+  # Details of the cloud VM cluster. Applies to Exadata Cloud Service instances only.
   #
   class Database::Models::CloudVmClusterSummary
     LIFECYCLE_STATE_ENUM = [

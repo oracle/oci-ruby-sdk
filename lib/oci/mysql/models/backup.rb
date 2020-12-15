@@ -83,6 +83,9 @@ module OCI
     # @return [String]
     attr_accessor :db_system_id
 
+    # @return [OCI::Mysql::Models::DbSystemSnapshot]
+    attr_accessor :db_system_snapshot
+
     # The size of the backup in base-2 (IEC) gibibytes. (GiB).
     # @return [Integer]
     attr_accessor :backup_size_in_gbs
@@ -104,13 +107,13 @@ module OCI
     # @return [String]
     attr_accessor :shape_name
 
-    # Simple key-value pair applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
@@ -131,6 +134,7 @@ module OCI
         'backup_type': :'backupType',
         'creation_type': :'creationType',
         'db_system_id': :'dbSystemId',
+        'db_system_snapshot': :'dbSystemSnapshot',
         'backup_size_in_gbs': :'backupSizeInGBs',
         'retention_in_days': :'retentionInDays',
         'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
@@ -157,6 +161,7 @@ module OCI
         'backup_type': :'String',
         'creation_type': :'String',
         'db_system_id': :'String',
+        'db_system_snapshot': :'OCI::Mysql::Models::DbSystemSnapshot',
         'backup_size_in_gbs': :'Integer',
         'retention_in_days': :'Integer',
         'data_storage_size_in_gbs': :'Integer',
@@ -185,6 +190,7 @@ module OCI
     # @option attributes [String] :backup_type The value to assign to the {#backup_type} property
     # @option attributes [String] :creation_type The value to assign to the {#creation_type} property
     # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
+    # @option attributes [OCI::Mysql::Models::DbSystemSnapshot] :db_system_snapshot The value to assign to the {#db_system_snapshot} property
     # @option attributes [Integer] :backup_size_in_gbs The value to assign to the {#backup_size_in_gbs} property
     # @option attributes [Integer] :retention_in_days The value to assign to the {#retention_in_days} property
     # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
@@ -255,6 +261,12 @@ module OCI
       raise 'You cannot provide both :dbSystemId and :db_system_id' if attributes.key?(:'dbSystemId') && attributes.key?(:'db_system_id')
 
       self.db_system_id = attributes[:'db_system_id'] if attributes[:'db_system_id']
+
+      self.db_system_snapshot = attributes[:'dbSystemSnapshot'] if attributes[:'dbSystemSnapshot']
+
+      raise 'You cannot provide both :dbSystemSnapshot and :db_system_snapshot' if attributes.key?(:'dbSystemSnapshot') && attributes.key?(:'db_system_snapshot')
+
+      self.db_system_snapshot = attributes[:'db_system_snapshot'] if attributes[:'db_system_snapshot']
 
       self.backup_size_in_gbs = attributes[:'backupSizeInGBs'] if attributes[:'backupSizeInGBs']
 
@@ -360,6 +372,7 @@ module OCI
         backup_type == other.backup_type &&
         creation_type == other.creation_type &&
         db_system_id == other.db_system_id &&
+        db_system_snapshot == other.db_system_snapshot &&
         backup_size_in_gbs == other.backup_size_in_gbs &&
         retention_in_days == other.retention_in_days &&
         data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
@@ -382,7 +395,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, time_created, time_updated, lifecycle_state, lifecycle_details, backup_type, creation_type, db_system_id, backup_size_in_gbs, retention_in_days, data_storage_size_in_gbs, mysql_version, shape_name, freeform_tags, defined_tags].hash
+      [id, display_name, description, compartment_id, time_created, time_updated, lifecycle_state, lifecycle_details, backup_type, creation_type, db_system_id, db_system_snapshot, backup_size_in_gbs, retention_in_days, data_storage_size_in_gbs, mysql_version, shape_name, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

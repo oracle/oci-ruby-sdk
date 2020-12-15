@@ -56,6 +56,7 @@ The Ruby SDK supports the following services:
 * MySQL Database service
 * Notification
 * Oracle Content and Experience
+* Oracle Roving Edge Infrastructure
 * Object Storage
 * Oracle NoSQL Database Cloud
 * OS Management

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A Data Safe Configuration that allows customer to enable Data Safe in their tenancy.
+  # A Data Safe configuration for a tenancy and region.
   class DataSafe::Models::DataSafeConfiguration
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -19,7 +19,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Indicates if Data Safe is enabled.
+    # **[Required]** Indicates if Data Safe is enabled.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
@@ -31,11 +31,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # The specific time when Data Safe configuration was enabled.
+    # The date and time Data Safe was enabled, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_enabled
 
-    # The current state of Data Safe configuration.
+    # The current state of Data Safe.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -48,7 +48,7 @@ module OCI
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
     #
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

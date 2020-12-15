@@ -23,7 +23,7 @@ module OCI
     # @return [String]
     attr_accessor :platform_role
 
-    # **[Required]** Type of compute shape - one of Standard, (Enterprise) Small, Medium, Large or Extra Large
+    # **[Required]** Compute shape - STANDARD or ENTERPRISE_SMALL or ENTERPRISE_MEDIUM or ENTERPRISE_LARGE or ENTERPRISE_EXTRA_LARGE
     # @return [String]
     attr_accessor :compute_shape
 
@@ -31,7 +31,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_byol
 
-    # IDCS access token
+    # IDCS access token with Identity Domain Administrator role
     # @return [String]
     attr_accessor :idcs_access_token
 

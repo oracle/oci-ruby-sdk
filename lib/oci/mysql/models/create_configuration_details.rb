@@ -24,7 +24,6 @@ module OCI
     # @return [String]
     attr_accessor :shape_name
 
-    # This attribute is required.
     # @return [OCI::Mysql::Models::ConfigurationVariables]
     attr_accessor :variables
 
@@ -33,13 +32,13 @@ module OCI
     # @return [String]
     attr_accessor :parent_configuration_id
 
-    # Simple key-value pair applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]

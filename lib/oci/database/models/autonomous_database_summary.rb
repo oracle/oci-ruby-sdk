@@ -50,6 +50,7 @@ module OCI
       DB_WORKLOAD_OLTP = 'OLTP'.freeze,
       DB_WORKLOAD_DW = 'DW'.freeze,
       DB_WORKLOAD_AJD = 'AJD'.freeze,
+      DB_WORKLOAD_APEX = 'APEX'.freeze,
       DB_WORKLOAD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -155,6 +156,10 @@ module OCI
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
 
+    # The quantity of data in the database, in gigabytes.
+    # @return [Integer]
+    attr_accessor :data_storage_size_in_gbs
+
     # The infrastructure type this resource belongs to.
     # @return [String]
     attr_reader :infrastructure_type
@@ -187,7 +192,9 @@ module OCI
     # @return [OCI::Database::Models::AutonomousDatabaseConnectionUrls]
     attr_accessor :connection_urls
 
-    # The Oracle license model that applies to the Oracle Autonomous Database. Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm), this attribute must be null because the attribute is already set at the
+    # The Oracle license model that applies to the Oracle Autonomous Database. Bring your own license (BYOL) allows you to apply your current on-premises Oracle software licenses to equivalent, highly automated Oracle PaaS and IaaS services in the cloud.
+    # License Included allows you to subscribe to new Oracle Database software licenses and the Database service.
+    # Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm), this attribute must be null because the attribute is already set at the
     # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
     #
     # @return [String]
@@ -257,6 +264,7 @@ module OCI
     # - OLTP - indicates an Autonomous Transaction Processing database
     # - DW - indicates an Autonomous Data Warehouse database
     # - AJD - indicates an Autonomous JSON Database
+    # - APEX - indicates an Autonomous Database with the Oracle Application Express (APEX) workload type.
     #
     # @return [String]
     attr_reader :db_workload
@@ -286,6 +294,10 @@ module OCI
     # @return [Array<String>]
     attr_accessor :whitelisted_ips
 
+    # Information about Autonomous Application Express.
+    # @return [OCI::Database::Models::AutonomousDatabaseApex]
+    attr_accessor :apex_details
+
     # Indicates if auto scaling is enabled for the Autonomous Database CPU core count.
     #
     # @return [BOOLEAN]
@@ -295,7 +307,7 @@ module OCI
     # @return [String]
     attr_reader :data_safe_status
 
-    # Status of the Operations Insights for this Autonomous Database.
+    # Status of Operations Insights for this Autonomous Database.
     # @return [String]
     attr_reader :operations_insights_status
 
@@ -394,6 +406,7 @@ module OCI
         'backup_config': :'backupConfig',
         'cpu_core_count': :'cpuCoreCount',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'infrastructure_type': :'infrastructureType',
         'is_dedicated': :'isDedicated',
         'autonomous_container_database_id': :'autonomousContainerDatabaseId',
@@ -416,6 +429,7 @@ module OCI
         'db_workload': :'dbWorkload',
         'is_access_control_enabled': :'isAccessControlEnabled',
         'whitelisted_ips': :'whitelistedIps',
+        'apex_details': :'apexDetails',
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'data_safe_status': :'dataSafeStatus',
         'operations_insights_status': :'operationsInsightsStatus',
@@ -459,6 +473,7 @@ module OCI
         'backup_config': :'OCI::Database::Models::AutonomousDatabaseBackupConfig',
         'cpu_core_count': :'Integer',
         'data_storage_size_in_tbs': :'Integer',
+        'data_storage_size_in_gbs': :'Integer',
         'infrastructure_type': :'String',
         'is_dedicated': :'BOOLEAN',
         'autonomous_container_database_id': :'String',
@@ -481,6 +496,7 @@ module OCI
         'db_workload': :'String',
         'is_access_control_enabled': :'BOOLEAN',
         'whitelisted_ips': :'Array<String>',
+        'apex_details': :'OCI::Database::Models::AutonomousDatabaseApex',
         'is_auto_scaling_enabled': :'BOOLEAN',
         'data_safe_status': :'String',
         'operations_insights_status': :'String',
@@ -526,6 +542,7 @@ module OCI
     # @option attributes [OCI::Database::Models::AutonomousDatabaseBackupConfig] :backup_config The value to assign to the {#backup_config} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [String] :infrastructure_type The value to assign to the {#infrastructure_type} property
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
     # @option attributes [String] :autonomous_container_database_id The value to assign to the {#autonomous_container_database_id} property
@@ -548,6 +565,7 @@ module OCI
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     # @option attributes [BOOLEAN] :is_access_control_enabled The value to assign to the {#is_access_control_enabled} property
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
+    # @option attributes [OCI::Database::Models::AutonomousDatabaseApex] :apex_details The value to assign to the {#apex_details} property
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
     # @option attributes [String] :data_safe_status The value to assign to the {#data_safe_status} property
     # @option attributes [String] :operations_insights_status The value to assign to the {#operations_insights_status} property
@@ -646,6 +664,12 @@ module OCI
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
+
+      raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
+
+      self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
 
       self.infrastructure_type = attributes[:'infrastructureType'] if attributes[:'infrastructureType']
 
@@ -778,6 +802,12 @@ module OCI
       raise 'You cannot provide both :whitelistedIps and :whitelisted_ips' if attributes.key?(:'whitelistedIps') && attributes.key?(:'whitelisted_ips')
 
       self.whitelisted_ips = attributes[:'whitelisted_ips'] if attributes[:'whitelisted_ips']
+
+      self.apex_details = attributes[:'apexDetails'] if attributes[:'apexDetails']
+
+      raise 'You cannot provide both :apexDetails and :apex_details' if attributes.key?(:'apexDetails') && attributes.key?(:'apex_details')
+
+      self.apex_details = attributes[:'apex_details'] if attributes[:'apex_details']
 
       self.is_auto_scaling_enabled = attributes[:'isAutoScalingEnabled'] unless attributes[:'isAutoScalingEnabled'].nil?
 
@@ -1080,6 +1110,7 @@ module OCI
         backup_config == other.backup_config &&
         cpu_core_count == other.cpu_core_count &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         infrastructure_type == other.infrastructure_type &&
         is_dedicated == other.is_dedicated &&
         autonomous_container_database_id == other.autonomous_container_database_id &&
@@ -1102,6 +1133,7 @@ module OCI
         db_workload == other.db_workload &&
         is_access_control_enabled == other.is_access_control_enabled &&
         whitelisted_ips == other.whitelisted_ips &&
+        apex_details == other.apex_details &&
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         data_safe_status == other.data_safe_status &&
         operations_insights_status == other.operations_insights_status &&
@@ -1140,7 +1172,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, cpu_core_count, data_storage_size_in_tbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, is_auto_scaling_enabled, data_safe_status, operations_insights_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, cpu_core_count, data_storage_size_in_tbs, data_storage_size_in_gbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, apex_details, is_auto_scaling_enabled, data_safe_status, operations_insights_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of the cloud Exadata infrastructure resource.
+  # Details of the cloud Exadata infrastructure resource. Applies to Exadata Cloud Service instances only.
+  #
   class Database::Models::CloudExadataInfrastructureSummary
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_PROVISIONING = 'PROVISIONING'.freeze,

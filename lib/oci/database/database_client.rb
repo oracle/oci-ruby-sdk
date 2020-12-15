@@ -98,7 +98,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Activates the specified Exadata Cloud@Customer infrastructure.
+    # Activates the specified Exadata infrastructure resource. Applies to Exadata Cloud@Customer instances only.
+    #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::ActivateExadataInfrastructureDetails] activate_exadata_infrastructure_details The activation details for the Exadata infrastructure.
     # @param [Hash] opts the optional parameters
@@ -113,6 +114,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExadataInfrastructure ExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/activate_exadata_infrastructure.rb.html) to see an example of how to use activate_exadata_infrastructure API.
     def activate_exadata_infrastructure(exadata_infrastructure_id, activate_exadata_infrastructure_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#activate_exadata_infrastructure.' if logger
 
@@ -182,6 +184,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/autonomous_database_manual_refresh.rb.html) to see an example of how to use autonomous_database_manual_refresh API.
     def autonomous_database_manual_refresh(autonomous_database_id, autonomous_database_manual_refresh_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#autonomous_database_manual_refresh.' if logger
 
@@ -254,6 +257,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_autonomous_container_database_compartment.rb.html) to see an example of how to use change_autonomous_container_database_compartment API.
     def change_autonomous_container_database_compartment(change_compartment_details, autonomous_container_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_autonomous_container_database_compartment.' if logger
 
@@ -325,6 +329,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_autonomous_database_compartment.rb.html) to see an example of how to use change_autonomous_database_compartment API.
     def change_autonomous_database_compartment(change_compartment_details, autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_autonomous_database_compartment.' if logger
 
@@ -396,6 +401,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_autonomous_exadata_infrastructure_compartment.rb.html) to see an example of how to use change_autonomous_exadata_infrastructure_compartment API.
     def change_autonomous_exadata_infrastructure_compartment(change_compartment_details, autonomous_exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_autonomous_exadata_infrastructure_compartment.' if logger
 
@@ -466,6 +472,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_autonomous_vm_cluster_compartment.rb.html) to see an example of how to use change_autonomous_vm_cluster_compartment API.
     def change_autonomous_vm_cluster_compartment(change_autonomous_vm_cluster_compartment_details, autonomous_vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_autonomous_vm_cluster_compartment.' if logger
 
@@ -538,6 +545,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_backup_destination_compartment.rb.html) to see an example of how to use change_backup_destination_compartment API.
     def change_backup_destination_compartment(change_compartment_details, backup_destination_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_backup_destination_compartment.' if logger
 
@@ -587,8 +595,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # To move a cloud Exadata infrastructure resource and its dependent resources to another compartment, use the
-    # {#change_cloud_exadata_infrastructure_compartment change_cloud_exadata_infrastructure_compartment} operation.
+    # Moves a cloud Exadata infrastructure resource and its dependent resources to another compartment. Applies to Exadata Cloud Service instances only. For more information about moving resources to a different compartment, see [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
     #
     # @param [OCI::Database::Models::ChangeCloudExadataInfrastructureCompartmentDetails] change_cloud_exadata_infrastructure_compartment_details Request to move cloud Exadata infrastructure resource to a different compartment.
     # @param [String] cloud_exadata_infrastructure_id The cloud Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -608,6 +615,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_cloud_exadata_infrastructure_compartment.rb.html) to see an example of how to use change_cloud_exadata_infrastructure_compartment API.
     def change_cloud_exadata_infrastructure_compartment(change_cloud_exadata_infrastructure_compartment_details, cloud_exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_cloud_exadata_infrastructure_compartment.' if logger
 
@@ -657,8 +665,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # To move a cloud VM cluster and its dependent resources to another compartment, use the
-    # {#change_cloud_vm_cluster_compartment change_cloud_vm_cluster_compartment} operation.
+    # Moves a cloud VM cluster and its dependent resources to another compartment. Applies to Exadata Cloud Service instances only.
     #
     # @param [OCI::Database::Models::ChangeCloudVmClusterCompartmentDetails] change_cloud_vm_cluster_compartment_details Request to move cloud VM cluster to a different compartment
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -678,6 +685,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_cloud_vm_cluster_compartment.rb.html) to see an example of how to use change_cloud_vm_cluster_compartment API.
     def change_cloud_vm_cluster_compartment(change_cloud_vm_cluster_compartment_details, cloud_vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_cloud_vm_cluster_compartment.' if logger
 
@@ -749,6 +757,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_database_software_image_compartment.rb.html) to see an example of how to use change_database_software_image_compartment API.
     def change_database_software_image_compartment(change_compartment_details, database_software_image_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_database_software_image_compartment.' if logger
 
@@ -798,7 +807,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Move the DB system and its dependent resources to the specified compartment.
+    # Moves the DB system and its dependent resources to the specified compartment.
     # For more information about moving DB systems, see
     # [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
     #
@@ -820,6 +829,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_db_system_compartment.rb.html) to see an example of how to use change_db_system_compartment API.
     def change_db_system_compartment(change_compartment_details, db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_db_system_compartment.' if logger
 
@@ -869,8 +879,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # To move an Exadata Cloud@Customer infrastructure resource and its dependent resources to another compartment, use the
-    # {#change_exadata_infrastructure_compartment change_exadata_infrastructure_compartment} operation.
+    # Moves an Exadata infrastructure resource and its dependent resources to another compartment. Applies to Exadata Cloud@Customer instances only.
+    # To move an Exadata Cloud Service infrastructure resource to another compartment, use the  {#change_cloud_exadata_infrastructure_compartment change_cloud_exadata_infrastructure_compartment} operation.
     #
     # @param [OCI::Database::Models::ChangeExadataInfrastructureCompartmentDetails] change_exadata_infrastructure_compartment_details Request to move Exadata infrastructure to a different compartment
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -890,6 +900,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_exadata_infrastructure_compartment.rb.html) to see an example of how to use change_exadata_infrastructure_compartment API.
     def change_exadata_infrastructure_compartment(change_exadata_infrastructure_compartment_details, exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_exadata_infrastructure_compartment.' if logger
 
@@ -962,6 +973,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_key_store_compartment.rb.html) to see an example of how to use change_key_store_compartment API.
     def change_key_store_compartment(change_key_store_compartment_details, key_store_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_key_store_compartment.' if logger
 
@@ -1011,8 +1023,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # To move an Exadata Cloud@Customer VM cluster and its dependent resources to another compartment, use the
-    # {#change_vm_cluster_compartment change_vm_cluster_compartment} operation.
+    # Moves a VM cluster and its dependent resources to another compartment. Applies to Exadata Cloud@Customer instances only.
+    # To move a cloud VM cluster in an Exadata Cloud Service instance to another compartment, use the {#change_cloud_vm_cluster_compartment change_cloud_vm_cluster_compartment} operation.
     #
     # @param [OCI::Database::Models::ChangeVmClusterCompartmentDetails] change_vm_cluster_compartment_details Request to move the Exadata Cloud@Customer VM cluster to a different compartment.
     # @param [String] vm_cluster_id The VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -1032,6 +1044,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_vm_cluster_compartment.rb.html) to see an example of how to use change_vm_cluster_compartment API.
     def change_vm_cluster_compartment(change_vm_cluster_compartment_details, vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#change_vm_cluster_compartment.' if logger
 
@@ -1101,6 +1114,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalBackupJob ExternalBackupJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/complete_external_backup_job.rb.html) to see an example of how to use complete_external_backup_job API.
     def complete_external_backup_job(backup_id, complete_external_backup_job_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#complete_external_backup_job.' if logger
 
@@ -1163,6 +1177,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousContainerDatabase AutonomousContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_autonomous_container_database.rb.html) to see an example of how to use create_autonomous_container_database API.
     def create_autonomous_container_database(create_autonomous_container_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_autonomous_container_database.' if logger
 
@@ -1209,124 +1224,6 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # **Deprecated.** To create a new Autonomous Data Warehouse, use the {#create_autonomous_database create_autonomous_database} operation and specify `DW` as the workload type.
-    #
-    # @param [OCI::Database::Models::CreateAutonomousDataWarehouseDetails] create_autonomous_data_warehouse_details Request to create a new Autonomous Data Warehouse.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
-    #   has been deleted and purged from the system, then a retry of the original creation request
-    #   may be rejected).
-    #
-    # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDataWarehouse AutonomousDataWarehouse}
-    def create_autonomous_data_warehouse(create_autonomous_data_warehouse_details, opts = {})
-      logger.debug 'Calling operation DatabaseClient#create_autonomous_data_warehouse.' if logger
-
-      raise "Missing the required parameter 'create_autonomous_data_warehouse_details' when calling create_autonomous_data_warehouse." if create_autonomous_data_warehouse_details.nil?
-
-      path = '/autonomousDataWarehouses'
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
-
-      post_body = @api_client.object_to_http_body(create_autonomous_data_warehouse_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_autonomous_data_warehouse') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::AutonomousDataWarehouse'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # **Deprecated.** To create a new Autonomous Data Warehouse backup for a specified database, use the {#create_autonomous_database_backup create_autonomous_database_backup} operation.
-    #
-    # @param [OCI::Database::Models::CreateAutonomousDataWarehouseBackupDetails] create_autonomous_data_warehouse_backup_details Request to create a new Autonomous Data Warehouse backup.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
-    #   has been deleted and purged from the system, then a retry of the original creation request
-    #   may be rejected).
-    #
-    # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDataWarehouseBackup AutonomousDataWarehouseBackup}
-    def create_autonomous_data_warehouse_backup(create_autonomous_data_warehouse_backup_details, opts = {})
-      logger.debug 'Calling operation DatabaseClient#create_autonomous_data_warehouse_backup.' if logger
-
-      raise "Missing the required parameter 'create_autonomous_data_warehouse_backup_details' when calling create_autonomous_data_warehouse_backup." if create_autonomous_data_warehouse_backup_details.nil?
-
-      path = '/autonomousDataWarehouseBackups'
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
-
-      post_body = @api_client.object_to_http_body(create_autonomous_data_warehouse_backup_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_autonomous_data_warehouse_backup') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::AutonomousDataWarehouseBackup'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
     # Creates a new Autonomous Database.
     #
     # @param [OCI::Database::Models::CreateAutonomousDatabaseBase] create_autonomous_database_details Request to create a new Autonomous Database.
@@ -1342,6 +1239,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_autonomous_database.rb.html) to see an example of how to use create_autonomous_database API.
     def create_autonomous_database(create_autonomous_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_autonomous_database.' if logger
 
@@ -1404,6 +1302,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabaseBackup AutonomousDatabaseBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_autonomous_database_backup.rb.html) to see an example of how to use create_autonomous_database_backup API.
     def create_autonomous_database_backup(create_autonomous_database_backup_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_autonomous_database_backup.' if logger
 
@@ -1466,6 +1365,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousVmCluster AutonomousVmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_autonomous_vm_cluster.rb.html) to see an example of how to use create_autonomous_vm_cluster API.
     def create_autonomous_vm_cluster(create_autonomous_vm_cluster_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_autonomous_vm_cluster.' if logger
 
@@ -1526,6 +1426,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::Backup Backup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_backup.rb.html) to see an example of how to use create_backup API.
     def create_backup(create_backup_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_backup.' if logger
 
@@ -1588,6 +1489,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::BackupDestination BackupDestination}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_backup_destination.rb.html) to see an example of how to use create_backup_destination API.
     def create_backup_destination(create_backup_destination_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_backup_destination.' if logger
 
@@ -1635,8 +1537,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a cloud Exadata infrastructure resource.
-    # @param [OCI::Database::Models::CreateCloudExadataInfrastructureDetails] create_cloud_exadata_infrastructure_details Request to create cloud Exadata infrastructure.
+    # Creates a cloud Exadata infrastructure resource. This resource is used to create an [Exadata Cloud Service](https://docs.cloud.oracle.com/Content/Database/Concepts/exaoverview.htm) instance.
+    #
+    # @param [OCI::Database::Models::CreateCloudExadataInfrastructureDetails] create_cloud_exadata_infrastructure_details Request to create a cloud Exadata infrastructure resource in an [Exadata Cloud Service](https://docs.cloud.oracle.com/Content/Database/Concepts/exaoverview.htm) instance.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1649,6 +1553,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::CloudExadataInfrastructure CloudExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_cloud_exadata_infrastructure.rb.html) to see an example of how to use create_cloud_exadata_infrastructure API.
     def create_cloud_exadata_infrastructure(create_cloud_exadata_infrastructure_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_cloud_exadata_infrastructure.' if logger
 
@@ -1698,7 +1603,8 @@ module OCI
 
     # Creates a cloud VM cluster.
     #
-    # @param [OCI::Database::Models::CreateCloudVmClusterDetails] create_cloud_vm_cluster_details Request to create a cloud VM cluster.
+    # @param [OCI::Database::Models::CreateCloudVmClusterDetails] create_cloud_vm_cluster_details Request to create a cloud VM cluster. Applies to Exadata Cloud Service instances only. See [The New Exadata Cloud Service Resource Model](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) for information on this resource type.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1711,6 +1617,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::CloudVmCluster CloudVmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_cloud_vm_cluster.rb.html) to see an example of how to use create_cloud_vm_cluster API.
     def create_cloud_vm_cluster(create_cloud_vm_cluster_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_cloud_vm_cluster.' if logger
 
@@ -1774,6 +1681,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ConsoleConnection ConsoleConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_console_connection.rb.html) to see an example of how to use create_console_connection API.
     def create_console_connection(create_console_connection_details, db_node_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_console_connection.' if logger
 
@@ -1843,6 +1751,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DataGuardAssociation DataGuardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_data_guard_association.rb.html) to see an example of how to use create_data_guard_association API.
     def create_data_guard_association(database_id, create_data_guard_association_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_data_guard_association.' if logger
 
@@ -1906,6 +1815,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::Database Database}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_database.rb.html) to see an example of how to use create_database API.
     def create_database(create_new_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_database.' if logger
 
@@ -1966,6 +1876,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DatabaseSoftwareImage DatabaseSoftwareImage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_database_software_image.rb.html) to see an example of how to use create_database_software_image API.
     def create_database_software_image(create_database_software_image_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_database_software_image.' if logger
 
@@ -2025,6 +1936,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbHome DbHome}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_db_home.rb.html) to see an example of how to use create_db_home API.
     def create_db_home(create_db_home_with_db_system_id_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_db_home.' if logger
 
@@ -2071,7 +1983,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates Exadata Cloud@Customer infrastructure.
+    # Creates an Exadata infrastructure resource. Applies to Exadata Cloud@Customer instances only.
+    # To create an Exadata Cloud Service infrastructure resource, use the  {#create_cloud_exadata_infrastructure create_cloud_exadata_infrastructure} operation.
+    #
     # @param [OCI::Database::Models::CreateExadataInfrastructureDetails] create_exadata_infrastructure_details Request to create Exadata Cloud@Customer infrastructure.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2085,6 +1999,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExadataInfrastructure ExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_exadata_infrastructure.rb.html) to see an example of how to use create_exadata_infrastructure API.
     def create_exadata_infrastructure(create_exadata_infrastructure_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_exadata_infrastructure.' if logger
 
@@ -2147,6 +2062,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalBackupJob ExternalBackupJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_external_backup_job.rb.html) to see an example of how to use create_external_backup_job API.
     def create_external_backup_job(create_external_backup_job_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_external_backup_job.' if logger
 
@@ -2209,6 +2125,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::KeyStore KeyStore}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_key_store.rb.html) to see an example of how to use create_key_store API.
     def create_key_store(create_key_store_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_key_store.' if logger
 
@@ -2258,7 +2175,9 @@ module OCI
 
     # Creates an Exadata Cloud@Customer VM cluster.
     #
-    # @param [OCI::Database::Models::CreateVmClusterDetails] create_vm_cluster_details Request to create an Exadata Cloud@Customer VM cluster.
+    # @param [OCI::Database::Models::CreateVmClusterDetails] create_vm_cluster_details Request to create a VM cluster. Applies to Exadata Cloud@Customer instances only.
+    #   See {#create_cloud_vm_cluster_details create_cloud_vm_cluster_details} for details on creating a cloud VM cluster in an Exadata Cloud Service instance.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2271,6 +2190,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::VmCluster VmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_vm_cluster.rb.html) to see an example of how to use create_vm_cluster API.
     def create_vm_cluster(create_vm_cluster_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_vm_cluster.' if logger
 
@@ -2318,7 +2238,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates the Exadata Cloud@Customer VM cluster network.
+    # Creates the VM cluster network. Applies to Exadata Cloud@Customer instances only.
+    # To create a cloud VM cluster in an Exadata Cloud Service instance, use the {#create_cloud_vm_cluster create_cloud_vm_cluster} operation.
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::VmClusterNetworkDetails] vm_cluster_network_details Request to create the Cloud@Customer VM cluster network.
@@ -2334,6 +2255,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::VmClusterNetwork VmClusterNetwork}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_vm_cluster_network.rb.html) to see an example of how to use create_vm_cluster_network API.
     def create_vm_cluster_network(exadata_infrastructure_id, vm_cluster_network_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#create_vm_cluster_network.' if logger
 
@@ -2414,6 +2336,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbNode DbNode}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/db_node_action.rb.html) to see an example of how to use db_node_action API.
     def db_node_action(db_node_id, action, opts = {})
       logger.debug 'Calling operation DatabaseClient#db_node_action.' if logger
 
@@ -2467,62 +2390,6 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # **Deprecated.** To delete an Autonomous Data Warehouse, use the {#delete_autonomous_database delete_autonomous_database} operation.
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
-    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
-    #
-    # @return [Response] A Response object with data of type nil
-    def delete_autonomous_data_warehouse(autonomous_data_warehouse_id, opts = {})
-      logger.debug 'Calling operation DatabaseClient#delete_autonomous_data_warehouse.' if logger
-
-      raise "Missing the required parameter 'autonomous_data_warehouse_id' when calling delete_autonomous_data_warehouse." if autonomous_data_warehouse_id.nil?
-      raise "Parameter value for 'autonomous_data_warehouse_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_data_warehouse_id)
-
-      path = '/autonomousDataWarehouses/{autonomousDataWarehouseId}'.sub('{autonomousDataWarehouseId}', autonomous_data_warehouse_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#delete_autonomous_data_warehouse') do
-        @api_client.call_api(
-          :DELETE,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
     # Deletes the specified Autonomous Database.
     #
     # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -2536,6 +2403,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_autonomous_database.rb.html) to see an example of how to use delete_autonomous_database API.
     def delete_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_autonomous_database.' if logger
 
@@ -2595,6 +2463,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_autonomous_vm_cluster.rb.html) to see an example of how to use delete_autonomous_vm_cluster API.
     def delete_autonomous_vm_cluster(autonomous_vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_autonomous_vm_cluster.' if logger
 
@@ -2651,6 +2520,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_backup.rb.html) to see an example of how to use delete_backup API.
     def delete_backup(backup_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_backup.' if logger
 
@@ -2709,6 +2579,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_backup_destination.rb.html) to see an example of how to use delete_backup_destination API.
     def delete_backup_destination(backup_destination_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_backup_destination.' if logger
 
@@ -2755,7 +2626,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the cloud Exadata infrastructure resource.
+    # Deletes the cloud Exadata infrastructure resource. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] cloud_exadata_infrastructure_id The cloud Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -2770,6 +2641,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_cloud_exadata_infrastructure.rb.html) to see an example of how to use delete_cloud_exadata_infrastructure API.
     def delete_cloud_exadata_infrastructure(cloud_exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_cloud_exadata_infrastructure.' if logger
 
@@ -2817,7 +2689,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified cloud VM cluster.
+    # Deletes the specified cloud VM cluster. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -2830,6 +2702,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_cloud_vm_cluster.rb.html) to see an example of how to use delete_cloud_vm_cluster API.
     def delete_cloud_vm_cluster(cloud_vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_cloud_vm_cluster.' if logger
 
@@ -2887,6 +2760,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_console_connection.rb.html) to see an example of how to use delete_console_connection API.
     def delete_console_connection(db_node_id, console_connection_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_console_connection.' if logger
 
@@ -2955,6 +2829,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_database.rb.html) to see an example of how to use delete_database API.
     def delete_database(database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_database.' if logger
 
@@ -3012,6 +2887,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_database_software_image.rb.html) to see an example of how to use delete_database_software_image API.
     def delete_database_software_image(database_software_image_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_database_software_image.' if logger
 
@@ -3076,6 +2952,7 @@ module OCI
     #   This parameter is used in multiple APIs. Refer to the API description for details on how the operation uses it.
     #    (default to false)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_db_home.rb.html) to see an example of how to use delete_db_home API.
     def delete_db_home(db_home_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_db_home.' if logger
 
@@ -3135,6 +3012,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_exadata_infrastructure.rb.html) to see an example of how to use delete_exadata_infrastructure API.
     def delete_exadata_infrastructure(exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_exadata_infrastructure.' if logger
 
@@ -3194,6 +3072,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_key_store.rb.html) to see an example of how to use delete_key_store API.
     def delete_key_store(key_store_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_key_store.' if logger
 
@@ -3240,7 +3119,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified Exadata Cloud@Customer VM cluster.
+    # Deletes the specified VM cluster. Applies to Exadata Cloud@Customer instances only.
     #
     # @param [String] vm_cluster_id The VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -3253,6 +3132,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_vm_cluster.rb.html) to see an example of how to use delete_vm_cluster API.
     def delete_vm_cluster(vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_vm_cluster.' if logger
 
@@ -3299,7 +3179,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified Exadata Cloud@Customer VM cluster network.
+    # Deletes the specified VM cluster network. Applies to Exadata Cloud@Customer instances only.
+    # To delete a cloud VM cluster in an Exadata Cloud Service instance, use the {#delete_cloud_vm_cluster delete_cloud_vm_cluster} operation.
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] vm_cluster_network_id The VM cluster network [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -3313,6 +3194,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_vm_cluster_network.rb.html) to see an example of how to use delete_vm_cluster_network API.
     def delete_vm_cluster_network(exadata_infrastructure_id, vm_cluster_network_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#delete_vm_cluster_network.' if logger
 
@@ -3371,6 +3253,7 @@ module OCI
     #
     # @option opts [OCI::Database::Models::DeregisterAutonomousDatabaseDataSafeDetails] :deregister_autonomous_database_data_safe_details Details for deregistering an Autonomous Database with Data Safe.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/deregister_autonomous_database_data_safe.rb.html) to see an example of how to use deregister_autonomous_database_data_safe API.
     def deregister_autonomous_database_data_safe(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#deregister_autonomous_database_data_safe.' if logger
 
@@ -3425,6 +3308,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/disable_autonomous_database_operations_insights.rb.html) to see an example of how to use disable_autonomous_database_operations_insights API.
     def disable_autonomous_database_operations_insights(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#disable_autonomous_database_operations_insights.' if logger
 
@@ -3487,6 +3371,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/download_exadata_infrastructure_config_file.rb.html) to see an example of how to use download_exadata_infrastructure_config_file API.
     def download_exadata_infrastructure_config_file(exadata_infrastructure_id, opts = {}, &block)
       logger.debug 'Calling operation DatabaseClient#download_exadata_infrastructure_config_file.' if logger
 
@@ -3579,7 +3464,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Downloads the configuration file for the specified Exadata Cloud@Customer VM cluster network.
+    # Downloads the configuration file for the specified VM cluster network. Applies to Exadata Cloud@Customer instances only.
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] vm_cluster_network_id The VM cluster network [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -3597,6 +3482,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/download_vm_cluster_network_config_file.rb.html) to see an example of how to use download_vm_cluster_network_config_file API.
     def download_vm_cluster_network_config_file(exadata_infrastructure_id, vm_cluster_network_id, opts = {}, &block)
       logger.debug 'Calling operation DatabaseClient#download_vm_cluster_network_config_file.' if logger
 
@@ -3700,6 +3586,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/enable_autonomous_database_operations_insights.rb.html) to see an example of how to use enable_autonomous_database_operations_insights API.
     def enable_autonomous_database_operations_insights(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#enable_autonomous_database_operations_insights.' if logger
 
@@ -3764,6 +3651,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/fail_over_autonomous_database.rb.html) to see an example of how to use fail_over_autonomous_database API.
     def fail_over_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#fail_over_autonomous_database.' if logger
 
@@ -3827,6 +3715,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousContainerDatabaseDataguardAssociation AutonomousContainerDatabaseDataguardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/failover_autonomous_container_database_dataguard_association.rb.html) to see an example of how to use failover_autonomous_container_database_dataguard_association API.
     def failover_autonomous_container_database_dataguard_association(autonomous_container_database_id, autonomous_container_database_dataguard_association_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#failover_autonomous_container_database_dataguard_association.' if logger
 
@@ -3892,6 +3781,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DataGuardAssociation DataGuardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/failover_data_guard_association.rb.html) to see an example of how to use failover_data_guard_association API.
     def failover_data_guard_association(database_id, data_guard_association_id, failover_data_guard_association_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#failover_data_guard_association.' if logger
 
@@ -3941,117 +3831,6 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # **Deprecated.** To create and download a wallet for an Autonomous Data Warehouse, use the {#generate_autonomous_database_wallet generate_autonomous_database_wallet} operation.
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::GenerateAutonomousDataWarehouseWalletDetails] generate_autonomous_data_warehouse_wallet_details Request to create a new Autonomous Data Warehouse wallet.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
-    #   has been deleted and purged from the system, then a retry of the original creation request
-    #   may be rejected).
-    #
-    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
-    # @option [Block] &block Streaming http body to the block
-    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
-    def generate_autonomous_data_warehouse_wallet(autonomous_data_warehouse_id, generate_autonomous_data_warehouse_wallet_details, opts = {}, &block)
-      logger.debug 'Calling operation DatabaseClient#generate_autonomous_data_warehouse_wallet.' if logger
-
-      raise "Missing the required parameter 'autonomous_data_warehouse_id' when calling generate_autonomous_data_warehouse_wallet." if autonomous_data_warehouse_id.nil?
-      raise "Missing the required parameter 'generate_autonomous_data_warehouse_wallet_details' when calling generate_autonomous_data_warehouse_wallet." if generate_autonomous_data_warehouse_wallet_details.nil?
-      raise "Parameter value for 'autonomous_data_warehouse_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_data_warehouse_id)
-
-      path = '/autonomousDataWarehouses/{autonomousDataWarehouseId}/actions/generateWallet'.sub('{autonomousDataWarehouseId}', autonomous_data_warehouse_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = opts[:accept] if opts[:accept]
-      header_params[:accept] ||= 'application/octet-stream'
-      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      # rubocop:enable Style/NegatedIf
-      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
-
-      post_body = @api_client.object_to_http_body(generate_autonomous_data_warehouse_wallet_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#generate_autonomous_data_warehouse_wallet') do
-        if !block.nil?
-          @api_client.call_api(
-            :POST,
-            path,
-            endpoint,
-            header_params: header_params,
-            query_params: query_params,
-            operation_signing_strategy: operation_signing_strategy,
-            body: post_body,
-            return_type: 'Stream',
-            &block
-          )
-        elsif opts[:response_target]
-          if opts[:response_target].respond_to? :write
-            @api_client.call_api(
-              :POST,
-              path,
-              endpoint,
-              header_params: header_params,
-              query_params: query_params,
-              operation_signing_strategy: operation_signing_strategy,
-              body: post_body,
-              return_type: 'Stream',
-              &proc { |chunk, _response| opts[:response_target].write(chunk) }
-            )
-          elsif opts[:response_target].is_a?(String)
-            File.open(opts[:response_target], 'wb') do |output|
-              return @api_client.call_api(
-                :POST,
-                path,
-                endpoint,
-                header_params: header_params,
-                query_params: query_params,
-                operation_signing_strategy: operation_signing_strategy,
-                body: post_body,
-                return_type: 'Stream',
-                &proc { |chunk, _response| output.write(chunk) }
-              )
-            end
-          end
-        else
-          @api_client.call_api(
-            :POST,
-            path,
-            endpoint,
-            header_params: header_params,
-            query_params: query_params,
-            operation_signing_strategy: operation_signing_strategy,
-            body: post_body,
-            return_type: 'String'
-          )
-        end
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
     # Creates and downloads a wallet for the specified Autonomous Database.
     #
     # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -4070,6 +3849,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/generate_autonomous_database_wallet.rb.html) to see an example of how to use generate_autonomous_database_wallet API.
     def generate_autonomous_database_wallet(autonomous_database_id, generate_autonomous_database_wallet_details, opts = {}, &block)
       logger.debug 'Calling operation DatabaseClient#generate_autonomous_database_wallet.' if logger
 
@@ -4179,6 +3959,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::VmClusterNetworkDetails VmClusterNetworkDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/generate_recommended_vm_cluster_network.rb.html) to see an example of how to use generate_recommended_vm_cluster_network API.
     def generate_recommended_vm_cluster_network(exadata_infrastructure_id, generate_recommended_network_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#generate_recommended_vm_cluster_network.' if logger
 
@@ -4235,6 +4016,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousContainerDatabase AutonomousContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_container_database.rb.html) to see an example of how to use get_autonomous_container_database API.
     def get_autonomous_container_database(autonomous_container_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_container_database.' if logger
 
@@ -4290,6 +4072,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousContainerDatabaseDataguardAssociation AutonomousContainerDatabaseDataguardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_container_database_dataguard_association.rb.html) to see an example of how to use get_autonomous_container_database_dataguard_association API.
     def get_autonomous_container_database_dataguard_association(autonomous_container_database_id, autonomous_container_database_dataguard_association_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_container_database_dataguard_association.' if logger
 
@@ -4336,114 +4119,6 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
-
-
-    # **Deprecated.** To get the details of an Autonomous Data Warehouse, use the {#get_autonomous_database get_autonomous_database} operation.
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDataWarehouse AutonomousDataWarehouse}
-    def get_autonomous_data_warehouse(autonomous_data_warehouse_id, opts = {})
-      logger.debug 'Calling operation DatabaseClient#get_autonomous_data_warehouse.' if logger
-
-      raise "Missing the required parameter 'autonomous_data_warehouse_id' when calling get_autonomous_data_warehouse." if autonomous_data_warehouse_id.nil?
-      raise "Parameter value for 'autonomous_data_warehouse_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_data_warehouse_id)
-
-      path = '/autonomousDataWarehouses/{autonomousDataWarehouseId}'.sub('{autonomousDataWarehouseId}', autonomous_data_warehouse_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_autonomous_data_warehouse') do
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::AutonomousDataWarehouse'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
-
-
-    # **Deprecated.** To get information about a specified Autonomous Data Warehouse backup, use the {#get_autonomous_database_backup get_autonomous_database_backup} operation.
-    #
-    # @param [String] autonomous_data_warehouse_backup_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse backup.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDataWarehouseBackup AutonomousDataWarehouseBackup}
-    def get_autonomous_data_warehouse_backup(autonomous_data_warehouse_backup_id, opts = {})
-      logger.debug 'Calling operation DatabaseClient#get_autonomous_data_warehouse_backup.' if logger
-
-      raise "Missing the required parameter 'autonomous_data_warehouse_backup_id' when calling get_autonomous_data_warehouse_backup." if autonomous_data_warehouse_backup_id.nil?
-      raise "Parameter value for 'autonomous_data_warehouse_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_data_warehouse_backup_id)
-
-      path = '/autonomousDataWarehouseBackups/{autonomousDataWarehouseBackupId}'.sub('{autonomousDataWarehouseBackupId}', autonomous_data_warehouse_backup_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_autonomous_data_warehouse_backup') do
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::AutonomousDataWarehouseBackup'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
     # Gets the details of the specified Autonomous Database.
@@ -4455,6 +4130,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_database.rb.html) to see an example of how to use get_autonomous_database API.
     def get_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_database.' if logger
 
@@ -4509,6 +4185,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabaseBackup AutonomousDatabaseBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_database_backup.rb.html) to see an example of how to use get_autonomous_database_backup API.
     def get_autonomous_database_backup(autonomous_database_backup_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_database_backup.' if logger
 
@@ -4565,6 +4242,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabaseDataguardAssociation AutonomousDatabaseDataguardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_database_dataguard_association.rb.html) to see an example of how to use get_autonomous_database_dataguard_association API.
     def get_autonomous_database_dataguard_association(autonomous_database_id, autonomous_database_dataguard_association_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_database_dataguard_association.' if logger
 
@@ -4621,6 +4299,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabaseWallet AutonomousDatabaseWallet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_database_regional_wallet.rb.html) to see an example of how to use get_autonomous_database_regional_wallet API.
     def get_autonomous_database_regional_wallet(opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_database_regional_wallet.' if logger
 
@@ -4674,6 +4353,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabaseWallet AutonomousDatabaseWallet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_database_wallet.rb.html) to see an example of how to use get_autonomous_database_wallet API.
     def get_autonomous_database_wallet(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_database_wallet.' if logger
 
@@ -4727,6 +4407,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousExadataInfrastructure AutonomousExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_exadata_infrastructure.rb.html) to see an example of how to use get_autonomous_exadata_infrastructure API.
     def get_autonomous_exadata_infrastructure(autonomous_exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_exadata_infrastructure.' if logger
 
@@ -4780,6 +4461,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousPatch AutonomousPatch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_patch.rb.html) to see an example of how to use get_autonomous_patch API.
     def get_autonomous_patch(autonomous_patch_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_patch.' if logger
 
@@ -4834,6 +4516,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousVmCluster AutonomousVmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_autonomous_vm_cluster.rb.html) to see an example of how to use get_autonomous_vm_cluster API.
     def get_autonomous_vm_cluster(autonomous_vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_autonomous_vm_cluster.' if logger
 
@@ -4887,6 +4570,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Backup Backup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_backup.rb.html) to see an example of how to use get_backup API.
     def get_backup(backup_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_backup.' if logger
 
@@ -4942,6 +4626,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::BackupDestination BackupDestination}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_backup_destination.rb.html) to see an example of how to use get_backup_destination API.
     def get_backup_destination(backup_destination_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_backup_destination.' if logger
 
@@ -4988,7 +4673,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the specified cloud Exadata infrastructure resource.
+    # Gets information about the specified cloud Exadata infrastructure resource. Applies to Exadata Cloud Service instances only.
+    #
     # @param [String] cloud_exadata_infrastructure_id The cloud Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -4996,6 +4682,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::CloudExadataInfrastructure CloudExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_cloud_exadata_infrastructure.rb.html) to see an example of how to use get_cloud_exadata_infrastructure API.
     def get_cloud_exadata_infrastructure(cloud_exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_cloud_exadata_infrastructure.' if logger
 
@@ -5042,7 +4729,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the specified cloud VM cluster.
+    # Gets information about the specified cloud VM cluster. Applies to Exadata Cloud Service instances only.
+    #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -5050,6 +4738,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::CloudVmCluster CloudVmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_cloud_vm_cluster.rb.html) to see an example of how to use get_cloud_vm_cluster API.
     def get_cloud_vm_cluster(cloud_vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_cloud_vm_cluster.' if logger
 
@@ -5096,7 +4785,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the IORM configuration for the specified cloud VM cluster.
+    # Gets the IORM configuration for the specified cloud VM cluster in an Exadata Cloud Service instance.
     # If you have not specified an IORM configuration, the default configuration is returned.
     #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -5106,6 +4795,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExadataIormConfig ExadataIormConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_cloud_vm_cluster_iorm_config.rb.html) to see an example of how to use get_cloud_vm_cluster_iorm_config API.
     def get_cloud_vm_cluster_iorm_config(cloud_vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_cloud_vm_cluster_iorm_config.' if logger
 
@@ -5152,7 +4842,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about a specified maintenance update package.
+    # Gets information about a specified maintenance update package for a cloud VM cluster. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] update_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the maintenance update.
@@ -5162,6 +4852,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::Update Update}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_cloud_vm_cluster_update.rb.html) to see an example of how to use get_cloud_vm_cluster_update API.
     def get_cloud_vm_cluster_update(cloud_vm_cluster_id, update_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_cloud_vm_cluster_update.' if logger
 
@@ -5210,7 +4901,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the maintenance update history details for the specified update history entry.
+    # Gets the maintenance update history details for the specified update history entry. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] update_history_entry_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the maintenance update history entry.
@@ -5220,6 +4911,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::UpdateHistoryEntry UpdateHistoryEntry}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_cloud_vm_cluster_update_history_entry.rb.html) to see an example of how to use get_cloud_vm_cluster_update_history_entry API.
     def get_cloud_vm_cluster_update_history_entry(cloud_vm_cluster_id, update_history_entry_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_cloud_vm_cluster_update_history_entry.' if logger
 
@@ -5276,6 +4968,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::ConsoleConnection ConsoleConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_console_connection.rb.html) to see an example of how to use get_console_connection API.
     def get_console_connection(db_node_id, console_connection_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_console_connection.' if logger
 
@@ -5333,6 +5026,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DataGuardAssociation DataGuardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_data_guard_association.rb.html) to see an example of how to use get_data_guard_association API.
     def get_data_guard_association(database_id, data_guard_association_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_data_guard_association.' if logger
 
@@ -5388,6 +5082,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Database Database}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_database.rb.html) to see an example of how to use get_database API.
     def get_database(database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_database.' if logger
 
@@ -5441,6 +5136,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DatabaseSoftwareImage DatabaseSoftwareImage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_database_software_image.rb.html) to see an example of how to use get_database_software_image API.
     def get_database_software_image(database_software_image_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_database_software_image.' if logger
 
@@ -5497,6 +5193,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DatabaseUpgradeHistoryEntry DatabaseUpgradeHistoryEntry}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_database_upgrade_history_entry.rb.html) to see an example of how to use get_database_upgrade_history_entry API.
     def get_database_upgrade_history_entry(database_id, upgrade_history_entry_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_database_upgrade_history_entry.' if logger
 
@@ -5552,6 +5249,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbHome DbHome}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_db_home.rb.html) to see an example of how to use get_db_home API.
     def get_db_home(db_home_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_home.' if logger
 
@@ -5607,6 +5305,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Patch Patch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_db_home_patch.rb.html) to see an example of how to use get_db_home_patch API.
     def get_db_home_patch(db_home_id, patch_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_home_patch.' if logger
 
@@ -5664,6 +5363,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::PatchHistoryEntry PatchHistoryEntry}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_db_home_patch_history_entry.rb.html) to see an example of how to use get_db_home_patch_history_entry API.
     def get_db_home_patch_history_entry(db_home_id, patch_history_entry_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_home_patch_history_entry.' if logger
 
@@ -5719,6 +5419,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbNode DbNode}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_db_node.rb.html) to see an example of how to use get_db_node API.
     def get_db_node(db_node_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_node.' if logger
 
@@ -5772,6 +5473,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbSystem DbSystem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_db_system.rb.html) to see an example of how to use get_db_system API.
     def get_db_system(db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_system.' if logger
 
@@ -5827,6 +5529,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Patch Patch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_db_system_patch.rb.html) to see an example of how to use get_db_system_patch API.
     def get_db_system_patch(db_system_id, patch_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_system_patch.' if logger
 
@@ -5884,6 +5587,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::PatchHistoryEntry PatchHistoryEntry}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_db_system_patch_history_entry.rb.html) to see an example of how to use get_db_system_patch_history_entry API.
     def get_db_system_patch_history_entry(db_system_id, patch_history_entry_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_db_system_patch_history_entry.' if logger
 
@@ -5932,7 +5636,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the specified Exadata Cloud@Customer infrastructure.
+    # Gets information about the specified Exadata infrastructure. Applies to Exadata Cloud@Customer instances only.
+    # To get information on an Exadata Cloud Service infrastructure resource, use the  {#get_cloud_exadata_infrastructure get_cloud_exadata_infrastructure} operation.
+    #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -5940,6 +5646,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExadataInfrastructure ExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_exadata_infrastructure.rb.html) to see an example of how to use get_exadata_infrastructure API.
     def get_exadata_infrastructure(exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_exadata_infrastructure.' if logger
 
@@ -5995,6 +5702,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::OCPUs OCPUs}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_exadata_infrastructure_ocpus.rb.html) to see an example of how to use get_exadata_infrastructure_ocpus API.
     def get_exadata_infrastructure_ocpus(autonomous_exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_exadata_infrastructure_ocpus.' if logger
 
@@ -6051,6 +5759,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExadataIormConfig ExadataIormConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_exadata_iorm_config.rb.html) to see an example of how to use get_exadata_iorm_config API.
     def get_exadata_iorm_config(db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_exadata_iorm_config.' if logger
 
@@ -6107,6 +5816,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalBackupJob ExternalBackupJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_external_backup_job.rb.html) to see an example of how to use get_external_backup_job API.
     def get_external_backup_job(backup_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_external_backup_job.' if logger
 
@@ -6162,6 +5872,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::KeyStore KeyStore}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_key_store.rb.html) to see an example of how to use get_key_store API.
     def get_key_store(key_store_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_key_store.' if logger
 
@@ -6215,6 +5926,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::MaintenanceRun MaintenanceRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_maintenance_run.rb.html) to see an example of how to use get_maintenance_run API.
     def get_maintenance_run(maintenance_run_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_maintenance_run.' if logger
 
@@ -6261,7 +5973,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the specified Exadata Cloud@Customer VM cluster.
+    # Gets information about the VM cluster. Applies to Exadata Cloud@Customer instances only.
+    #
     # @param [String] vm_cluster_id The VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -6269,6 +5982,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::VmCluster VmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_vm_cluster.rb.html) to see an example of how to use get_vm_cluster API.
     def get_vm_cluster(vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_vm_cluster.' if logger
 
@@ -6315,7 +6029,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the specified Exadata Cloud@Customer VM cluster network.
+    # Gets information about the specified VM cluster network. Applies to Exadata Cloud@Customer instances only.
+    # To get information about a cloud VM cluster in an Exadata Cloud Service instance, use the {#get_cloud_vm_cluster get_cloud_vm_cluster} operation.
+    #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] vm_cluster_network_id The VM cluster network [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -6324,6 +6040,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::VmClusterNetwork VmClusterNetwork}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_vm_cluster_network.rb.html) to see an example of how to use get_vm_cluster_network API.
     def get_vm_cluster_network(exadata_infrastructure_id, vm_cluster_network_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_vm_cluster_network.' if logger
 
@@ -6381,6 +6098,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::Patch Patch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_vm_cluster_patch.rb.html) to see an example of how to use get_vm_cluster_patch API.
     def get_vm_cluster_patch(vm_cluster_id, patch_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_vm_cluster_patch.' if logger
 
@@ -6438,6 +6156,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Database::Models::PatchHistoryEntry PatchHistoryEntry}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_vm_cluster_patch_history_entry.rb.html) to see an example of how to use get_vm_cluster_patch_history_entry API.
     def get_vm_cluster_patch_history_entry(vm_cluster_id, patch_history_entry_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#get_vm_cluster_patch_history_entry.' if logger
 
@@ -6499,6 +6218,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousExadataInfrastructure AutonomousExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/launch_autonomous_exadata_infrastructure.rb.html) to see an example of how to use launch_autonomous_exadata_infrastructure API.
     def launch_autonomous_exadata_infrastructure(launch_autonomous_exadata_infrastructure_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#launch_autonomous_exadata_infrastructure.' if logger
 
@@ -6565,6 +6285,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbSystem DbSystem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/launch_db_system.rb.html) to see an example of how to use launch_db_system API.
     def launch_db_system(launch_db_system_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#launch_db_system.' if logger
 
@@ -6611,7 +6332,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of the Autonomous Container Databases with Autonomous Data Guard enabled associated with the specified Autonomous Container Database.
+    # Gets a list of the Autonomous Container Databases with Autonomous Data Guard-enabled associated with the specified Autonomous Container Database.
     #
     # @param [String] autonomous_container_database_id The Autonomous Container Database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -6620,6 +6341,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousContainerDatabaseDataguardAssociation AutonomousContainerDatabaseDataguardAssociation}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_container_database_dataguard_associations.rb.html) to see an example of how to use list_autonomous_container_database_dataguard_associations API.
     def list_autonomous_container_database_dataguard_associations(autonomous_container_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_container_database_dataguard_associations.' if logger
 
@@ -6690,6 +6412,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :service_level_agreement_type A filter to return only resources that match the given service-level agreement type exactly.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousContainerDatabaseSummary AutonomousContainerDatabaseSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_container_databases.rb.html) to see an example of how to use list_autonomous_container_databases API.
     def list_autonomous_container_databases(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_container_databases.' if logger
 
@@ -6762,169 +6485,6 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # **Deprecated.** To get a list of Autonomous Data Warehouse backups, use the {#list_autonomous_database_backups list_autonomous_database_backups} operation.
-    #
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
-    # @option opts [String] :page The pagination token to continue listing from.
-    # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
-    #
-    #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
-    #
-    #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
-    #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
-    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDataWarehouseBackupSummary AutonomousDataWarehouseBackupSummary}>
-    def list_autonomous_data_warehouse_backups(opts = {})
-      logger.debug 'Calling operation DatabaseClient#list_autonomous_data_warehouse_backups.' if logger
-
-
-      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
-      end
-
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
-      end
-
-      if opts[:lifecycle_state] && !OCI::Database::Models::AutonomousDataWarehouseBackupSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::AutonomousDataWarehouseBackupSummary::LIFECYCLE_STATE_ENUM.'
-      end
-
-      path = '/autonomousDataWarehouseBackups'
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-      query_params[:autonomousDataWarehouseId] = opts[:autonomous_data_warehouse_id] if opts[:autonomous_data_warehouse_id]
-      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
-      query_params[:limit] = opts[:limit] if opts[:limit]
-      query_params[:page] = opts[:page] if opts[:page]
-      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
-      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
-      query_params[:displayName] = opts[:display_name] if opts[:display_name]
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_autonomous_data_warehouse_backups') do
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'Array<OCI::Database::Models::AutonomousDataWarehouseBackupSummary>'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # **Deprecated.** To get a list of Autonomous Data Warehouses, use the {#list_autonomous_databases list_autonomous_databases} operation and specify `DW` as the workload type.
-    #
-    # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
-    # @option opts [String] :page The pagination token to continue listing from.
-    # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
-    #
-    #   **Note:** If you do not include the availability domain filter, the resources are grouped by availability domain, then sorted.
-    #
-    #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
-    #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
-    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDataWarehouseSummary AutonomousDataWarehouseSummary}>
-    def list_autonomous_data_warehouses(compartment_id, opts = {})
-      logger.debug 'Calling operation DatabaseClient#list_autonomous_data_warehouses.' if logger
-
-      raise "Missing the required parameter 'compartment_id' when calling list_autonomous_data_warehouses." if compartment_id.nil?
-
-      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
-      end
-
-      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
-        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
-      end
-
-      if opts[:lifecycle_state] && !OCI::Database::Models::AutonomousDataWarehouseSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::AutonomousDataWarehouseSummary::LIFECYCLE_STATE_ENUM.'
-      end
-
-      path = '/autonomousDataWarehouses'
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-      query_params[:compartmentId] = compartment_id
-      query_params[:limit] = opts[:limit] if opts[:limit]
-      query_params[:page] = opts[:page] if opts[:page]
-      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
-      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
-      query_params[:displayName] = opts[:display_name] if opts[:display_name]
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_autonomous_data_warehouses') do
-        @api_client.call_api(
-          :GET,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'Array<OCI::Database::Models::AutonomousDataWarehouseSummary>'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
     # Gets a list of Autonomous Database backups based on either the `autonomousDatabaseId` or `compartmentId` specified as a query parameter.
     #
     # @param [Hash] opts the optional parameters
@@ -6946,6 +6506,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDatabaseBackupSummary AutonomousDatabaseBackupSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_database_backups.rb.html) to see an example of how to use list_autonomous_database_backups API.
     def list_autonomous_database_backups(opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_database_backups.' if logger
 
@@ -7033,6 +6594,7 @@ module OCI
     # @option opts [String] :clone_type A filter to return only resources that match the given clone type exactly.
     #   Allowed values are: REFRESHABLE_CLONE
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDatabaseSummary AutonomousDatabaseSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_database_clones.rb.html) to see an example of how to use list_autonomous_database_clones API.
     def list_autonomous_database_clones(compartment_id, autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_database_clones.' if logger
 
@@ -7113,6 +6675,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDatabaseDataguardAssociation AutonomousDatabaseDataguardAssociation}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_database_dataguard_associations.rb.html) to see an example of how to use list_autonomous_database_dataguard_associations API.
     def list_autonomous_database_dataguard_associations(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_database_dataguard_associations.' if logger
 
@@ -7191,6 +6754,7 @@ module OCI
     #
     # @option opts [BOOLEAN] :is_data_guard_enabled A filter to return only resources that have Data Guard enabled.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDatabaseSummary AutonomousDatabaseSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_databases.rb.html) to see an example of how to use list_autonomous_databases API.
     def list_autonomous_databases(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_databases.' if logger
 
@@ -7289,6 +6853,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDbPreviewVersionSummary AutonomousDbPreviewVersionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_db_preview_versions.rb.html) to see an example of how to use list_autonomous_db_preview_versions API.
     def list_autonomous_db_preview_versions(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_db_preview_versions.' if logger
 
@@ -7360,6 +6925,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDbVersionSummary AutonomousDbVersionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_db_versions.rb.html) to see an example of how to use list_autonomous_db_versions API.
     def list_autonomous_db_versions(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_db_versions.' if logger
 
@@ -7429,6 +6995,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousExadataInfrastructureShapeSummary AutonomousExadataInfrastructureShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_exadata_infrastructure_shapes.rb.html) to see an example of how to use list_autonomous_exadata_infrastructure_shapes API.
     def list_autonomous_exadata_infrastructure_shapes(availability_domain, compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_exadata_infrastructure_shapes.' if logger
 
@@ -7498,6 +7065,7 @@ module OCI
     # @option opts [String] :availability_domain A filter to return only resources that match the given availability domain exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousExadataInfrastructureSummary AutonomousExadataInfrastructureSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_exadata_infrastructures.rb.html) to see an example of how to use list_autonomous_exadata_infrastructures API.
     def list_autonomous_exadata_infrastructures(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_exadata_infrastructures.' if logger
 
@@ -7581,6 +7149,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousVmClusterSummary AutonomousVmClusterSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_vm_clusters.rb.html) to see an example of how to use list_autonomous_vm_clusters API.
     def list_autonomous_vm_clusters(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_autonomous_vm_clusters.' if logger
 
@@ -7658,6 +7227,7 @@ module OCI
     #
     # @option opts [String] :type A filter to return only resources that match the given type of the Backup Destination.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::BackupDestinationSummary BackupDestinationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_backup_destination.rb.html) to see an example of how to use list_backup_destination API.
     def list_backup_destination(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_backup_destination.' if logger
 
@@ -7717,6 +7287,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::BackupSummary BackupSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_backups.rb.html) to see an example of how to use list_backups API.
     def list_backups(opts = {})
       logger.debug 'Calling operation DatabaseClient#list_backups.' if logger
 
@@ -7764,7 +7335,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of the cloud Exadata infrastructure in the specified compartment.
+    # Gets a list of the cloud Exadata infrastructure resources in the specified compartment. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -7782,6 +7353,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::CloudExadataInfrastructureSummary CloudExadataInfrastructureSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_cloud_exadata_infrastructures.rb.html) to see an example of how to use list_cloud_exadata_infrastructures API.
     def list_cloud_exadata_infrastructures(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_cloud_exadata_infrastructures.' if logger
 
@@ -7846,7 +7418,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the history of the maintenance update actions performed on the specified cloud VM cluster.
+    # Gets the history of the maintenance update actions performed on the specified cloud VM cluster. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -7859,6 +7431,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::UpdateHistoryEntrySummary UpdateHistoryEntrySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_cloud_vm_cluster_update_history_entries.rb.html) to see an example of how to use list_cloud_vm_cluster_update_history_entries API.
     def list_cloud_vm_cluster_update_history_entries(cloud_vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_cloud_vm_cluster_update_history_entries.' if logger
 
@@ -7912,7 +7485,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the maintenance updates that can be applied to the requested cloud VM cluster.
+    # Lists the maintenance updates that can be applied to the specified cloud VM cluster. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -7925,6 +7498,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::UpdateSummary UpdateSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_cloud_vm_cluster_updates.rb.html) to see an example of how to use list_cloud_vm_cluster_updates API.
     def list_cloud_vm_cluster_updates(cloud_vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_cloud_vm_cluster_updates.' if logger
 
@@ -7978,7 +7552,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of the cloud VM clusters in the specified compartment.
+    # Gets a list of the cloud VM clusters in the specified compartment. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -7997,6 +7571,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::CloudVmClusterSummary CloudVmClusterSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_cloud_vm_clusters.rb.html) to see an example of how to use list_cloud_vm_clusters API.
     def list_cloud_vm_clusters(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_cloud_vm_clusters.' if logger
 
@@ -8070,6 +7645,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::ConsoleConnectionSummary ConsoleConnectionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_console_connections.rb.html) to see an example of how to use list_console_connections API.
     def list_console_connections(db_node_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_console_connections.' if logger
 
@@ -8126,6 +7702,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousPatchSummary AutonomousPatchSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_container_database_patches.rb.html) to see an example of how to use list_container_database_patches API.
     def list_container_database_patches(autonomous_container_database_id, compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_container_database_patches.' if logger
 
@@ -8184,6 +7761,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DataGuardAssociationSummary DataGuardAssociationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_data_guard_associations.rb.html) to see an example of how to use list_data_guard_associations API.
     def list_data_guard_associations(database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_data_guard_associations.' if logger
 
@@ -8250,6 +7828,7 @@ module OCI
     # @option opts [String] :image_shape_family A filter to return only resources that match the given image shape family exactly.
     # @option opts [BOOLEAN] :is_upgrade_supported If provided, filters the results to the set of database versions which are supported for Upgrade.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DatabaseSoftwareImageSummary DatabaseSoftwareImageSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_database_software_images.rb.html) to see an example of how to use list_database_software_images API.
     def list_database_software_images(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_database_software_images.' if logger
 
@@ -8342,6 +7921,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DatabaseUpgradeHistoryEntrySummary DatabaseUpgradeHistoryEntrySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_database_upgrade_history_entries.rb.html) to see an example of how to use list_database_upgrade_history_entries API.
     def list_database_upgrade_history_entries(database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_database_upgrade_history_entries.' if logger
 
@@ -8427,6 +8007,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :db_name A filter to return only resources that match the entire database name given. The match is not case sensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DatabaseSummary DatabaseSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_databases.rb.html) to see an example of how to use list_databases API.
     def list_databases(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_databases.' if logger
 
@@ -8501,6 +8082,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_home_patch_history_entries.rb.html) to see an example of how to use list_db_home_patch_history_entries API.
     def list_db_home_patch_history_entries(db_home_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_home_patch_history_entries.' if logger
 
@@ -8557,6 +8139,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_home_patches.rb.html) to see an example of how to use list_db_home_patches API.
     def list_db_home_patches(db_home_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_home_patches.' if logger
 
@@ -8623,6 +8206,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbHomeSummary DbHomeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_homes.rb.html) to see an example of how to use list_db_homes API.
     def list_db_homes(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_homes.' if logger
 
@@ -8706,6 +8290,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbNodeSummary DbNodeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_nodes.rb.html) to see an example of how to use list_db_nodes API.
     def list_db_nodes(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_nodes.' if logger
 
@@ -8779,6 +8364,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_system_patch_history_entries.rb.html) to see an example of how to use list_db_system_patch_history_entries API.
     def list_db_system_patch_history_entries(db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_system_patch_history_entries.' if logger
 
@@ -8835,6 +8421,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_system_patches.rb.html) to see an example of how to use list_db_system_patches API.
     def list_db_system_patches(db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_system_patches.' if logger
 
@@ -8891,6 +8478,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemShapeSummary DbSystemShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_system_shapes.rb.html) to see an example of how to use list_db_system_shapes API.
     def list_db_system_shapes(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_system_shapes.' if logger
 
@@ -8959,6 +8547,7 @@ module OCI
     # @option opts [String] :availability_domain A filter to return only resources that match the given availability domain exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemSummary DbSystemSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_systems.rb.html) to see an example of how to use list_db_systems API.
     def list_db_systems(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_systems.' if logger
 
@@ -9039,6 +8628,7 @@ module OCI
     #
     # @option opts [BOOLEAN] :is_upgrade_supported If provided, filters the results to the set of database versions which are supported for Upgrade.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbVersionSummary DbVersionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_versions.rb.html) to see an example of how to use list_db_versions API.
     def list_db_versions(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_db_versions.' if logger
 
@@ -9094,7 +8684,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of the Exadata Cloud@Customer infrastructure resources in the specified compartment.
+    # Lists the Exadata infrastructure resources in the specified compartment. Applies to Exadata Cloud@Customer instances only.
+    # To list the Exadata Cloud Service infrastructure resources in a compartment, use the  {#list_cloud_exadata_infrastructures list_cloud_exadata_infrastructures} operation.
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -9112,6 +8703,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::ExadataInfrastructureSummary ExadataInfrastructureSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_exadata_infrastructures.rb.html) to see an example of how to use list_exadata_infrastructures API.
     def list_exadata_infrastructures(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_exadata_infrastructures.' if logger
 
@@ -9176,6 +8768,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a list of the flex components that can be used to launch a new DB system. The flex component determines resources to allocate to the DB system - Database Servers and Storage Servers.
+    # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :name A filter to return only resources that match the entire name given. The match is not case sensitive.
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for NAME is ascending. The NAME sort order is case sensitive.
+    #
+    #   Allowed values are: NAME
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
+    # @option opts [String] :page The pagination token to continue listing from.
+    # @return [Response] A Response object with data of type {OCI::Database::Models::FlexComponentCollection FlexComponentCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_flex_components.rb.html) to see an example of how to use list_flex_components API.
+    def list_flex_components(compartment_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_flex_components.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_flex_components." if compartment_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME.'
+      end
+
+      path = '/dbSystemShapes/flexComponents'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_flex_components') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::FlexComponentCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a list of supported GI versions for the Exadata Cloud@Customer VM cluster.
     # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -9187,6 +8852,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :shape If provided, filters the results for the given shape. (default to default)
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::GiVersionSummary GiVersionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_gi_versions.rb.html) to see an example of how to use list_gi_versions API.
     def list_gi_versions(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_gi_versions.' if logger
 
@@ -9251,6 +8917,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::KeyStoreSummary KeyStoreSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_key_stores.rb.html) to see an example of how to use list_key_stores API.
     def list_key_stores(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_key_stores.' if logger
 
@@ -9320,6 +8987,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
     # @option opts [String] :availability_domain A filter to return only resources that match the given availability domain exactly.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::MaintenanceRunSummary MaintenanceRunSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_maintenance_runs.rb.html) to see an example of how to use list_maintenance_runs API.
     def list_maintenance_runs(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_maintenance_runs.' if logger
 
@@ -9394,7 +9062,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of the Exadata Cloud@Customer VM cluster networks in the specified compartment.
+    # Gets a list of the VM cluster networks in the specified compartment. Applies to Exadata Cloud@Customer instances only.
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -9413,6 +9081,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::VmClusterNetworkSummary VmClusterNetworkSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_vm_cluster_networks.rb.html) to see an example of how to use list_vm_cluster_networks API.
     def list_vm_cluster_networks(exadata_infrastructure_id, compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_vm_cluster_networks.' if logger
 
@@ -9488,6 +9157,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchHistoryEntrySummary PatchHistoryEntrySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_vm_cluster_patch_history_entries.rb.html) to see an example of how to use list_vm_cluster_patch_history_entries API.
     def list_vm_cluster_patch_history_entries(vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_vm_cluster_patch_history_entries.' if logger
 
@@ -9544,6 +9214,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::PatchSummary PatchSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_vm_cluster_patches.rb.html) to see an example of how to use list_vm_cluster_patches API.
     def list_vm_cluster_patches(vm_cluster_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_vm_cluster_patches.' if logger
 
@@ -9591,7 +9262,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of the Exadata Cloud@Customer VM clusters in the specified compartment.
+    # Lists the VM clusters in the specified compartment. Applies to Exadata Cloud@Customer instances only.
+    # To list the cloud VM clusters in an Exadata Cloud Service instance, use the {#list_cloud_vm_clusters list_cloud_vm_clusters} operation.
     #
     # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -9610,6 +9282,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Database::Models::VmClusterSummary VmClusterSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_vm_clusters.rb.html) to see an example of how to use list_vm_clusters API.
     def list_vm_clusters(compartment_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#list_vm_clusters.' if logger
 
@@ -9694,6 +9367,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExadataDbSystemMigration ExadataDbSystemMigration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/migrate_exadata_db_system_resource_model.rb.html) to see an example of how to use migrate_exadata_db_system_resource_model API.
     def migrate_exadata_db_system_resource_model(db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#migrate_exadata_db_system_resource_model.' if logger
 
@@ -9743,6 +9417,76 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Changes encryption key management from customer-managed, using the [Vault service](https://docs.cloud.oracle.com/iaas/Content/KeyManagement/Concepts/keyoverview.htm), to Oracle-managed.
+    # @param [String] database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::MigrateVaultKeyDetails] migrate_vault_key_details Request to change the source of the encryption key for the database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::Database Database}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/migrate_vault_key.rb.html) to see an example of how to use migrate_vault_key API.
+    def migrate_vault_key(database_id, migrate_vault_key_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#migrate_vault_key.' if logger
+
+      raise "Missing the required parameter 'database_id' when calling migrate_vault_key." if database_id.nil?
+      raise "Missing the required parameter 'migrate_vault_key_details' when calling migrate_vault_key." if migrate_vault_key_details.nil?
+      raise "Parameter value for 'database_id' must not be blank" if OCI::Internal::Util.blank_string?(database_id)
+
+      path = '/databases/{databaseId}/actions/migrateKey'.sub('{databaseId}', database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(migrate_vault_key_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#migrate_vault_key') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::Database'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Asynchronously registers this Autonomous Database with Data Safe.
     #
     # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -9753,6 +9497,7 @@ module OCI
     #
     # @option opts [OCI::Database::Models::RegisterAutonomousDatabaseDataSafeDetails] :register_autonomous_database_data_safe_details Request to register an Autonomous Database with Data Safe.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/register_autonomous_database_data_safe.rb.html) to see an example of how to use register_autonomous_database_data_safe API.
     def register_autonomous_database_data_safe(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#register_autonomous_database_data_safe.' if logger
 
@@ -9810,6 +9555,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousContainerDatabaseDataguardAssociation AutonomousContainerDatabaseDataguardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/reinstate_autonomous_container_database_dataguard_association.rb.html) to see an example of how to use reinstate_autonomous_container_database_dataguard_association API.
     def reinstate_autonomous_container_database_dataguard_association(autonomous_container_database_id, autonomous_container_database_dataguard_association_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#reinstate_autonomous_container_database_dataguard_association.' if logger
 
@@ -9871,6 +9617,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DataGuardAssociation DataGuardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/reinstate_data_guard_association.rb.html) to see an example of how to use reinstate_data_guard_association API.
     def reinstate_data_guard_association(database_id, data_guard_association_id, reinstate_data_guard_association_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#reinstate_data_guard_association.' if logger
 
@@ -9933,6 +9680,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousContainerDatabase AutonomousContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/restart_autonomous_container_database.rb.html) to see an example of how to use restart_autonomous_container_database API.
     def restart_autonomous_container_database(autonomous_container_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#restart_autonomous_container_database.' if logger
 
@@ -9991,6 +9739,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/restart_autonomous_database.rb.html) to see an example of how to use restart_autonomous_database API.
     def restart_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#restart_autonomous_database.' if logger
 
@@ -10037,65 +9786,6 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # **Deprecated.** To restore an Autonomous Data Warehouse, use the {#restore_autonomous_database restore_autonomous_database} operation.
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::RestoreAutonomousDataWarehouseDetails] restore_autonomous_data_warehouse_details Request to perform an Autonomous Data Warehouse restore.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
-    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
-    #
-    # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDataWarehouse AutonomousDataWarehouse}
-    def restore_autonomous_data_warehouse(autonomous_data_warehouse_id, restore_autonomous_data_warehouse_details, opts = {})
-      logger.debug 'Calling operation DatabaseClient#restore_autonomous_data_warehouse.' if logger
-
-      raise "Missing the required parameter 'autonomous_data_warehouse_id' when calling restore_autonomous_data_warehouse." if autonomous_data_warehouse_id.nil?
-      raise "Missing the required parameter 'restore_autonomous_data_warehouse_details' when calling restore_autonomous_data_warehouse." if restore_autonomous_data_warehouse_details.nil?
-      raise "Parameter value for 'autonomous_data_warehouse_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_data_warehouse_id)
-
-      path = '/autonomousDataWarehouses/{autonomousDataWarehouseId}/actions/restore'.sub('{autonomousDataWarehouseId}', autonomous_data_warehouse_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = @api_client.object_to_http_body(restore_autonomous_data_warehouse_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#restore_autonomous_data_warehouse') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::AutonomousDataWarehouse'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
     # Restores an Autonomous Database based on the provided request parameters.
     #
     # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -10108,6 +9798,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/restore_autonomous_database.rb.html) to see an example of how to use restore_autonomous_database API.
     def restore_autonomous_database(autonomous_database_id, restore_autonomous_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#restore_autonomous_database.' if logger
 
@@ -10167,6 +9858,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::Database Database}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/restore_database.rb.html) to see an example of how to use restore_database API.
     def restore_database(database_id, restore_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#restore_database.' if logger
 
@@ -10232,6 +9924,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousContainerDatabase AutonomousContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/rotate_autonomous_container_database_encryption_key.rb.html) to see an example of how to use rotate_autonomous_container_database_encryption_key API.
     def rotate_autonomous_container_database_encryption_key(autonomous_container_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#rotate_autonomous_container_database_encryption_key.' if logger
 
@@ -10299,6 +9992,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/rotate_autonomous_database_encryption_key.rb.html) to see an example of how to use rotate_autonomous_database_encryption_key API.
     def rotate_autonomous_database_encryption_key(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#rotate_autonomous_database_encryption_key.' if logger
 
@@ -10348,9 +10042,144 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # **Deprecated.** To start an Autonomous Data Warehouse, use the {#start_autonomous_database start_autonomous_database} operation.
+    # Rotates Oracle REST Data Services (ORDS) certs for an Autonomous Exadata Infrastructure resource.
     #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] autonomous_exadata_infrastructure_id The Autonomous Exadata Infrastructure  [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/rotate_ords_certs.rb.html) to see an example of how to use rotate_ords_certs API.
+    def rotate_ords_certs(autonomous_exadata_infrastructure_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#rotate_ords_certs.' if logger
+
+      raise "Missing the required parameter 'autonomous_exadata_infrastructure_id' when calling rotate_ords_certs." if autonomous_exadata_infrastructure_id.nil?
+      raise "Parameter value for 'autonomous_exadata_infrastructure_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_exadata_infrastructure_id)
+
+      path = '/autonomousExadataInfrastructures/{autonomousExadataInfrastructureId}/actions/rotateOrdsCerts'.sub('{autonomousExadataInfrastructureId}', autonomous_exadata_infrastructure_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#rotate_ords_certs') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Rotates SSL certs for an Autonomous Exadata Infrastructure resource.
+    #
+    # @param [String] autonomous_exadata_infrastructure_id The Autonomous Exadata Infrastructure  [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/rotate_ssl_certs.rb.html) to see an example of how to use rotate_ssl_certs API.
+    def rotate_ssl_certs(autonomous_exadata_infrastructure_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#rotate_ssl_certs.' if logger
+
+      raise "Missing the required parameter 'autonomous_exadata_infrastructure_id' when calling rotate_ssl_certs." if autonomous_exadata_infrastructure_id.nil?
+      raise "Parameter value for 'autonomous_exadata_infrastructure_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_exadata_infrastructure_id)
+
+      path = '/autonomousExadataInfrastructures/{autonomousExadataInfrastructureId}/actions/rotateSslCerts'.sub('{autonomousExadataInfrastructureId}', autonomous_exadata_infrastructure_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#rotate_ssl_certs') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new version of an existing [Vault service](https://docs.cloud.oracle.com/iaas/Content/KeyManagement/Concepts/keyoverview.htm) key.
+    # @param [String] database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -10358,14 +10187,23 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
-    # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDataWarehouse AutonomousDataWarehouse}
-    def start_autonomous_data_warehouse(autonomous_data_warehouse_id, opts = {})
-      logger.debug 'Calling operation DatabaseClient#start_autonomous_data_warehouse.' if logger
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::Database Database}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/rotate_vault_key.rb.html) to see an example of how to use rotate_vault_key API.
+    def rotate_vault_key(database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#rotate_vault_key.' if logger
 
-      raise "Missing the required parameter 'autonomous_data_warehouse_id' when calling start_autonomous_data_warehouse." if autonomous_data_warehouse_id.nil?
-      raise "Parameter value for 'autonomous_data_warehouse_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_data_warehouse_id)
+      raise "Missing the required parameter 'database_id' when calling rotate_vault_key." if database_id.nil?
+      raise "Parameter value for 'database_id' must not be blank" if OCI::Internal::Util.blank_string?(database_id)
 
-      path = '/autonomousDataWarehouses/{autonomousDataWarehouseId}/actions/start'.sub('{autonomousDataWarehouseId}', autonomous_data_warehouse_id.to_s)
+      path = '/databases/{databaseId}/actions/rotateKey'.sub('{databaseId}', database_id.to_s)
       operation_signing_strategy = :standard
 
       # rubocop:disable Style/NegatedIf
@@ -10377,12 +10215,15 @@ module OCI
       header_params[:accept] = 'application/json'
       header_params[:'content-type'] = 'application/json'
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 
       # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#start_autonomous_data_warehouse') do
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#rotate_vault_key') do
         @api_client.call_api(
           :POST,
           path,
@@ -10391,7 +10232,7 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
-          return_type: 'OCI::Database::Models::AutonomousDataWarehouse'
+          return_type: 'OCI::Database::Models::Database'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -10416,6 +10257,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/start_autonomous_database.rb.html) to see an example of how to use start_autonomous_database API.
     def start_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#start_autonomous_database.' if logger
 
@@ -10462,63 +10304,6 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # **Deprecated.** To stop an Autonomous Data Warehouse, use the {#stop_autonomous_database stop_autonomous_database} operation.
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
-    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
-    #
-    # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDataWarehouse AutonomousDataWarehouse}
-    def stop_autonomous_data_warehouse(autonomous_data_warehouse_id, opts = {})
-      logger.debug 'Calling operation DatabaseClient#stop_autonomous_data_warehouse.' if logger
-
-      raise "Missing the required parameter 'autonomous_data_warehouse_id' when calling stop_autonomous_data_warehouse." if autonomous_data_warehouse_id.nil?
-      raise "Parameter value for 'autonomous_data_warehouse_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_data_warehouse_id)
-
-      path = '/autonomousDataWarehouses/{autonomousDataWarehouseId}/actions/stop'.sub('{autonomousDataWarehouseId}', autonomous_data_warehouse_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = nil
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#stop_autonomous_data_warehouse') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::AutonomousDataWarehouse'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
     # Stops the specified Autonomous Database.
     #
     # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -10532,6 +10317,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/stop_autonomous_database.rb.html) to see an example of how to use stop_autonomous_database API.
     def stop_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#stop_autonomous_database.' if logger
 
@@ -10579,7 +10365,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Switches over the primary Autonomous Container Database of an Autonomous Data Guard peer association into a standby role. The standby Autonomous Container Database associated with autonomousContainerDatabaseDataguardAssociationId assumes the primary Autonomous Container Database role.
+    # Switches over the primary Autonomous Container Database of an Autonomous Data Guard peer association to standby role. The standby Autonomous Container Database associated with autonomousContainerDatabaseDataguardAssociationId assumes the primary Autonomous Container Database role.
     #
     # A switchover incurs no data loss.
     #
@@ -10593,6 +10379,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousContainerDatabaseDataguardAssociation AutonomousContainerDatabaseDataguardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/switchover_autonomous_container_database_dataguard_association.rb.html) to see an example of how to use switchover_autonomous_container_database_dataguard_association API.
     def switchover_autonomous_container_database_dataguard_association(autonomous_container_database_id, autonomous_container_database_dataguard_association_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#switchover_autonomous_container_database_dataguard_association.' if logger
 
@@ -10660,6 +10447,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/switchover_autonomous_database.rb.html) to see an example of how to use switchover_autonomous_database API.
     def switchover_autonomous_database(autonomous_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#switchover_autonomous_database.' if logger
 
@@ -10725,6 +10513,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DataGuardAssociation DataGuardAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/switchover_data_guard_association.rb.html) to see an example of how to use switchover_data_guard_association API.
     def switchover_data_guard_association(database_id, data_guard_association_id, switchover_data_guard_association_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#switchover_data_guard_association.' if logger
 
@@ -10784,6 +10573,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/terminate_autonomous_container_database.rb.html) to see an example of how to use terminate_autonomous_container_database API.
     def terminate_autonomous_container_database(autonomous_container_database_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#terminate_autonomous_container_database.' if logger
 
@@ -10839,6 +10629,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/terminate_autonomous_exadata_infrastructure.rb.html) to see an example of how to use terminate_autonomous_exadata_infrastructure API.
     def terminate_autonomous_exadata_infrastructure(autonomous_exadata_infrastructure_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#terminate_autonomous_exadata_infrastructure.' if logger
 
@@ -10894,6 +10685,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/terminate_db_system.rb.html) to see an example of how to use terminate_db_system API.
     def terminate_db_system(db_system_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#terminate_db_system.' if logger
 
@@ -10950,6 +10742,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousContainerDatabase AutonomousContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_autonomous_container_database.rb.html) to see an example of how to use update_autonomous_container_database API.
     def update_autonomous_container_database(autonomous_container_database_id, update_autonomous_container_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_autonomous_container_database.' if logger
 
@@ -10997,65 +10790,6 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # **Deprecated.** To update the CPU core count and storage size of an Autonomous Data Warehouse, use the {#update_autonomous_database update_autonomous_database} operation.
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::UpdateAutonomousDataWarehouseDetails] update_autonomous_data_warehouse_details Request to update the properties of an Autonomous Data Warehouse.
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
-    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
-    #
-    # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDataWarehouse AutonomousDataWarehouse}
-    def update_autonomous_data_warehouse(autonomous_data_warehouse_id, update_autonomous_data_warehouse_details, opts = {})
-      logger.debug 'Calling operation DatabaseClient#update_autonomous_data_warehouse.' if logger
-
-      raise "Missing the required parameter 'autonomous_data_warehouse_id' when calling update_autonomous_data_warehouse." if autonomous_data_warehouse_id.nil?
-      raise "Missing the required parameter 'update_autonomous_data_warehouse_details' when calling update_autonomous_data_warehouse." if update_autonomous_data_warehouse_details.nil?
-      raise "Parameter value for 'autonomous_data_warehouse_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_data_warehouse_id)
-
-      path = '/autonomousDataWarehouses/{autonomousDataWarehouseId}'.sub('{autonomousDataWarehouseId}', autonomous_data_warehouse_id.to_s)
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = @api_client.object_to_http_body(update_autonomous_data_warehouse_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#update_autonomous_data_warehouse') do
-        @api_client.call_api(
-          :PUT,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::Database::Models::AutonomousDataWarehouse'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
     # Updates one or more attributes of the specified Autonomous Database. See the UpdateAutonomousDatabaseDetails resource for a full list of attributes that can be updated.
     #
     # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -11070,6 +10804,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_autonomous_database.rb.html) to see an example of how to use update_autonomous_database API.
     def update_autonomous_database(autonomous_database_id, update_autonomous_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_autonomous_database.' if logger
 
@@ -11127,6 +10862,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_autonomous_database_regional_wallet.rb.html) to see an example of how to use update_autonomous_database_regional_wallet API.
     def update_autonomous_database_regional_wallet(update_autonomous_database_wallet_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_autonomous_database_regional_wallet.' if logger
 
@@ -11181,6 +10917,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_autonomous_database_wallet.rb.html) to see an example of how to use update_autonomous_database_wallet API.
     def update_autonomous_database_wallet(autonomous_database_id, update_autonomous_database_wallet_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_autonomous_database_wallet.' if logger
 
@@ -11238,6 +10975,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousExadataInfrastructure AutonomousExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_autonomous_exadata_infrastructure.rb.html) to see an example of how to use update_autonomous_exadata_infrastructure API.
     def update_autonomous_exadata_infrastructure(autonomous_exadata_infrastructure_id, update_autonomous_exadata_infrastructures_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_autonomous_exadata_infrastructure.' if logger
 
@@ -11299,6 +11037,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousVmCluster AutonomousVmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_autonomous_vm_cluster.rb.html) to see an example of how to use update_autonomous_vm_cluster API.
     def update_autonomous_vm_cluster(autonomous_vm_cluster_id, update_autonomous_vm_cluster_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_autonomous_vm_cluster.' if logger
 
@@ -11365,6 +11104,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::BackupDestination BackupDestination}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_backup_destination.rb.html) to see an example of how to use update_backup_destination API.
     def update_backup_destination(backup_destination_id, update_backup_destination_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_backup_destination.' if logger
 
@@ -11413,7 +11153,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the Cloud Exadata infrastructure resource.
+    # Updates the Cloud Exadata infrastructure resource. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] cloud_exadata_infrastructure_id The cloud Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::UpdateCloudExadataInfrastructureDetails] update_cloud_exadata_infrastructure_details Request to update the properties of an cloud Exadata infrastructure resource.
@@ -11427,6 +11167,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::CloudExadataInfrastructure CloudExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_cloud_exadata_infrastructure.rb.html) to see an example of how to use update_cloud_exadata_infrastructure API.
     def update_cloud_exadata_infrastructure(cloud_exadata_infrastructure_id, update_cloud_exadata_infrastructure_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_cloud_exadata_infrastructure.' if logger
 
@@ -11475,7 +11216,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified cloud VM cluster.
+    # Updates the specified cloud VM cluster. Applies to Exadata Cloud Service instances only.
     #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::UpdateCloudVmClusterDetails] update_cloud_vm_cluster_details Request to update the attributes of a cloud VM cluster.
@@ -11489,6 +11230,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::CloudVmCluster CloudVmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_cloud_vm_cluster.rb.html) to see an example of how to use update_cloud_vm_cluster API.
     def update_cloud_vm_cluster(cloud_vm_cluster_id, update_cloud_vm_cluster_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_cloud_vm_cluster.' if logger
 
@@ -11537,7 +11279,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the IORM settings for the specified cloud VM cluster.
+    # Updates the IORM settings for the specified cloud VM cluster in an Exadata Cloud Service instance.
     #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::ExadataIormConfigUpdateDetails] cloud_vm_cluster_iorm_config_update_details Request to perform database update.
@@ -11551,6 +11293,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExadataIormConfig ExadataIormConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_cloud_vm_cluster_iorm_config.rb.html) to see an example of how to use update_cloud_vm_cluster_iorm_config API.
     def update_cloud_vm_cluster_iorm_config(cloud_vm_cluster_id, cloud_vm_cluster_iorm_config_update_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_cloud_vm_cluster_iorm_config.' if logger
 
@@ -11611,6 +11354,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::Database Database}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_database.rb.html) to see an example of how to use update_database API.
     def update_database(database_id, update_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_database.' if logger
 
@@ -11669,6 +11413,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DatabaseSoftwareImage DatabaseSoftwareImage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_database_software_image.rb.html) to see an example of how to use update_database_software_image API.
     def update_database_software_image(database_software_image_id, update_database_software_image_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_database_software_image.' if logger
 
@@ -11727,6 +11472,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbHome DbHome}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_db_home.rb.html) to see an example of how to use update_db_home API.
     def update_db_home(db_home_id, update_db_home_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_db_home.' if logger
 
@@ -11785,6 +11531,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::DbSystem DbSystem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_db_system.rb.html) to see an example of how to use update_db_system API.
     def update_db_system(db_system_id, update_db_system_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_db_system.' if logger
 
@@ -11832,7 +11579,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the Exadata Cloud@Customer infrastructure.
+    # Updates the Exadata infrastructure resource. Applies to Exadata Cloud@Customer instances only.
+    # To update an Exadata Cloud Service infrastructure resource, use the  {#update_cloud_exadata_infrastructure update_cloud_exadata_infrastructure} operation.
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::UpdateExadataInfrastructureDetails] update_exadata_infrastructure_details Request to update the properties of an Exadata Cloud@Customer infrastructure.
@@ -11846,6 +11594,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExadataInfrastructure ExadataInfrastructure}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_exadata_infrastructure.rb.html) to see an example of how to use update_exadata_infrastructure API.
     def update_exadata_infrastructure(exadata_infrastructure_id, update_exadata_infrastructure_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_exadata_infrastructure.' if logger
 
@@ -11908,6 +11657,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::ExadataIormConfig ExadataIormConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_exadata_iorm_config.rb.html) to see an example of how to use update_exadata_iorm_config API.
     def update_exadata_iorm_config(db_system_id, exadata_iorm_config_update_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_exadata_iorm_config.' if logger
 
@@ -11971,6 +11721,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::KeyStore KeyStore}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_key_store.rb.html) to see an example of how to use update_key_store API.
     def update_key_store(key_store_id, update_key_store_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_key_store.' if logger
 
@@ -12030,6 +11781,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::MaintenanceRun MaintenanceRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_maintenance_run.rb.html) to see an example of how to use update_maintenance_run API.
     def update_maintenance_run(maintenance_run_id, update_maintenance_run_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_maintenance_run.' if logger
 
@@ -12077,7 +11829,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified Exadata Cloud@Customer VM cluster.
+    # Updates the specified VM cluster. Applies to Exadata Cloud@Customer instances only.
     #
     # @param [String] vm_cluster_id The VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::UpdateVmClusterDetails] update_vm_cluster_details Request to update the attributes of a VM cluster.
@@ -12091,6 +11843,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::VmCluster VmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_vm_cluster.rb.html) to see an example of how to use update_vm_cluster API.
     def update_vm_cluster(vm_cluster_id, update_vm_cluster_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_vm_cluster.' if logger
 
@@ -12139,7 +11892,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified Exadata Cloud@Customer VM cluster network.
+    # Updates the specified VM cluster network. Applies to Exadata Cloud@Customer instances only.
+    # To update a cloud VM cluster in an Exadata Cloud Service instance, use the {#update_cloud_vm_cluster update_cloud_vm_cluster} operation.
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] vm_cluster_network_id The VM cluster network [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -12154,6 +11908,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::VmClusterNetwork VmClusterNetwork}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_vm_cluster_network.rb.html) to see an example of how to use update_vm_cluster_network API.
     def update_vm_cluster_network(exadata_infrastructure_id, vm_cluster_network_id, update_vm_cluster_network_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#update_vm_cluster_network.' if logger
 
@@ -12218,6 +11973,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::Database Database}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/upgrade_database.rb.html) to see an example of how to use upgrade_database API.
     def upgrade_database(database_id, upgrade_database_details, opts = {})
       logger.debug 'Calling operation DatabaseClient#upgrade_database.' if logger
 
@@ -12266,7 +12022,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Validates the specified Exadata Cloud@Customer VM cluster network.
+    # Validates the specified VM cluster network. Applies to Exadata Cloud@Customer instances only.
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] vm_cluster_network_id The VM cluster network [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -12282,6 +12038,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Database::Models::VmClusterNetwork VmClusterNetwork}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/validate_vm_cluster_network.rb.html) to see an example of how to use validate_vm_cluster_network API.
     def validate_vm_cluster_network(exadata_infrastructure_id, vm_cluster_network_id, opts = {})
       logger.debug 'Calling operation DatabaseClient#validate_vm_cluster_network.' if logger
 

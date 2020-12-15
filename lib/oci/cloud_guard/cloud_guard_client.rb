@@ -118,6 +118,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/change_detector_recipe_compartment.rb.html) to see an example of how to use change_detector_recipe_compartment API.
     def change_detector_recipe_compartment(detector_recipe_id, change_detector_recipe_compartment_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#change_detector_recipe_compartment.' if logger
 
@@ -187,6 +188,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/change_managed_list_compartment.rb.html) to see an example of how to use change_managed_list_compartment API.
     def change_managed_list_compartment(managed_list_id, change_managed_list_compartment_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#change_managed_list_compartment.' if logger
 
@@ -256,6 +258,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/change_responder_recipe_compartment.rb.html) to see an example of how to use change_responder_recipe_compartment API.
     def change_responder_recipe_compartment(responder_recipe_id, change_responder_recipe_compartment_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#change_responder_recipe_compartment.' if logger
 
@@ -319,6 +322,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorRecipe DetectorRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/create_detector_recipe.rb.html) to see an example of how to use create_detector_recipe API.
     def create_detector_recipe(create_detector_recipe_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#create_detector_recipe.' if logger
 
@@ -380,6 +384,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ManagedList ManagedList}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/create_managed_list.rb.html) to see an example of how to use create_managed_list API.
     def create_managed_list(create_managed_list_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#create_managed_list.' if logger
 
@@ -441,6 +446,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderRecipe ResponderRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/create_responder_recipe.rb.html) to see an example of how to use create_responder_recipe API.
     def create_responder_recipe(create_responder_recipe_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#create_responder_recipe.' if logger
 
@@ -502,6 +508,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::Target Target}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/create_target.rb.html) to see an example of how to use create_target API.
     def create_target(create_target_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#create_target.' if logger
 
@@ -564,6 +571,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetDetectorRecipe TargetDetectorRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/create_target_detector_recipe.rb.html) to see an example of how to use create_target_detector_recipe API.
     def create_target_detector_recipe(target_id, attach_target_detector_recipe_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#create_target_detector_recipe.' if logger
 
@@ -628,6 +636,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetResponderRecipe TargetResponderRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/create_target_responder_recipe.rb.html) to see an example of how to use create_target_responder_recipe API.
     def create_target_responder_recipe(target_id, attach_target_responder_recipe_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#create_target_responder_recipe.' if logger
 
@@ -696,6 +705,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/delete_detector_recipe.rb.html) to see an example of how to use delete_detector_recipe API.
     def delete_detector_recipe(detector_recipe_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#delete_detector_recipe.' if logger
 
@@ -763,6 +773,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/delete_managed_list.rb.html) to see an example of how to use delete_managed_list API.
     def delete_managed_list(managed_list_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#delete_managed_list.' if logger
 
@@ -824,6 +835,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/delete_responder_recipe.rb.html) to see an example of how to use delete_responder_recipe API.
     def delete_responder_recipe(responder_recipe_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#delete_responder_recipe.' if logger
 
@@ -883,6 +895,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/delete_target.rb.html) to see an example of how to use delete_target API.
     def delete_target(target_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#delete_target.' if logger
 
@@ -943,6 +956,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/delete_target_detector_recipe.rb.html) to see an example of how to use delete_target_detector_recipe API.
     def delete_target_detector_recipe(target_id, target_detector_recipe_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#delete_target_detector_recipe.' if logger
 
@@ -1005,6 +1019,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/delete_target_responder_recipe.rb.html) to see an example of how to use delete_target_responder_recipe API.
     def delete_target_responder_recipe(target_id, target_responder_recipe_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#delete_target_responder_recipe.' if logger
 
@@ -1074,6 +1089,7 @@ module OCI
     #
     # @option opts [OCI::CloudGuard::Models::ExecuteResponderExecutionDetails] :execute_responder_execution_details Details for Responder Configuration
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/execute_responder_execution.rb.html) to see an example of how to use execute_responder_execution API.
     def execute_responder_execution(responder_execution_id, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#execute_responder_execution.' if logger
 
@@ -1134,6 +1150,7 @@ module OCI
     # @option opts [String] :service_type ServiceType filter for the condition meta data.
     # @option opts [String] :resource_type Resource filter for the condition meta data.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ConditionMetadataType ConditionMetadataType}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_condition_metadata_type.rb.html) to see an example of how to use get_condition_metadata_type API.
     def get_condition_metadata_type(condition_metadata_type_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_condition_metadata_type.' if logger
 
@@ -1193,6 +1210,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::Configuration Configuration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_configuration.rb.html) to see an example of how to use get_configuration API.
     def get_configuration(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_configuration.' if logger
 
@@ -1247,6 +1265,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::Detector Detector}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_detector.rb.html) to see an example of how to use get_detector API.
     def get_detector(detector_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_detector.' if logger
 
@@ -1300,6 +1319,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorRecipe DetectorRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_detector_recipe.rb.html) to see an example of how to use get_detector_recipe API.
     def get_detector_recipe(detector_recipe_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_detector_recipe.' if logger
 
@@ -1354,6 +1374,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorRecipeDetectorRule DetectorRecipeDetectorRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_detector_recipe_detector_rule.rb.html) to see an example of how to use get_detector_recipe_detector_rule API.
     def get_detector_recipe_detector_rule(detector_recipe_id, detector_rule_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_detector_recipe_detector_rule.' if logger
 
@@ -1411,6 +1432,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorRule DetectorRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_detector_rule.rb.html) to see an example of how to use get_detector_rule API.
     def get_detector_rule(detector_id, detector_rule_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_detector_rule.' if logger
 
@@ -1466,6 +1488,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ManagedList ManagedList}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_managed_list.rb.html) to see an example of how to use get_managed_list API.
     def get_managed_list(managed_list_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_managed_list.' if logger
 
@@ -1519,6 +1542,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::Problem Problem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_problem.rb.html) to see an example of how to use get_problem API.
     def get_problem(problem_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_problem.' if logger
 
@@ -1573,6 +1597,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderExecution ResponderExecution}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_responder_execution.rb.html) to see an example of how to use get_responder_execution API.
     def get_responder_execution(responder_execution_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_responder_execution.' if logger
 
@@ -1626,6 +1651,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderRecipe ResponderRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_responder_recipe.rb.html) to see an example of how to use get_responder_recipe API.
     def get_responder_recipe(responder_recipe_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_responder_recipe.' if logger
 
@@ -1680,6 +1706,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderRecipeResponderRule ResponderRecipeResponderRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_responder_recipe_responder_rule.rb.html) to see an example of how to use get_responder_recipe_responder_rule API.
     def get_responder_recipe_responder_rule(responder_recipe_id, responder_rule_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_responder_recipe_responder_rule.' if logger
 
@@ -1735,6 +1762,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderRule ResponderRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_responder_rule.rb.html) to see an example of how to use get_responder_rule API.
     def get_responder_rule(responder_rule_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_responder_rule.' if logger
 
@@ -1788,6 +1816,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::Target Target}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_target.rb.html) to see an example of how to use get_target API.
     def get_target(target_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_target.' if logger
 
@@ -1842,6 +1871,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetDetectorRecipe TargetDetectorRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_target_detector_recipe.rb.html) to see an example of how to use get_target_detector_recipe API.
     def get_target_detector_recipe(target_id, target_detector_recipe_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_target_detector_recipe.' if logger
 
@@ -1899,6 +1929,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetDetectorRecipeDetectorRule TargetDetectorRecipeDetectorRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_target_detector_recipe_detector_rule.rb.html) to see an example of how to use get_target_detector_recipe_detector_rule API.
     def get_target_detector_recipe_detector_rule(target_id, target_detector_recipe_id, detector_rule_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_target_detector_recipe_detector_rule.' if logger
 
@@ -1957,6 +1988,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetResponderRecipe TargetResponderRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_target_responder_recipe.rb.html) to see an example of how to use get_target_responder_recipe API.
     def get_target_responder_recipe(target_id, target_responder_recipe_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_target_responder_recipe.' if logger
 
@@ -2014,6 +2046,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetResponderRecipeResponderRule TargetResponderRecipeResponderRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_target_responder_recipe_responder_rule.rb.html) to see an example of how to use get_target_responder_recipe_responder_rule API.
     def get_target_responder_recipe_responder_rule(target_id, target_responder_recipe_id, responder_rule_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#get_target_responder_recipe_responder_rule.' if logger
 
@@ -2079,6 +2112,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ConditionMetadataTypeCollection ConditionMetadataTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_condition_metadata_types.rb.html) to see an example of how to use list_condition_metadata_types API.
     def list_condition_metadata_types(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_condition_metadata_types.' if logger
 
@@ -2159,6 +2193,7 @@ module OCI
     #   Allowed values are: displayName, riskLevel
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorRecipeDetectorRuleCollection DetectorRecipeDetectorRuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_detector_recipe_detector_rules.rb.html) to see an example of how to use list_detector_recipe_detector_rules API.
     def list_detector_recipe_detector_rules(detector_recipe_id, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_detector_recipe_detector_rules.' if logger
 
@@ -2271,6 +2306,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorRecipeCollection DetectorRecipeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_detector_recipes.rb.html) to see an example of how to use list_detector_recipes API.
     def list_detector_recipes(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_detector_recipes.' if logger
 
@@ -2359,6 +2395,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorRuleCollection DetectorRuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_detector_rules.rb.html) to see an example of how to use list_detector_rules API.
     def list_detector_rules(detector_id, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_detector_rules.' if logger
 
@@ -2440,6 +2477,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorCollection DetectorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_detectors.rb.html) to see an example of how to use list_detectors API.
     def list_detectors(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_detectors.' if logger
 
@@ -2517,6 +2555,7 @@ module OCI
     #   Allowed values are: timeCreated
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ImpactedResourceCollection ImpactedResourceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_impacted_resources.rb.html) to see an example of how to use list_impacted_resources API.
     def list_impacted_resources(problem_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_impacted_resources.' if logger
 
@@ -2589,6 +2628,7 @@ module OCI
     #   Allowed values are: displayName, riskLevel
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ManagedListTypeCollection ManagedListTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_managed_list_types.rb.html) to see an example of how to use list_managed_list_types API.
     def list_managed_list_types(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_managed_list_types.' if logger
 
@@ -2698,6 +2738,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ManagedListCollection ManagedListCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_managed_lists.rb.html) to see an example of how to use list_managed_lists API.
     def list_managed_lists(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_managed_lists.' if logger
 
@@ -2789,6 +2830,7 @@ module OCI
     #   Allowed values are: timeCreated
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ProblemHistoryCollection ProblemHistoryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_problem_histories.rb.html) to see an example of how to use list_problem_histories API.
     def list_problem_histories(compartment_id, problem_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_problem_histories.' if logger
 
@@ -2907,6 +2949,7 @@ module OCI
     #   Allowed values are: riskLevel, timeLastDetected, resourceName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ProblemCollection ProblemCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_problems.rb.html) to see an example of how to use list_problems API.
     def list_problems(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_problems.' if logger
 
@@ -3029,6 +3072,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::RecommendationSummaryCollection RecommendationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_recommendations.rb.html) to see an example of how to use list_recommendations API.
     def list_recommendations(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_recommendations.' if logger
 
@@ -3119,6 +3163,7 @@ module OCI
     #   Allowed values are: displayName, riskLevel
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResourceTypeCollection ResourceTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_resource_types.rb.html) to see an example of how to use list_resource_types API.
     def list_resource_types(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_resource_types.' if logger
 
@@ -3196,6 +3241,7 @@ module OCI
     #   Allowed values are: timeCreated, responderRuleName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderActivityCollection ResponderActivityCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_responder_activities.rb.html) to see an example of how to use list_responder_activities API.
     def list_responder_activities(problem_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_responder_activities.' if logger
 
@@ -3292,6 +3338,7 @@ module OCI
     #   Allowed values are: timeCreated, responderRuleName, resourceName, timeCompleted
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderExecutionCollection ResponderExecutionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_responder_executions.rb.html) to see an example of how to use list_responder_executions API.
     def list_responder_executions(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_responder_executions.' if logger
 
@@ -3395,6 +3442,7 @@ module OCI
     #   Allowed values are: displayName, riskLevel
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderRecipeResponderRuleCollection ResponderRecipeResponderRuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_responder_recipe_responder_rules.rb.html) to see an example of how to use list_responder_recipe_responder_rules API.
     def list_responder_recipe_responder_rules(responder_recipe_id, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_responder_recipe_responder_rules.' if logger
 
@@ -3506,6 +3554,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderRecipeCollection ResponderRecipeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_responder_recipes.rb.html) to see an example of how to use list_responder_recipes API.
     def list_responder_recipes(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_responder_recipes.' if logger
 
@@ -3593,6 +3642,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderRuleCollection ResponderRuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_responder_rules.rb.html) to see an example of how to use list_responder_rules API.
     def list_responder_rules(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_responder_rules.' if logger
 
@@ -3675,6 +3725,7 @@ module OCI
     #   Allowed values are: displayName, riskLevel
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetDetectorRecipeDetectorRuleCollection TargetDetectorRecipeDetectorRuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_target_detector_recipe_detector_rules.rb.html) to see an example of how to use list_target_detector_recipe_detector_rules API.
     def list_target_detector_recipe_detector_rules(target_id, target_detector_recipe_id, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_target_detector_recipe_detector_rules.' if logger
 
@@ -3759,6 +3810,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetDetectorRecipeCollection TargetDetectorRecipeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_target_detector_recipes.rb.html) to see an example of how to use list_target_detector_recipes API.
     def list_target_detector_recipes(target_id, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_target_detector_recipes.' if logger
 
@@ -3843,6 +3895,7 @@ module OCI
     #   Allowed values are: displayName, riskLevel
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetResponderRecipeResponderRuleCollection TargetResponderRecipeResponderRuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_target_responder_recipe_responder_rules.rb.html) to see an example of how to use list_target_responder_recipe_responder_rules API.
     def list_target_responder_recipe_responder_rules(target_id, target_responder_recipe_id, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_target_responder_recipe_responder_rules.' if logger
 
@@ -3927,6 +3980,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetResponderRecipeCollection TargetResponderRecipeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_target_responder_recipes.rb.html) to see an example of how to use list_target_responder_recipes API.
     def list_target_responder_recipes(target_id, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_target_responder_recipes.' if logger
 
@@ -4034,6 +4088,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetCollection TargetCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_targets.rb.html) to see an example of how to use list_targets API.
     def list_targets(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#list_targets.' if logger
 
@@ -4114,6 +4169,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::RiskScoreAggregationCollection RiskScoreAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_risk_scores.rb.html) to see an example of how to use request_risk_scores API.
     def request_risk_scores(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_risk_scores.' if logger
 
@@ -4175,6 +4231,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityScoreTrendAggregationCollection SecurityScoreTrendAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_security_score_summarized_trend.rb.html) to see an example of how to use request_security_score_summarized_trend API.
     def request_security_score_summarized_trend(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_security_score_summarized_trend.' if logger
 
@@ -4235,6 +4292,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityScoreAggregationCollection SecurityScoreAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_security_scores.rb.html) to see an example of how to use request_security_scores API.
     def request_security_scores(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_security_scores.' if logger
 
@@ -4323,6 +4381,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ActivityProblemAggregationCollection ActivityProblemAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_activity_problems.rb.html) to see an example of how to use request_summarized_activity_problems API.
     def request_summarized_activity_problems(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_summarized_activity_problems.' if logger
 
@@ -4413,6 +4472,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ProblemAggregationCollection ProblemAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_problems.rb.html) to see an example of how to use request_summarized_problems API.
     def request_summarized_problems(list_dimensions, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_summarized_problems.' if logger
 
@@ -4519,6 +4579,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderExecutionAggregationCollection ResponderExecutionAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_responder_executions.rb.html) to see an example of how to use request_summarized_responder_executions API.
     def request_summarized_responder_executions(responder_executions_dimensions, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_summarized_responder_executions.' if logger
 
@@ -4614,6 +4675,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::RiskScoreAggregationCollection RiskScoreAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_risk_scores.rb.html) to see an example of how to use request_summarized_risk_scores API.
     def request_summarized_risk_scores(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_summarized_risk_scores.' if logger
 
@@ -4672,6 +4734,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityScoreAggregationCollection SecurityScoreAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_security_scores.rb.html) to see an example of how to use request_summarized_security_scores API.
     def request_summarized_security_scores(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_summarized_security_scores.' if logger
 
@@ -4755,6 +4818,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ProblemTrendAggregationCollection ProblemTrendAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_trend_problems.rb.html) to see an example of how to use request_summarized_trend_problems API.
     def request_summarized_trend_problems(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_summarized_trend_problems.' if logger
 
@@ -4846,6 +4910,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderExecutionTrendAggregationCollection ResponderExecutionTrendAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_trend_responder_executions.rb.html) to see an example of how to use request_summarized_trend_responder_executions API.
     def request_summarized_trend_responder_executions(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_summarized_trend_responder_executions.' if logger
 
@@ -4914,6 +4979,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityScoreTrendAggregationCollection SecurityScoreTrendAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_trend_security_scores.rb.html) to see an example of how to use request_summarized_trend_security_scores API.
     def request_summarized_trend_security_scores(compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#request_summarized_trend_security_scores.' if logger
 
@@ -4973,6 +5039,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/skip_bulk_responder_execution.rb.html) to see an example of how to use skip_bulk_responder_execution API.
     def skip_bulk_responder_execution(skip_bulk_responder_execution_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#skip_bulk_responder_execution.' if logger
 
@@ -5037,6 +5104,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/skip_responder_execution.rb.html) to see an example of how to use skip_responder_execution API.
     def skip_responder_execution(responder_execution_id, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#skip_responder_execution.' if logger
 
@@ -5108,6 +5176,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/trigger_responder.rb.html) to see an example of how to use trigger_responder API.
     def trigger_responder(problem_id, trigger_responder_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#trigger_responder.' if logger
 
@@ -5166,6 +5235,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_bulk_problem_status.rb.html) to see an example of how to use update_bulk_problem_status API.
     def update_bulk_problem_status(update_bulk_problem_status_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_bulk_problem_status.' if logger
 
@@ -5231,6 +5301,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::Configuration Configuration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_configuration.rb.html) to see an example of how to use update_configuration API.
     def update_configuration(update_configuration_details, compartment_id, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_configuration.' if logger
 
@@ -5301,6 +5372,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorRecipe DetectorRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_detector_recipe.rb.html) to see an example of how to use update_detector_recipe API.
     def update_detector_recipe(detector_recipe_id, update_detector_recipe_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_detector_recipe.' if logger
 
@@ -5366,6 +5438,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DetectorRecipeDetectorRule DetectorRecipeDetectorRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_detector_recipe_detector_rule.rb.html) to see an example of how to use update_detector_recipe_detector_rule API.
     def update_detector_recipe_detector_rule(detector_recipe_id, detector_rule_id, update_detector_recipe_detector_rule_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_detector_recipe_detector_rule.' if logger
 
@@ -5436,6 +5509,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ManagedList ManagedList}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_managed_list.rb.html) to see an example of how to use update_managed_list API.
     def update_managed_list(managed_list_id, update_managed_list_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_managed_list.' if logger
 
@@ -5507,6 +5581,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::Problem Problem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_problem_status.rb.html) to see an example of how to use update_problem_status API.
     def update_problem_status(problem_id, update_problem_status_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_problem_status.' if logger
 
@@ -5571,6 +5646,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderRecipe ResponderRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_responder_recipe.rb.html) to see an example of how to use update_responder_recipe API.
     def update_responder_recipe(responder_recipe_id, update_responder_recipe_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_responder_recipe.' if logger
 
@@ -5634,6 +5710,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResponderRecipeResponderRule ResponderRecipeResponderRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_responder_recipe_responder_rule.rb.html) to see an example of how to use update_responder_recipe_responder_rule API.
     def update_responder_recipe_responder_rule(responder_recipe_id, responder_rule_id, update_responder_recipe_responder_rule_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_responder_recipe_responder_rule.' if logger
 
@@ -5698,6 +5775,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::Target Target}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_target.rb.html) to see an example of how to use update_target API.
     def update_target(target_id, update_target_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_target.' if logger
 
@@ -5761,6 +5839,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetDetectorRecipe TargetDetectorRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_target_detector_recipe.rb.html) to see an example of how to use update_target_detector_recipe API.
     def update_target_detector_recipe(target_id, target_detector_recipe_id, update_target_detector_recipe_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_target_detector_recipe.' if logger
 
@@ -5827,6 +5906,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetDetectorRecipeDetectorRule TargetDetectorRecipeDetectorRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_target_detector_recipe_detector_rule.rb.html) to see an example of how to use update_target_detector_recipe_detector_rule API.
     def update_target_detector_recipe_detector_rule(target_id, target_detector_recipe_id, detector_rule_id, update_target_detector_recipe_detector_rule_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_target_detector_recipe_detector_rule.' if logger
 
@@ -5894,6 +5974,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetResponderRecipe TargetResponderRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_target_responder_recipe.rb.html) to see an example of how to use update_target_responder_recipe API.
     def update_target_responder_recipe(target_id, target_responder_recipe_id, update_target_responder_recipe_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_target_responder_recipe.' if logger
 
@@ -5960,6 +6041,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TargetResponderRecipeResponderRule TargetResponderRecipeResponderRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_target_responder_recipe_responder_rule.rb.html) to see an example of how to use update_target_responder_recipe_responder_rule API.
     def update_target_responder_recipe_responder_rule(target_id, target_responder_recipe_id, responder_rule_id, update_target_responder_recipe_responder_rule_details, opts = {})
       logger.debug 'Calling operation CloudGuardClient#update_target_responder_recipe_responder_rule.' if logger
 

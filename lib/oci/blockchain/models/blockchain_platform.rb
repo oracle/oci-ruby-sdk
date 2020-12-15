@@ -24,6 +24,12 @@ module OCI
       COMPUTE_SHAPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    PLATFORM_SHAPE_TYPE_ENUM = [
+      PLATFORM_SHAPE_TYPE_DEFAULT = 'DEFAULT'.freeze,
+      PLATFORM_SHAPE_TYPE_CUSTOM = 'CUSTOM'.freeze,
+      PLATFORM_SHAPE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -68,13 +74,17 @@ module OCI
     # @return [String]
     attr_accessor :service_version
 
-    # **[Required]** Role of platform - founder or participant
+    # **[Required]** Role of platform - FOUNDER or PARTICIPANT
     # @return [String]
     attr_reader :platform_role
 
-    # **[Required]** Type of compute shape - one of Standard, (Enterprise) Small, Medium, Large or Extra Large
+    # **[Required]** Compute shape - STANDARD or ENTERPRISE_SMALL or ENTERPRISE_MEDIUM or ENTERPRISE_LARGE or ENTERPRISE_EXTRA_LARGE or ENTERPRISE_CUSTOM
     # @return [String]
     attr_reader :compute_shape
+
+    # Type of Platform shape - DEFAULT or CUSTOM
+    # @return [String]
+    attr_reader :platform_shape_type
 
     # Service endpoint URL, valid post-provisioning
     # @return [String]
@@ -140,6 +150,7 @@ module OCI
         'service_version': :'serviceVersion',
         'platform_role': :'platformRole',
         'compute_shape': :'computeShape',
+        'platform_shape_type': :'platformShapeType',
         'service_endpoint': :'serviceEndpoint',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
@@ -170,6 +181,7 @@ module OCI
         'service_version': :'String',
         'platform_role': :'String',
         'compute_shape': :'String',
+        'platform_shape_type': :'String',
         'service_endpoint': :'String',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
@@ -202,6 +214,7 @@ module OCI
     # @option attributes [String] :service_version The value to assign to the {#service_version} property
     # @option attributes [String] :platform_role The value to assign to the {#platform_role} property
     # @option attributes [String] :compute_shape The value to assign to the {#compute_shape} property
+    # @option attributes [String] :platform_shape_type The value to assign to the {#platform_shape_type} property
     # @option attributes [String] :service_endpoint The value to assign to the {#service_endpoint} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -271,6 +284,12 @@ module OCI
       raise 'You cannot provide both :computeShape and :compute_shape' if attributes.key?(:'computeShape') && attributes.key?(:'compute_shape')
 
       self.compute_shape = attributes[:'compute_shape'] if attributes[:'compute_shape']
+
+      self.platform_shape_type = attributes[:'platformShapeType'] if attributes[:'platformShapeType']
+
+      raise 'You cannot provide both :platformShapeType and :platform_shape_type' if attributes.key?(:'platformShapeType') && attributes.key?(:'platform_shape_type')
+
+      self.platform_shape_type = attributes[:'platform_shape_type'] if attributes[:'platform_shape_type']
 
       self.service_endpoint = attributes[:'serviceEndpoint'] if attributes[:'serviceEndpoint']
 
@@ -370,6 +389,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] platform_shape_type Object to be assigned
+    def platform_shape_type=(platform_shape_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if platform_shape_type && !PLATFORM_SHAPE_TYPE_ENUM.include?(platform_shape_type)
+        OCI.logger.debug("Unknown value for 'platform_shape_type' [" + platform_shape_type + "]. Mapping to 'PLATFORM_SHAPE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @platform_shape_type = PLATFORM_SHAPE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @platform_shape_type = platform_shape_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -401,6 +433,7 @@ module OCI
         service_version == other.service_version &&
         platform_role == other.platform_role &&
         compute_shape == other.compute_shape &&
+        platform_shape_type == other.platform_shape_type &&
         service_endpoint == other.service_endpoint &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
@@ -428,7 +461,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, description, is_byol, time_created, time_updated, service_version, platform_role, compute_shape, service_endpoint, lifecycle_state, lifecycle_details, storage_size_in_tbs, storage_used_in_tbs, is_multi_ad, total_ocpu_capacity, component_details, replicas, host_ocpu_utilization_info, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, description, is_byol, time_created, time_updated, service_version, platform_role, compute_shape, platform_shape_type, service_endpoint, lifecycle_state, lifecycle_details, storage_size_in_tbs, storage_used_in_tbs, is_multi_ad, total_ocpu_capacity, component_details, replicas, host_ocpu_utilization_info, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

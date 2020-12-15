@@ -115,6 +115,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_boot_volume_backup_compartment.rb.html) to see an example of how to use change_boot_volume_backup_compartment API.
     def change_boot_volume_backup_compartment(boot_volume_backup_id, change_boot_volume_backup_compartment_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#change_boot_volume_backup_compartment.' if logger
 
@@ -174,6 +175,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_boot_volume_compartment.rb.html) to see an example of how to use change_boot_volume_compartment API.
     def change_boot_volume_compartment(boot_volume_id, change_boot_volume_compartment_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#change_boot_volume_compartment.' if logger
 
@@ -233,6 +235,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_volume_backup_compartment.rb.html) to see an example of how to use change_volume_backup_compartment API.
     def change_volume_backup_compartment(volume_backup_id, change_volume_backup_compartment_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#change_volume_backup_compartment.' if logger
 
@@ -292,6 +295,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_volume_compartment.rb.html) to see an example of how to use change_volume_compartment API.
     def change_volume_compartment(volume_id, change_volume_compartment_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#change_volume_compartment.' if logger
 
@@ -351,6 +355,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_volume_group_backup_compartment.rb.html) to see an example of how to use change_volume_group_backup_compartment API.
     def change_volume_group_backup_compartment(volume_group_backup_id, change_volume_group_backup_compartment_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#change_volume_group_backup_compartment.' if logger
 
@@ -410,6 +415,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_volume_group_compartment.rb.html) to see an example of how to use change_volume_group_compartment API.
     def change_volume_group_compartment(volume_group_id, change_volume_group_compartment_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#change_volume_group_compartment.' if logger
 
@@ -474,6 +480,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeBackup BootVolumeBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/copy_boot_volume_backup.rb.html) to see an example of how to use copy_boot_volume_backup API.
     def copy_boot_volume_backup(boot_volume_backup_id, copy_boot_volume_backup_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#copy_boot_volume_backup.' if logger
 
@@ -541,6 +548,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackup VolumeBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/copy_volume_backup.rb.html) to see an example of how to use copy_volume_backup API.
     def copy_volume_backup(volume_backup_id, copy_volume_backup_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#copy_volume_backup.' if logger
 
@@ -606,6 +614,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolume BootVolume}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_boot_volume.rb.html) to see an example of how to use create_boot_volume API.
     def create_boot_volume(create_boot_volume_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#create_boot_volume.' if logger
 
@@ -670,6 +679,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeBackup BootVolumeBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_boot_volume_backup.rb.html) to see an example of how to use create_boot_volume_backup API.
     def create_boot_volume_backup(create_boot_volume_backup_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#create_boot_volume_backup.' if logger
 
@@ -742,6 +752,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Volume Volume}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_volume.rb.html) to see an example of how to use create_volume API.
     def create_volume(create_volume_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#create_volume.' if logger
 
@@ -806,6 +817,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackup VolumeBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_volume_backup.rb.html) to see an example of how to use create_volume_backup API.
     def create_volume_backup(create_volume_backup_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#create_volume_backup.' if logger
 
@@ -871,6 +883,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackupPolicy VolumeBackupPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_volume_backup_policy.rb.html) to see an example of how to use create_volume_backup_policy API.
     def create_volume_backup_policy(create_volume_backup_policy_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#create_volume_backup_policy.' if logger
 
@@ -928,6 +941,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackupPolicyAssignment VolumeBackupPolicyAssignment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_volume_backup_policy_assignment.rb.html) to see an example of how to use create_volume_backup_policy_assignment API.
     def create_volume_backup_policy_assignment(create_volume_backup_policy_assignment_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#create_volume_backup_policy_assignment.' if logger
 
@@ -992,6 +1006,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroup VolumeGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_volume_group.rb.html) to see an example of how to use create_volume_group API.
     def create_volume_group(create_volume_group_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#create_volume_group.' if logger
 
@@ -1052,6 +1067,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_volume_group_backup.rb.html) to see an example of how to use create_volume_group_backup API.
     def create_volume_group_backup(create_volume_group_backup_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#create_volume_group_backup.' if logger
 
@@ -1112,6 +1128,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_boot_volume.rb.html) to see an example of how to use delete_boot_volume API.
     def delete_boot_volume(boot_volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_boot_volume.' if logger
 
@@ -1167,6 +1184,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_boot_volume_backup.rb.html) to see an example of how to use delete_boot_volume_backup API.
     def delete_boot_volume_backup(boot_volume_backup_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_boot_volume_backup.' if logger
 
@@ -1223,6 +1241,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_boot_volume_kms_key.rb.html) to see an example of how to use delete_boot_volume_kms_key API.
     def delete_boot_volume_kms_key(boot_volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_boot_volume_kms_key.' if logger
 
@@ -1282,6 +1301,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_volume.rb.html) to see an example of how to use delete_volume API.
     def delete_volume(volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_volume.' if logger
 
@@ -1337,6 +1357,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_volume_backup.rb.html) to see an example of how to use delete_volume_backup API.
     def delete_volume_backup(volume_backup_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_volume_backup.' if logger
 
@@ -1400,6 +1421,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_volume_backup_policy.rb.html) to see an example of how to use delete_volume_backup_policy API.
     def delete_volume_backup_policy(policy_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_volume_backup_policy.' if logger
 
@@ -1456,6 +1478,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_volume_backup_policy_assignment.rb.html) to see an example of how to use delete_volume_backup_policy_assignment API.
     def delete_volume_backup_policy_assignment(policy_assignment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_volume_backup_policy_assignment.' if logger
 
@@ -1513,6 +1536,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_volume_group.rb.html) to see an example of how to use delete_volume_group API.
     def delete_volume_group(volume_group_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_volume_group.' if logger
 
@@ -1568,6 +1592,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_volume_group_backup.rb.html) to see an example of how to use delete_volume_group_backup API.
     def delete_volume_group_backup(volume_group_backup_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_volume_group_backup.' if logger
 
@@ -1624,6 +1649,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_volume_kms_key.rb.html) to see an example of how to use delete_volume_kms_key API.
     def delete_volume_kms_key(volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#delete_volume_kms_key.' if logger
 
@@ -1676,6 +1702,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolume BootVolume}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_boot_volume.rb.html) to see an example of how to use get_boot_volume API.
     def get_boot_volume(boot_volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_boot_volume.' if logger
 
@@ -1729,6 +1756,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeBackup BootVolumeBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_boot_volume_backup.rb.html) to see an example of how to use get_boot_volume_backup API.
     def get_boot_volume_backup(boot_volume_backup_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_boot_volume_backup.' if logger
 
@@ -1786,6 +1814,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeKmsKey BootVolumeKmsKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_boot_volume_kms_key.rb.html) to see an example of how to use get_boot_volume_kms_key API.
     def get_boot_volume_kms_key(boot_volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_boot_volume_kms_key.' if logger
 
@@ -1839,6 +1868,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Volume Volume}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume.rb.html) to see an example of how to use get_volume API.
     def get_volume(volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume.' if logger
 
@@ -1892,6 +1922,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackup VolumeBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume_backup.rb.html) to see an example of how to use get_volume_backup API.
     def get_volume_backup(volume_backup_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_backup.' if logger
 
@@ -1945,6 +1976,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackupPolicy VolumeBackupPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume_backup_policy.rb.html) to see an example of how to use get_volume_backup_policy API.
     def get_volume_backup_policy(policy_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_backup_policy.' if logger
 
@@ -2010,6 +2042,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeBackupPolicyAssignment VolumeBackupPolicyAssignment}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume_backup_policy_asset_assignment.rb.html) to see an example of how to use get_volume_backup_policy_asset_assignment API.
     def get_volume_backup_policy_asset_assignment(asset_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_backup_policy_asset_assignment.' if logger
 
@@ -2064,6 +2097,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackupPolicyAssignment VolumeBackupPolicyAssignment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume_backup_policy_assignment.rb.html) to see an example of how to use get_volume_backup_policy_assignment API.
     def get_volume_backup_policy_assignment(policy_assignment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_backup_policy_assignment.' if logger
 
@@ -2117,6 +2151,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroup VolumeGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume_group.rb.html) to see an example of how to use get_volume_group API.
     def get_volume_group(volume_group_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_group.' if logger
 
@@ -2170,6 +2205,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume_group_backup.rb.html) to see an example of how to use get_volume_group_backup API.
     def get_volume_group_backup(volume_group_backup_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_group_backup.' if logger
 
@@ -2227,6 +2263,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeKmsKey VolumeKmsKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume_kms_key.rb.html) to see an example of how to use get_volume_kms_key API.
     def get_volume_kms_key(volume_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#get_volume_kms_key.' if logger
 
@@ -2311,6 +2348,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::BootVolumeBackup BootVolumeBackup}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_boot_volume_backups.rb.html) to see an example of how to use list_boot_volume_backups API.
     def list_boot_volume_backups(compartment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#list_boot_volume_backups.' if logger
 
@@ -2398,6 +2436,7 @@ module OCI
     #
     # @option opts [String] :volume_group_id The OCID of the volume group.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::BootVolume BootVolume}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_boot_volumes.rb.html) to see an example of how to use list_boot_volumes API.
     def list_boot_volumes(availability_domain, compartment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#list_boot_volumes.' if logger
 
@@ -2470,6 +2509,7 @@ module OCI
     #   If no compartment is specified, the Oracle defined backup policies are listed.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeBackupPolicy VolumeBackupPolicy}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_volume_backup_policies.rb.html) to see an example of how to use list_volume_backup_policies API.
     def list_volume_backup_policies(opts = {})
       logger.debug 'Calling operation BlockstorageClient#list_volume_backup_policies.' if logger
 
@@ -2554,6 +2594,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeBackup VolumeBackup}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_volume_backups.rb.html) to see an example of how to use list_volume_backups API.
     def list_volume_backups(compartment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#list_volume_backups.' if logger
 
@@ -2654,6 +2695,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_volume_group_backups.rb.html) to see an example of how to use list_volume_group_backups API.
     def list_volume_group_backups(compartment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#list_volume_group_backups.' if logger
 
@@ -2752,6 +2794,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeGroup VolumeGroup}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_volume_groups.rb.html) to see an example of how to use list_volume_groups API.
     def list_volume_groups(compartment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#list_volume_groups.' if logger
 
@@ -2856,6 +2899,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Volume Volume}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_volumes.rb.html) to see an example of how to use list_volumes API.
     def list_volumes(compartment_id, opts = {})
       logger.debug 'Calling operation BlockstorageClient#list_volumes.' if logger
 
@@ -2932,6 +2976,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolume BootVolume}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_boot_volume.rb.html) to see an example of how to use update_boot_volume API.
     def update_boot_volume(boot_volume_id, update_boot_volume_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#update_boot_volume.' if logger
 
@@ -2992,6 +3037,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeBackup BootVolumeBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_boot_volume_backup.rb.html) to see an example of how to use update_boot_volume_backup API.
     def update_boot_volume_backup(boot_volume_backup_id, update_boot_volume_backup_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#update_boot_volume_backup.' if logger
 
@@ -3051,6 +3097,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeKmsKey BootVolumeKmsKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_boot_volume_kms_key.rb.html) to see an example of how to use update_boot_volume_kms_key API.
     def update_boot_volume_kms_key(boot_volume_id, update_boot_volume_kms_key_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#update_boot_volume_kms_key.' if logger
 
@@ -3111,6 +3158,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Volume Volume}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_volume.rb.html) to see an example of how to use update_volume API.
     def update_volume(volume_id, update_volume_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#update_volume.' if logger
 
@@ -3171,6 +3219,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackup VolumeBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_volume_backup.rb.html) to see an example of how to use update_volume_backup API.
     def update_volume_backup(volume_backup_id, update_volume_backup_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#update_volume_backup.' if logger
 
@@ -3243,6 +3292,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeBackupPolicy VolumeBackupPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_volume_backup_policy.rb.html) to see an example of how to use update_volume_backup_policy API.
     def update_volume_backup_policy(policy_id, update_volume_backup_policy_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#update_volume_backup_policy.' if logger
 
@@ -3310,6 +3360,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroup VolumeGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_volume_group.rb.html) to see an example of how to use update_volume_group API.
     def update_volume_group(volume_group_id, update_volume_group_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#update_volume_group.' if logger
 
@@ -3368,6 +3419,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_volume_group_backup.rb.html) to see an example of how to use update_volume_group_backup API.
     def update_volume_group_backup(volume_group_backup_id, update_volume_group_backup_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#update_volume_group_backup.' if logger
 
@@ -3427,6 +3479,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeKmsKey VolumeKmsKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_volume_kms_key.rb.html) to see an example of how to use update_volume_kms_key API.
     def update_volume_kms_key(volume_id, update_volume_kms_key_details, opts = {})
       logger.debug 'Calling operation BlockstorageClient#update_volume_kms_key.' if logger
 

@@ -2,11 +2,18 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Aggregation/facets on properties of data object.
   class DataCatalog::Models::FacetedSearchAggregation
+    PROPERTY_TYPE_ENUM = [
+      PROPERTY_TYPE_CUSTOM_PROPERTY = 'CUSTOM_PROPERTY'.freeze,
+      PROPERTY_TYPE_DEFAULT_PROPERTY = 'DEFAULT_PROPERTY'.freeze,
+      PROPERTY_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # Name of data object property
     # @return [String]
     attr_accessor :type
@@ -15,12 +22,25 @@ module OCI
     # @return [Hash<String, Integer>]
     attr_accessor :aggregation
 
+    # Data type of object property.
+    # @return [String]
+    attr_accessor :data_type
+
+    # Type of property that indicates if it was defined by the user or system.
+    # CUSTOM_PROPERTY is defined by the user on a data object.
+    # DEFAULT_PROPERTY is defined by the system on a data object.
+    #
+    # @return [String]
+    attr_reader :property_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'type',
-        'aggregation': :'aggregation'
+        'aggregation': :'aggregation',
+        'data_type': :'dataType',
+        'property_type': :'propertyType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,7 +50,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'String',
-        'aggregation': :'Hash<String, Integer>'
+        'aggregation': :'Hash<String, Integer>',
+        'data_type': :'String',
+        'property_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,6 +65,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [Hash<String, Integer>] :aggregation The value to assign to the {#aggregation} property
+    # @option attributes [String] :data_type The value to assign to the {#data_type} property
+    # @option attributes [String] :property_type The value to assign to the {#property_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -52,9 +76,34 @@ module OCI
       self.type = attributes[:'type'] if attributes[:'type']
 
       self.aggregation = attributes[:'aggregation'] if attributes[:'aggregation']
+
+      self.data_type = attributes[:'dataType'] if attributes[:'dataType']
+
+      raise 'You cannot provide both :dataType and :data_type' if attributes.key?(:'dataType') && attributes.key?(:'data_type')
+
+      self.data_type = attributes[:'data_type'] if attributes[:'data_type']
+
+      self.property_type = attributes[:'propertyType'] if attributes[:'propertyType']
+
+      raise 'You cannot provide both :propertyType and :property_type' if attributes.key?(:'propertyType') && attributes.key?(:'property_type')
+
+      self.property_type = attributes[:'property_type'] if attributes[:'property_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] property_type Object to be assigned
+    def property_type=(property_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if property_type && !PROPERTY_TYPE_ENUM.include?(property_type)
+        OCI.logger.debug("Unknown value for 'property_type' [" + property_type + "]. Mapping to 'PROPERTY_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @property_type = PROPERTY_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @property_type = property_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -66,7 +115,9 @@ module OCI
 
       self.class == other.class &&
         type == other.type &&
-        aggregation == other.aggregation
+        aggregation == other.aggregation &&
+        data_type == other.data_type &&
+        property_type == other.property_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -82,7 +133,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, aggregation].hash
+      [type, aggregation, data_type, property_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

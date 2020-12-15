@@ -106,6 +106,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token
     # @return [Response] A Response object with data of type {OCI::Dts::Models::NewTransferDevice NewTransferDevice}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/create_transfer_device.rb.html) to see an example of how to use create_transfer_device API.
     def create_transfer_device(id, create_transfer_device_details, opts = {})
       logger.debug 'Calling operation TransferDeviceClient#create_transfer_device.' if logger
 
@@ -162,6 +163,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/delete_transfer_device.rb.html) to see an example of how to use delete_transfer_device API.
     def delete_transfer_device(id, transfer_device_label, opts = {})
       logger.debug 'Calling operation TransferDeviceClient#delete_transfer_device.' if logger
 
@@ -217,6 +219,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferDevice TransferDevice}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/get_transfer_device.rb.html) to see an example of how to use get_transfer_device API.
     def get_transfer_device(id, transfer_device_label, opts = {})
       logger.debug 'Calling operation TransferDeviceClient#get_transfer_device.' if logger
 
@@ -274,6 +277,7 @@ module OCI
     #   Allowed values are: PREPARING, READY, PACKAGED, ACTIVE, PROCESSING, COMPLETE, MISSING, ERROR, DELETED, CANCELLED
     # @option opts [String] :display_name filtering by displayName
     # @return [Response] A Response object with data of type {OCI::Dts::Models::MultipleTransferDevices MultipleTransferDevices}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/list_transfer_devices.rb.html) to see an example of how to use list_transfer_devices API.
     def list_transfer_devices(id, opts = {})
       logger.debug 'Calling operation TransferDeviceClient#list_transfer_devices.' if logger
 
@@ -336,6 +340,7 @@ module OCI
     #   object's tag matches the tag specified in the request.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferDevice TransferDevice}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/update_transfer_device.rb.html) to see an example of how to use update_transfer_device API.
     def update_transfer_device(id, transfer_device_label, update_transfer_device_details, opts = {})
       logger.debug 'Calling operation TransferDeviceClient#update_transfer_device.' if logger
 

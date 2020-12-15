@@ -107,6 +107,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/attach_devices_to_transfer_package.rb.html) to see an example of how to use attach_devices_to_transfer_package API.
     def attach_devices_to_transfer_package(id, transfer_package_label, attach_devices_details, opts = {})
       logger.debug 'Calling operation TransferPackageClient#attach_devices_to_transfer_package.' if logger
 
@@ -163,6 +164,7 @@ module OCI
     # @option opts [String] :opc_retry_token
     # @option opts [OCI::Dts::Models::CreateTransferPackageDetails] :create_transfer_package_details Creates a New Transfer Package
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferPackage TransferPackage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/create_transfer_package.rb.html) to see an example of how to use create_transfer_package API.
     def create_transfer_package(id, opts = {})
       logger.debug 'Calling operation TransferPackageClient#create_transfer_package.' if logger
 
@@ -218,6 +220,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/delete_transfer_package.rb.html) to see an example of how to use delete_transfer_package API.
     def delete_transfer_package(id, transfer_package_label, opts = {})
       logger.debug 'Calling operation TransferPackageClient#delete_transfer_package.' if logger
 
@@ -274,6 +277,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/detach_devices_from_transfer_package.rb.html) to see an example of how to use detach_devices_from_transfer_package API.
     def detach_devices_from_transfer_package(id, transfer_package_label, detach_devices_details, opts = {})
       logger.debug 'Calling operation TransferPackageClient#detach_devices_from_transfer_package.' if logger
 
@@ -330,6 +334,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferPackage TransferPackage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/get_transfer_package.rb.html) to see an example of how to use get_transfer_package API.
     def get_transfer_package(id, transfer_package_label, opts = {})
       logger.debug 'Calling operation TransferPackageClient#get_transfer_package.' if logger
 
@@ -387,6 +392,7 @@ module OCI
     #   Allowed values are: PREPARING, SHIPPING, RECEIVED, PROCESSING, PROCESSED, RETURNED, DELETED, CANCELLED, CANCELLED_RETURNED
     # @option opts [String] :display_name filtering by displayName
     # @return [Response] A Response object with data of type {OCI::Dts::Models::MultipleTransferPackages MultipleTransferPackages}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/list_transfer_packages.rb.html) to see an example of how to use list_transfer_packages API.
     def list_transfer_packages(id, opts = {})
       logger.debug 'Calling operation TransferPackageClient#list_transfer_packages.' if logger
 
@@ -449,6 +455,7 @@ module OCI
     #   object's tag matches the tag specified in the request.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferPackage TransferPackage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/update_transfer_package.rb.html) to see an example of how to use update_transfer_package API.
     def update_transfer_package(id, transfer_package_label, update_transfer_package_details, opts = {})
       logger.debug 'Calling operation TransferPackageClient#update_transfer_package.' if logger
 

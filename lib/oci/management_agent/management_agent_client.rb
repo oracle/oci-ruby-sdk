@@ -112,6 +112,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::ManagementAgentInstallKey ManagementAgentInstallKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/create_management_agent_install_key.rb.html) to see an example of how to use create_management_agent_install_key API.
     def create_management_agent_install_key(create_management_agent_install_key_details, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#create_management_agent_install_key.' if logger
 
@@ -172,6 +173,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/delete_management_agent.rb.html) to see an example of how to use delete_management_agent API.
     def delete_management_agent(management_agent_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#delete_management_agent.' if logger
 
@@ -231,6 +233,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/delete_management_agent_install_key.rb.html) to see an example of how to use delete_management_agent_install_key API.
     def delete_management_agent_install_key(management_agent_install_key_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#delete_management_agent_install_key.' if logger
 
@@ -290,6 +293,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/delete_work_request.rb.html) to see an example of how to use delete_work_request API.
     def delete_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#delete_work_request.' if logger
 
@@ -350,6 +354,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/deploy_plugins.rb.html) to see an example of how to use deploy_plugins API.
     def deploy_plugins(deploy_plugins_details, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#deploy_plugins.' if logger
 
@@ -403,6 +408,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::ManagementAgent ManagementAgent}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/get_management_agent.rb.html) to see an example of how to use get_management_agent API.
     def get_management_agent(management_agent_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#get_management_agent.' if logger
 
@@ -456,6 +462,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::ManagementAgentInstallKey ManagementAgentInstallKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/get_management_agent_install_key.rb.html) to see an example of how to use get_management_agent_install_key API.
     def get_management_agent_install_key(management_agent_install_key_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#get_management_agent_install_key.' if logger
 
@@ -513,6 +520,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/get_management_agent_install_key_content.rb.html) to see an example of how to use get_management_agent_install_key_content API.
     def get_management_agent_install_key_content(management_agent_install_key_id, opts = {}, &block)
       logger.debug 'Calling operation ManagementAgentClient#get_management_agent_install_key_content.' if logger
 
@@ -611,6 +619,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#get_work_request.' if logger
 
@@ -657,6 +666,89 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the availability history records of Management Agent
+    # @param [String] management_agent_id Unique Management Agent identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [DateTime] :time_availability_status_ended_greater_than Filter to limit the availability history results to that of time after the input time including the boundary record.
+    #   Defaulted to current date minus one year.
+    #   The date and time to be given as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+    #
+    # @option opts [DateTime] :time_availability_status_started_less_than Filter to limit the availability history results to that of time before the input time including the boundary record
+    #   Defaulted to current date.
+    #   The date and time to be given as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Default order for timeAvailabilityStatusStarted is descending.
+    #    (default to timeAvailabilityStatusStarted)
+    #   Allowed values are: timeAvailabilityStatusStarted
+    # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::AvailabilityHistorySummary AvailabilityHistorySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_availability_histories.rb.html) to see an example of how to use list_availability_histories API.
+    def list_availability_histories(management_agent_id, opts = {})
+      logger.debug 'Calling operation ManagementAgentClient#list_availability_histories.' if logger
+
+      raise "Missing the required parameter 'management_agent_id' when calling list_availability_histories." if management_agent_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeAvailabilityStatusStarted].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeAvailabilityStatusStarted.'
+      end
+      raise "Parameter value for 'management_agent_id' must not be blank" if OCI::Internal::Util.blank_string?(management_agent_id)
+
+      path = '/managementAgents/{managementAgentId}/availabilityHistories'.sub('{managementAgentId}', management_agent_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:timeAvailabilityStatusEndedGreaterThan] = opts[:time_availability_status_ended_greater_than] if opts[:time_availability_status_ended_greater_than]
+      query_params[:timeAvailabilityStatusStartedLessThan] = opts[:time_availability_status_started_less_than] if opts[:time_availability_status_started_less_than]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ManagementAgentClient#list_availability_histories') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::ManagementAgent::Models::AvailabilityHistorySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Get supported agent image information
     #
     # @param [String] compartment_id The ID of the compartment from which the Management Agents to be listed.
@@ -680,6 +772,7 @@ module OCI
     # @option opts [String] :name A filter to return only resources that match the entire platform name given.
     # @option opts [String] :lifecycle_state Filter to return only Management Agents in the particular lifecycle state.
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::ManagementAgentImageSummary ManagementAgentImageSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_management_agent_images.rb.html) to see an example of how to use list_management_agent_images API.
     def list_management_agent_images(compartment_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#list_management_agent_images.' if logger
 
@@ -764,6 +857,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::ManagementAgentInstallKeySummary ManagementAgentInstallKeySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_management_agent_install_keys.rb.html) to see an example of how to use list_management_agent_install_keys API.
     def list_management_agent_install_keys(compartment_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#list_management_agent_install_keys.' if logger
 
@@ -846,6 +940,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :lifecycle_state Filter to return only Management Agents in the particular lifecycle state.
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::ManagementAgentPluginSummary ManagementAgentPluginSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_management_agent_plugins.rb.html) to see an example of how to use list_management_agent_plugins API.
     def list_management_agent_plugins(compartment_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#list_management_agent_plugins.' if logger
 
@@ -930,6 +1025,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::ManagementAgentSummary ManagementAgentSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_management_agents.rb.html) to see an example of how to use list_management_agents API.
     def list_management_agents(compartment_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#list_management_agents.' if logger
 
@@ -1016,6 +1112,7 @@ module OCI
     #    (default to timestamp)
     #   Allowed values are: timestamp
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#list_work_request_errors.' if logger
 
@@ -1089,6 +1186,7 @@ module OCI
     #    (default to timestamp)
     #   Allowed values are: timestamp
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#list_work_request_logs.' if logger
 
@@ -1168,6 +1266,7 @@ module OCI
     #    (default to timeAccepted)
     #   Allowed values are: timeAccepted
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#list_work_requests.' if logger
 
@@ -1254,6 +1353,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::ManagementAgent ManagementAgent}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/update_management_agent.rb.html) to see an example of how to use update_management_agent API.
     def update_management_agent(management_agent_id, update_management_agent_details, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#update_management_agent.' if logger
 
@@ -1325,6 +1425,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::ManagementAgentInstallKey ManagementAgentInstallKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/update_management_agent_install_key.rb.html) to see an example of how to use update_management_agent_install_key API.
     def update_management_agent_install_key(management_agent_install_key_id, update_management_agent_install_key_details, opts = {})
       logger.debug 'Calling operation ManagementAgentClient#update_management_agent_install_key.' if logger
 

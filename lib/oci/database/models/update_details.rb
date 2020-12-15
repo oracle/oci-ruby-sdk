@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details specifying which maintenance update to apply to the target and which actions are to be performed by the maintenance update.
+  # Details specifying which maintenance update to apply to the cloud VM cluster and which actions are to be performed by the maintenance update. Applies to Exadata Cloud Service instances only.
   #
   class Database::Models::UpdateDetails
     UPDATE_ACTION_ENUM = [

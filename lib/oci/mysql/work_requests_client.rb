@@ -114,6 +114,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation WorkRequestsClient#get_work_request.' if logger
 
@@ -179,6 +180,7 @@ module OCI
     #   Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation WorkRequestsClient#list_work_request_errors.' if logger
 
@@ -245,6 +247,7 @@ module OCI
     #   Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation WorkRequestsClient#list_work_request_logs.' if logger
 
@@ -315,6 +318,7 @@ module OCI
     #   Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation WorkRequestsClient#list_work_requests.' if logger
 

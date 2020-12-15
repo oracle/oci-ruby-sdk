@@ -22,6 +22,8 @@ module OCI
         'db_home_id': :'dbHomeId',
         'db_version': :'dbVersion',
         'source': :'source',
+        'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId',
         'database': :'database'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -34,6 +36,8 @@ module OCI
         'db_home_id': :'String',
         'db_version': :'String',
         'source': :'String',
+        'kms_key_id': :'String',
+        'kms_key_version_id': :'String',
         'database': :'OCI::Database::Models::CreateDatabaseDetails'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -47,6 +51,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :db_home_id The value to assign to the {OCI::Database::Models::CreateDatabaseBase#db_home_id #db_home_id} proprety
     # @option attributes [String] :db_version The value to assign to the {OCI::Database::Models::CreateDatabaseBase#db_version #db_version} proprety
+    # @option attributes [String] :kms_key_id The value to assign to the {OCI::Database::Models::CreateDatabaseBase#kms_key_id #kms_key_id} proprety
+    # @option attributes [String] :kms_key_version_id The value to assign to the {OCI::Database::Models::CreateDatabaseBase#kms_key_version_id #kms_key_version_id} proprety
     # @option attributes [OCI::Database::Models::CreateDatabaseDetails] :database The value to assign to the {#database} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -75,6 +81,8 @@ module OCI
         db_home_id == other.db_home_id &&
         db_version == other.db_version &&
         source == other.source &&
+        kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id &&
         database == other.database
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -91,7 +99,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_home_id, db_version, source, database].hash
+      [db_home_id, db_version, source, kms_key_id, kms_key_version_id, database].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
