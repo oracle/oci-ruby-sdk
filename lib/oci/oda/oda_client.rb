@@ -122,6 +122,7 @@ module OCI
     #   then the service might reject a retry of the original creation request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/change_oda_instance_compartment.rb.html) to see an example of how to use change_oda_instance_compartment API.
     def change_oda_instance_compartment(oda_instance_id, change_oda_instance_compartment_details, opts = {})
       logger.debug 'Calling operation OdaClient#change_oda_instance_compartment.' if logger
 
@@ -189,6 +190,7 @@ module OCI
     #   then the service might reject a retry of the original creation request.
     #
     # @return [Response] A Response object with data of type {OCI::Oda::Models::OdaInstance OdaInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/create_oda_instance.rb.html) to see an example of how to use create_oda_instance API.
     def create_oda_instance(create_oda_instance_details, opts = {})
       logger.debug 'Calling operation OdaClient#create_oda_instance.' if logger
 
@@ -251,6 +253,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/delete_oda_instance.rb.html) to see an example of how to use delete_oda_instance API.
     def delete_oda_instance(oda_instance_id, opts = {})
       logger.debug 'Calling operation OdaClient#delete_oda_instance.' if logger
 
@@ -304,6 +307,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
     # @return [Response] A Response object with data of type {OCI::Oda::Models::OdaInstance OdaInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/get_oda_instance.rb.html) to see an example of how to use get_oda_instance API.
     def get_oda_instance(oda_instance_id, opts = {})
       logger.debug 'Calling operation OdaClient#get_oda_instance.' if logger
 
@@ -361,6 +365,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
     # @return [Response] A Response object with data of type {OCI::Oda::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation OdaClient#get_work_request.' if logger
 
@@ -441,6 +446,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
     # @return [Response] A Response object with data of type Array<{OCI::Oda::Models::OdaInstanceSummary OdaInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/list_oda_instances.rb.html) to see an example of how to use list_oda_instances API.
     def list_oda_instances(compartment_id, opts = {})
       logger.debug 'Calling operation OdaClient#list_oda_instances.' if logger
 
@@ -532,6 +538,7 @@ module OCI
     # @option opts [String] :sort_order Sort the results in this order, use either `ASC` (ascending) or `DESC` (descending).
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Oda::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation OdaClient#list_work_request_errors.' if logger
 
@@ -617,6 +624,7 @@ module OCI
     # @option opts [String] :sort_order Sort the results in this order, use either `ASC` (ascending) or `DESC` (descending).
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Oda::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation OdaClient#list_work_request_logs.' if logger
 
@@ -703,6 +711,7 @@ module OCI
     # @option opts [String] :sort_order Sort the results in this order, use either `ASC` (ascending) or `DESC` (descending).
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Oda::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation OdaClient#list_work_requests.' if logger
 
@@ -785,6 +794,7 @@ module OCI
     #   then the service might reject a retry of the original creation request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/start_oda_instance.rb.html) to see an example of how to use start_oda_instance API.
     def start_oda_instance(oda_instance_id, opts = {})
       logger.debug 'Calling operation OdaClient#start_oda_instance.' if logger
 
@@ -857,6 +867,7 @@ module OCI
     #   then the service might reject a retry of the original creation request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/stop_oda_instance.rb.html) to see an example of how to use stop_oda_instance API.
     def stop_oda_instance(oda_instance_id, opts = {})
       logger.debug 'Calling operation OdaClient#stop_oda_instance.' if logger
 
@@ -920,6 +931,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
     # @return [Response] A Response object with data of type {OCI::Oda::Models::OdaInstance OdaInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/update_oda_instance.rb.html) to see an example of how to use update_oda_instance API.
     def update_oda_instance(oda_instance_id, update_oda_instance_details, opts = {})
       logger.debug 'Calling operation OdaClient#update_oda_instance.' if logger
 

@@ -121,6 +121,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/add_entity_association.rb.html) to see an example of how to use add_entity_association API.
     def add_entity_association(namespace_name, log_analytics_entity_id, add_entity_association_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#add_entity_association.' if logger
 
@@ -189,6 +190,7 @@ module OCI
     #   Allowed values are: name, priority
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLabelCollection LogAnalyticsLabelCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/batch_get_basic_info.rb.html) to see an example of how to use batch_get_basic_info API.
     def batch_get_basic_info(namespace_name, basic_details, is_include_deleted, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#batch_get_basic_info.' if logger
 
@@ -265,6 +267,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/cancel_query_work_request.rb.html) to see an example of how to use cancel_query_work_request API.
     def cancel_query_work_request(namespace_name, work_request_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#cancel_query_work_request.' if logger
 
@@ -336,6 +339,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/change_log_analytics_entity_compartment.rb.html) to see an example of how to use change_log_analytics_entity_compartment API.
     def change_log_analytics_entity_compartment(namespace_name, log_analytics_entity_id, change_log_analytics_entity_compartment_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#change_log_analytics_entity_compartment.' if logger
 
@@ -409,6 +413,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/change_log_analytics_log_group_compartment.rb.html) to see an example of how to use change_log_analytics_log_group_compartment API.
     def change_log_analytics_log_group_compartment(namespace_name, log_analytics_log_group_id, change_log_analytics_log_group_compartment_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#change_log_analytics_log_group_compartment.' if logger
 
@@ -476,6 +481,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/change_log_analytics_object_collection_rule_compartment.rb.html) to see an example of how to use change_log_analytics_object_collection_rule_compartment API.
     def change_log_analytics_object_collection_rule_compartment(namespace_name, log_analytics_object_collection_rule_id, change_log_analytics_object_collection_rule_compartment_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#change_log_analytics_object_collection_rule_compartment.' if logger
 
@@ -550,6 +556,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/change_scheduled_task_compartment.rb.html) to see an example of how to use change_scheduled_task_compartment API.
     def change_scheduled_task_compartment(namespace_name, scheduled_task_id, change_scheduled_task_compartment_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#change_scheduled_task_compartment.' if logger
 
@@ -626,6 +633,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/clean.rb.html) to see an example of how to use clean API.
     def clean(namespace_name, scheduled_task_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#clean.' if logger
 
@@ -692,6 +700,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEntity LogAnalyticsEntity}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/create_log_analytics_entity.rb.html) to see an example of how to use create_log_analytics_entity API.
     def create_log_analytics_entity(namespace_name, create_log_analytics_entity_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#create_log_analytics_entity.' if logger
 
@@ -756,6 +765,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/create_log_analytics_entity_type.rb.html) to see an example of how to use create_log_analytics_entity_type API.
     def create_log_analytics_entity_type(namespace_name, create_log_analytics_entity_type_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#create_log_analytics_entity_type.' if logger
 
@@ -819,6 +829,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLogGroup LogAnalyticsLogGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/create_log_analytics_log_group.rb.html) to see an example of how to use create_log_analytics_log_group API.
     def create_log_analytics_log_group(namespace_name, create_log_analytics_log_group_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#create_log_analytics_log_group.' if logger
 
@@ -877,6 +888,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule LogAnalyticsObjectCollectionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/create_log_analytics_object_collection_rule.rb.html) to see an example of how to use create_log_analytics_object_collection_rule API.
     def create_log_analytics_object_collection_rule(namespace_name, create_log_analytics_object_collection_rule_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#create_log_analytics_object_collection_rule.' if logger
 
@@ -939,6 +951,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ScheduledTask ScheduledTask}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/create_scheduled_task.rb.html) to see an example of how to use create_scheduled_task API.
     def create_scheduled_task(namespace_name, create_scheduled_task_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#create_scheduled_task.' if logger
 
@@ -1003,6 +1016,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_associations.rb.html) to see an example of how to use delete_associations API.
     def delete_associations(namespace_name, delete_log_analytics_association_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_associations.' if logger
 
@@ -1072,6 +1086,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_field.rb.html) to see an example of how to use delete_field API.
     def delete_field(namespace_name, field_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_field.' if logger
 
@@ -1143,6 +1158,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_label.rb.html) to see an example of how to use delete_label API.
     def delete_label(namespace_name, label_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_label.' if logger
 
@@ -1209,6 +1225,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_log_analytics_entity.rb.html) to see an example of how to use delete_log_analytics_entity API.
     def delete_log_analytics_entity(namespace_name, log_analytics_entity_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_log_analytics_entity.' if logger
 
@@ -1273,6 +1290,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_log_analytics_entity_type.rb.html) to see an example of how to use delete_log_analytics_entity_type API.
     def delete_log_analytics_entity_type(namespace_name, entity_type_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_log_analytics_entity_type.' if logger
 
@@ -1336,6 +1354,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_log_analytics_log_group.rb.html) to see an example of how to use delete_log_analytics_log_group API.
     def delete_log_analytics_log_group(namespace_name, log_analytics_log_group_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_log_analytics_log_group.' if logger
 
@@ -1401,6 +1420,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_log_analytics_object_collection_rule.rb.html) to see an example of how to use delete_log_analytics_object_collection_rule API.
     def delete_log_analytics_object_collection_rule(namespace_name, log_analytics_object_collection_rule_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_log_analytics_object_collection_rule.' if logger
 
@@ -1470,6 +1490,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_parser.rb.html) to see an example of how to use delete_parser API.
     def delete_parser(namespace_name, parser_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_parser.' if logger
 
@@ -1537,6 +1558,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_scheduled_task.rb.html) to see an example of how to use delete_scheduled_task API.
     def delete_scheduled_task(namespace_name, scheduled_task_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_scheduled_task.' if logger
 
@@ -1606,6 +1628,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_source.rb.html) to see an example of how to use delete_source API.
     def delete_source(namespace_name, source_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_source.' if logger
 
@@ -1673,6 +1696,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_upload.rb.html) to see an example of how to use delete_upload API.
     def delete_upload(namespace_name, upload_reference, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_upload.' if logger
 
@@ -1733,6 +1757,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_upload_file.rb.html) to see an example of how to use delete_upload_file API.
     def delete_upload_file(namespace_name, upload_reference, file_reference, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_upload_file.' if logger
 
@@ -1793,6 +1818,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_upload_warning.rb.html) to see an example of how to use delete_upload_warning API.
     def delete_upload_warning(namespace_name, upload_reference, warning_reference, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#delete_upload_warning.' if logger
 
@@ -1857,6 +1883,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::Success Success}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/disable_archiving.rb.html) to see an example of how to use disable_archiving API.
     def disable_archiving(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#disable_archiving.' if logger
 
@@ -1919,6 +1946,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::Success Success}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/enable_archiving.rb.html) to see an example of how to use enable_archiving API.
     def enable_archiving(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#enable_archiving.' if logger
 
@@ -1988,6 +2016,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::EstimatePurgeDataSizeResult EstimatePurgeDataSizeResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/estimate_purge_data_size.rb.html) to see an example of how to use estimate_purge_data_size API.
     def estimate_purge_data_size(namespace_name, estimate_purge_data_size_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#estimate_purge_data_size.' if logger
 
@@ -2055,6 +2084,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/export_custom_content.rb.html) to see an example of how to use export_custom_content API.
     def export_custom_content(namespace_name, export_custom_content_details, opts = {}, &block)
       logger.debug 'Calling operation LogAnalyticsClient#export_custom_content.' if logger
 
@@ -2159,6 +2189,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/export_query_result.rb.html) to see an example of how to use export_query_result API.
     def export_query_result(namespace_name, export_details, opts = {}, &block)
       logger.debug 'Calling operation LogAnalyticsClient#export_query_result.' if logger
 
@@ -2267,6 +2298,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ExtractLogFieldResults ExtractLogFieldResults}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/extract_structured_log_field_paths.rb.html) to see an example of how to use extract_structured_log_field_paths API.
     def extract_structured_log_field_paths(namespace_name, logan_parser_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#extract_structured_log_field_paths.' if logger
 
@@ -2338,6 +2370,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ExtractLogHeaderResults ExtractLogHeaderResults}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/extract_structured_log_header_paths.rb.html) to see an example of how to use extract_structured_log_header_paths API.
     def extract_structured_log_header_paths(namespace_name, logan_parser_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#extract_structured_log_header_paths.' if logger
 
@@ -2401,6 +2434,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::FilterOutput FilterOutput}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/filter.rb.html) to see an example of how to use filter API.
     def filter(namespace_name, filter_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#filter.' if logger
 
@@ -2457,6 +2491,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::AssociationSummaryReport AssociationSummaryReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_association_summary.rb.html) to see an example of how to use get_association_summary API.
     def get_association_summary(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_association_summary.' if logger
 
@@ -2520,6 +2555,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ColumnNameCollection ColumnNameCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_column_names.rb.html) to see an example of how to use get_column_names API.
     def get_column_names(namespace_name, sql_query, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_column_names.' if logger
 
@@ -2579,6 +2615,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsConfigWorkRequest LogAnalyticsConfigWorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_config_work_request.rb.html) to see an example of how to use get_config_work_request API.
     def get_config_work_request(namespace_name, work_request_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_config_work_request.' if logger
 
@@ -2636,6 +2673,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsField LogAnalyticsField}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_field.rb.html) to see an example of how to use get_field API.
     def get_field(namespace_name, field_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_field.' if logger
 
@@ -2693,6 +2731,7 @@ module OCI
     # @option opts [BOOLEAN] :is_show_detail show detail flag (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::FieldSummaryReport FieldSummaryReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_fields_summary.rb.html) to see an example of how to use get_fields_summary API.
     def get_fields_summary(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_fields_summary.' if logger
 
@@ -2749,6 +2788,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLabel LogAnalyticsLabel}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_label.rb.html) to see an example of how to use get_label API.
     def get_label(namespace_name, label_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_label.' if logger
 
@@ -2805,6 +2845,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LabelSummaryReport LabelSummaryReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_label_summary.rb.html) to see an example of how to use get_label_summary API.
     def get_label_summary(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_label_summary.' if logger
 
@@ -2860,6 +2901,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEntitySummaryReport LogAnalyticsEntitySummaryReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_log_analytics_entities_summary.rb.html) to see an example of how to use get_log_analytics_entities_summary API.
     def get_log_analytics_entities_summary(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_log_analytics_entities_summary.' if logger
 
@@ -2918,6 +2960,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEntity LogAnalyticsEntity}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_log_analytics_entity.rb.html) to see an example of how to use get_log_analytics_entity API.
     def get_log_analytics_entity(namespace_name, log_analytics_entity_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_log_analytics_entity.' if logger
 
@@ -2976,6 +3019,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEntityType LogAnalyticsEntityType}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_log_analytics_entity_type.rb.html) to see an example of how to use get_log_analytics_entity_type API.
     def get_log_analytics_entity_type(namespace_name, entity_type_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_log_analytics_entity_type.' if logger
 
@@ -3033,6 +3077,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLogGroup LogAnalyticsLogGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_log_analytics_log_group.rb.html) to see an example of how to use get_log_analytics_log_group API.
     def get_log_analytics_log_group(namespace_name, log_analytics_log_group_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_log_analytics_log_group.' if logger
 
@@ -3090,6 +3135,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogGroupSummaryReport LogGroupSummaryReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_log_analytics_log_groups_summary.rb.html) to see an example of how to use get_log_analytics_log_groups_summary API.
     def get_log_analytics_log_groups_summary(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_log_analytics_log_groups_summary.' if logger
 
@@ -3147,6 +3193,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule LogAnalyticsObjectCollectionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_log_analytics_object_collection_rule.rb.html) to see an example of how to use get_log_analytics_object_collection_rule API.
     def get_log_analytics_object_collection_rule(namespace_name, log_analytics_object_collection_rule_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_log_analytics_object_collection_rule.' if logger
 
@@ -3204,6 +3251,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::Namespace Namespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_namespace.rb.html) to see an example of how to use get_namespace API.
     def get_namespace(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_namespace.' if logger
 
@@ -3259,6 +3307,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsParser LogAnalyticsParser}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_parser.rb.html) to see an example of how to use get_parser API.
     def get_parser(namespace_name, parser_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_parser.' if logger
 
@@ -3315,6 +3364,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ParserSummaryReport ParserSummaryReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_parser_summary.rb.html) to see an example of how to use get_parser_summary API.
     def get_parser_summary(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_parser_summary.' if logger
 
@@ -3378,6 +3428,7 @@ module OCI
     # @option opts [String] :output_mode Specifies the format for the returned results. (default to JSON_ROWS)
     #   Allowed values are: JSON_ROWS
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::QueryAggregation QueryAggregation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_query_result.rb.html) to see an example of how to use get_query_result API.
     def get_query_result(namespace_name, work_request_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_query_result.' if logger
 
@@ -3444,6 +3495,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::QueryWorkRequest QueryWorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_query_work_request.rb.html) to see an example of how to use get_query_work_request API.
     def get_query_work_request(namespace_name, work_request_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_query_work_request.' if logger
 
@@ -3503,6 +3555,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ScheduledTask ScheduledTask}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_scheduled_task.rb.html) to see an example of how to use get_scheduled_task API.
     def get_scheduled_task(namespace_name, scheduled_task_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_scheduled_task.' if logger
 
@@ -3561,6 +3614,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsSource LogAnalyticsSource}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_source.rb.html) to see an example of how to use get_source API.
     def get_source(namespace_name, source_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_source.' if logger
 
@@ -3619,6 +3673,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::SourceSummaryReport SourceSummaryReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_source_summary.rb.html) to see an example of how to use get_source_summary API.
     def get_source_summary(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_source_summary.' if logger
 
@@ -3674,6 +3729,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::Storage Storage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_storage.rb.html) to see an example of how to use get_storage API.
     def get_storage(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_storage.' if logger
 
@@ -3730,6 +3786,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::StorageUsage StorageUsage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_storage_usage.rb.html) to see an example of how to use get_storage_usage API.
     def get_storage_usage(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_storage_usage.' if logger
 
@@ -3787,6 +3844,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::StorageWorkRequest StorageWorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_storage_work_request.rb.html) to see an example of how to use get_storage_work_request API.
     def get_storage_work_request(work_request_id, namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_storage_work_request.' if logger
 
@@ -3844,6 +3902,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::Upload Upload}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_upload.rb.html) to see an example of how to use get_upload API.
     def get_upload(namespace_name, upload_reference, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_upload.' if logger
 
@@ -3901,6 +3960,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(namespace_name, work_request_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#get_work_request.' if logger
 
@@ -3965,6 +4025,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsImportCustomContent LogAnalyticsImportCustomContent}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/import_custom_content.rb.html) to see an example of how to use import_custom_content API.
     def import_custom_content(namespace_name, import_custom_content_file_body, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#import_custom_content.' if logger
 
@@ -4035,6 +4096,7 @@ module OCI
     #   Allowed values are: entityName, entityTypeDisplayName, associationCount
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsAssociatedEntityCollection LogAnalyticsAssociatedEntityCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_associated_entities.rb.html) to see an example of how to use list_associated_entities API.
     def list_associated_entities(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_associated_entities.' if logger
 
@@ -4113,6 +4175,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsConfigWorkRequestCollection LogAnalyticsConfigWorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_config_work_requests.rb.html) to see an example of how to use list_config_work_requests API.
     def list_config_work_requests(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_config_work_requests.' if logger
 
@@ -4194,6 +4257,7 @@ module OCI
     #   Allowed values are: timeCreated, timeUpdated, name
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEntityCollection LogAnalyticsEntityCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_entity_associations.rb.html) to see an example of how to use list_entity_associations API.
     def list_entity_associations(namespace_name, log_analytics_entity_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_entity_associations.' if logger
 
@@ -4282,6 +4346,7 @@ module OCI
     #   Allowed values are: sourceDisplayName, timeLastAttempted, status
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsAssociationCollection LogAnalyticsAssociationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_entity_source_associations.rb.html) to see an example of how to use list_entity_source_associations API.
     def list_entity_source_associations(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_entity_source_associations.' if logger
 
@@ -4375,6 +4440,7 @@ module OCI
     #   Allowed values are: name, dataType
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsFieldCollection LogAnalyticsFieldCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_fields.rb.html) to see an example of how to use list_fields API.
     def list_fields(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_fields.' if logger
 
@@ -4455,6 +4521,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LabelPriorityCollection LabelPriorityCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_label_priorities.rb.html) to see an example of how to use list_label_priorities API.
     def list_label_priorities(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_label_priorities.' if logger
 
@@ -4519,6 +4586,7 @@ module OCI
     #   Allowed values are: sourceDisplayName, labelFieldDisplayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LabelSourceCollection LabelSourceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_label_source_details.rb.html) to see an example of how to use list_label_source_details API.
     def list_label_source_details(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_label_source_details.' if logger
 
@@ -4602,6 +4670,7 @@ module OCI
     #   Allowed values are: name, priority, sourceUsing
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLabelCollection LogAnalyticsLabelCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_labels.rb.html) to see an example of how to use list_labels API.
     def list_labels(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_labels.' if logger
 
@@ -4718,6 +4787,7 @@ module OCI
     #   Allowed values are: timeCreated, timeUpdated, name
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEntityCollection LogAnalyticsEntityCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_log_analytics_entities.rb.html) to see an example of how to use list_log_analytics_entities API.
     def list_log_analytics_entities(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_log_analytics_entities.' if logger
 
@@ -4824,6 +4894,7 @@ module OCI
     #   Allowed values are: timeCreated, timeUpdated, name
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEntityTypeCollection LogAnalyticsEntityTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_log_analytics_entity_types.rb.html) to see an example of how to use list_log_analytics_entity_types API.
     def list_log_analytics_entity_types(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_log_analytics_entity_types.' if logger
 
@@ -4914,6 +4985,7 @@ module OCI
     #   Allowed values are: timeCreated, timeUpdated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLogGroupSummaryCollection LogAnalyticsLogGroupSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_log_analytics_log_groups.rb.html) to see an example of how to use list_log_analytics_log_groups API.
     def list_log_analytics_log_groups(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_log_analytics_log_groups.' if logger
 
@@ -4996,6 +5068,7 @@ module OCI
     #   Allowed values are: timeUpdated, timeCreated, name
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRuleCollection LogAnalyticsObjectCollectionRuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_log_analytics_object_collection_rules.rb.html) to see an example of how to use list_log_analytics_object_collection_rules API.
     def list_log_analytics_object_collection_rules(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_log_analytics_object_collection_rules.' if logger
 
@@ -5076,6 +5149,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsMetaSourceTypeCollection LogAnalyticsMetaSourceTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_meta_source_types.rb.html) to see an example of how to use list_meta_source_types API.
     def list_meta_source_types(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_meta_source_types.' if logger
 
@@ -5139,6 +5213,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::NamespaceCollection NamespaceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_namespaces.rb.html) to see an example of how to use list_namespaces API.
     def list_namespaces(compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_namespaces.' if logger
 
@@ -5200,6 +5275,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsParserFunctionCollection LogAnalyticsParserFunctionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_parser_functions.rb.html) to see an example of how to use list_parser_functions API.
     def list_parser_functions(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_parser_functions.' if logger
 
@@ -5269,6 +5345,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsParserMetaPluginCollection LogAnalyticsParserMetaPluginCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_parser_meta_plugins.rb.html) to see an example of how to use list_parser_meta_plugins API.
     def list_parser_meta_plugins(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_parser_meta_plugins.' if logger
 
@@ -5348,6 +5425,7 @@ module OCI
     #   Allowed values are: name, type, sourcesCount, timeUpdated
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsParserCollection LogAnalyticsParserCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_parsers.rb.html) to see an example of how to use list_parsers API.
     def list_parsers(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_parsers.' if logger
 
@@ -5442,6 +5520,7 @@ module OCI
     #    (default to tinmeStarted)
     #   Allowed values are: timeStarted, timeExpires
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::QueryWorkRequestCollection QueryWorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_query_work_requests.rb.html) to see an example of how to use list_query_work_requests API.
     def list_query_work_requests(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_query_work_requests.' if logger
 
@@ -5527,6 +5606,7 @@ module OCI
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, timeUpdated, displayName
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ScheduledTaskCollection ScheduledTaskCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_scheduled_tasks.rb.html) to see an example of how to use list_scheduled_tasks API.
     def list_scheduled_tasks(namespace_name, task_type, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_scheduled_tasks.' if logger
 
@@ -5616,6 +5696,7 @@ module OCI
     # @option opts [String] :sort_by sort by field (default to entityName)
     #   Allowed values are: entityName, timeLastAttempted, status
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsAssociationCollection LogAnalyticsAssociationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_source_associations.rb.html) to see an example of how to use list_source_associations API.
     def list_source_associations(namespace_name, source_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_source_associations.' if logger
 
@@ -5701,6 +5782,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsSourceExtendedFieldDefinitionCollection LogAnalyticsSourceExtendedFieldDefinitionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_source_extended_field_definitions.rb.html) to see an example of how to use list_source_extended_field_definitions API.
     def list_source_extended_field_definitions(namespace_name, source_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_source_extended_field_definitions.' if logger
 
@@ -5775,6 +5857,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLabelOperatorCollection LogAnalyticsLabelOperatorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_source_label_operators.rb.html) to see an example of how to use list_source_label_operators API.
     def list_source_label_operators(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_source_label_operators.' if logger
 
@@ -5843,6 +5926,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsMetaFunctionCollection LogAnalyticsMetaFunctionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_source_meta_functions.rb.html) to see an example of how to use list_source_meta_functions API.
     def list_source_meta_functions(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_source_meta_functions.' if logger
 
@@ -5914,6 +5998,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsSourcePatternCollection LogAnalyticsSourcePatternCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_source_patterns.rb.html) to see an example of how to use list_source_patterns API.
     def list_source_patterns(namespace_name, source_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_source_patterns.' if logger
 
@@ -6001,6 +6086,7 @@ module OCI
     # @option opts [BOOLEAN] :is_simplified is simplified
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsSourceCollection LogAnalyticsSourceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_sources.rb.html) to see an example of how to use list_sources API.
     def list_sources(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_sources.' if logger
 
@@ -6089,6 +6175,7 @@ module OCI
     #    (default to timeCreated)
     #   Allowed values are: timeCreated
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_storage_work_request_errors.rb.html) to see an example of how to use list_storage_work_request_errors API.
     def list_storage_work_request_errors(compartment_id, work_request_id, namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_storage_work_request_errors.' if logger
 
@@ -6176,6 +6263,7 @@ module OCI
     # @option opts [String] :policy_name This is the query parameter of purge policy name
     # @option opts [String] :policy_id This is the query parameter of purge policy ID
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::StorageWorkRequestCollection StorageWorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_storage_work_requests.rb.html) to see an example of how to use list_storage_work_requests API.
     def list_storage_work_requests(compartment_id, namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_storage_work_requests.' if logger
 
@@ -6260,6 +6348,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::CharEncodingCollection CharEncodingCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_supported_char_encodings.rb.html) to see an example of how to use list_supported_char_encodings API.
     def list_supported_char_encodings(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_supported_char_encodings.' if logger
 
@@ -6318,6 +6407,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::TimezoneCollection TimezoneCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_supported_timezones.rb.html) to see an example of how to use list_supported_timezones API.
     def list_supported_timezones(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_supported_timezones.' if logger
 
@@ -6386,6 +6476,7 @@ module OCI
     #   Allowed values are: IN_PROGRESS, SUCCESSFUL, FAILED
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::UploadFileCollection UploadFileCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_upload_files.rb.html) to see an example of how to use list_upload_files API.
     def list_upload_files(namespace_name, upload_reference, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_upload_files.' if logger
 
@@ -6469,6 +6560,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::UploadWarningCollection UploadWarningCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_upload_warnings.rb.html) to see an example of how to use list_upload_warnings API.
     def list_upload_warnings(namespace_name, upload_reference, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_upload_warnings.' if logger
 
@@ -6541,6 +6633,7 @@ module OCI
     #   Allowed values are: timeUpdated, timeCreated, name
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::UploadCollection UploadCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_uploads.rb.html) to see an example of how to use list_uploads API.
     def list_uploads(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_uploads.' if logger
 
@@ -6613,6 +6706,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(namespace_name, work_request_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_work_request_errors.' if logger
 
@@ -6675,6 +6769,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::WorkRequestLogCollection WorkRequestLogCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(namespace_name, work_request_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_work_request_logs.' if logger
 
@@ -6737,6 +6832,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::WorkRequestCollection WorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(namespace_name, compartment_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#list_work_requests.' if logger
 
@@ -6801,6 +6897,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/offboard_namespace.rb.html) to see an example of how to use offboard_namespace API.
     def offboard_namespace(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#offboard_namespace.' if logger
 
@@ -6863,6 +6960,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/onboard_namespace.rb.html) to see an example of how to use onboard_namespace API.
     def onboard_namespace(namespace_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#onboard_namespace.' if logger
 
@@ -6919,6 +7017,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ParseQueryOutput ParseQueryOutput}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/parse_query.rb.html) to see an example of how to use parse_query API.
     def parse_query(namespace_name, parse_query_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#parse_query.' if logger
 
@@ -6989,6 +7088,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/purge_storage_data.rb.html) to see an example of how to use purge_storage_data API.
     def purge_storage_data(namespace_name, purge_storage_data_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#purge_storage_data.' if logger
 
@@ -7053,6 +7153,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::QueryWorkRequest QueryWorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/put_query_work_request_background.rb.html) to see an example of how to use put_query_work_request_background API.
     def put_query_work_request_background(namespace_name, work_request_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#put_query_work_request_background.' if logger
 
@@ -7114,6 +7215,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [Integer] :limit Maximum number of results to return in this request.  Note a limit=-1 returns all results from pageId onwards up to maxtotalCount. (default to 10)
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::QueryAggregation QueryAggregation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/query.rb.html) to see an example of how to use query API.
     def query(namespace_name, query_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#query.' if logger
 
@@ -7185,6 +7287,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/recall_archived_data.rb.html) to see an example of how to use recall_archived_data API.
     def recall_archived_data(namespace_name, recall_archived_data_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#recall_archived_data.' if logger
 
@@ -7257,6 +7360,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLookup LogAnalyticsLookup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/register_lookup.rb.html) to see an example of how to use register_lookup API.
     def register_lookup(namespace_name, type, register_lookup_content_file_body, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#register_lookup.' if logger
 
@@ -7337,6 +7441,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/release_recalled_data.rb.html) to see an example of how to use release_recalled_data API.
     def release_recalled_data(namespace_name, release_recalled_data_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#release_recalled_data.' if logger
 
@@ -7409,6 +7514,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/remove_entity_associations.rb.html) to see an example of how to use remove_entity_associations API.
     def remove_entity_associations(namespace_name, log_analytics_entity_id, remove_entity_associations_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#remove_entity_associations.' if logger
 
@@ -7486,6 +7592,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/run.rb.html) to see an example of how to use run API.
     def run(namespace_name, scheduled_task_id, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#run.' if logger
 
@@ -7546,6 +7653,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::SuggestOutput SuggestOutput}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/suggest.rb.html) to see an example of how to use suggest API.
     def suggest(namespace_name, suggest_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#suggest.' if logger
 
@@ -7611,6 +7719,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ParserTestResult ParserTestResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/test_parser.rb.html) to see an example of how to use test_parser API.
     def test_parser(namespace_name, test_parser_payload_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#test_parser.' if logger
 
@@ -7683,6 +7792,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEntity LogAnalyticsEntity}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/update_log_analytics_entity.rb.html) to see an example of how to use update_log_analytics_entity API.
     def update_log_analytics_entity(namespace_name, log_analytics_entity_id, update_log_analytics_entity_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#update_log_analytics_entity.' if logger
 
@@ -7750,6 +7860,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/update_log_analytics_entity_type.rb.html) to see an example of how to use update_log_analytics_entity_type API.
     def update_log_analytics_entity_type(namespace_name, update_log_analytics_entity_type_details, entity_type_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#update_log_analytics_entity_type.' if logger
 
@@ -7815,6 +7926,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLogGroup LogAnalyticsLogGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/update_log_analytics_log_group.rb.html) to see an example of how to use update_log_analytics_log_group API.
     def update_log_analytics_log_group(namespace_name, log_analytics_log_group_id, update_log_analytics_log_group_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#update_log_analytics_log_group.' if logger
 
@@ -7881,6 +7993,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule LogAnalyticsObjectCollectionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/update_log_analytics_object_collection_rule.rb.html) to see an example of how to use update_log_analytics_object_collection_rule API.
     def update_log_analytics_object_collection_rule(namespace_name, log_analytics_object_collection_rule_id, update_log_analytics_object_collection_rule_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#update_log_analytics_object_collection_rule.' if logger
 
@@ -7951,6 +8064,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ScheduledTask ScheduledTask}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/update_scheduled_task.rb.html) to see an example of how to use update_scheduled_task API.
     def update_scheduled_task(namespace_name, scheduled_task_id, update_scheduled_task_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#update_scheduled_task.' if logger
 
@@ -8017,6 +8131,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::Storage Storage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/update_storage.rb.html) to see an example of how to use update_storage API.
     def update_storage(namespace_name, update_storage_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#update_storage.' if logger
 
@@ -8106,6 +8221,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::Upload Upload}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/upload_log_file.rb.html) to see an example of how to use upload_log_file API.
     def upload_log_file(namespace_name, upload_name, log_source_name, filename, opc_meta_loggrpid, upload_log_file_body, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#upload_log_file.' if logger
 
@@ -8187,6 +8303,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/upsert_associations.rb.html) to see an example of how to use upsert_associations API.
     def upsert_associations(namespace_name, upsert_log_analytics_association_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#upsert_associations.' if logger
 
@@ -8257,6 +8374,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsField LogAnalyticsField}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/upsert_field.rb.html) to see an example of how to use upsert_field API.
     def upsert_field(namespace_name, upsert_log_analytics_field_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#upsert_field.' if logger
 
@@ -8328,6 +8446,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLabel LogAnalyticsLabel}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/upsert_label.rb.html) to see an example of how to use upsert_label API.
     def upsert_label(namespace_name, upsert_log_analytics_label_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#upsert_label.' if logger
 
@@ -8399,6 +8518,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsParser LogAnalyticsParser}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/upsert_parser.rb.html) to see an example of how to use upsert_parser API.
     def upsert_parser(namespace_name, upsert_log_analytics_parser_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#upsert_parser.' if logger
 
@@ -8473,6 +8593,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsSource LogAnalyticsSource}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/upsert_source.rb.html) to see an example of how to use upsert_source API.
     def upsert_source(namespace_name, upsert_log_analytics_source_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#upsert_source.' if logger
 
@@ -8548,6 +8669,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsAssociationParameterCollection LogAnalyticsAssociationParameterCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/validate_association_parameters.rb.html) to see an example of how to use validate_association_parameters API.
     def validate_association_parameters(namespace_name, upsert_log_analytics_association_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#validate_association_parameters.' if logger
 
@@ -8620,6 +8742,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::FileValidationResponse FileValidationResponse}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/validate_file.rb.html) to see an example of how to use validate_file API.
     def validate_file(namespace_name, object_location, filename, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#validate_file.' if logger
 
@@ -8688,6 +8811,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::SourceValidateResults SourceValidateResults}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/validate_source.rb.html) to see an example of how to use validate_source API.
     def validate_source(namespace_name, upsert_log_analytics_source_details, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#validate_source.' if logger
 
@@ -8755,6 +8879,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ExtendedFieldsValidationResult ExtendedFieldsValidationResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/validate_source_extended_field_details.rb.html) to see an example of how to use validate_source_extended_field_details API.
     def validate_source_extended_field_details(namespace_name, log_analytics_source, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#validate_source_extended_field_details.' if logger
 
@@ -8817,6 +8942,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::SourceMappingResponse SourceMappingResponse}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/validate_source_mapping.rb.html) to see an example of how to use validate_source_mapping API.
     def validate_source_mapping(namespace_name, object_location, filename, log_source_name, opts = {})
       logger.debug 'Calling operation LogAnalyticsClient#validate_source_mapping.' if logger
 

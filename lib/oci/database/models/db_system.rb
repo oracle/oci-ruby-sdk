@@ -122,6 +122,10 @@ module OCI
     # @return [String]
     attr_accessor :domain
 
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # The Oracle Database version of the DB system.
     # @return [String]
     attr_accessor :version
@@ -162,7 +166,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # Additional information about the current lifecycleState.
+    # Additional information about the current lifecycle state.
     # @return [String]
     attr_accessor :lifecycle_details
 
@@ -274,6 +278,7 @@ module OCI
         'time_zone': :'timeZone',
         'hostname': :'hostname',
         'domain': :'domain',
+        'kms_key_id': :'kmsKeyId',
         'version': :'version',
         'cpu_core_count': :'cpuCoreCount',
         'cluster_name': :'clusterName',
@@ -324,6 +329,7 @@ module OCI
         'time_zone': :'String',
         'hostname': :'String',
         'domain': :'String',
+        'kms_key_id': :'String',
         'version': :'String',
         'cpu_core_count': :'Integer',
         'cluster_name': :'String',
@@ -376,6 +382,7 @@ module OCI
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
     # @option attributes [String] :domain The value to assign to the {#domain} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :version The value to assign to the {#version} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [String] :cluster_name The value to assign to the {#cluster_name} property
@@ -487,6 +494,12 @@ module OCI
       self.hostname = attributes[:'hostname'] if attributes[:'hostname']
 
       self.domain = attributes[:'domain'] if attributes[:'domain']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
 
       self.version = attributes[:'version'] if attributes[:'version']
 
@@ -720,6 +733,7 @@ module OCI
         time_zone == other.time_zone &&
         hostname == other.hostname &&
         domain == other.domain &&
+        kms_key_id == other.kms_key_id &&
         version == other.version &&
         cpu_core_count == other.cpu_core_count &&
         cluster_name == other.cluster_name &&
@@ -761,7 +775,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags, source_db_system_id, point_in_time_data_disk_clone_timestamp].hash
+      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, kms_key_id, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags, source_db_system_id, point_in_time_data_disk_clone_timestamp].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

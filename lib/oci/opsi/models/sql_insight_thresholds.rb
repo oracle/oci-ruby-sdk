@@ -43,6 +43,11 @@ module OCI
     # @return [Integer]
     attr_accessor :increase_in_inefficient_wait_in_pct
 
+    # **[Required]** Improved Percent Threshold is used to derive improving SQLs.
+    #
+    # @return [Integer]
+    attr_accessor :improved_in_pct
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -52,7 +57,8 @@ module OCI
         'inefficiency_in_pct': :'inefficiencyInPct',
         'increase_in_io_in_pct': :'increaseInIOInPct',
         'increase_in_cpu_in_pct': :'increaseInCPUInPct',
-        'increase_in_inefficient_wait_in_pct': :'increaseInInefficientWaitInPct'
+        'increase_in_inefficient_wait_in_pct': :'increaseInInefficientWaitInPct',
+        'improved_in_pct': :'improvedInPct'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,7 +72,8 @@ module OCI
         'inefficiency_in_pct': :'Integer',
         'increase_in_io_in_pct': :'Integer',
         'increase_in_cpu_in_pct': :'Integer',
-        'increase_in_inefficient_wait_in_pct': :'Integer'
+        'increase_in_inefficient_wait_in_pct': :'Integer',
+        'improved_in_pct': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,6 +90,7 @@ module OCI
     # @option attributes [Integer] :increase_in_io_in_pct The value to assign to the {#increase_in_io_in_pct} property
     # @option attributes [Integer] :increase_in_cpu_in_pct The value to assign to the {#increase_in_cpu_in_pct} property
     # @option attributes [Integer] :increase_in_inefficient_wait_in_pct The value to assign to the {#increase_in_inefficient_wait_in_pct} property
+    # @option attributes [Integer] :improved_in_pct The value to assign to the {#improved_in_pct} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -131,6 +139,14 @@ module OCI
 
       self.increase_in_inefficient_wait_in_pct = attributes[:'increase_in_inefficient_wait_in_pct'] if attributes[:'increase_in_inefficient_wait_in_pct']
       self.increase_in_inefficient_wait_in_pct = 50 if increase_in_inefficient_wait_in_pct.nil? && !attributes.key?(:'increaseInInefficientWaitInPct') && !attributes.key?(:'increase_in_inefficient_wait_in_pct') # rubocop:disable Style/StringLiterals
+
+      self.improved_in_pct = attributes[:'improvedInPct'] if attributes[:'improvedInPct']
+      self.improved_in_pct = 20 if improved_in_pct.nil? && !attributes.key?(:'improvedInPct') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :improvedInPct and :improved_in_pct' if attributes.key?(:'improvedInPct') && attributes.key?(:'improved_in_pct')
+
+      self.improved_in_pct = attributes[:'improved_in_pct'] if attributes[:'improved_in_pct']
+      self.improved_in_pct = 20 if improved_in_pct.nil? && !attributes.key?(:'improvedInPct') && !attributes.key?(:'improved_in_pct') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -149,7 +165,8 @@ module OCI
         inefficiency_in_pct == other.inefficiency_in_pct &&
         increase_in_io_in_pct == other.increase_in_io_in_pct &&
         increase_in_cpu_in_pct == other.increase_in_cpu_in_pct &&
-        increase_in_inefficient_wait_in_pct == other.increase_in_inefficient_wait_in_pct
+        increase_in_inefficient_wait_in_pct == other.increase_in_inefficient_wait_in_pct &&
+        improved_in_pct == other.improved_in_pct
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -165,7 +182,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [degradation_in_pct, variability, inefficiency_in_pct, increase_in_io_in_pct, increase_in_cpu_in_pct, increase_in_inefficient_wait_in_pct].hash
+      [degradation_in_pct, variability, inefficiency_in_pct, increase_in_io_in_pct, increase_in_cpu_in_pct, increase_in_inefficient_wait_in_pct, improved_in_pct].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

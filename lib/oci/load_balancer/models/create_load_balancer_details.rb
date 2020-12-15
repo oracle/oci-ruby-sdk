@@ -36,6 +36,11 @@ module OCI
     # @return [String]
     attr_accessor :shape_name
 
+    # The configuration details to create load balancer using Flexible shape. This is required only if shapeName is `Flexible`.
+    #
+    # @return [OCI::LoadBalancer::Models::ShapeDetails]
+    attr_accessor :shape_details
+
     # Whether the load balancer has a VCN-local (private) IP address.
     #
     # If \"true\", the service assigns a private IP address to the load balancer.
@@ -131,6 +136,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'shape_name': :'shapeName',
+        'shape_details': :'shapeDetails',
         'is_private': :'isPrivate',
         'ip_mode': :'ipMode',
         'reserved_ips': :'reservedIps',
@@ -156,6 +162,7 @@ module OCI
         'compartment_id': :'String',
         'display_name': :'String',
         'shape_name': :'String',
+        'shape_details': :'OCI::LoadBalancer::Models::ShapeDetails',
         'is_private': :'BOOLEAN',
         'ip_mode': :'String',
         'reserved_ips': :'Array<OCI::LoadBalancer::Models::ReservedIP>',
@@ -183,6 +190,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
+    # @option attributes [OCI::LoadBalancer::Models::ShapeDetails] :shape_details The value to assign to the {#shape_details} property
     # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
     # @option attributes [String] :ip_mode The value to assign to the {#ip_mode} property
     # @option attributes [Array<OCI::LoadBalancer::Models::ReservedIP>] :reserved_ips The value to assign to the {#reserved_ips} property
@@ -220,6 +228,12 @@ module OCI
       raise 'You cannot provide both :shapeName and :shape_name' if attributes.key?(:'shapeName') && attributes.key?(:'shape_name')
 
       self.shape_name = attributes[:'shape_name'] if attributes[:'shape_name']
+
+      self.shape_details = attributes[:'shapeDetails'] if attributes[:'shapeDetails']
+
+      raise 'You cannot provide both :shapeDetails and :shape_details' if attributes.key?(:'shapeDetails') && attributes.key?(:'shape_details')
+
+      self.shape_details = attributes[:'shape_details'] if attributes[:'shape_details']
 
       self.is_private = attributes[:'isPrivate'] unless attributes[:'isPrivate'].nil?
       self.is_private = false if is_private.nil? && !attributes.key?(:'isPrivate') # rubocop:disable Style/StringLiterals
@@ -320,6 +334,7 @@ module OCI
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         shape_name == other.shape_name &&
+        shape_details == other.shape_details &&
         is_private == other.is_private &&
         ip_mode == other.ip_mode &&
         reserved_ips == other.reserved_ips &&
@@ -349,7 +364,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, shape_name, is_private, ip_mode, reserved_ips, listeners, hostnames, backend_sets, network_security_group_ids, subnet_ids, certificates, ssl_cipher_suites, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
+      [compartment_id, display_name, shape_name, shape_details, is_private, ip_mode, reserved_ips, listeners, hostnames, backend_sets, network_security_group_ids, subnet_ids, certificates, ssl_cipher_suites, path_route_sets, freeform_tags, defined_tags, rule_sets].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -14,15 +14,24 @@ module OCI
     #   *  100Mbps
     #   *  400Mbps
     #   *  8000Mbps
+    #   *  Flexible
+    #
+    #   Example: `Flexible`
     #
     # @return [String]
     attr_accessor :shape_name
+
+    # The configuration details to update load balancer to a different profile.
+    #
+    # @return [OCI::LoadBalancer::Models::ShapeDetails]
+    attr_accessor :shape_details
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'shape_name': :'shapeName'
+        'shape_name': :'shapeName',
+        'shape_details': :'shapeDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -31,7 +40,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'shape_name': :'String'
+        'shape_name': :'String',
+        'shape_details': :'OCI::LoadBalancer::Models::ShapeDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,6 +53,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
+    # @option attributes [OCI::LoadBalancer::Models::ShapeDetails] :shape_details The value to assign to the {#shape_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -54,6 +65,12 @@ module OCI
       raise 'You cannot provide both :shapeName and :shape_name' if attributes.key?(:'shapeName') && attributes.key?(:'shape_name')
 
       self.shape_name = attributes[:'shape_name'] if attributes[:'shape_name']
+
+      self.shape_details = attributes[:'shapeDetails'] if attributes[:'shapeDetails']
+
+      raise 'You cannot provide both :shapeDetails and :shape_details' if attributes.key?(:'shapeDetails') && attributes.key?(:'shape_details')
+
+      self.shape_details = attributes[:'shape_details'] if attributes[:'shape_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -67,7 +84,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        shape_name == other.shape_name
+        shape_name == other.shape_name &&
+        shape_details == other.shape_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -83,7 +101,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [shape_name].hash
+      [shape_name, shape_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

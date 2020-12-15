@@ -5,7 +5,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The activation details for the Exadata Cloud@Customer infrastructure.
+  # The activation details for the Exadata Cloud@Customer infrastructure. Applies to Exadata Cloud@Customer instances only.
+  #
   class Database::Models::ActivateExadataInfrastructureDetails
     # **[Required]** The activation zip file.
     # @return [String]

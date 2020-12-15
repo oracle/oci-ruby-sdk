@@ -13,6 +13,7 @@ module OCI
       DB_WORKLOAD_OLTP = 'OLTP'.freeze,
       DB_WORKLOAD_DW = 'DW'.freeze,
       DB_WORKLOAD_AJD = 'AJD'.freeze,
+      DB_WORKLOAD_APEX = 'APEX'.freeze,
       DB_WORKLOAD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -33,6 +34,7 @@ module OCI
     # - OLTP - indicates an Autonomous Transaction Processing database
     # - DW - indicates an Autonomous Data Warehouse database
     # - AJD - indicates an Autonomous JSON Database
+    # - APEX - indicates an Autonomous Database with the Oracle Application Express (APEX) workload type.
     #
     # @return [String]
     attr_reader :db_workload

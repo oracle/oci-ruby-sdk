@@ -12,6 +12,8 @@ end
 
 # Require models
 require 'oci/management_agent/models/action_types'
+require 'oci/management_agent/models/availability_history_summary'
+require 'oci/management_agent/models/availability_status'
 require 'oci/management_agent/models/create_management_agent_install_key_details'
 require 'oci/management_agent/models/datatypes'
 require 'oci/management_agent/models/deploy_plugins_details'

@@ -112,6 +112,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/computeinstanceagent/cancel_instance_agent_command.rb.html) to see an example of how to use cancel_instance_agent_command API.
     def cancel_instance_agent_command(instance_agent_command_id, opts = {})
       logger.debug 'Calling operation ComputeInstanceAgentClient#cancel_instance_agent_command.' if logger
 
@@ -174,6 +175,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::ComputeInstanceAgent::Models::InstanceAgentCommand InstanceAgentCommand}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/computeinstanceagent/create_instance_agent_command.rb.html) to see an example of how to use create_instance_agent_command API.
     def create_instance_agent_command(create_instance_agent_command_details, opts = {})
       logger.debug 'Calling operation ComputeInstanceAgentClient#create_instance_agent_command.' if logger
 
@@ -230,6 +232,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ComputeInstanceAgent::Models::InstanceAgentCommand InstanceAgentCommand}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/computeinstanceagent/get_instance_agent_command.rb.html) to see an example of how to use get_instance_agent_command API.
     def get_instance_agent_command(instance_agent_command_id, opts = {})
       logger.debug 'Calling operation ComputeInstanceAgentClient#get_instance_agent_command.' if logger
 
@@ -286,6 +289,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ComputeInstanceAgent::Models::InstanceAgentCommandExecution InstanceAgentCommandExecution}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/computeinstanceagent/get_instance_agent_command_execution.rb.html) to see an example of how to use get_instance_agent_command_execution API.
     def get_instance_agent_command_execution(instance_agent_command_id, instance_id, opts = {})
       logger.debug 'Calling operation ComputeInstanceAgentClient#get_instance_agent_command_execution.' if logger
 
@@ -364,6 +368,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state. The state value is case-insensitive.
     # @return [Response] A Response object with data of type Array<{OCI::ComputeInstanceAgent::Models::InstanceAgentCommandExecutionSummary InstanceAgentCommandExecutionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/computeinstanceagent/list_instance_agent_command_executions.rb.html) to see an example of how to use list_instance_agent_command_executions API.
     def list_instance_agent_command_executions(compartment_id, instance_id, opts = {})
       logger.debug 'Calling operation ComputeInstanceAgentClient#list_instance_agent_command_executions.' if logger
 
@@ -457,6 +462,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::ComputeInstanceAgent::Models::InstanceAgentCommandSummary InstanceAgentCommandSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/computeinstanceagent/list_instance_agent_commands.rb.html) to see an example of how to use list_instance_agent_commands API.
     def list_instance_agent_commands(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeInstanceAgentClient#list_instance_agent_commands.' if logger
 

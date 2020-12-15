@@ -19,6 +19,7 @@ module OCI
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_DISCONNECTED = 'DISCONNECTED'.freeze,
+      LIFECYCLE_STATE_MAINTENANCE_IN_PROGRESS = 'MAINTENANCE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -132,6 +133,9 @@ module OCI
     # @return [Array<OCI::Database::Models::ExadataInfrastructureContact>]
     attr_accessor :contacts
 
+    # @return [OCI::Database::Models::MaintenanceWindow]
+    attr_accessor :maintenance_window
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -177,6 +181,7 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'csi_number': :'csiNumber',
         'contacts': :'contacts',
+        'maintenance_window': :'maintenanceWindow',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -214,6 +219,7 @@ module OCI
         'lifecycle_details': :'String',
         'csi_number': :'String',
         'contacts': :'Array<OCI::Database::Models::ExadataInfrastructureContact>',
+        'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -253,6 +259,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :csi_number The value to assign to the {#csi_number} property
     # @option attributes [Array<OCI::Database::Models::ExadataInfrastructureContact>] :contacts The value to assign to the {#contacts} property
+    # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -400,6 +407,12 @@ module OCI
 
       self.contacts = attributes[:'contacts'] if attributes[:'contacts']
 
+      self.maintenance_window = attributes[:'maintenanceWindow'] if attributes[:'maintenanceWindow']
+
+      raise 'You cannot provide both :maintenanceWindow and :maintenance_window' if attributes.key?(:'maintenanceWindow') && attributes.key?(:'maintenance_window')
+
+      self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -464,6 +477,7 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         csi_number == other.csi_number &&
         contacts == other.contacts &&
+        maintenance_window == other.maintenance_window &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -481,7 +495,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, freeform_tags, defined_tags].hash
+      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, maintenance_window, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

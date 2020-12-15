@@ -5,38 +5,58 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # **Deprecated.** See {#update_autonomous_database_details update_autonomous_database_details} for reference information about updating an Autonomous Data Warehouse.
-  #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-  #
-  class Database::Models::UpdateAutonomousDataWarehouseDetails
-    # The number of CPU cores to be made available to the database.
-    # @return [Integer]
-    attr_accessor :cpu_core_count
+  # Summary of a Channel.
+  class Mysql::Models::ChannelSummary
+    # **[Required]** The OCID of the Channel.
+    # @return [String]
+    attr_accessor :id
 
-    # Size, in terabytes, of the data volume that will be attached to the database.
-    #
-    # @return [Integer]
-    attr_accessor :data_storage_size_in_tbs
+    # **[Required]** The OCID of the compartment.
+    # @return [String]
+    attr_accessor :compartment_id
 
-    # The user-friendly name for the Autonomous Data Warehouse. The name does not have to be unique.
+    # **[Required]** Whether the Channel has been enabled by the user.
+    # @return [BOOLEAN]
+    attr_accessor :is_enabled
+
+    # This attribute is required.
+    # @return [OCI::Mysql::Models::ChannelSource]
+    attr_accessor :source
+
+    # This attribute is required.
+    # @return [OCI::Mysql::Models::ChannelTarget]
+    attr_accessor :target
+
+    # **[Required]** The state of the Channel.
+    # @return [String]
+    attr_accessor :lifecycle_state
+
+    # A message describing the state of the Channel.
+    # @return [String]
+    attr_accessor :lifecycle_details
+
+    # **[Required]** The user-friendly name for the Channel. It does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing. It must be different from the last four passwords and it must not be a password used within the last 24 hours.
-    # @return [String]
-    attr_accessor :admin_password
-
-    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # **[Required]** The date and time the Channel was created, as described by [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
     #
-    # Example: `{\"Department\": \"Finance\"}`
+    # @return [DateTime]
+    attr_accessor :time_created
+
+    # **[Required]** The time the Channel was last updated, as described by [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+    #
+    # @return [DateTime]
+    attr_accessor :time_updated
+
+    # Simple key-value pair applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
@@ -45,10 +65,16 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'cpu_core_count': :'cpuCoreCount',
-        'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'id': :'id',
+        'compartment_id': :'compartmentId',
+        'is_enabled': :'isEnabled',
+        'source': :'source',
+        'target': :'target',
+        'lifecycle_state': :'lifecycleState',
+        'lifecycle_details': :'lifecycleDetails',
         'display_name': :'displayName',
-        'admin_password': :'adminPassword',
+        'time_created': :'timeCreated',
+        'time_updated': :'timeUpdated',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -59,10 +85,16 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'cpu_core_count': :'Integer',
-        'data_storage_size_in_tbs': :'Integer',
+        'id': :'String',
+        'compartment_id': :'String',
+        'is_enabled': :'BOOLEAN',
+        'source': :'OCI::Mysql::Models::ChannelSource',
+        'target': :'OCI::Mysql::Models::ChannelTarget',
+        'lifecycle_state': :'String',
+        'lifecycle_details': :'String',
         'display_name': :'String',
-        'admin_password': :'String',
+        'time_created': :'DateTime',
+        'time_updated': :'DateTime',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -75,10 +107,16 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
-    # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
+    # @option attributes [OCI::Mysql::Models::ChannelSource] :source The value to assign to the {#source} property
+    # @option attributes [OCI::Mysql::Models::ChannelTarget] :target The value to assign to the {#target} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -87,17 +125,37 @@ module OCI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
+      self.id = attributes[:'id'] if attributes[:'id']
 
-      raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
-      self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
-      self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
+      self.is_enabled = attributes[:'isEnabled'] unless attributes[:'isEnabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') # rubocop:disable Style/StringLiterals
 
-      self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+      raise 'You cannot provide both :isEnabled and :is_enabled' if attributes.key?(:'isEnabled') && attributes.key?(:'is_enabled')
+
+      self.is_enabled = attributes[:'is_enabled'] unless attributes[:'is_enabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') && !attributes.key?(:'is_enabled') # rubocop:disable Style/StringLiterals
+
+      self.source = attributes[:'source'] if attributes[:'source']
+
+      self.target = attributes[:'target'] if attributes[:'target']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
+
+      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
+
+      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -105,11 +163,17 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
-      raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
-      self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -135,10 +199,16 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        cpu_core_count == other.cpu_core_count &&
-        data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        id == other.id &&
+        compartment_id == other.compartment_id &&
+        is_enabled == other.is_enabled &&
+        source == other.source &&
+        target == other.target &&
+        lifecycle_state == other.lifecycle_state &&
+        lifecycle_details == other.lifecycle_details &&
         display_name == other.display_name &&
-        admin_password == other.admin_password &&
+        time_created == other.time_created &&
+        time_updated == other.time_updated &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -156,7 +226,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, data_storage_size_in_tbs, display_name, admin_password, freeform_tags, defined_tags].hash
+      [id, compartment_id, is_enabled, source, target, lifecycle_state, lifecycle_details, display_name, time_created, time_updated, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

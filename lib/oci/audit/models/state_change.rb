@@ -7,15 +7,6 @@ require 'date'
 module OCI
   # A container object for state change attributes.
   #
-  # Example:
-  #
-  #   -----
-  #     {
-  #       \"previous\": null,
-  #       \"current\": null
-  #     }
-  #   -----
-  #
   class Audit::Models::StateChange
     # Provides the previous state of fields that may have changed during an operation. To determine
     # how the current operation changed a resource, compare the information in this attribute to

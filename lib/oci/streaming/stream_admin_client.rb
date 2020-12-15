@@ -110,6 +110,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/change_connect_harness_compartment.rb.html) to see an example of how to use change_connect_harness_compartment API.
     def change_connect_harness_compartment(connect_harness_id, change_connect_harness_compartment_details, opts = {})
       logger.debug 'Calling operation StreamAdminClient#change_connect_harness_compartment.' if logger
 
@@ -172,6 +173,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/change_stream_compartment.rb.html) to see an example of how to use change_stream_compartment API.
     def change_stream_compartment(stream_id, change_stream_compartment_details, opts = {})
       logger.debug 'Calling operation StreamAdminClient#change_stream_compartment.' if logger
 
@@ -231,6 +233,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/change_stream_pool_compartment.rb.html) to see an example of how to use change_stream_pool_compartment API.
     def change_stream_pool_compartment(stream_pool_id, change_stream_pool_compartment_details, opts = {})
       logger.debug 'Calling operation StreamAdminClient#change_stream_pool_compartment.' if logger
 
@@ -290,6 +293,7 @@ module OCI
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations (for example, if a resource has been deleted and purged from the system, then a retry of the original creation request may be rejected).
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::ConnectHarness ConnectHarness}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/create_connect_harness.rb.html) to see an example of how to use create_connect_harness API.
     def create_connect_harness(create_connect_harness_details, opts = {})
       logger.debug 'Calling operation StreamAdminClient#create_connect_harness.' if logger
 
@@ -351,6 +355,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::Stream Stream}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/create_stream.rb.html) to see an example of how to use create_stream API.
     def create_stream(create_stream_details, opts = {})
       logger.debug 'Calling operation StreamAdminClient#create_stream.' if logger
 
@@ -409,6 +414,7 @@ module OCI
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations (for example, if a resource has been deleted and purged from the system, then a retry of the original creation request may be rejected).
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::StreamPool StreamPool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/create_stream_pool.rb.html) to see an example of how to use create_stream_pool API.
     def create_stream_pool(create_stream_pool_details, opts = {})
       logger.debug 'Calling operation StreamAdminClient#create_stream_pool.' if logger
 
@@ -472,6 +478,7 @@ module OCI
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the if-match parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/delete_connect_harness.rb.html) to see an example of how to use delete_connect_harness API.
     def delete_connect_harness(connect_harness_id, opts = {})
       logger.debug 'Calling operation StreamAdminClient#delete_connect_harness.' if logger
 
@@ -534,6 +541,7 @@ module OCI
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the if-match parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/delete_stream.rb.html) to see an example of how to use delete_stream API.
     def delete_stream(stream_id, opts = {})
       logger.debug 'Calling operation StreamAdminClient#delete_stream.' if logger
 
@@ -593,6 +601,7 @@ module OCI
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the if-match parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/delete_stream_pool.rb.html) to see an example of how to use delete_stream_pool API.
     def delete_stream_pool(stream_pool_id, opts = {})
       logger.debug 'Calling operation StreamAdminClient#delete_stream_pool.' if logger
 
@@ -649,6 +658,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::ConnectHarness ConnectHarness}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/get_connect_harness.rb.html) to see an example of how to use get_connect_harness API.
     def get_connect_harness(connect_harness_id, opts = {})
       logger.debug 'Calling operation StreamAdminClient#get_connect_harness.' if logger
 
@@ -705,6 +715,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::Stream Stream}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/get_stream.rb.html) to see an example of how to use get_stream API.
     def get_stream(stream_id, opts = {})
       logger.debug 'Calling operation StreamAdminClient#get_stream.' if logger
 
@@ -761,6 +772,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::StreamPool StreamPool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/get_stream_pool.rb.html) to see an example of how to use get_stream_pool API.
     def get_stream_pool(stream_pool_id, opts = {})
       logger.debug 'Calling operation StreamAdminClient#get_stream_pool.' if logger
 
@@ -830,6 +842,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Streaming::Models::ConnectHarnessSummary ConnectHarnessSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/list_connect_harnesses.rb.html) to see an example of how to use list_connect_harnesses API.
     def list_connect_harnesses(compartment_id, opts = {})
       logger.debug 'Calling operation StreamAdminClient#list_connect_harnesses.' if logger
 
@@ -918,6 +931,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Streaming::Models::StreamPoolSummary StreamPoolSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/list_stream_pools.rb.html) to see an example of how to use list_stream_pools API.
     def list_stream_pools(compartment_id, opts = {})
       logger.debug 'Calling operation StreamAdminClient#list_stream_pools.' if logger
 
@@ -1011,6 +1025,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Streaming::Models::StreamSummary StreamSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/list_streams.rb.html) to see an example of how to use list_streams API.
     def list_streams(opts = {})
       logger.debug 'Calling operation StreamAdminClient#list_streams.' if logger
 
@@ -1089,6 +1104,7 @@ module OCI
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the if-match parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::ConnectHarness ConnectHarness}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/update_connect_harness.rb.html) to see an example of how to use update_connect_harness API.
     def update_connect_harness(connect_harness_id, update_connect_harness_details, opts = {})
       logger.debug 'Calling operation StreamAdminClient#update_connect_harness.' if logger
 
@@ -1150,6 +1166,7 @@ module OCI
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the if-match parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::Stream Stream}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/update_stream.rb.html) to see an example of how to use update_stream API.
     def update_stream(stream_id, update_stream_details, opts = {})
       logger.debug 'Calling operation StreamAdminClient#update_stream.' if logger
 
@@ -1211,6 +1228,7 @@ module OCI
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the if-match parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::StreamPool StreamPool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/update_stream_pool.rb.html) to see an example of how to use update_stream_pool API.
     def update_stream_pool(stream_pool_id, update_stream_pool_details, opts = {})
       logger.debug 'Calling operation StreamAdminClient#update_stream_pool.' if logger
 

@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Updates the cloud Exadata infrastructure.
+  # Updates the cloud Exadata infrastructure. Applies to Exadata Cloud Service instances only.
   #
   class Database::Models::UpdateCloudExadataInfrastructureDetails
     # The user-friendly name for the cloud Exadata infrastructure. The name does not need to be unique.

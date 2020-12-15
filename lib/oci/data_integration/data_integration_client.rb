@@ -116,6 +116,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/change_compartment.rb.html) to see an example of how to use change_compartment API.
     def change_compartment(workspace_id, change_compartment_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#change_compartment.' if logger
 
@@ -179,6 +180,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Application Application}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_application.rb.html) to see an example of how to use create_application API.
     def create_application(workspace_id, create_application_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_application.' if logger
 
@@ -241,6 +243,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Connection Connection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_connection.rb.html) to see an example of how to use create_connection API.
     def create_connection(workspace_id, create_connection_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_connection.' if logger
 
@@ -303,6 +306,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ConnectionValidation ConnectionValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_connection_validation.rb.html) to see an example of how to use create_connection_validation API.
     def create_connection_validation(workspace_id, create_connection_validation_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_connection_validation.' if logger
 
@@ -365,6 +369,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataAsset DataAsset}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_data_asset.rb.html) to see an example of how to use create_data_asset API.
     def create_data_asset(workspace_id, create_data_asset_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_data_asset.' if logger
 
@@ -428,6 +433,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataFlow DataFlow}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_data_flow.rb.html) to see an example of how to use create_data_flow API.
     def create_data_flow(workspace_id, create_data_flow_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_data_flow.' if logger
 
@@ -491,6 +497,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataFlowValidation DataFlowValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_data_flow_validation.rb.html) to see an example of how to use create_data_flow_validation API.
     def create_data_flow_validation(workspace_id, create_data_flow_validation_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_data_flow_validation.' if logger
 
@@ -559,6 +566,7 @@ module OCI
     #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::EntityShape EntityShape}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_entity_shape.rb.html) to see an example of how to use create_entity_shape API.
     def create_entity_shape(workspace_id, connection_key, schema_resource_name, create_entity_shape_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_entity_shape.' if logger
 
@@ -627,6 +635,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ExternalPublication ExternalPublication}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_external_publication.rb.html) to see an example of how to use create_external_publication API.
     def create_external_publication(workspace_id, task_key, create_external_publication_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_external_publication.' if logger
 
@@ -692,6 +701,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ExternalPublicationValidation ExternalPublicationValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_external_publication_validation.rb.html) to see an example of how to use create_external_publication_validation API.
     def create_external_publication_validation(workspace_id, task_key, create_external_publication_validation_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_external_publication_validation.' if logger
 
@@ -758,6 +768,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Folder Folder}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_folder.rb.html) to see an example of how to use create_folder API.
     def create_folder(workspace_id, create_folder_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_folder.' if logger
 
@@ -821,6 +832,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Patch Patch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_patch.rb.html) to see an example of how to use create_patch API.
     def create_patch(workspace_id, application_key, create_patch_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_patch.' if logger
 
@@ -886,6 +898,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Project Project}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_project.rb.html) to see an example of how to use create_project API.
     def create_project(workspace_id, create_project_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_project.' if logger
 
@@ -949,6 +962,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Task Task}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_task.rb.html) to see an example of how to use create_task API.
     def create_task(workspace_id, create_task_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_task.' if logger
 
@@ -1012,6 +1026,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskRun TaskRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_task_run.rb.html) to see an example of how to use create_task_run API.
     def create_task_run(workspace_id, application_key, create_task_run_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_task_run.' if logger
 
@@ -1076,6 +1091,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskValidation TaskValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_task_validation.rb.html) to see an example of how to use create_task_validation API.
     def create_task_validation(workspace_id, create_task_validation_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_task_validation.' if logger
 
@@ -1138,6 +1154,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_workspace.rb.html) to see an example of how to use create_workspace API.
     def create_workspace(create_workspace_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#create_workspace.' if logger
 
@@ -1199,6 +1216,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_application.rb.html) to see an example of how to use delete_application API.
     def delete_application(workspace_id, application_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_application.' if logger
 
@@ -1262,6 +1280,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_connection.rb.html) to see an example of how to use delete_connection API.
     def delete_connection(workspace_id, connection_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_connection.' if logger
 
@@ -1325,6 +1344,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_connection_validation.rb.html) to see an example of how to use delete_connection_validation API.
     def delete_connection_validation(workspace_id, connection_validation_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_connection_validation.' if logger
 
@@ -1388,6 +1408,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_data_asset.rb.html) to see an example of how to use delete_data_asset API.
     def delete_data_asset(workspace_id, data_asset_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_data_asset.' if logger
 
@@ -1451,6 +1472,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_data_flow.rb.html) to see an example of how to use delete_data_flow API.
     def delete_data_flow(workspace_id, data_flow_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_data_flow.' if logger
 
@@ -1514,6 +1536,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_data_flow_validation.rb.html) to see an example of how to use delete_data_flow_validation API.
     def delete_data_flow_validation(workspace_id, data_flow_validation_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_data_flow_validation.' if logger
 
@@ -1578,6 +1601,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_external_publication.rb.html) to see an example of how to use delete_external_publication API.
     def delete_external_publication(workspace_id, task_key, external_publications_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_external_publication.' if logger
 
@@ -1645,6 +1669,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_external_publication_validation.rb.html) to see an example of how to use delete_external_publication_validation API.
     def delete_external_publication_validation(workspace_id, task_key, external_publication_validation_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_external_publication_validation.' if logger
 
@@ -1710,6 +1735,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_folder.rb.html) to see an example of how to use delete_folder API.
     def delete_folder(workspace_id, folder_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_folder.' if logger
 
@@ -1774,6 +1800,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_patch.rb.html) to see an example of how to use delete_patch API.
     def delete_patch(workspace_id, application_key, patch_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_patch.' if logger
 
@@ -1839,6 +1866,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_project.rb.html) to see an example of how to use delete_project API.
     def delete_project(workspace_id, project_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_project.' if logger
 
@@ -1902,6 +1930,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_task.rb.html) to see an example of how to use delete_task API.
     def delete_task(workspace_id, task_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_task.' if logger
 
@@ -1966,6 +1995,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_task_run.rb.html) to see an example of how to use delete_task_run API.
     def delete_task_run(workspace_id, application_key, task_run_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_task_run.' if logger
 
@@ -2032,6 +2062,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_task_validation.rb.html) to see an example of how to use delete_task_validation API.
     def delete_task_validation(workspace_id, task_validation_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_task_validation.' if logger
 
@@ -2096,6 +2127,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_workspace.rb.html) to see an example of how to use delete_workspace API.
     def delete_workspace(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#delete_workspace.' if logger
 
@@ -2155,6 +2187,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Application Application}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_application.rb.html) to see an example of how to use get_application API.
     def get_application(workspace_id, application_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_application.' if logger
 
@@ -2214,6 +2247,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Connection Connection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_connection.rb.html) to see an example of how to use get_connection API.
     def get_connection(workspace_id, connection_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_connection.' if logger
 
@@ -2273,6 +2307,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ConnectionValidation ConnectionValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_connection_validation.rb.html) to see an example of how to use get_connection_validation API.
     def get_connection_validation(workspace_id, connection_validation_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_connection_validation.' if logger
 
@@ -2334,6 +2369,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::CountStatistic CountStatistic}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_count_statistic.rb.html) to see an example of how to use get_count_statistic API.
     def get_count_statistic(workspace_id, count_statistic_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_count_statistic.' if logger
 
@@ -2393,6 +2429,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataAsset DataAsset}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_data_asset.rb.html) to see an example of how to use get_data_asset API.
     def get_data_asset(workspace_id, data_asset_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_data_asset.' if logger
 
@@ -2454,6 +2491,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataEntity DataEntity}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_data_entity.rb.html) to see an example of how to use get_data_entity API.
     def get_data_entity(workspace_id, connection_key, schema_resource_name, data_entity_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_data_entity.' if logger
 
@@ -2517,6 +2555,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataFlow DataFlow}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_data_flow.rb.html) to see an example of how to use get_data_flow API.
     def get_data_flow(workspace_id, data_flow_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_data_flow.' if logger
 
@@ -2576,6 +2615,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataFlowValidation DataFlowValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_data_flow_validation.rb.html) to see an example of how to use get_data_flow_validation API.
     def get_data_flow_validation(workspace_id, data_flow_validation_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_data_flow_validation.' if logger
 
@@ -2636,6 +2676,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DependentObject DependentObject}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_dependent_object.rb.html) to see an example of how to use get_dependent_object API.
     def get_dependent_object(workspace_id, application_key, dependent_object_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_dependent_object.' if logger
 
@@ -2698,6 +2739,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ExternalPublication ExternalPublication}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_external_publication.rb.html) to see an example of how to use get_external_publication API.
     def get_external_publication(workspace_id, task_key, external_publications_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_external_publication.' if logger
 
@@ -2760,6 +2802,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ExternalPublicationValidation ExternalPublicationValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_external_publication_validation.rb.html) to see an example of how to use get_external_publication_validation API.
     def get_external_publication_validation(workspace_id, task_key, external_publication_validation_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_external_publication_validation.' if logger
 
@@ -2821,6 +2864,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Folder Folder}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_folder.rb.html) to see an example of how to use get_folder API.
     def get_folder(workspace_id, folder_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_folder.' if logger
 
@@ -2881,6 +2925,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Patch Patch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_patch.rb.html) to see an example of how to use get_patch API.
     def get_patch(workspace_id, application_key, patch_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_patch.' if logger
 
@@ -2942,6 +2987,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Project Project}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_project.rb.html) to see an example of how to use get_project API.
     def get_project(workspace_id, project_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_project.' if logger
 
@@ -3003,6 +3049,7 @@ module OCI
     #
     # @option opts [String] :expand_references Used to expand references of the object. If value is true, then all referenced objects are expanded. If value is false, then shallow objects are returned in place of references. Default is false. <br><br><B>Example:</B><br> <ul> <li><B>?expandReferences=true</B> returns all objects of type data loader task</li> </ul> (default to false)
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::PublishedObject PublishedObject}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_published_object.rb.html) to see an example of how to use get_published_object API.
     def get_published_object(workspace_id, application_key, published_object_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_published_object.' if logger
 
@@ -3066,6 +3113,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Reference Reference}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_reference.rb.html) to see an example of how to use get_reference API.
     def get_reference(workspace_id, application_key, reference_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_reference.' if logger
 
@@ -3128,6 +3176,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Schema Schema}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_schema.rb.html) to see an example of how to use get_schema API.
     def get_schema(workspace_id, connection_key, schema_resource_name, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_schema.' if logger
 
@@ -3189,6 +3238,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Task Task}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_task.rb.html) to see an example of how to use get_task API.
     def get_task(workspace_id, task_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_task.' if logger
 
@@ -3249,6 +3299,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskRun TaskRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_task_run.rb.html) to see an example of how to use get_task_run API.
     def get_task_run(workspace_id, application_key, task_run_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_task_run.' if logger
 
@@ -3311,6 +3362,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskValidation TaskValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_task_validation.rb.html) to see an example of how to use get_task_validation API.
     def get_task_validation(workspace_id, task_validation_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_task_validation.' if logger
 
@@ -3369,6 +3421,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_work_request.' if logger
 
@@ -3425,6 +3478,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Workspace Workspace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_workspace.rb.html) to see an example of how to use get_workspace API.
     def get_workspace(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#get_workspace.' if logger
 
@@ -3491,6 +3545,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ApplicationSummaryCollection ApplicationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_applications.rb.html) to see an example of how to use list_applications API.
     def list_applications(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_applications.' if logger
 
@@ -3572,6 +3627,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ConnectionValidationSummaryCollection ConnectionValidationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_connection_validations.rb.html) to see an example of how to use list_connection_validations API.
     def list_connection_validations(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_connection_validations.' if logger
 
@@ -3654,6 +3710,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ConnectionSummaryCollection ConnectionSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_connections.rb.html) to see an example of how to use list_connections API.
     def list_connections(workspace_id, data_asset_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_connections.' if logger
 
@@ -3737,6 +3794,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataAssetSummaryCollection DataAssetSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_data_assets.rb.html) to see an example of how to use list_data_assets API.
     def list_data_assets(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_data_assets.' if logger
 
@@ -3820,6 +3878,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataEntitySummaryCollection DataEntitySummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_data_entities.rb.html) to see an example of how to use list_data_entities API.
     def list_data_entities(workspace_id, connection_key, schema_resource_name, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_data_entities.' if logger
 
@@ -3905,6 +3964,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataFlowValidationSummaryCollection DataFlowValidationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_data_flow_validations.rb.html) to see an example of how to use list_data_flow_validations API.
     def list_data_flow_validations(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_data_flow_validations.' if logger
 
@@ -3988,6 +4048,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataFlowSummaryCollection DataFlowSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_data_flows.rb.html) to see an example of how to use list_data_flows API.
     def list_data_flows(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_data_flows.' if logger
 
@@ -4079,6 +4140,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DependentObjectSummaryCollection DependentObjectSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_dependent_objects.rb.html) to see an example of how to use list_dependent_objects API.
     def list_dependent_objects(workspace_id, application_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_dependent_objects.' if logger
 
@@ -4165,6 +4227,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ExternalPublicationValidationSummaryCollection ExternalPublicationValidationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_external_publication_validations.rb.html) to see an example of how to use list_external_publication_validations API.
     def list_external_publication_validations(workspace_id, task_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_external_publication_validations.' if logger
 
@@ -4247,6 +4310,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ExternalPublicationSummaryCollection ExternalPublicationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_external_publications.rb.html) to see an example of how to use list_external_publications API.
     def list_external_publications(workspace_id, task_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_external_publications.' if logger
 
@@ -4331,6 +4395,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::FolderSummaryCollection FolderSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_folders.rb.html) to see an example of how to use list_folders API.
     def list_folders(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_folders.' if logger
 
@@ -4413,6 +4478,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::PatchChangeSummaryCollection PatchChangeSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_patch_changes.rb.html) to see an example of how to use list_patch_changes API.
     def list_patch_changes(workspace_id, application_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_patch_changes.' if logger
 
@@ -4497,6 +4563,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::PatchSummaryCollection PatchSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_patches.rb.html) to see an example of how to use list_patches API.
     def list_patches(workspace_id, application_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_patches.' if logger
 
@@ -4580,6 +4647,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ProjectSummaryCollection ProjectSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_projects.rb.html) to see an example of how to use list_projects API.
     def list_projects(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_projects.' if logger
 
@@ -4670,6 +4738,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::PublishedObjectSummaryCollection PublishedObjectSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_published_objects.rb.html) to see an example of how to use list_published_objects API.
     def list_published_objects(workspace_id, application_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_published_objects.' if logger
 
@@ -4753,6 +4822,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ReferenceSummaryCollection ReferenceSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_references.rb.html) to see an example of how to use list_references API.
     def list_references(workspace_id, application_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_references.' if logger
 
@@ -4834,6 +4904,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::SchemaSummaryCollection SchemaSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_schemas.rb.html) to see an example of how to use list_schemas API.
     def list_schemas(workspace_id, connection_key, schema_resource_name, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_schemas.' if logger
 
@@ -4916,6 +4987,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type Array<{OCI::DataIntegration::Models::TaskRunLogSummary TaskRunLogSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_task_run_logs.rb.html) to see an example of how to use list_task_run_logs API.
     def list_task_run_logs(workspace_id, application_key, task_run_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_task_run_logs.' if logger
 
@@ -4998,6 +5070,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskRunSummaryCollection TaskRunSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_task_runs.rb.html) to see an example of how to use list_task_runs API.
     def list_task_runs(workspace_id, application_key, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_task_runs.' if logger
 
@@ -5082,6 +5155,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskValidationSummaryCollection TaskValidationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_task_validations.rb.html) to see an example of how to use list_task_validations API.
     def list_task_validations(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_task_validations.' if logger
 
@@ -5167,6 +5241,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskSummaryCollection TaskSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_tasks.rb.html) to see an example of how to use list_tasks API.
     def list_tasks(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_tasks.' if logger
 
@@ -5248,6 +5323,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type Array<{OCI::DataIntegration::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_work_request_errors.' if logger
 
@@ -5323,6 +5399,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type Array<{OCI::DataIntegration::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_work_request_logs.' if logger
 
@@ -5400,6 +5477,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @return [Response] A Response object with data of type Array<{OCI::DataIntegration::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_work_requests.' if logger
 
@@ -5482,6 +5560,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataIntegration::Models::WorkspaceSummary WorkspaceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_workspaces.rb.html) to see an example of how to use list_workspaces API.
     def list_workspaces(compartment_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#list_workspaces.' if logger
 
@@ -5563,6 +5642,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/start_workspace.rb.html) to see an example of how to use start_workspace API.
     def start_workspace(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#start_workspace.' if logger
 
@@ -5630,6 +5710,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/stop_workspace.rb.html) to see an example of how to use stop_workspace API.
     def stop_workspace(workspace_id, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#stop_workspace.' if logger
 
@@ -5696,6 +5777,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Application Application}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_application.rb.html) to see an example of how to use update_application API.
     def update_application(workspace_id, application_key, update_application_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_application.' if logger
 
@@ -5762,6 +5844,7 @@ module OCI
     #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Connection Connection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_connection.rb.html) to see an example of how to use update_connection API.
     def update_connection(workspace_id, connection_key, update_connection_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_connection.' if logger
 
@@ -5828,6 +5911,7 @@ module OCI
     #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataAsset DataAsset}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_data_asset.rb.html) to see an example of how to use update_data_asset API.
     def update_data_asset(workspace_id, data_asset_key, update_data_asset_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_data_asset.' if logger
 
@@ -5894,6 +5978,7 @@ module OCI
     #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataFlow DataFlow}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_data_flow.rb.html) to see an example of how to use update_data_flow API.
     def update_data_flow(workspace_id, data_flow_key, update_data_flow_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_data_flow.' if logger
 
@@ -5961,6 +6046,7 @@ module OCI
     #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ExternalPublication ExternalPublication}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_external_publication.rb.html) to see an example of how to use update_external_publication API.
     def update_external_publication(workspace_id, task_key, external_publications_key, update_external_publication_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_external_publication.' if logger
 
@@ -6029,6 +6115,7 @@ module OCI
     #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Folder Folder}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_folder.rb.html) to see an example of how to use update_folder API.
     def update_folder(workspace_id, folder_key, update_folder_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_folder.' if logger
 
@@ -6095,6 +6182,7 @@ module OCI
     #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Project Project}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_project.rb.html) to see an example of how to use update_project API.
     def update_project(workspace_id, project_key, update_project_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_project.' if logger
 
@@ -6164,6 +6252,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Reference Reference}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_reference.rb.html) to see an example of how to use update_reference API.
     def update_reference(workspace_id, application_key, reference_key, update_reference_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_reference.' if logger
 
@@ -6234,6 +6323,7 @@ module OCI
     #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Task Task}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_task.rb.html) to see an example of how to use update_task API.
     def update_task(workspace_id, task_key, update_task_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_task.' if logger
 
@@ -6301,6 +6391,7 @@ module OCI
     #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskRunDetails TaskRunDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_task_run.rb.html) to see an example of how to use update_task_run API.
     def update_task_run(workspace_id, application_key, task_run_key, update_task_run_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_task_run.' if logger
 
@@ -6368,6 +6459,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Workspace Workspace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_workspace.rb.html) to see an example of how to use update_workspace API.
     def update_workspace(workspace_id, update_workspace_details, opts = {})
       logger.debug 'Calling operation DataIntegrationClient#update_workspace.' if logger
 

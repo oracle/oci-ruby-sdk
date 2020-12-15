@@ -105,6 +105,608 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Database::DatabaseClient#change_autonomous_container_database_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move Autonomous Container Database to a different compartment
+    # @param [String] autonomous_container_database_id The Autonomous Container Database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_autonomous_container_database_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_autonomous_container_database_compartment_and_wait_for_state(change_compartment_details, autonomous_container_database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_autonomous_container_database_compartment(change_compartment_details, autonomous_container_database_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_autonomous_database_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move Autonomous Database to a different compartment
+    # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_autonomous_database_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_autonomous_database_compartment_and_wait_for_state(change_compartment_details, autonomous_database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_autonomous_database_compartment(change_compartment_details, autonomous_database_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_autonomous_exadata_infrastructure_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move an Autonomous Exadata Infrastructure resource to a different compartment.
+    # @param [String] autonomous_exadata_infrastructure_id The Autonomous Exadata Infrastructure  [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_autonomous_exadata_infrastructure_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_autonomous_exadata_infrastructure_compartment_and_wait_for_state(change_compartment_details, autonomous_exadata_infrastructure_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_autonomous_exadata_infrastructure_compartment(change_compartment_details, autonomous_exadata_infrastructure_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_autonomous_vm_cluster_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeAutonomousVmClusterCompartmentDetails] change_autonomous_vm_cluster_compartment_details Request to move Autonomous VM cluster to a different compartment
+    # @param [String] autonomous_vm_cluster_id The autonomous VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_autonomous_vm_cluster_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_autonomous_vm_cluster_compartment_and_wait_for_state(change_autonomous_vm_cluster_compartment_details, autonomous_vm_cluster_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_autonomous_vm_cluster_compartment(change_autonomous_vm_cluster_compartment_details, autonomous_vm_cluster_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_backup_destination_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move backup destination to a different compartment.
+    #
+    # @param [String] backup_destination_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the backup destination.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_backup_destination_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_backup_destination_compartment_and_wait_for_state(change_compartment_details, backup_destination_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_backup_destination_compartment(change_compartment_details, backup_destination_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_cloud_exadata_infrastructure_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeCloudExadataInfrastructureCompartmentDetails] change_cloud_exadata_infrastructure_compartment_details Request to move cloud Exadata infrastructure resource to a different compartment.
+    # @param [String] cloud_exadata_infrastructure_id The cloud Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_cloud_exadata_infrastructure_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_cloud_exadata_infrastructure_compartment_and_wait_for_state(change_cloud_exadata_infrastructure_compartment_details, cloud_exadata_infrastructure_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_cloud_exadata_infrastructure_compartment(change_cloud_exadata_infrastructure_compartment_details, cloud_exadata_infrastructure_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_cloud_vm_cluster_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeCloudVmClusterCompartmentDetails] change_cloud_vm_cluster_compartment_details Request to move cloud VM cluster to a different compartment
+    # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_cloud_vm_cluster_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_cloud_vm_cluster_compartment_and_wait_for_state(change_cloud_vm_cluster_compartment_details, cloud_vm_cluster_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_cloud_vm_cluster_compartment(change_cloud_vm_cluster_compartment_details, cloud_vm_cluster_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_database_software_image_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move Database Software Image to a different compartment
+    # @param [String] database_software_image_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_database_software_image_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_database_software_image_compartment_and_wait_for_state(change_compartment_details, database_software_image_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_database_software_image_compartment(change_compartment_details, database_software_image_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_db_system_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move the DB system to a different compartment.
+    # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_db_system_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_db_system_compartment_and_wait_for_state(change_compartment_details, db_system_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_db_system_compartment(change_compartment_details, db_system_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_exadata_infrastructure_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeExadataInfrastructureCompartmentDetails] change_exadata_infrastructure_compartment_details Request to move Exadata infrastructure to a different compartment
+    # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_exadata_infrastructure_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_exadata_infrastructure_compartment_and_wait_for_state(change_exadata_infrastructure_compartment_details, exadata_infrastructure_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_exadata_infrastructure_compartment(change_exadata_infrastructure_compartment_details, exadata_infrastructure_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_key_store_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeKeyStoreCompartmentDetails] change_key_store_compartment_details Request to move key store to a different compartment
+    #
+    # @param [String] key_store_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the key store.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_key_store_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_key_store_compartment_and_wait_for_state(change_key_store_compartment_details, key_store_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_key_store_compartment(change_key_store_compartment_details, key_store_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#change_vm_cluster_compartment} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::ChangeVmClusterCompartmentDetails] change_vm_cluster_compartment_details Request to move the Exadata Cloud@Customer VM cluster to a different compartment.
+    # @param [String] vm_cluster_id The VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#change_vm_cluster_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def change_vm_cluster_compartment_and_wait_for_state(change_vm_cluster_compartment_details, vm_cluster_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_vm_cluster_compartment(change_vm_cluster_compartment_details, vm_cluster_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Database::DatabaseClient#create_autonomous_container_database} and then waits for the {OCI::Database::Models::AutonomousContainerDatabase} acted upon
     # to enter the given state(s).
     #
@@ -126,84 +728,6 @@ module OCI
 
       begin
         waiter_result = @service_client.get_autonomous_container_database(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
-        result_to_return = waiter_result
-
-        return result_to_return
-      rescue StandardError
-        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
-      end
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:enable Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:disable Layout/EmptyLines
-
-
-    # Calls {OCI::Database::DatabaseClient#create_autonomous_data_warehouse} and then waits for the {OCI::Database::Models::AutonomousDataWarehouse} acted upon
-    # to enter the given state(s).
-    #
-    # @param [OCI::Database::Models::CreateAutonomousDataWarehouseDetails] create_autonomous_data_warehouse_details Request to create a new Autonomous Data Warehouse.
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousDataWarehouse#lifecycle_state}
-    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#create_autonomous_data_warehouse}
-    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
-    #   * max_interval_seconds: The maximum interval between queries, in seconds.
-    #   * max_wait_seconds The maximum time to wait, in seconds
-    #
-    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Database::Models::AutonomousDataWarehouse}
-    def create_autonomous_data_warehouse_and_wait_for_state(create_autonomous_data_warehouse_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      operation_result = @service_client.create_autonomous_data_warehouse(create_autonomous_data_warehouse_details, base_operation_opts)
-
-      return operation_result if wait_for_states.empty?
-
-      lowered_wait_for_states = wait_for_states.map(&:downcase)
-      wait_for_resource_id = operation_result.data.id
-
-      begin
-        waiter_result = @service_client.get_autonomous_data_warehouse(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
-        result_to_return = waiter_result
-
-        return result_to_return
-      rescue StandardError
-        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
-      end
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:enable Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:disable Layout/EmptyLines
-
-
-    # Calls {OCI::Database::DatabaseClient#create_autonomous_data_warehouse_backup} and then waits for the {OCI::Database::Models::AutonomousDataWarehouseBackup} acted upon
-    # to enter the given state(s).
-    #
-    # @param [OCI::Database::Models::CreateAutonomousDataWarehouseBackupDetails] create_autonomous_data_warehouse_backup_details Request to create a new Autonomous Data Warehouse backup.
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousDataWarehouseBackup#lifecycle_state}
-    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#create_autonomous_data_warehouse_backup}
-    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
-    #   * max_interval_seconds: The maximum interval between queries, in seconds.
-    #   * max_wait_seconds The maximum time to wait, in seconds
-    #
-    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Database::Models::AutonomousDataWarehouseBackup}
-    def create_autonomous_data_warehouse_backup_and_wait_for_state(create_autonomous_data_warehouse_backup_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      operation_result = @service_client.create_autonomous_data_warehouse_backup(create_autonomous_data_warehouse_backup_details, base_operation_opts)
-
-      return operation_result if wait_for_states.empty?
-
-      lowered_wait_for_states = wait_for_states.map(&:downcase)
-      wait_for_resource_id = operation_result.data.id
-
-      begin
-        waiter_result = @service_client.get_autonomous_data_warehouse_backup(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -421,7 +945,8 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#create_cloud_exadata_infrastructure} and then waits for the {OCI::Database::Models::CloudExadataInfrastructure} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Database::Models::CreateCloudExadataInfrastructureDetails] create_cloud_exadata_infrastructure_details Request to create cloud Exadata infrastructure.
+    # @param [OCI::Database::Models::CreateCloudExadataInfrastructureDetails] create_cloud_exadata_infrastructure_details Request to create a cloud Exadata infrastructure resource in an [Exadata Cloud Service](https://docs.cloud.oracle.com/Content/Database/Concepts/exaoverview.htm) instance.
+    #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::CloudExadataInfrastructure#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#create_cloud_exadata_infrastructure}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -460,7 +985,8 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#create_cloud_vm_cluster} and then waits for the {OCI::Database::Models::CloudVmCluster} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Database::Models::CreateCloudVmClusterDetails] create_cloud_vm_cluster_details Request to create a cloud VM cluster.
+    # @param [OCI::Database::Models::CreateCloudVmClusterDetails] create_cloud_vm_cluster_details Request to create a cloud VM cluster. Applies to Exadata Cloud Service instances only. See [The New Exadata Cloud Service Resource Model](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) for information on this resource type.
+    #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::CloudVmCluster#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#create_cloud_vm_cluster}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -775,7 +1301,9 @@ module OCI
     # Calls {OCI::Database::DatabaseClient#create_vm_cluster} and then waits for the {OCI::Database::Models::VmCluster} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Database::Models::CreateVmClusterDetails] create_vm_cluster_details Request to create an Exadata Cloud@Customer VM cluster.
+    # @param [OCI::Database::Models::CreateVmClusterDetails] create_vm_cluster_details Request to create a VM cluster. Applies to Exadata Cloud@Customer instances only.
+    #   See {#create_cloud_vm_cluster_details create_cloud_vm_cluster_details} for details on creating a cloud VM cluster in an Exadata Cloud Service instance.
+    #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::VmCluster#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#create_vm_cluster}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -892,72 +1420,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_autonomous_data_warehouse} and then waits for the {OCI::Database::Models::AutonomousDataWarehouse} acted upon
-    # to enter the given state(s).
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousDataWarehouse#lifecycle_state}
-    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_autonomous_data_warehouse}
-    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
-    #   * max_interval_seconds: The maximum interval between queries, in seconds.
-    #   * max_wait_seconds The maximum time to wait, in seconds
-    #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
-    def delete_autonomous_data_warehouse_and_wait_for_state(autonomous_data_warehouse_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_autonomous_data_warehouse(autonomous_data_warehouse_id)
-      operation_result = @service_client.delete_autonomous_data_warehouse(autonomous_data_warehouse_id, base_operation_opts)
-
-      return operation_result if wait_for_states.empty?
-
-      lowered_wait_for_states = wait_for_states.map(&:downcase)
-
-      begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
-        result_to_return = waiter_result
-
-        return result_to_return
-      rescue StandardError
-        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
-      end
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:enable Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:disable Layout/EmptyLines
-
-
-    # Calls {OCI::Database::DatabaseClient#delete_autonomous_database} and then waits for the {OCI::Database::Models::AutonomousDatabase} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_autonomous_database} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousDatabase#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_autonomous_database}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_autonomous_database_and_wait_for_state(autonomous_database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_autonomous_database(autonomous_database_id)
       operation_result = @service_client.delete_autonomous_database(autonomous_database_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -972,32 +1469,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_autonomous_vm_cluster} and then waits for the {OCI::Database::Models::AutonomousVmCluster} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_autonomous_vm_cluster} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] autonomous_vm_cluster_id The autonomous VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousVmCluster#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_autonomous_vm_cluster}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_autonomous_vm_cluster_and_wait_for_state(autonomous_vm_cluster_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_autonomous_vm_cluster(autonomous_vm_cluster_id)
       operation_result = @service_client.delete_autonomous_vm_cluster(autonomous_vm_cluster_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1012,32 +1518,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_backup} and then waits for the {OCI::Database::Models::Backup} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_backup} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] backup_id The backup [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::Backup#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_backup}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_backup_and_wait_for_state(backup_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_backup(backup_id)
       operation_result = @service_client.delete_backup(backup_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1092,32 +1607,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_cloud_exadata_infrastructure} and then waits for the {OCI::Database::Models::CloudExadataInfrastructure} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_cloud_exadata_infrastructure} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] cloud_exadata_infrastructure_id The cloud Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::CloudExadataInfrastructure#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_cloud_exadata_infrastructure}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_cloud_exadata_infrastructure_and_wait_for_state(cloud_exadata_infrastructure_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_cloud_exadata_infrastructure(cloud_exadata_infrastructure_id)
       operation_result = @service_client.delete_cloud_exadata_infrastructure(cloud_exadata_infrastructure_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1132,32 +1656,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_cloud_vm_cluster} and then waits for the {OCI::Database::Models::CloudVmCluster} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_cloud_vm_cluster} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] cloud_vm_cluster_id The cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::CloudVmCluster#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_cloud_vm_cluster}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_cloud_vm_cluster_and_wait_for_state(cloud_vm_cluster_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_cloud_vm_cluster(cloud_vm_cluster_id)
       operation_result = @service_client.delete_cloud_vm_cluster(cloud_vm_cluster_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1172,32 +1705,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_database} and then waits for the {OCI::Database::Models::Database} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_database} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::Database#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_database}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_database_and_wait_for_state(database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_database(database_id)
       operation_result = @service_client.delete_database(database_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1212,32 +1754,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_database_software_image} and then waits for the {OCI::Database::Models::DatabaseSoftwareImage} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_database_software_image} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] database_software_image_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::DatabaseSoftwareImage#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_database_software_image}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_database_software_image_and_wait_for_state(database_software_image_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_database_software_image(database_software_image_id)
       operation_result = @service_client.delete_database_software_image(database_software_image_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1252,32 +1803,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_db_home} and then waits for the {OCI::Database::Models::DbHome} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_db_home} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] db_home_id The Database Home [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::DbHome#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_db_home}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_db_home_and_wait_for_state(db_home_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_db_home(db_home_id)
       operation_result = @service_client.delete_db_home(db_home_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1292,32 +1852,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_exadata_infrastructure} and then waits for the {OCI::Database::Models::ExadataInfrastructure} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_exadata_infrastructure} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::ExadataInfrastructure#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_exadata_infrastructure}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_exadata_infrastructure_and_wait_for_state(exadata_infrastructure_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_exadata_infrastructure(exadata_infrastructure_id)
       operation_result = @service_client.delete_exadata_infrastructure(exadata_infrastructure_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1372,32 +1941,238 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#delete_vm_cluster} and then waits for the {OCI::Database::Models::VmCluster} acted upon
+    # Calls {OCI::Database::DatabaseClient#delete_vm_cluster} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] vm_cluster_id The VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::VmCluster#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_vm_cluster}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def delete_vm_cluster_and_wait_for_state(vm_cluster_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_vm_cluster(vm_cluster_id)
       operation_result = @service_client.delete_vm_cluster(vm_cluster_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#delete_vm_cluster_network} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] vm_cluster_network_id The VM cluster network [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#delete_vm_cluster_network}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def delete_vm_cluster_network_and_wait_for_state(exadata_infrastructure_id, vm_cluster_network_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.delete_vm_cluster_network(exadata_infrastructure_id, vm_cluster_network_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#deregister_autonomous_database_data_safe} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#deregister_autonomous_database_data_safe}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def deregister_autonomous_database_data_safe_and_wait_for_state(autonomous_database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.deregister_autonomous_database_data_safe(autonomous_database_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#disable_autonomous_database_operations_insights} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#disable_autonomous_database_operations_insights}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def disable_autonomous_database_operations_insights_and_wait_for_state(autonomous_database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.disable_autonomous_database_operations_insights(autonomous_database_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#enable_autonomous_database_operations_insights} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#enable_autonomous_database_operations_insights}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def enable_autonomous_database_operations_insights_and_wait_for_state(autonomous_database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.enable_autonomous_database_operations_insights(autonomous_database_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1610,6 +2385,95 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Database::DatabaseClient#migrate_vault_key} and then waits for the {OCI::Database::Models::Database} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::MigrateVaultKeyDetails] migrate_vault_key_details Request to change the source of the encryption key for the database.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::Database#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#migrate_vault_key}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Database::Models::Database}
+    def migrate_vault_key_and_wait_for_state(database_id, migrate_vault_key_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.migrate_vault_key(database_id, migrate_vault_key_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_database(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#register_autonomous_database_data_safe} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#register_autonomous_database_data_safe}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def register_autonomous_database_data_safe_and_wait_for_state(autonomous_database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.register_autonomous_database_data_safe(autonomous_database_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Database::DatabaseClient#reinstate_autonomous_container_database_dataguard_association} and then waits for the {OCI::Database::Models::AutonomousContainerDatabaseDataguardAssociation} acted upon
     # to enter the given state(s).
     #
@@ -1751,46 +2615,6 @@ module OCI
 
       begin
         waiter_result = @service_client.get_autonomous_database(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
-        result_to_return = waiter_result
-
-        return result_to_return
-      rescue StandardError
-        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
-      end
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:enable Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:disable Layout/EmptyLines
-
-
-    # Calls {OCI::Database::DatabaseClient#restore_autonomous_data_warehouse} and then waits for the {OCI::Database::Models::AutonomousDataWarehouse} acted upon
-    # to enter the given state(s).
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::RestoreAutonomousDataWarehouseDetails] restore_autonomous_data_warehouse_details Request to perform an Autonomous Data Warehouse restore.
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousDataWarehouse#lifecycle_state}
-    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#restore_autonomous_data_warehouse}
-    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
-    #   * max_interval_seconds: The maximum interval between queries, in seconds.
-    #   * max_wait_seconds The maximum time to wait, in seconds
-    #
-    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Database::Models::AutonomousDataWarehouse}
-    def restore_autonomous_data_warehouse_and_wait_for_state(autonomous_data_warehouse_id, restore_autonomous_data_warehouse_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      operation_result = @service_client.restore_autonomous_data_warehouse(autonomous_data_warehouse_id, restore_autonomous_data_warehouse_details, base_operation_opts)
-
-      return operation_result if wait_for_states.empty?
-
-      lowered_wait_for_states = wait_for_states.map(&:downcase)
-      wait_for_resource_id = operation_result.data.id
-
-      begin
-        waiter_result = @service_client.get_autonomous_data_warehouse(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -1967,19 +2791,117 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#start_autonomous_data_warehouse} and then waits for the {OCI::Database::Models::AutonomousDataWarehouse} acted upon
+    # Calls {OCI::Database::DatabaseClient#rotate_ords_certs} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousDataWarehouse#lifecycle_state}
-    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#start_autonomous_data_warehouse}
+    # @param [String] autonomous_exadata_infrastructure_id The Autonomous Exadata Infrastructure  [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#rotate_ords_certs}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Database::Models::AutonomousDataWarehouse}
-    def start_autonomous_data_warehouse_and_wait_for_state(autonomous_data_warehouse_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      operation_result = @service_client.start_autonomous_data_warehouse(autonomous_data_warehouse_id, base_operation_opts)
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def rotate_ords_certs_and_wait_for_state(autonomous_exadata_infrastructure_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.rotate_ords_certs(autonomous_exadata_infrastructure_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#rotate_ssl_certs} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] autonomous_exadata_infrastructure_id The Autonomous Exadata Infrastructure  [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#rotate_ssl_certs}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def rotate_ssl_certs_and_wait_for_state(autonomous_exadata_infrastructure_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.rotate_ssl_certs(autonomous_exadata_infrastructure_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#rotate_vault_key} and then waits for the {OCI::Database::Models::Database} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::Database#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#rotate_vault_key}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Database::Models::Database}
+    def rotate_vault_key_and_wait_for_state(database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.rotate_vault_key(database_id, base_operation_opts)
 
       return operation_result if wait_for_states.empty?
 
@@ -1987,7 +2909,7 @@ module OCI
       wait_for_resource_id = operation_result.data.id
 
       begin
-        waiter_result = @service_client.get_autonomous_data_warehouse(wait_for_resource_id).wait_until(
+        waiter_result = @service_client.get_database(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -2027,45 +2949,6 @@ module OCI
 
       begin
         waiter_result = @service_client.get_autonomous_database(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
-        result_to_return = waiter_result
-
-        return result_to_return
-      rescue StandardError
-        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
-      end
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:enable Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:disable Layout/EmptyLines
-
-
-    # Calls {OCI::Database::DatabaseClient#stop_autonomous_data_warehouse} and then waits for the {OCI::Database::Models::AutonomousDataWarehouse} acted upon
-    # to enter the given state(s).
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousDataWarehouse#lifecycle_state}
-    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#stop_autonomous_data_warehouse}
-    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
-    #   * max_interval_seconds: The maximum interval between queries, in seconds.
-    #   * max_wait_seconds The maximum time to wait, in seconds
-    #
-    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Database::Models::AutonomousDataWarehouse}
-    def stop_autonomous_data_warehouse_and_wait_for_state(autonomous_data_warehouse_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      operation_result = @service_client.stop_autonomous_data_warehouse(autonomous_data_warehouse_id, base_operation_opts)
-
-      return operation_result if wait_for_states.empty?
-
-      lowered_wait_for_states = wait_for_states.map(&:downcase)
-      wait_for_resource_id = operation_result.data.id
-
-      begin
-        waiter_result = @service_client.get_autonomous_data_warehouse(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -2243,32 +3126,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#terminate_autonomous_container_database} and then waits for the {OCI::Database::Models::AutonomousContainerDatabase} acted upon
+    # Calls {OCI::Database::DatabaseClient#terminate_autonomous_container_database} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] autonomous_container_database_id The Autonomous Container Database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousContainerDatabase#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#terminate_autonomous_container_database}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def terminate_autonomous_container_database_and_wait_for_state(autonomous_container_database_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_autonomous_container_database(autonomous_container_database_id)
       operation_result = @service_client.terminate_autonomous_container_database(autonomous_container_database_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -2283,32 +3175,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#terminate_autonomous_exadata_infrastructure} and then waits for the {OCI::Database::Models::AutonomousExadataInfrastructure} acted upon
+    # Calls {OCI::Database::DatabaseClient#terminate_autonomous_exadata_infrastructure} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] autonomous_exadata_infrastructure_id The Autonomous Exadata Infrastructure  [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousExadataInfrastructure#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#terminate_autonomous_exadata_infrastructure}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def terminate_autonomous_exadata_infrastructure_and_wait_for_state(autonomous_exadata_infrastructure_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_autonomous_exadata_infrastructure(autonomous_exadata_infrastructure_id)
       operation_result = @service_client.terminate_autonomous_exadata_infrastructure(autonomous_exadata_infrastructure_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -2323,32 +3224,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#terminate_db_system} and then waits for the {OCI::Database::Models::DbSystem} acted upon
+    # Calls {OCI::Database::DatabaseClient#terminate_db_system} and then waits for the {OCI::Database::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::DbSystem#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#terminate_db_system}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
     def terminate_db_system_and_wait_for_state(db_system_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_db_system(db_system_id)
       operation_result = @service_client.terminate_db_system(db_system_id, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -2403,46 +3313,6 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Database::DatabaseClient#update_autonomous_data_warehouse} and then waits for the {OCI::Database::Models::AutonomousDataWarehouse} acted upon
-    # to enter the given state(s).
-    #
-    # @param [String] autonomous_data_warehouse_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::UpdateAutonomousDataWarehouseDetails] update_autonomous_data_warehouse_details Request to update the properties of an Autonomous Data Warehouse.
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::AutonomousDataWarehouse#lifecycle_state}
-    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#update_autonomous_data_warehouse}
-    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
-    #   * max_interval_seconds: The maximum interval between queries, in seconds.
-    #   * max_wait_seconds The maximum time to wait, in seconds
-    #
-    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Database::Models::AutonomousDataWarehouse}
-    def update_autonomous_data_warehouse_and_wait_for_state(autonomous_data_warehouse_id, update_autonomous_data_warehouse_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      operation_result = @service_client.update_autonomous_data_warehouse(autonomous_data_warehouse_id, update_autonomous_data_warehouse_details, base_operation_opts)
-
-      return operation_result if wait_for_states.empty?
-
-      lowered_wait_for_states = wait_for_states.map(&:downcase)
-      wait_for_resource_id = operation_result.data.id
-
-      begin
-        waiter_result = @service_client.get_autonomous_data_warehouse(wait_for_resource_id).wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
-        )
-        result_to_return = waiter_result
-
-        return result_to_return
-      rescue StandardError
-        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
-      end
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:enable Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
-    # rubocop:disable Layout/EmptyLines
-
-
     # Calls {OCI::Database::DatabaseClient#update_autonomous_database} and then waits for the {OCI::Database::Models::AutonomousDatabase} acted upon
     # to enter the given state(s).
     #
@@ -2469,6 +3339,105 @@ module OCI
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
         )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#update_autonomous_database_regional_wallet} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Database::Models::UpdateAutonomousDatabaseWalletDetails] update_autonomous_database_wallet_details Request to update the properties of Autonomous Database regional wallet.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#update_autonomous_database_regional_wallet}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def update_autonomous_database_regional_wallet_and_wait_for_state(update_autonomous_database_wallet_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_autonomous_database_regional_wallet(update_autonomous_database_wallet_details, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Database::DatabaseClient#update_autonomous_database_wallet} and then waits for the {OCI::Database::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::UpdateAutonomousDatabaseWalletDetails] update_autonomous_database_wallet_details Request to update the properties of an Autonomous Database wallet.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Database::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Database::DatabaseClient#update_autonomous_database_wallet}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Database::Models::WorkRequest}
+    def update_autonomous_database_wallet_and_wait_for_state(autonomous_database_id, update_autonomous_database_wallet_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_autonomous_database_wallet(autonomous_database_id, update_autonomous_database_wallet_details, base_operation_opts)
+      use_util = OCI::Database::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Database::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return

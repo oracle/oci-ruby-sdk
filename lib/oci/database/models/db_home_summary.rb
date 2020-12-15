@@ -63,13 +63,17 @@ module OCI
     # @return [String]
     attr_accessor :db_home_location
 
-    # Additional information about the current lifecycleState.
+    # Additional information about the current lifecycle state.
     # @return [String]
     attr_accessor :lifecycle_details
 
     # The date and time the Database Home was created.
     # @return [DateTime]
     attr_accessor :time_created
+
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
 
     # List of one-off patches for Database Homes.
     # @return [Array<String>]
@@ -108,6 +112,7 @@ module OCI
         'db_home_location': :'dbHomeLocation',
         'lifecycle_details': :'lifecycleDetails',
         'time_created': :'timeCreated',
+        'kms_key_id': :'kmsKeyId',
         'one_off_patches': :'oneOffPatches',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -131,6 +136,7 @@ module OCI
         'db_home_location': :'String',
         'lifecycle_details': :'String',
         'time_created': :'DateTime',
+        'kms_key_id': :'String',
         'one_off_patches': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -156,6 +162,7 @@ module OCI
     # @option attributes [String] :db_home_location The value to assign to the {#db_home_location} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [Array<String>] :one_off_patches The value to assign to the {#one_off_patches} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -228,6 +235,12 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
       self.one_off_patches = attributes[:'oneOffPatches'] if attributes[:'oneOffPatches']
 
       raise 'You cannot provide both :oneOffPatches and :one_off_patches' if attributes.key?(:'oneOffPatches') && attributes.key?(:'one_off_patches')
@@ -288,6 +301,7 @@ module OCI
         db_home_location == other.db_home_location &&
         lifecycle_details == other.lifecycle_details &&
         time_created == other.time_created &&
+        kms_key_id == other.kms_key_id &&
         one_off_patches == other.one_off_patches &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -307,7 +321,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, last_patch_history_entry_id, lifecycle_state, db_system_id, vm_cluster_id, db_version, db_home_location, lifecycle_details, time_created, one_off_patches, freeform_tags, defined_tags, database_software_image_id].hash
+      [id, compartment_id, display_name, last_patch_history_entry_id, lifecycle_state, db_system_id, vm_cluster_id, db_version, db_home_location, lifecycle_details, time_created, kms_key_id, one_off_patches, freeform_tags, defined_tags, database_software_image_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

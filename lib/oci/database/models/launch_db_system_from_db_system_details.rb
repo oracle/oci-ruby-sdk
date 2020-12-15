@@ -50,6 +50,8 @@ module OCI
         'cluster_name': :'clusterName',
         'data_storage_percentage': :'dataStoragePercentage',
         'initial_data_storage_size_in_gb': :'initialDataStorageSizeInGB',
+        'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId',
         'node_count': :'nodeCount',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -85,6 +87,8 @@ module OCI
         'cluster_name': :'String',
         'data_storage_percentage': :'Integer',
         'initial_data_storage_size_in_gb': :'Integer',
+        'kms_key_id': :'String',
+        'kms_key_version_id': :'String',
         'node_count': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -122,6 +126,8 @@ module OCI
     # @option attributes [String] :cluster_name The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#cluster_name #cluster_name} proprety
     # @option attributes [Integer] :data_storage_percentage The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#data_storage_percentage #data_storage_percentage} proprety
     # @option attributes [Integer] :initial_data_storage_size_in_gb The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#initial_data_storage_size_in_gb #initial_data_storage_size_in_gb} proprety
+    # @option attributes [String] :kms_key_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#kms_key_id #kms_key_id} proprety
+    # @option attributes [String] :kms_key_version_id The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#kms_key_version_id #kms_key_version_id} proprety
     # @option attributes [Integer] :node_count The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#node_count #node_count} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#defined_tags #defined_tags} proprety
@@ -196,6 +202,8 @@ module OCI
         cluster_name == other.cluster_name &&
         data_storage_percentage == other.data_storage_percentage &&
         initial_data_storage_size_in_gb == other.initial_data_storage_size_in_gb &&
+        kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id &&
         node_count == other.node_count &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -219,7 +227,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, private_ip, source_db_system_id, db_home, license_model].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, kms_key_id, kms_key_version_id, node_count, freeform_tags, defined_tags, source, private_ip, source_db_system_id, db_home, license_model].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

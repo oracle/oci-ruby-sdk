@@ -46,6 +46,19 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_file_server_enabled
 
+    # Visual Builder is enabled or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_visual_builder_enabled
+
+    # @return [OCI::Integration::Models::UpdateCustomEndpointDetails]
+    attr_accessor :custom_endpoint
+
+    # A list of alternate custom endpoints to be used for the integration instance URL
+    # (contact Oracle for alternateCustomEndpoints availability for a specific instance).
+    #
+    # @return [Array<OCI::Integration::Models::UpdateCustomEndpointDetails>]
+    attr_accessor :alternate_custom_endpoints
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -56,7 +69,10 @@ module OCI
         'defined_tags': :'definedTags',
         'is_byol': :'isByol',
         'message_packs': :'messagePacks',
-        'is_file_server_enabled': :'isFileServerEnabled'
+        'is_file_server_enabled': :'isFileServerEnabled',
+        'is_visual_builder_enabled': :'isVisualBuilderEnabled',
+        'custom_endpoint': :'customEndpoint',
+        'alternate_custom_endpoints': :'alternateCustomEndpoints'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -71,7 +87,10 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'is_byol': :'BOOLEAN',
         'message_packs': :'Integer',
-        'is_file_server_enabled': :'BOOLEAN'
+        'is_file_server_enabled': :'BOOLEAN',
+        'is_visual_builder_enabled': :'BOOLEAN',
+        'custom_endpoint': :'OCI::Integration::Models::UpdateCustomEndpointDetails',
+        'alternate_custom_endpoints': :'Array<OCI::Integration::Models::UpdateCustomEndpointDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -89,6 +108,9 @@ module OCI
     # @option attributes [BOOLEAN] :is_byol The value to assign to the {#is_byol} property
     # @option attributes [Integer] :message_packs The value to assign to the {#message_packs} property
     # @option attributes [BOOLEAN] :is_file_server_enabled The value to assign to the {#is_file_server_enabled} property
+    # @option attributes [BOOLEAN] :is_visual_builder_enabled The value to assign to the {#is_visual_builder_enabled} property
+    # @option attributes [OCI::Integration::Models::UpdateCustomEndpointDetails] :custom_endpoint The value to assign to the {#custom_endpoint} property
+    # @option attributes [Array<OCI::Integration::Models::UpdateCustomEndpointDetails>] :alternate_custom_endpoints The value to assign to the {#alternate_custom_endpoints} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -138,6 +160,24 @@ module OCI
 
       self.is_file_server_enabled = attributes[:'is_file_server_enabled'] unless attributes[:'is_file_server_enabled'].nil?
       self.is_file_server_enabled = false if is_file_server_enabled.nil? && !attributes.key?(:'isFileServerEnabled') && !attributes.key?(:'is_file_server_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_visual_builder_enabled = attributes[:'isVisualBuilderEnabled'] unless attributes[:'isVisualBuilderEnabled'].nil?
+
+      raise 'You cannot provide both :isVisualBuilderEnabled and :is_visual_builder_enabled' if attributes.key?(:'isVisualBuilderEnabled') && attributes.key?(:'is_visual_builder_enabled')
+
+      self.is_visual_builder_enabled = attributes[:'is_visual_builder_enabled'] unless attributes[:'is_visual_builder_enabled'].nil?
+
+      self.custom_endpoint = attributes[:'customEndpoint'] if attributes[:'customEndpoint']
+
+      raise 'You cannot provide both :customEndpoint and :custom_endpoint' if attributes.key?(:'customEndpoint') && attributes.key?(:'custom_endpoint')
+
+      self.custom_endpoint = attributes[:'custom_endpoint'] if attributes[:'custom_endpoint']
+
+      self.alternate_custom_endpoints = attributes[:'alternateCustomEndpoints'] if attributes[:'alternateCustomEndpoints']
+
+      raise 'You cannot provide both :alternateCustomEndpoints and :alternate_custom_endpoints' if attributes.key?(:'alternateCustomEndpoints') && attributes.key?(:'alternate_custom_endpoints')
+
+      self.alternate_custom_endpoints = attributes[:'alternate_custom_endpoints'] if attributes[:'alternate_custom_endpoints']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -165,7 +205,10 @@ module OCI
         defined_tags == other.defined_tags &&
         is_byol == other.is_byol &&
         message_packs == other.message_packs &&
-        is_file_server_enabled == other.is_file_server_enabled
+        is_file_server_enabled == other.is_file_server_enabled &&
+        is_visual_builder_enabled == other.is_visual_builder_enabled &&
+        custom_endpoint == other.custom_endpoint &&
+        alternate_custom_endpoints == other.alternate_custom_endpoints
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -181,7 +224,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, integration_instance_type, freeform_tags, defined_tags, is_byol, message_packs, is_file_server_enabled].hash
+      [display_name, integration_instance_type, freeform_tags, defined_tags, is_byol, message_packs, is_file_server_enabled, is_visual_builder_enabled, custom_endpoint, alternate_custom_endpoints].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

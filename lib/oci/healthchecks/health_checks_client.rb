@@ -124,6 +124,7 @@ module OCI
     #   operations, such as a resource being deleted or purged from the system.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/change_http_monitor_compartment.rb.html) to see an example of how to use change_http_monitor_compartment API.
     def change_http_monitor_compartment(monitor_id, change_http_monitor_compartment_details, opts = {})
       logger.debug 'Calling operation HealthChecksClient#change_http_monitor_compartment.' if logger
 
@@ -197,6 +198,7 @@ module OCI
     #   operations, such as a resource being deleted or purged from the system.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/change_ping_monitor_compartment.rb.html) to see an example of how to use change_ping_monitor_compartment API.
     def change_ping_monitor_compartment(monitor_id, change_ping_monitor_compartment_details, opts = {})
       logger.debug 'Calling operation HealthChecksClient#change_ping_monitor_compartment.' if logger
 
@@ -265,6 +267,7 @@ module OCI
     #   operations, such as a resource being deleted or purged from the system.
     #
     # @return [Response] A Response object with data of type {OCI::Healthchecks::Models::HttpMonitor HttpMonitor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/create_http_monitor.rb.html) to see an example of how to use create_http_monitor API.
     def create_http_monitor(create_http_monitor_details, opts = {})
       logger.debug 'Calling operation HealthChecksClient#create_http_monitor.' if logger
 
@@ -325,6 +328,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Healthchecks::Models::HttpProbe HttpProbe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/create_on_demand_http_probe.rb.html) to see an example of how to use create_on_demand_http_probe API.
     def create_on_demand_http_probe(create_on_demand_http_probe_details, opts = {})
       logger.debug 'Calling operation HealthChecksClient#create_on_demand_http_probe.' if logger
 
@@ -383,6 +387,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Healthchecks::Models::PingProbe PingProbe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/create_on_demand_ping_probe.rb.html) to see an example of how to use create_on_demand_ping_probe API.
     def create_on_demand_ping_probe(create_on_demand_ping_probe_details, opts = {})
       logger.debug 'Calling operation HealthChecksClient#create_on_demand_ping_probe.' if logger
 
@@ -447,6 +452,7 @@ module OCI
     #   operations, such as a resource being deleted or purged from the system.
     #
     # @return [Response] A Response object with data of type {OCI::Healthchecks::Models::PingMonitor PingMonitor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/create_ping_monitor.rb.html) to see an example of how to use create_ping_monitor API.
     def create_ping_monitor(create_ping_monitor_details, opts = {})
       logger.debug 'Calling operation HealthChecksClient#create_ping_monitor.' if logger
 
@@ -510,6 +516,7 @@ module OCI
     #   only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/delete_http_monitor.rb.html) to see an example of how to use delete_http_monitor API.
     def delete_http_monitor(monitor_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#delete_http_monitor.' if logger
 
@@ -572,6 +579,7 @@ module OCI
     #   only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/delete_ping_monitor.rb.html) to see an example of how to use delete_ping_monitor API.
     def delete_ping_monitor(monitor_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#delete_ping_monitor.' if logger
 
@@ -633,6 +641,7 @@ module OCI
     #   entity-tag that does not match any of those listed in the field-value.
     #
     # @return [Response] A Response object with data of type {OCI::Healthchecks::Models::HttpMonitor HttpMonitor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/get_http_monitor.rb.html) to see an example of how to use get_http_monitor API.
     def get_http_monitor(monitor_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#get_http_monitor.' if logger
 
@@ -695,6 +704,7 @@ module OCI
     #   entity-tag that does not match any of those listed in the field-value.
     #
     # @return [Response] A Response object with data of type {OCI::Healthchecks::Models::PingMonitor PingMonitor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/get_ping_monitor.rb.html) to see an example of how to use get_ping_monitor API.
     def get_ping_monitor(monitor_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#get_ping_monitor.' if logger
 
@@ -762,6 +772,7 @@ module OCI
     # @option opts [String] :name Filters results that exactly match the `name` field.
     # @option opts [String] :display_name Filters results that exactly match the `displayName` field.
     # @return [Response] A Response object with data of type Array<{OCI::Healthchecks::Models::HealthChecksVantagePointSummary HealthChecksVantagePointSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/list_health_checks_vantage_points.rb.html) to see an example of how to use list_health_checks_vantage_points API.
     def list_health_checks_vantage_points(opts = {})
       logger.debug 'Calling operation HealthChecksClient#list_health_checks_vantage_points.' if logger
 
@@ -841,6 +852,7 @@ module OCI
     # @option opts [String] :display_name Filters results that exactly match the `displayName` field.
     # @option opts [String] :home_region Filters results that match the `homeRegion`.
     # @return [Response] A Response object with data of type Array<{OCI::Healthchecks::Models::HttpMonitorSummary HttpMonitorSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/list_http_monitors.rb.html) to see an example of how to use list_http_monitors API.
     def list_http_monitors(compartment_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#list_http_monitors.' if logger
 
@@ -923,6 +935,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :target Filters results that match the `target`.
     # @return [Response] A Response object with data of type Array<{OCI::Healthchecks::Models::HttpProbeResultSummary HttpProbeResultSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/list_http_probe_results.rb.html) to see an example of how to use list_http_probe_results API.
     def list_http_probe_results(probe_configuration_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#list_http_probe_results.' if logger
 
@@ -1003,6 +1016,7 @@ module OCI
     # @option opts [String] :display_name Filters results that exactly match the `displayName` field.
     # @option opts [String] :home_region Filters results that match the `homeRegion`.
     # @return [Response] A Response object with data of type Array<{OCI::Healthchecks::Models::PingMonitorSummary PingMonitorSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/list_ping_monitors.rb.html) to see an example of how to use list_ping_monitors API.
     def list_ping_monitors(compartment_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#list_ping_monitors.' if logger
 
@@ -1089,6 +1103,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :target Filters results that match the `target`.
     # @return [Response] A Response object with data of type Array<{OCI::Healthchecks::Models::PingProbeResultSummary PingProbeResultSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/list_ping_probe_results.rb.html) to see an example of how to use list_ping_probe_results API.
     def list_ping_probe_results(probe_configuration_id, opts = {})
       logger.debug 'Calling operation HealthChecksClient#list_ping_probe_results.' if logger
 
@@ -1163,6 +1178,7 @@ module OCI
     #   only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Healthchecks::Models::HttpMonitor HttpMonitor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/update_http_monitor.rb.html) to see an example of how to use update_http_monitor API.
     def update_http_monitor(monitor_id, update_http_monitor_details, opts = {})
       logger.debug 'Calling operation HealthChecksClient#update_http_monitor.' if logger
 
@@ -1229,6 +1245,7 @@ module OCI
     #   only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Healthchecks::Models::PingMonitor PingMonitor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/healthchecks/update_ping_monitor.rb.html) to see an example of how to use update_ping_monitor API.
     def update_ping_monitor(monitor_id, update_ping_monitor_details, opts = {})
       logger.debug 'Calling operation HealthChecksClient#update_ping_monitor.' if logger
 

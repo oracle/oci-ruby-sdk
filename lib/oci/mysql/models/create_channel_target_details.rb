@@ -5,18 +5,18 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # **Deprecated.** See {#restore_autonomous_database_details restore_autonomous_database_details} for reference information about restoring an Autonomous Data Warehouse.
-  #
-  class Database::Models::RestoreAutonomousDataWarehouseDetails
-    # **[Required]** The time to restore the database to.
-    # @return [DateTime]
-    attr_accessor :timestamp
+  # Parameters detailing how to provision the target for the given Channel.
+  # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
+  class Mysql::Models::CreateChannelTargetDetails
+    # **[Required]** The specific target identifier.
+    # @return [String]
+    attr_accessor :target_type
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'timestamp': :'timestamp'
+        'target_type': :'targetType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,10 +25,25 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'timestamp': :'DateTime'
+        'target_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
+
+
+    # Given the hash representation of a subtype of this class,
+    # use the info in the hash to return the class of the subtype.
+    def self.get_subtype(object_hash)
+      type = object_hash[:'targetType'] # rubocop:disable Style/SymbolLiteral
+
+      return 'OCI::Mysql::Models::CreateChannelTargetFromDbSystemDetails' if type == 'DBSYSTEM'
+
+      # TODO: Log a warning when the subtype is not found.
+      'OCI::Mysql::Models::CreateChannelTargetDetails'
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -36,14 +51,18 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [DateTime] :timestamp The value to assign to the {#timestamp} property
+    # @option attributes [String] :target_type The value to assign to the {#target_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.timestamp = attributes[:'timestamp'] if attributes[:'timestamp']
+      self.target_type = attributes[:'targetType'] if attributes[:'targetType']
+
+      raise 'You cannot provide both :targetType and :target_type' if attributes.key?(:'targetType') && attributes.key?(:'target_type')
+
+      self.target_type = attributes[:'target_type'] if attributes[:'target_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -57,7 +76,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        timestamp == other.timestamp
+        target_type == other.target_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -73,7 +92,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [timestamp].hash
+      [target_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

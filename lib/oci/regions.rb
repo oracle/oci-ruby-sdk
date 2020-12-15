@@ -31,6 +31,7 @@ module OCI
       REGION_ME_JEDDAH_1 = 'me-jeddah-1'.freeze,
 
       REGION_SA_SAOPAULO_1 = 'sa-saopaulo-1'.freeze,
+      REGION_SA_SANTIAGO_1 = 'sa-santiago-1'.freeze,
 
       REGION_UK_CARDIFF_1 = 'uk-cardiff-1'.freeze,
       REGION_UK_LONDON_1 = 'uk-london-1'.freeze,
@@ -68,6 +69,7 @@ module OCI
       'nja': REGION_AP_CHIYODA_1,
       'nrt': REGION_AP_TOKYO_1,
       'phx': REGION_US_PHOENIX_1,
+      'scl': REGION_SA_SANTIAGO_1,
       'sjc': REGION_US_SANJOSE_1,
       'syd': REGION_AP_SYDNEY_1,
       'yny': REGION_AP_CHUNCHEON_1,
@@ -98,6 +100,7 @@ module OCI
       'me-dubai-1': 'oc1'.freeze,
       'me-jeddah-1': 'oc1'.freeze,
 
+      'sa-santiago-1': 'oc1.freeze',
       'sa-saopaulo-1': 'oc1'.freeze,
 
       'uk-cardiff-1': 'oc1'.freeze,

@@ -56,6 +56,19 @@ module OCI
     # @return [Integer]
     attr_accessor :message_packs
 
+    # Visual Builder is enabled or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_visual_builder_enabled
+
+    # @return [OCI::Integration::Models::CreateCustomEndpointDetails]
+    attr_accessor :custom_endpoint
+
+    # A list of alternate custom endpoints to be used for the integration instance URL
+    # (contact Oracle for alternateCustomEndpoints availability for a specific instance).
+    #
+    # @return [Array<OCI::Integration::Models::CreateCustomEndpointDetails>]
+    attr_accessor :alternate_custom_endpoints
+
     # Optional parameter specifying which entitlement to use for billing purposes. Only required if the account possesses more than one entitlement.
     # @return [String]
     attr_reader :consumption_model
@@ -76,6 +89,9 @@ module OCI
         'is_byol': :'isByol',
         'idcs_at': :'idcsAt',
         'message_packs': :'messagePacks',
+        'is_visual_builder_enabled': :'isVisualBuilderEnabled',
+        'custom_endpoint': :'customEndpoint',
+        'alternate_custom_endpoints': :'alternateCustomEndpoints',
         'consumption_model': :'consumptionModel',
         'is_file_server_enabled': :'isFileServerEnabled'
         # rubocop:enable Style/SymbolLiteral
@@ -94,6 +110,9 @@ module OCI
         'is_byol': :'BOOLEAN',
         'idcs_at': :'String',
         'message_packs': :'Integer',
+        'is_visual_builder_enabled': :'BOOLEAN',
+        'custom_endpoint': :'OCI::Integration::Models::CreateCustomEndpointDetails',
+        'alternate_custom_endpoints': :'Array<OCI::Integration::Models::CreateCustomEndpointDetails>',
         'consumption_model': :'String',
         'is_file_server_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
@@ -114,6 +133,9 @@ module OCI
     # @option attributes [BOOLEAN] :is_byol The value to assign to the {#is_byol} property
     # @option attributes [String] :idcs_at The value to assign to the {#idcs_at} property
     # @option attributes [Integer] :message_packs The value to assign to the {#message_packs} property
+    # @option attributes [BOOLEAN] :is_visual_builder_enabled The value to assign to the {#is_visual_builder_enabled} property
+    # @option attributes [OCI::Integration::Models::CreateCustomEndpointDetails] :custom_endpoint The value to assign to the {#custom_endpoint} property
+    # @option attributes [Array<OCI::Integration::Models::CreateCustomEndpointDetails>] :alternate_custom_endpoints The value to assign to the {#alternate_custom_endpoints} property
     # @option attributes [String] :consumption_model The value to assign to the {#consumption_model} property
     # @option attributes [BOOLEAN] :is_file_server_enabled The value to assign to the {#is_file_server_enabled} property
     def initialize(attributes = {})
@@ -170,6 +192,24 @@ module OCI
 
       self.message_packs = attributes[:'message_packs'] if attributes[:'message_packs']
 
+      self.is_visual_builder_enabled = attributes[:'isVisualBuilderEnabled'] unless attributes[:'isVisualBuilderEnabled'].nil?
+
+      raise 'You cannot provide both :isVisualBuilderEnabled and :is_visual_builder_enabled' if attributes.key?(:'isVisualBuilderEnabled') && attributes.key?(:'is_visual_builder_enabled')
+
+      self.is_visual_builder_enabled = attributes[:'is_visual_builder_enabled'] unless attributes[:'is_visual_builder_enabled'].nil?
+
+      self.custom_endpoint = attributes[:'customEndpoint'] if attributes[:'customEndpoint']
+
+      raise 'You cannot provide both :customEndpoint and :custom_endpoint' if attributes.key?(:'customEndpoint') && attributes.key?(:'custom_endpoint')
+
+      self.custom_endpoint = attributes[:'custom_endpoint'] if attributes[:'custom_endpoint']
+
+      self.alternate_custom_endpoints = attributes[:'alternateCustomEndpoints'] if attributes[:'alternateCustomEndpoints']
+
+      raise 'You cannot provide both :alternateCustomEndpoints and :alternate_custom_endpoints' if attributes.key?(:'alternateCustomEndpoints') && attributes.key?(:'alternate_custom_endpoints')
+
+      self.alternate_custom_endpoints = attributes[:'alternate_custom_endpoints'] if attributes[:'alternate_custom_endpoints']
+
       self.consumption_model = attributes[:'consumptionModel'] if attributes[:'consumptionModel']
 
       raise 'You cannot provide both :consumptionModel and :consumption_model' if attributes.key?(:'consumptionModel') && attributes.key?(:'consumption_model')
@@ -220,6 +260,9 @@ module OCI
         is_byol == other.is_byol &&
         idcs_at == other.idcs_at &&
         message_packs == other.message_packs &&
+        is_visual_builder_enabled == other.is_visual_builder_enabled &&
+        custom_endpoint == other.custom_endpoint &&
+        alternate_custom_endpoints == other.alternate_custom_endpoints &&
         consumption_model == other.consumption_model &&
         is_file_server_enabled == other.is_file_server_enabled
     end
@@ -237,7 +280,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, integration_instance_type, freeform_tags, defined_tags, is_byol, idcs_at, message_packs, consumption_model, is_file_server_enabled].hash
+      [display_name, compartment_id, integration_instance_type, freeform_tags, defined_tags, is_byol, idcs_at, message_packs, is_visual_builder_enabled, custom_endpoint, alternate_custom_endpoints, consumption_model, is_file_server_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

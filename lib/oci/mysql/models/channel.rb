@@ -6,63 +6,77 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # **Deprecated.** See {AutonomousDatabaseBackup} for reference information about Autonomous Data Warehouse backups.
-  #
-  class Database::Models::AutonomousDataWarehouseBackup
-    TYPE_ENUM = [
-      TYPE_INCREMENTAL = 'INCREMENTAL'.freeze,
-      TYPE_FULL = 'FULL'.freeze,
-      TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
-    ].freeze
-
+  # A Channel connecting a DB System to an external entity.
+  class Mysql::Models::Channel
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse backup.
+    # **[Required]** The OCID of the Channel.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # **[Required]** The OCID of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Warehouse.
-    # @return [String]
-    attr_accessor :autonomous_data_warehouse_id
-
-    # **[Required]** The user-friendly name for the backup. The name does not have to be unique.
+    # **[Required]** The user-friendly name for the Channel. It does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The type of backup.
-    # @return [String]
-    attr_reader :type
-
-    # **[Required]** Indicates whether the backup is user-initiated or automatic.
+    # **[Required]** Whether the Channel has been enabled by the user.
     # @return [BOOLEAN]
-    attr_accessor :is_automatic
+    attr_accessor :is_enabled
 
-    # The date and time the backup started.
-    # @return [DateTime]
-    attr_accessor :time_started
+    # This attribute is required.
+    # @return [OCI::Mysql::Models::ChannelSource]
+    attr_accessor :source
 
-    # The date and time the backup completed.
-    # @return [DateTime]
-    attr_accessor :time_ended
+    # This attribute is required.
+    # @return [OCI::Mysql::Models::ChannelTarget]
+    attr_accessor :target
 
-    # Additional information about the current lifecycle state.
+    # User provided description of the Channel.
+    # @return [String]
+    attr_accessor :description
+
+    # **[Required]** The state of the Channel.
+    # @return [String]
+    attr_reader :lifecycle_state
+
+    # A message describing the state of the Channel.
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # **[Required]** The current state of the backup.
-    # @return [String]
-    attr_reader :lifecycle_state
+    # **[Required]** The date and time the Channel was created, as described by [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+    #
+    # @return [DateTime]
+    attr_accessor :time_created
+
+    # **[Required]** The time the Channel was last updated, as described by [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+    #
+    # @return [DateTime]
+    attr_accessor :time_updated
+
+    # Simple key-value pair applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Example: `{\"bar-key\": \"value\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -70,14 +84,17 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
         'compartment_id': :'compartmentId',
-        'autonomous_data_warehouse_id': :'autonomousDataWarehouseId',
         'display_name': :'displayName',
-        'type': :'type',
-        'is_automatic': :'isAutomatic',
-        'time_started': :'timeStarted',
-        'time_ended': :'timeEnded',
+        'is_enabled': :'isEnabled',
+        'source': :'source',
+        'target': :'target',
+        'description': :'description',
+        'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
-        'lifecycle_state': :'lifecycleState'
+        'time_created': :'timeCreated',
+        'time_updated': :'timeUpdated',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -88,14 +105,17 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
         'compartment_id': :'String',
-        'autonomous_data_warehouse_id': :'String',
         'display_name': :'String',
-        'type': :'String',
-        'is_automatic': :'BOOLEAN',
-        'time_started': :'DateTime',
-        'time_ended': :'DateTime',
+        'is_enabled': :'BOOLEAN',
+        'source': :'OCI::Mysql::Models::ChannelSource',
+        'target': :'OCI::Mysql::Models::ChannelTarget',
+        'description': :'String',
+        'lifecycle_state': :'String',
         'lifecycle_details': :'String',
-        'lifecycle_state': :'String'
+        'time_created': :'DateTime',
+        'time_updated': :'DateTime',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -108,16 +128,22 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :autonomous_data_warehouse_id The value to assign to the {#autonomous_data_warehouse_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
-    # @option attributes [String] :type The value to assign to the {#type} property
-    # @option attributes [BOOLEAN] :is_automatic The value to assign to the {#is_automatic} property
-    # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
-    # @option attributes [DateTime] :time_ended The value to assign to the {#time_ended} property
-    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
+    # @option attributes [OCI::Mysql::Models::ChannelSource] :source The value to assign to the {#source} property
+    # @option attributes [OCI::Mysql::Models::ChannelTarget] :target The value to assign to the {#target} property
+    # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.id = attributes[:'id'] if attributes[:'id']
 
@@ -127,37 +153,31 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.autonomous_data_warehouse_id = attributes[:'autonomousDataWarehouseId'] if attributes[:'autonomousDataWarehouseId']
-
-      raise 'You cannot provide both :autonomousDataWarehouseId and :autonomous_data_warehouse_id' if attributes.key?(:'autonomousDataWarehouseId') && attributes.key?(:'autonomous_data_warehouse_id')
-
-      self.autonomous_data_warehouse_id = attributes[:'autonomous_data_warehouse_id'] if attributes[:'autonomous_data_warehouse_id']
-
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
-      self.type = attributes[:'type'] if attributes[:'type']
+      self.is_enabled = attributes[:'isEnabled'] unless attributes[:'isEnabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') # rubocop:disable Style/StringLiterals
 
-      self.is_automatic = attributes[:'isAutomatic'] unless attributes[:'isAutomatic'].nil?
+      raise 'You cannot provide both :isEnabled and :is_enabled' if attributes.key?(:'isEnabled') && attributes.key?(:'is_enabled')
 
-      raise 'You cannot provide both :isAutomatic and :is_automatic' if attributes.key?(:'isAutomatic') && attributes.key?(:'is_automatic')
+      self.is_enabled = attributes[:'is_enabled'] unless attributes[:'is_enabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') && !attributes.key?(:'is_enabled') # rubocop:disable Style/StringLiterals
 
-      self.is_automatic = attributes[:'is_automatic'] unless attributes[:'is_automatic'].nil?
+      self.source = attributes[:'source'] if attributes[:'source']
 
-      self.time_started = attributes[:'timeStarted'] if attributes[:'timeStarted']
+      self.target = attributes[:'target'] if attributes[:'target']
 
-      raise 'You cannot provide both :timeStarted and :time_started' if attributes.key?(:'timeStarted') && attributes.key?(:'time_started')
+      self.description = attributes[:'description'] if attributes[:'description']
 
-      self.time_started = attributes[:'time_started'] if attributes[:'time_started']
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
-      self.time_ended = attributes[:'timeEnded'] if attributes[:'timeEnded']
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
-      raise 'You cannot provide both :timeEnded and :time_ended' if attributes.key?(:'timeEnded') && attributes.key?(:'time_ended')
-
-      self.time_ended = attributes[:'time_ended'] if attributes[:'time_ended']
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
       self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
 
@@ -165,27 +185,32 @@ module OCI
 
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
-      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
-      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
-      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] type Object to be assigned
-    def type=(type)
-      # rubocop:disable Style/ConditionalAssignment
-      if type && !TYPE_ENUM.include?(type)
-        OCI.logger.debug("Unknown value for 'type' [" + type + "]. Mapping to 'TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
-        @type = TYPE_UNKNOWN_ENUM_VALUE
-      else
-        @type = type
-      end
-      # rubocop:enable Style/ConditionalAssignment
-    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
@@ -211,14 +236,17 @@ module OCI
       self.class == other.class &&
         id == other.id &&
         compartment_id == other.compartment_id &&
-        autonomous_data_warehouse_id == other.autonomous_data_warehouse_id &&
         display_name == other.display_name &&
-        type == other.type &&
-        is_automatic == other.is_automatic &&
-        time_started == other.time_started &&
-        time_ended == other.time_ended &&
+        is_enabled == other.is_enabled &&
+        source == other.source &&
+        target == other.target &&
+        description == other.description &&
+        lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
-        lifecycle_state == other.lifecycle_state
+        time_created == other.time_created &&
+        time_updated == other.time_updated &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -234,7 +262,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, autonomous_data_warehouse_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, lifecycle_state].hash
+      [id, compartment_id, display_name, is_enabled, source, target, description, lifecycle_state, lifecycle_details, time_created, time_updated, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

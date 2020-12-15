@@ -125,6 +125,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/change_topic_compartment.rb.html) to see an example of how to use change_topic_compartment API.
     def change_topic_compartment(topic_id, change_topic_compartment_details, opts = {})
       logger.debug 'Calling operation NotificationControlPlaneClient#change_topic_compartment.' if logger
 
@@ -203,6 +204,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ons::Models::NotificationTopic NotificationTopic}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/create_topic.rb.html) to see an example of how to use create_topic API.
     def create_topic(create_topic_details, opts = {})
       logger.debug 'Calling operation NotificationControlPlaneClient#create_topic.' if logger
 
@@ -267,6 +269,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/delete_topic.rb.html) to see an example of how to use delete_topic API.
     def delete_topic(topic_id, opts = {})
       logger.debug 'Calling operation NotificationControlPlaneClient#delete_topic.' if logger
 
@@ -326,6 +329,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ons::Models::NotificationTopic NotificationTopic}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/get_topic.rb.html) to see an example of how to use get_topic API.
     def get_topic(topic_id, opts = {})
       logger.debug 'Calling operation NotificationControlPlaneClient#get_topic.' if logger
 
@@ -403,6 +407,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Ons::Models::NotificationTopicSummary NotificationTopicSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/list_topics.rb.html) to see an example of how to use list_topics API.
     def list_topics(compartment_id, opts = {})
       logger.debug 'Calling operation NotificationControlPlaneClient#list_topics.' if logger
 
@@ -486,6 +491,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Ons::Models::NotificationTopic NotificationTopic}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/update_topic.rb.html) to see an example of how to use update_topic API.
     def update_topic(topic_id, topic_attributes_details, opts = {})
       logger.debug 'Calling operation NotificationControlPlaneClient#update_topic.' if logger
 

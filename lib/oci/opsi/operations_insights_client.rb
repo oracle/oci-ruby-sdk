@@ -123,6 +123,7 @@ module OCI
     #   operations, such as a resource being deleted or purged from the system.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::IngestSqlBucketResponseDetails IngestSqlBucketResponseDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/ingest_sql_bucket.rb.html) to see an example of how to use ingest_sql_bucket API.
     def ingest_sql_bucket(compartment_id, database_id, ingest_sql_bucket_details, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#ingest_sql_bucket.' if logger
 
@@ -198,6 +199,7 @@ module OCI
     #   operations, such as a resource being deleted or purged from the system.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::IngestSqlPlanLinesResponseDetails IngestSqlPlanLinesResponseDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/ingest_sql_plan_lines.rb.html) to see an example of how to use ingest_sql_plan_lines API.
     def ingest_sql_plan_lines(compartment_id, database_id, ingest_sql_plan_lines_details, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#ingest_sql_plan_lines.' if logger
 
@@ -275,6 +277,7 @@ module OCI
     #   operations, such as a resource being deleted or purged from the system.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::IngestSqlTextResponseDetails IngestSqlTextResponseDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/ingest_sql_text.rb.html) to see an example of how to use ingest_sql_text API.
     def ingest_sql_text(compartment_id, database_id, ingest_sql_text_details, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#ingest_sql_text.' if logger
 
@@ -360,6 +363,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::DatabaseInsightsCollection DatabaseInsightsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_database_insights.rb.html) to see an example of how to use list_database_insights API.
     def list_database_insights(compartment_id, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#list_database_insights.' if logger
 
@@ -462,6 +466,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlPlanCollection SqlPlanCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_sql_plans.rb.html) to see an example of how to use list_sql_plans API.
     def list_sql_plans(compartment_id, database_id, sql_identifier, plan_hash, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#list_sql_plans.' if logger
 
@@ -547,6 +552,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlSearchCollection SqlSearchCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_sql_searches.rb.html) to see an example of how to use list_sql_searches API.
     def list_sql_searches(compartment_id, sql_identifier, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#list_sql_searches.' if logger
 
@@ -617,6 +623,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlTextCollection SqlTextCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_sql_texts.rb.html) to see an example of how to use list_sql_texts API.
     def list_sql_texts(compartment_id, sql_identifier, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#list_sql_texts.' if logger
 
@@ -719,6 +726,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceCapacityTrendAggregationCollection SummarizeDatabaseInsightResourceCapacityTrendAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_capacity_trend.rb.html) to see an example of how to use summarize_database_insight_resource_capacity_trend API.
     def summarize_database_insight_resource_capacity_trend(compartment_id, resource_metric, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_database_insight_resource_capacity_trend.' if logger
 
@@ -861,6 +869,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceForecastTrendAggregation SummarizeDatabaseInsightResourceForecastTrendAggregation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_forecast_trend.rb.html) to see an example of how to use summarize_database_insight_resource_forecast_trend API.
     def summarize_database_insight_resource_forecast_trend(compartment_id, resource_metric, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_database_insight_resource_forecast_trend.' if logger
 
@@ -999,6 +1008,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceStatisticsAggregationCollection SummarizeDatabaseInsightResourceStatisticsAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_statistics.rb.html) to see an example of how to use summarize_database_insight_resource_statistics API.
     def summarize_database_insight_resource_statistics(compartment_id, resource_metric, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_database_insight_resource_statistics.' if logger
 
@@ -1120,6 +1130,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceUsageAggregation SummarizeDatabaseInsightResourceUsageAggregation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_usage.rb.html) to see an example of how to use summarize_database_insight_resource_usage API.
     def summarize_database_insight_resource_usage(compartment_id, resource_metric, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_database_insight_resource_usage.' if logger
 
@@ -1230,6 +1241,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceUsageTrendAggregationCollection SummarizeDatabaseInsightResourceUsageTrendAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_usage_trend.rb.html) to see an example of how to use summarize_database_insight_resource_usage_trend API.
     def summarize_database_insight_resource_usage_trend(compartment_id, resource_metric, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_database_insight_resource_usage_trend.' if logger
 
@@ -1344,6 +1356,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceUtilizationInsightAggregation SummarizeDatabaseInsightResourceUtilizationInsightAggregation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_utilization_insight.rb.html) to see an example of how to use summarize_database_insight_resource_utilization_insight API.
     def summarize_database_insight_resource_utilization_insight(compartment_id, resource_metric, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_database_insight_resource_utilization_insight.' if logger
 
@@ -1446,6 +1459,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlInsightAggregationCollection SqlInsightAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_sql_insights.rb.html) to see an example of how to use summarize_sql_insights API.
     def summarize_sql_insights(compartment_id, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_sql_insights.' if logger
 
@@ -1543,6 +1557,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlPlanInsightAggregationCollection SqlPlanInsightAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_sql_plan_insights.rb.html) to see an example of how to use summarize_sql_plan_insights API.
     def summarize_sql_plan_insights(compartment_id, database_id, sql_identifier, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_sql_plan_insights.' if logger
 
@@ -1631,6 +1646,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlResponseTimeDistributionAggregationCollection SqlResponseTimeDistributionAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_sql_response_time_distributions.rb.html) to see an example of how to use summarize_sql_response_time_distributions API.
     def summarize_sql_response_time_distributions(compartment_id, database_id, sql_identifier, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_sql_response_time_distributions.' if logger
 
@@ -1738,8 +1754,9 @@ module OCI
     #   Allowed values are: databaseTimeInSec, executionsPerHour, executionsCount, cpuTimeInSec, ioTimeInSec, inefficientWaitTimeInSec, responseTimeInSec, planCount, variability, averageActiveSessions, databaseTimePct, inefficiencyInPct, changeInCpuTimeInPct, changeInIoTimeInPct, changeInInefficientWaitTimeInPct, changeInResponseTimeInPct, changeInAverageActiveSessionsInPct, changeInExecutionsPerHourInPct, changeInInefficiencyInPct
     # @option opts [Array<String>] :category Filter sqls by one or more performance categories.
     #    (default to [])
-    #   Allowed values are: DEGRADING, VARIANT, INEFFICIENT, CHANGING_PLANS, DEGRADING_VARIANT, DEGRADING_INEFFICIENT, DEGRADING_CHANGING_PLANS, DEGRADING_INCREASING_IO, DEGRADING_INCREASING_CPU, DEGRADING_INCREASING_INEFFICIENT_WAIT, DEGRADING_CHANGING_PLANS_AND_INCREASING_IO, DEGRADING_CHANGING_PLANS_AND_INCREASING_CPU, DEGRADING_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, VARIANT_INEFFICIENT, VARIANT_CHANGING_PLANS, VARIANT_INCREASING_IO, VARIANT_INCREASING_CPU, VARIANT_INCREASING_INEFFICIENT_WAIT, VARIANT_CHANGING_PLANS_AND_INCREASING_IO, VARIANT_CHANGING_PLANS_AND_INCREASING_CPU, VARIANT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS, INEFFICIENT_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT
+    #   Allowed values are: DEGRADING, VARIANT, INEFFICIENT, CHANGING_PLANS, IMPROVING, DEGRADING_VARIANT, DEGRADING_INEFFICIENT, DEGRADING_CHANGING_PLANS, DEGRADING_INCREASING_IO, DEGRADING_INCREASING_CPU, DEGRADING_INCREASING_INEFFICIENT_WAIT, DEGRADING_CHANGING_PLANS_AND_INCREASING_IO, DEGRADING_CHANGING_PLANS_AND_INCREASING_CPU, DEGRADING_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, VARIANT_INEFFICIENT, VARIANT_CHANGING_PLANS, VARIANT_INCREASING_IO, VARIANT_INCREASING_CPU, VARIANT_INCREASING_INEFFICIENT_WAIT, VARIANT_CHANGING_PLANS_AND_INCREASING_IO, VARIANT_CHANGING_PLANS_AND_INCREASING_CPU, VARIANT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS, INEFFICIENT_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlStatisticAggregationCollection SqlStatisticAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_sql_statistics.rb.html) to see an example of how to use summarize_sql_statistics API.
     def summarize_sql_statistics(compartment_id, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_sql_statistics.' if logger
 
@@ -1764,11 +1781,11 @@ module OCI
       end
 
 
-      category_allowable_values = %w[DEGRADING VARIANT INEFFICIENT CHANGING_PLANS DEGRADING_VARIANT DEGRADING_INEFFICIENT DEGRADING_CHANGING_PLANS DEGRADING_INCREASING_IO DEGRADING_INCREASING_CPU DEGRADING_INCREASING_INEFFICIENT_WAIT DEGRADING_CHANGING_PLANS_AND_INCREASING_IO DEGRADING_CHANGING_PLANS_AND_INCREASING_CPU DEGRADING_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT VARIANT_INEFFICIENT VARIANT_CHANGING_PLANS VARIANT_INCREASING_IO VARIANT_INCREASING_CPU VARIANT_INCREASING_INEFFICIENT_WAIT VARIANT_CHANGING_PLANS_AND_INCREASING_IO VARIANT_CHANGING_PLANS_AND_INCREASING_CPU VARIANT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT INEFFICIENT_CHANGING_PLANS INEFFICIENT_INCREASING_INEFFICIENT_WAIT INEFFICIENT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT]
+      category_allowable_values = %w[DEGRADING VARIANT INEFFICIENT CHANGING_PLANS IMPROVING DEGRADING_VARIANT DEGRADING_INEFFICIENT DEGRADING_CHANGING_PLANS DEGRADING_INCREASING_IO DEGRADING_INCREASING_CPU DEGRADING_INCREASING_INEFFICIENT_WAIT DEGRADING_CHANGING_PLANS_AND_INCREASING_IO DEGRADING_CHANGING_PLANS_AND_INCREASING_CPU DEGRADING_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT VARIANT_INEFFICIENT VARIANT_CHANGING_PLANS VARIANT_INCREASING_IO VARIANT_INCREASING_CPU VARIANT_INCREASING_INEFFICIENT_WAIT VARIANT_CHANGING_PLANS_AND_INCREASING_IO VARIANT_CHANGING_PLANS_AND_INCREASING_CPU VARIANT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT INEFFICIENT_CHANGING_PLANS INEFFICIENT_INCREASING_INEFFICIENT_WAIT INEFFICIENT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT]
       if opts[:category] && !opts[:category].empty?
         opts[:category].each do |val_to_check|
           unless category_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "category", must be one of DEGRADING, VARIANT, INEFFICIENT, CHANGING_PLANS, DEGRADING_VARIANT, DEGRADING_INEFFICIENT, DEGRADING_CHANGING_PLANS, DEGRADING_INCREASING_IO, DEGRADING_INCREASING_CPU, DEGRADING_INCREASING_INEFFICIENT_WAIT, DEGRADING_CHANGING_PLANS_AND_INCREASING_IO, DEGRADING_CHANGING_PLANS_AND_INCREASING_CPU, DEGRADING_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, VARIANT_INEFFICIENT, VARIANT_CHANGING_PLANS, VARIANT_INCREASING_IO, VARIANT_INCREASING_CPU, VARIANT_INCREASING_INEFFICIENT_WAIT, VARIANT_CHANGING_PLANS_AND_INCREASING_IO, VARIANT_CHANGING_PLANS_AND_INCREASING_CPU, VARIANT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS, INEFFICIENT_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT.'
+            raise 'Invalid value for "category", must be one of DEGRADING, VARIANT, INEFFICIENT, CHANGING_PLANS, IMPROVING, DEGRADING_VARIANT, DEGRADING_INEFFICIENT, DEGRADING_CHANGING_PLANS, DEGRADING_INCREASING_IO, DEGRADING_INCREASING_CPU, DEGRADING_INCREASING_INEFFICIENT_WAIT, DEGRADING_CHANGING_PLANS_AND_INCREASING_IO, DEGRADING_CHANGING_PLANS_AND_INCREASING_CPU, DEGRADING_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, VARIANT_INEFFICIENT, VARIANT_CHANGING_PLANS, VARIANT_INCREASING_IO, VARIANT_INCREASING_CPU, VARIANT_INCREASING_INEFFICIENT_WAIT, VARIANT_CHANGING_PLANS_AND_INCREASING_IO, VARIANT_CHANGING_PLANS_AND_INCREASING_CPU, VARIANT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS, INEFFICIENT_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT.'
           end
         end
       end
@@ -1860,6 +1877,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlStatisticsTimeSeriesAggregationCollection SqlStatisticsTimeSeriesAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_sql_statistics_time_series.rb.html) to see an example of how to use summarize_sql_statistics_time_series API.
     def summarize_sql_statistics_time_series(compartment_id, sql_identifier, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_sql_statistics_time_series.' if logger
 
@@ -1947,6 +1965,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlStatisticsTimeSeriesByPlanAggregationCollection SqlStatisticsTimeSeriesByPlanAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_sql_statistics_time_series_by_plan.rb.html) to see an example of how to use summarize_sql_statistics_time_series_by_plan API.
     def summarize_sql_statistics_time_series_by_plan(compartment_id, database_id, sql_identifier, opts = {})
       logger.debug 'Calling operation OperationsInsightsClient#summarize_sql_statistics_time_series_by_plan.' if logger
 

@@ -104,6 +104,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Dts::Models::ShippingVendors ShippingVendors}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/list_shipping_vendors.rb.html) to see an example of how to use list_shipping_vendors API.
     def list_shipping_vendors(opts = {})
       logger.debug 'Calling operation ShippingVendorsClient#list_shipping_vendors.' if logger
 

@@ -107,6 +107,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::Incident Incident}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cims/create_incident.rb.html) to see an example of how to use create_incident API.
     def create_incident(create_incident_details, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#create_incident.' if logger
 
@@ -166,6 +167,7 @@ module OCI
     # @option opts [String] :homeregion The region of the tenancy.
     # @option opts [String] :problem_type The kind of support request.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::Incident Incident}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cims/get_incident.rb.html) to see an example of how to use get_incident API.
     def get_incident(incident_key, csi, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#get_incident.' if logger
 
@@ -227,6 +229,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::Status Status}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cims/get_status.rb.html) to see an example of how to use get_status API.
     def get_status(source, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#get_status.' if logger
 
@@ -294,6 +297,7 @@ module OCI
     # @option opts [String] :name The user-friendly name of the incident type. (default to limit)
     # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type Array<{OCI::Cims::Models::IncidentResourceType IncidentResourceType}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cims/list_incident_resource_types.rb.html) to see an example of how to use list_incident_resource_types API.
     def list_incident_resource_types(problem_type, compartment_id, csi, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#list_incident_resource_types.' if logger
 
@@ -378,6 +382,7 @@ module OCI
     # @option opts [String] :homeregion The region of the tenancy.
     # @option opts [String] :problem_type The kind of support request.
     # @return [Response] A Response object with data of type Array<{OCI::Cims::Models::IncidentSummary IncidentSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cims/list_incidents.rb.html) to see an example of how to use list_incidents API.
     def list_incidents(csi, compartment_id, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#list_incidents.' if logger
 
@@ -459,6 +464,7 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the etag from a previous GET or POST response for that resource. The resource will be updated or deleted only if the etag you provide matches the resource's current etag value.
     # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::Incident Incident}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cims/update_incident.rb.html) to see an example of how to use update_incident API.
     def update_incident(incident_key, csi, update_incident_details, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#update_incident.' if logger
 
@@ -522,6 +528,7 @@ module OCI
     # @option opts [String] :problem_type The kind of support request.
     # @option opts [String] :homeregion The region of the tenancy.
     # @return [Response] A Response object with data of type {OCI::Cims::Models::ValidationResponse ValidationResponse}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cims/validate_user.rb.html) to see an example of how to use validate_user API.
     def validate_user(csi, ocid, opts = {})
       logger.debug 'Calling operation IncidentClient#validate_user.' if logger
 

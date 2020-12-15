@@ -25,7 +25,7 @@ module OCI
     attr_accessor :maintenance_window_details
 
     # The scheduling detail for the quarterly maintenance window of the standby Autonomous Container Database.
-    # This value represents the number of days before the primary database maintenance schedule.
+    # This value represents the number of days before schedlued maintenance of the primary database.
     #
     # @return [Integer]
     attr_accessor :standby_maintenance_buffer_in_days

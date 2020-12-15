@@ -111,6 +111,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::AddedNetworkSecurityGroupSecurityRules AddedNetworkSecurityGroupSecurityRules}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/add_network_security_group_security_rules.rb.html) to see an example of how to use add_network_security_group_security_rules API.
     def add_network_security_group_security_rules(network_security_group_id, add_network_security_group_security_rules_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#add_network_security_group_security_rules.' if logger
 
@@ -178,6 +179,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIpPool PublicIpPool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/add_public_ip_pool_capacity.rb.html) to see an example of how to use add_public_ip_pool_capacity API.
     def add_public_ip_pool_capacity(public_ip_pool_id, add_public_ip_pool_capacity_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#add_public_ip_pool_capacity.' if logger
 
@@ -253,6 +255,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/add_vcn_cidr.rb.html) to see an example of how to use add_vcn_cidr API.
     def add_vcn_cidr(vcn_id, add_vcn_cidr_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#add_vcn_cidr.' if logger
 
@@ -313,6 +316,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/advertise_byoip_range.rb.html) to see an example of how to use advertise_byoip_range API.
     def advertise_byoip_range(byoip_range_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#advertise_byoip_range.' if logger
 
@@ -379,6 +383,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ServiceGateway ServiceGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/attach_service_id.rb.html) to see an example of how to use attach_service_id API.
     def attach_service_id(service_gateway_id, attach_service_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#attach_service_id.' if logger
 
@@ -438,6 +443,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/bulk_add_virtual_circuit_public_prefixes.rb.html) to see an example of how to use bulk_add_virtual_circuit_public_prefixes API.
     def bulk_add_virtual_circuit_public_prefixes(virtual_circuit_id, bulk_add_virtual_circuit_public_prefixes_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#bulk_add_virtual_circuit_public_prefixes.' if logger
 
@@ -496,6 +502,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/bulk_delete_virtual_circuit_public_prefixes.rb.html) to see an example of how to use bulk_delete_virtual_circuit_public_prefixes API.
     def bulk_delete_virtual_circuit_public_prefixes(virtual_circuit_id, bulk_delete_virtual_circuit_public_prefixes_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#bulk_delete_virtual_circuit_public_prefixes.' if logger
 
@@ -561,6 +568,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_byoip_range_compartment.rb.html) to see an example of how to use change_byoip_range_compartment API.
     def change_byoip_range_compartment(byoip_range_id, change_byoip_range_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_byoip_range_compartment.' if logger
 
@@ -628,6 +636,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_cpe_compartment.rb.html) to see an example of how to use change_cpe_compartment API.
     def change_cpe_compartment(cpe_id, change_cpe_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_cpe_compartment.' if logger
 
@@ -695,6 +704,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_cross_connect_compartment.rb.html) to see an example of how to use change_cross_connect_compartment API.
     def change_cross_connect_compartment(cross_connect_id, change_cross_connect_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_cross_connect_compartment.' if logger
 
@@ -762,6 +772,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_cross_connect_group_compartment.rb.html) to see an example of how to use change_cross_connect_group_compartment API.
     def change_cross_connect_group_compartment(cross_connect_group_id, change_cross_connect_group_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_cross_connect_group_compartment.' if logger
 
@@ -829,6 +840,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_dhcp_options_compartment.rb.html) to see an example of how to use change_dhcp_options_compartment API.
     def change_dhcp_options_compartment(dhcp_id, change_dhcp_options_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_dhcp_options_compartment.' if logger
 
@@ -896,6 +908,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_drg_compartment.rb.html) to see an example of how to use change_drg_compartment API.
     def change_drg_compartment(drg_id, change_drg_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_drg_compartment.' if logger
 
@@ -963,6 +976,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_internet_gateway_compartment.rb.html) to see an example of how to use change_internet_gateway_compartment API.
     def change_internet_gateway_compartment(ig_id, change_internet_gateway_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_internet_gateway_compartment.' if logger
 
@@ -1030,6 +1044,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_ip_sec_connection_compartment.rb.html) to see an example of how to use change_ip_sec_connection_compartment API.
     def change_ip_sec_connection_compartment(ipsc_id, change_ip_sec_connection_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_ip_sec_connection_compartment.' if logger
 
@@ -1097,6 +1112,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_local_peering_gateway_compartment.rb.html) to see an example of how to use change_local_peering_gateway_compartment API.
     def change_local_peering_gateway_compartment(local_peering_gateway_id, change_local_peering_gateway_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_local_peering_gateway_compartment.' if logger
 
@@ -1164,6 +1180,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_nat_gateway_compartment.rb.html) to see an example of how to use change_nat_gateway_compartment API.
     def change_nat_gateway_compartment(nat_gateway_id, change_nat_gateway_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_nat_gateway_compartment.' if logger
 
@@ -1230,6 +1247,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_network_security_group_compartment.rb.html) to see an example of how to use change_network_security_group_compartment API.
     def change_network_security_group_compartment(network_security_group_id, change_network_security_group_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_network_security_group_compartment.' if logger
 
@@ -1300,6 +1318,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_public_ip_compartment.rb.html) to see an example of how to use change_public_ip_compartment API.
     def change_public_ip_compartment(public_ip_id, change_public_ip_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_public_ip_compartment.' if logger
 
@@ -1367,6 +1386,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_public_ip_pool_compartment.rb.html) to see an example of how to use change_public_ip_pool_compartment API.
     def change_public_ip_pool_compartment(public_ip_pool_id, change_public_ip_pool_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_public_ip_pool_compartment.' if logger
 
@@ -1434,6 +1454,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_remote_peering_connection_compartment.rb.html) to see an example of how to use change_remote_peering_connection_compartment API.
     def change_remote_peering_connection_compartment(remote_peering_connection_id, change_remote_peering_connection_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_remote_peering_connection_compartment.' if logger
 
@@ -1501,6 +1522,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_route_table_compartment.rb.html) to see an example of how to use change_route_table_compartment API.
     def change_route_table_compartment(rt_id, change_route_table_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_route_table_compartment.' if logger
 
@@ -1568,6 +1590,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_security_list_compartment.rb.html) to see an example of how to use change_security_list_compartment API.
     def change_security_list_compartment(security_list_id, change_security_list_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_security_list_compartment.' if logger
 
@@ -1635,6 +1658,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_service_gateway_compartment.rb.html) to see an example of how to use change_service_gateway_compartment API.
     def change_service_gateway_compartment(service_gateway_id, change_service_gateway_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_service_gateway_compartment.' if logger
 
@@ -1702,6 +1726,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_subnet_compartment.rb.html) to see an example of how to use change_subnet_compartment API.
     def change_subnet_compartment(subnet_id, change_subnet_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_subnet_compartment.' if logger
 
@@ -1769,6 +1794,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_vcn_compartment.rb.html) to see an example of how to use change_vcn_compartment API.
     def change_vcn_compartment(vcn_id, change_vcn_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_vcn_compartment.' if logger
 
@@ -1836,6 +1862,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_virtual_circuit_compartment.rb.html) to see an example of how to use change_virtual_circuit_compartment API.
     def change_virtual_circuit_compartment(virtual_circuit_id, change_virtual_circuit_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_virtual_circuit_compartment.' if logger
 
@@ -1907,6 +1934,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_vlan_compartment.rb.html) to see an example of how to use change_vlan_compartment API.
     def change_vlan_compartment(vlan_id, change_vlan_compartment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#change_vlan_compartment.' if logger
 
@@ -1972,6 +2000,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/connect_local_peering_gateways.rb.html) to see an example of how to use connect_local_peering_gateways API.
     def connect_local_peering_gateways(local_peering_gateway_id, connect_local_peering_gateways_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#connect_local_peering_gateways.' if logger
 
@@ -2034,6 +2063,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/connect_remote_peering_connections.rb.html) to see an example of how to use connect_remote_peering_connections API.
     def connect_remote_peering_connections(remote_peering_connection_id, connect_remote_peering_connections_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#connect_remote_peering_connections.' if logger
 
@@ -2096,6 +2126,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ByoipRange ByoipRange}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_byoip_range.rb.html) to see an example of how to use create_byoip_range API.
     def create_byoip_range(create_byoip_range_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_byoip_range.' if logger
 
@@ -2170,6 +2201,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Cpe Cpe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_cpe.rb.html) to see an example of how to use create_cpe API.
     def create_cpe(create_cpe_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_cpe.' if logger
 
@@ -2247,6 +2279,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::CrossConnect CrossConnect}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_cross_connect.rb.html) to see an example of how to use create_cross_connect API.
     def create_cross_connect(create_cross_connect_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_cross_connect.' if logger
 
@@ -2320,6 +2353,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::CrossConnectGroup CrossConnectGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_cross_connect_group.rb.html) to see an example of how to use create_cross_connect_group API.
     def create_cross_connect_group(create_cross_connect_group_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_cross_connect_group.' if logger
 
@@ -2390,6 +2424,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::DhcpOptions DhcpOptions}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_dhcp_options.rb.html) to see an example of how to use create_dhcp_options API.
     def create_dhcp_options(create_dhcp_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_dhcp_options.' if logger
 
@@ -2460,6 +2495,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Drg Drg}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_drg.rb.html) to see an example of how to use create_drg API.
     def create_drg(create_drg_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_drg.' if logger
 
@@ -2529,6 +2565,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::DrgAttachment DrgAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_drg_attachment.rb.html) to see an example of how to use create_drg_attachment API.
     def create_drg_attachment(create_drg_attachment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_drg_attachment.' if logger
 
@@ -2608,6 +2645,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InternetGateway InternetGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_internet_gateway.rb.html) to see an example of how to use create_internet_gateway API.
     def create_internet_gateway(create_internet_gateway_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_internet_gateway.' if logger
 
@@ -2695,6 +2733,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnection IPSecConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_ip_sec_connection.rb.html) to see an example of how to use create_ip_sec_connection API.
     def create_ip_sec_connection(create_ip_sec_connection_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_ip_sec_connection.' if logger
 
@@ -2757,6 +2796,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Ipv6 Ipv6}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_ipv6.rb.html) to see an example of how to use create_ipv6 API.
     def create_ipv6(create_ipv6_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_ipv6.' if logger
 
@@ -2817,6 +2857,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::LocalPeeringGateway LocalPeeringGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_local_peering_gateway.rb.html) to see an example of how to use create_local_peering_gateway API.
     def create_local_peering_gateway(create_local_peering_gateway_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_local_peering_gateway.' if logger
 
@@ -2877,6 +2918,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::NatGateway NatGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_nat_gateway.rb.html) to see an example of how to use create_nat_gateway API.
     def create_nat_gateway(create_nat_gateway_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_nat_gateway.' if logger
 
@@ -2936,6 +2978,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::NetworkSecurityGroup NetworkSecurityGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_network_security_group.rb.html) to see an example of how to use create_network_security_group API.
     def create_network_security_group(create_network_security_group_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_network_security_group.' if logger
 
@@ -2997,6 +3040,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::PrivateIp PrivateIp}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_private_ip.rb.html) to see an example of how to use create_private_ip API.
     def create_private_ip(create_private_ip_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_private_ip.' if logger
 
@@ -3076,6 +3120,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIp PublicIp}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_public_ip.rb.html) to see an example of how to use create_public_ip API.
     def create_public_ip(create_public_ip_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_public_ip.' if logger
 
@@ -3138,6 +3183,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIpPool PublicIpPool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_public_ip_pool.rb.html) to see an example of how to use create_public_ip_pool API.
     def create_public_ip_pool(create_public_ip_pool_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_public_ip_pool.' if logger
 
@@ -3198,6 +3244,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::RemotePeeringConnection RemotePeeringConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_remote_peering_connection.rb.html) to see an example of how to use create_remote_peering_connection API.
     def create_remote_peering_connection(create_remote_peering_connection_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_remote_peering_connection.' if logger
 
@@ -3271,6 +3318,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::RouteTable RouteTable}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_route_table.rb.html) to see an example of how to use create_route_table API.
     def create_route_table(create_route_table_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_route_table.' if logger
 
@@ -3343,6 +3391,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::SecurityList SecurityList}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_security_list.rb.html) to see an example of how to use create_security_list API.
     def create_security_list(create_security_list_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_security_list.' if logger
 
@@ -3410,6 +3459,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ServiceGateway ServiceGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_service_gateway.rb.html) to see an example of how to use create_service_gateway API.
     def create_service_gateway(create_service_gateway_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_service_gateway.' if logger
 
@@ -3499,6 +3549,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Subnet Subnet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_subnet.rb.html) to see an example of how to use create_subnet API.
     def create_subnet(create_subnet_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_subnet.' if logger
 
@@ -3593,6 +3644,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Vcn Vcn}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_vcn.rb.html) to see an example of how to use create_vcn API.
     def create_vcn(create_vcn_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_vcn.' if logger
 
@@ -3672,6 +3724,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VirtualCircuit VirtualCircuit}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_virtual_circuit.rb.html) to see an example of how to use create_virtual_circuit API.
     def create_virtual_circuit(create_virtual_circuit_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_virtual_circuit.' if logger
 
@@ -3734,6 +3787,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Vlan Vlan}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_vlan.rb.html) to see an example of how to use create_vlan API.
     def create_vlan(create_vlan_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#create_vlan.' if logger
 
@@ -3800,6 +3854,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_byoip_range.rb.html) to see an example of how to use delete_byoip_range API.
     def delete_byoip_range(byoip_range_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_byoip_range.' if logger
 
@@ -3859,6 +3914,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_cpe.rb.html) to see an example of how to use delete_cpe API.
     def delete_cpe(cpe_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_cpe.' if logger
 
@@ -3916,6 +3972,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_cross_connect.rb.html) to see an example of how to use delete_cross_connect API.
     def delete_cross_connect(cross_connect_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_cross_connect.' if logger
 
@@ -3974,6 +4031,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_cross_connect_group.rb.html) to see an example of how to use delete_cross_connect_group API.
     def delete_cross_connect_group(cross_connect_group_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_cross_connect_group.' if logger
 
@@ -4034,6 +4092,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_dhcp_options.rb.html) to see an example of how to use delete_dhcp_options API.
     def delete_dhcp_options(dhcp_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_dhcp_options.' if logger
 
@@ -4093,6 +4152,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_drg.rb.html) to see an example of how to use delete_drg API.
     def delete_drg(drg_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_drg.' if logger
 
@@ -4151,6 +4211,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_drg_attachment.rb.html) to see an example of how to use delete_drg_attachment API.
     def delete_drg_attachment(drg_attachment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_drg_attachment.' if logger
 
@@ -4211,6 +4272,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_internet_gateway.rb.html) to see an example of how to use delete_internet_gateway API.
     def delete_internet_gateway(ig_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_internet_gateway.' if logger
 
@@ -4274,6 +4336,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_ip_sec_connection.rb.html) to see an example of how to use delete_ip_sec_connection API.
     def delete_ip_sec_connection(ipsc_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_ip_sec_connection.' if logger
 
@@ -4334,6 +4397,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_ipv6.rb.html) to see an example of how to use delete_ipv6 API.
     def delete_ipv6(ipv6_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_ipv6.' if logger
 
@@ -4394,6 +4458,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_local_peering_gateway.rb.html) to see an example of how to use delete_local_peering_gateway API.
     def delete_local_peering_gateway(local_peering_gateway_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_local_peering_gateway.' if logger
 
@@ -4454,6 +4519,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_nat_gateway.rb.html) to see an example of how to use delete_nat_gateway API.
     def delete_nat_gateway(nat_gateway_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_nat_gateway.' if logger
 
@@ -4516,6 +4582,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_network_security_group.rb.html) to see an example of how to use delete_network_security_group API.
     def delete_network_security_group(network_security_group_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_network_security_group.' if logger
 
@@ -4582,6 +4649,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_private_ip.rb.html) to see an example of how to use delete_private_ip API.
     def delete_private_ip(private_ip_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_private_ip.' if logger
 
@@ -4652,6 +4720,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_public_ip.rb.html) to see an example of how to use delete_public_ip API.
     def delete_public_ip(public_ip_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_public_ip.' if logger
 
@@ -4713,6 +4782,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_public_ip_pool.rb.html) to see an example of how to use delete_public_ip_pool API.
     def delete_public_ip_pool(public_ip_pool_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_public_ip_pool.' if logger
 
@@ -4773,6 +4843,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_remote_peering_connection.rb.html) to see an example of how to use delete_remote_peering_connection API.
     def delete_remote_peering_connection(remote_peering_connection_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_remote_peering_connection.' if logger
 
@@ -4833,6 +4904,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_route_table.rb.html) to see an example of how to use delete_route_table API.
     def delete_route_table(rt_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_route_table.' if logger
 
@@ -4893,6 +4965,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_security_list.rb.html) to see an example of how to use delete_security_list API.
     def delete_security_list(security_list_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_security_list.' if logger
 
@@ -4950,6 +5023,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_service_gateway.rb.html) to see an example of how to use delete_service_gateway API.
     def delete_service_gateway(service_gateway_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_service_gateway.' if logger
 
@@ -5008,6 +5082,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_subnet.rb.html) to see an example of how to use delete_subnet API.
     def delete_subnet(subnet_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_subnet.' if logger
 
@@ -5066,6 +5141,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_vcn.rb.html) to see an example of how to use delete_vcn API.
     def delete_vcn(vcn_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_vcn.' if logger
 
@@ -5126,6 +5202,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_virtual_circuit.rb.html) to see an example of how to use delete_virtual_circuit API.
     def delete_virtual_circuit(virtual_circuit_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_virtual_circuit.' if logger
 
@@ -5185,6 +5262,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_vlan.rb.html) to see an example of how to use delete_vlan API.
     def delete_vlan(vlan_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#delete_vlan.' if logger
 
@@ -5254,6 +5332,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ServiceGateway ServiceGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/detach_service_id.rb.html) to see an example of how to use detach_service_id API.
     def detach_service_id(service_gateway_id, detach_service_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#detach_service_id.' if logger
 
@@ -5311,6 +5390,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ByoipRange ByoipRange}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_byoip_range.rb.html) to see an example of how to use get_byoip_range API.
     def get_byoip_range(byoip_range_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_byoip_range.' if logger
 
@@ -5364,6 +5444,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Cpe Cpe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_cpe.rb.html) to see an example of how to use get_cpe API.
     def get_cpe(cpe_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_cpe.' if logger
 
@@ -5439,6 +5520,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_cpe_device_config_content.rb.html) to see an example of how to use get_cpe_device_config_content API.
     def get_cpe_device_config_content(cpe_id, opts = {}, &block)
       logger.debug 'Calling operation VirtualNetworkClient#get_cpe_device_config_content.' if logger
 
@@ -5547,6 +5629,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::CpeDeviceShapeDetail CpeDeviceShapeDetail}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_cpe_device_shape.rb.html) to see an example of how to use get_cpe_device_shape API.
     def get_cpe_device_shape(cpe_device_shape_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_cpe_device_shape.' if logger
 
@@ -5600,6 +5683,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::CrossConnect CrossConnect}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_cross_connect.rb.html) to see an example of how to use get_cross_connect API.
     def get_cross_connect(cross_connect_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_cross_connect.' if logger
 
@@ -5653,6 +5737,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::CrossConnectGroup CrossConnectGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_cross_connect_group.rb.html) to see an example of how to use get_cross_connect_group API.
     def get_cross_connect_group(cross_connect_group_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_cross_connect_group.' if logger
 
@@ -5706,6 +5791,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::LetterOfAuthority LetterOfAuthority}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_cross_connect_letter_of_authority.rb.html) to see an example of how to use get_cross_connect_letter_of_authority API.
     def get_cross_connect_letter_of_authority(cross_connect_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_cross_connect_letter_of_authority.' if logger
 
@@ -5760,6 +5846,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::CrossConnectStatus CrossConnectStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_cross_connect_status.rb.html) to see an example of how to use get_cross_connect_status API.
     def get_cross_connect_status(cross_connect_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_cross_connect_status.' if logger
 
@@ -5813,6 +5900,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::DhcpOptions DhcpOptions}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_dhcp_options.rb.html) to see an example of how to use get_dhcp_options API.
     def get_dhcp_options(dhcp_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_dhcp_options.' if logger
 
@@ -5866,6 +5954,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Drg Drg}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_drg.rb.html) to see an example of how to use get_drg API.
     def get_drg(drg_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_drg.' if logger
 
@@ -5919,6 +6008,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::DrgAttachment DrgAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_drg_attachment.rb.html) to see an example of how to use get_drg_attachment API.
     def get_drg_attachment(drg_attachment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_drg_attachment.' if logger
 
@@ -5976,6 +6066,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::DrgRedundancyStatus DrgRedundancyStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_drg_redundancy_status.rb.html) to see an example of how to use get_drg_redundancy_status API.
     def get_drg_redundancy_status(drg_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_drg_redundancy_status.' if logger
 
@@ -6031,6 +6122,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::FastConnectProviderService FastConnectProviderService}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_fast_connect_provider_service.rb.html) to see an example of how to use get_fast_connect_provider_service API.
     def get_fast_connect_provider_service(provider_service_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_fast_connect_provider_service.' if logger
 
@@ -6091,6 +6183,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::FastConnectProviderServiceKey FastConnectProviderServiceKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_fast_connect_provider_service_key.rb.html) to see an example of how to use get_fast_connect_provider_service_key API.
     def get_fast_connect_provider_service_key(provider_service_id, provider_service_key_name, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_fast_connect_provider_service_key.' if logger
 
@@ -6146,6 +6239,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::InternetGateway InternetGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_internet_gateway.rb.html) to see an example of how to use get_internet_gateway API.
     def get_internet_gateway(ig_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_internet_gateway.' if logger
 
@@ -6202,6 +6296,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnection IPSecConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_ip_sec_connection.rb.html) to see an example of how to use get_ip_sec_connection API.
     def get_ip_sec_connection(ipsc_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_ip_sec_connection.' if logger
 
@@ -6259,6 +6354,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionDeviceConfig IPSecConnectionDeviceConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_ip_sec_connection_device_config.rb.html) to see an example of how to use get_ip_sec_connection_device_config API.
     def get_ip_sec_connection_device_config(ipsc_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_ip_sec_connection_device_config.' if logger
 
@@ -6314,6 +6410,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionDeviceStatus IPSecConnectionDeviceStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_ip_sec_connection_device_status.rb.html) to see an example of how to use get_ip_sec_connection_device_status API.
     def get_ip_sec_connection_device_status(ipsc_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_ip_sec_connection_device_status.' if logger
 
@@ -6371,6 +6468,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionTunnel IPSecConnectionTunnel}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_ip_sec_connection_tunnel.rb.html) to see an example of how to use get_ip_sec_connection_tunnel API.
     def get_ip_sec_connection_tunnel(ipsc_id, tunnel_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_ip_sec_connection_tunnel.' if logger
 
@@ -6429,6 +6527,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionTunnelSharedSecret IPSecConnectionTunnelSharedSecret}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_ip_sec_connection_tunnel_shared_secret.rb.html) to see an example of how to use get_ip_sec_connection_tunnel_shared_secret API.
     def get_ip_sec_connection_tunnel_shared_secret(ipsc_id, tunnel_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_ip_sec_connection_tunnel_shared_secret.' if logger
 
@@ -6507,6 +6606,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_ipsec_cpe_device_config_content.rb.html) to see an example of how to use get_ipsec_cpe_device_config_content API.
     def get_ipsec_cpe_device_config_content(ipsc_id, opts = {}, &block)
       logger.debug 'Calling operation VirtualNetworkClient#get_ipsec_cpe_device_config_content.' if logger
 
@@ -6610,6 +6710,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Ipv6 Ipv6}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_ipv6.rb.html) to see an example of how to use get_ipv6 API.
     def get_ipv6(ipv6_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_ipv6.' if logger
 
@@ -6663,6 +6764,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::LocalPeeringGateway LocalPeeringGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_local_peering_gateway.rb.html) to see an example of how to use get_local_peering_gateway API.
     def get_local_peering_gateway(local_peering_gateway_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_local_peering_gateway.' if logger
 
@@ -6716,6 +6818,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::NatGateway NatGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_nat_gateway.rb.html) to see an example of how to use get_nat_gateway API.
     def get_nat_gateway(nat_gateway_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_nat_gateway.' if logger
 
@@ -6776,6 +6879,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::NetworkSecurityGroup NetworkSecurityGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_network_security_group.rb.html) to see an example of how to use get_network_security_group API.
     def get_network_security_group(network_security_group_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_network_security_group.' if logger
 
@@ -6833,6 +6937,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::PrivateIp PrivateIp}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_private_ip.rb.html) to see an example of how to use get_private_ip API.
     def get_private_ip(private_ip_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_private_ip.' if logger
 
@@ -6897,6 +7002,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIp PublicIp}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_public_ip.rb.html) to see an example of how to use get_public_ip API.
     def get_public_ip(public_ip_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_public_ip.' if logger
 
@@ -6955,6 +7061,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIp PublicIp}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_public_ip_by_ip_address.rb.html) to see an example of how to use get_public_ip_by_ip_address API.
     def get_public_ip_by_ip_address(get_public_ip_by_ip_address_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_public_ip_by_ip_address.' if logger
 
@@ -7018,6 +7125,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIp PublicIp}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_public_ip_by_private_ip_id.rb.html) to see an example of how to use get_public_ip_by_private_ip_id API.
     def get_public_ip_by_private_ip_id(get_public_ip_by_private_ip_id_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_public_ip_by_private_ip_id.' if logger
 
@@ -7073,6 +7181,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIpPool PublicIpPool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_public_ip_pool.rb.html) to see an example of how to use get_public_ip_pool API.
     def get_public_ip_pool(public_ip_pool_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_public_ip_pool.' if logger
 
@@ -7127,6 +7236,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::RemotePeeringConnection RemotePeeringConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_remote_peering_connection.rb.html) to see an example of how to use get_remote_peering_connection API.
     def get_remote_peering_connection(remote_peering_connection_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_remote_peering_connection.' if logger
 
@@ -7180,6 +7290,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::RouteTable RouteTable}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_route_table.rb.html) to see an example of how to use get_route_table API.
     def get_route_table(rt_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_route_table.' if logger
 
@@ -7233,6 +7344,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::SecurityList SecurityList}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_security_list.rb.html) to see an example of how to use get_security_list API.
     def get_security_list(security_list_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_security_list.' if logger
 
@@ -7287,6 +7399,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Service Service}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_service.rb.html) to see an example of how to use get_service API.
     def get_service(service_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_service.' if logger
 
@@ -7340,6 +7453,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::ServiceGateway ServiceGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_service_gateway.rb.html) to see an example of how to use get_service_gateway API.
     def get_service_gateway(service_gateway_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_service_gateway.' if logger
 
@@ -7393,6 +7507,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Subnet Subnet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_subnet.rb.html) to see an example of how to use get_subnet API.
     def get_subnet(subnet_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_subnet.' if logger
 
@@ -7454,6 +7569,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::TunnelCpeDeviceConfig TunnelCpeDeviceConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_tunnel_cpe_device_config.rb.html) to see an example of how to use get_tunnel_cpe_device_config API.
     def get_tunnel_cpe_device_config(ipsc_id, tunnel_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_tunnel_cpe_device_config.' if logger
 
@@ -7532,6 +7648,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_tunnel_cpe_device_config_content.rb.html) to see an example of how to use get_tunnel_cpe_device_config_content API.
     def get_tunnel_cpe_device_config_content(ipsc_id, tunnel_id, opts = {}, &block)
       logger.debug 'Calling operation VirtualNetworkClient#get_tunnel_cpe_device_config_content.' if logger
 
@@ -7631,6 +7748,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Vcn Vcn}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_vcn.rb.html) to see an example of how to use get_vcn API.
     def get_vcn(vcn_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_vcn.' if logger
 
@@ -7686,6 +7804,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VcnDnsResolverAssociation VcnDnsResolverAssociation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_vcn_dns_resolver_association.rb.html) to see an example of how to use get_vcn_dns_resolver_association API.
     def get_vcn_dns_resolver_association(vcn_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_vcn_dns_resolver_association.' if logger
 
@@ -7739,6 +7858,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VirtualCircuit VirtualCircuit}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_virtual_circuit.rb.html) to see an example of how to use get_virtual_circuit API.
     def get_virtual_circuit(virtual_circuit_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_virtual_circuit.' if logger
 
@@ -7794,6 +7914,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Vlan Vlan}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_vlan.rb.html) to see an example of how to use get_vlan API.
     def get_vlan(vlan_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_vlan.' if logger
 
@@ -7851,6 +7972,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Vnic Vnic}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_vnic.rb.html) to see an example of how to use get_vnic API.
     def get_vnic(vnic_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#get_vnic.' if logger
 
@@ -7905,6 +8027,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::PeerRegionForRemotePeering PeerRegionForRemotePeering}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_allowed_peer_regions_for_remote_peering.rb.html) to see an example of how to use list_allowed_peer_regions_for_remote_peering API.
     def list_allowed_peer_regions_for_remote_peering(opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_allowed_peer_regions_for_remote_peering.' if logger
 
@@ -7970,6 +8093,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ByoipAllocatedRangeCollection ByoipAllocatedRangeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_byoip_allocated_ranges.rb.html) to see an example of how to use list_byoip_allocated_ranges API.
     def list_byoip_allocated_ranges(byoip_range_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_byoip_allocated_ranges.' if logger
 
@@ -8057,6 +8181,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type {OCI::Core::Models::ByoipRangeCollection ByoipRangeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_byoip_ranges.rb.html) to see an example of how to use list_byoip_ranges API.
     def list_byoip_ranges(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_byoip_ranges.' if logger
 
@@ -8148,6 +8273,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CpeDeviceShapeSummary CpeDeviceShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_cpe_device_shapes.rb.html) to see an example of how to use list_cpe_device_shapes API.
     def list_cpe_device_shapes(opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_cpe_device_shapes.' if logger
 
@@ -8211,6 +8337,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Cpe Cpe}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_cpes.rb.html) to see an example of how to use list_cpes API.
     def list_cpes(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_cpes.' if logger
 
@@ -8293,6 +8420,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CrossConnectGroup CrossConnectGroup}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_cross_connect_groups.rb.html) to see an example of how to use list_cross_connect_groups API.
     def list_cross_connect_groups(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_cross_connect_groups.' if logger
 
@@ -8374,6 +8502,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CrossConnectLocation CrossConnectLocation}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_cross_connect_locations.rb.html) to see an example of how to use list_cross_connect_locations API.
     def list_cross_connect_locations(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_cross_connect_locations.' if logger
 
@@ -8458,6 +8587,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CrossConnect CrossConnect}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_cross_connects.rb.html) to see an example of how to use list_cross_connects API.
     def list_cross_connects(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_cross_connects.' if logger
 
@@ -8541,6 +8671,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CrossConnectPortSpeedShape CrossConnectPortSpeedShape}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_crossconnect_port_speed_shapes.rb.html) to see an example of how to use list_crossconnect_port_speed_shapes API.
     def list_crossconnect_port_speed_shapes(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_crossconnect_port_speed_shapes.' if logger
 
@@ -8627,6 +8758,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DhcpOptions DhcpOptions}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_dhcp_options.rb.html) to see an example of how to use list_dhcp_options API.
     def list_dhcp_options(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_dhcp_options.' if logger
 
@@ -8711,6 +8843,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DrgAttachment DrgAttachment}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_drg_attachments.rb.html) to see an example of how to use list_drg_attachments API.
     def list_drg_attachments(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_drg_attachments.' if logger
 
@@ -8777,6 +8910,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Drg Drg}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_drgs.rb.html) to see an example of how to use list_drgs API.
     def list_drgs(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_drgs.' if logger
 
@@ -8847,6 +8981,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::FastConnectProviderService FastConnectProviderService}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_fast_connect_provider_services.rb.html) to see an example of how to use list_fast_connect_provider_services API.
     def list_fast_connect_provider_services(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_fast_connect_provider_services.' if logger
 
@@ -8914,6 +9049,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VirtualCircuitBandwidthShape VirtualCircuitBandwidthShape}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_fast_connect_provider_virtual_circuit_bandwidth_shapes.rb.html) to see an example of how to use list_fast_connect_provider_virtual_circuit_bandwidth_shapes API.
     def list_fast_connect_provider_virtual_circuit_bandwidth_shapes(provider_service_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_fast_connect_provider_virtual_circuit_bandwidth_shapes.' if logger
 
@@ -8998,6 +9134,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::InternetGateway InternetGateway}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_internet_gateways.rb.html) to see an example of how to use list_internet_gateways API.
     def list_internet_gateways(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_internet_gateways.' if logger
 
@@ -9079,6 +9216,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::IPSecConnectionTunnel IPSecConnectionTunnel}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_ip_sec_connection_tunnels.rb.html) to see an example of how to use list_ip_sec_connection_tunnels API.
     def list_ip_sec_connection_tunnels(ipsc_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_ip_sec_connection_tunnels.' if logger
 
@@ -9146,6 +9284,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::IPSecConnection IPSecConnection}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_ip_sec_connections.rb.html) to see an example of how to use list_ip_sec_connections API.
     def list_ip_sec_connections(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_ip_sec_connections.' if logger
 
@@ -9226,6 +9365,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Ipv6 Ipv6}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_ipv6s.rb.html) to see an example of how to use list_ipv6s API.
     def list_ipv6s(opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_ipv6s.' if logger
 
@@ -9294,6 +9434,7 @@ module OCI
     #
     # @option opts [String] :vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::LocalPeeringGateway LocalPeeringGateway}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_local_peering_gateways.rb.html) to see an example of how to use list_local_peering_gateways API.
     def list_local_peering_gateways(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_local_peering_gateways.' if logger
 
@@ -9379,6 +9520,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::NatGateway NatGateway}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_nat_gateways.rb.html) to see an example of how to use list_nat_gateways API.
     def list_nat_gateways(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_nat_gateways.' if logger
 
@@ -9470,6 +9612,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::SecurityRule SecurityRule}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_network_security_group_security_rules.rb.html) to see an example of how to use list_network_security_group_security_rules API.
     def list_network_security_group_security_rules(network_security_group_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_network_security_group_security_rules.' if logger
 
@@ -9555,6 +9698,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::NetworkSecurityGroupVnic NetworkSecurityGroupVnic}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_network_security_group_vnics.rb.html) to see an example of how to use list_network_security_group_vnics API.
     def list_network_security_group_vnics(network_security_group_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_network_security_group_vnics.' if logger
 
@@ -9648,6 +9792,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::NetworkSecurityGroup NetworkSecurityGroup}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_network_security_groups.rb.html) to see an example of how to use list_network_security_groups API.
     def list_network_security_groups(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_network_security_groups.' if logger
 
@@ -9749,6 +9894,7 @@ module OCI
     # @option opts [String] :vnic_id The OCID of the VNIC.
     # @option opts [String] :vlan_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::PrivateIp PrivateIp}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_private_ips.rb.html) to see an example of how to use list_private_ips API.
     def list_private_ips(opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_private_ips.' if logger
 
@@ -9837,6 +9983,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIpPoolCollection PublicIpPoolCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_public_ip_pools.rb.html) to see an example of how to use list_public_ip_pools API.
     def list_public_ip_pools(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_public_ip_pools.' if logger
 
@@ -9954,6 +10101,7 @@ module OCI
     # @option opts [String] :public_ip_pool_id A filter to return only resources that belong to the given public IP pool.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::PublicIp PublicIp}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_public_ips.rb.html) to see an example of how to use list_public_ips API.
     def list_public_ips(scope, compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_public_ips.' if logger
 
@@ -10032,6 +10180,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::RemotePeeringConnection RemotePeeringConnection}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_remote_peering_connections.rb.html) to see an example of how to use list_remote_peering_connections API.
     def list_remote_peering_connections(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_remote_peering_connections.' if logger
 
@@ -10119,6 +10268,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::RouteTable RouteTable}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_route_tables.rb.html) to see an example of how to use list_route_tables API.
     def list_route_tables(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_route_tables.' if logger
 
@@ -10220,6 +10370,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::SecurityList SecurityList}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_security_lists.rb.html) to see an example of how to use list_security_lists API.
     def list_security_lists(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_security_lists.' if logger
 
@@ -10319,6 +10470,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ServiceGateway ServiceGateway}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_service_gateways.rb.html) to see an example of how to use list_service_gateways API.
     def list_service_gateways(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_service_gateways.' if logger
 
@@ -10399,6 +10551,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Service Service}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_services.rb.html) to see an example of how to use list_services API.
     def list_services(opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_services.' if logger
 
@@ -10481,6 +10634,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state. The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Subnet Subnet}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_subnets.rb.html) to see an example of how to use list_subnets API.
     def list_subnets(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_subnets.' if logger
 
@@ -10580,6 +10734,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Vcn Vcn}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_vcns.rb.html) to see an example of how to use list_vcns API.
     def list_vcns(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_vcns.' if logger
 
@@ -10660,6 +10815,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VirtualCircuitBandwidthShape VirtualCircuitBandwidthShape}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_virtual_circuit_bandwidth_shapes.rb.html) to see an example of how to use list_virtual_circuit_bandwidth_shapes API.
     def list_virtual_circuit_bandwidth_shapes(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_virtual_circuit_bandwidth_shapes.' if logger
 
@@ -10718,6 +10874,7 @@ module OCI
     #   The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VirtualCircuitPublicPrefix VirtualCircuitPublicPrefix}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_virtual_circuit_public_prefixes.rb.html) to see an example of how to use list_virtual_circuit_public_prefixes API.
     def list_virtual_circuit_public_prefixes(virtual_circuit_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_virtual_circuit_public_prefixes.' if logger
 
@@ -10803,6 +10960,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VirtualCircuit VirtualCircuit}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_virtual_circuits.rb.html) to see an example of how to use list_virtual_circuits API.
     def list_virtual_circuits(compartment_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_virtual_circuits.' if logger
 
@@ -10905,6 +11063,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Vlan Vlan}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_vlans.rb.html) to see an example of how to use list_vlans API.
     def list_vlans(compartment_id, vcn_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_vlans.' if logger
 
@@ -10999,6 +11158,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/modify_vcn_cidr.rb.html) to see an example of how to use modify_vcn_cidr API.
     def modify_vcn_cidr(vcn_id, modify_vcn_cidr_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#modify_vcn_cidr.' if logger
 
@@ -11059,6 +11219,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/remove_network_security_group_security_rules.rb.html) to see an example of how to use remove_network_security_group_security_rules API.
     def remove_network_security_group_security_rules(network_security_group_id, remove_network_security_group_security_rules_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#remove_network_security_group_security_rules.' if logger
 
@@ -11122,6 +11283,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIpPool PublicIpPool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/remove_public_ip_pool_capacity.rb.html) to see an example of how to use remove_public_ip_pool_capacity API.
     def remove_public_ip_pool_capacity(public_ip_pool_id, remove_public_ip_pool_capacity_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#remove_public_ip_pool_capacity.' if logger
 
@@ -11193,6 +11355,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/remove_vcn_cidr.rb.html) to see an example of how to use remove_vcn_cidr API.
     def remove_vcn_cidr(vcn_id, remove_vcn_cidr_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#remove_vcn_cidr.' if logger
 
@@ -11257,6 +11420,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ByoipRange ByoipRange}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_byoip_range.rb.html) to see an example of how to use update_byoip_range API.
     def update_byoip_range(byoip_range_id, update_byoip_range_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_byoip_range.' if logger
 
@@ -11318,6 +11482,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Cpe Cpe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_cpe.rb.html) to see an example of how to use update_cpe API.
     def update_cpe(cpe_id, update_cpe_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_cpe.' if logger
 
@@ -11376,6 +11541,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::CrossConnect CrossConnect}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_cross_connect.rb.html) to see an example of how to use update_cross_connect API.
     def update_cross_connect(cross_connect_id, update_cross_connect_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_cross_connect.' if logger
 
@@ -11436,6 +11602,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::CrossConnectGroup CrossConnectGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_cross_connect_group.rb.html) to see an example of how to use update_cross_connect_group API.
     def update_cross_connect_group(cross_connect_group_id, update_cross_connect_group_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_cross_connect_group.' if logger
 
@@ -11498,6 +11665,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::DhcpOptions DhcpOptions}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_dhcp_options.rb.html) to see an example of how to use update_dhcp_options API.
     def update_dhcp_options(dhcp_id, update_dhcp_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_dhcp_options.' if logger
 
@@ -11557,6 +11725,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Drg Drg}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_drg.rb.html) to see an example of how to use update_drg API.
     def update_drg(drg_id, update_drg_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_drg.' if logger
 
@@ -11617,6 +11786,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::DrgAttachment DrgAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_drg_attachment.rb.html) to see an example of how to use update_drg_attachment API.
     def update_drg_attachment(drg_attachment_id, update_drg_attachment_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_drg_attachment.' if logger
 
@@ -11680,6 +11850,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InternetGateway InternetGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_internet_gateway.rb.html) to see an example of how to use update_internet_gateway API.
     def update_internet_gateway(ig_id, update_internet_gateway_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_internet_gateway.' if logger
 
@@ -11742,6 +11913,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnection IPSecConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_ip_sec_connection.rb.html) to see an example of how to use update_ip_sec_connection API.
     def update_ip_sec_connection(ipsc_id, update_ip_sec_connection_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_ip_sec_connection.' if logger
 
@@ -11816,6 +11988,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionTunnel IPSecConnectionTunnel}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_ip_sec_connection_tunnel.rb.html) to see an example of how to use update_ip_sec_connection_tunnel API.
     def update_ip_sec_connection_tunnel(ipsc_id, tunnel_id, update_ip_sec_connection_tunnel_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_ip_sec_connection_tunnel.' if logger
 
@@ -11881,6 +12054,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionTunnelSharedSecret IPSecConnectionTunnelSharedSecret}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_ip_sec_connection_tunnel_shared_secret.rb.html) to see an example of how to use update_ip_sec_connection_tunnel_shared_secret API.
     def update_ip_sec_connection_tunnel_shared_secret(ipsc_id, tunnel_id, update_ip_sec_connection_tunnel_shared_secret_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_ip_sec_connection_tunnel_shared_secret.' if logger
 
@@ -11951,6 +12125,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Ipv6 Ipv6}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_ipv6.rb.html) to see an example of how to use update_ipv6 API.
     def update_ipv6(ipv6_id, update_ipv6_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_ipv6.' if logger
 
@@ -12011,6 +12186,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::LocalPeeringGateway LocalPeeringGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_local_peering_gateway.rb.html) to see an example of how to use update_local_peering_gateway API.
     def update_local_peering_gateway(local_peering_gateway_id, update_local_peering_gateway_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_local_peering_gateway.' if logger
 
@@ -12070,6 +12246,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::NatGateway NatGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_nat_gateway.rb.html) to see an example of how to use update_nat_gateway API.
     def update_nat_gateway(nat_gateway_id, update_nat_gateway_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_nat_gateway.' if logger
 
@@ -12143,6 +12320,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::NetworkSecurityGroup NetworkSecurityGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_network_security_group.rb.html) to see an example of how to use update_network_security_group API.
     def update_network_security_group(network_security_group_id, update_network_security_group_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_network_security_group.' if logger
 
@@ -12201,6 +12379,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::UpdatedNetworkSecurityGroupSecurityRules UpdatedNetworkSecurityGroupSecurityRules}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_network_security_group_security_rules.rb.html) to see an example of how to use update_network_security_group_security_rules API.
     def update_network_security_group_security_rules(network_security_group_id, update_network_security_group_security_rules_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_network_security_group_security_rules.' if logger
 
@@ -12269,6 +12448,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::PrivateIp PrivateIp}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_private_ip.rb.html) to see an example of how to use update_private_ip API.
     def update_private_ip(private_ip_id, update_private_ip_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_private_ip.' if logger
 
@@ -12366,6 +12546,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIp PublicIp}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_public_ip.rb.html) to see an example of how to use update_public_ip API.
     def update_public_ip(public_ip_id, update_public_ip_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_public_ip.' if logger
 
@@ -12428,6 +12609,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::PublicIpPool PublicIpPool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_public_ip_pool.rb.html) to see an example of how to use update_public_ip_pool API.
     def update_public_ip_pool(public_ip_pool_id, update_public_ip_pool_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_public_ip_pool.' if logger
 
@@ -12488,6 +12670,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::RemotePeeringConnection RemotePeeringConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_remote_peering_connection.rb.html) to see an example of how to use update_remote_peering_connection API.
     def update_remote_peering_connection(remote_peering_connection_id, update_remote_peering_connection_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_remote_peering_connection.' if logger
 
@@ -12550,6 +12733,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::RouteTable RouteTable}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_route_table.rb.html) to see an example of how to use update_route_table API.
     def update_route_table(rt_id, update_route_table_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_route_table.' if logger
 
@@ -12613,6 +12797,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::SecurityList SecurityList}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_security_list.rb.html) to see an example of how to use update_security_list API.
     def update_security_list(security_list_id, update_security_list_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_security_list.' if logger
 
@@ -12673,6 +12858,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ServiceGateway ServiceGateway}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_service_gateway.rb.html) to see an example of how to use update_service_gateway API.
     def update_service_gateway(service_gateway_id, update_service_gateway_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_service_gateway.' if logger
 
@@ -12732,6 +12918,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Subnet Subnet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_subnet.rb.html) to see an example of how to use update_subnet API.
     def update_subnet(subnet_id, update_subnet_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_subnet.' if logger
 
@@ -12803,6 +12990,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::TunnelCpeDeviceConfig TunnelCpeDeviceConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_tunnel_cpe_device_config.rb.html) to see an example of how to use update_tunnel_cpe_device_config API.
     def update_tunnel_cpe_device_config(ipsc_id, tunnel_id, update_tunnel_cpe_device_config_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_tunnel_cpe_device_config.' if logger
 
@@ -12867,6 +13055,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Vcn Vcn}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_vcn.rb.html) to see an example of how to use update_vcn API.
     def update_vcn(vcn_id, update_vcn_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_vcn.' if logger
 
@@ -12949,6 +13138,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VirtualCircuit VirtualCircuit}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_virtual_circuit.rb.html) to see an example of how to use update_virtual_circuit API.
     def update_virtual_circuit(virtual_circuit_id, update_virtual_circuit_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_virtual_circuit.' if logger
 
@@ -13013,6 +13203,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Vlan Vlan}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_vlan.rb.html) to see an example of how to use update_vlan API.
     def update_vlan(vlan_id, update_vlan_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_vlan.' if logger
 
@@ -13073,6 +13264,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Vnic Vnic}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_vnic.rb.html) to see an example of how to use update_vnic API.
     def update_vnic(vnic_id, update_vnic_details, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#update_vnic.' if logger
 
@@ -13131,6 +13323,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/validate_byoip_range.rb.html) to see an example of how to use validate_byoip_range API.
     def validate_byoip_range(byoip_range_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#validate_byoip_range.' if logger
 
@@ -13186,6 +13379,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/withdraw_byoip_range.rb.html) to see an example of how to use withdraw_byoip_range API.
     def withdraw_byoip_range(byoip_range_id, opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#withdraw_byoip_range.' if logger
 

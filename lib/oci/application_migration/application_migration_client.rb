@@ -118,6 +118,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/cancel_work_request.rb.html) to see an example of how to use cancel_work_request API.
     def cancel_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#cancel_work_request.' if logger
 
@@ -186,6 +187,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/change_migration_compartment.rb.html) to see an example of how to use change_migration_compartment API.
     def change_migration_compartment(migration_id, change_migration_compartment_details, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#change_migration_compartment.' if logger
 
@@ -257,6 +259,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/change_source_compartment.rb.html) to see an example of how to use change_source_compartment API.
     def change_source_compartment(source_id, change_source_compartment_details, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#change_source_compartment.' if logger
 
@@ -342,6 +345,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::ApplicationMigration::Models::Migration Migration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/create_migration.rb.html) to see an example of how to use create_migration API.
     def create_migration(create_migration_details, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#create_migration.' if logger
 
@@ -421,6 +425,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::ApplicationMigration::Models::Source Source}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/create_source.rb.html) to see an example of how to use create_source API.
     def create_source(create_source_details, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#create_source.' if logger
 
@@ -486,6 +491,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/delete_migration.rb.html) to see an example of how to use delete_migration API.
     def delete_migration(migration_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#delete_migration.' if logger
 
@@ -550,6 +556,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/delete_source.rb.html) to see an example of how to use delete_source API.
     def delete_source(source_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#delete_source.' if logger
 
@@ -605,6 +612,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ApplicationMigration::Models::Migration Migration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/get_migration.rb.html) to see an example of how to use get_migration API.
     def get_migration(migration_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#get_migration.' if logger
 
@@ -661,6 +669,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ApplicationMigration::Models::Source Source}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/get_source.rb.html) to see an example of how to use get_source API.
     def get_source(source_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#get_source.' if logger
 
@@ -716,6 +725,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ApplicationMigration::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#get_work_request.' if logger
 
@@ -789,6 +799,7 @@ module OCI
     # @option opts [String] :display_name Display name on which to query.
     # @option opts [String] :lifecycle_state This field is not supported. Do not use.
     # @return [Response] A Response object with data of type Array<{OCI::ApplicationMigration::Models::MigrationSummary MigrationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/list_migrations.rb.html) to see an example of how to use list_migrations API.
     def list_migrations(compartment_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#list_migrations.' if logger
 
@@ -881,6 +892,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :display_name Resource name on which to query.
     # @return [Response] A Response object with data of type Array<{OCI::ApplicationMigration::Models::SourceApplicationSummary SourceApplicationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/list_source_applications.rb.html) to see an example of how to use list_source_applications API.
     def list_source_applications(source_id, compartment_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#list_source_applications.' if logger
 
@@ -972,6 +984,7 @@ module OCI
     # @option opts [String] :display_name Display name on which to query.
     # @option opts [String] :lifecycle_state Retrieves details of sources in the specified lifecycle state.
     # @return [Response] A Response object with data of type Array<{OCI::ApplicationMigration::Models::SourceSummary SourceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/list_sources.rb.html) to see an example of how to use list_sources API.
     def list_sources(compartment_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#list_sources.' if logger
 
@@ -1055,6 +1068,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ApplicationMigration::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#list_work_request_errors.' if logger
 
@@ -1126,6 +1140,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ApplicationMigration::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#list_work_request_logs.' if logger
 
@@ -1196,6 +1211,7 @@ module OCI
     #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::ApplicationMigration::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#list_work_requests.' if logger
 
@@ -1275,6 +1291,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/migrate_application.rb.html) to see an example of how to use migrate_application API.
     def migrate_application(migration_id, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#migrate_application.' if logger
 
@@ -1373,6 +1390,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/update_migration.rb.html) to see an example of how to use update_migration API.
     def update_migration(migration_id, update_migration_details, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#update_migration.' if logger
 
@@ -1441,6 +1459,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/applicationmigration/update_source.rb.html) to see an example of how to use update_source API.
     def update_source(source_id, update_source_details, opts = {})
       logger.debug 'Calling operation ApplicationMigrationClient#update_source.' if logger
 

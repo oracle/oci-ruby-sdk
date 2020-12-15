@@ -5,18 +5,23 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # **Deprecated.** See {#generate_autonomous_database_wallet_details generate_autonomous_database_wallet_details} for reference information about creating and downloading a wallet for an Oracle Autonomous Data Warehouse.
+  # Oracle Application Express (APEX) is a low-code development platform that enables you to build scalable, secure enterprise apps, with world-class features. Autonomous Database with the APEX workload type is optimized to support APEX development.
   #
-  class Database::Models::GenerateAutonomousDataWarehouseWalletDetails
-    # **[Required]** The password to encrypt the keys inside the wallet. The password must be at least 8 characters long and must include at least 1 letter and either 1 numeric character or 1 special character.
+  class Database::Models::AutonomousDatabaseApex
+    # The Oracle Application Express service version.
     # @return [String]
-    attr_accessor :password
+    attr_accessor :apex_version
+
+    # The Oracle REST Data Services (ORDS) version.
+    # @return [String]
+    attr_accessor :ords_version
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'password': :'password'
+        'apex_version': :'apexVersion',
+        'ords_version': :'ordsVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +30,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'password': :'String'
+        'apex_version': :'String',
+        'ords_version': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,14 +42,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :password The value to assign to the {#password} property
+    # @option attributes [String] :apex_version The value to assign to the {#apex_version} property
+    # @option attributes [String] :ords_version The value to assign to the {#ords_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      self.password = attributes[:'password'] if attributes[:'password']
+      self.apex_version = attributes[:'apexVersion'] if attributes[:'apexVersion']
+
+      raise 'You cannot provide both :apexVersion and :apex_version' if attributes.key?(:'apexVersion') && attributes.key?(:'apex_version')
+
+      self.apex_version = attributes[:'apex_version'] if attributes[:'apex_version']
+
+      self.ords_version = attributes[:'ordsVersion'] if attributes[:'ordsVersion']
+
+      raise 'You cannot provide both :ordsVersion and :ords_version' if attributes.key?(:'ordsVersion') && attributes.key?(:'ords_version')
+
+      self.ords_version = attributes[:'ords_version'] if attributes[:'ords_version']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -57,7 +74,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        password == other.password
+        apex_version == other.apex_version &&
+        ords_version == other.ords_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -73,7 +91,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [password].hash
+      [apex_version, ords_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

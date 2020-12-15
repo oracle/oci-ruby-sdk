@@ -47,6 +47,7 @@ require 'oci/blockchain/models/work_request_error_collection'
 require 'oci/blockchain/models/work_request_log_entry'
 require 'oci/blockchain/models/work_request_log_entry_collection'
 require 'oci/blockchain/models/work_request_resource'
+require 'oci/blockchain/models/work_request_resource_sub_type_detail'
 require 'oci/blockchain/models/work_request_summary'
 
 # Require generated clients

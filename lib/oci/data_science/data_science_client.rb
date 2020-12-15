@@ -112,6 +112,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Model Model}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/activate_model.rb.html) to see an example of how to use activate_model API.
     def activate_model(model_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#activate_model.' if logger
 
@@ -173,6 +174,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/activate_notebook_session.rb.html) to see an example of how to use activate_notebook_session API.
     def activate_notebook_session(notebook_session_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#activate_notebook_session.' if logger
 
@@ -233,6 +235,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/cancel_work_request.rb.html) to see an example of how to use cancel_work_request API.
     def cancel_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#cancel_work_request.' if logger
 
@@ -296,6 +299,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/change_model_compartment.rb.html) to see an example of how to use change_model_compartment API.
     def change_model_compartment(model_id, change_model_compartment_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#change_model_compartment.' if logger
 
@@ -362,6 +366,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/change_notebook_session_compartment.rb.html) to see an example of how to use change_notebook_session_compartment API.
     def change_notebook_session_compartment(notebook_session_id, change_notebook_session_compartment_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#change_notebook_session_compartment.' if logger
 
@@ -428,6 +433,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/change_project_compartment.rb.html) to see an example of how to use change_project_compartment API.
     def change_project_compartment(project_id, change_project_compartment_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#change_project_compartment.' if logger
 
@@ -487,6 +493,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Model Model}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/create_model.rb.html) to see an example of how to use create_model API.
     def create_model(create_model_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#create_model.' if logger
 
@@ -547,6 +554,7 @@ module OCI
     #
     # @option opts [String] :content_disposition The content disposition of the body.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/create_model_artifact.rb.html) to see an example of how to use create_model_artifact API.
     def create_model_artifact(model_id, model_artifact, opts = {})
       logger.debug 'Calling operation DataScienceClient#create_model_artifact.' if logger
 
@@ -608,6 +616,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::ModelProvenance ModelProvenance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/create_model_provenance.rb.html) to see an example of how to use create_model_provenance API.
     def create_model_provenance(model_id, create_model_provenance_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#create_model_provenance.' if logger
 
@@ -667,6 +676,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::NotebookSession NotebookSession}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/create_notebook_session.rb.html) to see an example of how to use create_notebook_session API.
     def create_notebook_session(create_notebook_session_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#create_notebook_session.' if logger
 
@@ -724,6 +734,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Project Project}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/create_project.rb.html) to see an example of how to use create_project API.
     def create_project(create_project_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#create_project.' if logger
 
@@ -785,6 +796,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Model Model}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/deactivate_model.rb.html) to see an example of how to use deactivate_model API.
     def deactivate_model(model_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#deactivate_model.' if logger
 
@@ -846,6 +858,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/deactivate_notebook_session.rb.html) to see an example of how to use deactivate_notebook_session API.
     def deactivate_notebook_session(notebook_session_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#deactivate_notebook_session.' if logger
 
@@ -906,6 +919,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/delete_model.rb.html) to see an example of how to use delete_model API.
     def delete_model(model_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#delete_model.' if logger
 
@@ -966,6 +980,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/delete_notebook_session.rb.html) to see an example of how to use delete_notebook_session API.
     def delete_notebook_session(notebook_session_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#delete_notebook_session.' if logger
 
@@ -1026,6 +1041,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/delete_project.rb.html) to see an example of how to use delete_project API.
     def delete_project(project_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#delete_project.' if logger
 
@@ -1080,6 +1096,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Model Model}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_model.rb.html) to see an example of how to use get_model API.
     def get_model(model_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#get_model.' if logger
 
@@ -1139,6 +1156,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_model_artifact_content.rb.html) to see an example of how to use get_model_artifact_content API.
     def get_model_artifact_content(model_id, opts = {}, &block)
       logger.debug 'Calling operation DataScienceClient#get_model_artifact_content.' if logger
 
@@ -1238,6 +1256,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::ModelProvenance ModelProvenance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_model_provenance.rb.html) to see an example of how to use get_model_provenance API.
     def get_model_provenance(model_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#get_model_provenance.' if logger
 
@@ -1292,6 +1311,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::NotebookSession NotebookSession}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_notebook_session.rb.html) to see an example of how to use get_notebook_session API.
     def get_notebook_session(notebook_session_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#get_notebook_session.' if logger
 
@@ -1346,6 +1366,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Project Project}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_project.rb.html) to see an example of how to use get_project API.
     def get_project(project_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#get_project.' if logger
 
@@ -1400,6 +1421,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#get_work_request.' if logger
 
@@ -1454,6 +1476,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/head_model_artifact.rb.html) to see an example of how to use head_model_artifact API.
     def head_model_artifact(model_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#head_model_artifact.' if logger
 
@@ -1535,6 +1558,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::ModelSummary ModelSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_models.rb.html) to see an example of how to use list_models API.
     def list_models(compartment_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#list_models.' if logger
 
@@ -1622,6 +1646,7 @@ module OCI
     #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::NotebookSessionShapeSummary NotebookSessionShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_notebook_session_shapes.rb.html) to see an example of how to use list_notebook_session_shapes API.
     def list_notebook_session_shapes(compartment_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#list_notebook_session_shapes.' if logger
 
@@ -1707,6 +1732,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::NotebookSessionSummary NotebookSessionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_notebook_sessions.rb.html) to see an example of how to use list_notebook_sessions API.
     def list_notebook_sessions(compartment_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#list_notebook_sessions.' if logger
 
@@ -1810,6 +1836,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::ProjectSummary ProjectSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_projects.rb.html) to see an example of how to use list_projects API.
     def list_projects(compartment_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#list_projects.' if logger
 
@@ -1884,6 +1911,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#list_work_request_errors.' if logger
 
@@ -1938,6 +1966,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#list_work_request_logs.' if logger
 
@@ -2016,6 +2045,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation DataScienceClient#list_work_requests.' if logger
 
@@ -2100,6 +2130,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Model Model}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_model.rb.html) to see an example of how to use update_model API.
     def update_model(model_id, update_model_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#update_model.' if logger
 
@@ -2163,6 +2194,7 @@ module OCI
     #   provide matches the resource's current `etag` value.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::ModelProvenance ModelProvenance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_model_provenance.rb.html) to see an example of how to use update_model_provenance API.
     def update_model_provenance(model_id, update_model_provenance_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#update_model_provenance.' if logger
 
@@ -2231,6 +2263,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::NotebookSession NotebookSession}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_notebook_session.rb.html) to see an example of how to use update_notebook_session API.
     def update_notebook_session(notebook_session_id, update_notebook_session_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#update_notebook_session.' if logger
 
@@ -2294,6 +2327,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Project Project}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_project.rb.html) to see an example of how to use update_project API.
     def update_project(project_id, update_project_details, opts = {})
       logger.debug 'Calling operation DataScienceClient#update_project.' if logger
 

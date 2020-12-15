@@ -30,7 +30,7 @@ module OCI
     # @return [String]
     attr_accessor :fault_domain
 
-    # **[Required]** The OCID of the Configuration to be used for this DB System.
+    # The OCID of the Configuration to be used for this DB System.
     # @return [String]
     attr_accessor :configuration_id
 

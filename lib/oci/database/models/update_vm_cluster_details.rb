@@ -5,7 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for updating the Exadata Cloud@Customer VM cluster.
+  # Details for updating the VM cluster. Applies to Exadata Cloud@Customer instances only.
+  # For details on updating a cloud VM cluster in an Exadata Cloud Service instance, see {#update_cloud_vm_cluster_details update_cloud_vm_cluster_details}
+  #
   class Database::Models::UpdateVmClusterDetails
     LICENSE_MODEL_ENUM = [
       LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,

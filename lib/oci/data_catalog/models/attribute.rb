@@ -22,6 +22,13 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    ASSOCIATED_RULE_TYPES_ENUM = [
+      ASSOCIATED_RULE_TYPES_PRIMARYKEY = 'PRIMARYKEY'.freeze,
+      ASSOCIATED_RULE_TYPES_FOREIGNKEY = 'FOREIGNKEY'.freeze,
+      ASSOCIATED_RULE_TYPES_UNIQUEKEY = 'UNIQUEKEY'.freeze,
+      ASSOCIATED_RULE_TYPES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique attribute key that is immutable.
     # @return [String]
     attr_accessor :key
@@ -151,6 +158,10 @@ module OCI
     # @return [Hash<String, Hash<String, String>>]
     attr_accessor :properties
 
+    # Rule types associated with attribute.
+    # @return [Array<String>]
+    attr_reader :associated_rule_types
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -182,7 +193,8 @@ module OCI
         'uri': :'uri',
         'path': :'path',
         'custom_property_members': :'customPropertyMembers',
-        'properties': :'properties'
+        'properties': :'properties',
+        'associated_rule_types': :'associatedRuleTypes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -218,7 +230,8 @@ module OCI
         'uri': :'String',
         'path': :'String',
         'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
-        'properties': :'Hash<String, Hash<String, String>>'
+        'properties': :'Hash<String, Hash<String, String>>',
+        'associated_rule_types': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -257,6 +270,7 @@ module OCI
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
+    # @option attributes [Array<String>] :associated_rule_types The value to assign to the {#associated_rule_types} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -394,6 +408,12 @@ module OCI
       self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
 
       self.properties = attributes[:'properties'] if attributes[:'properties']
+
+      self.associated_rule_types = attributes[:'associatedRuleTypes'] if attributes[:'associatedRuleTypes']
+
+      raise 'You cannot provide both :associatedRuleTypes and :associated_rule_types' if attributes.key?(:'associatedRuleTypes') && attributes.key?(:'associated_rule_types')
+
+      self.associated_rule_types = attributes[:'associated_rule_types'] if attributes[:'associated_rule_types']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -407,6 +427,26 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] associated_rule_types Object to be assigned
+    def associated_rule_types=(associated_rule_types)
+      # rubocop:disable Style/ConditionalAssignment
+      if associated_rule_types.nil?
+        @associated_rule_types = nil
+      else
+        @associated_rule_types =
+          associated_rule_types.collect do |item|
+            if ASSOCIATED_RULE_TYPES_ENUM.include?(item)
+              item
+            else
+              OCI.logger.debug("Unknown value for 'associated_rule_types' [#{item}]. Mapping to 'ASSOCIATED_RULE_TYPES_UNKNOWN_ENUM_VALUE'") if OCI.logger
+              ASSOCIATED_RULE_TYPES_UNKNOWN_ENUM_VALUE
+            end
+          end
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -447,7 +487,8 @@ module OCI
         uri == other.uri &&
         path == other.path &&
         custom_property_members == other.custom_property_members &&
-        properties == other.properties
+        properties == other.properties &&
+        associated_rule_types == other.associated_rule_types
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -463,7 +504,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, length, position, precision, scale, time_external, uri, path, custom_property_members, properties].hash
+      [key, display_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, length, position, precision, scale, time_external, uri, path, custom_property_members, properties, associated_rule_types].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

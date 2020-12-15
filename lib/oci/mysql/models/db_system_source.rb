@@ -49,6 +49,7 @@ module OCI
       type = object_hash[:'sourceType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Mysql::Models::DbSystemSourceFromBackup' if type == 'BACKUP'
+      return 'OCI::Mysql::Models::DbSystemSourceFromNone' if type == 'NONE'
       return 'OCI::Mysql::Models::DbSystemSourceImportFromUrl' if type == 'IMPORTURL'
 
       # TODO: Log a warning when the subtype is not found.

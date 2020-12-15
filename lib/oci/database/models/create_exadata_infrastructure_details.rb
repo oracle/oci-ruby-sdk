@@ -5,7 +5,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Request to create Exadata Cloud@Customer infrastructure resource.
+  # Request to create Exadata infrastructure resource. Applies to Exadata Cloud@Customer instances only.
+  # See {#create_cloud_exadata_infrastructure_details create_cloud_exadata_infrastructure_details} for information on creating a cloud Exadata infrastructure resource in an Exadata Cloud Service instance.
   #
   class Database::Models::CreateExadataInfrastructureDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
@@ -62,6 +63,9 @@ module OCI
     # @return [Array<OCI::Database::Models::ExadataInfrastructureContact>]
     attr_accessor :contacts
 
+    # @return [OCI::Database::Models::MaintenanceWindow]
+    attr_accessor :maintenance_window
+
     # **[Required]** The list of DNS server IP addresses. Maximum of 3 allowed.
     # @return [Array<String>]
     attr_accessor :dns_server
@@ -100,6 +104,7 @@ module OCI
         'infini_band_network_cidr': :'infiniBandNetworkCIDR',
         'corporate_proxy': :'corporateProxy',
         'contacts': :'contacts',
+        'maintenance_window': :'maintenanceWindow',
         'dns_server': :'dnsServer',
         'ntp_server': :'ntpServer',
         'freeform_tags': :'freeformTags',
@@ -124,6 +129,7 @@ module OCI
         'infini_band_network_cidr': :'String',
         'corporate_proxy': :'String',
         'contacts': :'Array<OCI::Database::Models::ExadataInfrastructureContact>',
+        'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
         'dns_server': :'Array<String>',
         'ntp_server': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
@@ -150,6 +156,7 @@ module OCI
     # @option attributes [String] :infini_band_network_cidr The value to assign to the {#infini_band_network_cidr} property
     # @option attributes [String] :corporate_proxy The value to assign to the {#corporate_proxy} property
     # @option attributes [Array<OCI::Database::Models::ExadataInfrastructureContact>] :contacts The value to assign to the {#contacts} property
+    # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
     # @option attributes [Array<String>] :dns_server The value to assign to the {#dns_server} property
     # @option attributes [Array<String>] :ntp_server The value to assign to the {#ntp_server} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -216,6 +223,12 @@ module OCI
 
       self.contacts = attributes[:'contacts'] if attributes[:'contacts']
 
+      self.maintenance_window = attributes[:'maintenanceWindow'] if attributes[:'maintenanceWindow']
+
+      raise 'You cannot provide both :maintenanceWindow and :maintenance_window' if attributes.key?(:'maintenanceWindow') && attributes.key?(:'maintenance_window')
+
+      self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
+
       self.dns_server = attributes[:'dnsServer'] if attributes[:'dnsServer']
 
       raise 'You cannot provide both :dnsServer and :dns_server' if attributes.key?(:'dnsServer') && attributes.key?(:'dns_server')
@@ -264,6 +277,7 @@ module OCI
         infini_band_network_cidr == other.infini_band_network_cidr &&
         corporate_proxy == other.corporate_proxy &&
         contacts == other.contacts &&
+        maintenance_window == other.maintenance_window &&
         dns_server == other.dns_server &&
         ntp_server == other.ntp_server &&
         freeform_tags == other.freeform_tags &&
@@ -283,7 +297,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, shape, time_zone, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, dns_server, ntp_server, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, shape, time_zone, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, maintenance_window, dns_server, ntp_server, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

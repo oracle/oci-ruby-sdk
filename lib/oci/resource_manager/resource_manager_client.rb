@@ -117,6 +117,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/cancel_job.rb.html) to see an example of how to use cancel_job API.
     def cancel_job(job_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#cancel_job.' if logger
 
@@ -187,6 +188,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/change_configuration_source_provider_compartment.rb.html) to see an example of how to use change_configuration_source_provider_compartment API.
     def change_configuration_source_provider_compartment(configuration_source_provider_id, change_configuration_source_provider_compartment_details, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#change_configuration_source_provider_compartment.' if logger
 
@@ -256,6 +258,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/change_stack_compartment.rb.html) to see an example of how to use change_stack_compartment API.
     def change_stack_compartment(stack_id, change_stack_compartment_details, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#change_stack_compartment.' if logger
 
@@ -323,6 +326,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProvider ConfigurationSourceProvider}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/create_configuration_source_provider.rb.html) to see an example of how to use create_configuration_source_provider API.
     def create_configuration_source_provider(create_configuration_source_provider_details, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#create_configuration_source_provider.' if logger
 
@@ -385,6 +389,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/create_job.rb.html) to see an example of how to use create_job API.
     def create_job(create_job_details, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#create_job.' if logger
 
@@ -433,8 +438,8 @@ module OCI
 
 
     # Creates a stack in the specified compartment.
-    # You can create a stack from a Terraform configuration file.
-    # The Terraform configuration file can be directly uploaded or referenced from a source code control system.
+    # You can create a stack from a Terraform configuration.
+    # The Terraform configuration can be directly uploaded or referenced from a source code control system.
     # You can also create a stack from an existing compartment.
     # For more information, see
     # [To create a stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#CreateStack).
@@ -453,6 +458,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Stack Stack}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/create_stack.rb.html) to see an example of how to use create_stack API.
     def create_stack(create_stack_details, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#create_stack.' if logger
 
@@ -514,6 +520,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/delete_configuration_source_provider.rb.html) to see an example of how to use delete_configuration_source_provider API.
     def delete_configuration_source_provider(configuration_source_provider_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#delete_configuration_source_provider.' if logger
 
@@ -573,6 +580,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/delete_stack.rb.html) to see an example of how to use delete_stack API.
     def delete_stack(stack_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#delete_stack.' if logger
 
@@ -638,6 +646,7 @@ module OCI
     #   creation request may be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/detect_stack_drift.rb.html) to see an example of how to use detect_stack_drift API.
     def detect_stack_drift(stack_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#detect_stack_drift.' if logger
 
@@ -696,6 +705,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProvider ConfigurationSourceProvider}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_configuration_source_provider.rb.html) to see an example of how to use get_configuration_source_provider API.
     def get_configuration_source_provider(configuration_source_provider_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#get_configuration_source_provider.' if logger
 
@@ -751,6 +761,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_job.rb.html) to see an example of how to use get_job API.
     def get_job(job_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#get_job.' if logger
 
@@ -828,6 +839,7 @@ module OCI
     #   Example: `2020-02-01T12:00:00.000Z`
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceManager::Models::LogEntry LogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_job_logs.rb.html) to see an example of how to use get_job_logs API.
     def get_job_logs(job_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#get_job_logs.' if logger
 
@@ -900,6 +912,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type String
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_job_logs_content.rb.html) to see an example of how to use get_job_logs_content API.
     def get_job_logs_content(job_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#get_job_logs_content.' if logger
 
@@ -959,6 +972,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_job_tf_config.rb.html) to see an example of how to use get_job_tf_config API.
     def get_job_tf_config(job_id, opts = {}, &block)
       logger.debug 'Calling operation ResourceManagerClient#get_job_tf_config.' if logger
 
@@ -1060,6 +1074,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_job_tf_state.rb.html) to see an example of how to use get_job_tf_state API.
     def get_job_tf_state(job_id, opts = {}, &block)
       logger.debug 'Calling operation ResourceManagerClient#get_job_tf_state.' if logger
 
@@ -1159,6 +1174,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Stack Stack}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_stack.rb.html) to see an example of how to use get_stack API.
     def get_stack(stack_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#get_stack.' if logger
 
@@ -1218,6 +1234,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_stack_tf_config.rb.html) to see an example of how to use get_stack_tf_config API.
     def get_stack_tf_config(stack_id, opts = {}, &block)
       logger.debug 'Calling operation ResourceManagerClient#get_stack_tf_config.' if logger
 
@@ -1319,6 +1336,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_stack_tf_state.rb.html) to see an example of how to use get_stack_tf_state API.
     def get_stack_tf_state(stack_id, opts = {}, &block)
       logger.debug 'Calling operation ResourceManagerClient#get_stack_tf_state.' if logger
 
@@ -1418,6 +1436,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#get_work_request.' if logger
 
@@ -1494,7 +1513,10 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
     #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
+    # @option opts [String] :config_source_provider_type A filter to return only configuration source providers of the specified type (GitHub or GitLab).
+    #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProviderCollection ConfigurationSourceProviderCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_configuration_source_providers.rb.html) to see an example of how to use list_configuration_source_providers API.
     def list_configuration_source_providers(opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_configuration_source_providers.' if logger
 
@@ -1520,6 +1542,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:configSourceProviderType] = opts[:config_source_provider_type] if opts[:config_source_provider_type]
 
       # Header Params
       header_params = {}
@@ -1600,6 +1623,7 @@ module OCI
     #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceManager::Models::JobSummary JobSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_jobs.rb.html) to see an example of how to use list_jobs API.
     def list_jobs(opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_jobs.' if logger
 
@@ -1676,6 +1700,7 @@ module OCI
     # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ResourceDiscoveryServiceCollection ResourceDiscoveryServiceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_resource_discovery_services.rb.html) to see an example of how to use list_resource_discovery_services API.
     def list_resource_discovery_services(opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_resource_discovery_services.' if logger
 
@@ -1746,6 +1771,7 @@ module OCI
     #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::StackResourceDriftCollection StackResourceDriftCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_stack_resource_drift_details.rb.html) to see an example of how to use list_stack_resource_drift_details API.
     def list_stack_resource_drift_details(stack_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_stack_resource_drift_details.' if logger
 
@@ -1838,6 +1864,7 @@ module OCI
     #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceManager::Models::StackSummary StackSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_stacks.rb.html) to see an example of how to use list_stacks API.
     def list_stacks(opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_stacks.' if logger
 
@@ -1913,6 +1940,7 @@ module OCI
     # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::TerraformVersionCollection TerraformVersionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_terraform_versions.rb.html) to see an example of how to use list_terraform_versions API.
     def list_terraform_versions(opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_terraform_versions.' if logger
 
@@ -1979,6 +2007,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceManager::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_work_request_errors.' if logger
 
@@ -2054,6 +2083,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceManager::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_work_request_logs.' if logger
 
@@ -2126,6 +2156,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceManager::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#list_work_requests.' if logger
 
@@ -2194,6 +2225,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ConfigurationSourceProvider ConfigurationSourceProvider}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/update_configuration_source_provider.rb.html) to see an example of how to use update_configuration_source_provider API.
     def update_configuration_source_provider(configuration_source_provider_id, update_configuration_source_provider_details, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#update_configuration_source_provider.' if logger
 
@@ -2256,6 +2288,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/update_job.rb.html) to see an example of how to use update_job API.
     def update_job(job_id, update_job_details, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#update_job.' if logger
 
@@ -2325,6 +2358,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Stack Stack}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/update_stack.rb.html) to see an example of how to use update_stack API.
     def update_stack(stack_id, update_stack_details, opts = {})
       logger.debug 'Calling operation ResourceManagerClient#update_stack.' if logger
 

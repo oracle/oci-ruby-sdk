@@ -106,6 +106,7 @@ module OCI
     # @option opts [String] :opc_retry_token
     # @option opts [OCI::Dts::Models::CreateTransferApplianceDetails] :create_transfer_appliance_details Creates a New Transfer Appliance
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferAppliance TransferAppliance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/create_transfer_appliance.rb.html) to see an example of how to use create_transfer_appliance API.
     def create_transfer_appliance(id, opts = {})
       logger.debug 'Calling operation TransferApplianceClient#create_transfer_appliance.' if logger
 
@@ -162,6 +163,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferApplianceCertificate TransferApplianceCertificate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/create_transfer_appliance_admin_credentials.rb.html) to see an example of how to use create_transfer_appliance_admin_credentials API.
     def create_transfer_appliance_admin_credentials(id, transfer_appliance_label, admin_public_key, opts = {})
       logger.debug 'Calling operation TransferApplianceClient#create_transfer_appliance_admin_credentials.' if logger
 
@@ -219,6 +221,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/delete_transfer_appliance.rb.html) to see an example of how to use delete_transfer_appliance API.
     def delete_transfer_appliance(id, transfer_appliance_label, opts = {})
       logger.debug 'Calling operation TransferApplianceClient#delete_transfer_appliance.' if logger
 
@@ -274,6 +277,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferAppliance TransferAppliance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/get_transfer_appliance.rb.html) to see an example of how to use get_transfer_appliance API.
     def get_transfer_appliance(id, transfer_appliance_label, opts = {})
       logger.debug 'Calling operation TransferApplianceClient#get_transfer_appliance.' if logger
 
@@ -330,6 +334,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferApplianceCertificate TransferApplianceCertificate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/get_transfer_appliance_certificate_authority_certificate.rb.html) to see an example of how to use get_transfer_appliance_certificate_authority_certificate API.
     def get_transfer_appliance_certificate_authority_certificate(id, transfer_appliance_label, opts = {})
       logger.debug 'Calling operation TransferApplianceClient#get_transfer_appliance_certificate_authority_certificate.' if logger
 
@@ -386,6 +391,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferApplianceEncryptionPassphrase TransferApplianceEncryptionPassphrase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/get_transfer_appliance_encryption_passphrase.rb.html) to see an example of how to use get_transfer_appliance_encryption_passphrase API.
     def get_transfer_appliance_encryption_passphrase(id, transfer_appliance_label, opts = {})
       logger.debug 'Calling operation TransferApplianceClient#get_transfer_appliance_encryption_passphrase.' if logger
 
@@ -442,6 +448,7 @@ module OCI
     # @option opts [String] :lifecycle_state filtering by lifecycleState
     #   Allowed values are: REQUESTED, ORACLE_PREPARING, SHIPPING, DELIVERED, PREPARING, FINALIZED, RETURN_DELAYED, RETURN_SHIPPED, RETURN_SHIPPED_CANCELLED, ORACLE_RECEIVED, ORACLE_RECEIVED_CANCELLED, PROCESSING, COMPLETE, CUSTOMER_NEVER_RECEIVED, ORACLE_NEVER_RECEIVED, CUSTOMER_LOST, CANCELLED, DELETED, REJECTED, ERROR
     # @return [Response] A Response object with data of type {OCI::Dts::Models::MultipleTransferAppliances MultipleTransferAppliances}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/list_transfer_appliances.rb.html) to see an example of how to use list_transfer_appliances API.
     def list_transfer_appliances(id, opts = {})
       logger.debug 'Calling operation TransferApplianceClient#list_transfer_appliances.' if logger
 
@@ -503,6 +510,7 @@ module OCI
     #   object's tag matches the tag specified in the request.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferAppliance TransferAppliance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/update_transfer_appliance.rb.html) to see an example of how to use update_transfer_appliance API.
     def update_transfer_appliance(id, transfer_appliance_label, update_transfer_appliance_details, opts = {})
       logger.debug 'Calling operation TransferApplianceClient#update_transfer_appliance.' if logger
 

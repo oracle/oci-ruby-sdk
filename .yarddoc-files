@@ -51,6 +51,7 @@ lib/oci/optimizer/optimizer.rb
 lib/oci/os_management/os_management.rb
 lib/oci/resource_manager/resource_manager.rb
 lib/oci/resource_search/resource_search.rb
+lib/oci/rover/rover.rb
 lib/oci/sch/sch.rb
 lib/oci/secrets/secrets.rb
 lib/oci/streaming/streaming.rb

@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The configuration details for moving the resource.
+  # The configuration details for moving the cloud Exadata infrastructure resource to another compartment. Applies to Exadata Cloud Service instances only.
   #
   class Database::Models::ChangeCloudExadataInfrastructureCompartmentDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.

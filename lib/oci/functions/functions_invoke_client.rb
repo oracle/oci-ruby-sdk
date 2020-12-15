@@ -120,6 +120,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/invoke_function.rb.html) to see an example of how to use invoke_function API.
     def invoke_function(function_id, opts = {}, &block)
       logger.debug 'Calling operation FunctionsInvokeClient#invoke_function.' if logger
 

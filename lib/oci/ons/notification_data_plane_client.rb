@@ -125,6 +125,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/change_subscription_compartment.rb.html) to see an example of how to use change_subscription_compartment API.
     def change_subscription_compartment(subscription_id, change_subscription_compartment_details, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#change_subscription_compartment.' if logger
 
@@ -194,6 +195,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ons::Models::Subscription Subscription}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/create_subscription.rb.html) to see an example of how to use create_subscription API.
     def create_subscription(create_subscription_details, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#create_subscription.' if logger
 
@@ -258,6 +260,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/delete_subscription.rb.html) to see an example of how to use delete_subscription API.
     def delete_subscription(subscription_id, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#delete_subscription.' if logger
 
@@ -331,6 +334,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ons::Models::ConfirmationResult ConfirmationResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/get_confirm_subscription.rb.html) to see an example of how to use get_confirm_subscription API.
     def get_confirm_subscription(id, token, protocol, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#get_confirm_subscription.' if logger
 
@@ -394,6 +398,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ons::Models::Subscription Subscription}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/get_subscription.rb.html) to see an example of how to use get_subscription API.
     def get_subscription(subscription_id, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#get_subscription.' if logger
 
@@ -467,6 +472,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type String
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/get_unsubscription.rb.html) to see an example of how to use get_unsubscription API.
     def get_unsubscription(id, token, protocol, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#get_unsubscription.' if logger
 
@@ -538,6 +544,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Ons::Models::SubscriptionSummary SubscriptionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/list_subscriptions.rb.html) to see an example of how to use list_subscriptions API.
     def list_subscriptions(compartment_id, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#list_subscriptions.' if logger
 
@@ -618,6 +625,7 @@ module OCI
     #    (default to JSON)
     #   Allowed values are: JSON, RAW_TEXT
     # @return [Response] A Response object with data of type {OCI::Ons::Models::PublishResult PublishResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/publish_message.rb.html) to see an example of how to use publish_message API.
     def publish_message(topic_id, message_details, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#publish_message.' if logger
 
@@ -683,6 +691,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ons::Models::Subscription Subscription}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/resend_subscription_confirmation.rb.html) to see an example of how to use resend_subscription_confirmation API.
     def resend_subscription_confirmation(id, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#resend_subscription_confirmation.' if logger
 
@@ -748,6 +757,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Ons::Models::UpdateSubscriptionDetails UpdateSubscriptionDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/update_subscription.rb.html) to see an example of how to use update_subscription API.
     def update_subscription(subscription_id, update_subscription_details, opts = {})
       logger.debug 'Calling operation NotificationDataPlaneClient#update_subscription.' if logger
 

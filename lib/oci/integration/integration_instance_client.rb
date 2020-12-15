@@ -120,6 +120,7 @@ module OCI
     #   request might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/change_integration_instance_compartment.rb.html) to see an example of how to use change_integration_instance_compartment API.
     def change_integration_instance_compartment(integration_instance_id, change_integration_instance_compartment_details, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#change_integration_instance_compartment.' if logger
 
@@ -184,6 +185,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/create_integration_instance.rb.html) to see an example of how to use create_integration_instance API.
     def create_integration_instance(create_integration_instance_details, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#create_integration_instance.' if logger
 
@@ -243,6 +245,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/delete_integration_instance.rb.html) to see an example of how to use delete_integration_instance API.
     def delete_integration_instance(integration_instance_id, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#delete_integration_instance.' if logger
 
@@ -296,6 +299,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Integration::Models::IntegrationInstance IntegrationInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/get_integration_instance.rb.html) to see an example of how to use get_integration_instance API.
     def get_integration_instance(integration_instance_id, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#get_integration_instance.' if logger
 
@@ -349,6 +353,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Integration::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#get_work_request.' if logger
 
@@ -418,6 +423,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Integration::Models::IntegrationInstanceSummary IntegrationInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/list_integration_instances.rb.html) to see an example of how to use list_integration_instances API.
     def list_integration_instances(compartment_id, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#list_integration_instances.' if logger
 
@@ -492,6 +498,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @return [Response] A Response object with data of type Array<{OCI::Integration::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(compartment_id, work_request_id, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#list_work_request_errors.' if logger
 
@@ -552,6 +559,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @return [Response] A Response object with data of type Array<{OCI::Integration::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(compartment_id, work_request_id, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#list_work_request_logs.' if logger
 
@@ -613,6 +621,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :integration_instance_id The Integration Instance identifier to use to filter results
     # @return [Response] A Response object with data of type Array<{OCI::Integration::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#list_work_requests.' if logger
 
@@ -683,6 +692,7 @@ module OCI
     #   request might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/start_integration_instance.rb.html) to see an example of how to use start_integration_instance API.
     def start_integration_instance(integration_instance_id, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#start_integration_instance.' if logger
 
@@ -752,6 +762,7 @@ module OCI
     #   request might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/stop_integration_instance.rb.html) to see an example of how to use stop_integration_instance API.
     def stop_integration_instance(integration_instance_id, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#stop_integration_instance.' if logger
 
@@ -814,6 +825,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/update_integration_instance.rb.html) to see an example of how to use update_integration_instance API.
     def update_integration_instance(integration_instance_id, update_integration_instance_details, opts = {})
       logger.debug 'Calling operation IntegrationInstanceClient#update_integration_instance.' if logger
 

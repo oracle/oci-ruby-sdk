@@ -5,7 +5,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Updates the Exadata Cloud@Customer infrastructure.
+  # Updates the Exadata infrastructure. Applies to Exadata Cloud@Customer instances only.
+  # See {#update_cloud_exadata_infrastructure_details update_cloud_exadata_infrastructure_details} for information on updating Exadata Cloud Service cloud Exadata infrastructure resources.
   #
   class Database::Models::UpdateExadataInfrastructureDetails
     # The IP address for the first control plane server.
@@ -39,6 +40,9 @@ module OCI
     # The list of contacts for the Exadata infrastructure.
     # @return [Array<OCI::Database::Models::ExadataInfrastructureContact>]
     attr_accessor :contacts
+
+    # @return [OCI::Database::Models::MaintenanceWindow]
+    attr_accessor :maintenance_window
 
     # The list of DNS server IP addresses. Maximum of 3 allowed.
     # @return [Array<String>]
@@ -79,6 +83,7 @@ module OCI
         'infini_band_network_cidr': :'infiniBandNetworkCIDR',
         'corporate_proxy': :'corporateProxy',
         'contacts': :'contacts',
+        'maintenance_window': :'maintenanceWindow',
         'dns_server': :'dnsServer',
         'ntp_server': :'ntpServer',
         'time_zone': :'timeZone',
@@ -100,6 +105,7 @@ module OCI
         'infini_band_network_cidr': :'String',
         'corporate_proxy': :'String',
         'contacts': :'Array<OCI::Database::Models::ExadataInfrastructureContact>',
+        'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
         'dns_server': :'Array<String>',
         'ntp_server': :'Array<String>',
         'time_zone': :'String',
@@ -123,6 +129,7 @@ module OCI
     # @option attributes [String] :infini_band_network_cidr The value to assign to the {#infini_band_network_cidr} property
     # @option attributes [String] :corporate_proxy The value to assign to the {#corporate_proxy} property
     # @option attributes [Array<OCI::Database::Models::ExadataInfrastructureContact>] :contacts The value to assign to the {#contacts} property
+    # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
     # @option attributes [Array<String>] :dns_server The value to assign to the {#dns_server} property
     # @option attributes [Array<String>] :ntp_server The value to assign to the {#ntp_server} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
@@ -169,6 +176,12 @@ module OCI
       self.corporate_proxy = attributes[:'corporate_proxy'] if attributes[:'corporate_proxy']
 
       self.contacts = attributes[:'contacts'] if attributes[:'contacts']
+
+      self.maintenance_window = attributes[:'maintenanceWindow'] if attributes[:'maintenanceWindow']
+
+      raise 'You cannot provide both :maintenanceWindow and :maintenance_window' if attributes.key?(:'maintenanceWindow') && attributes.key?(:'maintenance_window')
+
+      self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
 
       self.dns_server = attributes[:'dnsServer'] if attributes[:'dnsServer']
 
@@ -220,6 +233,7 @@ module OCI
         infini_band_network_cidr == other.infini_band_network_cidr &&
         corporate_proxy == other.corporate_proxy &&
         contacts == other.contacts &&
+        maintenance_window == other.maintenance_window &&
         dns_server == other.dns_server &&
         ntp_server == other.ntp_server &&
         time_zone == other.time_zone &&
@@ -240,7 +254,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, dns_server, ntp_server, time_zone, freeform_tags, defined_tags].hash
+      [cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, maintenance_window, dns_server, ntp_server, time_zone, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

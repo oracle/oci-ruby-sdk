@@ -117,6 +117,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/accept_recipient_invitation.rb.html) to see an example of how to use accept_recipient_invitation API.
     def accept_recipient_invitation(recipient_invitation_id, opts = {})
       logger.debug 'Calling operation RecipientInvitationClient#accept_recipient_invitation.' if logger
 
@@ -172,6 +173,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::RecipientInvitation RecipientInvitation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/get_recipient_invitation.rb.html) to see an example of how to use get_recipient_invitation API.
     def get_recipient_invitation(recipient_invitation_id, opts = {})
       logger.debug 'Calling operation RecipientInvitationClient#get_recipient_invitation.' if logger
 
@@ -237,6 +239,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::RecipientInvitation RecipientInvitation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/ignore_recipient_invitation.rb.html) to see an example of how to use ignore_recipient_invitation API.
     def ignore_recipient_invitation(recipient_invitation_id, opts = {})
       logger.debug 'Calling operation RecipientInvitationClient#ignore_recipient_invitation.' if logger
 
@@ -298,6 +301,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::RecipientInvitationCollection RecipientInvitationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_recipient_invitations.rb.html) to see an example of how to use list_recipient_invitations API.
     def list_recipient_invitations(compartment_id, opts = {})
       logger.debug 'Calling operation RecipientInvitationClient#list_recipient_invitations.' if logger
 
@@ -370,6 +374,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::RecipientInvitation RecipientInvitation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/update_recipient_invitation.rb.html) to see an example of how to use update_recipient_invitation API.
     def update_recipient_invitation(recipient_invitation_id, update_recipient_invitation_details, opts = {})
       logger.debug 'Calling operation RecipientInvitationClient#update_recipient_invitation.' if logger
 

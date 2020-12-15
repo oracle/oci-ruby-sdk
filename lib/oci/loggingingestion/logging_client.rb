@@ -114,6 +114,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loggingingestion/put_logs.rb.html) to see an example of how to use put_logs API.
     def put_logs(log_id, put_logs_details, opts = {})
       logger.debug 'Calling operation LoggingClient#put_logs.' if logger
 

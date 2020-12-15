@@ -114,6 +114,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/change_sender_compartment.rb.html) to see an example of how to use change_sender_compartment API.
     def change_sender_compartment(sender_id, change_sender_compartment_details, opts = {})
       logger.debug 'Calling operation EmailClient#change_sender_compartment.' if logger
 
@@ -168,6 +169,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/create_sender.rb.html) to see an example of how to use create_sender API.
     def create_sender(create_sender_details, opts = {})
       logger.debug 'Calling operation EmailClient#create_sender.' if logger
 
@@ -225,6 +227,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Suppression Suppression}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/create_suppression.rb.html) to see an example of how to use create_suppression API.
     def create_suppression(create_suppression_details, opts = {})
       logger.debug 'Calling operation EmailClient#create_suppression.' if logger
 
@@ -283,6 +286,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/delete_sender.rb.html) to see an example of how to use delete_sender API.
     def delete_sender(sender_id, opts = {})
       logger.debug 'Calling operation EmailClient#delete_sender.' if logger
 
@@ -338,6 +342,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/delete_suppression.rb.html) to see an example of how to use delete_suppression API.
     def delete_suppression(suppression_id, opts = {})
       logger.debug 'Calling operation EmailClient#delete_suppression.' if logger
 
@@ -390,6 +395,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/get_sender.rb.html) to see an example of how to use get_sender API.
     def get_sender(sender_id, opts = {})
       logger.debug 'Calling operation EmailClient#get_sender.' if logger
 
@@ -445,6 +451,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Suppression Suppression}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/get_suppression.rb.html) to see an example of how to use get_suppression API.
     def get_suppression(suppression_id, opts = {})
       logger.debug 'Calling operation EmailClient#get_suppression.' if logger
 
@@ -518,6 +525,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Email::Models::SenderSummary SenderSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/list_senders.rb.html) to see an example of how to use list_senders API.
     def list_senders(compartment_id, opts = {})
       logger.debug 'Calling operation EmailClient#list_senders.' if logger
 
@@ -628,6 +636,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Email::Models::SuppressionSummary SuppressionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/list_suppressions.rb.html) to see an example of how to use list_suppressions API.
     def list_suppressions(compartment_id, opts = {})
       logger.debug 'Calling operation EmailClient#list_suppressions.' if logger
 
@@ -705,6 +714,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The request ID for tracing from the system
     # @return [Response] A Response object with data of type {OCI::Email::Models::Sender Sender}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/email/update_sender.rb.html) to see an example of how to use update_sender API.
     def update_sender(sender_id, update_sender_details, opts = {})
       logger.debug 'Calling operation EmailClient#update_sender.' if logger
 

@@ -114,6 +114,7 @@ module OCI
     #   then a retry of the original creation request might be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::AcceptedAgreement AcceptedAgreement}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/create_accepted_agreement.rb.html) to see an example of how to use create_accepted_agreement API.
     def create_accepted_agreement(create_accepted_agreement_details, opts = {})
       logger.debug 'Calling operation MarketplaceClient#create_accepted_agreement.' if logger
 
@@ -178,6 +179,7 @@ module OCI
     #   deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/delete_accepted_agreement.rb.html) to see an example of how to use delete_accepted_agreement API.
     def delete_accepted_agreement(accepted_agreement_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#delete_accepted_agreement.' if logger
 
@@ -235,6 +237,7 @@ module OCI
     #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::AcceptedAgreement AcceptedAgreement}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/get_accepted_agreement.rb.html) to see an example of how to use get_accepted_agreement API.
     def get_accepted_agreement(accepted_agreement_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#get_accepted_agreement.' if logger
 
@@ -295,6 +298,7 @@ module OCI
     #
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::Agreement Agreement}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/get_agreement.rb.html) to see an example of how to use get_agreement API.
     def get_agreement(listing_id, package_version, agreement_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#get_agreement.' if logger
 
@@ -371,6 +375,7 @@ module OCI
     #
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::Listing Listing}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/get_listing.rb.html) to see an example of how to use get_listing API.
     def get_listing(listing_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#get_listing.' if logger
 
@@ -443,6 +448,7 @@ module OCI
     #
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::ListingPackage ListingPackage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/get_package.rb.html) to see an example of how to use get_package API.
     def get_package(listing_id, package_version, opts = {})
       logger.debug 'Calling operation MarketplaceClient#get_package.' if logger
 
@@ -517,6 +523,7 @@ module OCI
     #    (default to 30)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::AcceptedAgreementSummary AcceptedAgreementSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_accepted_agreements.rb.html) to see an example of how to use list_accepted_agreements API.
     def list_accepted_agreements(compartment_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_accepted_agreements.' if logger
 
@@ -594,6 +601,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::AgreementSummary AgreementSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_agreements.rb.html) to see an example of how to use list_agreements API.
     def list_agreements(listing_id, package_version, opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_agreements.' if logger
 
@@ -659,6 +667,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::CategorySummary CategorySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_categories.rb.html) to see an example of how to use list_categories API.
     def list_categories(opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_categories.' if logger
 
@@ -754,6 +763,7 @@ module OCI
     #    (default to false)
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::ListingSummary ListingSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_listings.rb.html) to see an example of how to use list_listings API.
     def list_listings(opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_listings.' if logger
 
@@ -865,6 +875,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::ListingPackageSummary ListingPackageSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_packages.rb.html) to see an example of how to use list_packages API.
     def list_packages(listing_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_packages.' if logger
 
@@ -940,6 +951,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::PublisherSummary PublisherSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_publishers.rb.html) to see an example of how to use list_publishers API.
     def list_publishers(opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_publishers.' if logger
 
@@ -998,6 +1010,7 @@ module OCI
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::ReportTypeCollection ReportTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_report_types.rb.html) to see an example of how to use list_report_types API.
     def list_report_types(compartment_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_report_types.' if logger
 
@@ -1057,6 +1070,7 @@ module OCI
     #
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::ReportCollection ReportCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_reports.rb.html) to see an example of how to use list_reports API.
     def list_reports(report_type, date, compartment_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_reports.' if logger
 
@@ -1118,6 +1132,7 @@ module OCI
     #
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::TaxSummary TaxSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_taxes.rb.html) to see an example of how to use list_taxes API.
     def list_taxes(listing_id, opts = {})
       logger.debug 'Calling operation MarketplaceClient#list_taxes.' if logger
 
@@ -1185,6 +1200,7 @@ module OCI
     #   deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Marketplace::Models::AcceptedAgreement AcceptedAgreement}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/update_accepted_agreement.rb.html) to see an example of how to use update_accepted_agreement API.
     def update_accepted_agreement(accepted_agreement_id, update_accepted_agreement_details, opts = {})
       logger.debug 'Calling operation MarketplaceClient#update_accepted_agreement.' if logger
 

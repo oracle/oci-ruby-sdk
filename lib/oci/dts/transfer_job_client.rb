@@ -117,6 +117,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/change_transfer_job_compartment.rb.html) to see an example of how to use change_transfer_job_compartment API.
     def change_transfer_job_compartment(transfer_job_id, change_transfer_job_compartment_details, opts = {})
       logger.debug 'Calling operation TransferJobClient#change_transfer_job_compartment.' if logger
 
@@ -176,6 +177,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferJob TransferJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/create_transfer_job.rb.html) to see an example of how to use create_transfer_job API.
     def create_transfer_job(create_transfer_job_details, opts = {})
       logger.debug 'Calling operation TransferJobClient#create_transfer_job.' if logger
 
@@ -232,6 +234,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/delete_transfer_job.rb.html) to see an example of how to use delete_transfer_job API.
     def delete_transfer_job(id, opts = {})
       logger.debug 'Calling operation TransferJobClient#delete_transfer_job.' if logger
 
@@ -286,6 +289,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferJob TransferJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/get_transfer_job.rb.html) to see an example of how to use get_transfer_job API.
     def get_transfer_job(id, opts = {})
       logger.debug 'Calling operation TransferJobClient#get_transfer_job.' if logger
 
@@ -354,6 +358,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Dts::Models::TransferJobSummary TransferJobSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/list_transfer_jobs.rb.html) to see an example of how to use list_transfer_jobs API.
     def list_transfer_jobs(compartment_id, opts = {})
       logger.debug 'Calling operation TransferJobClient#list_transfer_jobs.' if logger
 
@@ -421,6 +426,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Dts::Models::TransferJob TransferJob}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dts/update_transfer_job.rb.html) to see an example of how to use update_transfer_job API.
     def update_transfer_job(id, update_transfer_job_details, opts = {})
       logger.debug 'Calling operation TransferJobClient#update_transfer_job.' if logger
 

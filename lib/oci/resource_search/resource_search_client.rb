@@ -108,6 +108,7 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceSearch::Models::ResourceType ResourceType}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcesearch/get_resource_type.rb.html) to see an example of how to use get_resource_type API.
     def get_resource_type(name, opts = {})
       logger.debug 'Calling operation ResourceSearchClient#get_resource_type.' if logger
 
@@ -165,6 +166,7 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ResourceSearch::Models::ResourceType ResourceType}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcesearch/list_resource_types.rb.html) to see an example of how to use list_resource_types API.
     def list_resource_types(opts = {})
       logger.debug 'Calling operation ResourceSearchClient#list_resource_types.' if logger
 
@@ -227,6 +229,7 @@ module OCI
     #   request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ResourceSearch::Models::ResourceSummaryCollection ResourceSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcesearch/search_resources.rb.html) to see an example of how to use search_resources API.
     def search_resources(search_details, opts = {})
       logger.debug 'Calling operation ResourceSearchClient#search_resources.' if logger
 

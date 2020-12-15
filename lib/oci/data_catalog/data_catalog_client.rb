@@ -119,6 +119,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAsset DataAsset}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/add_data_selector_patterns.rb.html) to see an example of how to use add_data_selector_patterns API.
     def add_data_selector_patterns(catalog_id, data_asset_key, data_selector_pattern_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#add_data_selector_patterns.' if logger
 
@@ -193,6 +194,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Type Type}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/associate_custom_property.rb.html) to see an example of how to use associate_custom_property API.
     def associate_custom_property(catalog_id, type_key, associate_custom_property_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#associate_custom_property.' if logger
 
@@ -265,6 +267,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/attach_catalog_private_endpoint.rb.html) to see an example of how to use attach_catalog_private_endpoint API.
     def attach_catalog_private_endpoint(attach_catalog_private_endpoint_details, catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#attach_catalog_private_endpoint.' if logger
 
@@ -328,6 +331,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/change_catalog_compartment.rb.html) to see an example of how to use change_catalog_compartment API.
     def change_catalog_compartment(change_catalog_compartment_details, catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#change_catalog_compartment.' if logger
 
@@ -389,6 +393,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/change_catalog_private_endpoint_compartment.rb.html) to see an example of how to use change_catalog_private_endpoint_compartment API.
     def change_catalog_private_endpoint_compartment(change_catalog_private_endpoint_compartment_details, catalog_private_endpoint_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#change_catalog_private_endpoint_compartment.' if logger
 
@@ -452,6 +457,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Attribute Attribute}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_attribute.rb.html) to see an example of how to use create_attribute API.
     def create_attribute(catalog_id, data_asset_key, entity_key, create_attribute_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_attribute.' if logger
 
@@ -522,6 +528,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::AttributeTag AttributeTag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_attribute_tag.rb.html) to see an example of how to use create_attribute_tag API.
     def create_attribute_tag(catalog_id, data_asset_key, entity_key, attribute_key, create_attribute_tag_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_attribute_tag.' if logger
 
@@ -592,6 +599,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_catalog.rb.html) to see an example of how to use create_catalog API.
     def create_catalog(create_catalog_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_catalog.' if logger
 
@@ -651,6 +659,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_catalog_private_endpoint.rb.html) to see an example of how to use create_catalog_private_endpoint API.
     def create_catalog_private_endpoint(create_catalog_private_endpoint_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_catalog_private_endpoint.' if logger
 
@@ -712,6 +721,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Connection Connection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_connection.rb.html) to see an example of how to use create_connection API.
     def create_connection(catalog_id, data_asset_key, create_connection_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_connection.' if logger
 
@@ -779,6 +789,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CustomProperty CustomProperty}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_custom_property.rb.html) to see an example of how to use create_custom_property API.
     def create_custom_property(catalog_id, namespace_id, create_custom_property_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_custom_property.' if logger
 
@@ -844,6 +855,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAsset DataAsset}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_data_asset.rb.html) to see an example of how to use create_data_asset API.
     def create_data_asset(catalog_id, create_data_asset_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_data_asset.' if logger
 
@@ -908,6 +920,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAssetTag DataAssetTag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_data_asset_tag.rb.html) to see an example of how to use create_data_asset_tag API.
     def create_data_asset_tag(catalog_id, data_asset_key, create_data_asset_tag_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_data_asset_tag.' if logger
 
@@ -974,6 +987,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Entity Entity}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_entity.rb.html) to see an example of how to use create_entity API.
     def create_entity(catalog_id, data_asset_key, create_entity_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_entity.' if logger
 
@@ -1041,6 +1055,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::EntityTag EntityTag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_entity_tag.rb.html) to see an example of how to use create_entity_tag API.
     def create_entity_tag(catalog_id, data_asset_key, entity_key, create_entity_tag_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_entity_tag.' if logger
 
@@ -1109,6 +1124,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Folder Folder}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_folder.rb.html) to see an example of how to use create_folder API.
     def create_folder(catalog_id, data_asset_key, create_folder_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_folder.' if logger
 
@@ -1176,6 +1192,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::FolderTag FolderTag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_folder_tag.rb.html) to see an example of how to use create_folder_tag API.
     def create_folder_tag(catalog_id, data_asset_key, folder_key, create_folder_tag_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_folder_tag.' if logger
 
@@ -1243,6 +1260,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Glossary Glossary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_glossary.rb.html) to see an example of how to use create_glossary API.
     def create_glossary(catalog_id, create_glossary_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_glossary.' if logger
 
@@ -1306,6 +1324,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_job.rb.html) to see an example of how to use create_job API.
     def create_job(catalog_id, create_job_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_job.' if logger
 
@@ -1369,6 +1388,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobDefinition JobDefinition}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_job_definition.rb.html) to see an example of how to use create_job_definition API.
     def create_job_definition(catalog_id, create_job_definition_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_job_definition.' if logger
 
@@ -1433,6 +1453,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobExecution JobExecution}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_job_execution.rb.html) to see an example of how to use create_job_execution API.
     def create_job_execution(catalog_id, job_key, create_job_execution_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_job_execution.' if logger
 
@@ -1499,6 +1520,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Namespace Namespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_namespace.rb.html) to see an example of how to use create_namespace API.
     def create_namespace(catalog_id, create_namespace_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_namespace.' if logger
 
@@ -1562,6 +1584,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Pattern Pattern}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_pattern.rb.html) to see an example of how to use create_pattern API.
     def create_pattern(catalog_id, create_pattern_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_pattern.' if logger
 
@@ -1626,6 +1649,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Term Term}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_term.rb.html) to see an example of how to use create_term API.
     def create_term(catalog_id, glossary_key, create_term_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_term.' if logger
 
@@ -1693,6 +1717,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::TermRelationship TermRelationship}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_term_relationship.rb.html) to see an example of how to use create_term_relationship API.
     def create_term_relationship(catalog_id, glossary_key, term_key, create_term_relationship_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#create_term_relationship.' if logger
 
@@ -1762,6 +1787,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_attribute.rb.html) to see an example of how to use delete_attribute API.
     def delete_attribute(catalog_id, data_asset_key, entity_key, attribute_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_attribute.' if logger
 
@@ -1831,6 +1857,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_attribute_tag.rb.html) to see an example of how to use delete_attribute_tag API.
     def delete_attribute_tag(catalog_id, data_asset_key, entity_key, attribute_key, tag_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_attribute_tag.' if logger
 
@@ -1898,6 +1925,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_catalog.rb.html) to see an example of how to use delete_catalog API.
     def delete_catalog(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_catalog.' if logger
 
@@ -1957,6 +1985,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_catalog_private_endpoint.rb.html) to see an example of how to use delete_catalog_private_endpoint API.
     def delete_catalog_private_endpoint(catalog_private_endpoint_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_catalog_private_endpoint.' if logger
 
@@ -2018,6 +2047,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_connection.rb.html) to see an example of how to use delete_connection API.
     def delete_connection(catalog_id, data_asset_key, connection_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_connection.' if logger
 
@@ -2083,6 +2113,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_custom_property.rb.html) to see an example of how to use delete_custom_property API.
     def delete_custom_property(catalog_id, namespace_id, custom_property_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_custom_property.' if logger
 
@@ -2147,6 +2178,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_data_asset.rb.html) to see an example of how to use delete_data_asset API.
     def delete_data_asset(catalog_id, data_asset_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_data_asset.' if logger
 
@@ -2210,6 +2242,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_data_asset_tag.rb.html) to see an example of how to use delete_data_asset_tag API.
     def delete_data_asset_tag(catalog_id, data_asset_key, tag_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_data_asset_tag.' if logger
 
@@ -2275,6 +2308,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_entity.rb.html) to see an example of how to use delete_entity API.
     def delete_entity(catalog_id, data_asset_key, entity_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_entity.' if logger
 
@@ -2341,6 +2375,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_entity_tag.rb.html) to see an example of how to use delete_entity_tag API.
     def delete_entity_tag(catalog_id, data_asset_key, entity_key, tag_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_entity_tag.' if logger
 
@@ -2408,6 +2443,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_folder.rb.html) to see an example of how to use delete_folder API.
     def delete_folder(catalog_id, data_asset_key, folder_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_folder.' if logger
 
@@ -2474,6 +2510,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_folder_tag.rb.html) to see an example of how to use delete_folder_tag API.
     def delete_folder_tag(catalog_id, data_asset_key, folder_key, tag_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_folder_tag.' if logger
 
@@ -2540,6 +2577,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_glossary.rb.html) to see an example of how to use delete_glossary API.
     def delete_glossary(catalog_id, glossary_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_glossary.' if logger
 
@@ -2602,6 +2640,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_job.rb.html) to see an example of how to use delete_job API.
     def delete_job(catalog_id, job_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_job.' if logger
 
@@ -2664,6 +2703,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_job_definition.rb.html) to see an example of how to use delete_job_definition API.
     def delete_job_definition(catalog_id, job_definition_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_job_definition.' if logger
 
@@ -2726,6 +2766,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_namespace.rb.html) to see an example of how to use delete_namespace API.
     def delete_namespace(catalog_id, namespace_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_namespace.' if logger
 
@@ -2788,6 +2829,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_pattern.rb.html) to see an example of how to use delete_pattern API.
     def delete_pattern(catalog_id, pattern_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_pattern.' if logger
 
@@ -2851,6 +2893,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_term.rb.html) to see an example of how to use delete_term API.
     def delete_term(catalog_id, glossary_key, term_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_term.' if logger
 
@@ -2917,6 +2960,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_term_relationship.rb.html) to see an example of how to use delete_term_relationship API.
     def delete_term_relationship(catalog_id, glossary_key, term_key, term_relationship_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#delete_term_relationship.' if logger
 
@@ -2983,6 +3027,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/detach_catalog_private_endpoint.rb.html) to see an example of how to use detach_catalog_private_endpoint API.
     def detach_catalog_private_endpoint(detach_catalog_private_endpoint_details, catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#detach_catalog_private_endpoint.' if logger
 
@@ -3052,6 +3097,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Type Type}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/disassociate_custom_property.rb.html) to see an example of how to use disassociate_custom_property API.
     def disassociate_custom_property(catalog_id, type_key, disassociate_custom_property_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#disassociate_custom_property.' if logger
 
@@ -3118,6 +3164,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataCatalog::Models::GlossaryTreeElement GlossaryTreeElement}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/expand_tree_for_glossary.rb.html) to see an example of how to use expand_tree_for_glossary API.
     def expand_tree_for_glossary(catalog_id, glossary_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#expand_tree_for_glossary.' if logger
 
@@ -3183,6 +3230,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type String
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/export_glossary.rb.html) to see an example of how to use export_glossary API.
     def export_glossary(catalog_id, glossary_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#export_glossary.' if logger
 
@@ -3201,7 +3249,7 @@ module OCI
 
       # Header Params
       header_params = {}
-      header_params[:accept] = 'application/json, text/csv'
+      header_params[:accept] = 'application/json, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
@@ -3247,6 +3295,7 @@ module OCI
     #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Attribute Attribute}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_attribute.rb.html) to see an example of how to use get_attribute API.
     def get_attribute(catalog_id, data_asset_key, entity_key, attribute_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_attribute.' if logger
 
@@ -3324,6 +3373,7 @@ module OCI
     #   Allowed values are: key, name, termKey, termPath, termDescription, lifecycleState, timeCreated, createdById, uri, attributeKey
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::AttributeTag AttributeTag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_attribute_tag.rb.html) to see an example of how to use get_attribute_tag API.
     def get_attribute_tag(catalog_id, data_asset_key, entity_key, attribute_key, tag_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_attribute_tag.' if logger
 
@@ -3396,6 +3446,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Catalog Catalog}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_catalog.rb.html) to see an example of how to use get_catalog API.
     def get_catalog(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_catalog.' if logger
 
@@ -3449,6 +3500,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CatalogPrivateEndpoint CatalogPrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_catalog_private_endpoint.rb.html) to see an example of how to use get_catalog_private_endpoint API.
     def get_catalog_private_endpoint(catalog_private_endpoint_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_catalog_private_endpoint.' if logger
 
@@ -3507,6 +3559,7 @@ module OCI
     #   Allowed values are: key, displayName, description, dataAssetKey, typeKey, timeCreated, timeUpdated, createdById, updatedById, properties, externalKey, timeStatusUpdated, lifecycleState, isDefault, uri
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Connection Connection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_connection.rb.html) to see an example of how to use get_connection API.
     def get_connection(catalog_id, data_asset_key, connection_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_connection.' if logger
 
@@ -3580,6 +3633,7 @@ module OCI
     #   Allowed values are: key, displayName, description, dataType, namespaceName, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, properties
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CustomProperty CustomProperty}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_custom_property.rb.html) to see an example of how to use get_custom_property API.
     def get_custom_property(catalog_id, namespace_id, custom_property_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_custom_property.' if logger
 
@@ -3652,6 +3706,7 @@ module OCI
     #   Allowed values are: key, displayName, description, catalogId, externalKey, typeKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, uri, properties
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAsset DataAsset}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_data_asset.rb.html) to see an example of how to use get_data_asset API.
     def get_data_asset(catalog_id, data_asset_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_data_asset.' if logger
 
@@ -3723,6 +3778,7 @@ module OCI
     #   Allowed values are: key, name, termKey, termPath, termDescription, lifecycleState, timeCreated, createdById, uri, dataAssetKey
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAssetTag DataAssetTag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_data_asset_tag.rb.html) to see an example of how to use get_data_asset_tag API.
     def get_data_asset_tag(catalog_id, data_asset_key, tag_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_data_asset_tag.' if logger
 
@@ -3796,6 +3852,7 @@ module OCI
     #   Allowed values are: key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, folderName, typeKey, path, harvestStatus, lastJobKey, uri, properties
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Entity Entity}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_entity.rb.html) to see an example of how to use get_entity API.
     def get_entity(catalog_id, data_asset_key, entity_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_entity.' if logger
 
@@ -3870,6 +3927,7 @@ module OCI
     #   Allowed values are: key, name, termKey, termPath, termDescription, lifecycleState, timeCreated, createdById, uri, entityKey
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::EntityTag EntityTag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_entity_tag.rb.html) to see an example of how to use get_entity_tag API.
     def get_entity_tag(catalog_id, data_asset_key, entity_key, tag_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_entity_tag.' if logger
 
@@ -3945,6 +4003,7 @@ module OCI
     #   Allowed values are: key, displayName, description, parentFolderKey, path, dataAssetKey, properties, externalKey, timeCreated, timeUpdated, createdById, updatedById, timeExternal, lifecycleState, harvestStatus, lastJobKey, uri
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Folder Folder}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_folder.rb.html) to see an example of how to use get_folder API.
     def get_folder(catalog_id, data_asset_key, folder_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_folder.' if logger
 
@@ -4019,6 +4078,7 @@ module OCI
     #   Allowed values are: key, name, termKey, termPath, termDescription, lifecycleState, timeCreated, createdById, uri, folderKey
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::FolderTag FolderTag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_folder_tag.rb.html) to see an example of how to use get_folder_tag API.
     def get_folder_tag(catalog_id, data_asset_key, folder_key, tag_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_folder_tag.' if logger
 
@@ -4093,6 +4153,7 @@ module OCI
     #   Allowed values are: key, displayName, description, catalogId, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, owner, workflowStatus, uri
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Glossary Glossary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_glossary.rb.html) to see an example of how to use get_glossary API.
     def get_glossary(catalog_id, glossary_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_glossary.' if logger
 
@@ -4163,6 +4224,7 @@ module OCI
     #   Allowed values are: key, displayName, description, catalogId, lifecycleState, timeCreated, timeUpdated, jobType, scheduleCronExpression, timeScheduleBegin, timeScheduleEnd, scheduleType, connectionKey, jobDefinitionKey, internalVersion, executionCount, timeOfLatestExecution, executions, createdById, updatedById, uri, jobDefinitionName, errorCode, errorMessage
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_job.rb.html) to see an example of how to use get_job API.
     def get_job(catalog_id, job_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_job.' if logger
 
@@ -4233,6 +4295,7 @@ module OCI
     #   Allowed values are: key, displayName, description, catalogId, jobType, isIncremental, dataAssetKey, connectionKey, internalVersion, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, uri, isSampleDataExtracted, sampleDataSizeInMBs, timeLatestExecutionStarted, timeLatestExecutionEnded, jobExecutionState, scheduleType, properties
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobDefinition JobDefinition}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_job_definition.rb.html) to see an example of how to use get_job_definition API.
     def get_job_definition(catalog_id, job_definition_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_job_definition.' if logger
 
@@ -4304,6 +4367,7 @@ module OCI
     #   Allowed values are: key, jobKey, jobType, subType, parentKey, scheduleInstanceKey, lifecycleState, timeCreated, timeStarted, timeEnded, errorCode, errorMessage, processKey, externalUrl, eventKey, dataEntityKey, createdById, updatedById, properties, uri
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobExecution JobExecution}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_job_execution.rb.html) to see an example of how to use get_job_execution API.
     def get_job_execution(catalog_id, job_key, job_execution_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_job_execution.' if logger
 
@@ -4378,6 +4442,7 @@ module OCI
     #   Allowed values are: key, jobExecutionKey, createdById, updatedById, timeUpdated, timeCreated, severity, logMessage, uri
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobLog JobLog}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_job_log.rb.html) to see an example of how to use get_job_log API.
     def get_job_log(catalog_id, job_key, job_execution_key, job_log_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_job_log.' if logger
 
@@ -4454,6 +4519,7 @@ module OCI
     #   Allowed values are: key, description, displayName, timeInserted, category, subCategory, unit, value, batchKey, jobExecutionKey, createdById, updatedById, timeUpdated, timeCreated, uri
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobMetric JobMetric}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_job_metrics.rb.html) to see an example of how to use get_job_metrics API.
     def get_job_metrics(catalog_id, job_key, job_execution_key, job_metrics_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_job_metrics.' if logger
 
@@ -4528,6 +4594,7 @@ module OCI
     #   Allowed values are: key, displayName, description, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, properties
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Namespace Namespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_namespace.rb.html) to see an example of how to use get_namespace API.
     def get_namespace(catalog_id, namespace_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_namespace.' if logger
 
@@ -4598,6 +4665,7 @@ module OCI
     #   Allowed values are: key, displayName, description, catalogId, expression, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, properties
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Pattern Pattern}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_pattern.rb.html) to see an example of how to use get_pattern API.
     def get_pattern(catalog_id, pattern_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_pattern.' if logger
 
@@ -4669,6 +4737,7 @@ module OCI
     #   Allowed values are: key, displayName, description, glossaryKey, parentTermKey, isAllowedToHaveChildTerms, path, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, owner, workflowStatus, uri, relatedTerms, associatedObjectCount, associatedObjects
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Term Term}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_term.rb.html) to see an example of how to use get_term API.
     def get_term(catalog_id, glossary_key, term_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_term.' if logger
 
@@ -4743,6 +4812,7 @@ module OCI
     #   Allowed values are: key, displayName, description, relatedTermKey, relatedTermDisplayName, parentTermKey, parentTermDisplayName, lifecycleState, timeCreated, uri
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::TermRelationship TermRelationship}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_term_relationship.rb.html) to see an example of how to use get_term_relationship API.
     def get_term_relationship(catalog_id, glossary_key, term_key, term_relationship_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_term_relationship.' if logger
 
@@ -4817,6 +4887,7 @@ module OCI
     #   Allowed values are: key, description, name, catalogId, properties, isInternal, isTag, isApproved, typeCategory, externalTypeName, lifecycleState, uri
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Type Type}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_type.rb.html) to see an example of how to use get_type API.
     def get_type(catalog_id, type_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_type.' if logger
 
@@ -4883,6 +4954,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#get_work_request.' if logger
 
@@ -4950,6 +5022,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Connection Connection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/import_connection.rb.html) to see an example of how to use import_connection API.
     def import_connection(catalog_id, data_asset_key, import_connection_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#import_connection.' if logger
 
@@ -5018,6 +5091,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/import_glossary.rb.html) to see an example of how to use import_glossary API.
     def import_glossary(catalog_id, glossary_key, import_glossary_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#import_glossary.' if logger
 
@@ -5079,8 +5153,20 @@ module OCI
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity response.
     #
     #   Allowed values are: key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, folderName, typeKey, path, harvestStatus, lastJobKey, uri, properties
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #   Allowed values are: ASC, DESC
+    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::EntityCollection EntityCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_aggregated_physical_entities.rb.html) to see an example of how to use list_aggregated_physical_entities API.
     def list_aggregated_physical_entities(catalog_id, data_asset_key, entity_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_aggregated_physical_entities.' if logger
 
@@ -5097,6 +5183,14 @@ module OCI
           end
         end
       end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
       raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
       raise "Parameter value for 'data_asset_key' must not be blank" if OCI::Internal::Util.blank_string?(data_asset_key)
       raise "Parameter value for 'entity_key' must not be blank" if OCI::Internal::Util.blank_string?(entity_key)
@@ -5108,6 +5202,11 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
 
       # Header Params
       header_params = {}
@@ -5168,6 +5267,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::AttributeTagCollection AttributeTagCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_attribute_tags.rb.html) to see an example of how to use list_attribute_tags API.
     def list_attribute_tags(catalog_id, data_asset_key, entity_key, attribute_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_attribute_tags.' if logger
 
@@ -5291,6 +5391,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::AttributeCollection AttributeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_attributes.rb.html) to see an example of how to use list_attributes API.
     def list_attributes(catalog_id, data_asset_key, entity_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_attributes.' if logger
 
@@ -5401,6 +5502,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::DataCatalog::Models::CatalogPrivateEndpointSummary CatalogPrivateEndpointSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_catalog_private_endpoints.rb.html) to see an example of how to use list_catalog_private_endpoints API.
     def list_catalog_private_endpoints(compartment_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_catalog_private_endpoints.' if logger
 
@@ -5482,6 +5584,7 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::DataCatalog::Models::CatalogSummary CatalogSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_catalogs.rb.html) to see an example of how to use list_catalogs API.
     def list_catalogs(compartment_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_catalogs.' if logger
 
@@ -5577,6 +5680,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::ConnectionCollection ConnectionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_connections.rb.html) to see an example of how to use list_connections API.
     def list_connections(catalog_id, data_asset_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_connections.' if logger
 
@@ -5677,7 +5781,7 @@ module OCI
     #
     #   Allowed values are: TEXT, RICH_TEXT, BOOLEAN, NUMBER, DATE
     # @option opts [Array<String>] :type_name A filter to return only resources that match the entire type name given. The match is not case sensitive
-    #   Allowed values are: DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET
+    #   Allowed values are: DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -5695,6 +5799,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CustomPropertyCollection CustomPropertyCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_custom_properties.rb.html) to see an example of how to use list_custom_properties API.
     def list_custom_properties(catalog_id, namespace_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_custom_properties.' if logger
 
@@ -5712,11 +5817,11 @@ module OCI
       end
 
 
-      type_name_allowable_values = %w[DATA_ASSET AUTONOMOUS_DATA_WAREHOUSE HIVE KAFKA MYSQL ORACLE_OBJECT_STORAGE AUTONOMOUS_TRANSACTION_PROCESSING ORACLE POSTGRESQL MICROSOFT_AZURE_SQL_DATABASE MICROSOFT_SQL_SERVER IBM_DB2 DATA_ENTITY LOGICAL_ENTITY TABLE VIEW ATTRIBUTE FOLDER CONNECTION GLOSSARY TERM CATEGORY FILE BUCKET]
+      type_name_allowable_values = %w[DATA_ASSET AUTONOMOUS_DATA_WAREHOUSE HIVE KAFKA MYSQL ORACLE_OBJECT_STORAGE AUTONOMOUS_TRANSACTION_PROCESSING ORACLE POSTGRESQL MICROSOFT_AZURE_SQL_DATABASE MICROSOFT_SQL_SERVER IBM_DB2 DATA_ENTITY LOGICAL_ENTITY TABLE VIEW ATTRIBUTE FOLDER CONNECTION GLOSSARY TERM CATEGORY FILE BUCKET MESSAGE UNRECOGNIZED_FILE]
       if opts[:type_name] && !opts[:type_name].empty?
         opts[:type_name].each do |val_to_check|
           unless type_name_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "type_name", must be one of DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET.'
+            raise 'Invalid value for "type_name", must be one of DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE.'
           end
         end
       end
@@ -5823,6 +5928,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAssetTagCollection DataAssetTagCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_data_asset_tags.rb.html) to see an example of how to use list_data_asset_tags API.
     def list_data_asset_tags(catalog_id, data_asset_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_data_asset_tags.' if logger
 
@@ -5933,6 +6039,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAssetCollection DataAssetCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_data_assets.rb.html) to see an example of how to use list_data_assets API.
     def list_data_assets(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_data_assets.' if logger
 
@@ -6021,6 +6128,17 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #   Allowed values are: ASC, DESC
+    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
@@ -6035,11 +6153,20 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::EntityCollection EntityCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_derived_logical_entities.rb.html) to see an example of how to use list_derived_logical_entities API.
     def list_derived_logical_entities(catalog_id, pattern_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_derived_logical_entities.' if logger
 
       raise "Missing the required parameter 'catalog_id' when calling list_derived_logical_entities." if catalog_id.nil?
       raise "Missing the required parameter 'pattern_key' when calling list_derived_logical_entities." if pattern_key.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
       raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
       raise "Parameter value for 'pattern_key' must not be blank" if OCI::Internal::Util.blank_string?(pattern_key)
 
@@ -6049,6 +6176,11 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
 
       # Header Params
       header_params = {}
@@ -6125,6 +6257,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::EntityCollection EntityCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_entities.rb.html) to see an example of how to use list_entities API.
     def list_entities(catalog_id, data_asset_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_entities.' if logger
 
@@ -6246,6 +6379,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::EntityTagCollection EntityTagCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_entity_tags.rb.html) to see an example of how to use list_entity_tags API.
     def list_entity_tags(catalog_id, data_asset_key, entity_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_entity_tags.' if logger
 
@@ -6354,6 +6488,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::FolderTagCollection FolderTagCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_folder_tags.rb.html) to see an example of how to use list_folder_tags API.
     def list_folder_tags(catalog_id, data_asset_key, folder_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_folder_tags.' if logger
 
@@ -6470,6 +6605,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::FolderCollection FolderCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_folders.rb.html) to see an example of how to use list_folders API.
     def list_folders(catalog_id, data_asset_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_folders.' if logger
 
@@ -6588,6 +6724,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::GlossaryCollection GlossaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_glossaries.rb.html) to see an example of how to use list_glossaries API.
     def list_glossaries(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_glossaries.' if logger
 
@@ -6701,6 +6838,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobDefinitionCollection JobDefinitionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_job_definitions.rb.html) to see an example of how to use list_job_definitions API.
     def list_job_definitions(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_job_definitions.' if logger
 
@@ -6835,6 +6973,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobExecutionCollection JobExecutionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_job_executions.rb.html) to see an example of how to use list_job_executions API.
     def list_job_executions(catalog_id, job_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_job_executions.' if logger
 
@@ -6955,6 +7094,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobLogCollection JobLogCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_job_logs.rb.html) to see an example of how to use list_job_logs API.
     def list_job_logs(catalog_id, job_key, job_execution_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_job_logs.' if logger
 
@@ -7074,6 +7214,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobMetricCollection JobMetricCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_job_metrics.rb.html) to see an example of how to use list_job_metrics API.
     def list_job_metrics(catalog_id, job_key, job_execution_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_job_metrics.' if logger
 
@@ -7201,6 +7342,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobCollection JobCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_jobs.rb.html) to see an example of how to use list_jobs API.
     def list_jobs(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_jobs.' if logger
 
@@ -7325,6 +7467,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::NamespaceCollection NamespaceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_namespaces.rb.html) to see an example of how to use list_namespaces API.
     def list_namespaces(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_namespaces.' if logger
 
@@ -7432,6 +7575,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::PatternCollection PatternCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_patterns.rb.html) to see an example of how to use list_patterns API.
     def list_patterns(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_patterns.' if logger
 
@@ -7512,6 +7656,134 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of all rules of a data entity.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] data_asset_key Unique data asset key.
+    # @param [String] entity_key Unique entity key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayNameContains=Cu.*
+    #   The above would match all folders with display name that starts with \"Cu\".
+    #
+    # @option opts [String] :rule_type Rule type used to filter the response to a list rules call.
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
+    # @option opts [String] :origin_type Rule origin type used to filter the response to a list rules call.
+    # @option opts [String] :external_key Unique external identifier of this resource in the external source system.
+    # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    # @option opts [String] :created_by_id OCID of the user who created the resource.
+    # @option opts [String] :updated_by_id OCID of the user who updated the resource.
+    # @option opts [Array<String>] :fields Specifies the fields to return in a rule summary response.
+    #
+    #   Allowed values are: key, displayName, ruleType, externalKey, referencedFolderKey, referencedFolderName, referencedEntityKey, referencedEntityName, referencedRuleKey, referencedRuleName, originType, lifecycleState, timeCreated, uri
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #   Allowed values are: ASC, DESC
+    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::RuleCollection RuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_rules.rb.html) to see an example of how to use list_rules API.
+    def list_rules(catalog_id, data_asset_key, entity_key, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#list_rules.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling list_rules." if catalog_id.nil?
+      raise "Missing the required parameter 'data_asset_key' when calling list_rules." if data_asset_key.nil?
+      raise "Missing the required parameter 'entity_key' when calling list_rules." if entity_key.nil?
+
+      if opts[:rule_type] && !OCI::DataCatalog::Models::RULE_TYPE_ENUM.include?(opts[:rule_type])
+        raise 'Invalid value for "rule_type", must be one of the values in OCI::DataCatalog::Models::RULE_TYPE_ENUM.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:origin_type] && !OCI::DataCatalog::Models::RULE_ORIGIN_TYPE_ENUM.include?(opts[:origin_type])
+        raise 'Invalid value for "origin_type", must be one of the values in OCI::DataCatalog::Models::RULE_ORIGIN_TYPE_ENUM.'
+      end
+
+
+      fields_allowable_values = %w[key displayName ruleType externalKey referencedFolderKey referencedFolderName referencedEntityKey referencedEntityName referencedRuleKey referencedRuleName originType lifecycleState timeCreated uri]
+      if opts[:fields] && !opts[:fields].empty?
+        opts[:fields].each do |val_to_check|
+          unless fields_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "fields", must be one of key, displayName, ruleType, externalKey, referencedFolderKey, referencedFolderName, referencedEntityKey, referencedEntityName, referencedRuleKey, referencedRuleName, originType, lifecycleState, timeCreated, uri.'
+          end
+        end
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'data_asset_key' must not be blank" if OCI::Internal::Util.blank_string?(data_asset_key)
+      raise "Parameter value for 'entity_key' must not be blank" if OCI::Internal::Util.blank_string?(entity_key)
+
+      path = '/catalogs/{catalogId}/dataAssets/{dataAssetKey}/entities/{entityKey}/rules'.sub('{catalogId}', catalog_id.to_s).sub('{dataAssetKey}', data_asset_key.to_s).sub('{entityKey}', entity_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
+      query_params[:ruleType] = opts[:rule_type] if opts[:rule_type]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:originType] = opts[:origin_type] if opts[:origin_type]
+      query_params[:externalKey] = opts[:external_key] if opts[:external_key]
+      query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
+      query_params[:timeUpdated] = opts[:time_updated] if opts[:time_updated]
+      query_params[:createdById] = opts[:created_by_id] if opts[:created_by_id]
+      query_params[:updatedById] = opts[:updated_by_id] if opts[:updated_by_id]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#list_rules') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::RuleCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of all user created tags in the system.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [Hash] opts the optional parameters
@@ -7535,6 +7807,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::TermCollection TermCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_tags.rb.html) to see an example of how to use list_tags API.
     def list_tags(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_tags.' if logger
 
@@ -7636,6 +7909,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::TermRelationshipCollection TermRelationshipCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_term_relationships.rb.html) to see an example of how to use list_term_relationships API.
     def list_term_relationships(catalog_id, glossary_key, term_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_term_relationships.' if logger
 
@@ -7744,6 +8018,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::TermCollection TermCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_terms.rb.html) to see an example of how to use list_terms API.
     def list_terms(catalog_id, glossary_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_terms.' if logger
 
@@ -7854,6 +8129,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::TypeCollection TypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_types.rb.html) to see an example of how to use list_types API.
     def list_types(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_types.' if logger
 
@@ -7949,6 +8225,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::DataCatalog::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_work_request_errors.' if logger
 
@@ -8022,6 +8299,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::DataCatalog::Models::WorkRequestLog WorkRequestLog}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_work_request_logs.' if logger
 
@@ -8090,6 +8368,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return.
     # @return [Response] A Response object with data of type Array<{OCI::DataCatalog::Models::WorkRequest WorkRequest}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#list_work_requests.' if logger
 
@@ -8152,6 +8431,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type String
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/object_stats.rb.html) to see an example of how to use object_stats API.
     def object_stats(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#object_stats.' if logger
 
@@ -8226,6 +8506,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataCatalog::Models::ConnectionAliasSummary ConnectionAliasSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/parse_connection.rb.html) to see an example of how to use parse_connection API.
     def parse_connection(catalog_id, data_asset_key, parse_connection_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#parse_connection.' if logger
 
@@ -8299,6 +8580,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAsset DataAsset}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/remove_data_selector_patterns.rb.html) to see an example of how to use remove_data_selector_patterns API.
     def remove_data_selector_patterns(catalog_id, data_asset_key, data_selector_pattern_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#remove_data_selector_patterns.' if logger
 
@@ -8373,6 +8655,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::SearchResultCollection SearchResultCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/search_criteria.rb.html) to see an example of how to use search_criteria API.
     def search_criteria(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#search_criteria.' if logger
 
@@ -8454,6 +8737,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::ValidateConnectionResult ValidateConnectionResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/test_connection.rb.html) to see an example of how to use test_connection API.
     def test_connection(catalog_id, data_asset_key, connection_key, opts = {})
       logger.debug 'Calling operation DataCatalogClient#test_connection.' if logger
 
@@ -8523,6 +8807,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Attribute Attribute}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_attribute.rb.html) to see an example of how to use update_attribute API.
     def update_attribute(catalog_id, data_asset_key, entity_key, attribute_key, update_attribute_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_attribute.' if logger
 
@@ -8591,6 +8876,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Catalog Catalog}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_catalog.rb.html) to see an example of how to use update_catalog API.
     def update_catalog(catalog_id, update_catalog_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_catalog.' if logger
 
@@ -8653,6 +8939,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_catalog_private_endpoint.rb.html) to see an example of how to use update_catalog_private_endpoint API.
     def update_catalog_private_endpoint(catalog_private_endpoint_id, update_catalog_private_endpoint_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_catalog_private_endpoint.' if logger
 
@@ -8716,6 +9003,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Connection Connection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_connection.rb.html) to see an example of how to use update_connection API.
     def update_connection(catalog_id, data_asset_key, connection_key, update_connection_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_connection.' if logger
 
@@ -8784,6 +9072,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::CustomProperty CustomProperty}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_custom_property.rb.html) to see an example of how to use update_custom_property API.
     def update_custom_property(catalog_id, namespace_id, custom_property_key, update_custom_property_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_custom_property.' if logger
 
@@ -8851,6 +9140,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::DataAsset DataAsset}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_data_asset.rb.html) to see an example of how to use update_data_asset API.
     def update_data_asset(catalog_id, data_asset_key, update_data_asset_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_data_asset.' if logger
 
@@ -8917,6 +9207,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Entity Entity}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_entity.rb.html) to see an example of how to use update_entity API.
     def update_entity(catalog_id, data_asset_key, entity_key, update_entity_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_entity.' if logger
 
@@ -8985,6 +9276,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Folder Folder}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_folder.rb.html) to see an example of how to use update_folder API.
     def update_folder(catalog_id, data_asset_key, folder_key, update_folder_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_folder.' if logger
 
@@ -9052,6 +9344,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Glossary Glossary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_glossary.rb.html) to see an example of how to use update_glossary API.
     def update_glossary(catalog_id, glossary_key, update_glossary_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_glossary.' if logger
 
@@ -9117,6 +9410,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_job.rb.html) to see an example of how to use update_job API.
     def update_job(catalog_id, job_key, update_job_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_job.' if logger
 
@@ -9182,6 +9476,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::JobDefinition JobDefinition}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_job_definition.rb.html) to see an example of how to use update_job_definition API.
     def update_job_definition(catalog_id, job_definition_key, update_job_definition_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_job_definition.' if logger
 
@@ -9247,6 +9542,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Namespace Namespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_namespace.rb.html) to see an example of how to use update_namespace API.
     def update_namespace(catalog_id, namespace_id, update_namespace_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_namespace.' if logger
 
@@ -9312,6 +9608,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Pattern Pattern}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_pattern.rb.html) to see an example of how to use update_pattern API.
     def update_pattern(catalog_id, pattern_key, update_pattern_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_pattern.' if logger
 
@@ -9378,6 +9675,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Term Term}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_term.rb.html) to see an example of how to use update_term API.
     def update_term(catalog_id, glossary_key, term_key, update_term_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_term.' if logger
 
@@ -9447,6 +9745,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::TermRelationship TermRelationship}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_term_relationship.rb.html) to see an example of how to use update_term_relationship API.
     def update_term_relationship(catalog_id, glossary_key, term_key, term_relationship_key, update_term_relationship_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#update_term_relationship.' if logger
 
@@ -9523,6 +9822,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Connection Connection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/upload_credentials.rb.html) to see an example of how to use upload_credentials API.
     def upload_credentials(catalog_id, data_asset_key, connection_key, upload_credentials_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#upload_credentials.' if logger
 
@@ -9591,6 +9891,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type String
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/users.rb.html) to see an example of how to use users API.
     def users(catalog_id, opts = {})
       logger.debug 'Calling operation DataCatalogClient#users.' if logger
 
@@ -9664,6 +9965,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::ValidateConnectionResult ValidateConnectionResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/validate_connection.rb.html) to see an example of how to use validate_connection API.
     def validate_connection(catalog_id, data_asset_key, validate_connection_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#validate_connection.' if logger
 
@@ -9730,6 +10032,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::ValidatePatternResult ValidatePatternResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/validate_pattern.rb.html) to see an example of how to use validate_pattern API.
     def validate_pattern(catalog_id, pattern_key, validate_pattern_details, opts = {})
       logger.debug 'Calling operation DataCatalogClient#validate_pattern.' if logger
 
