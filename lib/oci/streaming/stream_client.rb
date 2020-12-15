@@ -86,6 +86,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::Cursor Cursor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/consumer_commit.rb.html) to see an example of how to use consumer_commit API.
     def consumer_commit(stream_id, cursor, opts = {})
       logger.debug 'Calling operation StreamClient#consumer_commit.' if logger
 
@@ -147,6 +148,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::Cursor Cursor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/consumer_heartbeat.rb.html) to see an example of how to use consumer_heartbeat API.
     def consumer_heartbeat(stream_id, cursor, opts = {})
       logger.debug 'Calling operation StreamClient#consumer_heartbeat.' if logger
 
@@ -211,6 +213,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::Cursor Cursor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/create_cursor.rb.html) to see an example of how to use create_cursor API.
     def create_cursor(stream_id, create_cursor_details, opts = {})
       logger.debug 'Calling operation StreamClient#create_cursor.' if logger
 
@@ -270,6 +273,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::Cursor Cursor}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/create_group_cursor.rb.html) to see an example of how to use create_group_cursor API.
     def create_group_cursor(stream_id, create_group_cursor_details, opts = {})
       logger.debug 'Calling operation StreamClient#create_group_cursor.' if logger
 
@@ -329,6 +333,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::Group Group}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/get_group.rb.html) to see an example of how to use get_group API.
     def get_group(stream_id, group_name, opts = {})
       logger.debug 'Calling operation StreamClient#get_group.' if logger
 
@@ -395,6 +400,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Streaming::Models::Message Message}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/get_messages.rb.html) to see an example of how to use get_messages API.
     def get_messages(stream_id, cursor, opts = {})
       logger.debug 'Calling operation StreamClient#get_messages.' if logger
 
@@ -459,6 +465,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Streaming::Models::PutMessagesResult PutMessagesResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/put_messages.rb.html) to see an example of how to use put_messages API.
     def put_messages(stream_id, put_messages_details, opts = {})
       logger.debug 'Calling operation StreamClient#put_messages.' if logger
 
@@ -519,6 +526,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/streaming/update_group.rb.html) to see an example of how to use update_group API.
     def update_group(stream_id, group_name, update_group_details, opts = {})
       logger.debug 'Calling operation StreamClient#update_group.' if logger
 

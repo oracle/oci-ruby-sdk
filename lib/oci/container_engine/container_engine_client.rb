@@ -112,6 +112,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/create_cluster.rb.html) to see an example of how to use create_cluster API.
     def create_cluster(create_cluster_details, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#create_cluster.' if logger
 
@@ -170,6 +171,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/create_kubeconfig.rb.html) to see an example of how to use create_kubeconfig API.
     def create_kubeconfig(cluster_id, opts = {}, &block)
       logger.debug 'Calling operation ContainerEngineClient#create_kubeconfig.' if logger
 
@@ -272,6 +274,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/create_node_pool.rb.html) to see an example of how to use create_node_pool API.
     def create_node_pool(create_node_pool_details, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#create_node_pool.' if logger
 
@@ -331,6 +334,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/delete_cluster.rb.html) to see an example of how to use delete_cluster API.
     def delete_cluster(cluster_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#delete_cluster.' if logger
 
@@ -390,6 +394,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/delete_node_pool.rb.html) to see an example of how to use delete_node_pool API.
     def delete_node_pool(node_pool_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#delete_node_pool.' if logger
 
@@ -449,6 +454,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/delete_work_request.rb.html) to see an example of how to use delete_work_request API.
     def delete_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#delete_work_request.' if logger
 
@@ -504,6 +510,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ContainerEngine::Models::Cluster Cluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/get_cluster.rb.html) to see an example of how to use get_cluster API.
     def get_cluster(cluster_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#get_cluster.' if logger
 
@@ -560,6 +567,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ContainerEngine::Models::ClusterOptions ClusterOptions}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/get_cluster_options.rb.html) to see an example of how to use get_cluster_options API.
     def get_cluster_options(cluster_option_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#get_cluster_options.' if logger
 
@@ -616,6 +624,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ContainerEngine::Models::NodePool NodePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/get_node_pool.rb.html) to see an example of how to use get_node_pool API.
     def get_node_pool(node_pool_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#get_node_pool.' if logger
 
@@ -672,6 +681,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ContainerEngine::Models::NodePoolOptions NodePoolOptions}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/get_node_pool_options.rb.html) to see an example of how to use get_node_pool_options API.
     def get_node_pool_options(node_pool_option_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#get_node_pool_options.' if logger
 
@@ -728,6 +738,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ContainerEngine::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#get_work_request.' if logger
 
@@ -796,6 +807,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ContainerEngine::Models::ClusterSummary ClusterSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/list_clusters.rb.html) to see an example of how to use list_clusters API.
     def list_clusters(compartment_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#list_clusters.' if logger
 
@@ -887,6 +899,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ContainerEngine::Models::NodePoolSummary NodePoolSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/list_node_pools.rb.html) to see an example of how to use list_node_pools API.
     def list_node_pools(compartment_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#list_node_pools.' if logger
 
@@ -957,6 +970,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ContainerEngine::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(compartment_id, work_request_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#list_work_request_errors.' if logger
 
@@ -1015,6 +1029,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ContainerEngine::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(compartment_id, work_request_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#list_work_request_logs.' if logger
 
@@ -1087,6 +1102,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::ContainerEngine::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#list_work_requests.' if logger
 
@@ -1167,6 +1183,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/update_cluster.rb.html) to see an example of how to use update_cluster API.
     def update_cluster(cluster_id, update_cluster_details, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#update_cluster.' if logger
 
@@ -1228,6 +1245,7 @@ module OCI
     #   Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/update_node_pool.rb.html) to see an example of how to use update_node_pool API.
     def update_node_pool(node_pool_id, update_node_pool_details, opts = {})
       logger.debug 'Calling operation ContainerEngineClient#update_node_pool.' if logger
 

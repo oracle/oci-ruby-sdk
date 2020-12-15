@@ -81,7 +81,6 @@ module OCI
 
         def refresh_security_token
           @refresh_lock.lock
-          @session_key_supplier.refresh
           @security_token = OCI::Auth::SecurityTokenContainer.new(resource_principal_session_token, key_pair: @session_key_supplier)
 
           # Resources may be moved between compartments. Update any coordinates on refresh.

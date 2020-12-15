@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A summary of the work request status.
+  # Summary of a work request.
   class DataSafe::Models::WorkRequestSummary
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_ENABLE_DATA_SAFE_CONFIGURATION = 'ENABLE_DATA_SAFE_CONFIGURATION'.freeze,
@@ -14,6 +14,11 @@ module OCI
       OPERATION_TYPE_UPDATE_PRIVATE_ENDPOINT = 'UPDATE_PRIVATE_ENDPOINT'.freeze,
       OPERATION_TYPE_DELETE_PRIVATE_ENDPOINT = 'DELETE_PRIVATE_ENDPOINT'.freeze,
       OPERATION_TYPE_CHANGE_PRIVATE_ENDPOINT_COMPARTMENT = 'CHANGE_PRIVATE_ENDPOINT_COMPARTMENT'.freeze,
+      OPERATION_TYPE_CREATE_ONPREM_CONNECTOR = 'CREATE_ONPREM_CONNECTOR'.freeze,
+      OPERATION_TYPE_UPDATE_ONPREM_CONNECTOR = 'UPDATE_ONPREM_CONNECTOR'.freeze,
+      OPERATION_TYPE_DELETE_ONPREM_CONNECTOR = 'DELETE_ONPREM_CONNECTOR'.freeze,
+      OPERATION_TYPE_UPDATE_ONPREM_CONNECTOR_WALLET = 'UPDATE_ONPREM_CONNECTOR_WALLET'.freeze,
+      OPERATION_TYPE_CHANGE_ONPREM_CONNECTOR_COMPARTMENT = 'CHANGE_ONPREM_CONNECTOR_COMPARTMENT'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -29,7 +34,7 @@ module OCI
     # @return [String]
     attr_reader :operation_type
 
-    # **[Required]** The status of the work request.
+    # **[Required]** The current status of the work request.
     # @return [String]
     attr_reader :status
 
@@ -37,30 +42,30 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing this work request.
+    # **[Required]** The OCID of the compartment that contains the work request.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The resources impacted by the work request.
+    # **[Required]** The resources that are affected by the work request.
     # @return [Array<OCI::DataSafe::Models::WorkRequestResource>]
     attr_accessor :resources
 
-    # **[Required]** Progress of the request in percentage.
+    # **[Required]** Progress of the work request in percentage.
     # @return [Float]
     attr_accessor :percent_complete
 
-    # **[Required]** The date and time the work request was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the work request was accepted, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_accepted
 
-    # The date and time the work request transitioned from ACCEPTED to IN_PROGRESS, in the format defined by RFC3339.
+    # The date and time the work request transitioned from ACCEPTED to IN_PROGRESS, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The date and time the work request reached a terminal state, either FAILED or SUCCEEDED, in the format defined by RFC3339.
+    # The date and time the work request reached a terminal state, either FAILED or SUCCEEDED, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # @return [DateTime]
     attr_accessor :time_finished

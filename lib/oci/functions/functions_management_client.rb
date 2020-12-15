@@ -115,6 +115,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/change_application_compartment.rb.html) to see an example of how to use change_application_compartment API.
     def change_application_compartment(application_id, change_application_compartment_details, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#change_application_compartment.' if logger
 
@@ -171,6 +172,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Functions::Models::Application Application}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/create_application.rb.html) to see an example of how to use create_application API.
     def create_application(create_application_details, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#create_application.' if logger
 
@@ -225,6 +227,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Functions::Models::Function Function}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/create_function.rb.html) to see an example of how to use create_function API.
     def create_function(create_function_details, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#create_function.' if logger
 
@@ -284,6 +287,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/delete_application.rb.html) to see an example of how to use delete_application API.
     def delete_application(application_id, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#delete_application.' if logger
 
@@ -344,6 +348,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/delete_function.rb.html) to see an example of how to use delete_function API.
     def delete_function(function_id, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#delete_function.' if logger
 
@@ -400,6 +405,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Functions::Models::Application Application}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/get_application.rb.html) to see an example of how to use get_application API.
     def get_application(application_id, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#get_application.' if logger
 
@@ -456,6 +462,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Functions::Models::Function Function}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/get_function.rb.html) to see an example of how to use get_function API.
     def get_function(function_id, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#get_function.' if logger
 
@@ -540,6 +547,7 @@ module OCI
     #    (default to displayName)
     #   Allowed values are: timeCreated, id, displayName
     # @return [Response] A Response object with data of type Array<{OCI::Functions::Models::ApplicationSummary ApplicationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/list_applications.rb.html) to see an example of how to use list_applications API.
     def list_applications(compartment_id, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#list_applications.' if logger
 
@@ -643,6 +651,7 @@ module OCI
     #    (default to displayName)
     #   Allowed values are: timeCreated, id, displayName
     # @return [Response] A Response object with data of type Array<{OCI::Functions::Models::FunctionSummary FunctionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/list_functions.rb.html) to see an example of how to use list_functions API.
     def list_functions(application_id, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#list_functions.' if logger
 
@@ -723,6 +732,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Functions::Models::Application Application}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/update_application.rb.html) to see an example of how to use update_application API.
     def update_application(application_id, update_application_details, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#update_application.' if logger
 
@@ -786,6 +796,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Functions::Models::Function Function}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/functions/update_function.rb.html) to see an example of how to use update_function API.
     def update_function(function_id, update_function_details, opts = {})
       logger.debug 'Calling operation FunctionsManagementClient#update_function.' if logger
 

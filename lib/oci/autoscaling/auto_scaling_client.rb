@@ -127,6 +127,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/change_auto_scaling_configuration_compartment.rb.html) to see an example of how to use change_auto_scaling_configuration_compartment API.
     def change_auto_scaling_configuration_compartment(auto_scaling_configuration_id, change_compartment_details, opts = {})
       logger.debug 'Calling operation AutoScalingClient#change_auto_scaling_configuration_compartment.' if logger
 
@@ -189,6 +190,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Autoscaling::Models::AutoScalingConfiguration AutoScalingConfiguration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/create_auto_scaling_configuration.rb.html) to see an example of how to use create_auto_scaling_configuration API.
     def create_auto_scaling_configuration(create_auto_scaling_configuration_details, opts = {})
       logger.debug 'Calling operation AutoScalingClient#create_auto_scaling_configuration.' if logger
 
@@ -251,6 +253,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Autoscaling::Models::AutoScalingPolicy AutoScalingPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/create_auto_scaling_policy.rb.html) to see an example of how to use create_auto_scaling_policy API.
     def create_auto_scaling_policy(auto_scaling_configuration_id, create_auto_scaling_policy_details, opts = {})
       logger.debug 'Calling operation AutoScalingClient#create_auto_scaling_policy.' if logger
 
@@ -311,6 +314,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/delete_auto_scaling_configuration.rb.html) to see an example of how to use delete_auto_scaling_configuration API.
     def delete_auto_scaling_configuration(auto_scaling_configuration_id, opts = {})
       logger.debug 'Calling operation AutoScalingClient#delete_auto_scaling_configuration.' if logger
 
@@ -369,6 +373,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/delete_auto_scaling_policy.rb.html) to see an example of how to use delete_auto_scaling_policy API.
     def delete_auto_scaling_policy(auto_scaling_configuration_id, auto_scaling_policy_id, opts = {})
       logger.debug 'Calling operation AutoScalingClient#delete_auto_scaling_policy.' if logger
 
@@ -424,6 +429,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id
     # @return [Response] A Response object with data of type {OCI::Autoscaling::Models::AutoScalingConfiguration AutoScalingConfiguration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/get_auto_scaling_configuration.rb.html) to see an example of how to use get_auto_scaling_configuration API.
     def get_auto_scaling_configuration(auto_scaling_configuration_id, opts = {})
       logger.debug 'Calling operation AutoScalingClient#get_auto_scaling_configuration.' if logger
 
@@ -478,6 +484,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id
     # @return [Response] A Response object with data of type {OCI::Autoscaling::Models::AutoScalingPolicy AutoScalingPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/get_auto_scaling_policy.rb.html) to see an example of how to use get_auto_scaling_policy API.
     def get_auto_scaling_policy(auto_scaling_configuration_id, auto_scaling_policy_id, opts = {})
       logger.debug 'Calling operation AutoScalingClient#get_auto_scaling_policy.' if logger
 
@@ -554,6 +561,7 @@ module OCI
     #    (default to [ASC])
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Autoscaling::Models::AutoScalingConfigurationSummary AutoScalingConfigurationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/list_auto_scaling_configurations.rb.html) to see an example of how to use list_auto_scaling_configurations API.
     def list_auto_scaling_configurations(compartment_id, opts = {})
       logger.debug 'Calling operation AutoScalingClient#list_auto_scaling_configurations.' if logger
 
@@ -638,6 +646,7 @@ module OCI
     #    (default to [ASC])
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Autoscaling::Models::AutoScalingPolicySummary AutoScalingPolicySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/list_auto_scaling_policies.rb.html) to see an example of how to use list_auto_scaling_policies API.
     def list_auto_scaling_policies(auto_scaling_configuration_id, opts = {})
       logger.debug 'Calling operation AutoScalingClient#list_auto_scaling_policies.' if logger
 
@@ -717,6 +726,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Autoscaling::Models::AutoScalingConfiguration AutoScalingConfiguration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/update_auto_scaling_configuration.rb.html) to see an example of how to use update_auto_scaling_configuration API.
     def update_auto_scaling_configuration(auto_scaling_configuration_id, update_auto_scaling_configuration_details, opts = {})
       logger.debug 'Calling operation AutoScalingClient#update_auto_scaling_configuration.' if logger
 
@@ -786,6 +796,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Autoscaling::Models::AutoScalingPolicy AutoScalingPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/autoscaling/update_auto_scaling_policy.rb.html) to see an example of how to use update_auto_scaling_policy API.
     def update_auto_scaling_policy(auto_scaling_configuration_id, auto_scaling_policy_id, update_auto_scaling_policy_details, opts = {})
       logger.debug 'Calling operation AutoScalingClient#update_auto_scaling_policy.' if logger
 

@@ -119,6 +119,7 @@ module OCI
     #   request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/create_esxi_host.rb.html) to see an example of how to use create_esxi_host API.
     def create_esxi_host(create_esxi_host_details, opts = {})
       logger.debug 'Calling operation EsxiHostClient#create_esxi_host.' if logger
 
@@ -195,6 +196,7 @@ module OCI
     #   request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/delete_esxi_host.rb.html) to see an example of how to use delete_esxi_host API.
     def delete_esxi_host(esxi_host_id, opts = {})
       logger.debug 'Calling operation EsxiHostClient#delete_esxi_host.' if logger
 
@@ -251,6 +253,7 @@ module OCI
     #   request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ocvp::Models::EsxiHost EsxiHost}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/get_esxi_host.rb.html) to see an example of how to use get_esxi_host API.
     def get_esxi_host(esxi_host_id, opts = {})
       logger.debug 'Calling operation EsxiHostClient#get_esxi_host.' if logger
 
@@ -341,6 +344,7 @@ module OCI
     #
     # @option opts [String] :lifecycle_state The lifecycle state of the resource.
     # @return [Response] A Response object with data of type {OCI::Ocvp::Models::EsxiHostCollection EsxiHostCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/list_esxi_hosts.rb.html) to see an example of how to use list_esxi_hosts API.
     def list_esxi_hosts(opts = {})
       logger.debug 'Calling operation EsxiHostClient#list_esxi_hosts.' if logger
 
@@ -422,6 +426,7 @@ module OCI
     #   request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Ocvp::Models::EsxiHost EsxiHost}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/update_esxi_host.rb.html) to see an example of how to use update_esxi_host API.
     def update_esxi_host(esxi_host_id, update_esxi_host_details, opts = {})
       logger.debug 'Calling operation EsxiHostClient#update_esxi_host.' if logger
 

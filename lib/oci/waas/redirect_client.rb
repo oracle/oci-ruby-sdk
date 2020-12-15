@@ -109,6 +109,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/change_http_redirect_compartment.rb.html) to see an example of how to use change_http_redirect_compartment API.
     def change_http_redirect_compartment(http_redirect_id, change_http_redirect_compartment_details, opts = {})
       logger.debug 'Calling operation RedirectClient#change_http_redirect_compartment.' if logger
 
@@ -167,6 +168,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/create_http_redirect.rb.html) to see an example of how to use create_http_redirect API.
     def create_http_redirect(create_http_redirect_details, opts = {})
       logger.debug 'Calling operation RedirectClient#create_http_redirect.' if logger
 
@@ -223,6 +225,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/delete_http_redirect.rb.html) to see an example of how to use delete_http_redirect API.
     def delete_http_redirect(http_redirect_id, opts = {})
       logger.debug 'Calling operation RedirectClient#delete_http_redirect.' if logger
 
@@ -278,6 +281,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::HttpRedirect HttpRedirect}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_http_redirect.rb.html) to see an example of how to use get_http_redirect API.
     def get_http_redirect(http_redirect_id, opts = {})
       logger.debug 'Calling operation RedirectClient#get_http_redirect.' if logger
 
@@ -343,6 +347,7 @@ module OCI
     # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches redirects created on or after the specified date and time.
     # @option opts [DateTime] :time_created_less_than A filter that matches redirects created before the specified date-time. Default to 1 day before now.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::HttpRedirectSummary HttpRedirectSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_http_redirects.rb.html) to see an example of how to use list_http_redirects API.
     def list_http_redirects(compartment_id, opts = {})
       logger.debug 'Calling operation RedirectClient#list_http_redirects.' if logger
 
@@ -427,6 +432,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_http_redirect.rb.html) to see an example of how to use update_http_redirect API.
     def update_http_redirect(http_redirect_id, update_http_redirect_details, opts = {})
       logger.debug 'Calling operation RedirectClient#update_http_redirect.' if logger
 

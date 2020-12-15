@@ -5,7 +5,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for updating the cloud VM cluster.
+  # Details for updating the cloud VM cluster. Applies to Exadata Cloud Service instances only.
+  #
   class Database::Models::UpdateCloudVmClusterDetails
     LICENSE_MODEL_ENUM = [
       LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
@@ -21,7 +22,7 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
-    # The Oracle license model that applies to the cloud VM cluster. The default is BRING_YOUR_OWN_LICENSE.
+    # The Oracle license model that applies to the cloud VM cluster. The default is BRING_YOUR_OWN_LICENSE. Applies to Exadata Cloud Service instances only.
     #
     # @return [String]
     attr_reader :license_model

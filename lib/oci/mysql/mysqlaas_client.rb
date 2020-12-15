@@ -115,6 +115,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::Configuration Configuration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/create_configuration.rb.html) to see an example of how to use create_configuration API.
     def create_configuration(create_configuration_details, opts = {})
       logger.debug 'Calling operation MysqlaasClient#create_configuration.' if logger
 
@@ -180,6 +181,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/delete_configuration.rb.html) to see an example of how to use delete_configuration API.
     def delete_configuration(configuration_id, opts = {})
       logger.debug 'Calling operation MysqlaasClient#delete_configuration.' if logger
 
@@ -243,6 +245,7 @@ module OCI
     #   200 OK response with the updated representation.
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::Configuration Configuration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/get_configuration.rb.html) to see an example of how to use get_configuration API.
     def get_configuration(configuration_id, opts = {})
       logger.debug 'Calling operation MysqlaasClient#get_configuration.' if logger
 
@@ -326,6 +329,7 @@ module OCI
     #   Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::ConfigurationSummary ConfigurationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/list_configurations.rb.html) to see an example of how to use list_configurations API.
     def list_configurations(compartment_id, opts = {})
       logger.debug 'Calling operation MysqlaasClient#list_configurations.' if logger
 
@@ -422,6 +426,7 @@ module OCI
     # @option opts [String] :availability_domain The name of the Availability Domain.
     # @option opts [String] :name Name
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::ShapeSummary ShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/list_shapes.rb.html) to see an example of how to use list_shapes API.
     def list_shapes(compartment_id, opts = {})
       logger.debug 'Calling operation MysqlaasClient#list_shapes.' if logger
 
@@ -494,6 +499,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::VersionSummary VersionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/list_versions.rb.html) to see an example of how to use list_versions API.
     def list_versions(compartment_id, opts = {})
       logger.debug 'Calling operation MysqlaasClient#list_versions.' if logger
 
@@ -557,6 +563,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::Configuration Configuration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/update_configuration.rb.html) to see an example of how to use update_configuration API.
     def update_configuration(configuration_id, update_configuration_details, opts = {})
       logger.debug 'Calling operation MysqlaasClient#update_configuration.' if logger
 

@@ -110,6 +110,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [OCI::Core::Models::AddImageShapeCompatibilityEntryDetails] :add_image_shape_compatibility_entry_details Image shape compatibility details
     # @return [Response] A Response object with data of type {OCI::Core::Models::ImageShapeCompatibilityEntry ImageShapeCompatibilityEntry}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/add_image_shape_compatibility_entry.rb.html) to see an example of how to use add_image_shape_compatibility_entry API.
     def add_image_shape_compatibility_entry(image_id, shape_name, opts = {})
       logger.debug 'Calling operation ComputeClient#add_image_shape_compatibility_entry.' if logger
 
@@ -170,6 +171,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeAttachment BootVolumeAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/attach_boot_volume.rb.html) to see an example of how to use attach_boot_volume API.
     def attach_boot_volume(attach_boot_volume_details, opts = {})
       logger.debug 'Calling operation ComputeClient#attach_boot_volume.' if logger
 
@@ -231,6 +233,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VnicAttachment VnicAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/attach_vnic.rb.html) to see an example of how to use attach_vnic API.
     def attach_vnic(attach_vnic_details, opts = {})
       logger.debug 'Calling operation ComputeClient#attach_vnic.' if logger
 
@@ -290,6 +293,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeAttachment VolumeAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/attach_volume.rb.html) to see an example of how to use attach_volume API.
     def attach_volume(attach_volume_details, opts = {})
       logger.debug 'Calling operation ComputeClient#attach_volume.' if logger
 
@@ -365,6 +369,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ConsoleHistory ConsoleHistory}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/capture_console_history.rb.html) to see an example of how to use capture_console_history API.
     def capture_console_history(capture_console_history_details, opts = {})
       logger.debug 'Calling operation ComputeClient#capture_console_history.' if logger
 
@@ -434,6 +439,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_compute_image_capability_schema_compartment.rb.html) to see an example of how to use change_compute_image_capability_schema_compartment API.
     def change_compute_image_capability_schema_compartment(compute_image_capability_schema_id, change_compute_image_capability_schema_compartment_details, opts = {})
       logger.debug 'Calling operation ComputeClient#change_compute_image_capability_schema_compartment.' if logger
 
@@ -503,6 +509,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_dedicated_vm_host_compartment.rb.html) to see an example of how to use change_dedicated_vm_host_compartment API.
     def change_dedicated_vm_host_compartment(dedicated_vm_host_id, change_dedicated_vm_host_compartment_details, opts = {})
       logger.debug 'Calling operation ComputeClient#change_dedicated_vm_host_compartment.' if logger
 
@@ -575,6 +582,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_image_compartment.rb.html) to see an example of how to use change_image_compartment API.
     def change_image_compartment(image_id, change_image_compartment_details, opts = {})
       logger.debug 'Calling operation ComputeClient#change_image_compartment.' if logger
 
@@ -650,6 +658,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_instance_compartment.rb.html) to see an example of how to use change_instance_compartment API.
     def change_instance_compartment(instance_id, change_instance_compartment_details, opts = {})
       logger.debug 'Calling operation ComputeClient#change_instance_compartment.' if logger
 
@@ -712,6 +721,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::AppCatalogSubscription AppCatalogSubscription}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_app_catalog_subscription.rb.html) to see an example of how to use create_app_catalog_subscription API.
     def create_app_catalog_subscription(create_app_catalog_subscription_details, opts = {})
       logger.debug 'Calling operation ComputeClient#create_app_catalog_subscription.' if logger
 
@@ -771,6 +781,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ComputeImageCapabilitySchema ComputeImageCapabilitySchema}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_compute_image_capability_schema.rb.html) to see an example of how to use create_compute_image_capability_schema API.
     def create_compute_image_capability_schema(create_compute_image_capability_schema_details, opts = {})
       logger.debug 'Calling operation ComputeClient#create_compute_image_capability_schema.' if logger
 
@@ -836,6 +847,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::DedicatedVmHost DedicatedVmHost}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_dedicated_vm_host.rb.html) to see an example of how to use create_dedicated_vm_host API.
     def create_dedicated_vm_host(create_dedicated_vm_host_details, opts = {})
       logger.debug 'Calling operation ComputeClient#create_dedicated_vm_host.' if logger
 
@@ -918,6 +930,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Image Image}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_image.rb.html) to see an example of how to use create_image API.
     def create_image(create_image_details, opts = {})
       logger.debug 'Calling operation ComputeClient#create_image.' if logger
 
@@ -981,6 +994,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceConsoleConnection InstanceConsoleConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_instance_console_connection.rb.html) to see an example of how to use create_instance_console_connection API.
     def create_instance_console_connection(create_instance_console_connection_details, opts = {})
       logger.debug 'Calling operation ComputeClient#create_instance_console_connection.' if logger
 
@@ -1036,6 +1050,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_app_catalog_subscription.rb.html) to see an example of how to use delete_app_catalog_subscription API.
     def delete_app_catalog_subscription(listing_id, compartment_id, resource_version, opts = {})
       logger.debug 'Calling operation ComputeClient#delete_app_catalog_subscription.' if logger
 
@@ -1096,6 +1111,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_compute_image_capability_schema.rb.html) to see an example of how to use delete_compute_image_capability_schema API.
     def delete_compute_image_capability_schema(compute_image_capability_schema_id, opts = {})
       logger.debug 'Calling operation ComputeClient#delete_compute_image_capability_schema.' if logger
 
@@ -1151,6 +1167,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_console_history.rb.html) to see an example of how to use delete_console_history API.
     def delete_console_history(instance_console_history_id, opts = {})
       logger.debug 'Calling operation ComputeClient#delete_console_history.' if logger
 
@@ -1209,6 +1226,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_dedicated_vm_host.rb.html) to see an example of how to use delete_dedicated_vm_host API.
     def delete_dedicated_vm_host(dedicated_vm_host_id, opts = {})
       logger.debug 'Calling operation ComputeClient#delete_dedicated_vm_host.' if logger
 
@@ -1264,6 +1282,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_image.rb.html) to see an example of how to use delete_image API.
     def delete_image(image_id, opts = {})
       logger.debug 'Calling operation ComputeClient#delete_image.' if logger
 
@@ -1319,6 +1338,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_instance_console_connection.rb.html) to see an example of how to use delete_instance_console_connection API.
     def delete_instance_console_connection(instance_console_connection_id, opts = {})
       logger.debug 'Calling operation ComputeClient#delete_instance_console_connection.' if logger
 
@@ -1378,6 +1398,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/detach_boot_volume.rb.html) to see an example of how to use detach_boot_volume API.
     def detach_boot_volume(boot_volume_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#detach_boot_volume.' if logger
 
@@ -1443,6 +1464,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/detach_vnic.rb.html) to see an example of how to use detach_vnic API.
     def detach_vnic(vnic_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#detach_vnic.' if logger
 
@@ -1502,6 +1524,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/detach_volume.rb.html) to see an example of how to use detach_volume API.
     def detach_volume(volume_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#detach_volume.' if logger
 
@@ -1574,6 +1597,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Image Image}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/export_image.rb.html) to see an example of how to use export_image API.
     def export_image(image_id, export_image_details, opts = {})
       logger.debug 'Calling operation ComputeClient#export_image.' if logger
 
@@ -1630,6 +1654,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::AppCatalogListing AppCatalogListing}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_app_catalog_listing.rb.html) to see an example of how to use get_app_catalog_listing API.
     def get_app_catalog_listing(listing_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_app_catalog_listing.' if logger
 
@@ -1684,6 +1709,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::AppCatalogListingResourceVersionAgreements AppCatalogListingResourceVersionAgreements}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_app_catalog_listing_agreements.rb.html) to see an example of how to use get_app_catalog_listing_agreements API.
     def get_app_catalog_listing_agreements(listing_id, resource_version, opts = {})
       logger.debug 'Calling operation ComputeClient#get_app_catalog_listing_agreements.' if logger
 
@@ -1740,6 +1766,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::AppCatalogListingResourceVersion AppCatalogListingResourceVersion}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_app_catalog_listing_resource_version.rb.html) to see an example of how to use get_app_catalog_listing_resource_version API.
     def get_app_catalog_listing_resource_version(listing_id, resource_version, opts = {})
       logger.debug 'Calling operation ComputeClient#get_app_catalog_listing_resource_version.' if logger
 
@@ -1795,6 +1822,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::BootVolumeAttachment BootVolumeAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_boot_volume_attachment.rb.html) to see an example of how to use get_boot_volume_attachment API.
     def get_boot_volume_attachment(boot_volume_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_boot_volume_attachment.' if logger
 
@@ -1848,6 +1876,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::ComputeGlobalImageCapabilitySchema ComputeGlobalImageCapabilitySchema}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_compute_global_image_capability_schema.rb.html) to see an example of how to use get_compute_global_image_capability_schema API.
     def get_compute_global_image_capability_schema(compute_global_image_capability_schema_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_compute_global_image_capability_schema.' if logger
 
@@ -1902,6 +1931,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::ComputeGlobalImageCapabilitySchemaVersion ComputeGlobalImageCapabilitySchemaVersion}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_compute_global_image_capability_schema_version.rb.html) to see an example of how to use get_compute_global_image_capability_schema_version API.
     def get_compute_global_image_capability_schema_version(compute_global_image_capability_schema_id, compute_global_image_capability_schema_version_name, opts = {})
       logger.debug 'Calling operation ComputeClient#get_compute_global_image_capability_schema_version.' if logger
 
@@ -1959,6 +1989,7 @@ module OCI
     # @option opts [BOOLEAN] :is_merge_enabled Merge the image capability schema with the global image capability schema
     #    (default to false)
     # @return [Response] A Response object with data of type {OCI::Core::Models::ComputeImageCapabilitySchema ComputeImageCapabilitySchema}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_compute_image_capability_schema.rb.html) to see an example of how to use get_compute_image_capability_schema API.
     def get_compute_image_capability_schema(compute_image_capability_schema_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_compute_image_capability_schema.' if logger
 
@@ -2015,6 +2046,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::ConsoleHistory ConsoleHistory}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_console_history.rb.html) to see an example of how to use get_console_history API.
     def get_console_history(instance_console_history_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_console_history.' if logger
 
@@ -2072,6 +2104,7 @@ module OCI
     # @option opts [Integer] :offset Offset of the snapshot data to retrieve.
     # @option opts [Integer] :length Length of the snapshot data to retrieve.
     # @return [Response] A Response object with data of type String
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_console_history_content.rb.html) to see an example of how to use get_console_history_content API.
     def get_console_history_content(instance_console_history_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_console_history_content.' if logger
 
@@ -2128,6 +2161,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::DedicatedVmHost DedicatedVmHost}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_dedicated_vm_host.rb.html) to see an example of how to use get_dedicated_vm_host API.
     def get_dedicated_vm_host(dedicated_vm_host_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_dedicated_vm_host.' if logger
 
@@ -2181,6 +2215,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Image Image}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_image.rb.html) to see an example of how to use get_image API.
     def get_image(image_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_image.' if logger
 
@@ -2237,6 +2272,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ImageShapeCompatibilityEntry ImageShapeCompatibilityEntry}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_image_shape_compatibility_entry.rb.html) to see an example of how to use get_image_shape_compatibility_entry API.
     def get_image_shape_compatibility_entry(image_id, shape_name, opts = {})
       logger.debug 'Calling operation ComputeClient#get_image_shape_compatibility_entry.' if logger
 
@@ -2292,6 +2328,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::Instance Instance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_instance.rb.html) to see an example of how to use get_instance API.
     def get_instance(instance_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_instance.' if logger
 
@@ -2345,6 +2382,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceConsoleConnection InstanceConsoleConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_instance_console_connection.rb.html) to see an example of how to use get_instance_console_connection API.
     def get_instance_console_connection(instance_console_connection_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_instance_console_connection.' if logger
 
@@ -2399,6 +2437,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VnicAttachment VnicAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_vnic_attachment.rb.html) to see an example of how to use get_vnic_attachment API.
     def get_vnic_attachment(vnic_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_vnic_attachment.' if logger
 
@@ -2452,6 +2491,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeAttachment VolumeAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume_attachment.rb.html) to see an example of how to use get_volume_attachment API.
     def get_volume_attachment(volume_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_volume_attachment.' if logger
 
@@ -2507,6 +2547,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceCredentials InstanceCredentials}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_windows_instance_initial_credentials.rb.html) to see an example of how to use get_windows_instance_initial_credentials API.
     def get_windows_instance_initial_credentials(instance_id, opts = {})
       logger.debug 'Calling operation ComputeClient#get_windows_instance_initial_credentials.' if logger
 
@@ -2588,6 +2629,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Instance Instance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/instance_action.rb.html) to see an example of how to use instance_action API.
     def instance_action(instance_id, action, opts = {})
       logger.debug 'Calling operation ComputeClient#instance_action.' if logger
 
@@ -2692,6 +2734,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Instance Instance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/launch_instance.rb.html) to see an example of how to use launch_instance API.
     def launch_instance(launch_instance_details, opts = {})
       logger.debug 'Calling operation ComputeClient#launch_instance.' if logger
 
@@ -2758,6 +2801,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::AppCatalogListingResourceVersionSummary AppCatalogListingResourceVersionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_app_catalog_listing_resource_versions.rb.html) to see an example of how to use list_app_catalog_listing_resource_versions API.
     def list_app_catalog_listing_resource_versions(listing_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_app_catalog_listing_resource_versions.' if logger
 
@@ -2835,6 +2879,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::AppCatalogListingSummary AppCatalogListingSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_app_catalog_listings.rb.html) to see an example of how to use list_app_catalog_listings API.
     def list_app_catalog_listings(opts = {})
       logger.debug 'Calling operation ComputeClient#list_app_catalog_listings.' if logger
 
@@ -2920,6 +2965,7 @@ module OCI
     # @option opts [String] :listing_id A filter to return only the listings that matches the given listing id.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::AppCatalogSubscriptionSummary AppCatalogSubscriptionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_app_catalog_subscriptions.rb.html) to see an example of how to use list_app_catalog_subscriptions API.
     def list_app_catalog_subscriptions(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_app_catalog_subscriptions.' if logger
 
@@ -3002,6 +3048,7 @@ module OCI
     # @option opts [String] :instance_id The OCID of the instance.
     # @option opts [String] :boot_volume_id The OCID of the boot volume.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::BootVolumeAttachment BootVolumeAttachment}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_boot_volume_attachments.rb.html) to see an example of how to use list_boot_volume_attachments API.
     def list_boot_volume_attachments(availability_domain, compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_boot_volume_attachments.' if logger
 
@@ -3086,6 +3133,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ComputeGlobalImageCapabilitySchemaVersionSummary ComputeGlobalImageCapabilitySchemaVersionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_compute_global_image_capability_schema_versions.rb.html) to see an example of how to use list_compute_global_image_capability_schema_versions API.
     def list_compute_global_image_capability_schema_versions(compute_global_image_capability_schema_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_compute_global_image_capability_schema_versions.' if logger
 
@@ -3178,6 +3226,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ComputeGlobalImageCapabilitySchemaSummary ComputeGlobalImageCapabilitySchemaSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_compute_global_image_capability_schemas.rb.html) to see an example of how to use list_compute_global_image_capability_schemas API.
     def list_compute_global_image_capability_schemas(opts = {})
       logger.debug 'Calling operation ComputeClient#list_compute_global_image_capability_schemas.' if logger
 
@@ -3270,6 +3319,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ComputeImageCapabilitySchemaSummary ComputeImageCapabilitySchemaSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_compute_image_capability_schemas.rb.html) to see an example of how to use list_compute_image_capability_schemas API.
     def list_compute_image_capability_schemas(opts = {})
       logger.debug 'Calling operation ComputeClient#list_compute_image_capability_schemas.' if logger
 
@@ -3366,6 +3416,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ConsoleHistory ConsoleHistory}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_console_histories.rb.html) to see an example of how to use list_console_histories API.
     def list_console_histories(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_console_histories.' if logger
 
@@ -3457,6 +3508,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DedicatedVmHostInstanceShapeSummary DedicatedVmHostInstanceShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_dedicated_vm_host_instance_shapes.rb.html) to see an example of how to use list_dedicated_vm_host_instance_shapes API.
     def list_dedicated_vm_host_instance_shapes(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_dedicated_vm_host_instance_shapes.' if logger
 
@@ -3546,6 +3598,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DedicatedVmHostInstanceSummary DedicatedVmHostInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_dedicated_vm_host_instances.rb.html) to see an example of how to use list_dedicated_vm_host_instances API.
     def list_dedicated_vm_host_instances(compartment_id, dedicated_vm_host_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_dedicated_vm_host_instances.' if logger
 
@@ -3633,6 +3686,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DedicatedVmHostShapeSummary DedicatedVmHostShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_dedicated_vm_host_shapes.rb.html) to see an example of how to use list_dedicated_vm_host_shapes API.
     def list_dedicated_vm_host_shapes(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_dedicated_vm_host_shapes.' if logger
 
@@ -3730,6 +3784,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DedicatedVmHostSummary DedicatedVmHostSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_dedicated_vm_hosts.rb.html) to see an example of how to use list_dedicated_vm_hosts API.
     def list_dedicated_vm_hosts(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_dedicated_vm_hosts.' if logger
 
@@ -3815,6 +3870,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ImageShapeCompatibilitySummary ImageShapeCompatibilitySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_image_shape_compatibility_entries.rb.html) to see an example of how to use list_image_shape_compatibility_entries API.
     def list_image_shape_compatibility_entries(image_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_image_shape_compatibility_entries.' if logger
 
@@ -3913,6 +3969,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Image Image}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_images.rb.html) to see an example of how to use list_images API.
     def list_images(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_images.' if logger
 
@@ -3999,6 +4056,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::InstanceConsoleConnection InstanceConsoleConnection}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_instance_console_connections.rb.html) to see an example of how to use list_instance_console_connections API.
     def list_instance_console_connections(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_instance_console_connections.' if logger
 
@@ -4084,6 +4142,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Device Device}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_instance_devices.rb.html) to see an example of how to use list_instance_devices API.
     def list_instance_devices(instance_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_instance_devices.' if logger
 
@@ -4185,6 +4244,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Instance Instance}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_instances.rb.html) to see an example of how to use list_instances API.
     def list_instances(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_instances.' if logger
 
@@ -4272,6 +4332,7 @@ module OCI
     #
     # @option opts [String] :image_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of an image.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Shape Shape}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_shapes.rb.html) to see an example of how to use list_shapes API.
     def list_shapes(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_shapes.' if logger
 
@@ -4346,6 +4407,7 @@ module OCI
     #
     # @option opts [String] :vnic_id The OCID of the VNIC.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VnicAttachment VnicAttachment}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_vnic_attachments.rb.html) to see an example of how to use list_vnic_attachments API.
     def list_vnic_attachments(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_vnic_attachments.' if logger
 
@@ -4423,6 +4485,7 @@ module OCI
     # @option opts [String] :instance_id The OCID of the instance.
     # @option opts [String] :volume_id The OCID of the volume.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeAttachment VolumeAttachment}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_volume_attachments.rb.html) to see an example of how to use list_volume_attachments API.
     def list_volume_attachments(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeClient#list_volume_attachments.' if logger
 
@@ -4481,6 +4544,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/remove_image_shape_compatibility_entry.rb.html) to see an example of how to use remove_image_shape_compatibility_entry API.
     def remove_image_shape_compatibility_entry(image_id, shape_name, opts = {})
       logger.debug 'Calling operation ComputeClient#remove_image_shape_compatibility_entry.' if logger
 
@@ -4549,6 +4613,7 @@ module OCI
     #   The default value is false.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/terminate_instance.rb.html) to see an example of how to use terminate_instance API.
     def terminate_instance(instance_id, opts = {})
       logger.debug 'Calling operation ComputeClient#terminate_instance.' if logger
 
@@ -4607,6 +4672,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ComputeImageCapabilitySchema ComputeImageCapabilitySchema}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_compute_image_capability_schema.rb.html) to see an example of how to use update_compute_image_capability_schema API.
     def update_compute_image_capability_schema(compute_image_capability_schema_id, update_compute_image_capability_schema_details, opts = {})
       logger.debug 'Calling operation ComputeClient#update_compute_image_capability_schema.' if logger
 
@@ -4665,6 +4731,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ConsoleHistory ConsoleHistory}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_console_history.rb.html) to see an example of how to use update_console_history API.
     def update_console_history(instance_console_history_id, update_console_history_details, opts = {})
       logger.debug 'Calling operation ComputeClient#update_console_history.' if logger
 
@@ -4734,6 +4801,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::DedicatedVmHost DedicatedVmHost}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_dedicated_vm_host.rb.html) to see an example of how to use update_dedicated_vm_host API.
     def update_dedicated_vm_host(dedicated_vm_host_id, update_dedicated_vm_host_details, opts = {})
       logger.debug 'Calling operation ComputeClient#update_dedicated_vm_host.' if logger
 
@@ -4801,6 +4869,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Image Image}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_image.rb.html) to see an example of how to use update_image API.
     def update_image(image_id, update_image_details, opts = {})
       logger.debug 'Calling operation ComputeClient#update_image.' if logger
 
@@ -4871,6 +4940,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Instance Instance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_instance.rb.html) to see an example of how to use update_instance API.
     def update_instance(instance_id, update_instance_details, opts = {})
       logger.debug 'Calling operation ComputeClient#update_instance.' if logger
 
@@ -4934,6 +5004,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceConsoleConnection InstanceConsoleConnection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_instance_console_connection.rb.html) to see an example of how to use update_instance_console_connection API.
     def update_instance_console_connection(instance_console_connection_id, update_instance_console_connection_details, opts = {})
       logger.debug 'Calling operation ComputeClient#update_instance_console_connection.' if logger
 

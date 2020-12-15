@@ -113,6 +113,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Budget::Models::AlertRule AlertRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/create_alert_rule.rb.html) to see an example of how to use create_alert_rule API.
     def create_alert_rule(budget_id, create_alert_rule_details, opts = {})
       logger.debug 'Calling operation BudgetClient#create_alert_rule.' if logger
 
@@ -176,6 +177,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Budget::Models::Budget Budget}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/create_budget.rb.html) to see an example of how to use create_budget API.
     def create_budget(create_budget_details, opts = {})
       logger.debug 'Calling operation BudgetClient#create_budget.' if logger
 
@@ -237,6 +239,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/delete_alert_rule.rb.html) to see an example of how to use delete_alert_rule API.
     def delete_alert_rule(budget_id, alert_rule_id, opts = {})
       logger.debug 'Calling operation BudgetClient#delete_alert_rule.' if logger
 
@@ -298,6 +301,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/delete_budget.rb.html) to see an example of how to use delete_budget API.
     def delete_budget(budget_id, opts = {})
       logger.debug 'Calling operation BudgetClient#delete_budget.' if logger
 
@@ -352,6 +356,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Budget::Models::AlertRule AlertRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/get_alert_rule.rb.html) to see an example of how to use get_alert_rule API.
     def get_alert_rule(budget_id, alert_rule_id, opts = {})
       logger.debug 'Calling operation BudgetClient#get_alert_rule.' if logger
 
@@ -407,6 +412,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Budget::Models::Budget Budget}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/get_budget.rb.html) to see an example of how to use get_budget API.
     def get_budget(budget_id, opts = {})
       logger.debug 'Calling operation BudgetClient#get_budget.' if logger
 
@@ -473,6 +479,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Budget::Models::AlertRuleSummary AlertRuleSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/list_alert_rules.rb.html) to see an example of how to use list_alert_rules API.
     def list_alert_rules(budget_id, opts = {})
       logger.debug 'Calling operation BudgetClient#list_alert_rules.' if logger
 
@@ -572,6 +579,7 @@ module OCI
     #   Allowed values are: ALL, COMPARTMENT, TAG
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Budget::Models::BudgetSummary BudgetSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/list_budgets.rb.html) to see an example of how to use list_budgets API.
     def list_budgets(compartment_id, opts = {})
       logger.debug 'Calling operation BudgetClient#list_budgets.' if logger
 
@@ -656,6 +664,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Budget::Models::AlertRule AlertRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/update_alert_rule.rb.html) to see an example of how to use update_alert_rule API.
     def update_alert_rule(budget_id, alert_rule_id, update_alert_rule_details, opts = {})
       logger.debug 'Calling operation BudgetClient#update_alert_rule.' if logger
 
@@ -720,6 +729,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Budget::Models::Budget Budget}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/budget/update_budget.rb.html) to see an example of how to use update_budget API.
     def update_budget(budget_id, update_budget_details, opts = {})
       logger.debug 'Calling operation BudgetClient#update_budget.' if logger
 

@@ -109,6 +109,7 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/accept_recommendations.rb.html) to see an example of how to use accept_recommendations API.
     def accept_recommendations(waas_policy_id, protection_rule_keys, opts = {})
       logger.debug 'Calling operation WaasClient#accept_recommendations.' if logger
 
@@ -166,6 +167,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/cancel_work_request.rb.html) to see an example of how to use cancel_work_request API.
     def cancel_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation WaasClient#cancel_work_request.' if logger
 
@@ -228,6 +230,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/change_address_list_compartment.rb.html) to see an example of how to use change_address_list_compartment API.
     def change_address_list_compartment(address_list_id, change_address_list_compartment_details, opts = {})
       logger.debug 'Calling operation WaasClient#change_address_list_compartment.' if logger
 
@@ -290,6 +293,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/change_certificate_compartment.rb.html) to see an example of how to use change_certificate_compartment API.
     def change_certificate_compartment(certificate_id, change_certificate_compartment_details, opts = {})
       logger.debug 'Calling operation WaasClient#change_certificate_compartment.' if logger
 
@@ -350,6 +354,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/change_custom_protection_rule_compartment.rb.html) to see an example of how to use change_custom_protection_rule_compartment API.
     def change_custom_protection_rule_compartment(custom_protection_rule_id, change_custom_protection_rule_compartment_details, opts = {})
       logger.debug 'Calling operation WaasClient#change_custom_protection_rule_compartment.' if logger
 
@@ -412,6 +417,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/change_waas_policy_compartment.rb.html) to see an example of how to use change_waas_policy_compartment API.
     def change_waas_policy_compartment(waas_policy_id, change_waas_policy_compartment_details, opts = {})
       logger.debug 'Calling operation WaasClient#change_waas_policy_compartment.' if logger
 
@@ -470,6 +476,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::AddressList AddressList}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/create_address_list.rb.html) to see an example of how to use create_address_list API.
     def create_address_list(create_address_list_details, opts = {})
       logger.debug 'Calling operation WaasClient#create_address_list.' if logger
 
@@ -528,6 +535,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::Certificate Certificate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/create_certificate.rb.html) to see an example of how to use create_certificate API.
     def create_certificate(create_certificate_details, opts = {})
       logger.debug 'Calling operation WaasClient#create_certificate.' if logger
 
@@ -586,6 +594,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::CustomProtectionRule CustomProtectionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/create_custom_protection_rule.rb.html) to see an example of how to use create_custom_protection_rule API.
     def create_custom_protection_rule(create_custom_protection_rule_details, opts = {})
       logger.debug 'Calling operation WaasClient#create_custom_protection_rule.' if logger
 
@@ -654,6 +663,7 @@ module OCI
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/create_waas_policy.rb.html) to see an example of how to use create_waas_policy API.
     def create_waas_policy(create_waas_policy_details, opts = {})
       logger.debug 'Calling operation WaasClient#create_waas_policy.' if logger
 
@@ -710,6 +720,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/delete_address_list.rb.html) to see an example of how to use delete_address_list API.
     def delete_address_list(address_list_id, opts = {})
       logger.debug 'Calling operation WaasClient#delete_address_list.' if logger
 
@@ -768,6 +779,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/delete_certificate.rb.html) to see an example of how to use delete_certificate API.
     def delete_certificate(certificate_id, opts = {})
       logger.debug 'Calling operation WaasClient#delete_certificate.' if logger
 
@@ -826,6 +838,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/delete_custom_protection_rule.rb.html) to see an example of how to use delete_custom_protection_rule API.
     def delete_custom_protection_rule(custom_protection_rule_id, opts = {})
       logger.debug 'Calling operation WaasClient#delete_custom_protection_rule.' if logger
 
@@ -884,6 +897,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/delete_waas_policy.rb.html) to see an example of how to use delete_waas_policy API.
     def delete_waas_policy(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#delete_waas_policy.' if logger
 
@@ -939,6 +953,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::AddressList AddressList}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_address_list.rb.html) to see an example of how to use get_address_list API.
     def get_address_list(address_list_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_address_list.' if logger
 
@@ -992,6 +1007,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::Certificate Certificate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_certificate.rb.html) to see an example of how to use get_certificate API.
     def get_certificate(certificate_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_certificate.' if logger
 
@@ -1045,6 +1061,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::CustomProtectionRule CustomProtectionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_custom_protection_rule.rb.html) to see an example of how to use get_custom_protection_rule API.
     def get_custom_protection_rule(custom_protection_rule_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_custom_protection_rule.' if logger
 
@@ -1098,6 +1115,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::DeviceFingerprintChallenge DeviceFingerprintChallenge}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_device_fingerprint_challenge.rb.html) to see an example of how to use get_device_fingerprint_challenge API.
     def get_device_fingerprint_challenge(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_device_fingerprint_challenge.' if logger
 
@@ -1151,6 +1169,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::HumanInteractionChallenge HumanInteractionChallenge}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_human_interaction_challenge.rb.html) to see an example of how to use get_human_interaction_challenge API.
     def get_human_interaction_challenge(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_human_interaction_challenge.' if logger
 
@@ -1204,6 +1223,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::JsChallenge JsChallenge}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_js_challenge.rb.html) to see an example of how to use get_js_challenge API.
     def get_js_challenge(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_js_challenge.' if logger
 
@@ -1257,6 +1277,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::PolicyConfig PolicyConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_policy_config.rb.html) to see an example of how to use get_policy_config API.
     def get_policy_config(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_policy_config.' if logger
 
@@ -1311,6 +1332,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::ProtectionRule ProtectionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_protection_rule.rb.html) to see an example of how to use get_protection_rule API.
     def get_protection_rule(waas_policy_id, protection_rule_key, opts = {})
       logger.debug 'Calling operation WaasClient#get_protection_rule.' if logger
 
@@ -1366,6 +1388,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::ProtectionSettings ProtectionSettings}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_protection_settings.rb.html) to see an example of how to use get_protection_settings API.
     def get_protection_settings(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_protection_settings.' if logger
 
@@ -1419,6 +1442,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::WaasPolicy WaasPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_waas_policy.rb.html) to see an example of how to use get_waas_policy API.
     def get_waas_policy(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_waas_policy.' if logger
 
@@ -1472,6 +1496,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::AddressRateLimiting AddressRateLimiting}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_waf_address_rate_limiting.rb.html) to see an example of how to use get_waf_address_rate_limiting API.
     def get_waf_address_rate_limiting(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_waf_address_rate_limiting.' if logger
 
@@ -1525,6 +1550,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::WafConfig WafConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_waf_config.rb.html) to see an example of how to use get_waf_config API.
     def get_waf_config(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_waf_config.' if logger
 
@@ -1578,6 +1604,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation WaasClient#get_work_request.' if logger
 
@@ -1634,6 +1661,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::AccessRule AccessRule}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_access_rules.rb.html) to see an example of how to use list_access_rules API.
     def list_access_rules(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_access_rules.' if logger
 
@@ -1701,6 +1729,7 @@ module OCI
     # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches address lists created on or after the specified date-time.
     # @option opts [DateTime] :time_created_less_than A filter that matches address lists created before the specified date-time.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::AddressListSummary AddressListSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_address_lists.rb.html) to see an example of how to use list_address_lists API.
     def list_address_lists(compartment_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_address_lists.' if logger
 
@@ -1784,6 +1813,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::CachingRuleSummary CachingRuleSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_caching_rules.rb.html) to see an example of how to use list_caching_rules API.
     def list_caching_rules(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_caching_rules.' if logger
 
@@ -1846,6 +1876,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::Captcha Captcha}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_captchas.rb.html) to see an example of how to use list_captchas API.
     def list_captchas(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_captchas.' if logger
 
@@ -1913,6 +1944,7 @@ module OCI
     # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches certificates created on or after the specified date-time.
     # @option opts [DateTime] :time_created_less_than A filter that matches certificates created before the specified date-time.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::CertificateSummary CertificateSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_certificates.rb.html) to see an example of how to use list_certificates API.
     def list_certificates(compartment_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_certificates.' if logger
 
@@ -2005,6 +2037,7 @@ module OCI
     # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches Custom Protection rules created on or after the specified date-time.
     # @option opts [DateTime] :time_created_less_than A filter that matches custom protection rules created before the specified date-time.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::CustomProtectionRuleSummary CustomProtectionRuleSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_custom_protection_rules.rb.html) to see an example of how to use list_custom_protection_rules API.
     def list_custom_protection_rules(compartment_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_custom_protection_rules.' if logger
 
@@ -2090,6 +2123,7 @@ module OCI
     # @option opts [String] :sort_order The value of the sorting direction of resources in a paginated 'List' call. If unspecified, defaults to `DESC`.
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::EdgeSubnet EdgeSubnet}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_edge_subnets.rb.html) to see an example of how to use list_edge_subnets API.
     def list_edge_subnets(opts = {})
       logger.debug 'Calling operation WaasClient#list_edge_subnets.' if logger
 
@@ -2158,6 +2192,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::GoodBot GoodBot}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_good_bots.rb.html) to see an example of how to use list_good_bots API.
     def list_good_bots(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_good_bots.' if logger
 
@@ -2219,6 +2254,7 @@ module OCI
     # @option opts [Array<String>] :action Filter rules using a list of actions.
     #   Allowed values are: OFF, DETECT, BLOCK
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::ProtectionRule ProtectionRule}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_protection_rules.rb.html) to see an example of how to use list_protection_rules API.
     def list_protection_rules(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_protection_rules.' if logger
 
@@ -2293,6 +2329,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::Recommendation Recommendation}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_recommendations.rb.html) to see an example of how to use list_recommendations API.
     def list_recommendations(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_recommendations.' if logger
 
@@ -2358,6 +2395,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::ThreatFeed ThreatFeed}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_threat_feeds.rb.html) to see an example of how to use list_threat_feeds API.
     def list_threat_feeds(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_threat_feeds.' if logger
 
@@ -2425,6 +2463,7 @@ module OCI
     # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter that matches policies created on or after the specified date and time.
     # @option opts [DateTime] :time_created_less_than A filter that matches policies created before the specified date-time.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WaasPolicySummary WaasPolicySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_waas_policies.rb.html) to see an example of how to use list_waas_policies API.
     def list_waas_policies(compartment_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_waas_policies.' if logger
 
@@ -2510,6 +2549,7 @@ module OCI
     # @option opts [Array<String>] :action Filter rules using a list of actions.
     #   Allowed values are: DETECT, BLOCK
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WaasPolicyCustomProtectionRuleSummary WaasPolicyCustomProtectionRuleSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_waas_policy_custom_protection_rules.rb.html) to see an example of how to use list_waas_policy_custom_protection_rules API.
     def list_waas_policy_custom_protection_rules(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_waas_policy_custom_protection_rules.' if logger
 
@@ -2583,6 +2623,7 @@ module OCI
     # @option opts [Array<String>] :waf_feature Filter stats by the Web Application Firewall feature that triggered the block action. If unspecified, data for all WAF features will be returned.
     #   Allowed values are: PROTECTION_RULES, JS_CHALLENGE, ACCESS_RULES, THREAT_FEEDS, HUMAN_INTERACTION_CHALLENGE, DEVICE_FINGERPRINT_CHALLENGE, CAPTCHA, ADDRESS_RATE_LIMITING
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WafBlockedRequest WafBlockedRequest}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_waf_blocked_requests.rb.html) to see an example of how to use list_waf_blocked_requests API.
     def list_waf_blocked_requests(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_waf_blocked_requests.' if logger
 
@@ -2678,6 +2719,7 @@ module OCI
     # @option opts [Array<String>] :user_agent Filter by user agent.
     # @option opts [Array<String>] :protection_rule_key Filter by protection rule key.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WafLog WafLog}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_waf_logs.rb.html) to see an example of how to use list_waf_logs API.
     def list_waf_logs(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_waf_logs.' if logger
 
@@ -2789,6 +2831,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WafRequest WafRequest}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_waf_requests.rb.html) to see an example of how to use list_waf_requests API.
     def list_waf_requests(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_waf_requests.' if logger
 
@@ -2852,6 +2895,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WafTrafficDatum WafTrafficDatum}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_waf_traffic.rb.html) to see an example of how to use list_waf_traffic API.
     def list_waf_traffic(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_waf_traffic.' if logger
 
@@ -2911,6 +2955,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated call. If unspecified, defaults to `10`. (default to 10)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous paginated call.
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::Whitelist Whitelist}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_whitelists.rb.html) to see an example of how to use list_whitelists API.
     def list_whitelists(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_whitelists.' if logger
 
@@ -2973,6 +3018,7 @@ module OCI
     # @option opts [String] :sort_order The value of the sorting direction of resources in a paginated 'List' call. If unspecified, defaults to `DESC`.
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Waas::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(waas_policy_id, compartment_id, opts = {})
       logger.debug 'Calling operation WaasClient#list_work_requests.' if logger
 
@@ -3043,6 +3089,7 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @option opts [OCI::Waas::Models::PurgeCache] :purge_cache
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/purge_cache.rb.html) to see an example of how to use purge_cache API.
     def purge_cache(waas_policy_id, opts = {})
       logger.debug 'Calling operation WaasClient#purge_cache.' if logger
 
@@ -3108,6 +3155,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_access_rules.rb.html) to see an example of how to use update_access_rules API.
     def update_access_rules(waas_policy_id, access_rules, opts = {})
       logger.debug 'Calling operation WaasClient#update_access_rules.' if logger
 
@@ -3166,6 +3214,7 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @option opts [OCI::Waas::Models::UpdateAddressListDetails] :update_address_list_details The details of the address list to update.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::AddressList AddressList}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_address_list.rb.html) to see an example of how to use update_address_list API.
     def update_address_list(address_list_id, opts = {})
       logger.debug 'Calling operation WaasClient#update_address_list.' if logger
 
@@ -3230,6 +3279,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_caching_rules.rb.html) to see an example of how to use update_caching_rules API.
     def update_caching_rules(waas_policy_id, caching_rules_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_caching_rules.' if logger
 
@@ -3298,6 +3348,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_captchas.rb.html) to see an example of how to use update_captchas API.
     def update_captchas(waas_policy_id, captchas, opts = {})
       logger.debug 'Calling operation WaasClient#update_captchas.' if logger
 
@@ -3356,6 +3407,7 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @option opts [OCI::Waas::Models::UpdateCertificateDetails] :update_certificate_details The new display name, freeform tags, and defined tags to apply to a certificate.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::Certificate Certificate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_certificate.rb.html) to see an example of how to use update_certificate API.
     def update_certificate(certificate_id, opts = {})
       logger.debug 'Calling operation WaasClient#update_certificate.' if logger
 
@@ -3414,6 +3466,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type {OCI::Waas::Models::CustomProtectionRule CustomProtectionRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_custom_protection_rule.rb.html) to see an example of how to use update_custom_protection_rule API.
     def update_custom_protection_rule(custom_protection_rule_id, update_custom_protection_rule_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_custom_protection_rule.' if logger
 
@@ -3479,6 +3532,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_device_fingerprint_challenge.rb.html) to see an example of how to use update_device_fingerprint_challenge API.
     def update_device_fingerprint_challenge(waas_policy_id, update_device_fingerprint_challenge_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_device_fingerprint_challenge.' if logger
 
@@ -3541,6 +3595,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_good_bots.rb.html) to see an example of how to use update_good_bots API.
     def update_good_bots(waas_policy_id, good_bots, opts = {})
       logger.debug 'Calling operation WaasClient#update_good_bots.' if logger
 
@@ -3601,6 +3656,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_human_interaction_challenge.rb.html) to see an example of how to use update_human_interaction_challenge API.
     def update_human_interaction_challenge(waas_policy_id, update_human_interaction_challenge_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_human_interaction_challenge.' if logger
 
@@ -3661,6 +3717,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_js_challenge.rb.html) to see an example of how to use update_js_challenge API.
     def update_js_challenge(waas_policy_id, update_js_challenge_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_js_challenge.' if logger
 
@@ -3721,6 +3778,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_policy_config.rb.html) to see an example of how to use update_policy_config API.
     def update_policy_config(waas_policy_id, update_policy_config_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_policy_config.' if logger
 
@@ -3781,6 +3839,7 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_protection_rules.rb.html) to see an example of how to use update_protection_rules API.
     def update_protection_rules(waas_policy_id, protection_rules, opts = {})
       logger.debug 'Calling operation WaasClient#update_protection_rules.' if logger
 
@@ -3839,6 +3898,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_protection_settings.rb.html) to see an example of how to use update_protection_settings API.
     def update_protection_settings(waas_policy_id, update_protection_settings_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_protection_settings.' if logger
 
@@ -3897,6 +3957,7 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_threat_feeds.rb.html) to see an example of how to use update_threat_feeds API.
     def update_threat_feeds(waas_policy_id, threat_feeds, opts = {})
       logger.debug 'Calling operation WaasClient#update_threat_feeds.' if logger
 
@@ -3957,6 +4018,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_waas_policy.rb.html) to see an example of how to use update_waas_policy API.
     def update_waas_policy(waas_policy_id, update_waas_policy_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_waas_policy.' if logger
 
@@ -4017,6 +4079,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_waas_policy_custom_protection_rules.rb.html) to see an example of how to use update_waas_policy_custom_protection_rules API.
     def update_waas_policy_custom_protection_rules(waas_policy_id, update_custom_protection_rules_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_waas_policy_custom_protection_rules.' if logger
 
@@ -4077,6 +4140,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_waf_address_rate_limiting.rb.html) to see an example of how to use update_waf_address_rate_limiting API.
     def update_waf_address_rate_limiting(waas_policy_id, update_waf_address_rate_limiting_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_waf_address_rate_limiting.' if logger
 
@@ -4145,6 +4209,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_waf_config.rb.html) to see an example of how to use update_waf_config API.
     def update_waf_config(waas_policy_id, update_waf_config_details, opts = {})
       logger.debug 'Calling operation WaasClient#update_waf_config.' if logger
 
@@ -4213,6 +4278,7 @@ module OCI
     #   *Example:* If a resource has been deleted and purged from the system, then a retry of the original delete request may be rejected.
     # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match` parameter to the value of the etag from a previous `GET` or `POST` response for that resource. The resource will be updated or deleted only if the etag provided matches the resource's current etag value.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/waas/update_whitelists.rb.html) to see an example of how to use update_whitelists API.
     def update_whitelists(waas_policy_id, whitelists, opts = {})
       logger.debug 'Calling operation WaasClient#update_whitelists.' if logger
 

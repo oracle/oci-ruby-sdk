@@ -161,6 +161,15 @@ module OCI
     # @return [Integer]
     attr_accessor :initial_data_storage_size_in_gb
 
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
+
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
     # The number of nodes to launch for a 2-node RAC virtual machine DB system. Specify either 1 or 2.
     #
     # @return [Integer]
@@ -216,6 +225,8 @@ module OCI
         'cluster_name': :'clusterName',
         'data_storage_percentage': :'dataStoragePercentage',
         'initial_data_storage_size_in_gb': :'initialDataStorageSizeInGB',
+        'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId',
         'node_count': :'nodeCount',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -248,6 +259,8 @@ module OCI
         'cluster_name': :'String',
         'data_storage_percentage': :'Integer',
         'initial_data_storage_size_in_gb': :'Integer',
+        'kms_key_id': :'String',
+        'kms_key_version_id': :'String',
         'node_count': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -300,6 +313,8 @@ module OCI
     # @option attributes [String] :cluster_name The value to assign to the {#cluster_name} property
     # @option attributes [Integer] :data_storage_percentage The value to assign to the {#data_storage_percentage} property
     # @option attributes [Integer] :initial_data_storage_size_in_gb The value to assign to the {#initial_data_storage_size_in_gb} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
     # @option attributes [Integer] :node_count The value to assign to the {#node_count} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -413,6 +428,18 @@ module OCI
 
       self.initial_data_storage_size_in_gb = attributes[:'initial_data_storage_size_in_gb'] if attributes[:'initial_data_storage_size_in_gb']
 
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
+
       self.node_count = attributes[:'nodeCount'] if attributes[:'nodeCount']
 
       raise 'You cannot provide both :nodeCount and :node_count' if attributes.key?(:'nodeCount') && attributes.key?(:'node_count')
@@ -479,6 +506,8 @@ module OCI
         cluster_name == other.cluster_name &&
         data_storage_percentage == other.data_storage_percentage &&
         initial_data_storage_size_in_gb == other.initial_data_storage_size_in_gb &&
+        kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id &&
         node_count == other.node_count &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -499,7 +528,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, node_count, freeform_tags, defined_tags, source, private_ip].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, kms_key_id, kms_key_version_id, node_count, freeform_tags, defined_tags, source, private_ip].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

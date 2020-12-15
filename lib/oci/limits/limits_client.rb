@@ -117,6 +117,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Limits::Models::ResourceAvailability ResourceAvailability}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/get_resource_availability.rb.html) to see an example of how to use get_resource_availability API.
     def get_resource_availability(service_name, limit_name, compartment_id, opts = {})
       logger.debug 'Calling operation LimitsClient#get_resource_availability.' if logger
 
@@ -193,6 +194,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Limits::Models::LimitDefinitionSummary LimitDefinitionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/list_limit_definitions.rb.html) to see an example of how to use list_limit_definitions API.
     def list_limit_definitions(compartment_id, opts = {})
       logger.debug 'Calling operation LimitsClient#list_limit_definitions.' if logger
 
@@ -280,6 +282,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Limits::Models::LimitValueSummary LimitValueSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/list_limit_values.rb.html) to see an example of how to use list_limit_values API.
     def list_limit_values(compartment_id, service_name, opts = {})
       logger.debug 'Calling operation LimitsClient#list_limit_values.' if logger
 
@@ -369,6 +372,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Limits::Models::ServiceSummary ServiceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/list_services.rb.html) to see an example of how to use list_services API.
     def list_services(compartment_id, opts = {})
       logger.debug 'Calling operation LimitsClient#list_services.' if logger
 

@@ -10,13 +10,13 @@ module OCI
   # This type corresponds to a configuration source provider in GitLab that is authenticated with a personal access token.
   #
   class ResourceManager::Models::CreateGitlabAccessTokenConfigurationSourceProviderDetails < ResourceManager::Models::CreateConfigurationSourceProviderDetails
-    # **[Required]** The Git service API endpoint.
-    # Example: `https://gitlab.com/api/v4/`
+    # **[Required]** The Git service endpoint.
+    # Example: `https://gitlab.com`
     #
     # @return [String]
     attr_accessor :api_endpoint
 
-    # **[Required]** The personal access token to be configured on the Git repository. Avoid entering confidential information.
+    # **[Required]** The personal access token to be configured on the GitLab repository. Avoid entering confidential information.
     # @return [String]
     attr_accessor :access_token
 

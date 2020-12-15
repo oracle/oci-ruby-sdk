@@ -116,6 +116,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/change_log_group_compartment.rb.html) to see an example of how to use change_log_group_compartment API.
     def change_log_group_compartment(log_group_id, change_log_group_compartment_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#change_log_group_compartment.' if logger
 
@@ -181,6 +182,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/change_log_log_group.rb.html) to see an example of how to use change_log_log_group API.
     def change_log_log_group(log_group_id, log_id, change_log_log_group_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#change_log_log_group.' if logger
 
@@ -256,6 +258,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/change_log_saved_search_compartment.rb.html) to see an example of how to use change_log_saved_search_compartment API.
     def change_log_saved_search_compartment(log_saved_search_id, change_log_saved_search_compartment_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#change_log_saved_search_compartment.' if logger
 
@@ -330,6 +333,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/change_unified_agent_configuration_compartment.rb.html) to see an example of how to use change_unified_agent_configuration_compartment API.
     def change_unified_agent_configuration_compartment(unified_agent_configuration_id, change_unified_agent_configuration_compartment_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#change_unified_agent_configuration_compartment.' if logger
 
@@ -398,6 +402,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/create_log.rb.html) to see an example of how to use create_log API.
     def create_log(log_group_id, create_log_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#create_log.' if logger
 
@@ -464,6 +469,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/create_log_group.rb.html) to see an example of how to use create_log_group API.
     def create_log_group(create_log_group_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#create_log_group.' if logger
 
@@ -527,6 +533,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::LogSavedSearch LogSavedSearch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/create_log_saved_search.rb.html) to see an example of how to use create_log_saved_search API.
     def create_log_saved_search(create_log_saved_search_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#create_log_saved_search.' if logger
 
@@ -590,6 +597,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/create_unified_agent_configuration.rb.html) to see an example of how to use create_unified_agent_configuration API.
     def create_unified_agent_configuration(create_unified_agent_configuration_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#create_unified_agent_configuration.' if logger
 
@@ -652,6 +660,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/delete_log.rb.html) to see an example of how to use delete_log API.
     def delete_log(log_group_id, log_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#delete_log.' if logger
 
@@ -715,6 +724,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/delete_log_group.rb.html) to see an example of how to use delete_log_group API.
     def delete_log_group(log_group_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#delete_log_group.' if logger
 
@@ -777,6 +787,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/delete_log_saved_search.rb.html) to see an example of how to use delete_log_saved_search API.
     def delete_log_saved_search(log_saved_search_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#delete_log_saved_search.' if logger
 
@@ -838,6 +849,7 @@ module OCI
     #   current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/delete_unified_agent_configuration.rb.html) to see an example of how to use delete_unified_agent_configuration API.
     def delete_unified_agent_configuration(unified_agent_configuration_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#delete_unified_agent_configuration.' if logger
 
@@ -900,6 +912,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/delete_work_request.rb.html) to see an example of how to use delete_work_request API.
     def delete_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#delete_work_request.' if logger
 
@@ -957,6 +970,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::Log Log}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/get_log.rb.html) to see an example of how to use get_log API.
     def get_log(log_group_id, log_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#get_log.' if logger
 
@@ -1014,6 +1028,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::LogGroup LogGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/get_log_group.rb.html) to see an example of how to use get_log_group API.
     def get_log_group(log_group_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#get_log_group.' if logger
 
@@ -1073,6 +1088,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::LogIncludedSearch LogIncludedSearch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/get_log_included_search.rb.html) to see an example of how to use get_log_included_search API.
     def get_log_included_search(compartment_id, log_included_search_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#get_log_included_search.' if logger
 
@@ -1131,6 +1147,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::LogSavedSearch LogSavedSearch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/get_log_saved_search.rb.html) to see an example of how to use get_log_saved_search API.
     def get_log_saved_search(log_saved_search_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#get_log_saved_search.' if logger
 
@@ -1186,6 +1203,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::UnifiedAgentConfiguration UnifiedAgentConfiguration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/get_unified_agent_configuration.rb.html) to see an example of how to use get_unified_agent_configuration API.
     def get_unified_agent_configuration(unified_agent_configuration_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#get_unified_agent_configuration.' if logger
 
@@ -1241,6 +1259,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#get_work_request.' if logger
 
@@ -1312,6 +1331,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Logging::Models::LogGroupSummary LogGroupSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/list_log_groups.rb.html) to see an example of how to use list_log_groups API.
     def list_log_groups(compartment_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#list_log_groups.' if logger
 
@@ -1399,6 +1419,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::LogIncludedSearchSummaryCollection LogIncludedSearchSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/list_log_included_searches.rb.html) to see an example of how to use list_log_included_searches API.
     def list_log_included_searches(compartment_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#list_log_included_searches.' if logger
 
@@ -1486,6 +1507,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::LogSavedSearchSummaryCollection LogSavedSearchSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/list_log_saved_searches.rb.html) to see an example of how to use list_log_saved_searches API.
     def list_log_saved_searches(compartment_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#list_log_saved_searches.' if logger
 
@@ -1573,6 +1595,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Logging::Models::LogSummary LogSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/list_logs.rb.html) to see an example of how to use list_logs API.
     def list_logs(log_group_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#list_logs.' if logger
 
@@ -1652,6 +1675,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Logging::Models::ServiceSummary ServiceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/list_services.rb.html) to see an example of how to use list_services API.
     def list_services(opts = {})
       logger.debug 'Calling operation LoggingManagementClient#list_services.' if logger
 
@@ -1725,6 +1749,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::UnifiedAgentConfigurationCollection UnifiedAgentConfigurationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/list_unified_agent_configurations.rb.html) to see an example of how to use list_unified_agent_configurations API.
     def list_unified_agent_configurations(compartment_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#list_unified_agent_configurations.' if logger
 
@@ -1807,6 +1832,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 100)
     # @return [Response] A Response object with data of type Array<{OCI::Logging::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#list_work_request_errors.' if logger
 
@@ -1870,6 +1896,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 100)
     # @return [Response] A Response object with data of type Array<{OCI::Logging::Models::WorkRequestLog WorkRequestLog}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#list_work_request_logs.' if logger
 
@@ -1944,6 +1971,7 @@ module OCI
     #
     #   Allowed values are: operationType, status, timeAccepted
     # @return [Response] A Response object with data of type Array<{OCI::Logging::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#list_work_requests.' if logger
 
@@ -2027,6 +2055,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/update_log.rb.html) to see an example of how to use update_log API.
     def update_log(log_group_id, log_id, update_log_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#update_log.' if logger
 
@@ -2094,6 +2123,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/update_log_group.rb.html) to see an example of how to use update_log_group API.
     def update_log_group(log_group_id, update_log_group_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#update_log_group.' if logger
 
@@ -2159,6 +2189,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Logging::Models::LogSavedSearch LogSavedSearch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/update_log_saved_search.rb.html) to see an example of how to use update_log_saved_search API.
     def update_log_saved_search(log_saved_search_id, update_log_saved_search_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#update_log_saved_search.' if logger
 
@@ -2226,6 +2257,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/logging/update_unified_agent_configuration.rb.html) to see an example of how to use update_unified_agent_configuration API.
     def update_unified_agent_configuration(unified_agent_configuration_id, update_unified_agent_configuration_details, opts = {})
       logger.debug 'Calling operation LoggingManagementClient#update_unified_agent_configuration.' if logger
 

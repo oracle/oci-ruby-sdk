@@ -111,6 +111,7 @@ module OCI
     # @option opts [String] :stage The rotation state of the secret version.
     #   Allowed values are: CURRENT, PENDING, LATEST, PREVIOUS, DEPRECATED
     # @return [Response] A Response object with data of type {OCI::Secrets::Models::SecretBundle SecretBundle}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/secrets/get_secret_bundle.rb.html) to see an example of how to use get_secret_bundle API.
     def get_secret_bundle(secret_id, opts = {})
       logger.debug 'Calling operation SecretsClient#get_secret_bundle.' if logger
 
@@ -184,6 +185,7 @@ module OCI
     #    (default to ASC)
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Secrets::Models::SecretBundleVersionSummary SecretBundleVersionSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/secrets/list_secret_bundle_versions.rb.html) to see an example of how to use list_secret_bundle_versions API.
     def list_secret_bundle_versions(secret_id, opts = {})
       logger.debug 'Calling operation SecretsClient#list_secret_bundle_versions.' if logger
 

@@ -64,7 +64,7 @@ module OCI
     # @return [String]
     attr_reader :role
 
-    # **[Required]** The current state of the Autonomous Data Guard.
+    # **[Required]** The current state of Autonomous Data Guard.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -82,7 +82,7 @@ module OCI
     # @return [String]
     attr_accessor :peer_autonomous_database_id
 
-    # The current state of the Autonomous Data Guard.
+    # The current state of Autonomous Data Guard.
     # @return [String]
     attr_reader :peer_autonomous_database_life_cycle_state
 

@@ -115,6 +115,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/change_file_system_compartment.rb.html) to see an example of how to use change_file_system_compartment API.
     def change_file_system_compartment(file_system_id, change_file_system_compartment_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#change_file_system_compartment.' if logger
 
@@ -179,6 +180,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/change_mount_target_compartment.rb.html) to see an example of how to use change_mount_target_compartment API.
     def change_mount_target_compartment(mount_target_id, change_mount_target_compartment_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#change_mount_target_compartment.' if logger
 
@@ -243,6 +245,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Export Export}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/create_export.rb.html) to see an example of how to use create_export API.
     def create_export(create_export_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#create_export.' if logger
 
@@ -334,6 +337,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::FileSystem FileSystem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/create_file_system.rb.html) to see an example of how to use create_file_system API.
     def create_file_system(create_file_system_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#create_file_system.' if logger
 
@@ -428,6 +432,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::MountTarget MountTarget}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/create_mount_target.rb.html) to see an example of how to use create_mount_target API.
     def create_mount_target(create_mount_target_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#create_mount_target.' if logger
 
@@ -492,6 +497,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Snapshot Snapshot}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/create_snapshot.rb.html) to see an example of how to use create_snapshot API.
     def create_snapshot(create_snapshot_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#create_snapshot.' if logger
 
@@ -555,6 +561,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/delete_export.rb.html) to see an example of how to use delete_export API.
     def delete_export(export_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#delete_export.' if logger
 
@@ -619,6 +626,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/delete_file_system.rb.html) to see an example of how to use delete_file_system API.
     def delete_file_system(file_system_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#delete_file_system.' if logger
 
@@ -682,6 +690,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/delete_mount_target.rb.html) to see an example of how to use delete_mount_target API.
     def delete_mount_target(mount_target_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#delete_mount_target.' if logger
 
@@ -744,6 +753,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/delete_snapshot.rb.html) to see an example of how to use delete_snapshot API.
     def delete_snapshot(snapshot_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#delete_snapshot.' if logger
 
@@ -799,6 +809,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Export Export}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/get_export.rb.html) to see an example of how to use get_export API.
     def get_export(export_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_export.' if logger
 
@@ -854,6 +865,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::ExportSet ExportSet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/get_export_set.rb.html) to see an example of how to use get_export_set API.
     def get_export_set(export_set_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_export_set.' if logger
 
@@ -909,6 +921,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::FileSystem FileSystem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/get_file_system.rb.html) to see an example of how to use get_file_system API.
     def get_file_system(file_system_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_file_system.' if logger
 
@@ -964,6 +977,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::MountTarget MountTarget}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/get_mount_target.rb.html) to see an example of how to use get_mount_target API.
     def get_mount_target(mount_target_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_mount_target.' if logger
 
@@ -1019,6 +1033,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Snapshot Snapshot}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/get_snapshot.rb.html) to see an example of how to use get_snapshot API.
     def get_snapshot(snapshot_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#get_snapshot.' if logger
 
@@ -1116,6 +1131,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::ExportSetSummary ExportSetSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/list_export_sets.rb.html) to see an example of how to use list_export_sets API.
     def list_export_sets(compartment_id, availability_domain, opts = {})
       logger.debug 'Calling operation FileStorageClient#list_export_sets.' if logger
 
@@ -1230,6 +1246,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::ExportSummary ExportSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/list_exports.rb.html) to see an example of how to use list_exports API.
     def list_exports(opts = {})
       logger.debug 'Calling operation FileStorageClient#list_exports.' if logger
 
@@ -1346,6 +1363,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::FileSystemSummary FileSystemSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/list_file_systems.rb.html) to see an example of how to use list_file_systems API.
     def list_file_systems(compartment_id, availability_domain, opts = {})
       logger.debug 'Calling operation FileStorageClient#list_file_systems.' if logger
 
@@ -1465,6 +1483,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::MountTargetSummary MountTargetSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/list_mount_targets.rb.html) to see an example of how to use list_mount_targets API.
     def list_mount_targets(compartment_id, availability_domain, opts = {})
       logger.debug 'Calling operation FileStorageClient#list_mount_targets.' if logger
 
@@ -1570,6 +1589,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::FileStorage::Models::SnapshotSummary SnapshotSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/list_snapshots.rb.html) to see an example of how to use list_snapshots API.
     def list_snapshots(file_system_id, opts = {})
       logger.debug 'Calling operation FileStorageClient#list_snapshots.' if logger
 
@@ -1645,6 +1665,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Export Export}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/update_export.rb.html) to see an example of how to use update_export API.
     def update_export(export_id, update_export_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_export.' if logger
 
@@ -1709,6 +1730,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::ExportSet ExportSet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/update_export_set.rb.html) to see an example of how to use update_export_set API.
     def update_export_set(export_set_id, update_export_set_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_export_set.' if logger
 
@@ -1775,6 +1797,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::FileSystem FileSystem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/update_file_system.rb.html) to see an example of how to use update_file_system API.
     def update_file_system(file_system_id, update_file_system_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_file_system.' if logger
 
@@ -1839,6 +1862,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::MountTarget MountTarget}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/update_mount_target.rb.html) to see an example of how to use update_mount_target API.
     def update_mount_target(mount_target_id, update_mount_target_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_mount_target.' if logger
 
@@ -1903,6 +1927,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::FileStorage::Models::Snapshot Snapshot}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/filestorage/update_snapshot.rb.html) to see an example of how to use update_snapshot API.
     def update_snapshot(snapshot_id, update_snapshot_details, opts = {})
       logger.debug 'Calling operation FileStorageClient#update_snapshot.' if logger
 

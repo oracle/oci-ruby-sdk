@@ -117,6 +117,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/cancel_sender_invitation.rb.html) to see an example of how to use cancel_sender_invitation API.
     def cancel_sender_invitation(sender_invitation_id, opts = {})
       logger.debug 'Calling operation SenderInvitationClient#cancel_sender_invitation.' if logger
 
@@ -178,6 +179,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::SenderInvitation SenderInvitation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/create_sender_invitation.rb.html) to see an example of how to use create_sender_invitation API.
     def create_sender_invitation(create_sender_invitation_details, opts = {})
       logger.debug 'Calling operation SenderInvitationClient#create_sender_invitation.' if logger
 
@@ -232,6 +234,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::SenderInvitation SenderInvitation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/get_sender_invitation.rb.html) to see an example of how to use get_sender_invitation API.
     def get_sender_invitation(sender_invitation_id, opts = {})
       logger.debug 'Calling operation SenderInvitationClient#get_sender_invitation.' if logger
 
@@ -296,6 +299,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::SenderInvitationCollection SenderInvitationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_sender_invitations.rb.html) to see an example of how to use list_sender_invitations API.
     def list_sender_invitations(compartment_id, opts = {})
       logger.debug 'Calling operation SenderInvitationClient#list_sender_invitations.' if logger
 
@@ -380,6 +384,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::SenderInvitation SenderInvitation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/update_sender_invitation.rb.html) to see an example of how to use update_sender_invitation API.
     def update_sender_invitation(sender_invitation_id, update_sender_invitation_details, opts = {})
       logger.debug 'Calling operation SenderInvitationClient#update_sender_invitation.' if logger
 

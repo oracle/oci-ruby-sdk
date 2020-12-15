@@ -35,7 +35,7 @@ module OCI
     # @return [String]
     attr_accessor :platform_role
 
-    # **[Required]** Type of compute shape - one of Standard, (Enterprise) Small, Medium, Large or Extra Large
+    # **[Required]** Compute shape - STANDARD or ENTERPRISE_SMALL or ENTERPRISE_MEDIUM or ENTERPRISE_LARGE or ENTERPRISE_EXTRA_LARGE or ENTERPRISE_CUSTOM
     # @return [String]
     attr_accessor :compute_shape
 

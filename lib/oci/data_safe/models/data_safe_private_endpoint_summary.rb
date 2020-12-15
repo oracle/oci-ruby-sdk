@@ -47,7 +47,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # The date and time the private endpoint was created, in the format defined by RFC3339.
+    # The date and time the private endpoint was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_created
 

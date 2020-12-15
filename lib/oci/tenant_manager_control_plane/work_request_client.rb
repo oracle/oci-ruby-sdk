@@ -105,6 +105,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation WorkRequestClient#get_work_request.' if logger
 
@@ -163,6 +164,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, compartment_id, opts = {})
       logger.debug 'Calling operation WorkRequestClient#list_work_request_errors.' if logger
 
@@ -230,6 +232,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::WorkRequestLogEntryCollection WorkRequestLogEntryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, compartment_id, opts = {})
       logger.debug 'Calling operation WorkRequestClient#list_work_request_logs.' if logger
 
@@ -296,6 +299,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::WorkRequestCollection WorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation WorkRequestClient#list_work_requests.' if logger
 

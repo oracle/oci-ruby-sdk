@@ -122,6 +122,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/change_analytics_instance_compartment.rb.html) to see an example of how to use change_analytics_instance_compartment API.
     def change_analytics_instance_compartment(analytics_instance_id, change_compartment_details, opts = {})
       logger.debug 'Calling operation AnalyticsClient#change_analytics_instance_compartment.' if logger
 
@@ -195,6 +196,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/change_analytics_instance_network_endpoint.rb.html) to see an example of how to use change_analytics_instance_network_endpoint API.
     def change_analytics_instance_network_endpoint(analytics_instance_id, change_analytics_instance_network_endpoint_details, opts = {})
       logger.debug 'Calling operation AnalyticsClient#change_analytics_instance_network_endpoint.' if logger
 
@@ -262,6 +264,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Analytics::Models::AnalyticsInstance AnalyticsInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/create_analytics_instance.rb.html) to see an example of how to use create_analytics_instance API.
     def create_analytics_instance(create_analytics_instance_details, opts = {})
       logger.debug 'Calling operation AnalyticsClient#create_analytics_instance.' if logger
 
@@ -331,6 +334,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/delete_analytics_instance.rb.html) to see an example of how to use delete_analytics_instance API.
     def delete_analytics_instance(analytics_instance_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#delete_analytics_instance.' if logger
 
@@ -394,6 +398,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/delete_work_request.rb.html) to see an example of how to use delete_work_request API.
     def delete_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#delete_work_request.' if logger
 
@@ -451,6 +456,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Analytics::Models::AnalyticsInstance AnalyticsInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/get_analytics_instance.rb.html) to see an example of how to use get_analytics_instance API.
     def get_analytics_instance(analytics_instance_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#get_analytics_instance.' if logger
 
@@ -508,6 +514,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Analytics::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#get_work_request.' if logger
 
@@ -591,6 +598,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Analytics::Models::AnalyticsInstanceSummary AnalyticsInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/list_analytics_instances.rb.html) to see an example of how to use list_analytics_instances API.
     def list_analytics_instances(compartment_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#list_analytics_instances.' if logger
 
@@ -686,6 +694,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Analytics::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#list_work_request_errors.' if logger
 
@@ -755,6 +764,7 @@ module OCI
     #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Analytics::Models::WorkRequestLog WorkRequestLog}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#list_work_request_logs.' if logger
 
@@ -835,6 +845,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Analytics::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#list_work_requests.' if logger
 
@@ -934,6 +945,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/scale_analytics_instance.rb.html) to see an example of how to use scale_analytics_instance API.
     def scale_analytics_instance(analytics_instance_id, scale_analytics_instance_details, opts = {})
       logger.debug 'Calling operation AnalyticsClient#scale_analytics_instance.' if logger
 
@@ -1005,6 +1017,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/start_analytics_instance.rb.html) to see an example of how to use start_analytics_instance API.
     def start_analytics_instance(analytics_instance_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#start_analytics_instance.' if logger
 
@@ -1075,6 +1088,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/stop_analytics_instance.rb.html) to see an example of how to use stop_analytics_instance API.
     def stop_analytics_instance(analytics_instance_id, opts = {})
       logger.debug 'Calling operation AnalyticsClient#stop_analytics_instance.' if logger
 
@@ -1142,6 +1156,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Analytics::Models::AnalyticsInstance AnalyticsInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/update_analytics_instance.rb.html) to see an example of how to use update_analytics_instance API.
     def update_analytics_instance(analytics_instance_id, update_analytics_instance_details, opts = {})
       logger.debug 'Calling operation AnalyticsClient#update_analytics_instance.' if logger
 

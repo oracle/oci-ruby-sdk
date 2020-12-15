@@ -6,10 +6,9 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An error encountered while executing an operation that is tracked by a work request.
+  # An error related to a work request.
   class DataSafe::Models::WorkRequestError
-    # **[Required]** A machine-usable code for the error that occured. Error codes are listed on
-    # (https://docs.cloud.oracle.com/Content/API/References/apierrors.htm)
+    # **[Required]** A machine-usable error code. For a list of common errors, see [API Errors](https://docs.cloud.oracle.com/Content/API/References/apierrors.htm).
     #
     # @return [String]
     attr_accessor :code
@@ -18,7 +17,7 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The date and time the error occurred, in the format defined by RFC3339.
+    # **[Required]** The date and time the error occurred, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :timestamp
 

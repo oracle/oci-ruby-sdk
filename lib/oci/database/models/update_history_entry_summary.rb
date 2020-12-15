@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The record of an update action on a specified target.
+  # The record of an maintenance update action on a specified cloud VM cluster. Applies to Exadata Cloud Service instances only.
+  #
   class Database::Models::UpdateHistoryEntrySummary
     UPDATE_ACTION_ENUM = [
       UPDATE_ACTION_ROLLING_APPLY = 'ROLLING_APPLY'.freeze,

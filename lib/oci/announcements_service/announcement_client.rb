@@ -108,6 +108,7 @@ module OCI
     #   a particular request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type {OCI::AnnouncementsService::Models::Announcement Announcement}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/announcementsservice/get_announcement.rb.html) to see an example of how to use get_announcement API.
     def get_announcement(announcement_id, opts = {})
       logger.debug 'Calling operation AnnouncementClient#get_announcement.' if logger
 
@@ -164,6 +165,7 @@ module OCI
     #   a particular request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type {OCI::AnnouncementsService::Models::AnnouncementUserStatusDetails AnnouncementUserStatusDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/announcementsservice/get_announcement_user_status.rb.html) to see an example of how to use get_announcement_user_status API.
     def get_announcement_user_status(announcement_id, opts = {})
       logger.debug 'Calling operation AnnouncementClient#get_announcement_user_status.' if logger
 
@@ -236,6 +238,7 @@ module OCI
     #   a particular request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type {OCI::AnnouncementsService::Models::AnnouncementsCollection AnnouncementsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/announcementsservice/list_announcements.rb.html) to see an example of how to use list_announcements API.
     def list_announcements(compartment_id, opts = {})
       logger.debug 'Calling operation AnnouncementClient#list_announcements.' if logger
 
@@ -315,6 +318,7 @@ module OCI
     #   a particular request, please provide the complete request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/announcementsservice/update_announcement_user_status.rb.html) to see an example of how to use update_announcement_user_status API.
     def update_announcement_user_status(announcement_id, status_details, opts = {})
       logger.debug 'Calling operation AnnouncementClient#update_announcement_user_status.' if logger
 

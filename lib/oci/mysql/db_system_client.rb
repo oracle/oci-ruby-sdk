@@ -123,6 +123,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::AnalyticsCluster AnalyticsCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/add_analytics_cluster.rb.html) to see an example of how to use add_analytics_cluster API.
     def add_analytics_cluster(db_system_id, add_analytics_cluster_details, opts = {})
       logger.debug 'Calling operation DbSystemClient#add_analytics_cluster.' if logger
 
@@ -191,6 +192,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::DbSystem DbSystem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/create_db_system.rb.html) to see an example of how to use create_db_system API.
     def create_db_system(create_db_system_details, opts = {})
       logger.debug 'Calling operation DbSystemClient#create_db_system.' if logger
 
@@ -256,6 +258,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/delete_analytics_cluster.rb.html) to see an example of how to use delete_analytics_cluster API.
     def delete_analytics_cluster(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#delete_analytics_cluster.' if logger
 
@@ -320,6 +323,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/delete_db_system.rb.html) to see an example of how to use delete_db_system API.
     def delete_db_system(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#delete_db_system.' if logger
 
@@ -384,6 +388,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::AnalyticsClusterMemoryEstimate AnalyticsClusterMemoryEstimate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/generate_analytics_cluster_memory_estimate.rb.html) to see an example of how to use generate_analytics_cluster_memory_estimate API.
     def generate_analytics_cluster_memory_estimate(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#generate_analytics_cluster_memory_estimate.' if logger
 
@@ -448,6 +453,7 @@ module OCI
     #   200 OK response with the updated representation.
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::AnalyticsCluster AnalyticsCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/get_analytics_cluster.rb.html) to see an example of how to use get_analytics_cluster API.
     def get_analytics_cluster(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#get_analytics_cluster.' if logger
 
@@ -507,6 +513,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::AnalyticsClusterMemoryEstimate AnalyticsClusterMemoryEstimate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/get_analytics_cluster_memory_estimate.rb.html) to see an example of how to use get_analytics_cluster_memory_estimate API.
     def get_analytics_cluster_memory_estimate(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#get_analytics_cluster_memory_estimate.' if logger
 
@@ -569,6 +576,7 @@ module OCI
     #   200 OK response with the updated representation.
     #
     # @return [Response] A Response object with data of type {OCI::Mysql::Models::DbSystem DbSystem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/get_db_system.rb.html) to see an example of how to use get_db_system API.
     def get_db_system(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#get_db_system.' if logger
 
@@ -651,6 +659,7 @@ module OCI
     #   Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::DbSystemSummary DbSystemSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/list_db_systems.rb.html) to see an example of how to use list_db_systems API.
     def list_db_systems(compartment_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#list_db_systems.' if logger
 
@@ -742,6 +751,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/restart_analytics_cluster.rb.html) to see an example of how to use restart_analytics_cluster API.
     def restart_analytics_cluster(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#restart_analytics_cluster.' if logger
 
@@ -814,6 +824,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/restart_db_system.rb.html) to see an example of how to use restart_db_system API.
     def restart_db_system(db_system_id, restart_db_system_details, opts = {})
       logger.debug 'Calling operation DbSystemClient#restart_db_system.' if logger
 
@@ -886,6 +897,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/start_analytics_cluster.rb.html) to see an example of how to use start_analytics_cluster API.
     def start_analytics_cluster(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#start_analytics_cluster.' if logger
 
@@ -957,6 +969,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/start_db_system.rb.html) to see an example of how to use start_db_system API.
     def start_db_system(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#start_db_system.' if logger
 
@@ -1028,6 +1041,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/stop_analytics_cluster.rb.html) to see an example of how to use stop_analytics_cluster API.
     def stop_analytics_cluster(db_system_id, opts = {})
       logger.debug 'Calling operation DbSystemClient#stop_analytics_cluster.' if logger
 
@@ -1103,6 +1117,7 @@ module OCI
     #   creation request may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/stop_db_system.rb.html) to see an example of how to use stop_db_system API.
     def stop_db_system(db_system_id, stop_db_system_details, opts = {})
       logger.debug 'Calling operation DbSystemClient#stop_db_system.' if logger
 
@@ -1170,6 +1185,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/update_analytics_cluster.rb.html) to see an example of how to use update_analytics_cluster API.
     def update_analytics_cluster(db_system_id, update_analytics_cluster_details, opts = {})
       logger.debug 'Calling operation DbSystemClient#update_analytics_cluster.' if logger
 
@@ -1242,6 +1258,7 @@ module OCI
     #   ID that you supplied in this header with the request.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/update_db_system.rb.html) to see an example of how to use update_db_system API.
     def update_db_system(db_system_id, update_db_system_details, opts = {})
       logger.debug 'Calling operation DbSystemClient#update_db_system.' if logger
 

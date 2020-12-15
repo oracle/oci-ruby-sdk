@@ -111,6 +111,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/delete_link.rb.html) to see an example of how to use delete_link API.
     def delete_link(link_id, opts = {})
       logger.debug 'Calling operation LinkClient#delete_link.' if logger
 
@@ -164,6 +165,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::Link Link}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/get_link.rb.html) to see an example of how to use get_link API.
     def get_link(link_id, opts = {})
       logger.debug 'Calling operation LinkClient#get_link.' if logger
 
@@ -222,6 +224,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::LinkCollection LinkCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_links.rb.html) to see an example of how to use list_links API.
     def list_links(opts = {})
       logger.debug 'Calling operation LinkClient#list_links.' if logger
 

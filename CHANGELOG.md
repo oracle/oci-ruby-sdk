@@ -3,6 +3,46 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.12.0 - 2020-12-14
+### Added
+- Support for calling Oracle Cloud Infrastructure services in the sa-santiago-1 region
+- Support for peer and OSN resources, as well as retry tokens, in the Blockchain Platform service
+- Support for getting the availability status of management agents in the Management Agent service
+- Support for the on-prem-connector resource type in the Data Safe service
+- Support for service channels in the MySQL Database service
+- Support for getting the creation type of backups, and for filtering backups by creation type in the MySQL Database service
+- Support for Integration Service custom endpoint feature
+- Support for metadata field in IdentityProvider Get and List response
+- Support for fine-grained data analysis and improved SQL insights
+- Support for ADB Dedicated - ORDS and SSL cert rotation at AEI
+- Support for Maintenance Schedule feature for Exadata Infrastructure resources for ExaCC
+- Support for filtering listKeys based on KeyShape in KeyManagement service
+- Support for the Oracle Roving Edge Infrastructure service
+- Support for flexible ShapeDetails in Load Balancer service
+- Support for listing of harvested Rules, additional filtering for Logical Entity list calls in Data Catalog service
+- Support second level domain for audit SDK
+- Support for listing flex components in Database service
+- Support for APEX service for ADBS on OCI console for Database service
+- Support for Customer-Managed Key features as a part of the Database service
+- Support for Github configuration source provider as part of the Resource Manager service
+
+### Breaking
+- Parameter `compartment_id` changed from optional to required for method `list_work_requests` in the Data Safe service
+- Return type of method `create_data_safe_private_endpoint` changed from `None` to `DataSafePrivateEndpoint` in the Data Safe service
+- Parameters `freeform_tags` and `defined_tags` are removed from model `EnableDataSafeConfigurationDetails` in the Data Safe service
+- Removed deprecated create_autonomous_data_warehouse API from Database service
+- Removed deprecated create_autonomous_data_warehouse_backup API from Database service
+- Removed deprecated delete_autonomous_data_warehouse API from Database service
+- Removed deprecated generate_autonomous_data_warehouse_wallet API from Database service
+- Removed deprecated get_autonomous_data_warehouse API from Database service
+- Removed deprecated get_autonomous_data_warehouse_backup API from Database service
+- Removed deprecated list_autonomous_data_warehouse_backups API from Database service
+- Removed deprecated list_autonomous_data_warehouses API from Database service
+- Removed deprecated restore_autonomous_data_warehouse API from Database service
+- Removed deprecated start_autonomous_data_warehouse API from Database service
+- Removed deprecated stop_autonomous_data_warehouse API from Database service
+- Removed deprecated update_autonomous_data_warehouse API from Database service
+
 ## 2.11.0 - 2020-11-17
 ### Added
 - Support for API definitions in the API Gateway service

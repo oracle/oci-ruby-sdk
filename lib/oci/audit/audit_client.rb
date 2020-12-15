@@ -87,7 +87,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://audit.{region}.oraclecloud.com') + '/20190901'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://audit.{region}.{secondLevelDomain}') + '/20190901'
       logger.info "AuditClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -108,6 +108,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Audit::Models::Configuration Configuration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/audit/get_configuration.rb.html) to see an example of how to use get_configuration API.
     def get_configuration(compartment_id, opts = {})
       logger.debug 'Calling operation AuditClient#get_configuration.' if logger
 
@@ -185,6 +186,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Audit::Models::AuditEvent AuditEvent}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/audit/list_events.rb.html) to see an example of how to use list_events API.
     def list_events(compartment_id, start_time, end_time, opts = {})
       logger.debug 'Calling operation AuditClient#list_events.' if logger
 
@@ -244,6 +246,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/audit/update_configuration.rb.html) to see an example of how to use update_configuration API.
     def update_configuration(compartment_id, update_configuration_details, opts = {})
       logger.debug 'Calling operation AuditClient#update_configuration.' if logger
 

@@ -25,6 +25,7 @@ module OCI
     TRANSACTION_ISOLATION_ENUM = [
       TRANSACTION_ISOLATION_READ_UNCOMMITTED = 'READ-UNCOMMITTED'.freeze,
       TRANSACTION_ISOLATION_READ_COMMITED = 'READ-COMMITED'.freeze,
+      TRANSACTION_ISOLATION_READ_COMMITTED = 'READ-COMMITTED'.freeze,
       TRANSACTION_ISOLATION_REPEATABLE_READ = 'REPEATABLE-READ'.freeze,
       TRANSACTION_ISOLATION_SERIALIZABLE = 'SERIALIZABLE'.freeze,
       TRANSACTION_ISOLATION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
@@ -70,7 +71,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :mysql_firewall_mode
 
-    # (\"mysqlx_enable_hello_notice\")
+    # (\"mysqlx_enable_hello_notice\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [BOOLEAN]
     attr_accessor :mysqlx_enable_hello_notice
 
@@ -82,7 +83,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :sql_warnings
 
-    # (\"binlog_expire_logs_seconds\")
+    # (\"binlog_expire_logs_seconds\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :binlog_expire_logs_seconds
 
@@ -110,7 +111,7 @@ module OCI
     # @return [Integer]
     attr_accessor :cte_max_recursion_depth
 
-    # (\"generated_random_password_length\")
+    # (\"generated_random_password_length\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :generated_random_password_length
 
@@ -150,39 +151,39 @@ module OCI
     # @return [Integer]
     attr_accessor :max_execution_time
 
-    # (\"mysqlx_connect_timeout\")
+    # (\"mysqlx_connect_timeout\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :mysqlx_connect_timeout
 
-    # (\"mysqlx_document_id_unique_prefix\")
+    # (\"mysqlx_document_id_unique_prefix\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :mysqlx_document_id_unique_prefix
 
-    # (\"mysqlx_idle_worker_thread_timeout\")
+    # (\"mysqlx_idle_worker_thread_timeout\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :mysqlx_idle_worker_thread_timeout
 
-    # (\"mysqlx_interactive_timeout\")
+    # (\"mysqlx_interactive_timeout\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :mysqlx_interactive_timeout
 
-    # (\"mysqlx_max_allowed_packet\")
+    # (\"mysqlx_max_allowed_packet\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :mysqlx_max_allowed_packet
 
-    # (\"mysqlx_min_worker_threads\")
+    # (\"mysqlx_min_worker_threads\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :mysqlx_min_worker_threads
 
-    # (\"mysqlx_read_timeout\")
+    # (\"mysqlx_read_timeout\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :mysqlx_read_timeout
 
-    # (\"mysqlx_wait_timeout\")
+    # (\"mysqlx_wait_timeout\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :mysqlx_wait_timeout
 
-    # (\"mysqlx_write_timeout\")
+    # (\"mysqlx_write_timeout\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :mysqlx_write_timeout
 
@@ -190,11 +191,11 @@ module OCI
     # @return [Integer]
     attr_accessor :parser_max_mem_size
 
-    # (\"query_alloc_block_size\")
+    # (\"query_alloc_block_size\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :query_alloc_block_size
 
-    # (\"query_prealloc_size\")
+    # (\"query_prealloc_size\") DEPRECATED -- variable should not be settable and will be ignored
     # @return [Integer]
     attr_accessor :query_prealloc_size
 
@@ -223,6 +224,10 @@ module OCI
     attr_accessor :mysqlx_zstd_max_client_compression_level
 
     # Set the default compression level for the zstd algorithm. (\"mysqlx_zstd_default_compression_level\")
+    # @return [Integer]
+    attr_accessor :mysqlx_zstd_default_compression_level
+
+    # DEPRECATED -- typo of mysqlx_zstd_default_compression_level. variable will be ignored.
     # @return [Integer]
     attr_accessor :mysql_zstd_default_compression_level
 
@@ -278,6 +283,7 @@ module OCI
         'mysqlx_lz4_max_client_compression_level': :'mysqlxLz4MaxClientCompressionLevel',
         'mysqlx_lz4_default_compression_level': :'mysqlxLz4DefaultCompressionLevel',
         'mysqlx_zstd_max_client_compression_level': :'mysqlxZstdMaxClientCompressionLevel',
+        'mysqlx_zstd_default_compression_level': :'mysqlxZstdDefaultCompressionLevel',
         'mysql_zstd_default_compression_level': :'mysqlZstdDefaultCompressionLevel'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -335,6 +341,7 @@ module OCI
         'mysqlx_lz4_max_client_compression_level': :'Integer',
         'mysqlx_lz4_default_compression_level': :'Integer',
         'mysqlx_zstd_max_client_compression_level': :'Integer',
+        'mysqlx_zstd_default_compression_level': :'Integer',
         'mysql_zstd_default_compression_level': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -394,6 +401,7 @@ module OCI
     # @option attributes [Integer] :mysqlx_lz4_max_client_compression_level The value to assign to the {#mysqlx_lz4_max_client_compression_level} property
     # @option attributes [Integer] :mysqlx_lz4_default_compression_level The value to assign to the {#mysqlx_lz4_default_compression_level} property
     # @option attributes [Integer] :mysqlx_zstd_max_client_compression_level The value to assign to the {#mysqlx_zstd_max_client_compression_level} property
+    # @option attributes [Integer] :mysqlx_zstd_default_compression_level The value to assign to the {#mysqlx_zstd_default_compression_level} property
     # @option attributes [Integer] :mysql_zstd_default_compression_level The value to assign to the {#mysql_zstd_default_compression_level} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -714,6 +722,12 @@ module OCI
 
       self.mysqlx_zstd_max_client_compression_level = attributes[:'mysqlx_zstd_max_client_compression_level'] if attributes[:'mysqlx_zstd_max_client_compression_level']
 
+      self.mysqlx_zstd_default_compression_level = attributes[:'mysqlxZstdDefaultCompressionLevel'] if attributes[:'mysqlxZstdDefaultCompressionLevel']
+
+      raise 'You cannot provide both :mysqlxZstdDefaultCompressionLevel and :mysqlx_zstd_default_compression_level' if attributes.key?(:'mysqlxZstdDefaultCompressionLevel') && attributes.key?(:'mysqlx_zstd_default_compression_level')
+
+      self.mysqlx_zstd_default_compression_level = attributes[:'mysqlx_zstd_default_compression_level'] if attributes[:'mysqlx_zstd_default_compression_level']
+
       self.mysql_zstd_default_compression_level = attributes[:'mysqlZstdDefaultCompressionLevel'] if attributes[:'mysqlZstdDefaultCompressionLevel']
 
       raise 'You cannot provide both :mysqlZstdDefaultCompressionLevel and :mysql_zstd_default_compression_level' if attributes.key?(:'mysqlZstdDefaultCompressionLevel') && attributes.key?(:'mysql_zstd_default_compression_level')
@@ -819,6 +833,7 @@ module OCI
         mysqlx_lz4_max_client_compression_level == other.mysqlx_lz4_max_client_compression_level &&
         mysqlx_lz4_default_compression_level == other.mysqlx_lz4_default_compression_level &&
         mysqlx_zstd_max_client_compression_level == other.mysqlx_zstd_max_client_compression_level &&
+        mysqlx_zstd_default_compression_level == other.mysqlx_zstd_default_compression_level &&
         mysql_zstd_default_compression_level == other.mysql_zstd_default_compression_level
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -835,7 +850,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [completion_type, default_authentication_plugin, transaction_isolation, innodb_ft_server_stopword_table, mandatory_roles, autocommit, foreign_key_checks, innodb_ft_enable_stopword, local_infile, mysql_firewall_mode, mysqlx_enable_hello_notice, sql_require_primary_key, sql_warnings, binlog_expire_logs_seconds, innodb_buffer_pool_size, innodb_ft_result_cache_limit, max_connections, max_prepared_stmt_count, connect_timeout, cte_max_recursion_depth, generated_random_password_length, information_schema_stats_expiry, innodb_buffer_pool_instances, innodb_ft_max_token_size, innodb_ft_min_token_size, innodb_ft_num_word_optimize, innodb_lock_wait_timeout, innodb_max_purge_lag, innodb_max_purge_lag_delay, max_execution_time, mysqlx_connect_timeout, mysqlx_document_id_unique_prefix, mysqlx_idle_worker_thread_timeout, mysqlx_interactive_timeout, mysqlx_max_allowed_packet, mysqlx_min_worker_threads, mysqlx_read_timeout, mysqlx_wait_timeout, mysqlx_write_timeout, parser_max_mem_size, query_alloc_block_size, query_prealloc_size, sql_mode, mysqlx_deflate_default_compression_level, mysqlx_deflate_max_client_compression_level, mysqlx_lz4_max_client_compression_level, mysqlx_lz4_default_compression_level, mysqlx_zstd_max_client_compression_level, mysql_zstd_default_compression_level].hash
+      [completion_type, default_authentication_plugin, transaction_isolation, innodb_ft_server_stopword_table, mandatory_roles, autocommit, foreign_key_checks, innodb_ft_enable_stopword, local_infile, mysql_firewall_mode, mysqlx_enable_hello_notice, sql_require_primary_key, sql_warnings, binlog_expire_logs_seconds, innodb_buffer_pool_size, innodb_ft_result_cache_limit, max_connections, max_prepared_stmt_count, connect_timeout, cte_max_recursion_depth, generated_random_password_length, information_schema_stats_expiry, innodb_buffer_pool_instances, innodb_ft_max_token_size, innodb_ft_min_token_size, innodb_ft_num_word_optimize, innodb_lock_wait_timeout, innodb_max_purge_lag, innodb_max_purge_lag_delay, max_execution_time, mysqlx_connect_timeout, mysqlx_document_id_unique_prefix, mysqlx_idle_worker_thread_timeout, mysqlx_interactive_timeout, mysqlx_max_allowed_packet, mysqlx_min_worker_threads, mysqlx_read_timeout, mysqlx_wait_timeout, mysqlx_write_timeout, parser_max_mem_size, query_alloc_block_size, query_prealloc_size, sql_mode, mysqlx_deflate_default_compression_level, mysqlx_deflate_max_client_compression_level, mysqlx_lz4_max_client_compression_level, mysqlx_lz4_default_compression_level, mysqlx_zstd_max_client_compression_level, mysqlx_zstd_default_compression_level, mysql_zstd_default_compression_level].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

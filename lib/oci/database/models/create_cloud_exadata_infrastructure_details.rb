@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Request to create cloud Exadata infrastructure.
+  # Request to create cloud Exadata infrastructure. Applies to Exadata Cloud Service instances only.
   #
   class Database::Models::CreateCloudExadataInfrastructureDetails
     # **[Required]** The availability domain where the cloud Exadata infrastructure is located.

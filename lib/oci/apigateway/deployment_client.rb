@@ -120,6 +120,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/change_deployment_compartment.rb.html) to see an example of how to use change_deployment_compartment API.
     def change_deployment_compartment(deployment_id, change_deployment_compartment_details, opts = {})
       logger.debug 'Calling operation DeploymentClient#change_deployment_compartment.' if logger
 
@@ -183,6 +184,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Deployment Deployment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/create_deployment.rb.html) to see an example of how to use create_deployment API.
     def create_deployment(create_deployment_details, opts = {})
       logger.debug 'Calling operation DeploymentClient#create_deployment.' if logger
 
@@ -243,6 +245,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/delete_deployment.rb.html) to see an example of how to use delete_deployment API.
     def delete_deployment(deployment_id, opts = {})
       logger.debug 'Calling operation DeploymentClient#delete_deployment.' if logger
 
@@ -296,6 +299,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Deployment Deployment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/get_deployment.rb.html) to see an example of how to use get_deployment API.
     def get_deployment(deployment_id, opts = {})
       logger.debug 'Calling operation DeploymentClient#get_deployment.' if logger
 
@@ -369,6 +373,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::DeploymentCollection DeploymentCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/list_deployments.rb.html) to see an example of how to use list_deployments API.
     def list_deployments(compartment_id, opts = {})
       logger.debug 'Calling operation DeploymentClient#list_deployments.' if logger
 
@@ -448,6 +453,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/update_deployment.rb.html) to see an example of how to use update_deployment API.
     def update_deployment(deployment_id, update_deployment_details, opts = {})
       logger.debug 'Calling operation DeploymentClient#update_deployment.' if logger
 

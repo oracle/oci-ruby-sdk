@@ -22,6 +22,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId',
         'database_software_image_id': :'databaseSoftwareImageId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -37,6 +39,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'kms_key_id': :'String',
+        'kms_key_version_id': :'String',
         'database_software_image_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -54,6 +58,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::CreateDbHomeBase#display_name #display_name} proprety
+    # @option attributes [String] :kms_key_id The value to assign to the {OCI::Database::Models::CreateDbHomeBase#kms_key_id #kms_key_id} proprety
+    # @option attributes [String] :kms_key_version_id The value to assign to the {OCI::Database::Models::CreateDbHomeBase#kms_key_version_id #kms_key_version_id} proprety
     # @option attributes [String] :database_software_image_id The value to assign to the {OCI::Database::Models::CreateDbHomeBase#database_software_image_id #database_software_image_id} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::CreateDbHomeBase#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateDbHomeBase#defined_tags #defined_tags} proprety
@@ -90,6 +96,8 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id &&
         database_software_image_id == other.database_software_image_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -111,7 +119,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, database_software_image_id, freeform_tags, defined_tags, source, db_system_id, database].hash
+      [display_name, kms_key_id, kms_key_version_id, database_software_image_id, freeform_tags, defined_tags, source, db_system_id, database].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

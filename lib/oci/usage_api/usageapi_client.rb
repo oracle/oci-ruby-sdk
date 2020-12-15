@@ -108,6 +108,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::UsageApi::Models::ConfigurationAggregation ConfigurationAggregation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/usageapi/request_summarized_configurations.rb.html) to see an example of how to use request_summarized_configurations API.
     def request_summarized_configurations(tenant_id, opts = {})
       logger.debug 'Calling operation UsageapiClient#request_summarized_configurations.' if logger
 
@@ -169,6 +170,7 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 25)
     # @return [Response] A Response object with data of type {OCI::UsageApi::Models::UsageAggregation UsageAggregation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/usageapi/request_summarized_usages.rb.html) to see an example of how to use request_summarized_usages API.
     def request_summarized_usages(request_summarized_usages_details, opts = {})
       logger.debug 'Calling operation UsageapiClient#request_summarized_usages.' if logger
 

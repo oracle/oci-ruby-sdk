@@ -120,6 +120,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/change_management_dashboards_compartment.rb.html) to see an example of how to use change_management_dashboards_compartment API.
     def change_management_dashboards_compartment(management_dashboard_id, change_management_dashboards_compartment_details, opts = {})
       logger.debug 'Calling operation DashxApisClient#change_management_dashboards_compartment.' if logger
 
@@ -190,6 +191,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/change_management_saved_searches_compartment.rb.html) to see an example of how to use change_management_saved_searches_compartment API.
     def change_management_saved_searches_compartment(management_saved_search_id, change_management_saved_searches_compartment_details, opts = {})
       logger.debug 'Calling operation DashxApisClient#change_management_saved_searches_compartment.' if logger
 
@@ -253,6 +255,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementDashboard ManagementDashboard}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/create_management_dashboard.rb.html) to see an example of how to use create_management_dashboard API.
     def create_management_dashboard(create_management_dashboard_details, opts = {})
       logger.debug 'Calling operation DashxApisClient#create_management_dashboard.' if logger
 
@@ -314,6 +317,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementSavedSearch ManagementSavedSearch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/create_management_saved_search.rb.html) to see an example of how to use create_management_saved_search API.
     def create_management_saved_search(create_management_saved_search_details, opts = {})
       logger.debug 'Calling operation DashxApisClient#create_management_saved_search.' if logger
 
@@ -374,6 +378,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/delete_management_dashboard.rb.html) to see an example of how to use delete_management_dashboard API.
     def delete_management_dashboard(management_dashboard_id, opts = {})
       logger.debug 'Calling operation DashxApisClient#delete_management_dashboard.' if logger
 
@@ -433,6 +438,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/delete_management_saved_search.rb.html) to see an example of how to use delete_management_saved_search API.
     def delete_management_saved_search(management_saved_search_id, opts = {})
       logger.debug 'Calling operation DashxApisClient#delete_management_saved_search.' if logger
 
@@ -492,6 +498,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementDashboardExportDetails ManagementDashboardExportDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/export_dashboard.rb.html) to see an example of how to use export_dashboard API.
     def export_dashboard(export_dashboard_id, opts = {})
       logger.debug 'Calling operation DashxApisClient#export_dashboard.' if logger
 
@@ -553,6 +560,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementDashboard ManagementDashboard}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/get_management_dashboard.rb.html) to see an example of how to use get_management_dashboard API.
     def get_management_dashboard(management_dashboard_id, opts = {})
       logger.debug 'Calling operation DashxApisClient#get_management_dashboard.' if logger
 
@@ -614,6 +622,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementSavedSearch ManagementSavedSearch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/get_management_saved_search.rb.html) to see an example of how to use get_management_saved_search API.
     def get_management_saved_search(management_saved_search_id, opts = {})
       logger.debug 'Calling operation DashxApisClient#get_management_saved_search.' if logger
 
@@ -682,6 +691,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/import_dashboard.rb.html) to see an example of how to use import_dashboard API.
     def import_dashboard(management_dashboard_import_details, opts = {})
       logger.debug 'Calling operation DashxApisClient#import_dashboard.' if logger
 
@@ -743,6 +753,7 @@ module OCI
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementDashboardCollection ManagementDashboardCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/list_management_dashboards.rb.html) to see an example of how to use list_management_dashboards API.
     def list_management_dashboards(compartment_id, opts = {})
       logger.debug 'Calling operation DashxApisClient#list_management_dashboards.' if logger
 
@@ -816,6 +827,7 @@ module OCI
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementSavedSearchCollection ManagementSavedSearchCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/list_management_saved_searches.rb.html) to see an example of how to use list_management_saved_searches API.
     def list_management_saved_searches(compartment_id, opts = {})
       logger.debug 'Calling operation DashxApisClient#list_management_saved_searches.' if logger
 
@@ -896,6 +908,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementDashboard ManagementDashboard}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/update_management_dashboard.rb.html) to see an example of how to use update_management_dashboard API.
     def update_management_dashboard(management_dashboard_id, update_management_dashboard_details, opts = {})
       logger.debug 'Calling operation DashxApisClient#update_management_dashboard.' if logger
 
@@ -967,6 +980,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementSavedSearch ManagementSavedSearch}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/update_management_saved_search.rb.html) to see an example of how to use update_management_saved_search API.
     def update_management_saved_search(management_saved_search_id, update_management_saved_search_details, opts = {})
       logger.debug 'Calling operation DashxApisClient#update_management_saved_search.' if logger
 

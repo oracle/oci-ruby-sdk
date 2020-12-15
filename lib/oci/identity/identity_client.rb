@@ -117,6 +117,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::MfaTotpDeviceSummary MfaTotpDeviceSummary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/activate_mfa_totp_device.rb.html) to see an example of how to use activate_mfa_totp_device API.
     def activate_mfa_totp_device(user_id, mfa_totp_device_id, mfa_totp_token, opts = {})
       logger.debug 'Calling operation IdentityClient#activate_mfa_totp_device.' if logger
 
@@ -184,6 +185,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::UserGroupMembership UserGroupMembership}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/add_user_to_group.rb.html) to see an example of how to use add_user_to_group API.
     def add_user_to_group(add_user_to_group_details, opts = {})
       logger.debug 'Calling operation IdentityClient#add_user_to_group.' if logger
 
@@ -243,6 +245,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TagDefaultSummary TagDefaultSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/assemble_effective_tag_set.rb.html) to see an example of how to use assemble_effective_tag_set API.
     def assemble_effective_tag_set(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#assemble_effective_tag_set.' if logger
 
@@ -314,6 +317,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/bulk_delete_resources.rb.html) to see an example of how to use bulk_delete_resources API.
     def bulk_delete_resources(compartment_id, bulk_delete_resources_details, opts = {})
       logger.debug 'Calling operation IdentityClient#bulk_delete_resources.' if logger
 
@@ -398,6 +402,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/bulk_delete_tags.rb.html) to see an example of how to use bulk_delete_tags API.
     def bulk_delete_tags(bulk_delete_tags_details, opts = {})
       logger.debug 'Calling operation IdentityClient#bulk_delete_tags.' if logger
 
@@ -473,6 +478,7 @@ module OCI
     #
     # @option opts [OCI::Identity::Models::BulkEditTagsDetails] :bulk_edit_tags_details The request object for bulk editing tags on resources in the compartment.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/bulk_edit_tags.rb.html) to see an example of how to use bulk_edit_tags API.
     def bulk_edit_tags(opts = {})
       logger.debug 'Calling operation IdentityClient#bulk_edit_tags.' if logger
 
@@ -539,6 +545,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/bulk_move_resources.rb.html) to see an example of how to use bulk_move_resources API.
     def bulk_move_resources(compartment_id, bulk_move_resources_details, opts = {})
       logger.debug 'Calling operation IdentityClient#bulk_move_resources.' if logger
 
@@ -626,6 +633,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/cascade_delete_tag_namespace.rb.html) to see an example of how to use cascade_delete_tag_namespace API.
     def cascade_delete_tag_namespace(tag_namespace_id, opts = {})
       logger.debug 'Calling operation IdentityClient#cascade_delete_tag_namespace.' if logger
 
@@ -694,6 +702,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/change_tag_namespace_compartment.rb.html) to see an example of how to use change_tag_namespace_compartment API.
     def change_tag_namespace_compartment(tag_namespace_id, change_tag_namespace_compartment_detail, opts = {})
       logger.debug 'Calling operation IdentityClient#change_tag_namespace_compartment.' if logger
 
@@ -764,6 +773,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::AuthToken AuthToken}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_auth_token.rb.html) to see an example of how to use create_auth_token API.
     def create_auth_token(create_auth_token_details, user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#create_auth_token.' if logger
 
@@ -843,6 +853,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Compartment Compartment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_compartment.rb.html) to see an example of how to use create_compartment API.
     def create_compartment(create_compartment_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_compartment.' if logger
 
@@ -913,6 +924,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::CustomerSecretKey CustomerSecretKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_customer_secret_key.rb.html) to see an example of how to use create_customer_secret_key API.
     def create_customer_secret_key(create_customer_secret_key_details, user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#create_customer_secret_key.' if logger
 
@@ -991,6 +1003,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::DynamicGroup DynamicGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_dynamic_group.rb.html) to see an example of how to use create_dynamic_group API.
     def create_dynamic_group(create_dynamic_group_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_dynamic_group.' if logger
 
@@ -1070,6 +1083,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Group Group}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_group.rb.html) to see an example of how to use create_group API.
     def create_group(create_group_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_group.' if logger
 
@@ -1146,6 +1160,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::IdentityProvider IdentityProvider}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_identity_provider.rb.html) to see an example of how to use create_identity_provider API.
     def create_identity_provider(create_identity_provider_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_identity_provider.' if logger
 
@@ -1207,6 +1222,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::IdpGroupMapping IdpGroupMapping}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_idp_group_mapping.rb.html) to see an example of how to use create_idp_group_mapping API.
     def create_idp_group_mapping(create_idp_group_mapping_details, identity_provider_id, opts = {})
       logger.debug 'Calling operation IdentityClient#create_idp_group_mapping.' if logger
 
@@ -1268,6 +1284,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::MfaTotpDevice MfaTotpDevice}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_mfa_totp_device.rb.html) to see an example of how to use create_mfa_totp_device API.
     def create_mfa_totp_device(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#create_mfa_totp_device.' if logger
 
@@ -1348,6 +1365,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::NetworkSources NetworkSources}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_network_source.rb.html) to see an example of how to use create_network_source API.
     def create_network_source(create_network_source_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_network_source.' if logger
 
@@ -1408,6 +1426,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::OAuth2ClientCredential OAuth2ClientCredential}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_o_auth_client_credential.rb.html) to see an example of how to use create_o_auth_client_credential API.
     def create_o_auth_client_credential(user_id, create_o_auth2_client_credential_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_o_auth_client_credential.' if logger
 
@@ -1479,6 +1498,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::UIPassword UIPassword}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_or_reset_ui_password.rb.html) to see an example of how to use create_or_reset_ui_password API.
     def create_or_reset_ui_password(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#create_or_reset_ui_password.' if logger
 
@@ -1555,6 +1575,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Policy Policy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_policy.rb.html) to see an example of how to use create_policy API.
     def create_policy(create_policy_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_policy.' if logger
 
@@ -1615,6 +1636,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::RegionSubscription RegionSubscription}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_region_subscription.rb.html) to see an example of how to use create_region_subscription API.
     def create_region_subscription(create_region_subscription_details, tenancy_id, opts = {})
       logger.debug 'Calling operation IdentityClient#create_region_subscription.' if logger
 
@@ -1680,6 +1702,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::SmtpCredential SmtpCredential}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_smtp_credential.rb.html) to see an example of how to use create_smtp_credential API.
     def create_smtp_credential(create_smtp_credential_details, user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#create_smtp_credential.' if logger
 
@@ -1753,6 +1776,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::SwiftPassword SwiftPassword}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_swift_password.rb.html) to see an example of how to use create_swift_password API.
     def create_swift_password(create_swift_password_details, user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#create_swift_password.' if logger
 
@@ -1837,6 +1861,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Tag Tag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_tag.rb.html) to see an example of how to use create_tag API.
     def create_tag(tag_namespace_id, create_tag_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_tag.' if logger
 
@@ -1908,6 +1933,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TagDefault TagDefault}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_tag_default.rb.html) to see an example of how to use create_tag_default API.
     def create_tag_default(create_tag_default_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_tag_default.' if logger
 
@@ -1981,6 +2007,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TagNamespace TagNamespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_tag_namespace.rb.html) to see an example of how to use create_tag_namespace API.
     def create_tag_namespace(create_tag_namespace_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_tag_namespace.' if logger
 
@@ -2074,6 +2101,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::User User}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_user.rb.html) to see an example of how to use create_user API.
     def create_user(create_user_details, opts = {})
       logger.debug 'Calling operation IdentityClient#create_user.' if logger
 
@@ -2137,6 +2165,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_api_key.rb.html) to see an example of how to use delete_api_key API.
     def delete_api_key(user_id, fingerprint, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_api_key.' if logger
 
@@ -2196,6 +2225,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_auth_token.rb.html) to see an example of how to use delete_auth_token API.
     def delete_auth_token(user_id, auth_token_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_auth_token.' if logger
 
@@ -2254,6 +2284,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_compartment.rb.html) to see an example of how to use delete_compartment API.
     def delete_compartment(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_compartment.' if logger
 
@@ -2311,6 +2342,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_customer_secret_key.rb.html) to see an example of how to use delete_customer_secret_key API.
     def delete_customer_secret_key(user_id, customer_secret_key_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_customer_secret_key.' if logger
 
@@ -2369,6 +2401,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_dynamic_group.rb.html) to see an example of how to use delete_dynamic_group API.
     def delete_dynamic_group(dynamic_group_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_dynamic_group.' if logger
 
@@ -2425,6 +2458,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_group.rb.html) to see an example of how to use delete_group API.
     def delete_group(group_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_group.' if logger
 
@@ -2482,6 +2516,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_identity_provider.rb.html) to see an example of how to use delete_identity_provider API.
     def delete_identity_provider(identity_provider_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_identity_provider.' if logger
 
@@ -2538,6 +2573,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_idp_group_mapping.rb.html) to see an example of how to use delete_idp_group_mapping API.
     def delete_idp_group_mapping(identity_provider_id, mapping_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_idp_group_mapping.' if logger
 
@@ -2597,6 +2633,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_mfa_totp_device.rb.html) to see an example of how to use delete_mfa_totp_device API.
     def delete_mfa_totp_device(user_id, mfa_totp_device_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_mfa_totp_device.' if logger
 
@@ -2655,6 +2692,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_network_source.rb.html) to see an example of how to use delete_network_source API.
     def delete_network_source(network_source_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_network_source.' if logger
 
@@ -2712,6 +2750,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_o_auth_client_credential.rb.html) to see an example of how to use delete_o_auth_client_credential API.
     def delete_o_auth_client_credential(user_id, oauth2_client_credential_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_o_auth_client_credential.' if logger
 
@@ -2769,6 +2808,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_policy.rb.html) to see an example of how to use delete_policy API.
     def delete_policy(policy_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_policy.' if logger
 
@@ -2826,6 +2866,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_smtp_credential.rb.html) to see an example of how to use delete_smtp_credential API.
     def delete_smtp_credential(user_id, smtp_credential_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_smtp_credential.' if logger
 
@@ -2887,6 +2928,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_swift_password.rb.html) to see an example of how to use delete_swift_password API.
     def delete_swift_password(user_id, swift_password_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_swift_password.' if logger
 
@@ -2968,6 +3010,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_tag.rb.html) to see an example of how to use delete_tag API.
     def delete_tag(tag_namespace_id, tag_name, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_tag.' if logger
 
@@ -3029,6 +3072,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_tag_default.rb.html) to see an example of how to use delete_tag_default API.
     def delete_tag_default(tag_default_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_tag_default.' if logger
 
@@ -3096,6 +3140,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_tag_namespace.rb.html) to see an example of how to use delete_tag_namespace API.
     def delete_tag_namespace(tag_namespace_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_tag_namespace.' if logger
 
@@ -3152,6 +3197,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_user.rb.html) to see an example of how to use delete_user API.
     def delete_user(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#delete_user.' if logger
 
@@ -3209,6 +3255,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::MfaTotpDevice MfaTotpDevice}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/generate_totp_seed.rb.html) to see an example of how to use generate_totp_seed API.
     def generate_totp_seed(user_id, mfa_totp_device_id, opts = {})
       logger.debug 'Calling operation IdentityClient#generate_totp_seed.' if logger
 
@@ -3266,6 +3313,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::AuthenticationPolicy AuthenticationPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_authentication_policy.rb.html) to see an example of how to use get_authentication_policy API.
     def get_authentication_policy(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_authentication_policy.' if logger
 
@@ -3327,6 +3375,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Compartment Compartment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_compartment.rb.html) to see an example of how to use get_compartment API.
     def get_compartment(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_compartment.' if logger
 
@@ -3381,6 +3430,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::DynamicGroup DynamicGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_dynamic_group.rb.html) to see an example of how to use get_dynamic_group API.
     def get_dynamic_group(dynamic_group_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_dynamic_group.' if logger
 
@@ -3439,6 +3489,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Group Group}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_group.rb.html) to see an example of how to use get_group API.
     def get_group(group_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_group.' if logger
 
@@ -3492,6 +3543,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::IdentityProvider IdentityProvider}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_identity_provider.rb.html) to see an example of how to use get_identity_provider API.
     def get_identity_provider(identity_provider_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_identity_provider.' if logger
 
@@ -3546,6 +3598,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::IdpGroupMapping IdpGroupMapping}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_idp_group_mapping.rb.html) to see an example of how to use get_idp_group_mapping API.
     def get_idp_group_mapping(identity_provider_id, mapping_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_idp_group_mapping.' if logger
 
@@ -3603,6 +3656,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::MfaTotpDeviceSummary MfaTotpDeviceSummary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_mfa_totp_device.rb.html) to see an example of how to use get_mfa_totp_device API.
     def get_mfa_totp_device(user_id, mfa_totp_device_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_mfa_totp_device.' if logger
 
@@ -3659,6 +3713,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::NetworkSources NetworkSources}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_network_source.rb.html) to see an example of how to use get_network_source API.
     def get_network_source(network_source_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_network_source.' if logger
 
@@ -3712,6 +3767,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Policy Policy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_policy.rb.html) to see an example of how to use get_policy API.
     def get_policy(policy_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_policy.' if logger
 
@@ -3768,6 +3824,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Tag Tag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_tag.rb.html) to see an example of how to use get_tag API.
     def get_tag(tag_namespace_id, tag_name, opts = {})
       logger.debug 'Calling operation IdentityClient#get_tag.' if logger
 
@@ -3824,6 +3881,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TagDefault TagDefault}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_tag_default.rb.html) to see an example of how to use get_tag_default API.
     def get_tag_default(tag_default_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_tag_default.' if logger
 
@@ -3879,6 +3937,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TagNamespace TagNamespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_tag_namespace.rb.html) to see an example of how to use get_tag_namespace API.
     def get_tag_namespace(tag_namespace_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_tag_namespace.' if logger
 
@@ -3934,6 +3993,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TaggingWorkRequest TaggingWorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_tagging_work_request.rb.html) to see an example of how to use get_tagging_work_request API.
     def get_tagging_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_tagging_work_request.' if logger
 
@@ -3987,6 +4047,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Tenancy Tenancy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_tenancy.rb.html) to see an example of how to use get_tenancy API.
     def get_tenancy(tenancy_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_tenancy.' if logger
 
@@ -4040,6 +4101,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::User User}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_user.rb.html) to see an example of how to use get_user API.
     def get_user(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_user.' if logger
 
@@ -4093,6 +4155,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::UserGroupMembership UserGroupMembership}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_user_group_membership.rb.html) to see an example of how to use get_user_group_membership API.
     def get_user_group_membership(user_group_membership_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_user_group_membership.' if logger
 
@@ -4148,6 +4211,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::UIPasswordInformation UIPasswordInformation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_user_ui_password_information.rb.html) to see an example of how to use get_user_ui_password_information API.
     def get_user_ui_password_information(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_user_ui_password_information.' if logger
 
@@ -4203,6 +4267,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation IdentityClient#get_work_request.' if logger
 
@@ -4260,6 +4325,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::ApiKey ApiKey}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_api_keys.rb.html) to see an example of how to use list_api_keys API.
     def list_api_keys(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_api_keys.' if logger
 
@@ -4315,6 +4381,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::AuthToken AuthToken}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_auth_tokens.rb.html) to see an example of how to use list_auth_tokens API.
     def list_auth_tokens(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_auth_tokens.' if logger
 
@@ -4374,6 +4441,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::AvailabilityDomain AvailabilityDomain}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_availability_domains.rb.html) to see an example of how to use list_availability_domains API.
     def list_availability_domains(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_availability_domains.' if logger
 
@@ -4439,6 +4507,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 20)
     # @return [Response] A Response object with data of type {OCI::Identity::Models::BulkActionResourceTypeCollection BulkActionResourceTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_bulk_action_resource_types.rb.html) to see an example of how to use list_bulk_action_resource_types API.
     def list_bulk_action_resource_types(bulk_action_type, opts = {})
       logger.debug 'Calling operation IdentityClient#list_bulk_action_resource_types.' if logger
 
@@ -4499,6 +4568,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 20)
     # @return [Response] A Response object with data of type {OCI::Identity::Models::BulkEditTagsResourceTypeCollection BulkEditTagsResourceTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_bulk_edit_tags_resource_types.rb.html) to see an example of how to use list_bulk_edit_tags_resource_types API.
     def list_bulk_edit_tags_resource_types(opts = {})
       logger.debug 'Calling operation IdentityClient#list_bulk_edit_tags_resource_types.' if logger
 
@@ -4606,6 +4676,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Compartment Compartment}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_compartments.rb.html) to see an example of how to use list_compartments API.
     def list_compartments(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_compartments.' if logger
 
@@ -4688,6 +4759,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Tag Tag}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_cost_tracking_tags.rb.html) to see an example of how to use list_cost_tracking_tags API.
     def list_cost_tracking_tags(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_cost_tracking_tags.' if logger
 
@@ -4744,6 +4816,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::CustomerSecretKeySummary CustomerSecretKeySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_customer_secret_keys.rb.html) to see an example of how to use list_customer_secret_keys API.
     def list_customer_secret_keys(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_customer_secret_keys.' if logger
 
@@ -4822,6 +4895,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::DynamicGroup DynamicGroup}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_dynamic_groups.rb.html) to see an example of how to use list_dynamic_groups API.
     def list_dynamic_groups(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_dynamic_groups.' if logger
 
@@ -4898,6 +4972,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::FaultDomain FaultDomain}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_fault_domains.rb.html) to see an example of how to use list_fault_domains API.
     def list_fault_domains(compartment_id, availability_domain, opts = {})
       logger.debug 'Calling operation IdentityClient#list_fault_domains.' if logger
 
@@ -4978,6 +5053,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Group Group}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_groups.rb.html) to see an example of how to use list_groups API.
     def list_groups(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_groups.' if logger
 
@@ -5055,6 +5131,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IdentityProviderGroupSummary IdentityProviderGroupSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_identity_provider_groups.rb.html) to see an example of how to use list_identity_provider_groups API.
     def list_identity_provider_groups(identity_provider_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_identity_provider_groups.' if logger
 
@@ -5143,6 +5220,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IdentityProvider IdentityProvider}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_identity_providers.rb.html) to see an example of how to use list_identity_providers API.
     def list_identity_providers(protocol, compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_identity_providers.' if logger
 
@@ -5222,6 +5300,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IdpGroupMapping IdpGroupMapping}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_idp_group_mappings.rb.html) to see an example of how to use list_idp_group_mappings API.
     def list_idp_group_mappings(identity_provider_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_idp_group_mappings.' if logger
 
@@ -5295,6 +5374,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::MfaTotpDeviceSummary MfaTotpDeviceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_mfa_totp_devices.rb.html) to see an example of how to use list_mfa_totp_devices API.
     def list_mfa_totp_devices(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_mfa_totp_devices.' if logger
 
@@ -5384,6 +5464,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::NetworkSourcesSummary NetworkSourcesSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_network_sources.rb.html) to see an example of how to use list_network_sources API.
     def list_network_sources(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_network_sources.' if logger
 
@@ -5460,6 +5541,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::OAuth2ClientCredentialSummary OAuth2ClientCredentialSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_o_auth_client_credentials.rb.html) to see an example of how to use list_o_auth_client_credentials API.
     def list_o_auth_client_credentials(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_o_auth_client_credentials.' if logger
 
@@ -5546,6 +5628,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Policy Policy}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_policies.rb.html) to see an example of how to use list_policies API.
     def list_policies(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_policies.' if logger
 
@@ -5616,6 +5699,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::RegionSubscription RegionSubscription}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_region_subscriptions.rb.html) to see an example of how to use list_region_subscriptions API.
     def list_region_subscriptions(tenancy_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_region_subscriptions.' if logger
 
@@ -5668,6 +5752,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Region Region}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_regions.rb.html) to see an example of how to use list_regions API.
     def list_regions(opts = {})
       logger.debug 'Calling operation IdentityClient#list_regions.' if logger
 
@@ -5721,6 +5806,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::SmtpCredentialSummary SmtpCredentialSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_smtp_credentials.rb.html) to see an example of how to use list_smtp_credentials API.
     def list_smtp_credentials(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_smtp_credentials.' if logger
 
@@ -5778,6 +5864,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::SwiftPassword SwiftPassword}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_swift_passwords.rb.html) to see an example of how to use list_swift_passwords API.
     def list_swift_passwords(user_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_swift_passwords.' if logger
 
@@ -5842,6 +5929,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TagDefaultSummary TagDefaultSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_tag_defaults.rb.html) to see an example of how to use list_tag_defaults API.
     def list_tag_defaults(opts = {})
       logger.debug 'Calling operation IdentityClient#list_tag_defaults.' if logger
 
@@ -5912,6 +6000,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TagNamespaceSummary TagNamespaceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_tag_namespaces.rb.html) to see an example of how to use list_tag_namespaces API.
     def list_tag_namespaces(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_tag_namespaces.' if logger
 
@@ -5976,6 +6065,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestErrorSummary TaggingWorkRequestErrorSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_tagging_work_request_errors.rb.html) to see an example of how to use list_tagging_work_request_errors API.
     def list_tagging_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_tagging_work_request_errors.' if logger
 
@@ -6034,6 +6124,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestLogSummary TaggingWorkRequestLogSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_tagging_work_request_logs.rb.html) to see an example of how to use list_tagging_work_request_logs API.
     def list_tagging_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_tagging_work_request_logs.' if logger
 
@@ -6094,6 +6185,7 @@ module OCI
     #    (default to 20)
     # @option opts [String] :resource_identifier The identifier of the resource the work request affects.
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestSummary TaggingWorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_tagging_work_requests.rb.html) to see an example of how to use list_tagging_work_requests API.
     def list_tagging_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_tagging_work_requests.' if logger
 
@@ -6156,6 +6248,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TagSummary TagSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_tags.rb.html) to see an example of how to use list_tags API.
     def list_tags(tag_namespace_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_tags.' if logger
 
@@ -6231,6 +6324,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 20)
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::UserGroupMembership UserGroupMembership}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_user_group_memberships.rb.html) to see an example of how to use list_user_group_memberships API.
     def list_user_group_memberships(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_user_group_memberships.' if logger
 
@@ -6316,6 +6410,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::User User}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_users.rb.html) to see an example of how to use list_users API.
     def list_users(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_users.' if logger
 
@@ -6394,6 +6489,7 @@ module OCI
     #    (default to 20)
     # @option opts [String] :resource_identifier The identifier of the resource the work request affects.
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::WorkRequestSummary WorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#list_work_requests.' if logger
 
@@ -6470,6 +6566,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/move_compartment.rb.html) to see an example of how to use move_compartment API.
     def move_compartment(compartment_id, move_compartment_details, opts = {})
       logger.debug 'Calling operation IdentityClient#move_compartment.' if logger
 
@@ -6533,6 +6630,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Compartment Compartment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/recover_compartment.rb.html) to see an example of how to use recover_compartment API.
     def recover_compartment(compartment_id, opts = {})
       logger.debug 'Calling operation IdentityClient#recover_compartment.' if logger
 
@@ -6590,6 +6688,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/remove_user_from_group.rb.html) to see an example of how to use remove_user_from_group API.
     def remove_user_from_group(user_group_membership_id, opts = {})
       logger.debug 'Calling operation IdentityClient#remove_user_from_group.' if logger
 
@@ -6643,6 +6742,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::ScimClientCredentials ScimClientCredentials}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/reset_idp_scim_client.rb.html) to see an example of how to use reset_idp_scim_client API.
     def reset_idp_scim_client(identity_provider_id, opts = {})
       logger.debug 'Calling operation IdentityClient#reset_idp_scim_client.' if logger
 
@@ -6702,6 +6802,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::AuthToken AuthToken}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_auth_token.rb.html) to see an example of how to use update_auth_token API.
     def update_auth_token(user_id, auth_token_id, update_auth_token_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_auth_token.' if logger
 
@@ -6763,6 +6864,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::AuthenticationPolicy AuthenticationPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_authentication_policy.rb.html) to see an example of how to use update_authentication_policy API.
     def update_authentication_policy(compartment_id, update_authentication_policy_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_authentication_policy.' if logger
 
@@ -6821,6 +6923,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Compartment Compartment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_compartment.rb.html) to see an example of how to use update_compartment API.
     def update_compartment(compartment_id, update_compartment_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_compartment.' if logger
 
@@ -6881,6 +6984,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::CustomerSecretKeySummary CustomerSecretKeySummary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_customer_secret_key.rb.html) to see an example of how to use update_customer_secret_key API.
     def update_customer_secret_key(user_id, customer_secret_key_id, update_customer_secret_key_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_customer_secret_key.' if logger
 
@@ -6941,6 +7045,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::DynamicGroup DynamicGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_dynamic_group.rb.html) to see an example of how to use update_dynamic_group API.
     def update_dynamic_group(dynamic_group_id, update_dynamic_group_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_dynamic_group.' if logger
 
@@ -6999,6 +7104,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Group Group}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_group.rb.html) to see an example of how to use update_group API.
     def update_group(group_id, update_group_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_group.' if logger
 
@@ -7057,6 +7163,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::IdentityProvider IdentityProvider}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_identity_provider.rb.html) to see an example of how to use update_identity_provider API.
     def update_identity_provider(identity_provider_id, update_identity_provider_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_identity_provider.' if logger
 
@@ -7116,6 +7223,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::IdpGroupMapping IdpGroupMapping}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_idp_group_mapping.rb.html) to see an example of how to use update_idp_group_mapping API.
     def update_idp_group_mapping(identity_provider_id, mapping_id, update_idp_group_mapping_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_idp_group_mapping.' if logger
 
@@ -7176,6 +7284,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::NetworkSources NetworkSources}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_network_source.rb.html) to see an example of how to use update_network_source API.
     def update_network_source(network_source_id, update_network_source_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_network_source.' if logger
 
@@ -7236,6 +7345,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::OAuth2ClientCredential OAuth2ClientCredential}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_o_auth_client_credential.rb.html) to see an example of how to use update_o_auth_client_credential API.
     def update_o_auth_client_credential(user_id, oauth2_client_credential_id, update_o_auth2_client_credential_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_o_auth_client_credential.' if logger
 
@@ -7299,6 +7409,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Policy Policy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_policy.rb.html) to see an example of how to use update_policy API.
     def update_policy(policy_id, update_policy_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_policy.' if logger
 
@@ -7359,6 +7470,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::SmtpCredentialSummary SmtpCredentialSummary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_smtp_credential.rb.html) to see an example of how to use update_smtp_credential API.
     def update_smtp_credential(user_id, smtp_credential_id, update_smtp_credential_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_smtp_credential.' if logger
 
@@ -7423,6 +7535,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::SwiftPassword SwiftPassword}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_swift_password.rb.html) to see an example of how to use update_swift_password API.
     def update_swift_password(user_id, swift_password_id, update_swift_password_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_swift_password.' if logger
 
@@ -7496,6 +7609,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Tag Tag}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_tag.rb.html) to see an example of how to use update_tag API.
     def update_tag(tag_namespace_id, tag_name, update_tag_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_tag.' if logger
 
@@ -7565,6 +7679,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TagDefault TagDefault}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_tag_default.rb.html) to see an example of how to use update_tag_default API.
     def update_tag_default(tag_default_id, update_tag_default_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_tag_default.' if logger
 
@@ -7631,6 +7746,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TagNamespace TagNamespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_tag_namespace.rb.html) to see an example of how to use update_tag_namespace API.
     def update_tag_namespace(tag_namespace_id, update_tag_namespace_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_tag_namespace.' if logger
 
@@ -7689,6 +7805,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::User User}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_user.rb.html) to see an example of how to use update_user API.
     def update_user(user_id, update_user_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_user.' if logger
 
@@ -7748,6 +7865,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::User User}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_user_capabilities.rb.html) to see an example of how to use update_user_capabilities API.
     def update_user_capabilities(user_id, update_user_capabilities_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_user_capabilities.' if logger
 
@@ -7807,6 +7925,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::User User}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_user_state.rb.html) to see an example of how to use update_user_state API.
     def update_user_state(user_id, update_state_details, opts = {})
       logger.debug 'Calling operation IdentityClient#update_user_state.' if logger
 
@@ -7882,6 +8001,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::ApiKey ApiKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/upload_api_key.rb.html) to see an example of how to use upload_api_key API.
     def upload_api_key(user_id, create_api_key_details, opts = {})
       logger.debug 'Calling operation IdentityClient#upload_api_key.' if logger
 

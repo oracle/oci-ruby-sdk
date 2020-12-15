@@ -27,6 +27,9 @@ module OCI
     attr_accessor :retention_in_days
 
     # Simple key-value pair applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    #
+    # Tags defined here will be copied verbatim as tags on the Backup resource created by this BackupPolicy.
+    #
     # Example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]

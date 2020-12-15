@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for the create cloud VM cluster operation.
+  # Details for the create cloud VM cluster operation. Applies to Exadata Cloud Service instances only.
   #
   class Database::Models::CreateCloudVmClusterDetails
     LICENSE_MODEL_ENUM = [
@@ -73,6 +73,7 @@ module OCI
     # A domain name used for the cloud VM cluster. If the Oracle-provided internet and VCN
     # resolver is enabled for the specified subnet, the domain name for the subnet is used
     # (do not provide one). Otherwise, provide a valid DNS domain name. Hyphens (-) are not permitted.
+    # Applies to Exadata Cloud Service instances only.
     #
     # @return [String]
     attr_accessor :domain

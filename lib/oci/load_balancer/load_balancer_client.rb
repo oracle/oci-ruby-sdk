@@ -123,6 +123,7 @@ module OCI
     #   Example: `example-etag`
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/change_load_balancer_compartment.rb.html) to see an example of how to use change_load_balancer_compartment API.
     def change_load_balancer_compartment(load_balancer_id, change_load_balancer_compartment_details, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#change_load_balancer_compartment.' if logger
 
@@ -192,6 +193,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_backend.rb.html) to see an example of how to use create_backend API.
     def create_backend(create_backend_details, load_balancer_id, backend_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#create_backend.' if logger
 
@@ -258,6 +260,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_backend_set.rb.html) to see an example of how to use create_backend_set API.
     def create_backend_set(create_backend_set_details, load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#create_backend_set.' if logger
 
@@ -322,6 +325,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_certificate.rb.html) to see an example of how to use create_certificate API.
     def create_certificate(create_certificate_details, load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#create_certificate.' if logger
 
@@ -388,6 +392,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_hostname.rb.html) to see an example of how to use create_hostname API.
     def create_hostname(create_hostname_details, load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#create_hostname.' if logger
 
@@ -452,6 +457,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_listener.rb.html) to see an example of how to use create_listener API.
     def create_listener(create_listener_details, load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#create_listener.' if logger
 
@@ -542,6 +548,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_load_balancer.rb.html) to see an example of how to use create_load_balancer API.
     def create_load_balancer(create_load_balancer_details, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#create_load_balancer.' if logger
 
@@ -606,6 +613,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_path_route_set.rb.html) to see an example of how to use create_path_route_set API.
     def create_path_route_set(create_path_route_set_details, load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#create_path_route_set.' if logger
 
@@ -666,6 +674,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_rule_set.rb.html) to see an example of how to use create_rule_set API.
     def create_rule_set(load_balancer_id, create_rule_set_details, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#create_rule_set.' if logger
 
@@ -729,6 +738,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_ssl_cipher_suite.rb.html) to see an example of how to use create_ssl_cipher_suite API.
     def create_ssl_cipher_suite(create_ssl_cipher_suite_details, load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#create_ssl_cipher_suite.' if logger
 
@@ -794,6 +804,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_backend.rb.html) to see an example of how to use delete_backend API.
     def delete_backend(load_balancer_id, backend_set_name, backend_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#delete_backend.' if logger
 
@@ -859,6 +870,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_backend_set.rb.html) to see an example of how to use delete_backend_set API.
     def delete_backend_set(load_balancer_id, backend_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#delete_backend_set.' if logger
 
@@ -921,6 +933,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_certificate.rb.html) to see an example of how to use delete_certificate API.
     def delete_certificate(load_balancer_id, certificate_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#delete_certificate.' if logger
 
@@ -982,6 +995,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_hostname.rb.html) to see an example of how to use delete_hostname API.
     def delete_hostname(load_balancer_id, name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#delete_hostname.' if logger
 
@@ -1042,6 +1056,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_listener.rb.html) to see an example of how to use delete_listener API.
     def delete_listener(load_balancer_id, listener_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#delete_listener.' if logger
 
@@ -1098,6 +1113,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_load_balancer.rb.html) to see an example of how to use delete_load_balancer API.
     def delete_load_balancer(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#delete_load_balancer.' if logger
 
@@ -1160,6 +1176,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_path_route_set.rb.html) to see an example of how to use delete_path_route_set API.
     def delete_path_route_set(load_balancer_id, path_route_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#delete_path_route_set.' if logger
 
@@ -1224,6 +1241,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_rule_set.rb.html) to see an example of how to use delete_rule_set API.
     def delete_rule_set(load_balancer_id, rule_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#delete_rule_set.' if logger
 
@@ -1285,6 +1303,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_ssl_cipher_suite.rb.html) to see an example of how to use delete_ssl_cipher_suite API.
     def delete_ssl_cipher_suite(load_balancer_id, name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#delete_ssl_cipher_suite.' if logger
 
@@ -1349,6 +1368,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::Backend Backend}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_backend.rb.html) to see an example of how to use get_backend API.
     def get_backend(load_balancer_id, backend_set_name, backend_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_backend.' if logger
 
@@ -1416,6 +1436,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::BackendHealth BackendHealth}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_backend_health.rb.html) to see an example of how to use get_backend_health API.
     def get_backend_health(load_balancer_id, backend_set_name, backend_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_backend_health.' if logger
 
@@ -1479,6 +1500,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::BackendSet BackendSet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_backend_set.rb.html) to see an example of how to use get_backend_set API.
     def get_backend_set(load_balancer_id, backend_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_backend_set.' if logger
 
@@ -1540,6 +1562,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::BackendSetHealth BackendSetHealth}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_backend_set_health.rb.html) to see an example of how to use get_backend_set_health API.
     def get_backend_set_health(load_balancer_id, backend_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_backend_set_health.' if logger
 
@@ -1601,6 +1624,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::HealthChecker HealthChecker}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_health_checker.rb.html) to see an example of how to use get_health_checker API.
     def get_health_checker(load_balancer_id, backend_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_health_checker.' if logger
 
@@ -1662,6 +1686,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::Hostname Hostname}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_hostname.rb.html) to see an example of how to use get_hostname API.
     def get_hostname(load_balancer_id, name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_hostname.' if logger
 
@@ -1719,6 +1744,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::LoadBalancer LoadBalancer}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_load_balancer.rb.html) to see an example of how to use get_load_balancer API.
     def get_load_balancer(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_load_balancer.' if logger
 
@@ -1774,6 +1800,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::LoadBalancerHealth LoadBalancerHealth}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_load_balancer_health.rb.html) to see an example of how to use get_load_balancer_health API.
     def get_load_balancer_health(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_load_balancer_health.' if logger
 
@@ -1833,6 +1860,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::PathRouteSet PathRouteSet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_path_route_set.rb.html) to see an example of how to use get_path_route_set API.
     def get_path_route_set(load_balancer_id, path_route_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_path_route_set.' if logger
 
@@ -1894,6 +1922,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::RuleSet RuleSet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_rule_set.rb.html) to see an example of how to use get_rule_set API.
     def get_rule_set(load_balancer_id, rule_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_rule_set.' if logger
 
@@ -1956,6 +1985,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::SSLCipherSuite SSLCipherSuite}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_ssl_cipher_suite.rb.html) to see an example of how to use get_ssl_cipher_suite API.
     def get_ssl_cipher_suite(load_balancer_id, name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_ssl_cipher_suite.' if logger
 
@@ -2013,6 +2043,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#get_work_request.' if logger
 
@@ -2068,6 +2099,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::BackendSet BackendSet}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_backend_sets.rb.html) to see an example of how to use list_backend_sets API.
     def list_backend_sets(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_backend_sets.' if logger
 
@@ -2127,6 +2159,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::Backend Backend}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_backends.rb.html) to see an example of how to use list_backends API.
     def list_backends(load_balancer_id, backend_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_backends.' if logger
 
@@ -2186,6 +2219,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::Certificate Certificate}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_certificates.rb.html) to see an example of how to use list_certificates API.
     def list_certificates(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_certificates.' if logger
 
@@ -2243,6 +2277,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::Hostname Hostname}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_hostnames.rb.html) to see an example of how to use list_hostnames API.
     def list_hostnames(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_hostnames.' if logger
 
@@ -2307,6 +2342,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::ListenerRuleSummary ListenerRuleSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_listener_rules.rb.html) to see an example of how to use list_listener_rules API.
     def list_listener_rules(load_balancer_id, listener_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_listener_rules.' if logger
 
@@ -2374,6 +2410,7 @@ module OCI
     #   Example: `3`
     #
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancerHealthSummary LoadBalancerHealthSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_load_balancer_healths.rb.html) to see an example of how to use list_load_balancer_healths API.
     def list_load_balancer_healths(compartment_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_load_balancer_healths.' if logger
 
@@ -2460,6 +2497,7 @@ module OCI
     #   Example: `SUCCEEDED`
     #
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancer LoadBalancer}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_load_balancers.rb.html) to see an example of how to use list_load_balancers API.
     def list_load_balancers(compartment_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_load_balancers.' if logger
 
@@ -2536,6 +2574,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::PathRouteSet PathRouteSet}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_path_route_sets.rb.html) to see an example of how to use list_path_route_sets API.
     def list_path_route_sets(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_path_route_sets.' if logger
 
@@ -2601,6 +2640,7 @@ module OCI
     #   Example: `3`
     #
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancerPolicy LoadBalancerPolicy}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_policies.rb.html) to see an example of how to use list_policies API.
     def list_policies(compartment_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_policies.' if logger
 
@@ -2668,6 +2708,7 @@ module OCI
     #   Example: `3`
     #
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancerProtocol LoadBalancerProtocol}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_protocols.rb.html) to see an example of how to use list_protocols API.
     def list_protocols(compartment_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_protocols.' if logger
 
@@ -2725,6 +2766,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::RuleSet RuleSet}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_rule_sets.rb.html) to see an example of how to use list_rule_sets API.
     def list_rule_sets(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_rule_sets.' if logger
 
@@ -2790,6 +2832,7 @@ module OCI
     #   Example: `3`
     #
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::LoadBalancerShape LoadBalancerShape}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_shapes.rb.html) to see an example of how to use list_shapes API.
     def list_shapes(compartment_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_shapes.' if logger
 
@@ -2848,6 +2891,7 @@ module OCI
     #   a particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::SSLCipherSuite SSLCipherSuite}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_ssl_cipher_suites.rb.html) to see an example of how to use list_ssl_cipher_suites API.
     def list_ssl_cipher_suites(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_ssl_cipher_suites.' if logger
 
@@ -2913,6 +2957,7 @@ module OCI
     #   Example: `3`
     #
     # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::WorkRequest WorkRequest}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#list_work_requests.' if logger
 
@@ -2985,6 +3030,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_backend.rb.html) to see an example of how to use update_backend API.
     def update_backend(update_backend_details, load_balancer_id, backend_set_name, backend_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_backend.' if logger
 
@@ -3057,6 +3103,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_backend_set.rb.html) to see an example of how to use update_backend_set API.
     def update_backend_set(update_backend_set_details, load_balancer_id, backend_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_backend_set.' if logger
 
@@ -3127,6 +3174,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_health_checker.rb.html) to see an example of how to use update_health_checker API.
     def update_health_checker(health_checker, load_balancer_id, backend_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_health_checker.' if logger
 
@@ -3195,6 +3243,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_hostname.rb.html) to see an example of how to use update_hostname API.
     def update_hostname(update_hostname_details, load_balancer_id, name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_hostname.' if logger
 
@@ -3263,6 +3312,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_listener.rb.html) to see an example of how to use update_listener API.
     def update_listener(update_listener_details, load_balancer_id, listener_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_listener.' if logger
 
@@ -3329,6 +3379,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_load_balancer.rb.html) to see an example of how to use update_load_balancer API.
     def update_load_balancer(update_load_balancer_details, load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_load_balancer.' if logger
 
@@ -3399,6 +3450,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_load_balancer_shape.rb.html) to see an example of how to use update_load_balancer_shape API.
     def update_load_balancer_shape(load_balancer_id, update_load_balancer_shape_details, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_load_balancer_shape.' if logger
 
@@ -3463,6 +3515,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_network_security_groups.rb.html) to see an example of how to use update_network_security_groups API.
     def update_network_security_groups(update_network_security_groups_details, load_balancer_id, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_network_security_groups.' if logger
 
@@ -3537,6 +3590,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_path_route_set.rb.html) to see an example of how to use update_path_route_set API.
     def update_path_route_set(update_path_route_set_details, load_balancer_id, path_route_set_name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_path_route_set.' if logger
 
@@ -3605,6 +3659,7 @@ module OCI
     #   particular request, please provide the request ID.
     #    (default to )
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_rule_set.rb.html) to see an example of how to use update_rule_set API.
     def update_rule_set(load_balancer_id, rule_set_name, update_rule_set_details, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_rule_set.' if logger
 
@@ -3674,6 +3729,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_ssl_cipher_suite.rb.html) to see an example of how to use update_ssl_cipher_suite API.
     def update_ssl_cipher_suite(update_ssl_cipher_suite_details, load_balancer_id, name, opts = {})
       logger.debug 'Calling operation LoadBalancerClient#update_ssl_cipher_suite.' if logger
 

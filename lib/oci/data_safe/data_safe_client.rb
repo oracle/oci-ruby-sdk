@@ -112,6 +112,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/change_data_safe_private_endpoint_compartment.rb.html) to see an example of how to use change_data_safe_private_endpoint_compartment API.
     def change_data_safe_private_endpoint_compartment(data_safe_private_endpoint_id, change_data_safe_private_endpoint_compartment_details, opts = {})
       logger.debug 'Calling operation DataSafeClient#change_data_safe_private_endpoint_compartment.' if logger
 
@@ -159,6 +160,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves the specified on-premises connector into a different compartment.
+    # @param [String] on_prem_connector_id The OCID of the on-premises connector.
+    # @param [OCI::DataSafe::Models::ChangeOnPremConnectorCompartmentDetails] change_on_prem_connector_compartment_details The details used to change the compartment of an on-premises connector.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/change_on_prem_connector_compartment.rb.html) to see an example of how to use change_on_prem_connector_compartment API.
+    def change_on_prem_connector_compartment(on_prem_connector_id, change_on_prem_connector_compartment_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#change_on_prem_connector_compartment.' if logger
+
+      raise "Missing the required parameter 'on_prem_connector_id' when calling change_on_prem_connector_compartment." if on_prem_connector_id.nil?
+      raise "Missing the required parameter 'change_on_prem_connector_compartment_details' when calling change_on_prem_connector_compartment." if change_on_prem_connector_compartment_details.nil?
+      raise "Parameter value for 'on_prem_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(on_prem_connector_id)
+
+      path = '/onPremConnectors/{onPremConnectorId}/actions/changeCompartment'.sub('{onPremConnectorId}', on_prem_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_on_prem_connector_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_on_prem_connector_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new Data Safe private endpoint.
     #
     # @param [OCI::DataSafe::Models::CreateDataSafePrivateEndpointDetails] create_data_safe_private_endpoint_details Details to create a new private endpoint.
@@ -171,7 +241,8 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
-    # @return [Response] A Response object with data of type nil
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::DataSafePrivateEndpoint DataSafePrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/create_data_safe_private_endpoint.rb.html) to see an example of how to use create_data_safe_private_endpoint API.
     def create_data_safe_private_endpoint(create_data_safe_private_endpoint_details, opts = {})
       logger.debug 'Calling operation DataSafeClient#create_data_safe_private_endpoint.' if logger
 
@@ -204,7 +275,69 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::DataSafePrivateEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new on-premises connector.
+    #
+    # @param [OCI::DataSafe::Models::CreateOnPremConnectorDetails] create_on_prem_connector_details The details used to create a new on-premises connector.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::OnPremConnector OnPremConnector}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/create_on_prem_connector.rb.html) to see an example of how to use create_on_prem_connector API.
+    def create_on_prem_connector(create_on_prem_connector_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#create_on_prem_connector.' if logger
+
+      raise "Missing the required parameter 'create_on_prem_connector_details' when calling create_on_prem_connector." if create_on_prem_connector_details.nil?
+
+      path = '/onPremConnectors'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_on_prem_connector_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#create_on_prem_connector') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::OnPremConnector'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -231,6 +364,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/delete_data_safe_private_endpoint.rb.html) to see an example of how to use delete_data_safe_private_endpoint API.
     def delete_data_safe_private_endpoint(data_safe_private_endpoint_id, opts = {})
       logger.debug 'Calling operation DataSafeClient#delete_data_safe_private_endpoint.' if logger
 
@@ -277,6 +411,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the specified on-premises connector.
+    # @param [String] on_prem_connector_id The OCID of the on-premises connector.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/delete_on_prem_connector.rb.html) to see an example of how to use delete_on_prem_connector API.
+    def delete_on_prem_connector(on_prem_connector_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#delete_on_prem_connector.' if logger
+
+      raise "Missing the required parameter 'on_prem_connector_id' when calling delete_on_prem_connector." if on_prem_connector_id.nil?
+      raise "Parameter value for 'on_prem_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(on_prem_connector_id)
+
+      path = '/onPremConnectors/{onPremConnectorId}'.sub('{onPremConnectorId}', on_prem_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#delete_on_prem_connector') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Enables Data Safe in the tenancy and region.
     #
     # @param [OCI::DataSafe::Models::EnableDataSafeConfigurationDetails] enable_data_safe_configuration_details The details used to enable Data Safe.
@@ -292,6 +486,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/enable_data_safe_configuration.rb.html) to see an example of how to use enable_data_safe_configuration API.
     def enable_data_safe_configuration(enable_data_safe_configuration_details, opts = {})
       logger.debug 'Calling operation DataSafeClient#enable_data_safe_configuration.' if logger
 
@@ -338,6 +533,123 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates and downloads the configuration of the specified on-premises connector.
+    #
+    # @param [OCI::DataSafe::Models::GenerateOnPremConnectorConfigurationDetails] generate_on_prem_connector_configuration_details The details used to create and download on-premises connector's configuration.
+    # @param [String] on_prem_connector_id The OCID of the on-premises connector.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/generate_on_prem_connector_configuration.rb.html) to see an example of how to use generate_on_prem_connector_configuration API.
+    def generate_on_prem_connector_configuration(generate_on_prem_connector_configuration_details, on_prem_connector_id, opts = {}, &block)
+      logger.debug 'Calling operation DataSafeClient#generate_on_prem_connector_configuration.' if logger
+
+      raise "Missing the required parameter 'generate_on_prem_connector_configuration_details' when calling generate_on_prem_connector_configuration." if generate_on_prem_connector_configuration_details.nil?
+      raise "Missing the required parameter 'on_prem_connector_id' when calling generate_on_prem_connector_configuration." if on_prem_connector_id.nil?
+      raise "Parameter value for 'on_prem_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(on_prem_connector_id)
+
+      path = '/onPremConnectors/{onPremConnectorId}/actions/generateConfiguration'.sub('{onPremConnectorId}', on_prem_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/octet-stream'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(generate_on_prem_connector_configuration_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#generate_on_prem_connector_configuration') do
+        if !block.nil?
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :POST,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :POST,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the details of the Data Safe configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -345,6 +657,7 @@ module OCI
     # @option opts [String] :compartment_id A filter to return only resources that match the specified compartment OCID.
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @return [Response] A Response object with data of type {OCI::DataSafe::Models::DataSafeConfiguration DataSafeConfiguration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_data_safe_configuration.rb.html) to see an example of how to use get_data_safe_configuration API.
     def get_data_safe_configuration(opts = {})
       logger.debug 'Calling operation DataSafeClient#get_data_safe_configuration.' if logger
 
@@ -397,6 +710,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @return [Response] A Response object with data of type {OCI::DataSafe::Models::DataSafePrivateEndpoint DataSafePrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_data_safe_private_endpoint.rb.html) to see an example of how to use get_data_safe_private_endpoint API.
     def get_data_safe_private_endpoint(data_safe_private_endpoint_id, opts = {})
       logger.debug 'Calling operation DataSafeClient#get_data_safe_private_endpoint.' if logger
 
@@ -443,6 +757,60 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the details of the specified on-premises connector.
+    # @param [String] on_prem_connector_id The OCID of the on-premises connector.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::OnPremConnector OnPremConnector}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_on_prem_connector.rb.html) to see an example of how to use get_on_prem_connector API.
+    def get_on_prem_connector(on_prem_connector_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#get_on_prem_connector.' if logger
+
+      raise "Missing the required parameter 'on_prem_connector_id' when calling get_on_prem_connector." if on_prem_connector_id.nil?
+      raise "Parameter value for 'on_prem_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(on_prem_connector_id)
+
+      path = '/onPremConnectors/{onPremConnectorId}'.sub('{onPremConnectorId}', on_prem_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#get_on_prem_connector') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::OnPremConnector'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the details of the specified work request.
     # @param [String] work_request_id The OCID of the work request.
     # @param [Hash] opts the optional parameters
@@ -450,6 +818,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @return [Response] A Response object with data of type {OCI::DataSafe::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation DataSafeClient#get_work_request.' if logger
 
@@ -498,16 +867,16 @@ module OCI
 
     # Gets a list of Data Safe private endpoints.
     #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id A filter to return only resources that match the specified compartment OCID.
     # @option opts [String] :display_name A filter to return only resources that match the specified display name.
     #
-    # @option opts [String] :vcn_id A filter to return only the private endpoints that match the specified VCN OCID.
+    # @option opts [String] :vcn_id A filter to return only resources that match the specified VCN OCID.
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state.
     # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
-    # @option opts [String] :page The beginning page from which the results start retrieving.
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
@@ -515,9 +884,11 @@ module OCI
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::DataSafePrivateEndpointSummary DataSafePrivateEndpointSummary}>
-    def list_data_safe_private_endpoints(opts = {})
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_data_safe_private_endpoints.rb.html) to see an example of how to use list_data_safe_private_endpoints API.
+    def list_data_safe_private_endpoints(compartment_id, opts = {})
       logger.debug 'Calling operation DataSafeClient#list_data_safe_private_endpoints.' if logger
 
+      raise "Missing the required parameter 'compartment_id' when calling list_data_safe_private_endpoints." if compartment_id.nil?
 
       if opts[:lifecycle_state] && !OCI::DataSafe::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::LIFECYCLE_STATE_ENUM.'
@@ -537,7 +908,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:compartmentId] = compartment_id
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:vcnId] = opts[:vcn_id] if opts[:vcn_id]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
@@ -579,6 +950,91 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a list of on-premises connectors.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :on_prem_connector_id A filter to return only the on-premises connector that matches the specified id.
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [String] :on_prem_connector_lifecycle_state A filter to return only on-premises connector resources that match the specified lifecycle state.
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::OnPremConnectorSummary OnPremConnectorSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_on_prem_connectors.rb.html) to see an example of how to use list_on_prem_connectors API.
+    def list_on_prem_connectors(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_on_prem_connectors.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_on_prem_connectors." if compartment_id.nil?
+
+      if opts[:on_prem_connector_lifecycle_state] && !OCI::DataSafe::Models::ON_PREM_CONNECTOR_LIFECYCLE_STATE_ENUM.include?(opts[:on_prem_connector_lifecycle_state])
+        raise 'Invalid value for "on_prem_connector_lifecycle_state", must be one of the values in OCI::DataSafe::Models::ON_PREM_CONNECTOR_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      path = '/onPremConnectors'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:onPremConnectorId] = opts[:on_prem_connector_id] if opts[:on_prem_connector_id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:onPremConnectorLifecycleState] = opts[:on_prem_connector_lifecycle_state] if opts[:on_prem_connector_lifecycle_state]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_on_prem_connectors') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::DataSafe::Models::OnPremConnectorSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a list of errors for the specified work request.
     #
     # @param [String] work_request_id The OCID of the work request.
@@ -586,9 +1042,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id Unique identifier for the request.
-    # @option opts [String] :page The beginning page from which the results start retrieving.
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation DataSafeClient#list_work_request_errors.' if logger
 
@@ -644,9 +1101,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id Unique identifier for the request.
-    # @option opts [String] :page The beginning page from which the results start retrieving.
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation DataSafeClient#list_work_request_logs.' if logger
 
@@ -697,18 +1155,20 @@ module OCI
 
     # Gets a list of work requests.
     #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id A filter to return only resources that match the specified compartment OCID.
     # @option opts [String] :resource_id A filter to return only work requests that match the specified resource OCID.
     # @option opts [String] :opc_request_id Unique identifier for the request.
-    # @option opts [String] :page The beginning page from which the results start retrieving.
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::WorkRequestSummary WorkRequestSummary}>
-    def list_work_requests(opts = {})
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
+    def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation DataSafeClient#list_work_requests.' if logger
 
+      raise "Missing the required parameter 'compartment_id' when calling list_work_requests." if compartment_id.nil?
 
       path = '/workRequests'
       operation_signing_strategy = :standard
@@ -716,7 +1176,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:compartmentId] = compartment_id
       query_params[:resourceId] = opts[:resource_id] if opts[:resource_id]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -768,6 +1228,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/update_data_safe_private_endpoint.rb.html) to see an example of how to use update_data_safe_private_endpoint API.
     def update_data_safe_private_endpoint(data_safe_private_endpoint_id, update_data_safe_private_endpoint_details, opts = {})
       logger.debug 'Calling operation DataSafeClient#update_data_safe_private_endpoint.' if logger
 
@@ -794,6 +1255,138 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_data_safe_private_endpoint') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates one or more attributes of the specified on-premises connector.
+    # @param [String] on_prem_connector_id The OCID of the on-premises connector.
+    # @param [OCI::DataSafe::Models::UpdateOnPremConnectorDetails] update_on_prem_connector_details The details used to update a on-premises connector.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/update_on_prem_connector.rb.html) to see an example of how to use update_on_prem_connector API.
+    def update_on_prem_connector(on_prem_connector_id, update_on_prem_connector_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#update_on_prem_connector.' if logger
+
+      raise "Missing the required parameter 'on_prem_connector_id' when calling update_on_prem_connector." if on_prem_connector_id.nil?
+      raise "Missing the required parameter 'update_on_prem_connector_details' when calling update_on_prem_connector." if update_on_prem_connector_details.nil?
+      raise "Parameter value for 'on_prem_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(on_prem_connector_id)
+
+      path = '/onPremConnectors/{onPremConnectorId}'.sub('{onPremConnectorId}', on_prem_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_on_prem_connector_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_on_prem_connector') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the wallet for the specified on-premises connector to a new version.
+    #
+    # @param [OCI::DataSafe::Models::UpdateOnPremConnectorWalletDetails] update_on_prem_connector_wallet_details The details used to update an on-premises connector's wallet.
+    # @param [String] on_prem_connector_id The OCID of the on-premises connector.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/update_on_prem_connector_wallet.rb.html) to see an example of how to use update_on_prem_connector_wallet API.
+    def update_on_prem_connector_wallet(update_on_prem_connector_wallet_details, on_prem_connector_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#update_on_prem_connector_wallet.' if logger
+
+      raise "Missing the required parameter 'update_on_prem_connector_wallet_details' when calling update_on_prem_connector_wallet." if update_on_prem_connector_wallet_details.nil?
+      raise "Missing the required parameter 'on_prem_connector_id' when calling update_on_prem_connector_wallet." if on_prem_connector_id.nil?
+      raise "Parameter value for 'on_prem_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(on_prem_connector_id)
+
+      path = '/onPremConnectors/{onPremConnectorId}/wallet'.sub('{onPremConnectorId}', on_prem_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_on_prem_connector_wallet_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_on_prem_connector_wallet') do
         @api_client.call_api(
           :PUT,
           path,

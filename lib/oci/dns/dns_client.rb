@@ -129,6 +129,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/change_resolver_compartment.rb.html) to see an example of how to use change_resolver_compartment API.
     def change_resolver_compartment(resolver_id, change_resolver_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_resolver_compartment.' if logger
 
@@ -209,6 +210,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/change_steering_policy_compartment.rb.html) to see an example of how to use change_steering_policy_compartment API.
     def change_steering_policy_compartment(steering_policy_id, change_steering_policy_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_steering_policy_compartment.' if logger
 
@@ -289,6 +291,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/change_tsig_key_compartment.rb.html) to see an example of how to use change_tsig_key_compartment API.
     def change_tsig_key_compartment(tsig_key_id, change_tsig_key_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_tsig_key_compartment.' if logger
 
@@ -370,6 +373,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/change_view_compartment.rb.html) to see an example of how to use change_view_compartment API.
     def change_view_compartment(view_id, change_view_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_view_compartment.' if logger
 
@@ -453,6 +457,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/change_zone_compartment.rb.html) to see an example of how to use change_zone_compartment API.
     def change_zone_compartment(zone_id, change_zone_compartment_details, opts = {})
       logger.debug 'Calling operation DnsClient#change_zone_compartment.' if logger
 
@@ -528,6 +533,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::ResolverEndpoint ResolverEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/create_resolver_endpoint.rb.html) to see an example of how to use create_resolver_endpoint API.
     def create_resolver_endpoint(resolver_id, create_resolver_endpoint_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_resolver_endpoint.' if logger
 
@@ -603,6 +609,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/create_steering_policy.rb.html) to see an example of how to use create_steering_policy API.
     def create_steering_policy(create_steering_policy_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_steering_policy.' if logger
 
@@ -680,6 +687,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/create_steering_policy_attachment.rb.html) to see an example of how to use create_steering_policy_attachment API.
     def create_steering_policy_attachment(create_steering_policy_attachment_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_steering_policy_attachment.' if logger
 
@@ -746,6 +754,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::TsigKey TsigKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/create_tsig_key.rb.html) to see an example of how to use create_tsig_key API.
     def create_tsig_key(create_tsig_key_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_tsig_key.' if logger
 
@@ -816,6 +825,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::View View}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/create_view.rb.html) to see an example of how to use create_view API.
     def create_view(create_view_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_view.' if logger
 
@@ -885,6 +895,7 @@ module OCI
     #
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/create_zone.rb.html) to see an example of how to use create_zone API.
     def create_zone(create_zone_details, opts = {})
       logger.debug 'Calling operation DnsClient#create_zone.' if logger
 
@@ -964,6 +975,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/delete_domain_records.rb.html) to see an example of how to use delete_domain_records API.
     def delete_domain_records(zone_name_or_id, domain, opts = {})
       logger.debug 'Calling operation DnsClient#delete_domain_records.' if logger
 
@@ -1048,6 +1060,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/delete_resolver_endpoint.rb.html) to see an example of how to use delete_resolver_endpoint API.
     def delete_resolver_endpoint(resolver_id, resolver_endpoint_name, opts = {})
       logger.debug 'Calling operation DnsClient#delete_resolver_endpoint.' if logger
 
@@ -1131,6 +1144,7 @@ module OCI
     #
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/delete_rr_set.rb.html) to see an example of how to use delete_rr_set API.
     def delete_rr_set(zone_name_or_id, domain, rtype, opts = {})
       logger.debug 'Calling operation DnsClient#delete_rr_set.' if logger
 
@@ -1217,6 +1231,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/delete_steering_policy.rb.html) to see an example of how to use delete_steering_policy API.
     def delete_steering_policy(steering_policy_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_steering_policy.' if logger
 
@@ -1295,6 +1310,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/delete_steering_policy_attachment.rb.html) to see an example of how to use delete_steering_policy_attachment API.
     def delete_steering_policy_attachment(steering_policy_attachment_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_steering_policy_attachment.' if logger
 
@@ -1372,6 +1388,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/delete_tsig_key.rb.html) to see an example of how to use delete_tsig_key API.
     def delete_tsig_key(tsig_key_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_tsig_key.' if logger
 
@@ -1453,6 +1470,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/delete_view.rb.html) to see an example of how to use delete_view API.
     def delete_view(view_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_view.' if logger
 
@@ -1534,6 +1552,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/delete_zone.rb.html) to see an example of how to use delete_zone API.
     def delete_zone(zone_name_or_id, opts = {})
       logger.debug 'Calling operation DnsClient#delete_zone.' if logger
 
@@ -1629,6 +1648,7 @@ module OCI
     #    (default to ASC)
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_domain_records.rb.html) to see an example of how to use get_domain_records API.
     def get_domain_records(zone_name_or_id, domain, opts = {})
       logger.debug 'Calling operation DnsClient#get_domain_records.' if logger
 
@@ -1725,6 +1745,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Resolver Resolver}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_resolver.rb.html) to see an example of how to use get_resolver API.
     def get_resolver(resolver_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_resolver.' if logger
 
@@ -1803,6 +1824,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::ResolverEndpoint ResolverEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_resolver_endpoint.rb.html) to see an example of how to use get_resolver_endpoint API.
     def get_resolver_endpoint(resolver_id, resolver_endpoint_name, opts = {})
       logger.debug 'Calling operation DnsClient#get_resolver_endpoint.' if logger
 
@@ -1892,6 +1914,7 @@ module OCI
     #
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RRSet RRSet}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_rr_set.rb.html) to see an example of how to use get_rr_set API.
     def get_rr_set(zone_name_or_id, domain, rtype, opts = {})
       logger.debug 'Calling operation DnsClient#get_rr_set.' if logger
 
@@ -1977,6 +2000,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_steering_policy.rb.html) to see an example of how to use get_steering_policy API.
     def get_steering_policy(steering_policy_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_steering_policy.' if logger
 
@@ -2053,6 +2077,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_steering_policy_attachment.rb.html) to see an example of how to use get_steering_policy_attachment API.
     def get_steering_policy_attachment(steering_policy_attachment_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_steering_policy_attachment.' if logger
 
@@ -2129,6 +2154,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::TsigKey TsigKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_tsig_key.rb.html) to see an example of how to use get_tsig_key API.
     def get_tsig_key(tsig_key_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_tsig_key.' if logger
 
@@ -2207,6 +2233,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::View View}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_view.rb.html) to see an example of how to use get_view API.
     def get_view(view_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_view.' if logger
 
@@ -2286,6 +2313,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_zone.rb.html) to see an example of how to use get_zone API.
     def get_zone(zone_name_or_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_zone.' if logger
 
@@ -2387,6 +2415,7 @@ module OCI
     #
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_zone_records.rb.html) to see an example of how to use get_zone_records API.
     def get_zone_records(zone_name_or_id, opts = {})
       logger.debug 'Calling operation DnsClient#get_zone_records.' if logger
 
@@ -2484,6 +2513,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ResolverEndpointSummary ResolverEndpointSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/list_resolver_endpoints.rb.html) to see an example of how to use list_resolver_endpoints API.
     def list_resolver_endpoints(resolver_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_resolver_endpoints.' if logger
 
@@ -2582,6 +2612,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ResolverSummary ResolverSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/list_resolvers.rb.html) to see an example of how to use list_resolvers API.
     def list_resolvers(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_resolvers.' if logger
 
@@ -2691,6 +2722,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::SteeringPolicySummary SteeringPolicySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/list_steering_policies.rb.html) to see an example of how to use list_steering_policies API.
     def list_steering_policies(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_steering_policies.' if logger
 
@@ -2808,6 +2840,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::SteeringPolicyAttachmentSummary SteeringPolicyAttachmentSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/list_steering_policy_attachments.rb.html) to see an example of how to use list_steering_policy_attachments API.
     def list_steering_policy_attachments(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_steering_policy_attachments.' if logger
 
@@ -2908,6 +2941,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::TsigKeySummary TsigKeySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/list_tsig_keys.rb.html) to see an example of how to use list_tsig_keys API.
     def list_tsig_keys(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_tsig_keys.' if logger
 
@@ -3007,6 +3041,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ViewSummary ViewSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/list_views.rb.html) to see an example of how to use list_views API.
     def list_views(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_views.' if logger
 
@@ -3118,6 +3153,7 @@ module OCI
     #
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ZoneSummary ZoneSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/list_zones.rb.html) to see an example of how to use list_zones API.
     def list_zones(compartment_id, opts = {})
       logger.debug 'Calling operation DnsClient#list_zones.' if logger
 
@@ -3228,6 +3264,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/patch_domain_records.rb.html) to see an example of how to use patch_domain_records API.
     def patch_domain_records(zone_name_or_id, domain, patch_domain_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#patch_domain_records.' if logger
 
@@ -3315,6 +3352,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/patch_rr_set.rb.html) to see an example of how to use patch_rr_set API.
     def patch_rr_set(zone_name_or_id, domain, rtype, patch_rr_set_details, opts = {})
       logger.debug 'Calling operation DnsClient#patch_rr_set.' if logger
 
@@ -3407,6 +3445,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/patch_zone_records.rb.html) to see an example of how to use patch_zone_records API.
     def patch_zone_records(zone_name_or_id, patch_zone_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#patch_zone_records.' if logger
 
@@ -3497,6 +3536,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_domain_records.rb.html) to see an example of how to use update_domain_records API.
     def update_domain_records(zone_name_or_id, domain, update_domain_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_domain_records.' if logger
 
@@ -3581,6 +3621,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Resolver Resolver}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_resolver.rb.html) to see an example of how to use update_resolver API.
     def update_resolver(resolver_id, update_resolver_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_resolver.' if logger
 
@@ -3662,6 +3703,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::ResolverEndpoint ResolverEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_resolver_endpoint.rb.html) to see an example of how to use update_resolver_endpoint API.
     def update_resolver_endpoint(resolver_id, resolver_endpoint_name, update_resolver_endpoint_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_resolver_endpoint.' if logger
 
@@ -3747,6 +3789,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_rr_set.rb.html) to see an example of how to use update_rr_set API.
     def update_rr_set(zone_name_or_id, domain, rtype, update_rr_set_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_rr_set.' if logger
 
@@ -3833,6 +3876,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicy SteeringPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_steering_policy.rb.html) to see an example of how to use update_steering_policy API.
     def update_steering_policy(steering_policy_id, update_steering_policy_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_steering_policy.' if logger
 
@@ -3913,6 +3957,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::SteeringPolicyAttachment SteeringPolicyAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_steering_policy_attachment.rb.html) to see an example of how to use update_steering_policy_attachment API.
     def update_steering_policy_attachment(steering_policy_attachment_id, update_steering_policy_attachment_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_steering_policy_attachment.' if logger
 
@@ -3993,6 +4038,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::TsigKey TsigKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_tsig_key.rb.html) to see an example of how to use update_tsig_key API.
     def update_tsig_key(tsig_key_id, update_tsig_key_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_tsig_key.' if logger
 
@@ -4073,6 +4119,7 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @return [Response] A Response object with data of type {OCI::Dns::Models::View View}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_view.rb.html) to see an example of how to use update_view API.
     def update_view(view_id, update_view_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_view.' if logger
 
@@ -4157,6 +4204,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::Zone Zone}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_zone.rb.html) to see an example of how to use update_zone API.
     def update_zone(zone_name_or_id, update_zone_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_zone.' if logger
 
@@ -4245,6 +4293,7 @@ module OCI
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
     # @option opts [String] :compartment_id The OCID of the compartment the resource belongs to.
     # @return [Response] A Response object with data of type {OCI::Dns::Models::RecordCollection RecordCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/update_zone_records.rb.html) to see an example of how to use update_zone_records API.
     def update_zone_records(zone_name_or_id, update_zone_records_details, opts = {})
       logger.debug 'Calling operation DnsClient#update_zone_records.' if logger
 

@@ -29,7 +29,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :verify_peer_certificate
 
-    # **[Required]** A friendly name for the certificate bundle. It must be unique and it cannot be changed.
+    # A friendly name for the certificate bundle. It must be unique and it cannot be changed.
     # Valid certificate bundle names include only alphanumeric characters, dashes, and underscores.
     # Certificate bundle names cannot contain spaces. Avoid entering confidential information.
     #

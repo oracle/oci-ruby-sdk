@@ -123,6 +123,7 @@ module OCI
     #    (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/change_table_compartment.rb.html) to see an example of how to use change_table_compartment API.
     def change_table_compartment(table_name_or_id, change_table_compartment_details, opts = {})
       logger.debug 'Calling operation NosqlClient#change_table_compartment.' if logger
 
@@ -188,6 +189,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/create_index.rb.html) to see an example of how to use create_index API.
     def create_index(table_name_or_id, create_index_details, opts = {})
       logger.debug 'Calling operation NosqlClient#create_index.' if logger
 
@@ -251,6 +253,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/create_table.rb.html) to see an example of how to use create_table API.
     def create_table(create_table_details, opts = {})
       logger.debug 'Calling operation NosqlClient#create_table.' if logger
 
@@ -316,6 +319,7 @@ module OCI
     #    (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/delete_index.rb.html) to see an example of how to use delete_index API.
     def delete_index(table_name_or_id, index_name, opts = {})
       logger.debug 'Calling operation NosqlClient#delete_index.' if logger
 
@@ -390,6 +394,7 @@ module OCI
     #    (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::DeleteRowResult DeleteRowResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/delete_row.rb.html) to see an example of how to use delete_row API.
     def delete_row(table_name_or_id, key, opts = {})
       logger.debug 'Calling operation NosqlClient#delete_row.' if logger
 
@@ -460,6 +465,7 @@ module OCI
     #    (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/delete_table.rb.html) to see an example of how to use delete_table API.
     def delete_table(table_name_or_id, opts = {})
       logger.debug 'Calling operation NosqlClient#delete_table.' if logger
 
@@ -521,6 +527,7 @@ module OCI
     #    (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/delete_work_request.rb.html) to see an example of how to use delete_work_request API.
     def delete_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation NosqlClient#delete_work_request.' if logger
 
@@ -579,6 +586,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::Index Index}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/get_index.rb.html) to see an example of how to use get_index API.
     def get_index(table_name_or_id, index_name, opts = {})
       logger.debug 'Calling operation NosqlClient#get_index.' if logger
 
@@ -645,6 +653,7 @@ module OCI
     # @option opts [Integer] :timeout_in_ms Timeout setting for this operation. (default to 5000)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::Row Row}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/get_row.rb.html) to see an example of how to use get_row API.
     def get_row(table_name_or_id, key, opts = {})
       logger.debug 'Calling operation NosqlClient#get_row.' if logger
 
@@ -711,6 +720,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::Table Table}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/get_table.rb.html) to see an example of how to use get_table API.
     def get_table(table_name_or_id, opts = {})
       logger.debug 'Calling operation NosqlClient#get_table.' if logger
 
@@ -765,6 +775,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation NosqlClient#get_work_request.' if logger
 
@@ -838,6 +849,7 @@ module OCI
     #   Allowed values are: timeCreated, name
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::IndexCollection IndexCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/list_indexes.rb.html) to see an example of how to use list_indexes API.
     def list_indexes(table_name_or_id, opts = {})
       logger.debug 'Calling operation NosqlClient#list_indexes.' if logger
 
@@ -924,6 +936,7 @@ module OCI
     #   list call.
     #
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::TableUsageCollection TableUsageCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/list_table_usage.rb.html) to see an example of how to use list_table_usage API.
     def list_table_usage(table_name_or_id, opts = {})
       logger.debug 'Calling operation NosqlClient#list_table_usage.' if logger
 
@@ -998,6 +1011,7 @@ module OCI
     # @option opts [String] :lifecycle_state Filter list by the lifecycle state of the item. (default to ALL)
     #   Allowed values are: ALL, CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, INACTIVE
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::TableCollection TableCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/list_tables.rb.html) to see an example of how to use list_tables API.
     def list_tables(compartment_id, opts = {})
       logger.debug 'Calling operation NosqlClient#list_tables.' if logger
 
@@ -1075,6 +1089,7 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 1000)
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation NosqlClient#list_work_request_errors.' if logger
 
@@ -1136,6 +1151,7 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 1000)
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::WorkRequestLogEntryCollection WorkRequestLogEntryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation NosqlClient#list_work_request_logs.' if logger
 
@@ -1196,6 +1212,7 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 1000)
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::WorkRequestCollection WorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation NosqlClient#list_work_requests.' if logger
 
@@ -1253,6 +1270,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::PreparedStatement PreparedStatement}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/prepare_statement.rb.html) to see an example of how to use prepare_statement API.
     def prepare_statement(compartment_id, statement, opts = {})
       logger.debug 'Calling operation NosqlClient#prepare_statement.' if logger
 
@@ -1313,6 +1331,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::QueryResultCollection QueryResultCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/query.rb.html) to see an example of how to use query API.
     def query(query_details, opts = {})
       logger.debug 'Calling operation NosqlClient#query.' if logger
 
@@ -1369,6 +1388,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::StatementSummary StatementSummary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/summarize_statement.rb.html) to see an example of how to use summarize_statement API.
     def summarize_statement(compartment_id, statement, opts = {})
       logger.debug 'Calling operation NosqlClient#summarize_statement.' if logger
 
@@ -1431,6 +1451,7 @@ module OCI
     #    (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Nosql::Models::UpdateRowResult UpdateRowResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/update_row.rb.html) to see an example of how to use update_row API.
     def update_row(table_name_or_id, update_row_details, opts = {})
       logger.debug 'Calling operation NosqlClient#update_row.' if logger
 
@@ -1495,6 +1516,7 @@ module OCI
     #    (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/update_table.rb.html) to see an example of how to use update_table API.
     def update_table(table_name_or_id, update_table_details, opts = {})
       logger.debug 'Calling operation NosqlClient#update_table.' if logger
 

@@ -17,6 +17,11 @@ module OCI
     # @return [String]
     attr_accessor :metadata_url
 
+    # The XML that contains the information required for federating Identity with SAML2 Identity Provider.
+    #
+    # @return [String]
+    attr_accessor :metadata
+
     # **[Required]** The identity provider's signing certificate used by the IAM Service
     # to validate the SAML2 token.
     #
@@ -51,6 +56,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'metadata_url': :'metadataUrl',
+        'metadata': :'metadata',
         'signing_certificate': :'signingCertificate',
         'redirect_url': :'redirectUrl',
         'freeform_attributes': :'freeformAttributes'
@@ -74,6 +80,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'metadata_url': :'String',
+        'metadata': :'String',
         'signing_certificate': :'String',
         'redirect_url': :'String',
         'freeform_attributes': :'Hash<String, String>'
@@ -98,6 +105,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Identity::Models::IdentityProvider#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Identity::Models::IdentityProvider#defined_tags #defined_tags} proprety
     # @option attributes [String] :metadata_url The value to assign to the {#metadata_url} property
+    # @option attributes [String] :metadata The value to assign to the {#metadata} property
     # @option attributes [String] :signing_certificate The value to assign to the {#signing_certificate} property
     # @option attributes [String] :redirect_url The value to assign to the {#redirect_url} property
     # @option attributes [Hash<String, String>] :freeform_attributes The value to assign to the {#freeform_attributes} property
@@ -116,6 +124,8 @@ module OCI
       raise 'You cannot provide both :metadataUrl and :metadata_url' if attributes.key?(:'metadataUrl') && attributes.key?(:'metadata_url')
 
       self.metadata_url = attributes[:'metadata_url'] if attributes[:'metadata_url']
+
+      self.metadata = attributes[:'metadata'] if attributes[:'metadata']
 
       self.signing_certificate = attributes[:'signingCertificate'] if attributes[:'signingCertificate']
 
@@ -159,6 +169,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         metadata_url == other.metadata_url &&
+        metadata == other.metadata &&
         signing_certificate == other.signing_certificate &&
         redirect_url == other.redirect_url &&
         freeform_attributes == other.freeform_attributes
@@ -177,7 +188,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, product_type, time_created, lifecycle_state, inactive_status, protocol, freeform_tags, defined_tags, metadata_url, signing_certificate, redirect_url, freeform_attributes].hash
+      [id, compartment_id, name, description, product_type, time_created, lifecycle_state, inactive_status, protocol, freeform_tags, defined_tags, metadata_url, metadata, signing_certificate, redirect_url, freeform_attributes].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

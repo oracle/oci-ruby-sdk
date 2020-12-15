@@ -122,6 +122,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/events/change_rule_compartment.rb.html) to see an example of how to use change_rule_compartment API.
     def change_rule_compartment(rule_id, change_rule_compartment_details, opts = {})
       logger.debug 'Calling operation EventsClient#change_rule_compartment.' if logger
 
@@ -187,6 +188,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Events::Models::Rule Rule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/events/create_rule.rb.html) to see an example of how to use create_rule API.
     def create_rule(create_rule_details, opts = {})
       logger.debug 'Calling operation EventsClient#create_rule.' if logger
 
@@ -248,6 +250,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/events/delete_rule.rb.html) to see an example of how to use delete_rule API.
     def delete_rule(rule_id, opts = {})
       logger.debug 'Calling operation EventsClient#delete_rule.' if logger
 
@@ -304,6 +307,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Events::Models::Rule Rule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/events/get_rule.rb.html) to see an example of how to use get_rule API.
     def get_rule(rule_id, opts = {})
       logger.debug 'Calling operation EventsClient#get_rule.' if logger
 
@@ -392,6 +396,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Events::Models::RuleSummary RuleSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/events/list_rules.rb.html) to see an example of how to use list_rules API.
     def list_rules(compartment_id, opts = {})
       logger.debug 'Calling operation EventsClient#list_rules.' if logger
 
@@ -472,6 +477,7 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::Events::Models::Rule Rule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/events/update_rule.rb.html) to see an example of how to use update_rule API.
     def update_rule(rule_id, update_rule_details, opts = {})
       logger.debug 'Calling operation EventsClient#update_rule.' if logger
 

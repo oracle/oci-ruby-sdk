@@ -120,6 +120,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/change_api_compartment.rb.html) to see an example of how to use change_api_compartment API.
     def change_api_compartment(api_id, change_api_compartment_details, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#change_api_compartment.' if logger
 
@@ -189,6 +190,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/change_certificate_compartment.rb.html) to see an example of how to use change_certificate_compartment API.
     def change_certificate_compartment(certificate_id, change_certificate_compartment_details, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#change_certificate_compartment.' if logger
 
@@ -252,6 +254,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Api Api}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/create_api.rb.html) to see an example of how to use create_api API.
     def create_api(create_api_details, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#create_api.' if logger
 
@@ -313,6 +316,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Certificate Certificate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/create_certificate.rb.html) to see an example of how to use create_certificate API.
     def create_certificate(create_certificate_details, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#create_certificate.' if logger
 
@@ -373,6 +377,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/delete_api.rb.html) to see an example of how to use delete_api API.
     def delete_api(api_id, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#delete_api.' if logger
 
@@ -432,6 +437,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/delete_certificate.rb.html) to see an example of how to use delete_certificate API.
     def delete_certificate(certificate_id, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#delete_certificate.' if logger
 
@@ -485,6 +491,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Api Api}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/get_api.rb.html) to see an example of how to use get_api API.
     def get_api(api_id, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#get_api.' if logger
 
@@ -546,6 +553,7 @@ module OCI
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/get_api_content.rb.html) to see an example of how to use get_api_content API.
     def get_api_content(api_id, opts = {}, &block)
       logger.debug 'Calling operation ApiGatewayClient#get_api_content.' if logger
 
@@ -650,6 +658,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #    (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::ApiSpecification ApiSpecification}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/get_api_deployment_specification.rb.html) to see an example of how to use get_api_deployment_specification API.
     def get_api_deployment_specification(api_id, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#get_api_deployment_specification.' if logger
 
@@ -710,6 +719,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #    (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::ApiValidations ApiValidations}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/get_api_validations.rb.html) to see an example of how to use get_api_validations API.
     def get_api_validations(api_id, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#get_api_validations.' if logger
 
@@ -764,6 +774,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Certificate Certificate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/get_certificate.rb.html) to see an example of how to use get_certificate API.
     def get_certificate(certificate_id, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#get_certificate.' if logger
 
@@ -836,6 +847,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::ApiCollection ApiCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/list_apis.rb.html) to see an example of how to use list_apis API.
     def list_apis(compartment_id, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#list_apis.' if logger
 
@@ -926,6 +938,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type {OCI::Apigateway::Models::CertificateCollection CertificateCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/list_certificates.rb.html) to see an example of how to use list_certificates API.
     def list_certificates(compartment_id, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#list_certificates.' if logger
 
@@ -1004,6 +1017,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/update_api.rb.html) to see an example of how to use update_api API.
     def update_api(api_id, update_api_details, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#update_api.' if logger
 
@@ -1065,6 +1079,7 @@ module OCI
     #    (default to null)
     # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/update_certificate.rb.html) to see an example of how to use update_certificate API.
     def update_certificate(certificate_id, update_certificate_details, opts = {})
       logger.debug 'Calling operation ApiGatewayClient#update_certificate.' if logger
 

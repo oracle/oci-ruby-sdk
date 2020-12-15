@@ -120,6 +120,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePool InstancePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/attach_load_balancer.rb.html) to see an example of how to use attach_load_balancer API.
     def attach_load_balancer(instance_pool_id, attach_load_balancer_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#attach_load_balancer.' if logger
 
@@ -195,6 +196,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_cluster_network_compartment.rb.html) to see an example of how to use change_cluster_network_compartment API.
     def change_cluster_network_compartment(cluster_network_id, change_cluster_network_compartment_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#change_cluster_network_compartment.' if logger
 
@@ -277,6 +279,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_instance_configuration_compartment.rb.html) to see an example of how to use change_instance_configuration_compartment API.
     def change_instance_configuration_compartment(instance_configuration_id, change_instance_configuration_compartment_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#change_instance_configuration_compartment.' if logger
 
@@ -352,6 +355,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_instance_pool_compartment.rb.html) to see an example of how to use change_instance_pool_compartment API.
     def change_instance_pool_compartment(instance_pool_id, change_instance_pool_compartment_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#change_instance_pool_compartment.' if logger
 
@@ -415,6 +419,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ClusterNetwork ClusterNetwork}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_cluster_network.rb.html) to see an example of how to use create_cluster_network API.
     def create_cluster_network(create_cluster_network_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#create_cluster_network.' if logger
 
@@ -475,6 +480,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceConfiguration InstanceConfiguration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_instance_configuration.rb.html) to see an example of how to use create_instance_configuration API.
     def create_instance_configuration(create_instance_configuration, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#create_instance_configuration.' if logger
 
@@ -533,6 +539,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePool InstancePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_instance_pool.rb.html) to see an example of how to use create_instance_pool API.
     def create_instance_pool(create_instance_pool_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#create_instance_pool.' if logger
 
@@ -589,6 +596,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_instance_configuration.rb.html) to see an example of how to use delete_instance_configuration API.
     def delete_instance_configuration(instance_configuration_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#delete_instance_configuration.' if logger
 
@@ -652,6 +660,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePool InstancePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/detach_load_balancer.rb.html) to see an example of how to use detach_load_balancer API.
     def detach_load_balancer(instance_pool_id, detach_load_balancer_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#detach_load_balancer.' if logger
 
@@ -708,6 +717,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::ClusterNetwork ClusterNetwork}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_cluster_network.rb.html) to see an example of how to use get_cluster_network API.
     def get_cluster_network(cluster_network_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#get_cluster_network.' if logger
 
@@ -761,6 +771,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceConfiguration InstanceConfiguration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_instance_configuration.rb.html) to see an example of how to use get_instance_configuration API.
     def get_instance_configuration(instance_configuration_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#get_instance_configuration.' if logger
 
@@ -814,6 +825,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePool InstancePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_instance_pool.rb.html) to see an example of how to use get_instance_pool API.
     def get_instance_pool(instance_pool_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#get_instance_pool.' if logger
 
@@ -869,6 +881,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePoolLoadBalancerAttachment InstancePoolLoadBalancerAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_instance_pool_load_balancer_attachment.rb.html) to see an example of how to use get_instance_pool_load_balancer_attachment API.
     def get_instance_pool_load_balancer_attachment(instance_pool_id, instance_pool_load_balancer_attachment_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#get_instance_pool_load_balancer_attachment.' if logger
 
@@ -937,6 +950,7 @@ module OCI
     #   may be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Instance Instance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/launch_instance_configuration.rb.html) to see an example of how to use launch_instance_configuration API.
     def launch_instance_configuration(instance_configuration_id, instance_configuration, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#launch_instance_configuration.' if logger
 
@@ -1018,6 +1032,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::InstanceSummary InstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_cluster_network_instances.rb.html) to see an example of how to use list_cluster_network_instances API.
     def list_cluster_network_instances(compartment_id, cluster_network_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#list_cluster_network_instances.' if logger
 
@@ -1113,6 +1128,7 @@ module OCI
     #   state. The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ClusterNetworkSummary ClusterNetworkSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_cluster_networks.rb.html) to see an example of how to use list_cluster_networks API.
     def list_cluster_networks(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#list_cluster_networks.' if logger
 
@@ -1207,6 +1223,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::InstanceConfigurationSummary InstanceConfigurationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_instance_configurations.rb.html) to see an example of how to use list_instance_configurations API.
     def list_instance_configurations(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#list_instance_configurations.' if logger
 
@@ -1297,6 +1314,7 @@ module OCI
     #
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::InstanceSummary InstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_instance_pool_instances.rb.html) to see an example of how to use list_instance_pool_instances API.
     def list_instance_pool_instances(compartment_id, instance_pool_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#list_instance_pool_instances.' if logger
 
@@ -1391,6 +1409,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::InstancePoolSummary InstancePoolSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_instance_pools.rb.html) to see an example of how to use list_instance_pools API.
     def list_instance_pools(compartment_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#list_instance_pools.' if logger
 
@@ -1472,6 +1491,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePool InstancePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/reset_instance_pool.rb.html) to see an example of how to use reset_instance_pool API.
     def reset_instance_pool(instance_pool_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#reset_instance_pool.' if logger
 
@@ -1538,6 +1558,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePool InstancePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/softreset_instance_pool.rb.html) to see an example of how to use softreset_instance_pool API.
     def softreset_instance_pool(instance_pool_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#softreset_instance_pool.' if logger
 
@@ -1604,6 +1625,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePool InstancePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/start_instance_pool.rb.html) to see an example of how to use start_instance_pool API.
     def start_instance_pool(instance_pool_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#start_instance_pool.' if logger
 
@@ -1670,6 +1692,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePool InstancePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/stop_instance_pool.rb.html) to see an example of how to use stop_instance_pool API.
     def stop_instance_pool(instance_pool_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#stop_instance_pool.' if logger
 
@@ -1732,6 +1755,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/terminate_cluster_network.rb.html) to see an example of how to use terminate_cluster_network API.
     def terminate_cluster_network(cluster_network_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#terminate_cluster_network.' if logger
 
@@ -1795,6 +1819,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/terminate_instance_pool.rb.html) to see an example of how to use terminate_instance_pool API.
     def terminate_instance_pool(instance_pool_id, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#terminate_instance_pool.' if logger
 
@@ -1858,6 +1883,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ClusterNetwork ClusterNetwork}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_cluster_network.rb.html) to see an example of how to use update_cluster_network API.
     def update_cluster_network(cluster_network_id, update_cluster_network_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#update_cluster_network.' if logger
 
@@ -1924,6 +1950,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceConfiguration InstanceConfiguration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_instance_configuration.rb.html) to see an example of how to use update_instance_configuration API.
     def update_instance_configuration(instance_configuration_id, update_instance_configuration_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#update_instance_configuration.' if logger
 
@@ -1993,6 +2020,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstancePool InstancePool}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_instance_pool.rb.html) to see an example of how to use update_instance_pool API.
     def update_instance_pool(instance_pool_id, update_instance_pool_details, opts = {})
       logger.debug 'Calling operation ComputeManagementClient#update_instance_pool.' if logger
 

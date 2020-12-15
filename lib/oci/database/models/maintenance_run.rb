@@ -26,6 +26,7 @@ module OCI
       TARGET_RESOURCE_TYPE_AUTONOMOUS_CONTAINER_DATABASE = 'AUTONOMOUS_CONTAINER_DATABASE'.freeze,
       TARGET_RESOURCE_TYPE_EXADATA_DB_SYSTEM = 'EXADATA_DB_SYSTEM'.freeze,
       TARGET_RESOURCE_TYPE_CLOUD_EXADATA_INFRASTRUCTURE = 'CLOUD_EXADATA_INFRASTRUCTURE'.freeze,
+      TARGET_RESOURCE_TYPE_EXACC_INFRASTRUCTURE = 'EXACC_INFRASTRUCTURE'.freeze,
       TARGET_RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -62,7 +63,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Additional information about the current lifecycleState.
+    # Additional information about the current lifecycle state.
     # @return [String]
     attr_accessor :lifecycle_details
 

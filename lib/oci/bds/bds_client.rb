@@ -122,6 +122,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/add_block_storage.rb.html) to see an example of how to use add_block_storage API.
     def add_block_storage(bds_instance_id, add_block_storage_details, opts = {})
       logger.debug 'Calling operation BdsClient#add_block_storage.' if logger
 
@@ -193,6 +194,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/add_cloud_sql.rb.html) to see an example of how to use add_cloud_sql API.
     def add_cloud_sql(bds_instance_id, add_cloud_sql_details, opts = {})
       logger.debug 'Calling operation BdsClient#add_cloud_sql.' if logger
 
@@ -264,6 +266,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/add_worker_nodes.rb.html) to see an example of how to use add_worker_nodes API.
     def add_worker_nodes(bds_instance_id, add_worker_nodes_details, opts = {})
       logger.debug 'Calling operation BdsClient#add_worker_nodes.' if logger
 
@@ -334,6 +337,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/change_bds_instance_compartment.rb.html) to see an example of how to use change_bds_instance_compartment API.
     def change_bds_instance_compartment(bds_instance_id, change_bds_instance_compartment_details, opts = {})
       logger.debug 'Calling operation BdsClient#change_bds_instance_compartment.' if logger
 
@@ -406,6 +410,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/change_shape.rb.html) to see an example of how to use change_shape API.
     def change_shape(bds_instance_id, change_shape_details, opts = {})
       logger.debug 'Calling operation BdsClient#change_shape.' if logger
 
@@ -469,6 +474,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/create_bds_instance.rb.html) to see an example of how to use create_bds_instance API.
     def create_bds_instance(create_bds_instance_details, opts = {})
       logger.debug 'Calling operation BdsClient#create_bds_instance.' if logger
 
@@ -528,6 +534,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/delete_bds_instance.rb.html) to see an example of how to use delete_bds_instance API.
     def delete_bds_instance(bds_instance_id, opts = {})
       logger.debug 'Calling operation BdsClient#delete_bds_instance.' if logger
 
@@ -581,6 +588,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Bds::Models::BdsInstance BdsInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/get_bds_instance.rb.html) to see an example of how to use get_bds_instance API.
     def get_bds_instance(bds_instance_id, opts = {})
       logger.debug 'Calling operation BdsClient#get_bds_instance.' if logger
 
@@ -634,6 +642,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Bds::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/get_work_request.rb.html) to see an example of how to use get_work_request API.
     def get_work_request(work_request_id, opts = {})
       logger.debug 'Calling operation BdsClient#get_work_request.' if logger
 
@@ -696,6 +705,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Bds::Models::BdsInstanceSummary BdsInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/list_bds_instances.rb.html) to see an example of how to use list_bds_instances API.
     def list_bds_instances(compartment_id, opts = {})
       logger.debug 'Calling operation BdsClient#list_bds_instances.' if logger
 
@@ -774,6 +784,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Bds::Models::WorkRequestError WorkRequestError}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
     def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation BdsClient#list_work_request_errors.' if logger
 
@@ -846,6 +857,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Bds::Models::WorkRequestLogEntry WorkRequestLogEntry}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
     def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation BdsClient#list_work_request_logs.' if logger
 
@@ -919,6 +931,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Bds::Models::WorkRequest WorkRequest}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation BdsClient#list_work_requests.' if logger
 
@@ -993,6 +1006,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/remove_cloud_sql.rb.html) to see an example of how to use remove_cloud_sql API.
     def remove_cloud_sql(bds_instance_id, remove_cloud_sql_details, opts = {})
       logger.debug 'Calling operation BdsClient#remove_cloud_sql.' if logger
 
@@ -1061,6 +1075,7 @@ module OCI
     #   might be rejected.
     #
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/restart_node.rb.html) to see an example of how to use restart_node API.
     def restart_node(bds_instance_id, restart_node_details, opts = {})
       logger.debug 'Calling operation BdsClient#restart_node.' if logger
 
@@ -1124,6 +1139,7 @@ module OCI
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/update_bds_instance.rb.html) to see an example of how to use update_bds_instance API.
     def update_bds_instance(bds_instance_id, update_bds_instance_details, opts = {})
       logger.debug 'Calling operation BdsClient#update_bds_instance.' if logger
 

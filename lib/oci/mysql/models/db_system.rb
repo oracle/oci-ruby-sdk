@@ -7,6 +7,8 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A DB System is the core logical unit of MySQL Database Service.
+  # # NOTE: definitions/DbSystemSnapshot is a snapshot version of DbSystem which is stored during backup. Any
+  # # addition/deletion of properties should also consider snapshot's definition
   #
   class Mysql::Models::DbSystem
     LIFECYCLE_STATE_ENUM = [
@@ -117,6 +119,10 @@ module OCI
     # @return [Array<OCI::Mysql::Models::DbSystemEndpoint>]
     attr_accessor :endpoints
 
+    # A list with a summary of all the Channels attached to the DB System.
+    # @return [Array<OCI::Mysql::Models::ChannelSummary>]
+    attr_accessor :channels
+
     # **[Required]** The current state of the DB System.
     # @return [String]
     attr_reader :lifecycle_state
@@ -137,13 +143,13 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # Simple key-value pair applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
@@ -173,6 +179,7 @@ module OCI
         'port': :'port',
         'port_x': :'portX',
         'endpoints': :'endpoints',
+        'channels': :'channels',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'maintenance': :'maintenance',
@@ -208,6 +215,7 @@ module OCI
         'port': :'Integer',
         'port_x': :'Integer',
         'endpoints': :'Array<OCI::Mysql::Models::DbSystemEndpoint>',
+        'channels': :'Array<OCI::Mysql::Models::ChannelSummary>',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'maintenance': :'OCI::Mysql::Models::MaintenanceDetails',
@@ -245,6 +253,7 @@ module OCI
     # @option attributes [Integer] :port The value to assign to the {#port} property
     # @option attributes [Integer] :port_x The value to assign to the {#port_x} property
     # @option attributes [Array<OCI::Mysql::Models::DbSystemEndpoint>] :endpoints The value to assign to the {#endpoints} property
+    # @option attributes [Array<OCI::Mysql::Models::ChannelSummary>] :channels The value to assign to the {#channels} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [OCI::Mysql::Models::MaintenanceDetails] :maintenance The value to assign to the {#maintenance} property
@@ -360,6 +369,8 @@ module OCI
 
       self.endpoints = attributes[:'endpoints'] if attributes[:'endpoints']
 
+      self.channels = attributes[:'channels'] if attributes[:'channels']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -443,6 +454,7 @@ module OCI
         port == other.port &&
         port_x == other.port_x &&
         endpoints == other.endpoints &&
+        channels == other.channels &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         maintenance == other.maintenance &&
@@ -465,7 +477,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, subnet_id, is_analytics_cluster_attached, analytics_cluster, availability_domain, fault_domain, shape_name, mysql_version, backup_policy, source, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, endpoints, lifecycle_state, lifecycle_details, maintenance, time_created, time_updated, freeform_tags, defined_tags].hash
+      [id, display_name, description, compartment_id, subnet_id, is_analytics_cluster_attached, analytics_cluster, availability_domain, fault_domain, shape_name, mysql_version, backup_policy, source, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, endpoints, channels, lifecycle_state, lifecycle_details, maintenance, time_created, time_updated, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
