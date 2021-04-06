@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -13,121 +13,138 @@ module OCI
       TYPE_JSON = 'JSON'.freeze,
       TYPE_REGEX = 'REGEX'.freeze,
       TYPE_ODL = 'ODL'.freeze,
+      TYPE_DELIMITED = 'DELIMITED'.freeze,
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # content
+    # The content.
     # @return [String]
     attr_accessor :content
 
-    # description
+    # The parser description.
     # @return [String]
     attr_accessor :description
 
-    # display name
+    # The parser display name.
     # @return [String]
     attr_accessor :display_name
 
-    # edit version
+    # The parser edit version.
     # @return [Integer]
     attr_accessor :edit_version
 
-    # encoding
+    # The encoding.
     # @return [String]
     attr_accessor :encoding
 
-    # example content
+    # The example content.
     # @return [String]
     attr_accessor :example_content
 
-    # fields Maps
+    # The parser fields.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParserField>]
     attr_accessor :field_maps
 
-    # footer regular expression
+    # The footer regular expression.
     # @return [String]
     attr_accessor :footer_content
 
-    # header content
+    # The header content.
     # @return [String]
     attr_accessor :header_content
 
-    # Name
+    # The parser name.
     # @return [String]
     attr_accessor :name
 
-    # is default flag
+    # A flag indicating if this is a default parser.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_default
 
-    # is single line content
+    # A flag indicating if this is a single line content parser.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_single_line_content
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # language
+    # The language.
     # @return [String]
     attr_accessor :language
 
-    # last updated date
+    # The last updated date.
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # log type test request version
+    # The log type test request version.
     # @return [Integer]
     attr_accessor :log_type_test_request_version
 
-    # mapped parser list
+    # The mapped parser list.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>]
     attr_accessor :mapped_parsers
 
-    # parser ignore line characters
+    # The line characters for the parser to ignore.
     # @return [String]
     attr_accessor :parser_ignoreline_characters
 
-    # is hidden flag
+    # A flag indicating if the parser is hidden or not.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_hidden
 
-    # sequence
+    # The parser sequence.
     # @return [Integer]
     attr_accessor :parser_sequence
 
-    # time zone
+    # The time zone.
     # @return [String]
     attr_accessor :parser_timezone
 
     # @return [OCI::LogAnalytics::Models::LogAnalyticsParserFilter]
     attr_accessor :parser_filter
 
-    # write once
+    # A flag indicating whther or not the parser is write once.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_parser_written_once
 
-    # plugin instance list
+    # The parser function list.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParserFunction>]
     attr_accessor :parser_functions
 
-    # sources using this parser
+    # The number of sources using this parser.
     # @return [Integer]
     attr_accessor :sources_count
 
-    # sources using list
+    # The list of sources using this parser.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSource>]
     attr_accessor :sources
 
-    # tokenize original text
+    # A flag indicating whether or not to tokenize the original text.
+    #
     # @return [BOOLEAN]
     attr_accessor :should_tokenize_original_text
 
-    # type
+    # The parser field delimiter.
+    # @return [String]
+    attr_accessor :field_delimiter
+
+    # The parser field qualifier.
+    # @return [String]
+    attr_accessor :field_qualifier
+
+    # The parser type.  Default value is REGEX.
     # @return [String]
     attr_reader :type
 
-    # user deleted flag
+    # A flag indicating whether or not the parser has been deleted.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_user_deleted
 
@@ -162,6 +179,8 @@ module OCI
         'sources_count': :'sourcesCount',
         'sources': :'sources',
         'should_tokenize_original_text': :'shouldTokenizeOriginalText',
+        'field_delimiter': :'fieldDelimiter',
+        'field_qualifier': :'fieldQualifier',
         'type': :'type',
         'is_user_deleted': :'isUserDeleted'
         # rubocop:enable Style/SymbolLiteral
@@ -199,6 +218,8 @@ module OCI
         'sources_count': :'Integer',
         'sources': :'Array<OCI::LogAnalytics::Models::LogAnalyticsSource>',
         'should_tokenize_original_text': :'BOOLEAN',
+        'field_delimiter': :'String',
+        'field_qualifier': :'String',
         'type': :'String',
         'is_user_deleted': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
@@ -238,6 +259,8 @@ module OCI
     # @option attributes [Integer] :sources_count The value to assign to the {#sources_count} property
     # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsSource>] :sources The value to assign to the {#sources} property
     # @option attributes [BOOLEAN] :should_tokenize_original_text The value to assign to the {#should_tokenize_original_text} property
+    # @option attributes [String] :field_delimiter The value to assign to the {#field_delimiter} property
+    # @option attributes [String] :field_qualifier The value to assign to the {#field_qualifier} property
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [BOOLEAN] :is_user_deleted The value to assign to the {#is_user_deleted} property
     def initialize(attributes = {})
@@ -384,6 +407,18 @@ module OCI
 
       self.should_tokenize_original_text = attributes[:'should_tokenize_original_text'] unless attributes[:'should_tokenize_original_text'].nil?
 
+      self.field_delimiter = attributes[:'fieldDelimiter'] if attributes[:'fieldDelimiter']
+
+      raise 'You cannot provide both :fieldDelimiter and :field_delimiter' if attributes.key?(:'fieldDelimiter') && attributes.key?(:'field_delimiter')
+
+      self.field_delimiter = attributes[:'field_delimiter'] if attributes[:'field_delimiter']
+
+      self.field_qualifier = attributes[:'fieldQualifier'] if attributes[:'fieldQualifier']
+
+      raise 'You cannot provide both :fieldQualifier and :field_qualifier' if attributes.key?(:'fieldQualifier') && attributes.key?(:'field_qualifier')
+
+      self.field_qualifier = attributes[:'field_qualifier'] if attributes[:'field_qualifier']
+
       self.type = attributes[:'type'] if attributes[:'type']
       self.type = "REGEX" if type.nil? && !attributes.key?(:'type') # rubocop:disable Style/StringLiterals
 
@@ -445,6 +480,8 @@ module OCI
         sources_count == other.sources_count &&
         sources == other.sources &&
         should_tokenize_original_text == other.should_tokenize_original_text &&
+        field_delimiter == other.field_delimiter &&
+        field_qualifier == other.field_qualifier &&
         type == other.type &&
         is_user_deleted == other.is_user_deleted
     end
@@ -462,7 +499,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [content, description, display_name, edit_version, encoding, example_content, field_maps, footer_content, header_content, name, is_default, is_single_line_content, is_system, language, time_updated, log_type_test_request_version, mapped_parsers, parser_ignoreline_characters, is_hidden, parser_sequence, parser_timezone, parser_filter, is_parser_written_once, parser_functions, sources_count, sources, should_tokenize_original_text, type, is_user_deleted].hash
+      [content, description, display_name, edit_version, encoding, example_content, field_maps, footer_content, header_content, name, is_default, is_single_line_content, is_system, language, time_updated, log_type_test_request_version, mapped_parsers, parser_ignoreline_characters, is_hidden, parser_sequence, parser_timezone, parser_filter, is_parser_written_once, parser_functions, sources_count, sources, should_tokenize_original_text, field_delimiter, field_qualifier, type, is_user_deleted].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

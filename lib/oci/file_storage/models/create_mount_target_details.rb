@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,7 +14,7 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
-    # **[Required]** The OCID of the compartment in which to create the mount target.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment in which to create the mount target.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -51,7 +51,7 @@ module OCI
     # @return [String]
     attr_accessor :ip_address
 
-    # **[Required]** The OCID of the subnet in which to create the mount target.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet in which to create the mount target.
     #
     # @return [String]
     attr_accessor :subnet_id

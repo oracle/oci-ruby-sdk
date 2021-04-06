@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -20,12 +20,35 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # The Availability Domain where the primary instance should be located.
+    # Specifies if the DB System is highly available.
+    #
+    # When creating a DB System with High Availability, three instances
+    # are created and placed according to your region- and
+    # subnet-type. The secondaries are placed automatically in the other
+    # two availability or fault domains.  You can choose the preferred
+    # location of your primary instance, only.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_highly_available
+
+    # The availability domain on which to deploy the Read/Write endpoint. This defines the preferred primary instance.
+    #
+    # In a failover scenario, the Read/Write endpoint is redirected to one of the other availability domains
+    # and the MySQL instance in that domain is promoted to the primary instance.
+    # This redirection does not affect the IP address of the DB System in any way.
+    #
+    # For a standalone DB System, this defines the availability domain in which the DB System is placed.
     #
     # @return [String]
     attr_accessor :availability_domain
 
-    # The name of the Fault Domain the DB System is located in.
+    # The fault domain on which to deploy the Read/Write endpoint. This defines the preferred primary instance.
+    #
+    # In a failover scenario, the Read/Write endpoint is redirected to one of the other fault domains
+    # and the MySQL instance in that domain is promoted to the primary instance.
+    # This redirection does not affect the IP address of the DB System in any way.
+    #
+    # For a standalone DB System, this defines the fault domain in which the DB System is placed.
     #
     # @return [String]
     attr_accessor :fault_domain
@@ -126,6 +149,7 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'compartment_id': :'compartmentId',
+        'is_highly_available': :'isHighlyAvailable',
         'availability_domain': :'availabilityDomain',
         'fault_domain': :'faultDomain',
         'configuration_id': :'configurationId',
@@ -155,6 +179,7 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'compartment_id': :'String',
+        'is_highly_available': :'BOOLEAN',
         'availability_domain': :'String',
         'fault_domain': :'String',
         'configuration_id': :'String',
@@ -186,6 +211,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [BOOLEAN] :is_highly_available The value to assign to the {#is_highly_available} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
     # @option attributes [String] :configuration_id The value to assign to the {#configuration_id} property
@@ -223,6 +249,14 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.is_highly_available = attributes[:'isHighlyAvailable'] unless attributes[:'isHighlyAvailable'].nil?
+      self.is_highly_available = true if is_highly_available.nil? && !attributes.key?(:'isHighlyAvailable') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isHighlyAvailable and :is_highly_available' if attributes.key?(:'isHighlyAvailable') && attributes.key?(:'is_highly_available')
+
+      self.is_highly_available = attributes[:'is_highly_available'] unless attributes[:'is_highly_available'].nil?
+      self.is_highly_available = true if is_highly_available.nil? && !attributes.key?(:'isHighlyAvailable') && !attributes.key?(:'is_highly_available') # rubocop:disable Style/StringLiterals
 
       self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
 
@@ -335,6 +369,7 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         compartment_id == other.compartment_id &&
+        is_highly_available == other.is_highly_available &&
         availability_domain == other.availability_domain &&
         fault_domain == other.fault_domain &&
         configuration_id == other.configuration_id &&
@@ -368,7 +403,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, compartment_id, availability_domain, fault_domain, configuration_id, shape_name, mysql_version, subnet_id, admin_username, admin_password, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, backup_policy, source, maintenance, freeform_tags, defined_tags].hash
+      [display_name, description, compartment_id, is_highly_available, availability_domain, fault_domain, configuration_id, shape_name, mysql_version, subnet_id, admin_username, admin_password, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, backup_policy, source, maintenance, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

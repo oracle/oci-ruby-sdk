@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,145 +7,156 @@ require 'date'
 module OCI
   # LogAnalyticsSource
   class LogAnalytics::Models::LogAnalyticsSource
-    # alert conditions
+    # The label alert conditions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceLabelCondition>]
     attr_accessor :label_conditions
 
-    # association count
+    # The association count.
     # @return [Integer]
     attr_accessor :association_count
 
-    # association entity
+    # The association entities.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsAssociation>]
     attr_accessor :association_entity
 
-    # data filter definitions
+    # The data filter definitions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceDataFilter>]
     attr_accessor :data_filter_definitions
 
-    # DB credential
+    # The database credential.
     # @return [String]
     attr_accessor :database_credential
 
-    # extended field definition
+    # The extended field definitions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceExtendedFieldDefinition>]
     attr_accessor :extended_field_definitions
 
-    # is for cloud flag
+    # A flag indicating whether or not this is a cloud source.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_for_cloud
 
-    # labels
+    # The labels associated with the source.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsLabelView>]
     attr_accessor :labels
 
-    # metric definitions
+    # The metric definitions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsMetric>]
     attr_accessor :metric_definitions
 
-    # metric source map
+    # The metric source map.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceMetric>]
     attr_accessor :metrics
 
-    # out-of-the-box source parser list
+    # The built in parsers associated with source.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>]
     attr_accessor :oob_parsers
 
-    # parameters
+    # The source parameters.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParameter>]
     attr_accessor :parameters
 
-    # pattern count
+    # The pattern count.
     # @return [Integer]
     attr_accessor :pattern_count
 
-    # patterns
+    # The source patterns.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourcePattern>]
     attr_accessor :patterns
 
-    # description
+    # The source description.
     # @return [String]
     attr_accessor :description
 
-    # display name
+    # The source display name.
     # @return [String]
     attr_accessor :display_name
 
-    # source edit version
+    # The source edit version.
     # @return [Integer]
     attr_accessor :edit_version
 
-    # source functions
+    # The source functions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceFunction>]
     attr_accessor :functions
 
-    # source Id
+    # The source unique identifier.
     # @return [Integer]
     attr_accessor :source_id
 
-    # source internal name
+    # The source internal name.
     # @return [String]
     attr_accessor :name
 
-    # is secure content flag
+    # A flag indicating whether or not the source content is secure.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_secure_content
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # parser list
+    # The list of parsers used by the source.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>]
     attr_accessor :parsers
 
-    # rule auto association enabled flag
+    # A flag indicating whether or not the source is marked for auto-association.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_auto_association_enabled
 
-    # rule auto association override
+    # A flag indicating whether or not the auto-association state should be overriden.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_auto_association_override
 
-    # rule Id
+    # The rule unique identifier.
     # @return [Integer]
     attr_accessor :rule_id
 
-    # source type internal name
+    # The source type internal name.
     # @return [String]
     attr_accessor :type_name
 
-    # source type name
+    # The source type name.
     # @return [String]
     attr_accessor :type_display_name
 
-    # source warning configuration
+    # The source warning configuration.
     # @return [Integer]
     attr_accessor :warning_config
 
-    # source metadata fields
+    # The source metadata fields.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceMetadataField>]
     attr_accessor :metadata_fields
 
-    # tags
+    # The labls used by the source.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsLabelDefinition>]
     attr_accessor :label_definitions
 
-    # Entity types
+    # The entity types.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceEntityType>]
     attr_accessor :entity_types
 
-    # time zone override
+    # A flag indicating whether or not the source has a time zone override.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_timezone_override
 
-    # source parser list
+    # An array of custom parsers.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>]
     attr_accessor :user_parsers
 
-    # timeUpdated
+    # The last updated date.
     # @return [DateTime]
     attr_accessor :time_updated
+
+    # An array of event types.
+    # @return [Array<OCI::LogAnalytics::Models::EventType>]
+    attr_accessor :event_types
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -185,7 +196,8 @@ module OCI
         'entity_types': :'entityTypes',
         'is_timezone_override': :'isTimezoneOverride',
         'user_parsers': :'userParsers',
-        'time_updated': :'timeUpdated'
+        'time_updated': :'timeUpdated',
+        'event_types': :'eventTypes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -228,7 +240,8 @@ module OCI
         'entity_types': :'Array<OCI::LogAnalytics::Models::LogAnalyticsSourceEntityType>',
         'is_timezone_override': :'BOOLEAN',
         'user_parsers': :'Array<OCI::LogAnalytics::Models::LogAnalyticsParser>',
-        'time_updated': :'DateTime'
+        'time_updated': :'DateTime',
+        'event_types': :'Array<OCI::LogAnalytics::Models::EventType>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -274,6 +287,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_timezone_override The value to assign to the {#is_timezone_override} property
     # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>] :user_parsers The value to assign to the {#user_parsers} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [Array<OCI::LogAnalytics::Models::EventType>] :event_types The value to assign to the {#event_types} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -457,6 +471,12 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.event_types = attributes[:'eventTypes'] if attributes[:'eventTypes']
+
+      raise 'You cannot provide both :eventTypes and :event_types' if attributes.key?(:'eventTypes') && attributes.key?(:'event_types')
+
+      self.event_types = attributes[:'event_types'] if attributes[:'event_types']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -504,7 +524,8 @@ module OCI
         entity_types == other.entity_types &&
         is_timezone_override == other.is_timezone_override &&
         user_parsers == other.user_parsers &&
-        time_updated == other.time_updated
+        time_updated == other.time_updated &&
+        event_types == other.event_types
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -520,7 +541,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [label_conditions, association_count, association_entity, data_filter_definitions, database_credential, extended_field_definitions, is_for_cloud, labels, metric_definitions, metrics, oob_parsers, parameters, pattern_count, patterns, description, display_name, edit_version, functions, source_id, name, is_secure_content, is_system, parsers, is_auto_association_enabled, is_auto_association_override, rule_id, type_name, type_display_name, warning_config, metadata_fields, label_definitions, entity_types, is_timezone_override, user_parsers, time_updated].hash
+      [label_conditions, association_count, association_entity, data_filter_definitions, database_credential, extended_field_definitions, is_for_cloud, labels, metric_definitions, metrics, oob_parsers, parameters, pattern_count, patterns, description, display_name, edit_version, functions, source_id, name, is_secure_content, is_system, parsers, is_auto_association_enabled, is_auto_association_override, rule_id, type_name, type_display_name, warning_config, metadata_fields, label_definitions, entity_types, is_timezone_override, user_parsers, time_updated, event_types].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

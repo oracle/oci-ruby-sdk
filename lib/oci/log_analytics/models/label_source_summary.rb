@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,31 +7,31 @@ require 'date'
 module OCI
   # source summary
   class LogAnalytics::Models::LabelSourceSummary
-    # display name
+    # The source display name.
     # @return [String]
     attr_accessor :source_display_name
 
-    # source internal name
+    # The source internal name.
     # @return [String]
     attr_accessor :source_name
 
-    # source Id
+    # The source unique identifier.
     # @return [Integer]
     attr_accessor :source_id
 
-    # label Operator
+    # The label operator.
     # @return [String]
     attr_accessor :label_operator_name
 
-    # label Condition
+    # The label condition.
     # @return [String]
     attr_accessor :label_condition
 
-    # label Field Display Name
+    # The label field display name.
     # @return [String]
     attr_accessor :label_field_displayname
 
-    # label Field name
+    # The label field name.
     # @return [String]
     attr_accessor :label_field_name
 

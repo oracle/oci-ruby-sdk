@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,10 +7,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A link between a DRG and VCN. For more information, see
-  # [Overview of the Networking Service](https://docs.cloud.oracle.com/Content/Network/Concepts/overview.htm).
-  #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you
-  # supply string values using the API.
+  # [Overview of the Networking Service](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/overview.htm).
   #
   class Core::Models::DrgAttachment
     LIFECYCLE_STATE_ENUM = [
@@ -43,16 +40,6 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The OCID of the route table the DRG attachment is using.
-    #
-    # For information about why you would associate a route table with a DRG attachment, see:
-    #
-    #   * [Transit Routing: Access to Multiple VCNs in Same Region](https://docs.cloud.oracle.com/Content/Network/Tasks/transitrouting.htm)
-    #   * [Transit Routing: Private Access to Oracle Services](https://docs.cloud.oracle.com/Content/Network/Tasks/transitroutingoracleservices.htm)
-    #
-    # @return [String]
-    attr_accessor :route_table_id
-
     # The date and time the DRG attachment was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
@@ -60,7 +47,18 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The OCID of the route table the DRG attachment is using.
+    #
+    # For information about why you would associate a route table with a DRG attachment, see:
+    #
+    #   * [Transit Routing: Access to Multiple VCNs in Same Region](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/transitrouting.htm)
+    #   * [Transit Routing: Private Access to Oracle Services](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/transitroutingoracleservices.htm)
+    #
+    # @return [String]
+    attr_accessor :route_table_id
+
     # **[Required]** The OCID of the VCN.
+    #
     # @return [String]
     attr_accessor :vcn_id
 
@@ -73,8 +71,8 @@ module OCI
         'drg_id': :'drgId',
         'id': :'id',
         'lifecycle_state': :'lifecycleState',
-        'route_table_id': :'routeTableId',
         'time_created': :'timeCreated',
+        'route_table_id': :'routeTableId',
         'vcn_id': :'vcnId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -89,8 +87,8 @@ module OCI
         'drg_id': :'String',
         'id': :'String',
         'lifecycle_state': :'String',
-        'route_table_id': :'String',
         'time_created': :'DateTime',
+        'route_table_id': :'String',
         'vcn_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -107,8 +105,8 @@ module OCI
     # @option attributes [String] :drg_id The value to assign to the {#drg_id} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
-    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -142,17 +140,17 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
-      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
-
-      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
-
-      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
-
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
+
+      raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
+
+      self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
 
       self.vcn_id = attributes[:'vcnId'] if attributes[:'vcnId']
 
@@ -190,8 +188,8 @@ module OCI
         drg_id == other.drg_id &&
         id == other.id &&
         lifecycle_state == other.lifecycle_state &&
-        route_table_id == other.route_table_id &&
         time_created == other.time_created &&
+        route_table_id == other.route_table_id &&
         vcn_id == other.vcn_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -208,7 +206,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, drg_id, id, lifecycle_state, route_table_id, time_created, vcn_id].hash
+      [compartment_id, display_name, drg_id, id, lifecycle_state, time_created, route_table_id, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

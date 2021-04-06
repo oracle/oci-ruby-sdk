@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,23 +7,23 @@ require 'date'
 module OCI
   # RegexMatchResult
   class LogAnalytics::Models::RegexMatchResult
-    # matchedLogEntryEndIndex
+    # The matched log entry end index.
     # @return [Integer]
     attr_accessor :matched_log_entry_end_index
 
-    # regexScore
+    # The regular expression score.
     # @return [Integer]
     attr_accessor :regex_score
 
-    # regexStepsInfo
+    # The regular expression steps information.
     # @return [Array<OCI::LogAnalytics::Models::StepInfo>]
     attr_accessor :regex_steps_info
 
-    # stepCount
+    # The regular expression step count.
     # @return [Integer]
     attr_accessor :step_count
 
-    # subRegexesMatchInfo
+    # The regular expression match information.
     # @return [Hash<String, OCI::LogAnalytics::Models::MatchInfo>]
     attr_accessor :sub_regexes_match_info
 

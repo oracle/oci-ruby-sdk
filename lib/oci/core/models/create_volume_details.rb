@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -25,7 +25,7 @@ module OCI
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -39,7 +39,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -54,7 +54,7 @@ module OCI
 
     # The number of volume performance units (VPUs) that will be applied to this volume per GB,
     # representing the Block Volume service's elastic performance options.
-    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
     #
     # Allowed values:
     #
@@ -77,10 +77,6 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_mbs
 
-    # Specifies the volume source details for a new Block volume. The volume source is either another Block volume in the same availability domain or a Block volume backup.
-    # This is an optional field. If not specified or set to null, the new Block volume will be empty.
-    # When specified, the new Block volume will contain data from the source volume or backup.
-    #
     # @return [OCI::Core::Models::VolumeSourceDetails]
     attr_accessor :source_details
 
@@ -95,6 +91,12 @@ module OCI
     #
     # @return [BOOLEAN]
     attr_accessor :is_auto_tune_enabled
+
+    # The list of block volume replicas to be enabled for this volume
+    # in the specified destination availability domains.
+    #
+    # @return [Array<OCI::Core::Models::BlockVolumeReplicaDetails>]
+    attr_accessor :block_volume_replicas
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -112,7 +114,8 @@ module OCI
         'size_in_mbs': :'sizeInMBs',
         'source_details': :'sourceDetails',
         'volume_backup_id': :'volumeBackupId',
-        'is_auto_tune_enabled': :'isAutoTuneEnabled'
+        'is_auto_tune_enabled': :'isAutoTuneEnabled',
+        'block_volume_replicas': :'blockVolumeReplicas'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -133,7 +136,8 @@ module OCI
         'size_in_mbs': :'Integer',
         'source_details': :'OCI::Core::Models::VolumeSourceDetails',
         'volume_backup_id': :'String',
-        'is_auto_tune_enabled': :'BOOLEAN'
+        'is_auto_tune_enabled': :'BOOLEAN',
+        'block_volume_replicas': :'Array<OCI::Core::Models::BlockVolumeReplicaDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -157,6 +161,7 @@ module OCI
     # @option attributes [OCI::Core::Models::VolumeSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [String] :volume_backup_id The value to assign to the {#volume_backup_id} property
     # @option attributes [BOOLEAN] :is_auto_tune_enabled The value to assign to the {#is_auto_tune_enabled} property
+    # @option attributes [Array<OCI::Core::Models::BlockVolumeReplicaDetails>] :block_volume_replicas The value to assign to the {#block_volume_replicas} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -240,6 +245,12 @@ module OCI
       raise 'You cannot provide both :isAutoTuneEnabled and :is_auto_tune_enabled' if attributes.key?(:'isAutoTuneEnabled') && attributes.key?(:'is_auto_tune_enabled')
 
       self.is_auto_tune_enabled = attributes[:'is_auto_tune_enabled'] unless attributes[:'is_auto_tune_enabled'].nil?
+
+      self.block_volume_replicas = attributes[:'blockVolumeReplicas'] if attributes[:'blockVolumeReplicas']
+
+      raise 'You cannot provide both :blockVolumeReplicas and :block_volume_replicas' if attributes.key?(:'blockVolumeReplicas') && attributes.key?(:'block_volume_replicas')
+
+      self.block_volume_replicas = attributes[:'block_volume_replicas'] if attributes[:'block_volume_replicas']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -265,7 +276,8 @@ module OCI
         size_in_mbs == other.size_in_mbs &&
         source_details == other.source_details &&
         volume_backup_id == other.volume_backup_id &&
-        is_auto_tune_enabled == other.is_auto_tune_enabled
+        is_auto_tune_enabled == other.is_auto_tune_enabled &&
+        block_volume_replicas == other.block_volume_replicas
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -281,7 +293,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, kms_key_id, vpus_per_gb, size_in_gbs, size_in_mbs, source_details, volume_backup_id, is_auto_tune_enabled].hash
+      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, kms_key_id, vpus_per_gb, size_in_gbs, size_in_mbs, source_details, volume_backup_id, is_auto_tune_enabled, block_volume_replicas].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

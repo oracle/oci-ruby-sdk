@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -312,6 +312,144 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Create an Private access Channel for the Analytics instance. The operation is long-running
+    # and creates a new WorkRequest.
+    #
+    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    #
+    # @param [OCI::Analytics::Models::CreatePrivateAccessChannelDetails] create_private_access_channel_details Input payload for creating a private access channel for an Analytics instance.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/create_private_access_channel.rb.html) to see an example of how to use create_private_access_channel API.
+    def create_private_access_channel(analytics_instance_id, create_private_access_channel_details, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#create_private_access_channel.' if logger
+
+      raise "Missing the required parameter 'analytics_instance_id' when calling create_private_access_channel." if analytics_instance_id.nil?
+      raise "Missing the required parameter 'create_private_access_channel_details' when calling create_private_access_channel." if create_private_access_channel_details.nil?
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/privateAccessChannels'.sub('{analyticsInstanceId}', analytics_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_private_access_channel_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#create_private_access_channel') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Allows specifying a custom host name to be used to access the analytics instance.  This requires prior setup of DNS entry and certificate
+    # for this host.
+    #
+    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    #
+    # @param [OCI::Analytics::Models::CreateVanityUrlDetails] create_vanity_url_details Vanity url details.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/create_vanity_url.rb.html) to see an example of how to use create_vanity_url API.
+    def create_vanity_url(analytics_instance_id, create_vanity_url_details, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#create_vanity_url.' if logger
+
+      raise "Missing the required parameter 'analytics_instance_id' when calling create_vanity_url." if analytics_instance_id.nil?
+      raise "Missing the required parameter 'create_vanity_url_details' when calling create_vanity_url." if create_vanity_url_details.nil?
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/vanityUrls'.sub('{analyticsInstanceId}', analytics_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_vanity_url_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#create_vanity_url') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Terminates the specified Analytics instance. The operation is long-running
     # and creates a new WorkRequest.
     #
@@ -362,6 +500,154 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#delete_analytics_instance') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Delete an Analytics instance's Private access channel with the given unique identifier key.
+    #
+    # @param [String] private_access_channel_key The unique identifier key of the Private Access Channel.
+    #
+    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/delete_private_access_channel.rb.html) to see an example of how to use delete_private_access_channel API.
+    def delete_private_access_channel(private_access_channel_key, analytics_instance_id, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#delete_private_access_channel.' if logger
+
+      raise "Missing the required parameter 'private_access_channel_key' when calling delete_private_access_channel." if private_access_channel_key.nil?
+      raise "Missing the required parameter 'analytics_instance_id' when calling delete_private_access_channel." if analytics_instance_id.nil?
+      raise "Parameter value for 'private_access_channel_key' must not be blank" if OCI::Internal::Util.blank_string?(private_access_channel_key)
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/privateAccessChannels/{privateAccessChannelKey}'.sub('{privateAccessChannelKey}', private_access_channel_key.to_s).sub('{analyticsInstanceId}', analytics_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#delete_private_access_channel') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Allows deleting a previously created vanity url.
+    #
+    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    #
+    # @param [String] vanity_url_key Specify unique identifier key of a vanity url to update or delete.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/delete_vanity_url.rb.html) to see an example of how to use delete_vanity_url API.
+    def delete_vanity_url(analytics_instance_id, vanity_url_key, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#delete_vanity_url.' if logger
+
+      raise "Missing the required parameter 'analytics_instance_id' when calling delete_vanity_url." if analytics_instance_id.nil?
+      raise "Missing the required parameter 'vanity_url_key' when calling delete_vanity_url." if vanity_url_key.nil?
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+      raise "Parameter value for 'vanity_url_key' must not be blank" if OCI::Internal::Util.blank_string?(vanity_url_key)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/vanityUrls/{vanityUrlKey}'.sub('{analyticsInstanceId}', analytics_instance_id.to_s).sub('{vanityUrlKey}', vanity_url_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#delete_vanity_url') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -490,6 +776,68 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Analytics::Models::AnalyticsInstance'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieve private access channel in the specified Analytics Instance.
+    #
+    # @param [String] private_access_channel_key The unique identifier key of the Private Access Channel.
+    #
+    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Analytics::Models::PrivateAccessChannel PrivateAccessChannel}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/get_private_access_channel.rb.html) to see an example of how to use get_private_access_channel API.
+    def get_private_access_channel(private_access_channel_key, analytics_instance_id, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#get_private_access_channel.' if logger
+
+      raise "Missing the required parameter 'private_access_channel_key' when calling get_private_access_channel." if private_access_channel_key.nil?
+      raise "Missing the required parameter 'analytics_instance_id' when calling get_private_access_channel." if analytics_instance_id.nil?
+      raise "Parameter value for 'private_access_channel_key' must not be blank" if OCI::Internal::Util.blank_string?(private_access_channel_key)
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/privateAccessChannels/{privateAccessChannelKey}'.sub('{privateAccessChannelKey}', private_access_channel_key.to_s).sub('{analyticsInstanceId}', analytics_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#get_private_access_channel') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Analytics::Models::PrivateAccessChannel'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -822,7 +1170,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :resource_id The OCID of the resource associated with a work request.
     #
-    # @option opts [String] :resource_type Type of the resource associated with a work request
+    # @option opts [String] :resource_type Type of the resource associated with a work request.
     #
     # @option opts [Array<String>] :status One or more work request status values to filter on.
     #
@@ -1192,6 +1540,160 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Analytics::Models::AnalyticsInstance'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update the Private Access Channel with the given unique identifier key in the specified Analytics Instance.
+    #
+    # @param [String] private_access_channel_key The unique identifier key of the Private Access Channel.
+    #
+    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    #
+    # @param [OCI::Analytics::Models::UpdatePrivateAccessChannelDetails] update_private_access_channel_details Update the Private Access Channel with the given unique identifier key in the specified Analytics Instance.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/update_private_access_channel.rb.html) to see an example of how to use update_private_access_channel API.
+    def update_private_access_channel(private_access_channel_key, analytics_instance_id, update_private_access_channel_details, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#update_private_access_channel.' if logger
+
+      raise "Missing the required parameter 'private_access_channel_key' when calling update_private_access_channel." if private_access_channel_key.nil?
+      raise "Missing the required parameter 'analytics_instance_id' when calling update_private_access_channel." if analytics_instance_id.nil?
+      raise "Missing the required parameter 'update_private_access_channel_details' when calling update_private_access_channel." if update_private_access_channel_details.nil?
+      raise "Parameter value for 'private_access_channel_key' must not be blank" if OCI::Internal::Util.blank_string?(private_access_channel_key)
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/privateAccessChannels/{privateAccessChannelKey}'.sub('{privateAccessChannelKey}', private_access_channel_key.to_s).sub('{analyticsInstanceId}', analytics_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_private_access_channel_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#update_private_access_channel') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Allows uploading a new certificate for a vanity url, which will have to be done when the current certificate is expiring.
+    #
+    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    #
+    # @param [String] vanity_url_key Specify unique identifier key of a vanity url to update or delete.
+    #
+    # @param [OCI::Analytics::Models::UpdateVanityUrlDetails] update_vanity_url_details Vanity url details to update (certificate).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/update_vanity_url.rb.html) to see an example of how to use update_vanity_url API.
+    def update_vanity_url(analytics_instance_id, vanity_url_key, update_vanity_url_details, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#update_vanity_url.' if logger
+
+      raise "Missing the required parameter 'analytics_instance_id' when calling update_vanity_url." if analytics_instance_id.nil?
+      raise "Missing the required parameter 'vanity_url_key' when calling update_vanity_url." if vanity_url_key.nil?
+      raise "Missing the required parameter 'update_vanity_url_details' when calling update_vanity_url." if update_vanity_url_details.nil?
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+      raise "Parameter value for 'vanity_url_key' must not be blank" if OCI::Internal::Util.blank_string?(vanity_url_key)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/vanityUrls/{vanityUrlKey}'.sub('{analyticsInstanceId}', analytics_instance_id.to_s).sub('{vanityUrlKey}', vanity_url_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_vanity_url_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#update_vanity_url') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength

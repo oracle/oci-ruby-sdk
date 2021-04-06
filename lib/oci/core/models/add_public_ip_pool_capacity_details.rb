@@ -1,17 +1,17 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The data to add capacity to a public ip pool
+  # The information used to add capacity to an IP pool.
   class Core::Models::AddPublicIpPoolCapacityDetails
-    # **[Required]** The OCID of the Byoip Range Id object to whch the cidr block belongs.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the `ByoipRange` resource to which the CIDR block belongs.
     # @return [String]
     attr_accessor :byoip_range_id
 
-    # **[Required]** The CIDR IP address range to be added to the Public Ip Pool
+    # **[Required]** The CIDR block to add to the public IP pool. It could be all of the CIDR block identified in `byoipRangeId`, or a subrange.
     # Example: `10.0.1.0/24`
     #
     # @return [String]

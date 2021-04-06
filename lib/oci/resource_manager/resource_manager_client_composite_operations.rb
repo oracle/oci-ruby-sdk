@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
@@ -242,6 +242,45 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::ResourceManager::ResourceManagerClient#create_template} and then waits for the {OCI::ResourceManager::Models::Template} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::ResourceManager::Models::CreateTemplateDetails] create_template_details The configuration details for creating a template.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::Template#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#create_template}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::ResourceManager::Models::Template}
+    def create_template_and_wait_for_state(create_template_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_template(create_template_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_template(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::ResourceManager::ResourceManagerClient#delete_configuration_source_provider} and then waits for the {OCI::ResourceManager::Models::ConfigurationSourceProvider} acted upon
     # to enter the given state(s).
     #
@@ -297,6 +336,46 @@ module OCI
     def delete_stack_and_wait_for_state(stack_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       initial_get_result = @service_client.get_stack(stack_id)
       operation_result = @service_client.delete_stack(stack_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::ResourceManager::ResourceManagerClient#delete_template} and then waits for the {OCI::ResourceManager::Models::Template} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::Template#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#delete_template}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_template_and_wait_for_state(template_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_template(template_id)
+      operation_result = @service_client.delete_template(template_id, base_operation_opts)
 
       return operation_result if wait_for_states.empty?
 
@@ -477,6 +556,47 @@ module OCI
 
       begin
         waiter_result = @service_client.get_stack(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::ResourceManager::ResourceManagerClient#update_template} and then waits for the {OCI::ResourceManager::Models::Template} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
+    # @param [OCI::ResourceManager::Models::UpdateTemplateDetails] update_template_details The details for updating a template.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::Template#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#update_template}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::ResourceManager::Models::Template}
+    def update_template_and_wait_for_state(template_id, update_template_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_template(template_id, update_template_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_template(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200

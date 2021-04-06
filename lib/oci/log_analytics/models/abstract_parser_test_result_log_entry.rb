@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,31 +7,31 @@ require 'date'
 module OCI
   # AbstractParserTestResultLogEntry
   class LogAnalytics::Models::AbstractParserTestResultLogEntry
-    # extra info attributes
+    # Extra information attributes.
     # @return [Hash<String, String>]
     attr_accessor :extra_info_attributes
 
-    # field name value map
+    # The field name value map.
     # @return [Hash<String, String>]
     attr_accessor :field_name_value_map
 
-    # field position value map
+    # The field position value map.
     # @return [Hash<String, String>]
     attr_accessor :field_position_value_map
 
-    # fields
+    # The parser fields.
     # @return [Hash<String, String>]
     attr_accessor :fields
 
-    # log entry
+    # The log entry.
     # @return [String]
     attr_accessor :log_entry
 
-    # match status
+    # The match status.
     # @return [String]
     attr_accessor :match_status
 
-    # match status description
+    # The match status description.
     # @return [String]
     attr_accessor :match_status_description
 

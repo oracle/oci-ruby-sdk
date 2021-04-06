@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -19,13 +19,13 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the file system from which the snapshot
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system from which the snapshot
     # was created.
     #
     # @return [String]
     attr_accessor :file_system_id
 
-    # **[Required]** The OCID of the snapshot.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the snapshot.
     # @return [String]
     attr_accessor :id
 
@@ -49,6 +49,24 @@ module OCI
     #
     # @return [DateTime]
     attr_accessor :time_created
+
+    # An [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) identifying the parent from which this snapshot was cloned.
+    # If this snapshot was not cloned, then the `provenanceId` is the same as the snapshot `id` value.
+    # If this snapshot was cloned, then the `provenanceId` value is the parent's `provenanceId`.
+    # See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm).
+    #
+    # @return [String]
+    attr_accessor :provenance_id
+
+    # Specifies whether the snapshot has been cloned.
+    # See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm).
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_clone_source
+
+    # Additional information about the current 'lifecycleState'.
+    # @return [String]
+    attr_accessor :lifecycle_details
 
     # Free-form tags for this resource. Each tag is a simple key-value pair
     #  with no predefined name, type, or namespace.
@@ -74,6 +92,9 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'name': :'name',
         'time_created': :'timeCreated',
+        'provenance_id': :'provenanceId',
+        'is_clone_source': :'isCloneSource',
+        'lifecycle_details': :'lifecycleDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -89,6 +110,9 @@ module OCI
         'lifecycle_state': :'String',
         'name': :'String',
         'time_created': :'DateTime',
+        'provenance_id': :'String',
+        'is_clone_source': :'BOOLEAN',
+        'lifecycle_details': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -106,6 +130,9 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :provenance_id The value to assign to the {#provenance_id} property
+    # @option attributes [BOOLEAN] :is_clone_source The value to assign to the {#is_clone_source} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -135,6 +162,24 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.provenance_id = attributes[:'provenanceId'] if attributes[:'provenanceId']
+
+      raise 'You cannot provide both :provenanceId and :provenance_id' if attributes.key?(:'provenanceId') && attributes.key?(:'provenance_id')
+
+      self.provenance_id = attributes[:'provenance_id'] if attributes[:'provenance_id']
+
+      self.is_clone_source = attributes[:'isCloneSource'] unless attributes[:'isCloneSource'].nil?
+
+      raise 'You cannot provide both :isCloneSource and :is_clone_source' if attributes.key?(:'isCloneSource') && attributes.key?(:'is_clone_source')
+
+      self.is_clone_source = attributes[:'is_clone_source'] unless attributes[:'is_clone_source'].nil?
+
+      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
+
+      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
+
+      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -178,6 +223,9 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         name == other.name &&
         time_created == other.time_created &&
+        provenance_id == other.provenance_id &&
+        is_clone_source == other.is_clone_source &&
+        lifecycle_details == other.lifecycle_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -195,7 +243,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [file_system_id, id, lifecycle_state, name, time_created, freeform_tags, defined_tags].hash
+      [file_system_id, id, lifecycle_state, name, time_created, provenance_id, is_clone_source, lifecycle_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

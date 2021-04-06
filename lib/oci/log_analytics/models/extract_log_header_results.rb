@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,11 +7,11 @@ require 'date'
 module OCI
   # log header values
   class LogAnalytics::Models::ExtractLogHeaderResults
-    # log header json paths
+    # The log header json paths.
     # @return [Array<OCI::LogAnalytics::Models::ExtractLogHeaderDetails>]
     attr_accessor :json_paths
 
-    # log field or header values
+    # The log field or log header values.
     # @return [Array<String>]
     attr_accessor :xml_paths
 

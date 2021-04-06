@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,35 +7,35 @@ require 'date'
 module OCI
   # LogAnalyticsMetaSourceType
   class LogAnalytics::Models::LogAnalyticsMetaSourceType
-    # built in parser name
+    # The built in parser name.
     # @return [String]
     attr_accessor :built_in_parser_name
 
-    # type description
+    # The source type description.
     # @return [String]
     attr_accessor :description
 
-    # display name
+    # The source type display name.
     # @return [String]
     attr_accessor :display_name
 
-    # entity display name
+    # The entity display name.
     # @return [String]
     attr_accessor :entity_display_name
 
-    # entity name
+    # The entity internal name.
     # @return [String]
     attr_accessor :entity_name
 
-    # source type name
+    # The source type name.
     # @return [String]
     attr_accessor :name
 
-    # maximum exclude pattern
+    # The maximum exclude pattern.
     # @return [Integer]
     attr_accessor :maximum_exclude_pattern
 
-    # maximum include pattern
+    # The maximum include pattern.
     # @return [Integer]
     attr_accessor :maximum_include_pattern
 

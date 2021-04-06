@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,57 +7,61 @@ require 'date'
 module OCI
   # LogAnalyticsMetaFunctionArgument
   class LogAnalytics::Models::LogAnalyticsMetaFunctionArgument
-    # override output fields
+    # The override output fields.
     # @return [BOOLEAN]
     attr_accessor :is_override_output_fields
 
-    # argument display name
+    # The argument display name.
     # @return [String]
     attr_accessor :argument_display_name
 
-    # argument example
+    # The argument example.
     # @return [String]
     attr_accessor :argument_example
 
-    # argument service
+    # The argument service.
     # @return [String]
     attr_accessor :argument_service
 
-    # argument data type
+    # The argument data type.
     # @return [String]
     attr_accessor :argument_data_type
 
-    # argument description
+    # The argument description.
     # @return [String]
     attr_accessor :argument_description
 
-    # argument name
+    # The argument name.
     # @return [String]
     attr_accessor :argument_name
 
-    # argument order
+    # The argument order.
     # @return [Integer]
     attr_accessor :argument_order
 
-    # argument type
+    # The argument type.
     # @return [Integer]
     attr_accessor :argument_type
 
-    # meta function id
+    # The argument unique identifier.
     # @return [Integer]
     attr_accessor :argument_id
 
-    # column
+    # The lookup column.
     # @return [String]
     attr_accessor :argument_lookup_column
 
-    # column position
+    # The lookup column position.
     # @return [Integer]
     attr_accessor :argument_lookup_column_position
 
-    # value
+    # The argument value.
     # @return [String]
     attr_accessor :argument_value
+
+    # The argument unique identifier as a string.
+    # @return [String]
+    attr_accessor :argument_reference
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -75,7 +79,8 @@ module OCI
         'argument_id': :'argumentId',
         'argument_lookup_column': :'argumentLookupColumn',
         'argument_lookup_column_position': :'argumentLookupColumnPosition',
-        'argument_value': :'argumentValue'
+        'argument_value': :'argumentValue',
+        'argument_reference': :'argumentReference'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -96,7 +101,8 @@ module OCI
         'argument_id': :'Integer',
         'argument_lookup_column': :'String',
         'argument_lookup_column_position': :'Integer',
-        'argument_value': :'String'
+        'argument_value': :'String',
+        'argument_reference': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -120,6 +126,7 @@ module OCI
     # @option attributes [String] :argument_lookup_column The value to assign to the {#argument_lookup_column} property
     # @option attributes [Integer] :argument_lookup_column_position The value to assign to the {#argument_lookup_column_position} property
     # @option attributes [String] :argument_value The value to assign to the {#argument_value} property
+    # @option attributes [String] :argument_reference The value to assign to the {#argument_reference} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -203,6 +210,12 @@ module OCI
       raise 'You cannot provide both :argumentValue and :argument_value' if attributes.key?(:'argumentValue') && attributes.key?(:'argument_value')
 
       self.argument_value = attributes[:'argument_value'] if attributes[:'argument_value']
+
+      self.argument_reference = attributes[:'argumentReference'] if attributes[:'argumentReference']
+
+      raise 'You cannot provide both :argumentReference and :argument_reference' if attributes.key?(:'argumentReference') && attributes.key?(:'argument_reference')
+
+      self.argument_reference = attributes[:'argument_reference'] if attributes[:'argument_reference']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -228,7 +241,8 @@ module OCI
         argument_id == other.argument_id &&
         argument_lookup_column == other.argument_lookup_column &&
         argument_lookup_column_position == other.argument_lookup_column_position &&
-        argument_value == other.argument_value
+        argument_value == other.argument_value &&
+        argument_reference == other.argument_reference
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -244,7 +258,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_override_output_fields, argument_display_name, argument_example, argument_service, argument_data_type, argument_description, argument_name, argument_order, argument_type, argument_id, argument_lookup_column, argument_lookup_column_position, argument_value].hash
+      [is_override_output_fields, argument_display_name, argument_example, argument_service, argument_data_type, argument_description, argument_name, argument_order, argument_type, argument_id, argument_lookup_column, argument_lookup_column_position, argument_value, argument_reference].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

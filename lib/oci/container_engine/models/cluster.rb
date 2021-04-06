@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -29,6 +29,11 @@ module OCI
     # The OCID of the compartment in which the cluster exists.
     # @return [String]
     attr_accessor :compartment_id
+
+    # The network configuration for access to the Cluster control plane.
+    #
+    # @return [OCI::ContainerEngine::Models::ClusterEndpointConfig]
+    attr_accessor :endpoint_config
 
     # The OCID of the virtual cloud network (VCN) in which the cluster exists.
     # @return [String]
@@ -66,6 +71,11 @@ module OCI
     # @return [Array<String>]
     attr_accessor :available_kubernetes_upgrades
 
+    # The image verification policy for signature validation.
+    #
+    # @return [OCI::ContainerEngine::Models::ImagePolicyConfig]
+    attr_accessor :image_policy_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -73,6 +83,7 @@ module OCI
         'id': :'id',
         'name': :'name',
         'compartment_id': :'compartmentId',
+        'endpoint_config': :'endpointConfig',
         'vcn_id': :'vcnId',
         'kubernetes_version': :'kubernetesVersion',
         'kms_key_id': :'kmsKeyId',
@@ -81,7 +92,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'endpoints': :'endpoints',
-        'available_kubernetes_upgrades': :'availableKubernetesUpgrades'
+        'available_kubernetes_upgrades': :'availableKubernetesUpgrades',
+        'image_policy_config': :'imagePolicyConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -93,6 +105,7 @@ module OCI
         'id': :'String',
         'name': :'String',
         'compartment_id': :'String',
+        'endpoint_config': :'OCI::ContainerEngine::Models::ClusterEndpointConfig',
         'vcn_id': :'String',
         'kubernetes_version': :'String',
         'kms_key_id': :'String',
@@ -101,7 +114,8 @@ module OCI
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'endpoints': :'OCI::ContainerEngine::Models::ClusterEndpoints',
-        'available_kubernetes_upgrades': :'Array<String>'
+        'available_kubernetes_upgrades': :'Array<String>',
+        'image_policy_config': :'OCI::ContainerEngine::Models::ImagePolicyConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -115,6 +129,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [OCI::ContainerEngine::Models::ClusterEndpointConfig] :endpoint_config The value to assign to the {#endpoint_config} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
@@ -124,6 +139,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [OCI::ContainerEngine::Models::ClusterEndpoints] :endpoints The value to assign to the {#endpoints} property
     # @option attributes [Array<String>] :available_kubernetes_upgrades The value to assign to the {#available_kubernetes_upgrades} property
+    # @option attributes [OCI::ContainerEngine::Models::ImagePolicyConfig] :image_policy_config The value to assign to the {#image_policy_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -139,6 +155,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.endpoint_config = attributes[:'endpointConfig'] if attributes[:'endpointConfig']
+
+      raise 'You cannot provide both :endpointConfig and :endpoint_config' if attributes.key?(:'endpointConfig') && attributes.key?(:'endpoint_config')
+
+      self.endpoint_config = attributes[:'endpoint_config'] if attributes[:'endpoint_config']
 
       self.vcn_id = attributes[:'vcnId'] if attributes[:'vcnId']
 
@@ -181,6 +203,12 @@ module OCI
       raise 'You cannot provide both :availableKubernetesUpgrades and :available_kubernetes_upgrades' if attributes.key?(:'availableKubernetesUpgrades') && attributes.key?(:'available_kubernetes_upgrades')
 
       self.available_kubernetes_upgrades = attributes[:'available_kubernetes_upgrades'] if attributes[:'available_kubernetes_upgrades']
+
+      self.image_policy_config = attributes[:'imagePolicyConfig'] if attributes[:'imagePolicyConfig']
+
+      raise 'You cannot provide both :imagePolicyConfig and :image_policy_config' if attributes.key?(:'imagePolicyConfig') && attributes.key?(:'image_policy_config')
+
+      self.image_policy_config = attributes[:'image_policy_config'] if attributes[:'image_policy_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -210,6 +238,7 @@ module OCI
         id == other.id &&
         name == other.name &&
         compartment_id == other.compartment_id &&
+        endpoint_config == other.endpoint_config &&
         vcn_id == other.vcn_id &&
         kubernetes_version == other.kubernetes_version &&
         kms_key_id == other.kms_key_id &&
@@ -218,7 +247,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         endpoints == other.endpoints &&
-        available_kubernetes_upgrades == other.available_kubernetes_upgrades
+        available_kubernetes_upgrades == other.available_kubernetes_upgrades &&
+        image_policy_config == other.image_policy_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -234,7 +264,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, compartment_id, vcn_id, kubernetes_version, kms_key_id, options, metadata, lifecycle_state, lifecycle_details, endpoints, available_kubernetes_upgrades].hash
+      [id, name, compartment_id, endpoint_config, vcn_id, kubernetes_version, kms_key_id, options, metadata, lifecycle_state, lifecycle_details, endpoints, available_kubernetes_upgrades, image_policy_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

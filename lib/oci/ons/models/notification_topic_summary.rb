@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -25,6 +25,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :topic_id
+
+    # A unique short topic Id. This is used only for SMS subscriptions.
+    #
+    # @return [String]
+    attr_accessor :short_topic_id
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment for the topic.
     #
@@ -74,6 +79,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'topic_id': :'topicId',
+        'short_topic_id': :'shortTopicId',
         'compartment_id': :'compartmentId',
         'lifecycle_state': :'lifecycleState',
         'description': :'description',
@@ -92,6 +98,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'topic_id': :'String',
+        'short_topic_id': :'String',
         'compartment_id': :'String',
         'lifecycle_state': :'String',
         'description': :'String',
@@ -112,6 +119,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :topic_id The value to assign to the {#topic_id} property
+    # @option attributes [String] :short_topic_id The value to assign to the {#short_topic_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :description The value to assign to the {#description} property
@@ -133,6 +141,12 @@ module OCI
       raise 'You cannot provide both :topicId and :topic_id' if attributes.key?(:'topicId') && attributes.key?(:'topic_id')
 
       self.topic_id = attributes[:'topic_id'] if attributes[:'topic_id']
+
+      self.short_topic_id = attributes[:'shortTopicId'] if attributes[:'shortTopicId']
+
+      raise 'You cannot provide both :shortTopicId and :short_topic_id' if attributes.key?(:'shortTopicId') && attributes.key?(:'short_topic_id')
+
+      self.short_topic_id = attributes[:'short_topic_id'] if attributes[:'short_topic_id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -201,6 +215,7 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         topic_id == other.topic_id &&
+        short_topic_id == other.short_topic_id &&
         compartment_id == other.compartment_id &&
         lifecycle_state == other.lifecycle_state &&
         description == other.description &&
@@ -224,7 +239,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, topic_id, compartment_id, lifecycle_state, description, time_created, etag, freeform_tags, defined_tags, api_endpoint].hash
+      [name, topic_id, short_topic_id, compartment_id, lifecycle_state, description, time_created, etag, freeform_tags, defined_tags, api_endpoint].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

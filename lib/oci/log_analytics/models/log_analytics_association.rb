@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,71 +16,75 @@ module OCI
       LIFE_CYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # failure message
+    # The failure message.
     # @return [String]
     attr_accessor :failure_message
 
-    # Lama Idf
+    # The agent unique identifier.
     # @return [String]
     attr_accessor :agent_id
 
-    # last attempt date
+    # The last attempt date.
     # @return [DateTime]
     attr_accessor :time_last_attempted
 
-    # retry count
+    # The number of times the association will be attempted
+    # before failing.
+    #
     # @return [Integer]
     attr_accessor :retry_count
 
-    # source name
+    # The source name.
     # @return [String]
     attr_accessor :source_name
 
-    # source display name
+    # The source display name.
     # @return [String]
     attr_accessor :source_display_name
 
-    # source type internal name
+    # The source type internal name.
     # @return [String]
     attr_accessor :source_type_name
 
-    # lifeCycleState
+    # The lifecycle status.  Valid values are ACCEPTED, IN_PROGRESS, SUCCEEDED
+    # or FAILED.
+    #
     # @return [String]
     attr_reader :life_cycle_state
 
-    # entity GUID
+    # The entity unique identifier.
     # @return [String]
     attr_accessor :entity_id
 
-    # entity name
+    # The entity name.
     # @return [String]
     attr_accessor :entity_name
 
-    # entity type internal name
+    # The entity type internal name.
     # @return [String]
     attr_accessor :entity_type_name
 
-    # host name
+    # The host name.
     # @return [String]
     attr_accessor :host
 
-    # Agent entity name
+    # The name of the entity which contains the agent.
     # @return [String]
     attr_accessor :agent_entity_name
 
-    # entity type display name
+    # The entity type display name.
     # @return [String]
     attr_accessor :entity_type_display_name
 
-    # log group ocid
+    # The log group unique identifier.
     # @return [String]
     attr_accessor :log_group_id
 
-    # log group name
+    # The log group name.
     # @return [String]
     attr_accessor :log_group_name
 
-    # log group compartment
+    # The log group compartment.
     # @return [String]
     attr_accessor :log_group_compartment
 

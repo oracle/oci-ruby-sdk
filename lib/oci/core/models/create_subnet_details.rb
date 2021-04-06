@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -39,7 +39,7 @@ module OCI
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -52,7 +52,9 @@ module OCI
     # @return [String]
     attr_accessor :dhcp_options_id
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
@@ -67,7 +69,7 @@ module OCI
     # was created with a DNS label.
     #
     # For more information, see
-    # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/Content/Network/Concepts/dns.htm).
+    # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/dns.htm).
     #
     # Example: `subnet123`
     #
@@ -75,7 +77,7 @@ module OCI
     attr_accessor :dns_label
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -86,7 +88,7 @@ module OCI
     # You can't change this subnet characteristic later. All subnets are /64 in size. The subnet
     # portion of the IPv6 address is the fourth hextet from the left (1111 in the following example).
     #
-    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `2001:0db8:0123:1111::/64`
     #

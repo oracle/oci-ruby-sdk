@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -67,6 +67,10 @@ module OCI
 
     # @return [OCI::Database::Models::PeerAutonomousContainerDatabaseBackupConfig]
     attr_accessor :peer_autonomous_container_database_backup_config
+
+    # The `DB_UNIQUE_NAME` of the peer Autonomous Container Database in a Data Guard association.
+    # @return [String]
+    attr_accessor :peer_db_unique_name
 
     # The OCID of the Autonomous VM Cluster.
     # @return [String]
@@ -137,6 +141,7 @@ module OCI
         'peer_autonomous_vm_cluster_id': :'peerAutonomousVmClusterId',
         'peer_autonomous_container_database_compartment_id': :'peerAutonomousContainerDatabaseCompartmentId',
         'peer_autonomous_container_database_backup_config': :'peerAutonomousContainerDatabaseBackupConfig',
+        'peer_db_unique_name': :'peerDbUniqueName',
         'autonomous_vm_cluster_id': :'autonomousVmClusterId',
         'compartment_id': :'compartmentId',
         'patch_model': :'patchModel',
@@ -167,6 +172,7 @@ module OCI
         'peer_autonomous_vm_cluster_id': :'String',
         'peer_autonomous_container_database_compartment_id': :'String',
         'peer_autonomous_container_database_backup_config': :'OCI::Database::Models::PeerAutonomousContainerDatabaseBackupConfig',
+        'peer_db_unique_name': :'String',
         'autonomous_vm_cluster_id': :'String',
         'compartment_id': :'String',
         'patch_model': :'String',
@@ -199,6 +205,7 @@ module OCI
     # @option attributes [String] :peer_autonomous_vm_cluster_id The value to assign to the {#peer_autonomous_vm_cluster_id} property
     # @option attributes [String] :peer_autonomous_container_database_compartment_id The value to assign to the {#peer_autonomous_container_database_compartment_id} property
     # @option attributes [OCI::Database::Models::PeerAutonomousContainerDatabaseBackupConfig] :peer_autonomous_container_database_backup_config The value to assign to the {#peer_autonomous_container_database_backup_config} property
+    # @option attributes [String] :peer_db_unique_name The value to assign to the {#peer_db_unique_name} property
     # @option attributes [String] :autonomous_vm_cluster_id The value to assign to the {#autonomous_vm_cluster_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :patch_model The value to assign to the {#patch_model} property
@@ -276,6 +283,12 @@ module OCI
       raise 'You cannot provide both :peerAutonomousContainerDatabaseBackupConfig and :peer_autonomous_container_database_backup_config' if attributes.key?(:'peerAutonomousContainerDatabaseBackupConfig') && attributes.key?(:'peer_autonomous_container_database_backup_config')
 
       self.peer_autonomous_container_database_backup_config = attributes[:'peer_autonomous_container_database_backup_config'] if attributes[:'peer_autonomous_container_database_backup_config']
+
+      self.peer_db_unique_name = attributes[:'peerDbUniqueName'] if attributes[:'peerDbUniqueName']
+
+      raise 'You cannot provide both :peerDbUniqueName and :peer_db_unique_name' if attributes.key?(:'peerDbUniqueName') && attributes.key?(:'peer_db_unique_name')
+
+      self.peer_db_unique_name = attributes[:'peer_db_unique_name'] if attributes[:'peer_db_unique_name']
 
       self.autonomous_vm_cluster_id = attributes[:'autonomousVmClusterId'] if attributes[:'autonomousVmClusterId']
 
@@ -395,6 +408,7 @@ module OCI
         peer_autonomous_vm_cluster_id == other.peer_autonomous_vm_cluster_id &&
         peer_autonomous_container_database_compartment_id == other.peer_autonomous_container_database_compartment_id &&
         peer_autonomous_container_database_backup_config == other.peer_autonomous_container_database_backup_config &&
+        peer_db_unique_name == other.peer_db_unique_name &&
         autonomous_vm_cluster_id == other.autonomous_vm_cluster_id &&
         compartment_id == other.compartment_id &&
         patch_model == other.patch_model &&
@@ -422,7 +436,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, peer_autonomous_exadata_infrastructure_id, peer_autonomous_container_database_display_name, protection_mode, peer_autonomous_vm_cluster_id, peer_autonomous_container_database_compartment_id, peer_autonomous_container_database_backup_config, autonomous_vm_cluster_id, compartment_id, patch_model, maintenance_window_details, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, backup_config, kms_key_id, kms_key_version_id, vault_id, key_store_id].hash
+      [display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, peer_autonomous_exadata_infrastructure_id, peer_autonomous_container_database_display_name, protection_mode, peer_autonomous_vm_cluster_id, peer_autonomous_container_database_compartment_id, peer_autonomous_container_database_backup_config, peer_db_unique_name, autonomous_vm_cluster_id, compartment_id, patch_model, maintenance_window_details, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, backup_config, kms_key_id, kms_key_version_id, vault_id, key_store_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

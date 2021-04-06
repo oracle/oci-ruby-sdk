@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -20,13 +20,18 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_onboarded
 
+    # This indicates if the log set feature is enabled for the tenancy
+    # @return [BOOLEAN]
+    attr_accessor :is_log_set_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'namespace_name': :'namespaceName',
         'compartment_id': :'compartmentId',
-        'is_onboarded': :'isOnboarded'
+        'is_onboarded': :'isOnboarded',
+        'is_log_set_enabled': :'isLogSetEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,7 +42,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'namespace_name': :'String',
         'compartment_id': :'String',
-        'is_onboarded': :'BOOLEAN'
+        'is_onboarded': :'BOOLEAN',
+        'is_log_set_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,6 +57,7 @@ module OCI
     # @option attributes [String] :namespace_name The value to assign to the {#namespace_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [BOOLEAN] :is_onboarded The value to assign to the {#is_onboarded} property
+    # @option attributes [BOOLEAN] :is_log_set_enabled The value to assign to the {#is_log_set_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -71,6 +78,14 @@ module OCI
       raise 'You cannot provide both :isOnboarded and :is_onboarded' if attributes.key?(:'isOnboarded') && attributes.key?(:'is_onboarded')
 
       self.is_onboarded = attributes[:'is_onboarded'] unless attributes[:'is_onboarded'].nil?
+
+      self.is_log_set_enabled = attributes[:'isLogSetEnabled'] unless attributes[:'isLogSetEnabled'].nil?
+      self.is_log_set_enabled = false if is_log_set_enabled.nil? && !attributes.key?(:'isLogSetEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isLogSetEnabled and :is_log_set_enabled' if attributes.key?(:'isLogSetEnabled') && attributes.key?(:'is_log_set_enabled')
+
+      self.is_log_set_enabled = attributes[:'is_log_set_enabled'] unless attributes[:'is_log_set_enabled'].nil?
+      self.is_log_set_enabled = false if is_log_set_enabled.nil? && !attributes.key?(:'isLogSetEnabled') && !attributes.key?(:'is_log_set_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -86,7 +101,8 @@ module OCI
       self.class == other.class &&
         namespace_name == other.namespace_name &&
         compartment_id == other.compartment_id &&
-        is_onboarded == other.is_onboarded
+        is_onboarded == other.is_onboarded &&
+        is_log_set_enabled == other.is_log_set_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -102,7 +118,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace_name, compartment_id, is_onboarded].hash
+      [namespace_name, compartment_id, is_onboarded, is_log_set_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

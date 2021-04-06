@@ -1,7 +1,8 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -16,6 +17,13 @@ module OCI
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::MultipartUpload
+    STORAGE_TIER_ENUM = [
+      STORAGE_TIER_STANDARD = 'Standard'.freeze,
+      STORAGE_TIER_INFREQUENT_ACCESS = 'InfrequentAccess'.freeze,
+      STORAGE_TIER_ARCHIVE = 'Archive'.freeze,
+      STORAGE_TIER_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The Object Storage namespace in which the in-progress multipart upload is stored.
     # @return [String]
     attr_accessor :namespace
@@ -36,6 +44,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The storage tier that the object is stored in.
+    # @return [String]
+    attr_reader :storage_tier
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -44,7 +56,8 @@ module OCI
         'bucket': :'bucket',
         'object': :'object',
         'upload_id': :'uploadId',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'storage_tier': :'storageTier'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,7 +70,8 @@ module OCI
         'bucket': :'String',
         'object': :'String',
         'upload_id': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'storage_tier': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -73,6 +87,7 @@ module OCI
     # @option attributes [String] :object The value to assign to the {#object} property
     # @option attributes [String] :upload_id The value to assign to the {#upload_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :storage_tier The value to assign to the {#storage_tier} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -96,9 +111,28 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.storage_tier = attributes[:'storageTier'] if attributes[:'storageTier']
+
+      raise 'You cannot provide both :storageTier and :storage_tier' if attributes.key?(:'storageTier') && attributes.key?(:'storage_tier')
+
+      self.storage_tier = attributes[:'storage_tier'] if attributes[:'storage_tier']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] storage_tier Object to be assigned
+    def storage_tier=(storage_tier)
+      # rubocop:disable Style/ConditionalAssignment
+      if storage_tier && !STORAGE_TIER_ENUM.include?(storage_tier)
+        OCI.logger.debug("Unknown value for 'storage_tier' [" + storage_tier + "]. Mapping to 'STORAGE_TIER_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @storage_tier = STORAGE_TIER_UNKNOWN_ENUM_VALUE
+      else
+        @storage_tier = storage_tier
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -113,7 +147,8 @@ module OCI
         bucket == other.bucket &&
         object == other.object &&
         upload_id == other.upload_id &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        storage_tier == other.storage_tier
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -129,7 +164,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, bucket, object, upload_id, time_created].hash
+      [namespace, bucket, object, upload_id, time_created, storage_tier].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

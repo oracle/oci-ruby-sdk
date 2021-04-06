@@ -1,33 +1,33 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Parsed Content
+  # Parsed representation of the log file.
   class LogAnalytics::Models::ParsedContent
-    # Field names
+    # List of field names.
     # @return [Array<String>]
     attr_accessor :field_names
 
-    # Display names for fields
+    # List of field display names.
     # @return [Array<String>]
     attr_accessor :field_display_names
 
-    # Parsed field values
+    # Parsed field values.
     # @return [Array<OCI::LogAnalytics::Models::ParsedField>]
     attr_accessor :parsed_field_values
 
-    # Sample log entries picked up from the given file for validation
+    # Sample log entries picked up from the given file for validation.
     # @return [String]
     attr_accessor :log_content
 
-    # Sample Size taken for validation
+    # Sample Size taken for validation.
     # @return [Integer]
     attr_accessor :sample_size
 
-    # Match Status
+    # Match Status.
     # @return [String]
     attr_accessor :match_status
 

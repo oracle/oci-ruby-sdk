@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -308,6 +308,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a template into a different compartment within the same tenancy.
+    # For information about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # @param [String] template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
+    # @param [OCI::ResourceManager::Models::ChangeTemplateCompartmentDetails] change_template_compartment_details The details for moving a template to a different compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of retrying the same action. Retry tokens expire after
+    #   24 hours, but can be invalidated before then due to conflicting operations. For example,
+    #   if a resource has been deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/change_template_compartment.rb.html) to see an example of how to use change_template_compartment API.
+    def change_template_compartment(template_id, change_template_compartment_details, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#change_template_compartment.' if logger
+
+      raise "Missing the required parameter 'template_id' when calling change_template_compartment." if template_id.nil?
+      raise "Missing the required parameter 'change_template_compartment_details' when calling change_template_compartment." if change_template_compartment_details.nil?
+      raise "Parameter value for 'template_id' must not be blank" if OCI::Internal::Util.blank_string?(template_id)
+
+      path = '/templates/{templateId}/actions/changeCompartment'.sub('{templateId}', template_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_template_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#change_template_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a configuration source provider in the specified compartment.
     # For more information, see
     # [To create a configuration source provider](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#CreateConfigurationSourceProvider).
@@ -506,6 +579,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a custom template in the specified compartment.
+    #
+    # @param [OCI::ResourceManager::Models::CreateTemplateDetails] create_template_details The configuration details for creating a template.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of retrying the same action. Retry tokens expire after
+    #   24 hours, but can be invalidated before then due to conflicting operations. For example,
+    #   if a resource has been deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected.
+    #
+    # @option opts [String] :oci_splat_generated_ocids This is to enable limit/quota support through splat
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Template Template}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/create_template.rb.html) to see an example of how to use create_template API.
+    def create_template(create_template_details, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#create_template.' if logger
+
+      raise "Missing the required parameter 'create_template_details' when calling create_template." if create_template_details.nil?
+
+      path = '/templates'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'oci-splat-generated-ocids'] = opts[:oci_splat_generated_ocids] if opts[:oci_splat_generated_ocids]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_template_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#create_template') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::Template'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified configuration source provider.
     # @param [String] configuration_source_provider_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the configuration source provider.
     #
@@ -627,6 +767,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the specified template.
+    # @param [String] template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/delete_template.rb.html) to see an example of how to use delete_template API.
+    def delete_template(template_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#delete_template.' if logger
+
+      raise "Missing the required parameter 'template_id' when calling delete_template." if template_id.nil?
+      raise "Parameter value for 'template_id' must not be blank" if OCI::Internal::Util.blank_string?(template_id)
+
+      path = '/templates/{templateId}'.sub('{templateId}', template_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#delete_template') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Checks drift status for the specified stack.
     # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
     # @param [Hash] opts the optional parameters
@@ -645,6 +845,7 @@ module OCI
     #   if a resource has been deleted and purged from the system, then a retry of the original
     #   creation request may be rejected.
     #
+    # @option opts [OCI::ResourceManager::Models::DetectStackDriftDetails] :detect_stack_drift_details The details for detecting drift in a stack
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/detect_stack_drift.rb.html) to see an example of how to use detect_stack_drift API.
     def detect_stack_drift(stack_id, opts = {})
@@ -670,7 +871,7 @@ module OCI
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
-      post_body = nil
+      post_body = @api_client.object_to_http_body(opts[:detect_stack_drift_details])
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#detect_stack_drift') do
@@ -1427,6 +1628,270 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the specified template.
+    # @param [String] template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Template Template}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_template.rb.html) to see an example of how to use get_template API.
+    def get_template(template_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#get_template.' if logger
+
+      raise "Missing the required parameter 'template_id' when calling get_template." if template_id.nil?
+      raise "Parameter value for 'template_id' must not be blank" if OCI::Internal::Util.blank_string?(template_id)
+
+      path = '/templates/{templateId}'.sub('{templateId}', template_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#get_template') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::Template'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the Terraform logo file in .logo format for the specified template.
+    # Returns an error if no logo file is found.
+    #
+    # @param [String] template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_template_logo.rb.html) to see an example of how to use get_template_logo API.
+    def get_template_logo(template_id, opts = {}, &block)
+      logger.debug 'Calling operation ResourceManagerClient#get_template_logo.' if logger
+
+      raise "Missing the required parameter 'template_id' when calling get_template_logo." if template_id.nil?
+      raise "Parameter value for 'template_id' must not be blank" if OCI::Internal::Util.blank_string?(template_id)
+
+      path = '/templates/{templateId}/logo'.sub('{templateId}', template_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'image/png'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#get_template_logo') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the Terraform configuration file in .zip format for the specified template.
+    # Returns an error if no zip file is found.
+    #
+    # @param [String] template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_template_tf_config.rb.html) to see an example of how to use get_template_tf_config API.
+    def get_template_tf_config(template_id, opts = {}, &block)
+      logger.debug 'Calling operation ResourceManagerClient#get_template_tf_config.' if logger
+
+      raise "Missing the required parameter 'template_id' when calling get_template_tf_config." if template_id.nil?
+      raise "Parameter value for 'template_id' must not be blank" if OCI::Internal::Util.blank_string?(template_id)
+
+      path = '/templates/{templateId}/tfConfig'.sub('{templateId}', template_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/zip'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#get_template_tf_config') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Return the given work request.
     # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
@@ -1749,6 +2214,8 @@ module OCI
     # Lists drift status details for each resource defined in the specified stack.
     # The drift status details for a given resource indicate differences, if any, between the actual state
     # and the expected (defined) state for that resource.
+    # The drift status details correspond to the specified work request (`workRequestId`).
+    # If no work request is specified, then the drift status details correspond to the latest completed work request for the stack.
     #
     # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
     # @param [Hash] opts the optional parameters
@@ -1757,6 +2224,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
+    # @option opts [String] :work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @option opts [Array<OCI::ResourceManager::Models::OCI::ResourceManager::Models::StackResourceDriftSummaryResourceDriftStatus>] :resource_drift_status A filter that returns only resources that match the given drift status. The value is case-insensitive.
     #   Allowable values -
     #     - NOT_CHECKED
@@ -1784,6 +2252,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:workRequestId] = opts[:work_request_id] if opts[:work_request_id]
       query_params[:resourceDriftStatus] = OCI::ApiClient.build_collection_params(opts[:resource_drift_status], :multi) if opts[:resource_drift_status] && !opts[:resource_drift_status].empty?
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
@@ -1916,6 +2385,150 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::ResourceManager::Models::StackSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists template categories.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::TemplateCategorySummaryCollection TemplateCategorySummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_template_categories.rb.html) to see an example of how to use list_template_categories API.
+    def list_template_categories(opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#list_template_categories.' if logger
+
+
+      path = '/templateCategories'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#list_template_categories') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::TemplateCategorySummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists templates according to the specified filter.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
+    # @option opts [String] :template_category_id Unique identifier of the template category.
+    # @option opts [String] :template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [String] :sort_by The field to use when sorting returned resources.
+    #   By default, `TIMECREATED` is ordered descending.
+    #   By default, `DISPLAYNAME` is ordered ascending. Note that you can sort only on one field.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use when sorting returned resources. Ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
+    #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::TemplateSummaryCollection TemplateSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_templates.rb.html) to see an example of how to use list_templates API.
+    def list_templates(opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#list_templates.' if logger
+
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      path = '/templates'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:templateCategoryId] = opts[:template_category_id] if opts[:template_category_id]
+      query_params[:templateId] = opts[:template_id] if opts[:template_id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#list_templates') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::TemplateSummaryCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2394,6 +3007,71 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ResourceManager::Models::Stack'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the specified template.
+    #
+    # @param [String] template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
+    # @param [OCI::ResourceManager::Models::UpdateTemplateDetails] update_template_details The details for updating a template.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Template Template}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/update_template.rb.html) to see an example of how to use update_template API.
+    def update_template(template_id, update_template_details, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#update_template.' if logger
+
+      raise "Missing the required parameter 'template_id' when calling update_template." if template_id.nil?
+      raise "Missing the required parameter 'update_template_details' when calling update_template." if update_template_details.nil?
+      raise "Parameter value for 'template_id' must not be blank" if OCI::Internal::Util.blank_string?(template_id)
+
+      path = '/templates/{templateId}'.sub('{templateId}', template_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_template_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#update_template') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::Template'
         )
       end
       # rubocop:enable Metrics/BlockLength

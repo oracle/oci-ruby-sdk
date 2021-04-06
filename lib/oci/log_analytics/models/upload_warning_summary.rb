@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,19 +7,19 @@ require 'date'
 module OCI
   # Summary of Upload warnings.
   class LogAnalytics::Models::UploadWarningSummary
-    # **[Required]** Unique internal identifier to refer to upload warning
+    # **[Required]** Unique internal identifier to refer upload warning.
     # @return [String]
     attr_accessor :reference
 
-    # Status of the upload. Ex - Failed
+    # Status of the upload. Ex - Failed.
     # @return [String]
     attr_accessor :status
 
-    # The time when the upload processing started
+    # The time when the upload processing started.
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The details about upload processing failure
+    # The details about upload processing failure.
     # @return [String]
     attr_accessor :error_message
 

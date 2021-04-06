@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -10,7 +10,8 @@ module OCI
   class DataIntegration::Models::CreateTaskDetails
     MODEL_TYPE_ENUM = [
       MODEL_TYPE_INTEGRATION_TASK = 'INTEGRATION_TASK'.freeze,
-      MODEL_TYPE_DATA_LOADER_TASK = 'DATA_LOADER_TASK'.freeze
+      MODEL_TYPE_DATA_LOADER_TASK = 'DATA_LOADER_TASK'.freeze,
+      MODEL_TYPE_PIPELINE_TASK = 'PIPELINE_TASK'.freeze
     ].freeze
 
     # **[Required]** The type of the task.
@@ -120,6 +121,7 @@ module OCI
 
       return 'OCI::DataIntegration::Models::CreateTaskFromIntegrationTask' if type == 'INTEGRATION_TASK'
       return 'OCI::DataIntegration::Models::CreateTaskFromDataLoaderTask' if type == 'DATA_LOADER_TASK'
+      return 'OCI::DataIntegration::Models::CreateTaskFromPipelineTask' if type == 'PIPELINE_TASK'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DataIntegration::Models::CreateTaskDetails'

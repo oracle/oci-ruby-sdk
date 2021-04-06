@@ -1,18 +1,18 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Instance agent features supported on the image
+  # Oracle Cloud Agent features supported on the image.
   class Core::Models::InstanceAgentFeatures
-    # Whether the agent running on the instance can gather performance metrics and monitor the instance.
+    # Whether Oracle Cloud Agent can gather performance metrics and monitor the instance.
     #
     # @return [BOOLEAN]
     attr_accessor :is_monitoring_supported
 
-    # Whether the agent running on the instance can run all the available management plugins
+    # Whether Oracle Cloud Agent can run all the available management plugins.
     #
     # @return [BOOLEAN]
     attr_accessor :is_management_supported

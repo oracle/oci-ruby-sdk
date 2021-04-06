@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,13 +6,13 @@ require_relative 'instance_agent_command_source_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Command content via text.
+  # The source of the command when provided using plain text.
   class ComputeInstanceAgent::Models::InstanceAgentCommandSourceViaTextDetails < ComputeInstanceAgent::Models::InstanceAgentCommandSourceDetails
     # **[Required]** The plain text command.
     # @return [String]
     attr_accessor :text
 
-    # Sha256 checksum value of the text content
+    # SHA-256 checksum value of the text content.
     # @return [String]
     attr_accessor :text_sha256
 

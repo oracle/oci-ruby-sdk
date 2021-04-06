@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -48,7 +48,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_byol
 
-    # IDCS Authentication token. This is is required for pre-UCPIS cloud accounts, but not UCPIS, hence not a required parameter
+    # IDCS Authentication token. This is required for all realms with IDCS. Its optional as its not required for non IDCS realms.
     # @return [String]
     attr_accessor :idcs_at
 
@@ -77,6 +77,9 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_file_server_enabled
 
+    # @return [OCI::Integration::Models::NetworkEndpointDetails]
+    attr_accessor :network_endpoint_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -93,7 +96,8 @@ module OCI
         'custom_endpoint': :'customEndpoint',
         'alternate_custom_endpoints': :'alternateCustomEndpoints',
         'consumption_model': :'consumptionModel',
-        'is_file_server_enabled': :'isFileServerEnabled'
+        'is_file_server_enabled': :'isFileServerEnabled',
+        'network_endpoint_details': :'networkEndpointDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -114,7 +118,8 @@ module OCI
         'custom_endpoint': :'OCI::Integration::Models::CreateCustomEndpointDetails',
         'alternate_custom_endpoints': :'Array<OCI::Integration::Models::CreateCustomEndpointDetails>',
         'consumption_model': :'String',
-        'is_file_server_enabled': :'BOOLEAN'
+        'is_file_server_enabled': :'BOOLEAN',
+        'network_endpoint_details': :'OCI::Integration::Models::NetworkEndpointDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -138,6 +143,7 @@ module OCI
     # @option attributes [Array<OCI::Integration::Models::CreateCustomEndpointDetails>] :alternate_custom_endpoints The value to assign to the {#alternate_custom_endpoints} property
     # @option attributes [String] :consumption_model The value to assign to the {#consumption_model} property
     # @option attributes [BOOLEAN] :is_file_server_enabled The value to assign to the {#is_file_server_enabled} property
+    # @option attributes [OCI::Integration::Models::NetworkEndpointDetails] :network_endpoint_details The value to assign to the {#network_endpoint_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -223,6 +229,12 @@ module OCI
 
       self.is_file_server_enabled = attributes[:'is_file_server_enabled'] unless attributes[:'is_file_server_enabled'].nil?
       self.is_file_server_enabled = false if is_file_server_enabled.nil? && !attributes.key?(:'isFileServerEnabled') && !attributes.key?(:'is_file_server_enabled') # rubocop:disable Style/StringLiterals
+
+      self.network_endpoint_details = attributes[:'networkEndpointDetails'] if attributes[:'networkEndpointDetails']
+
+      raise 'You cannot provide both :networkEndpointDetails and :network_endpoint_details' if attributes.key?(:'networkEndpointDetails') && attributes.key?(:'network_endpoint_details')
+
+      self.network_endpoint_details = attributes[:'network_endpoint_details'] if attributes[:'network_endpoint_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -264,7 +276,8 @@ module OCI
         custom_endpoint == other.custom_endpoint &&
         alternate_custom_endpoints == other.alternate_custom_endpoints &&
         consumption_model == other.consumption_model &&
-        is_file_server_enabled == other.is_file_server_enabled
+        is_file_server_enabled == other.is_file_server_enabled &&
+        network_endpoint_details == other.network_endpoint_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -280,7 +293,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, integration_instance_type, freeform_tags, defined_tags, is_byol, idcs_at, message_packs, is_visual_builder_enabled, custom_endpoint, alternate_custom_endpoints, consumption_model, is_file_server_enabled].hash
+      [display_name, compartment_id, integration_instance_type, freeform_tags, defined_tags, is_byol, idcs_at, message_packs, is_visual_builder_enabled, custom_endpoint, alternate_custom_endpoints, consumption_model, is_file_server_enabled, network_endpoint_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

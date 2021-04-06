@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,8 +6,7 @@ require_relative 'database_upgrade_source_base'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of Database Home for upgrading a database.
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  # Details of Database Home to be used to upgrade a database.
   #
   class Database::Models::DatabaseUpgradeWithDbHomeDetails < Database::Models::DatabaseUpgradeSourceBase
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Home.
@@ -19,6 +18,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'source': :'source',
+        'options': :'options',
         'db_home_id': :'dbHomeId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -29,6 +29,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'source': :'String',
+        'options': :'String',
         'db_home_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -40,6 +41,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :options The value to assign to the {OCI::Database::Models::DatabaseUpgradeSourceBase#options #options} proprety
     # @option attributes [String] :db_home_id The value to assign to the {#db_home_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -70,6 +72,7 @@ module OCI
 
       self.class == other.class &&
         source == other.source &&
+        options == other.options &&
         db_home_id == other.db_home_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -86,7 +89,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source, db_home_id].hash
+      [source, options, db_home_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

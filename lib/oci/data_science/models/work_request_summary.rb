@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -13,6 +13,11 @@ module OCI
       OPERATION_TYPE_NOTEBOOK_SESSION_DELETE = 'NOTEBOOK_SESSION_DELETE'.freeze,
       OPERATION_TYPE_NOTEBOOK_SESSION_ACTIVATE = 'NOTEBOOK_SESSION_ACTIVATE'.freeze,
       OPERATION_TYPE_NOTEBOOK_SESSION_DEACTIVATE = 'NOTEBOOK_SESSION_DEACTIVATE'.freeze,
+      OPERATION_TYPE_MODEL_DEPLOYMENT_CREATE = 'MODEL_DEPLOYMENT_CREATE'.freeze,
+      OPERATION_TYPE_MODEL_DEPLOYMENT_DELETE = 'MODEL_DEPLOYMENT_DELETE'.freeze,
+      OPERATION_TYPE_MODEL_DEPLOYMENT_ACTIVATE = 'MODEL_DEPLOYMENT_ACTIVATE'.freeze,
+      OPERATION_TYPE_MODEL_DEPLOYMENT_DEACTIVATE = 'MODEL_DEPLOYMENT_DEACTIVATE'.freeze,
+      OPERATION_TYPE_MODEL_DEPLOYMENT_UPDATE = 'MODEL_DEPLOYMENT_UPDATE'.freeze,
       OPERATION_TYPE_PROJECT_DELETE = 'PROJECT_DELETE'.freeze,
       OPERATION_TYPE_WORKREQUEST_CANCEL = 'WORKREQUEST_CANCEL'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
@@ -28,7 +33,7 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the work request.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @return [String]
     attr_accessor :id
 
@@ -40,7 +45,7 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the work request's compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request's compartment.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -52,15 +57,15 @@ module OCI
     # @return [Array<OCI::DataScience::Models::WorkRequestResource>]
     attr_accessor :resources
 
-    # **[Required]** The date and time the work request was accepted, in the timestamp format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # **[Required]** The date and time the work request was accepted in the timestamp format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_accepted
 
-    # The date and time the work request was started, in the timestamp format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the work request was started in the timestamp format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The date and time the work request was finished, in the timestamp format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the work request was finished in the timestamp format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_finished
 

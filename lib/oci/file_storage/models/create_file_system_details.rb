@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,7 +14,7 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
-    # **[Required]** The OCID of the compartment to create the file system in.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment to create the file system in.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -41,10 +41,16 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of KMS key used to encrypt the encryption keys associated with this file system.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the KMS key used to encrypt the encryption keys associated with this file system.
     #
     # @return [String]
     attr_accessor :kms_key_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the snapshot used to create a cloned file system.
+    # See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm).
+    #
+    # @return [String]
+    attr_accessor :source_snapshot_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -55,7 +61,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'kms_key_id': :'kmsKeyId'
+        'kms_key_id': :'kmsKeyId',
+        'source_snapshot_id': :'sourceSnapshotId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -69,7 +76,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'kms_key_id': :'String'
+        'kms_key_id': :'String',
+        'source_snapshot_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -86,6 +94,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :source_snapshot_id The value to assign to the {#source_snapshot_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -127,6 +136,12 @@ module OCI
       raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
 
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.source_snapshot_id = attributes[:'sourceSnapshotId'] if attributes[:'sourceSnapshotId']
+
+      raise 'You cannot provide both :sourceSnapshotId and :source_snapshot_id' if attributes.key?(:'sourceSnapshotId') && attributes.key?(:'source_snapshot_id')
+
+      self.source_snapshot_id = attributes[:'source_snapshot_id'] if attributes[:'source_snapshot_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -145,7 +160,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        kms_key_id == other.kms_key_id
+        kms_key_id == other.kms_key_id &&
+        source_snapshot_id == other.source_snapshot_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -161,7 +177,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, display_name, freeform_tags, defined_tags, kms_key_id].hash
+      [availability_domain, compartment_id, display_name, freeform_tags, defined_tags, kms_key_id, source_snapshot_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

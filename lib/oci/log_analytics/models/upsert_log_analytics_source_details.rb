@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,115 +7,120 @@ require 'date'
 module OCI
   # UpsertLogAnalyticsSourceDetails
   class LogAnalytics::Models::UpsertLogAnalyticsSourceDetails
-    # source label conditions
+    # An array of source label conditions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceLabelCondition>]
     attr_accessor :label_conditions
 
-    # data filter definitions
+    # An array of data filter definitions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceDataFilter>]
     attr_accessor :data_filter_definitions
 
-    # DB credential name
+    # The database credential name.
     # @return [String]
     attr_accessor :database_credential
 
-    # extended field definition
+    # An array of extended field definitions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceExtendedFieldDefinition>]
     attr_accessor :extended_field_definitions
 
-    # is for cloud flag
+    # A flag indicating whether or not this is a cloud source.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_for_cloud
 
-    # labels
+    # An array of labels.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsLabelView>]
     attr_accessor :labels
 
-    # metric definitions
+    # An array of metric definitions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsMetric>]
     attr_accessor :metric_definitions
 
-    # metric source map
+    # An array of metrics.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceMetric>]
     attr_accessor :metrics
 
-    # out-of-the-box source parser list
+    # An array of built in source parsers.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>]
     attr_accessor :oob_parsers
 
-    # parameters
+    # An array of parameters.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParameter>]
     attr_accessor :parameters
 
-    # patterns
+    # An array of patterns.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourcePattern>]
     attr_accessor :patterns
 
-    # description
+    # The source description.
     # @return [String]
     attr_accessor :description
 
-    # display name
+    # The source display name.
     # @return [String]
     attr_accessor :display_name
 
-    # source edit version
+    # The source edit version.
     # @return [Integer]
     attr_accessor :edit_version
 
-    # source functions
+    # An array of source functions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceFunction>]
     attr_accessor :functions
 
-    # source Id
+    # The source unique identifier.
     # @return [Integer]
     attr_accessor :source_id
 
-    # source internal name
+    # The source internal name.
     # @return [String]
     attr_accessor :name
 
-    # is secure content flag
+    # A flag indicating whether or not the source content is secure.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_secure_content
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # parser list
+    # An array of parser.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>]
     attr_accessor :parsers
 
-    # rule Id
+    # The rule unique identifier.
     # @return [Integer]
     attr_accessor :rule_id
 
-    # source type internal name
+    # The source type internal name.
     # @return [String]
     attr_accessor :type_name
 
-    # source warning configuration
+    # The source warning configuration.
     # @return [Integer]
     attr_accessor :warning_config
 
-    # source metadata fields
+    # An array of source metadata fields.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceMetadataField>]
     attr_accessor :metadata_fields
 
-    # tags
+    # An array of labels.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsLabelDefinition>]
     attr_accessor :label_definitions
 
-    # entity types
+    # An array of entity types.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceEntityType>]
     attr_accessor :entity_types
 
-    # time zone override
+    # A flag indicating whether or not the source has a time zone override.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_timezone_override
 
-    # source parser list
+    # An array of custom parsers.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>]
     attr_accessor :user_parsers
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,10 +7,8 @@ require 'date'
 module OCI
   # Details for updating a profile.
   #
-  # **Caution:** Avoid using any confidential information when you use the API to supply string values.
-  #
   class Optimizer::Models::UpdateProfileDetails
-    # Text describing the profile.
+    # Text describing the profile. Avoid entering confidential information.
     # @return [String]
     attr_accessor :description
 
@@ -33,6 +31,16 @@ module OCI
     # @return [OCI::Optimizer::Models::LevelsConfiguration]
     attr_accessor :levels_configuration
 
+    # @return [OCI::Optimizer::Models::TargetCompartments]
+    attr_accessor :target_compartments
+
+    # @return [OCI::Optimizer::Models::TargetTags]
+    attr_accessor :target_tags
+
+    # The name assigned to the profile. Avoid entering confidential information.
+    # @return [String]
+    attr_accessor :name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -40,7 +48,10 @@ module OCI
         'description': :'description',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
-        'levels_configuration': :'levelsConfiguration'
+        'levels_configuration': :'levelsConfiguration',
+        'target_compartments': :'targetCompartments',
+        'target_tags': :'targetTags',
+        'name': :'name'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,7 +63,10 @@ module OCI
         'description': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
-        'levels_configuration': :'OCI::Optimizer::Models::LevelsConfiguration'
+        'levels_configuration': :'OCI::Optimizer::Models::LevelsConfiguration',
+        'target_compartments': :'OCI::Optimizer::Models::TargetCompartments',
+        'target_tags': :'OCI::Optimizer::Models::TargetTags',
+        'name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -67,6 +81,9 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [OCI::Optimizer::Models::LevelsConfiguration] :levels_configuration The value to assign to the {#levels_configuration} property
+    # @option attributes [OCI::Optimizer::Models::TargetCompartments] :target_compartments The value to assign to the {#target_compartments} property
+    # @option attributes [OCI::Optimizer::Models::TargetTags] :target_tags The value to assign to the {#target_tags} property
+    # @option attributes [String] :name The value to assign to the {#name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -92,6 +109,20 @@ module OCI
       raise 'You cannot provide both :levelsConfiguration and :levels_configuration' if attributes.key?(:'levelsConfiguration') && attributes.key?(:'levels_configuration')
 
       self.levels_configuration = attributes[:'levels_configuration'] if attributes[:'levels_configuration']
+
+      self.target_compartments = attributes[:'targetCompartments'] if attributes[:'targetCompartments']
+
+      raise 'You cannot provide both :targetCompartments and :target_compartments' if attributes.key?(:'targetCompartments') && attributes.key?(:'target_compartments')
+
+      self.target_compartments = attributes[:'target_compartments'] if attributes[:'target_compartments']
+
+      self.target_tags = attributes[:'targetTags'] if attributes[:'targetTags']
+
+      raise 'You cannot provide both :targetTags and :target_tags' if attributes.key?(:'targetTags') && attributes.key?(:'target_tags')
+
+      self.target_tags = attributes[:'target_tags'] if attributes[:'target_tags']
+
+      self.name = attributes[:'name'] if attributes[:'name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -108,7 +139,10 @@ module OCI
         description == other.description &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
-        levels_configuration == other.levels_configuration
+        levels_configuration == other.levels_configuration &&
+        target_compartments == other.target_compartments &&
+        target_tags == other.target_tags &&
+        name == other.name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -124,7 +158,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, defined_tags, freeform_tags, levels_configuration].hash
+      [description, defined_tags, freeform_tags, levels_configuration, target_compartments, target_tags, name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

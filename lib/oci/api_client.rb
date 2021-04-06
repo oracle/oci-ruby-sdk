@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -19,6 +19,7 @@ module OCI
   # services. This client also handles request serialization and response deserialization
   class ApiClient
     class << self
+      OCI_SDK_APPEND_USER_AGENT = 'OCI_SDK_APPEND_USER_AGENT'.freeze
       # Builds the client info string to be sent with each request.
       def build_request_id
         SecureRandom.uuid.delete!('-').upcase
@@ -31,7 +32,8 @@ module OCI
 
       # Build the user agent string to be sent with each request.
       def build_user_agent
-        "#{build_user_info}#{OCI.sdk_name} (ruby #{RUBY_VERSION}; #{RUBY_PLATFORM})"
+        "#{build_user_info}#{OCI.sdk_name} (ruby #{RUBY_VERSION}; #{RUBY_PLATFORM})" unless ENV[OCI_SDK_APPEND_USER_AGENT]
+        "#{build_user_info}#{OCI.sdk_name} (ruby #{RUBY_VERSION}; #{RUBY_PLATFORM}) #{ENV[OCI_SDK_APPEND_USER_AGENT]}"
       end
 
       private

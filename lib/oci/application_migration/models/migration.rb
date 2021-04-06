@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -87,10 +87,15 @@ module OCI
     attr_reader :application_type
 
     # The pre-existing database type to be used in this migration. Currently, Application migration only supports Oracle Cloud
-    # Infrastrure databases and this option is currently available only for `JAVA_CLOUD_SERVICE` and `WEBLOGIC_CLOUD_SERVICE` target instance types.
+    # Infrastructure databases and this option is currently available only for `JAVA_CLOUD_SERVICE` and `WEBLOGIC_CLOUD_SERVICE` target instance types.
     #
     # @return [String]
     attr_reader :pre_created_target_database_type
+
+    # If set to `true`, Application Migration migrates only the application resources that you specify. If set to `false`, Application Migration migrates the entire application. When you migrate the entire application, all the application resources are migrated to the target environment. You can selectively migrate resources only for the Oracle Integration Cloud and Oracle Integration Cloud Service applications.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_selective_migration
 
     # Configuration required to migrate the application. In addition to the key and value, additional fields are provided
     # to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the
@@ -143,6 +148,7 @@ module OCI
         'application_name': :'applicationName',
         'application_type': :'applicationType',
         'pre_created_target_database_type': :'preCreatedTargetDatabaseType',
+        'is_selective_migration': :'isSelectiveMigration',
         'service_config': :'serviceConfig',
         'application_config': :'applicationConfig',
         'lifecycle_state': :'lifecycleState',
@@ -167,6 +173,7 @@ module OCI
         'application_name': :'String',
         'application_type': :'String',
         'pre_created_target_database_type': :'String',
+        'is_selective_migration': :'BOOLEAN',
         'service_config': :'Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>',
         'application_config': :'Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>',
         'lifecycle_state': :'String',
@@ -193,6 +200,7 @@ module OCI
     # @option attributes [String] :application_name The value to assign to the {#application_name} property
     # @option attributes [String] :application_type The value to assign to the {#application_type} property
     # @option attributes [String] :pre_created_target_database_type The value to assign to the {#pre_created_target_database_type} property
+    # @option attributes [BOOLEAN] :is_selective_migration The value to assign to the {#is_selective_migration} property
     # @option attributes [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>] :service_config The value to assign to the {#service_config} property
     # @option attributes [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>] :application_config The value to assign to the {#application_config} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -251,6 +259,14 @@ module OCI
       raise 'You cannot provide both :preCreatedTargetDatabaseType and :pre_created_target_database_type' if attributes.key?(:'preCreatedTargetDatabaseType') && attributes.key?(:'pre_created_target_database_type')
 
       self.pre_created_target_database_type = attributes[:'pre_created_target_database_type'] if attributes[:'pre_created_target_database_type']
+
+      self.is_selective_migration = attributes[:'isSelectiveMigration'] unless attributes[:'isSelectiveMigration'].nil?
+      self.is_selective_migration = false if is_selective_migration.nil? && !attributes.key?(:'isSelectiveMigration') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isSelectiveMigration and :is_selective_migration' if attributes.key?(:'isSelectiveMigration') && attributes.key?(:'is_selective_migration')
+
+      self.is_selective_migration = attributes[:'is_selective_migration'] unless attributes[:'is_selective_migration'].nil?
+      self.is_selective_migration = false if is_selective_migration.nil? && !attributes.key?(:'isSelectiveMigration') && !attributes.key?(:'is_selective_migration') # rubocop:disable Style/StringLiterals
 
       self.service_config = attributes[:'serviceConfig'] if attributes[:'serviceConfig']
 
@@ -367,6 +383,7 @@ module OCI
         application_name == other.application_name &&
         application_type == other.application_type &&
         pre_created_target_database_type == other.pre_created_target_database_type &&
+        is_selective_migration == other.is_selective_migration &&
         service_config == other.service_config &&
         application_config == other.application_config &&
         lifecycle_state == other.lifecycle_state &&
@@ -389,7 +406,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, time_created, source_id, application_name, application_type, pre_created_target_database_type, service_config, application_config, lifecycle_state, lifecycle_details, migration_state, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, description, time_created, source_id, application_name, application_type, pre_created_target_database_type, is_selective_migration, service_config, application_config, lifecycle_state, lifecycle_details, migration_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

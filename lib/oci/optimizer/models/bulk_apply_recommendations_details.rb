@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,9 +14,16 @@ module OCI
       STATUS_IMPLEMENTED = 'IMPLEMENTED'.freeze
     ].freeze
 
-    # **[Required]** The unique OCIDs of the resource actions that recommendations are applied to.
+    # The unique OCIDs of the resource actions that recommendations are applied to.
+    #
+    # This field is deprecated.
+    #
     # @return [Array<String>]
     attr_accessor :resource_action_ids
+
+    # The unique resource actions that recommendations are applied to.
+    # @return [Array<OCI::Optimizer::Models::BulkApplyResourceAction>]
+    attr_accessor :actions
 
     # **[Required]** The current status of the recommendation.
     # @return [String]
@@ -35,6 +42,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'resource_action_ids': :'resourceActionIds',
+        'actions': :'actions',
         'status': :'status',
         'time_status_end': :'timeStatusEnd'
         # rubocop:enable Style/SymbolLiteral
@@ -46,6 +54,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'resource_action_ids': :'Array<String>',
+        'actions': :'Array<OCI::Optimizer::Models::BulkApplyResourceAction>',
         'status': :'String',
         'time_status_end': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -59,6 +68,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<String>] :resource_action_ids The value to assign to the {#resource_action_ids} property
+    # @option attributes [Array<OCI::Optimizer::Models::BulkApplyResourceAction>] :actions The value to assign to the {#actions} property
     # @option attributes [String] :status The value to assign to the {#status} property
     # @option attributes [DateTime] :time_status_end The value to assign to the {#time_status_end} property
     def initialize(attributes = {})
@@ -72,6 +82,8 @@ module OCI
       raise 'You cannot provide both :resourceActionIds and :resource_action_ids' if attributes.key?(:'resourceActionIds') && attributes.key?(:'resource_action_ids')
 
       self.resource_action_ids = attributes[:'resource_action_ids'] if attributes[:'resource_action_ids']
+
+      self.actions = attributes[:'actions'] if attributes[:'actions']
 
       self.status = attributes[:'status'] if attributes[:'status']
 
@@ -102,6 +114,7 @@ module OCI
 
       self.class == other.class &&
         resource_action_ids == other.resource_action_ids &&
+        actions == other.actions &&
         status == other.status &&
         time_status_end == other.time_status_end
     end
@@ -119,7 +132,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [resource_action_ids, status, time_status_end].hash
+      [resource_action_ids, actions, status, time_status_end].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

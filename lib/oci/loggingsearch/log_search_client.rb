@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -108,11 +108,9 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
     #   a particular request, please provide the request ID.
     #
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. For information about pagination, see
-    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Integer] :limit The maximum number of items to return in a response. Pagination is not supported in this API.
     #    (default to 100)
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call. For information about
-    #   pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page Reserved for future use. Pagination is not supported in this API.
     #
     # @return [Response] A Response object with data of type {OCI::Loggingsearch::Models::SearchResponse SearchResponse}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loggingsearch/search_logs.rb.html) to see an example of how to use search_logs API.

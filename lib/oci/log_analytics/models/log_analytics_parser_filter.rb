@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,30 +7,31 @@ require 'date'
 module OCI
   # LogAnalyticsParserFilter
   class LogAnalytics::Models::LogAnalyticsParserFilter
-    # id
+    # The parser filter unique identifier.
     # @return [String]
     attr_accessor :id
 
     # @return [OCI::LogAnalytics::Models::LogAnalyticsParser]
     attr_accessor :parser
 
-    # agent version
+    # The agent version.
     # @return [String]
     attr_accessor :agent_version
 
-    # is in use flag
+    # A flag idicating whether or not hte filter is currently being used.
+    #
     # @return [Integer]
     attr_accessor :is_in_use
 
-    # operating system
+    # The operating system.
     # @return [String]
     attr_accessor :operating_system
 
-    # parser Id
+    # The parser unique identifier.
     # @return [Integer]
     attr_accessor :parser_id
 
-    # version
+    # The version.
     # @return [String]
     attr_accessor :version
 

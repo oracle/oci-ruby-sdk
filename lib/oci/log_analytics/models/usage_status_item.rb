@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,19 +7,20 @@ require 'date'
 module OCI
   # UsageStatusItem
   class LogAnalytics::Models::UsageStatusItem
-    # data type
+    # The field data type.
     # @return [String]
     attr_accessor :data_type
 
-    # is the field multi valued
+    # A flag indicating whether or not the field is multi-valued.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_multi_valued
 
-    # current usage
+    # The current usage of the field.
     # @return [Integer]
     attr_accessor :current_usage
 
-    # maximum available
+    # The maximum availability of the field.
     # @return [Integer]
     attr_accessor :max_available
 

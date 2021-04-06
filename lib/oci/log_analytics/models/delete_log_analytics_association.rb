@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,31 +7,31 @@ require 'date'
 module OCI
   # DeleteLogAnalyticsAssociation
   class LogAnalytics::Models::DeleteLogAnalyticsAssociation
-    # Lama Idf
+    # The agent unique identifier.
     # @return [String]
     attr_accessor :agent_id
 
-    # source name
+    # The source name.
     # @return [String]
     attr_accessor :source_name
 
-    # source type internal name
+    # The source type internal name.
     # @return [String]
     attr_accessor :source_type_name
 
-    # entity GUID
+    # The entity unique identifier.
     # @return [String]
     attr_accessor :entity_id
 
-    # entity type internal name
+    # The entity type internal name.
     # @return [String]
     attr_accessor :entity_type_name
 
-    # host name
+    # The host name.
     # @return [String]
     attr_accessor :host
 
-    # log group ocid
+    # The log group unique identifier.
     # @return [String]
     attr_accessor :log_group_id
 

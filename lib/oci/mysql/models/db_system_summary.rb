@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -25,6 +25,16 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # If the policy is to enable high availability of the instance, by
+    # maintaining secondary/failover capacity as necessary.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_highly_available
+
+    # @return [OCI::Mysql::Models::DbSystemPlacement]
+    attr_accessor :current_placement
+
+    # DEPRECATED -- please use `isHeatWaveClusterAttached` instead.
     # If the DB System has an Analytics Cluster attached.
     #
     # @return [BOOLEAN]
@@ -33,12 +43,32 @@ module OCI
     # @return [OCI::Mysql::Models::AnalyticsClusterSummary]
     attr_accessor :analytics_cluster
 
-    # The Availability Domain where the primary DB System should be located.
+    # If the DB System has a HeatWave Cluster attached.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_heat_wave_cluster_attached
+
+    # @return [OCI::Mysql::Models::HeatWaveClusterSummary]
+    attr_accessor :heat_wave_cluster
+
+    # The availability domain on which to deploy the Read/Write endpoint. This defines the preferred primary instance.
+    #
+    # In a failover scenario, the Read/Write endpoint is redirected to one of the other availability domains
+    # and the MySQL instance in that domain is promoted to the primary instance.
+    # This redirection does not affect the IP address of the DB System in any way.
+    #
+    # For a standalone DB System, this defines the availability domain in which the DB System is placed.
     #
     # @return [String]
     attr_accessor :availability_domain
 
-    # The name of the Fault Domain the DB System is located in.
+    # The fault domain on which to deploy the Read/Write endpoint. This defines the preferred primary instance.
+    #
+    # In a failover scenario, the Read/Write endpoint is redirected to one of the other fault domains
+    # and the MySQL instance in that domain is promoted to the primary instance.
+    # This redirection does not affect the IP address of the DB System in any way.
+    #
+    # For a standalone DB System, this defines the fault domain in which the DB System is placed.
     #
     # @return [String]
     attr_accessor :fault_domain
@@ -84,8 +114,12 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'compartment_id': :'compartmentId',
+        'is_highly_available': :'isHighlyAvailable',
+        'current_placement': :'currentPlacement',
         'is_analytics_cluster_attached': :'isAnalyticsClusterAttached',
         'analytics_cluster': :'analyticsCluster',
+        'is_heat_wave_cluster_attached': :'isHeatWaveClusterAttached',
+        'heat_wave_cluster': :'heatWaveCluster',
         'availability_domain': :'availabilityDomain',
         'fault_domain': :'faultDomain',
         'endpoints': :'endpoints',
@@ -107,8 +141,12 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'compartment_id': :'String',
+        'is_highly_available': :'BOOLEAN',
+        'current_placement': :'OCI::Mysql::Models::DbSystemPlacement',
         'is_analytics_cluster_attached': :'BOOLEAN',
         'analytics_cluster': :'OCI::Mysql::Models::AnalyticsClusterSummary',
+        'is_heat_wave_cluster_attached': :'BOOLEAN',
+        'heat_wave_cluster': :'OCI::Mysql::Models::HeatWaveClusterSummary',
         'availability_domain': :'String',
         'fault_domain': :'String',
         'endpoints': :'Array<OCI::Mysql::Models::DbSystemEndpoint>',
@@ -132,8 +170,12 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [BOOLEAN] :is_highly_available The value to assign to the {#is_highly_available} property
+    # @option attributes [OCI::Mysql::Models::DbSystemPlacement] :current_placement The value to assign to the {#current_placement} property
     # @option attributes [BOOLEAN] :is_analytics_cluster_attached The value to assign to the {#is_analytics_cluster_attached} property
     # @option attributes [OCI::Mysql::Models::AnalyticsClusterSummary] :analytics_cluster The value to assign to the {#analytics_cluster} property
+    # @option attributes [BOOLEAN] :is_heat_wave_cluster_attached The value to assign to the {#is_heat_wave_cluster_attached} property
+    # @option attributes [OCI::Mysql::Models::HeatWaveClusterSummary] :heat_wave_cluster The value to assign to the {#heat_wave_cluster} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
     # @option attributes [Array<OCI::Mysql::Models::DbSystemEndpoint>] :endpoints The value to assign to the {#endpoints} property
@@ -165,6 +207,20 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
+      self.is_highly_available = attributes[:'isHighlyAvailable'] unless attributes[:'isHighlyAvailable'].nil?
+      self.is_highly_available = true if is_highly_available.nil? && !attributes.key?(:'isHighlyAvailable') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isHighlyAvailable and :is_highly_available' if attributes.key?(:'isHighlyAvailable') && attributes.key?(:'is_highly_available')
+
+      self.is_highly_available = attributes[:'is_highly_available'] unless attributes[:'is_highly_available'].nil?
+      self.is_highly_available = true if is_highly_available.nil? && !attributes.key?(:'isHighlyAvailable') && !attributes.key?(:'is_highly_available') # rubocop:disable Style/StringLiterals
+
+      self.current_placement = attributes[:'currentPlacement'] if attributes[:'currentPlacement']
+
+      raise 'You cannot provide both :currentPlacement and :current_placement' if attributes.key?(:'currentPlacement') && attributes.key?(:'current_placement')
+
+      self.current_placement = attributes[:'current_placement'] if attributes[:'current_placement']
+
       self.is_analytics_cluster_attached = attributes[:'isAnalyticsClusterAttached'] unless attributes[:'isAnalyticsClusterAttached'].nil?
       self.is_analytics_cluster_attached = false if is_analytics_cluster_attached.nil? && !attributes.key?(:'isAnalyticsClusterAttached') # rubocop:disable Style/StringLiterals
 
@@ -178,6 +234,20 @@ module OCI
       raise 'You cannot provide both :analyticsCluster and :analytics_cluster' if attributes.key?(:'analyticsCluster') && attributes.key?(:'analytics_cluster')
 
       self.analytics_cluster = attributes[:'analytics_cluster'] if attributes[:'analytics_cluster']
+
+      self.is_heat_wave_cluster_attached = attributes[:'isHeatWaveClusterAttached'] unless attributes[:'isHeatWaveClusterAttached'].nil?
+      self.is_heat_wave_cluster_attached = false if is_heat_wave_cluster_attached.nil? && !attributes.key?(:'isHeatWaveClusterAttached') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isHeatWaveClusterAttached and :is_heat_wave_cluster_attached' if attributes.key?(:'isHeatWaveClusterAttached') && attributes.key?(:'is_heat_wave_cluster_attached')
+
+      self.is_heat_wave_cluster_attached = attributes[:'is_heat_wave_cluster_attached'] unless attributes[:'is_heat_wave_cluster_attached'].nil?
+      self.is_heat_wave_cluster_attached = false if is_heat_wave_cluster_attached.nil? && !attributes.key?(:'isHeatWaveClusterAttached') && !attributes.key?(:'is_heat_wave_cluster_attached') # rubocop:disable Style/StringLiterals
+
+      self.heat_wave_cluster = attributes[:'heatWaveCluster'] if attributes[:'heatWaveCluster']
+
+      raise 'You cannot provide both :heatWaveCluster and :heat_wave_cluster' if attributes.key?(:'heatWaveCluster') && attributes.key?(:'heat_wave_cluster')
+
+      self.heat_wave_cluster = attributes[:'heat_wave_cluster'] if attributes[:'heat_wave_cluster']
 
       self.availability_domain = attributes[:'availabilityDomain'] if attributes[:'availabilityDomain']
 
@@ -245,8 +315,12 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         compartment_id == other.compartment_id &&
+        is_highly_available == other.is_highly_available &&
+        current_placement == other.current_placement &&
         is_analytics_cluster_attached == other.is_analytics_cluster_attached &&
         analytics_cluster == other.analytics_cluster &&
+        is_heat_wave_cluster_attached == other.is_heat_wave_cluster_attached &&
+        heat_wave_cluster == other.heat_wave_cluster &&
         availability_domain == other.availability_domain &&
         fault_domain == other.fault_domain &&
         endpoints == other.endpoints &&
@@ -271,7 +345,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, is_analytics_cluster_attached, analytics_cluster, availability_domain, fault_domain, endpoints, lifecycle_state, mysql_version, time_created, time_updated, freeform_tags, defined_tags].hash
+      [id, display_name, description, compartment_id, is_highly_available, current_placement, is_analytics_cluster_attached, analytics_cluster, is_heat_wave_cluster_attached, heat_wave_cluster, availability_domain, fault_domain, endpoints, lifecycle_state, mysql_version, time_created, time_updated, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

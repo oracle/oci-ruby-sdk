@@ -14,7 +14,12 @@ Gem::Specification.new do |s|
   s.email       = ["joe.levy@oracle.com"]
   s.homepage    = "https://docs.cloud.oracle.com/tools/ruby/latest/frames.html"
   s.summary     = "Oracle Cloud Infrastructure Ruby SDK"
-  s.description = "Ruby SDK for Oracle Cloud Infrastructure."
+  s.description = <<~DESC
+    Ruby SDK for Oracle Cloud Infrastructure.
+    Are you a Developer using the OCI SDK? If so, please fill out our survey to help us make the OCI SDK better for you. 
+    https://oracle.questionpro.com/t/APeMlZka26?custom3=rubygems
+  DESC
+
   s.licenses     = ["UPL-1.0", "Apache-2.0"]
 
   s.required_ruby_version = '>= 2.2.0'

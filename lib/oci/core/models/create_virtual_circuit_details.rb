@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,12 +7,19 @@ require 'date'
 module OCI
   # CreateVirtualCircuitDetails model.
   class Core::Models::CreateVirtualCircuitDetails
+    ROUTING_POLICY_ENUM = [
+      ROUTING_POLICY_ORACLE_SERVICE_NETWORK = 'ORACLE_SERVICE_NETWORK'.freeze,
+      ROUTING_POLICY_REGIONAL = 'REGIONAL'.freeze,
+      ROUTING_POLICY_MARKET_LEVEL = 'MARKET_LEVEL'.freeze,
+      ROUTING_POLICY_GLOBAL = 'GLOBAL'.freeze
+    ].freeze
+
     TYPE_ENUM = [
       TYPE_PUBLIC = 'PUBLIC'.freeze,
       TYPE_PRIVATE = 'PRIVATE'.freeze
     ].freeze
 
-    # The provisioned data rate of the connection.  To get a list of the
+    # The provisioned data rate of the connection. To get a list of the
     # available bandwidth levels (that is, shapes), see
     # {#list_fast_connect_provider_virtual_circuit_bandwidth_shapes list_fast_connect_provider_virtual_circuit_bandwidth_shapes}.
     #
@@ -32,6 +39,14 @@ module OCI
     # @return [Array<OCI::Core::Models::CrossConnectMapping>]
     attr_accessor :cross_connect_mappings
 
+    # The routing policy sets how routing information about the Oracle cloud is shared over a public virtual circuit.
+    # Policies available are: `ORACLE_SERVICE_NETWORK`, `REGIONAL`, `MARKET_LEVEL`, and `GLOBAL`.
+    # See [Route Filtering](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/routingonprem.htm#route_filtering) for details.
+    # By default, routing information is shared for all routes in the same market.
+    #
+    # @return [Array<String>]
+    attr_reader :routing_policy
+
     # Deprecated. Instead use `customerAsn`.
     # If you specify values for both, the request will be rejected.
     #
@@ -49,7 +64,7 @@ module OCI
     attr_accessor :customer_asn
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -62,7 +77,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -128,6 +143,7 @@ module OCI
         'bandwidth_shape_name': :'bandwidthShapeName',
         'compartment_id': :'compartmentId',
         'cross_connect_mappings': :'crossConnectMappings',
+        'routing_policy': :'routingPolicy',
         'customer_bgp_asn': :'customerBgpAsn',
         'customer_asn': :'customerAsn',
         'defined_tags': :'definedTags',
@@ -152,6 +168,7 @@ module OCI
         'bandwidth_shape_name': :'String',
         'compartment_id': :'String',
         'cross_connect_mappings': :'Array<OCI::Core::Models::CrossConnectMapping>',
+        'routing_policy': :'Array<String>',
         'customer_bgp_asn': :'Integer',
         'customer_asn': :'Integer',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -178,6 +195,7 @@ module OCI
     # @option attributes [String] :bandwidth_shape_name The value to assign to the {#bandwidth_shape_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Array<OCI::Core::Models::CrossConnectMapping>] :cross_connect_mappings The value to assign to the {#cross_connect_mappings} property
+    # @option attributes [Array<String>] :routing_policy The value to assign to the {#routing_policy} property
     # @option attributes [Integer] :customer_bgp_asn The value to assign to the {#customer_bgp_asn} property
     # @option attributes [Integer] :customer_asn The value to assign to the {#customer_asn} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -214,6 +232,12 @@ module OCI
       raise 'You cannot provide both :crossConnectMappings and :cross_connect_mappings' if attributes.key?(:'crossConnectMappings') && attributes.key?(:'cross_connect_mappings')
 
       self.cross_connect_mappings = attributes[:'cross_connect_mappings'] if attributes[:'cross_connect_mappings']
+
+      self.routing_policy = attributes[:'routingPolicy'] if attributes[:'routingPolicy']
+
+      raise 'You cannot provide both :routingPolicy and :routing_policy' if attributes.key?(:'routingPolicy') && attributes.key?(:'routing_policy')
+
+      self.routing_policy = attributes[:'routing_policy'] if attributes[:'routing_policy']
 
       self.customer_bgp_asn = attributes[:'customerBgpAsn'] if attributes[:'customerBgpAsn']
 
@@ -289,6 +313,21 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] routing_policy Object to be assigned
+    def routing_policy=(routing_policy)
+      # rubocop:disable Style/ConditionalAssignment
+      if routing_policy.nil?
+        @routing_policy = nil
+      else
+        routing_policy.each do |item|
+          raise "Invalid value for 'routing_policy': this must be one of the values in ROUTING_POLICY_ENUM." unless ROUTING_POLICY_ENUM.include?(item)
+        end
+        @routing_policy = routing_policy
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] type Object to be assigned
     def type=(type)
       raise "Invalid value for 'type': this must be one of the values in TYPE_ENUM." if type && !TYPE_ENUM.include?(type)
@@ -308,6 +347,7 @@ module OCI
         bandwidth_shape_name == other.bandwidth_shape_name &&
         compartment_id == other.compartment_id &&
         cross_connect_mappings == other.cross_connect_mappings &&
+        routing_policy == other.routing_policy &&
         customer_bgp_asn == other.customer_bgp_asn &&
         customer_asn == other.customer_asn &&
         defined_tags == other.defined_tags &&
@@ -336,7 +376,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, compartment_id, cross_connect_mappings, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_name, provider_service_id, provider_service_key_name, provider_service_name, public_prefixes, region, type].hash
+      [bandwidth_shape_name, compartment_id, cross_connect_mappings, routing_policy, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_name, provider_service_id, provider_service_key_name, provider_service_name, public_prefixes, region, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

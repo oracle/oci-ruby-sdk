@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -24,6 +24,12 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_predefined_shape
 
+    # @return [OCI::DataIntegration::Models::SchemaDriftConfig]
+    attr_accessor :schema_drift_config
+
+    # @return [OCI::DataIntegration::Models::Shape]
+    attr_accessor :fixed_data_shape
+
     # @return [OCI::DataIntegration::Models::ReadOperationConfig]
     attr_accessor :read_operation_config
 
@@ -48,6 +54,8 @@ module OCI
         'is_read_access': :'isReadAccess',
         'is_copy_fields': :'isCopyFields',
         'is_predefined_shape': :'isPredefinedShape',
+        'schema_drift_config': :'schemaDriftConfig',
+        'fixed_data_shape': :'fixedDataShape',
         'read_operation_config': :'readOperationConfig'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -74,6 +82,8 @@ module OCI
         'is_read_access': :'BOOLEAN',
         'is_copy_fields': :'BOOLEAN',
         'is_predefined_shape': :'BOOLEAN',
+        'schema_drift_config': :'OCI::DataIntegration::Models::SchemaDriftConfig',
+        'fixed_data_shape': :'OCI::DataIntegration::Models::Shape',
         'read_operation_config': :'OCI::DataIntegration::Models::ReadOperationConfig'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -101,6 +111,8 @@ module OCI
     # @option attributes [BOOLEAN] :is_read_access The value to assign to the {#is_read_access} property
     # @option attributes [BOOLEAN] :is_copy_fields The value to assign to the {#is_copy_fields} property
     # @option attributes [BOOLEAN] :is_predefined_shape The value to assign to the {#is_predefined_shape} property
+    # @option attributes [OCI::DataIntegration::Models::SchemaDriftConfig] :schema_drift_config The value to assign to the {#schema_drift_config} property
+    # @option attributes [OCI::DataIntegration::Models::Shape] :fixed_data_shape The value to assign to the {#fixed_data_shape} property
     # @option attributes [OCI::DataIntegration::Models::ReadOperationConfig] :read_operation_config The value to assign to the {#read_operation_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -131,6 +143,18 @@ module OCI
       raise 'You cannot provide both :isPredefinedShape and :is_predefined_shape' if attributes.key?(:'isPredefinedShape') && attributes.key?(:'is_predefined_shape')
 
       self.is_predefined_shape = attributes[:'is_predefined_shape'] unless attributes[:'is_predefined_shape'].nil?
+
+      self.schema_drift_config = attributes[:'schemaDriftConfig'] if attributes[:'schemaDriftConfig']
+
+      raise 'You cannot provide both :schemaDriftConfig and :schema_drift_config' if attributes.key?(:'schemaDriftConfig') && attributes.key?(:'schema_drift_config')
+
+      self.schema_drift_config = attributes[:'schema_drift_config'] if attributes[:'schema_drift_config']
+
+      self.fixed_data_shape = attributes[:'fixedDataShape'] if attributes[:'fixedDataShape']
+
+      raise 'You cannot provide both :fixedDataShape and :fixed_data_shape' if attributes.key?(:'fixedDataShape') && attributes.key?(:'fixed_data_shape')
+
+      self.fixed_data_shape = attributes[:'fixed_data_shape'] if attributes[:'fixed_data_shape']
 
       self.read_operation_config = attributes[:'readOperationConfig'] if attributes[:'readOperationConfig']
 
@@ -167,6 +191,8 @@ module OCI
         is_read_access == other.is_read_access &&
         is_copy_fields == other.is_copy_fields &&
         is_predefined_shape == other.is_predefined_shape &&
+        schema_drift_config == other.schema_drift_config &&
+        fixed_data_shape == other.fixed_data_shape &&
         read_operation_config == other.read_operation_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -183,7 +209,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, name, description, object_version, input_ports, output_ports, object_status, identifier, parameters, op_config_values, entity, is_read_access, is_copy_fields, is_predefined_shape, read_operation_config].hash
+      [model_type, key, model_version, parent_ref, name, description, object_version, input_ports, output_ports, object_status, identifier, parameters, op_config_values, entity, is_read_access, is_copy_fields, is_predefined_shape, schema_drift_config, fixed_data_shape, read_operation_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

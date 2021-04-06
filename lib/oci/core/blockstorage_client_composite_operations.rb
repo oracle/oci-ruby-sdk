@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
@@ -543,6 +543,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
+    #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::VolumeGroupBackup#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::BlockstorageClient#delete_volume_group_backup}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -783,6 +784,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
+    #
     # @param [OCI::Core::Models::UpdateVolumeGroupBackupDetails] update_volume_group_backup_details Update volume group backup fields
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::VolumeGroupBackup#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::BlockstorageClient#update_volume_group_backup}

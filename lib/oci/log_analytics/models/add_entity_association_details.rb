@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Information about the associations to be added between log analytics entity and other existing entities.
+  # Information about the associations to be added between a source log analytics entity and other existing destination entities.
   #
   class LogAnalytics::Models::AddEntityAssociationDetails
     # **[Required]** Destination entities OCIDs with which associations are to be added.

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -11,6 +11,7 @@ module OCI
 end
 
 # Require models
+require 'oci/object_storage/models/archival_state'
 require 'oci/object_storage/models/bucket'
 require 'oci/object_storage/models/bucket_summary'
 require 'oci/object_storage/models/commit_multipart_upload_details'
@@ -47,8 +48,10 @@ require 'oci/object_storage/models/retention_rule_collection'
 require 'oci/object_storage/models/retention_rule_details'
 require 'oci/object_storage/models/retention_rule_summary'
 require 'oci/object_storage/models/sse_customer_key_details'
+require 'oci/object_storage/models/storage_tier'
 require 'oci/object_storage/models/update_bucket_details'
 require 'oci/object_storage/models/update_namespace_metadata_details'
+require 'oci/object_storage/models/update_object_storage_tier_details'
 require 'oci/object_storage/models/update_retention_rule_details'
 require 'oci/object_storage/models/work_request'
 require 'oci/object_storage/models/work_request_error'

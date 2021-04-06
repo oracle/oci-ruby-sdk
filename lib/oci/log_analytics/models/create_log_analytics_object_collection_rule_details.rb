@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The configuration details of an Object Storage based collection rule to enable automatic log collection.
+  # The configuration details of collection rule to enable automatic log collection from an object storage bucket.
   #
   class LogAnalytics::Models::CreateLogAnalyticsObjectCollectionRuleDetails
     COLLECTION_TYPE_ENUM = [
@@ -37,21 +37,20 @@ module OCI
     attr_accessor :os_bucket_name
 
     # The type of collection.
-    # Supported collection types: LIVE, HISTORIC, HISTORIC_LIVE
     #
     # @return [String]
     attr_reader :collection_type
 
     # The oldest time of the file in the bucket to consider for collection.
     # Accepted values are: BEGINNING or CURRENT_TIME or RFC3339 formatted datetime string.
-    # When collectionType is LIVE, specifying pollSince value other than CURRENT_TIME will result in error.
+    # Use this for HISTORIC or HISTORIC_LIVE collection types. When collectionType is LIVE, specifying pollSince value other than CURRENT_TIME will result in error.
     #
     # @return [String]
     attr_accessor :poll_since
 
-    # The oldest time of the file in the bucket to consider for collection.
+    # The newest time of the file in the bucket to consider for collection.
     # Accepted values are: CURRENT_TIME or RFC3339 formatted datetime string.
-    # When collectionType is LIVE, specifying pollTill will result in error.
+    # Use this for HISTORIC collection type. When collectionType is LIVE or HISTORIC_LIVE, specifying pollTill will result in error.
     #
     # @return [String]
     attr_accessor :poll_till
@@ -69,15 +68,20 @@ module OCI
     attr_accessor :entity_id
 
     # An optional character encoding to aid in detecting the character encoding of the contents of the objects while processing.
-    # It is recommended to set this value as ISO_8589_1 when configuring content of the objects having more numeric characters,
+    # It is recommended to set this value as ISO_8859_1 when configuring content of the objects having more numeric characters,
     # and very few alphabets.
     # For e.g. this applies when configuring VCN Flow Logs.
     #
     # @return [String]
     attr_accessor :char_encoding
 
+    # Whether or not this rule is currently enabled.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_enabled
+
     # The override is used to modify some important configuration properties for objects matching a specific pattern inside the bucket.
-    # Supported propeties for override are - logSourceName, charEncoding.
+    # Supported propeties for override are: logSourceName, charEncoding, entityId.
     # Supported matchType for override are \"contains\".
     #
     # @return [Hash<String, Array<OCI::LogAnalytics::Models::PropertyOverride>>]
@@ -111,6 +115,7 @@ module OCI
         'log_source_name': :'logSourceName',
         'entity_id': :'entityId',
         'char_encoding': :'charEncoding',
+        'is_enabled': :'isEnabled',
         'overrides': :'overrides',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags'
@@ -134,6 +139,7 @@ module OCI
         'log_source_name': :'String',
         'entity_id': :'String',
         'char_encoding': :'String',
+        'is_enabled': :'BOOLEAN',
         'overrides': :'Hash<String, Array<OCI::LogAnalytics::Models::PropertyOverride>>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>'
@@ -159,6 +165,7 @@ module OCI
     # @option attributes [String] :log_source_name The value to assign to the {#log_source_name} property
     # @option attributes [String] :entity_id The value to assign to the {#entity_id} property
     # @option attributes [String] :char_encoding The value to assign to the {#char_encoding} property
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     # @option attributes [Hash<String, Array<OCI::LogAnalytics::Models::PropertyOverride>>] :overrides The value to assign to the {#overrides} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -238,6 +245,14 @@ module OCI
 
       self.char_encoding = attributes[:'char_encoding'] if attributes[:'char_encoding']
 
+      self.is_enabled = attributes[:'isEnabled'] unless attributes[:'isEnabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEnabled and :is_enabled' if attributes.key?(:'isEnabled') && attributes.key?(:'is_enabled')
+
+      self.is_enabled = attributes[:'is_enabled'] unless attributes[:'is_enabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') && !attributes.key?(:'is_enabled') # rubocop:disable Style/StringLiterals
+
       self.overrides = attributes[:'overrides'] if attributes[:'overrides']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
@@ -284,6 +299,7 @@ module OCI
         log_source_name == other.log_source_name &&
         entity_id == other.entity_id &&
         char_encoding == other.char_encoding &&
+        is_enabled == other.is_enabled &&
         overrides == other.overrides &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags
@@ -302,7 +318,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, description, compartment_id, os_namespace, os_bucket_name, collection_type, poll_since, poll_till, log_group_id, log_source_name, entity_id, char_encoding, overrides, defined_tags, freeform_tags].hash
+      [name, description, compartment_id, os_namespace, os_bucket_name, collection_type, poll_since, poll_till, log_group_id, log_source_name, entity_id, char_encoding, is_enabled, overrides, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

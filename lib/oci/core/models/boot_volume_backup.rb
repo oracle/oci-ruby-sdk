@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,11 +8,11 @@ require 'logger'
 module OCI
   # A point-in-time copy of a boot volume that can then be used to create
   # a new boot volume or recover a boot volume. For more information, see [Overview
-  # of Boot Volume Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/bootvolumebackups.htm)
+  # of Boot Volume Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/bootvolumebackups.htm)
   # To use any of the API operations, you must be authorized in an IAM policy.
   # If you're not authorized, talk to an administrator. If you're an administrator
   # who needs to write policies to give users access, see [Getting Started with
-  # Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+  # Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
@@ -49,7 +49,7 @@ module OCI
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -78,7 +78,7 @@ module OCI
     attr_accessor :expiration_time
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -90,13 +90,14 @@ module OCI
     attr_accessor :id
 
     # The image OCID used to create the boot volume the backup is taken from.
+    #
     # @return [String]
     attr_accessor :image_id
 
     # The OCID of the Key Management master encryption assigned to the boot volume backup.
     # For more information about the Key Management service and encryption keys, see
-    # [Overview of Key Management](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm) and
-    # [Using Keys](https://docs.cloud.oracle.com/Content/KeyManagement/Tasks/usingkeys.htm).
+    # [Overview of Key Management](https://docs.cloud.oracle.com/iaas/Content/KeyManagement/Concepts/keyoverview.htm) and
+    # [Using Keys](https://docs.cloud.oracle.com/iaas/Content/KeyManagement/Tasks/usingkeys.htm).
     #
     # @return [String]
     attr_accessor :kms_key_id
@@ -115,6 +116,7 @@ module OCI
     attr_accessor :source_boot_volume_backup_id
 
     # Specifies whether the backup was created manually, or via scheduled backup policy.
+    #
     # @return [String]
     attr_reader :source_type
 

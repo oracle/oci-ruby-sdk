@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,6 +14,13 @@ module OCI
       COLLECTION_TYPE_HISTORIC = 'HISTORIC'.freeze,
       COLLECTION_TYPE_HISTORIC_LIVE = 'HISTORIC_LIVE'.freeze,
       COLLECTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of this rule.
@@ -42,8 +49,7 @@ module OCI
     # @return [String]
     attr_accessor :os_bucket_name
 
-    # **[Required]** The type of collection.
-    # Supported collection types: LIVE, HISTORIC, HISTORIC_LIVE
+    # **[Required]** The type of log collection.
     #
     # @return [String]
     attr_reader :collection_type
@@ -51,7 +57,7 @@ module OCI
     # **[Required]** The current state of the rule.
     #
     # @return [String]
-    attr_accessor :lifecycle_state
+    attr_reader :lifecycle_state
 
     # A detailed status of the life cycle state.
     # @return [String]
@@ -64,6 +70,11 @@ module OCI
     # **[Required]** The time when this rule was last updated. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_updated
+
+    # **[Required]** Whether or not this rule is currently enabled.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_enabled
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
@@ -92,6 +103,7 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
+        'is_enabled': :'isEnabled',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
@@ -113,6 +125,7 @@ module OCI
         'lifecycle_details': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
+        'is_enabled': :'BOOLEAN',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
@@ -136,6 +149,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
@@ -200,6 +214,14 @@ module OCI
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
 
+      self.is_enabled = attributes[:'isEnabled'] unless attributes[:'isEnabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEnabled and :is_enabled' if attributes.key?(:'isEnabled') && attributes.key?(:'is_enabled')
+
+      self.is_enabled = attributes[:'is_enabled'] unless attributes[:'is_enabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') && !attributes.key?(:'is_enabled') # rubocop:disable Style/StringLiterals
+
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
@@ -228,6 +250,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -248,6 +283,7 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
+        is_enabled == other.is_enabled &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags
     end
@@ -265,7 +301,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, description, compartment_id, os_namespace, os_bucket_name, collection_type, lifecycle_state, lifecycle_details, time_created, time_updated, defined_tags, freeform_tags].hash
+      [id, name, description, compartment_id, os_namespace, os_bucket_name, collection_type, lifecycle_state, lifecycle_details, time_created, time_updated, is_enabled, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

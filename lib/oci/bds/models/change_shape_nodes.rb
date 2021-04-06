@@ -1,25 +1,25 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # ChangeShapeNodes model.
+  # Inidividual worker nodes groups details
   class Bds::Models::ChangeShapeNodes
-    # worker nodes shape
+    # Change shape of worker nodes to the desired target shape. Only VM_STANDARD shapes are allowed here.
     # @return [String]
     attr_accessor :worker
 
-    # master nodes shape
+    # Change shape of master nodes to the desired target shape. Only VM_STANDARD shapes are allowed here.
     # @return [String]
     attr_accessor :master
 
-    # utility nodes shape
+    # Change shape of utility nodes to the desired target shape. Only VM_STANDARD shapes are allowed here.
     # @return [String]
     attr_accessor :utility
 
-    # cloudsql node shape
+    # Change shape of cloudsql node to the desired target shape. Only VM_STANDARD shapes are allowed here.
     # @return [String]
     attr_accessor :cloudsql
 

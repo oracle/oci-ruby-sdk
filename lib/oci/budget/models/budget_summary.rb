@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -57,6 +57,10 @@ module OCI
     #
     # @return [String]
     attr_reader :reset_period
+
+    # The number of days offset from the first day of the month, at which the budget processing period starts. In months that have fewer days than this value, processing will begin on the last day of that month. For example, for a value of 12, processing starts every month on the 12th at midnight.
+    # @return [Integer]
+    attr_accessor :budget_processing_period_start_offset
 
     # The type of target on which the budget is applied.
     #
@@ -129,6 +133,7 @@ module OCI
         'description': :'description',
         'amount': :'amount',
         'reset_period': :'resetPeriod',
+        'budget_processing_period_start_offset': :'budgetProcessingPeriodStartOffset',
         'target_type': :'targetType',
         'targets': :'targets',
         'lifecycle_state': :'lifecycleState',
@@ -156,6 +161,7 @@ module OCI
         'description': :'String',
         'amount': :'Float',
         'reset_period': :'String',
+        'budget_processing_period_start_offset': :'Integer',
         'target_type': :'String',
         'targets': :'Array<String>',
         'lifecycle_state': :'String',
@@ -185,6 +191,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Float] :amount The value to assign to the {#amount} property
     # @option attributes [String] :reset_period The value to assign to the {#reset_period} property
+    # @option attributes [Integer] :budget_processing_period_start_offset The value to assign to the {#budget_processing_period_start_offset} property
     # @option attributes [String] :target_type The value to assign to the {#target_type} property
     # @option attributes [Array<String>] :targets The value to assign to the {#targets} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -232,6 +239,12 @@ module OCI
       raise 'You cannot provide both :resetPeriod and :reset_period' if attributes.key?(:'resetPeriod') && attributes.key?(:'reset_period')
 
       self.reset_period = attributes[:'reset_period'] if attributes[:'reset_period']
+
+      self.budget_processing_period_start_offset = attributes[:'budgetProcessingPeriodStartOffset'] if attributes[:'budgetProcessingPeriodStartOffset']
+
+      raise 'You cannot provide both :budgetProcessingPeriodStartOffset and :budget_processing_period_start_offset' if attributes.key?(:'budgetProcessingPeriodStartOffset') && attributes.key?(:'budget_processing_period_start_offset')
+
+      self.budget_processing_period_start_offset = attributes[:'budget_processing_period_start_offset'] if attributes[:'budget_processing_period_start_offset']
 
       self.target_type = attributes[:'targetType'] if attributes[:'targetType']
 
@@ -355,6 +368,7 @@ module OCI
         description == other.description &&
         amount == other.amount &&
         reset_period == other.reset_period &&
+        budget_processing_period_start_offset == other.budget_processing_period_start_offset &&
         target_type == other.target_type &&
         targets == other.targets &&
         lifecycle_state == other.lifecycle_state &&
@@ -382,7 +396,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, target_compartment_id, display_name, description, amount, reset_period, target_type, targets, lifecycle_state, alert_rule_count, version, actual_spend, forecasted_spend, time_spend_computed, time_created, time_updated, freeform_tags, defined_tags].hash
+      [id, compartment_id, target_compartment_id, display_name, description, amount, reset_period, budget_processing_period_start_offset, target_type, targets, lifecycle_state, alert_rule_count, version, actual_spend, forecasted_spend, time_spend_computed, time_created, time_updated, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

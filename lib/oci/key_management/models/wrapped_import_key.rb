@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,14 +8,20 @@ module OCI
   # WrappedImportKey model.
   class KeyManagement::Models::WrappedImportKey
     WRAPPING_ALGORITHM_ENUM = [
-      WRAPPING_ALGORITHM_RSA_OAEP_SHA256 = 'RSA_OAEP_SHA256'.freeze
+      WRAPPING_ALGORITHM_RSA_OAEP_SHA256 = 'RSA_OAEP_SHA256'.freeze,
+      WRAPPING_ALGORITHM_RSA_OAEP_AES_SHA256 = 'RSA_OAEP_AES_SHA256'.freeze
     ].freeze
 
-    # **[Required]** The key material to import, wrapped by the vault's public RSA wrapping key and base64-encoded.
+    # **[Required]** The key material to import, wrapped by the vault's RSA public wrapping key and base64-encoded.
     # @return [String]
     attr_accessor :key_material
 
     # **[Required]** The wrapping mechanism to use during key import.
+    # `RSA_OAEP_AES_SHA256` invokes the RSA AES key wrap mechanism, which generates a temporary AES key. The temporary AES key is wrapped
+    # by the vault's RSA public wrapping key, creating a wrapped temporary AES key. The temporary AES key is also used to wrap the private key material.
+    # The wrapped temporary AES key and the wrapped exportable key material are concatenated, producing concatenated blob output that jointly represents them.
+    # `RSA_OAEP_SHA256` means that the exportable key material is wrapped by the vault's RSA public wrapping key.
+    #
     # @return [String]
     attr_reader :wrapping_algorithm
 

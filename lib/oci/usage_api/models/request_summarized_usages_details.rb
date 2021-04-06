@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -19,7 +19,7 @@ module OCI
       QUERY_TYPE_COST = 'COST'.freeze
     ].freeze
 
-    # **[Required]** Tenant ID
+    # **[Required]** Tenant ID.
     # @return [String]
     attr_accessor :tenant_id
 
@@ -40,7 +40,14 @@ module OCI
     # @return [String]
     attr_reader :granularity
 
-    # The query usage type.
+    # is aggregated by time. true isAggregateByTime will add up all usage/cost over query time period
+    # @return [BOOLEAN]
+    attr_accessor :is_aggregate_by_time
+
+    # @return [OCI::UsageApi::Models::Forecast]
+    attr_accessor :forecast
+
+    # The query usage type. COST by default if it is missing
     # Usage - Query the usage data.
     # Cost - Query the cost/billing data.
     #
@@ -49,10 +56,19 @@ module OCI
 
     # Aggregate the result by.
     # example:
-    #   `[\"service\"]`
+    #   `[\"tagNamespace\", \"tagKey\", \"tagValue\", \"service\", \"skuName\", \"skuPartNumber\", \"unit\",
+    #     \"compartmentName\", \"compartmentPath\", \"compartmentId\", \"platform\", \"region\", \"logicalAd\",
+    #     \"resourceId\", \"tenantId\", \"tenantName\"]`
     #
     # @return [Array<String>]
     attr_accessor :group_by
+
+    # GroupBy a specific tagKey. Provide tagNamespace and tagKey in tag object. Only support one tag in the list
+    # example:
+    #   `[{\"namespace\":\"oracle\", \"key\":\"createdBy\"]`
+    #
+    # @return [Array<OCI::UsageApi::Models::Tag>]
+    attr_accessor :group_by_tag
 
     # The compartment depth level.
     # @return [Float]
@@ -69,8 +85,11 @@ module OCI
         'time_usage_started': :'timeUsageStarted',
         'time_usage_ended': :'timeUsageEnded',
         'granularity': :'granularity',
+        'is_aggregate_by_time': :'isAggregateByTime',
+        'forecast': :'forecast',
         'query_type': :'queryType',
         'group_by': :'groupBy',
+        'group_by_tag': :'groupByTag',
         'compartment_depth': :'compartmentDepth',
         'filter': :'filter'
         # rubocop:enable Style/SymbolLiteral
@@ -85,8 +104,11 @@ module OCI
         'time_usage_started': :'DateTime',
         'time_usage_ended': :'DateTime',
         'granularity': :'String',
+        'is_aggregate_by_time': :'BOOLEAN',
+        'forecast': :'OCI::UsageApi::Models::Forecast',
         'query_type': :'String',
         'group_by': :'Array<String>',
+        'group_by_tag': :'Array<OCI::UsageApi::Models::Tag>',
         'compartment_depth': :'Float',
         'filter': :'OCI::UsageApi::Models::Filter'
         # rubocop:enable Style/SymbolLiteral
@@ -103,8 +125,11 @@ module OCI
     # @option attributes [DateTime] :time_usage_started The value to assign to the {#time_usage_started} property
     # @option attributes [DateTime] :time_usage_ended The value to assign to the {#time_usage_ended} property
     # @option attributes [String] :granularity The value to assign to the {#granularity} property
+    # @option attributes [BOOLEAN] :is_aggregate_by_time The value to assign to the {#is_aggregate_by_time} property
+    # @option attributes [OCI::UsageApi::Models::Forecast] :forecast The value to assign to the {#forecast} property
     # @option attributes [String] :query_type The value to assign to the {#query_type} property
     # @option attributes [Array<String>] :group_by The value to assign to the {#group_by} property
+    # @option attributes [Array<OCI::UsageApi::Models::Tag>] :group_by_tag The value to assign to the {#group_by_tag} property
     # @option attributes [Float] :compartment_depth The value to assign to the {#compartment_depth} property
     # @option attributes [OCI::UsageApi::Models::Filter] :filter The value to assign to the {#filter} property
     def initialize(attributes = {})
@@ -133,6 +158,16 @@ module OCI
 
       self.granularity = attributes[:'granularity'] if attributes[:'granularity']
 
+      self.is_aggregate_by_time = attributes[:'isAggregateByTime'] unless attributes[:'isAggregateByTime'].nil?
+      self.is_aggregate_by_time = false if is_aggregate_by_time.nil? && !attributes.key?(:'isAggregateByTime') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isAggregateByTime and :is_aggregate_by_time' if attributes.key?(:'isAggregateByTime') && attributes.key?(:'is_aggregate_by_time')
+
+      self.is_aggregate_by_time = attributes[:'is_aggregate_by_time'] unless attributes[:'is_aggregate_by_time'].nil?
+      self.is_aggregate_by_time = false if is_aggregate_by_time.nil? && !attributes.key?(:'isAggregateByTime') && !attributes.key?(:'is_aggregate_by_time') # rubocop:disable Style/StringLiterals
+
+      self.forecast = attributes[:'forecast'] if attributes[:'forecast']
+
       self.query_type = attributes[:'queryType'] if attributes[:'queryType']
 
       raise 'You cannot provide both :queryType and :query_type' if attributes.key?(:'queryType') && attributes.key?(:'query_type')
@@ -144,6 +179,12 @@ module OCI
       raise 'You cannot provide both :groupBy and :group_by' if attributes.key?(:'groupBy') && attributes.key?(:'group_by')
 
       self.group_by = attributes[:'group_by'] if attributes[:'group_by']
+
+      self.group_by_tag = attributes[:'groupByTag'] if attributes[:'groupByTag']
+
+      raise 'You cannot provide both :groupByTag and :group_by_tag' if attributes.key?(:'groupByTag') && attributes.key?(:'group_by_tag')
+
+      self.group_by_tag = attributes[:'group_by_tag'] if attributes[:'group_by_tag']
 
       self.compartment_depth = attributes[:'compartmentDepth'] if attributes[:'compartmentDepth']
 
@@ -185,8 +226,11 @@ module OCI
         time_usage_started == other.time_usage_started &&
         time_usage_ended == other.time_usage_ended &&
         granularity == other.granularity &&
+        is_aggregate_by_time == other.is_aggregate_by_time &&
+        forecast == other.forecast &&
         query_type == other.query_type &&
         group_by == other.group_by &&
+        group_by_tag == other.group_by_tag &&
         compartment_depth == other.compartment_depth &&
         filter == other.filter
     end
@@ -204,7 +248,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [tenant_id, time_usage_started, time_usage_ended, granularity, query_type, group_by, compartment_depth, filter].hash
+      [tenant_id, time_usage_started, time_usage_ended, granularity, is_aggregate_by_time, forecast, query_type, group_by, group_by_tag, compartment_depth, filter].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

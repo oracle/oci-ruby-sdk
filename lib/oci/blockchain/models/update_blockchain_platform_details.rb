@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,6 +22,10 @@ module OCI
     # @return [Integer]
     attr_accessor :total_ocpu_capacity
 
+    # Type of Load Balancer shape - LB_100_MBPS or LB_400_MBPS. Default is LB_100_MBPS.
+    # @return [String]
+    attr_accessor :load_balancer_shape
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
@@ -42,6 +46,7 @@ module OCI
         'storage_size_in_tbs': :'storageSizeInTBs',
         'replicas': :'replicas',
         'total_ocpu_capacity': :'totalOcpuCapacity',
+        'load_balancer_shape': :'loadBalancerShape',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -56,6 +61,7 @@ module OCI
         'storage_size_in_tbs': :'Float',
         'replicas': :'OCI::Blockchain::Models::ReplicaDetails',
         'total_ocpu_capacity': :'Integer',
+        'load_balancer_shape': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -72,6 +78,7 @@ module OCI
     # @option attributes [Float] :storage_size_in_tbs The value to assign to the {#storage_size_in_tbs} property
     # @option attributes [OCI::Blockchain::Models::ReplicaDetails] :replicas The value to assign to the {#replicas} property
     # @option attributes [Integer] :total_ocpu_capacity The value to assign to the {#total_ocpu_capacity} property
+    # @option attributes [String] :load_balancer_shape The value to assign to the {#load_balancer_shape} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -95,6 +102,12 @@ module OCI
       raise 'You cannot provide both :totalOcpuCapacity and :total_ocpu_capacity' if attributes.key?(:'totalOcpuCapacity') && attributes.key?(:'total_ocpu_capacity')
 
       self.total_ocpu_capacity = attributes[:'total_ocpu_capacity'] if attributes[:'total_ocpu_capacity']
+
+      self.load_balancer_shape = attributes[:'loadBalancerShape'] if attributes[:'loadBalancerShape']
+
+      raise 'You cannot provide both :loadBalancerShape and :load_balancer_shape' if attributes.key?(:'loadBalancerShape') && attributes.key?(:'load_balancer_shape')
+
+      self.load_balancer_shape = attributes[:'load_balancer_shape'] if attributes[:'load_balancer_shape']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -124,6 +137,7 @@ module OCI
         storage_size_in_tbs == other.storage_size_in_tbs &&
         replicas == other.replicas &&
         total_ocpu_capacity == other.total_ocpu_capacity &&
+        load_balancer_shape == other.load_balancer_shape &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -141,7 +155,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, storage_size_in_tbs, replicas, total_ocpu_capacity, freeform_tags, defined_tags].hash
+      [description, storage_size_in_tbs, replicas, total_ocpu_capacity, load_balancer_shape, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

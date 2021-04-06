@@ -1,56 +1,78 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # LogAnalyticsSourceFunction
   class LogAnalytics::Models::LogAnalyticsSourceFunction
-    # argument
+    FUNCTION_NAME_ENUM = [
+      FUNCTION_NAME_GEOLOCATION = 'GEOLOCATION'.freeze,
+      FUNCTION_NAME_LOOKUP = 'LOOKUP'.freeze,
+      FUNCTION_NAME_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # The function argument.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsMetaFunctionArgument>]
     attr_accessor :arguments
 
-    # enabled flag
+    # A flag inidcating whether or not the source function is enabled.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
     # @return [OCI::LogAnalytics::Models::LogAnalyticsMetaFunction]
     attr_accessor :function
 
-    # source function Id
+    # The source function name
+    # @return [String]
+    attr_reader :function_name
+
+    # The source function unique identifier as a string.
+    # @return [String]
+    attr_accessor :function_reference
+
+    # The source unique identifier as a string.
+    # @return [String]
+    attr_accessor :source_reference
+
+    # The source function unique identifier.
     # @return [Integer]
     attr_accessor :function_id
 
-    # source function order
+    # The source function order.
     # @return [Integer]
     attr_accessor :order
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # column
+    # The lookup column.
     # @return [String]
     attr_accessor :lookup_column
 
-    # column position
+    # The lookup column position.
     # @return [Integer]
     attr_accessor :lookup_column_position
 
-    # lookup display name
+    # The lookup display name.
     # @return [String]
     attr_accessor :lookup_display_name
 
-    # lookup mode
+    # The lookup  mode.
     # @return [Integer]
     attr_accessor :lookup_mode
 
-    # lookup table
+    # The lookup table.
     # @return [String]
     attr_accessor :lookup_table
 
-    # source Id
+    # The source unique identifier.
     # @return [Integer]
     attr_accessor :source_id
 
@@ -61,6 +83,9 @@ module OCI
         'arguments': :'arguments',
         'is_enabled': :'isEnabled',
         'function': :'function',
+        'function_name': :'functionName',
+        'function_reference': :'functionReference',
+        'source_reference': :'sourceReference',
         'function_id': :'functionId',
         'order': :'order',
         'is_system': :'isSystem',
@@ -81,6 +106,9 @@ module OCI
         'arguments': :'Array<OCI::LogAnalytics::Models::LogAnalyticsMetaFunctionArgument>',
         'is_enabled': :'BOOLEAN',
         'function': :'OCI::LogAnalytics::Models::LogAnalyticsMetaFunction',
+        'function_name': :'String',
+        'function_reference': :'String',
+        'source_reference': :'String',
         'function_id': :'Integer',
         'order': :'Integer',
         'is_system': :'BOOLEAN',
@@ -103,6 +131,9 @@ module OCI
     # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsMetaFunctionArgument>] :arguments The value to assign to the {#arguments} property
     # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     # @option attributes [OCI::LogAnalytics::Models::LogAnalyticsMetaFunction] :function The value to assign to the {#function} property
+    # @option attributes [String] :function_name The value to assign to the {#function_name} property
+    # @option attributes [String] :function_reference The value to assign to the {#function_reference} property
+    # @option attributes [String] :source_reference The value to assign to the {#source_reference} property
     # @option attributes [Integer] :function_id The value to assign to the {#function_id} property
     # @option attributes [Integer] :order The value to assign to the {#order} property
     # @option attributes [BOOLEAN] :is_system The value to assign to the {#is_system} property
@@ -127,6 +158,26 @@ module OCI
       self.is_enabled = attributes[:'is_enabled'] unless attributes[:'is_enabled'].nil?
 
       self.function = attributes[:'function'] if attributes[:'function']
+
+      self.function_name = attributes[:'functionName'] if attributes[:'functionName']
+      self.function_name = "LOOKUP" if function_name.nil? && !attributes.key?(:'functionName') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :functionName and :function_name' if attributes.key?(:'functionName') && attributes.key?(:'function_name')
+
+      self.function_name = attributes[:'function_name'] if attributes[:'function_name']
+      self.function_name = "LOOKUP" if function_name.nil? && !attributes.key?(:'functionName') && !attributes.key?(:'function_name') # rubocop:disable Style/StringLiterals
+
+      self.function_reference = attributes[:'functionReference'] if attributes[:'functionReference']
+
+      raise 'You cannot provide both :functionReference and :function_reference' if attributes.key?(:'functionReference') && attributes.key?(:'function_reference')
+
+      self.function_reference = attributes[:'function_reference'] if attributes[:'function_reference']
+
+      self.source_reference = attributes[:'sourceReference'] if attributes[:'sourceReference']
+
+      raise 'You cannot provide both :sourceReference and :source_reference' if attributes.key?(:'sourceReference') && attributes.key?(:'source_reference')
+
+      self.source_reference = attributes[:'source_reference'] if attributes[:'source_reference']
 
       self.function_id = attributes[:'functionId'] if attributes[:'functionId']
 
@@ -181,6 +232,19 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] function_name Object to be assigned
+    def function_name=(function_name)
+      # rubocop:disable Style/ConditionalAssignment
+      if function_name && !FUNCTION_NAME_ENUM.include?(function_name)
+        OCI.logger.debug("Unknown value for 'function_name' [" + function_name + "]. Mapping to 'FUNCTION_NAME_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @function_name = FUNCTION_NAME_UNKNOWN_ENUM_VALUE
+      else
+        @function_name = function_name
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -193,6 +257,9 @@ module OCI
         arguments == other.arguments &&
         is_enabled == other.is_enabled &&
         function == other.function &&
+        function_name == other.function_name &&
+        function_reference == other.function_reference &&
+        source_reference == other.source_reference &&
         function_id == other.function_id &&
         order == other.order &&
         is_system == other.is_system &&
@@ -217,7 +284,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [arguments, is_enabled, function, function_id, order, is_system, lookup_column, lookup_column_position, lookup_display_name, lookup_mode, lookup_table, source_id].hash
+      [arguments, is_enabled, function, function_name, function_reference, source_reference, function_id, order, is_system, lookup_column, lookup_column_position, lookup_display_name, lookup_mode, lookup_table, source_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

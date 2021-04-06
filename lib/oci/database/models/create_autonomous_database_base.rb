@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -48,7 +48,7 @@ module OCI
     # - OLTP - indicates an Autonomous Transaction Processing database
     # - DW - indicates an Autonomous Data Warehouse database
     # - AJD - indicates an Autonomous JSON Database
-    # - APEX - indicates an Autonomous Database with the Oracle Application Express (APEX) workload type.
+    # - APEX - indicates an Autonomous Database with the Oracle APEX Application Development workload type.
     #
     # @return [String]
     attr_reader :db_workload
@@ -123,6 +123,27 @@ module OCI
     # @return [Array<String>]
     attr_accessor :whitelisted_ips
 
+    # This field will be null if the Autonomous Database is not Data Guard enabled or Access Control is disabled.
+    # It's value would be `TRUE` if Autonomous Database is Data Guard enabled and Access Control is enabled and if the Autonomous Database uses primary IP access control list (ACL) for standby.
+    # It's value would be `FALSE` if Autonomous Database is Data Guard enabled and Access Control is enabled and if the Autonomous Database uses different IP access control list (ACL) for standby compared to primary.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :are_primary_whitelisted_ips_used
+
+    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) and on Exadata Cloud@Customer.
+    # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance.
+    #
+    # For shared Exadata infrastructure, this is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
+    # Use a semicolon (;) as a deliminator between the VCN-specific subnets or IPs.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.<unique_id>\",\"ocid1.vcn.oc1.sea.<unique_id1>;1.1.1.1\",\"ocid1.vcn.oc1.sea.<unique_id2>;1.1.0.0/16\"]`
+    # For Exadata Cloud@Customer, this is an array of IP addresses or CIDR (Classless Inter-Domain Routing) notations.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"1.1.2.25\"]`
+    #
+    # For an update operation, if you want to delete all the IPs in the ACL, use an array with a single empty string entry.
+    #
+    # @return [Array<String>]
+    attr_accessor :standby_whitelisted_ips
+
     # Indicates whether the Autonomous Database has Data Guard enabled.
     # @return [BOOLEAN]
     attr_accessor :is_data_guard_enabled
@@ -196,6 +217,8 @@ module OCI
         'autonomous_container_database_id': :'autonomousContainerDatabaseId',
         'is_access_control_enabled': :'isAccessControlEnabled',
         'whitelisted_ips': :'whitelistedIps',
+        'are_primary_whitelisted_ips_used': :'arePrimaryWhitelistedIpsUsed',
+        'standby_whitelisted_ips': :'standbyWhitelistedIps',
         'is_data_guard_enabled': :'isDataGuardEnabled',
         'subnet_id': :'subnetId',
         'nsg_ids': :'nsgIds',
@@ -227,6 +250,8 @@ module OCI
         'autonomous_container_database_id': :'String',
         'is_access_control_enabled': :'BOOLEAN',
         'whitelisted_ips': :'Array<String>',
+        'are_primary_whitelisted_ips_used': :'BOOLEAN',
+        'standby_whitelisted_ips': :'Array<String>',
         'is_data_guard_enabled': :'BOOLEAN',
         'subnet_id': :'String',
         'nsg_ids': :'Array<String>',
@@ -279,6 +304,8 @@ module OCI
     # @option attributes [String] :autonomous_container_database_id The value to assign to the {#autonomous_container_database_id} property
     # @option attributes [BOOLEAN] :is_access_control_enabled The value to assign to the {#is_access_control_enabled} property
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
+    # @option attributes [BOOLEAN] :are_primary_whitelisted_ips_used The value to assign to the {#are_primary_whitelisted_ips_used} property
+    # @option attributes [Array<String>] :standby_whitelisted_ips The value to assign to the {#standby_whitelisted_ips} property
     # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {#is_data_guard_enabled} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
@@ -389,6 +416,18 @@ module OCI
 
       self.whitelisted_ips = attributes[:'whitelisted_ips'] if attributes[:'whitelisted_ips']
 
+      self.are_primary_whitelisted_ips_used = attributes[:'arePrimaryWhitelistedIpsUsed'] unless attributes[:'arePrimaryWhitelistedIpsUsed'].nil?
+
+      raise 'You cannot provide both :arePrimaryWhitelistedIpsUsed and :are_primary_whitelisted_ips_used' if attributes.key?(:'arePrimaryWhitelistedIpsUsed') && attributes.key?(:'are_primary_whitelisted_ips_used')
+
+      self.are_primary_whitelisted_ips_used = attributes[:'are_primary_whitelisted_ips_used'] unless attributes[:'are_primary_whitelisted_ips_used'].nil?
+
+      self.standby_whitelisted_ips = attributes[:'standbyWhitelistedIps'] if attributes[:'standbyWhitelistedIps']
+
+      raise 'You cannot provide both :standbyWhitelistedIps and :standby_whitelisted_ips' if attributes.key?(:'standbyWhitelistedIps') && attributes.key?(:'standby_whitelisted_ips')
+
+      self.standby_whitelisted_ips = attributes[:'standby_whitelisted_ips'] if attributes[:'standby_whitelisted_ips']
+
       self.is_data_guard_enabled = attributes[:'isDataGuardEnabled'] unless attributes[:'isDataGuardEnabled'].nil?
 
       raise 'You cannot provide both :isDataGuardEnabled and :is_data_guard_enabled' if attributes.key?(:'isDataGuardEnabled') && attributes.key?(:'is_data_guard_enabled')
@@ -485,6 +524,8 @@ module OCI
         autonomous_container_database_id == other.autonomous_container_database_id &&
         is_access_control_enabled == other.is_access_control_enabled &&
         whitelisted_ips == other.whitelisted_ips &&
+        are_primary_whitelisted_ips_used == other.are_primary_whitelisted_ips_used &&
+        standby_whitelisted_ips == other.standby_whitelisted_ips &&
         is_data_guard_enabled == other.is_data_guard_enabled &&
         subnet_id == other.subnet_id &&
         nsg_ids == other.nsg_ids &&
@@ -508,7 +549,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,31 +7,31 @@ require 'date'
 module OCI
   # LogAnalyticsMetaFunction
   class LogAnalytics::Models::LogAnalyticsMetaFunction
-    # meta function argument object
+    # An array of meta function arguments.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsMetaFunctionArgument>]
     attr_accessor :meta_function_argument
 
-    # component
+    # The component.
     # @return [String]
     attr_accessor :component
 
-    # description
+    # The description.
     # @return [String]
     attr_accessor :description
 
-    # edit version
+    # The edit version.
     # @return [Integer]
     attr_accessor :edit_version
 
-    # meta function Id
+    # The meta function unique identifier.
     # @return [Integer]
     attr_accessor :meta_function_id
 
-    # java class name
+    # The java class name.
     # @return [String]
     attr_accessor :java_class_name
 
-    # meta function name
+    # The meta function name.
     # @return [String]
     attr_accessor :name
 

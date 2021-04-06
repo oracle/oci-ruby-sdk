@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A software-defined data center (SDDC) contains the resources required for a
+  # An [Oracle Cloud VMware Solution](https://docs.cloud.oracle.com/iaas/Content/VMware/Concepts/ocvsoverview.htm) software-defined data center (SDDC) contains the resources required for a
   # functional VMware environment. Instances in an SDDC
   # (see {EsxiHost}) run in a virtual cloud network (VCN)
   # and are preconfigured with VMware and storage. Use the vCenter utility to manage
@@ -57,9 +57,7 @@ module OCI
 
     # **[Required]** In general, this is a specific version of bundled VMware software supported by
     # Oracle Cloud VMware Solution (see
-    # {#
-    # _list_supported_vmware_software_versions
-    # _list_supported_vmware_software_versions}).
+    # {#list_supported_vmware_software_versions list_supported_vmware_software_versions}).
     #
     # This attribute is not guaranteed to reflect the version of
     # software currently installed on the ESXi hosts in the SDDC. The purpose
@@ -85,14 +83,14 @@ module OCI
     # @return [Integer]
     attr_accessor :esxi_hosts_count
 
-    # **[Required]** FQDN for vCenter
+    # **[Required]** The FQDN for vCenter.
     #
     # Example: `vcenter-my-sddc.sddc.us-phoenix-1.oraclecloud.com`
     #
     # @return [String]
     attr_accessor :vcenter_fqdn
 
-    # **[Required]** FQDN for NSX Manager
+    # **[Required]** The FQDN for NSX Manager.
     #
     # Example: `nsx-my-sddc.sddc.us-phoenix-1.oraclecloud.com`
     #
@@ -299,30 +297,61 @@ module OCI
     # @return [String]
     attr_accessor :nsx_edge_uplink2_vlan_id
 
-    # HCX Private IP
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN used by the SDDC
+    # for the vSphere Replication component of the VMware environment.
+    #
+    # @return [String]
+    attr_accessor :replication_vlan_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN used by the SDDC
+    # for the Provisioning component of the VMware environment.
+    #
+    # @return [String]
+    attr_accessor :provisioning_vlan_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the `PrivateIp` object that is
+    # the virtual IP (VIP) for HCX Manager. For information about `PrivateIp` objects, see the
+    # Core Services API.
     #
     # @return [String]
     attr_accessor :hcx_private_ip_id
 
-    # HCX Fully Qualified Domain Name
+    # The FQDN for HCX Manager.
+    #
+    # Example: `hcx-my-sddc.sddc.us-phoenix-1.oraclecloud.com`
+    #
     # @return [String]
     attr_accessor :hcx_fqdn
 
-    # HCX initial password
+    # The SDDC includes an administrator username and initial password for HCX Manager. Make sure
+    # to change this initial HCX Manager password to a different value.
     #
     # @return [String]
     attr_accessor :hcx_initial_password
 
-    # HCX vlan id
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN used by the SDDC
+    # for the HCX component of the VMware environment.
+    #
+    # This attribute is not guaranteed to reflect the HCX VLAN
+    # currently used by the ESXi hosts in the SDDC. The purpose
+    # of this attribute is to show the HCX VLAN that the Oracle
+    # Cloud VMware Solution will use for any new ESXi hosts that you *add to this
+    # SDDC in the future* with {#create_esxi_host create_esxi_host}.
+    #
+    # Therefore, if you change the existing ESXi hosts in the SDDC to use a different VLAN
+    # for the HCX component of the VMware environment, you
+    # should use {#update_sddc update_sddc} to update the SDDC's
+    # `hcxVlanId` with that new VLAN's OCID.
     #
     # @return [String]
     attr_accessor :hcx_vlan_id
 
-    # HCX enabled or not
+    # Indicates whether HCX is enabled for this SDDC.
     # @return [BOOLEAN]
     attr_accessor :is_hcx_enabled
 
-    # HCX on-premise license key
+    # The activation key to use on the on-premises HCX Enterprise appliance you site pair with HCX Manager in your VMware Solution.
+    # Your implementation might need more than one activation key. To obtain additional keys, contact Oracle Support.
     #
     # @return [String]
     attr_accessor :hcx_on_prem_key
@@ -392,6 +421,8 @@ module OCI
         'nsx_edge_v_tep_vlan_id': :'nsxEdgeVTepVlanId',
         'nsx_edge_uplink1_vlan_id': :'nsxEdgeUplink1VlanId',
         'nsx_edge_uplink2_vlan_id': :'nsxEdgeUplink2VlanId',
+        'replication_vlan_id': :'replicationVlanId',
+        'provisioning_vlan_id': :'provisioningVlanId',
         'hcx_private_ip_id': :'hcxPrivateIpId',
         'hcx_fqdn': :'hcxFqdn',
         'hcx_initial_password': :'hcxInitialPassword',
@@ -438,6 +469,8 @@ module OCI
         'nsx_edge_v_tep_vlan_id': :'String',
         'nsx_edge_uplink1_vlan_id': :'String',
         'nsx_edge_uplink2_vlan_id': :'String',
+        'replication_vlan_id': :'String',
+        'provisioning_vlan_id': :'String',
         'hcx_private_ip_id': :'String',
         'hcx_fqdn': :'String',
         'hcx_initial_password': :'String',
@@ -486,6 +519,8 @@ module OCI
     # @option attributes [String] :nsx_edge_v_tep_vlan_id The value to assign to the {#nsx_edge_v_tep_vlan_id} property
     # @option attributes [String] :nsx_edge_uplink1_vlan_id The value to assign to the {#nsx_edge_uplink1_vlan_id} property
     # @option attributes [String] :nsx_edge_uplink2_vlan_id The value to assign to the {#nsx_edge_uplink2_vlan_id} property
+    # @option attributes [String] :replication_vlan_id The value to assign to the {#replication_vlan_id} property
+    # @option attributes [String] :provisioning_vlan_id The value to assign to the {#provisioning_vlan_id} property
     # @option attributes [String] :hcx_private_ip_id The value to assign to the {#hcx_private_ip_id} property
     # @option attributes [String] :hcx_fqdn The value to assign to the {#hcx_fqdn} property
     # @option attributes [String] :hcx_initial_password The value to assign to the {#hcx_initial_password} property
@@ -661,6 +696,18 @@ module OCI
 
       self.nsx_edge_uplink2_vlan_id = attributes[:'nsx_edge_uplink2_vlan_id'] if attributes[:'nsx_edge_uplink2_vlan_id']
 
+      self.replication_vlan_id = attributes[:'replicationVlanId'] if attributes[:'replicationVlanId']
+
+      raise 'You cannot provide both :replicationVlanId and :replication_vlan_id' if attributes.key?(:'replicationVlanId') && attributes.key?(:'replication_vlan_id')
+
+      self.replication_vlan_id = attributes[:'replication_vlan_id'] if attributes[:'replication_vlan_id']
+
+      self.provisioning_vlan_id = attributes[:'provisioningVlanId'] if attributes[:'provisioningVlanId']
+
+      raise 'You cannot provide both :provisioningVlanId and :provisioning_vlan_id' if attributes.key?(:'provisioningVlanId') && attributes.key?(:'provisioning_vlan_id')
+
+      self.provisioning_vlan_id = attributes[:'provisioning_vlan_id'] if attributes[:'provisioning_vlan_id']
+
       self.hcx_private_ip_id = attributes[:'hcxPrivateIpId'] if attributes[:'hcxPrivateIpId']
 
       raise 'You cannot provide both :hcxPrivateIpId and :hcx_private_ip_id' if attributes.key?(:'hcxPrivateIpId') && attributes.key?(:'hcx_private_ip_id')
@@ -779,6 +826,8 @@ module OCI
         nsx_edge_v_tep_vlan_id == other.nsx_edge_v_tep_vlan_id &&
         nsx_edge_uplink1_vlan_id == other.nsx_edge_uplink1_vlan_id &&
         nsx_edge_uplink2_vlan_id == other.nsx_edge_uplink2_vlan_id &&
+        replication_vlan_id == other.replication_vlan_id &&
+        provisioning_vlan_id == other.provisioning_vlan_id &&
         hcx_private_ip_id == other.hcx_private_ip_id &&
         hcx_fqdn == other.hcx_fqdn &&
         hcx_initial_password == other.hcx_initial_password &&
@@ -805,7 +854,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, hcx_private_ip_id, hcx_fqdn, hcx_initial_password, hcx_vlan_id, is_hcx_enabled, hcx_on_prem_key, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, hcx_private_ip_id, hcx_fqdn, hcx_initial_password, hcx_vlan_id, is_hcx_enabled, hcx_on_prem_key, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

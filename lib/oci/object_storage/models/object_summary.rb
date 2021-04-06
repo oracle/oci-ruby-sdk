@@ -1,7 +1,8 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -10,6 +11,20 @@ module OCI
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::ObjectSummary
+    STORAGE_TIER_ENUM = [
+      STORAGE_TIER_STANDARD = 'Standard'.freeze,
+      STORAGE_TIER_INFREQUENT_ACCESS = 'InfrequentAccess'.freeze,
+      STORAGE_TIER_ARCHIVE = 'Archive'.freeze,
+      STORAGE_TIER_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    ARCHIVAL_STATE_ENUM = [
+      ARCHIVAL_STATE_ARCHIVED = 'Archived'.freeze,
+      ARCHIVAL_STATE_RESTORING = 'Restoring'.freeze,
+      ARCHIVAL_STATE_RESTORED = 'Restored'.freeze,
+      ARCHIVAL_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The name of the object. Avoid entering confidential information.
     # Example: test/object1.log
     #
@@ -32,6 +47,14 @@ module OCI
     # @return [String]
     attr_accessor :etag
 
+    # The storage tier that the object is stored in.
+    # @return [String]
+    attr_reader :storage_tier
+
+    # Archival state of an object. This field is set only for objects in Archive tier.
+    # @return [String]
+    attr_reader :archival_state
+
     # The date and time the object was modified, as described in [RFC 2616](https://tools.ietf.org/rfc/rfc2616), section 14.29.
     # @return [DateTime]
     attr_accessor :time_modified
@@ -45,6 +68,8 @@ module OCI
         'md5': :'md5',
         'time_created': :'timeCreated',
         'etag': :'etag',
+        'storage_tier': :'storageTier',
+        'archival_state': :'archivalState',
         'time_modified': :'timeModified'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -59,6 +84,8 @@ module OCI
         'md5': :'String',
         'time_created': :'DateTime',
         'etag': :'String',
+        'storage_tier': :'String',
+        'archival_state': :'String',
         'time_modified': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -75,6 +102,8 @@ module OCI
     # @option attributes [String] :md5 The value to assign to the {#md5} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :etag The value to assign to the {#etag} property
+    # @option attributes [String] :storage_tier The value to assign to the {#storage_tier} property
+    # @option attributes [String] :archival_state The value to assign to the {#archival_state} property
     # @option attributes [DateTime] :time_modified The value to assign to the {#time_modified} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -96,6 +125,18 @@ module OCI
 
       self.etag = attributes[:'etag'] if attributes[:'etag']
 
+      self.storage_tier = attributes[:'storageTier'] if attributes[:'storageTier']
+
+      raise 'You cannot provide both :storageTier and :storage_tier' if attributes.key?(:'storageTier') && attributes.key?(:'storage_tier')
+
+      self.storage_tier = attributes[:'storage_tier'] if attributes[:'storage_tier']
+
+      self.archival_state = attributes[:'archivalState'] if attributes[:'archivalState']
+
+      raise 'You cannot provide both :archivalState and :archival_state' if attributes.key?(:'archivalState') && attributes.key?(:'archival_state')
+
+      self.archival_state = attributes[:'archival_state'] if attributes[:'archival_state']
+
       self.time_modified = attributes[:'timeModified'] if attributes[:'timeModified']
 
       raise 'You cannot provide both :timeModified and :time_modified' if attributes.key?(:'timeModified') && attributes.key?(:'time_modified')
@@ -104,6 +145,32 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] storage_tier Object to be assigned
+    def storage_tier=(storage_tier)
+      # rubocop:disable Style/ConditionalAssignment
+      if storage_tier && !STORAGE_TIER_ENUM.include?(storage_tier)
+        OCI.logger.debug("Unknown value for 'storage_tier' [" + storage_tier + "]. Mapping to 'STORAGE_TIER_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @storage_tier = STORAGE_TIER_UNKNOWN_ENUM_VALUE
+      else
+        @storage_tier = storage_tier
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] archival_state Object to be assigned
+    def archival_state=(archival_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if archival_state && !ARCHIVAL_STATE_ENUM.include?(archival_state)
+        OCI.logger.debug("Unknown value for 'archival_state' [" + archival_state + "]. Mapping to 'ARCHIVAL_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @archival_state = ARCHIVAL_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @archival_state = archival_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -119,6 +186,8 @@ module OCI
         md5 == other.md5 &&
         time_created == other.time_created &&
         etag == other.etag &&
+        storage_tier == other.storage_tier &&
+        archival_state == other.archival_state &&
         time_modified == other.time_modified
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -135,7 +204,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, size, md5, time_created, etag, time_modified].hash
+      [name, size, md5, time_created, etag, storage_tier, archival_state, time_modified].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

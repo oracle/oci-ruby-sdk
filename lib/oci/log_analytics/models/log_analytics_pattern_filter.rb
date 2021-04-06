@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -10,27 +10,29 @@ module OCI
     # @return [OCI::LogAnalytics::Models::LogAnalyticsSourcePattern]
     attr_accessor :pattern
 
-    # agent version
+    # The agent version.
     # @return [String]
     attr_accessor :agent_version
 
-    # is in use flag
+    # A flag indicating whether or not the pattern filter is currently
+    # in use.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_in_use
 
-    # operating system
+    # The operating system.
     # @return [String]
     attr_accessor :operating_system
 
-    # pattern Id
+    # The pattern unique identifier.
     # @return [Integer]
     attr_accessor :pattern_id
 
-    # source Id
+    # The source unique identifier.
     # @return [Integer]
     attr_accessor :source_id
 
-    # version
+    # The pattern filter version.
     # @return [String]
     attr_accessor :version
 

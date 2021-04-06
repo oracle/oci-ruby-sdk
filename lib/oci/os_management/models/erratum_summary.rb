@@ -1,17 +1,19 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Important changes for software. This can include security advisories, bug fixes, or enhancements.
+  # Important changes for software. This can include security | advisories, bug fixes, or enhancements.
   class OsManagement::Models::ErratumSummary
     ADVISORY_TYPE_ENUM = [
       ADVISORY_TYPE_SECURITY = 'SECURITY'.freeze,
       ADVISORY_TYPE_BUG = 'BUG'.freeze,
       ADVISORY_TYPE_ENHANCEMENT = 'ENHANCEMENT'.freeze,
-      ADVISORY_TYPE_OTHER = 'OTHER'.freeze
+      ADVISORY_TYPE_OTHER = 'OTHER'.freeze,
+      ADVISORY_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** Advisory name
@@ -132,9 +134,14 @@ module OCI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] advisory_type Object to be assigned
     def advisory_type=(advisory_type)
-      raise "Invalid value for 'advisory_type': this must be one of the values in ADVISORY_TYPE_ENUM." if advisory_type && !ADVISORY_TYPE_ENUM.include?(advisory_type)
-
-      @advisory_type = advisory_type
+      # rubocop:disable Style/ConditionalAssignment
+      if advisory_type && !ADVISORY_TYPE_ENUM.include?(advisory_type)
+        OCI.logger.debug("Unknown value for 'advisory_type' [" + advisory_type + "]. Mapping to 'ADVISORY_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @advisory_type = ADVISORY_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @advisory_type = advisory_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -149,6 +149,79 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IntegrationInstanceClient#change_integration_instance_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Change an Integration instance network endpoint. The operation is long-running
+    # and creates a new WorkRequest.
+    #
+    # @param [String] integration_instance_id Unique Integration Instance identifier.
+    # @param [OCI::Integration::Models::ChangeIntegrationInstanceNetworkEndpointDetails] change_integration_instance_network_endpoint_details Details for the updated Integration instance network endpoint
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations. For example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original creation
+    #   request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/integration/change_integration_instance_network_endpoint.rb.html) to see an example of how to use change_integration_instance_network_endpoint API.
+    def change_integration_instance_network_endpoint(integration_instance_id, change_integration_instance_network_endpoint_details, opts = {})
+      logger.debug 'Calling operation IntegrationInstanceClient#change_integration_instance_network_endpoint.' if logger
+
+      raise "Missing the required parameter 'integration_instance_id' when calling change_integration_instance_network_endpoint." if integration_instance_id.nil?
+      raise "Missing the required parameter 'change_integration_instance_network_endpoint_details' when calling change_integration_instance_network_endpoint." if change_integration_instance_network_endpoint_details.nil?
+      raise "Parameter value for 'integration_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(integration_instance_id)
+
+      path = '/integrationInstances/{integrationInstanceId}/actions/changeNetworkEndpoint'.sub('{integrationInstanceId}', integration_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_integration_instance_network_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IntegrationInstanceClient#change_integration_instance_network_endpoint') do
         @api_client.call_api(
           :POST,
           path,

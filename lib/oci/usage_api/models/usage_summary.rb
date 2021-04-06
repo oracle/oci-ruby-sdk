@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -115,6 +115,10 @@ module OCI
     # @return [String]
     attr_accessor :overage
 
+    # is forecasted data
+    # @return [BOOLEAN]
+    attr_accessor :is_forecast
+
     # For grouping, a tag definition. For filtering, a definition and key.
     # @return [Array<OCI::UsageApi::Models::Tag>]
     attr_accessor :tags
@@ -150,6 +154,7 @@ module OCI
         'currency': :'currency',
         'subscription_id': :'subscriptionId',
         'overage': :'overage',
+        'is_forecast': :'isForecast',
         'tags': :'tags'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -186,6 +191,7 @@ module OCI
         'currency': :'String',
         'subscription_id': :'String',
         'overage': :'String',
+        'is_forecast': :'BOOLEAN',
         'tags': :'Array<OCI::UsageApi::Models::Tag>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -224,6 +230,7 @@ module OCI
     # @option attributes [String] :currency The value to assign to the {#currency} property
     # @option attributes [String] :subscription_id The value to assign to the {#subscription_id} property
     # @option attributes [String] :overage The value to assign to the {#overage} property
+    # @option attributes [BOOLEAN] :is_forecast The value to assign to the {#is_forecast} property
     # @option attributes [Array<OCI::UsageApi::Models::Tag>] :tags The value to assign to the {#tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -353,6 +360,12 @@ module OCI
 
       self.overage = attributes[:'overage'] if attributes[:'overage']
 
+      self.is_forecast = attributes[:'isForecast'] unless attributes[:'isForecast'].nil?
+
+      raise 'You cannot provide both :isForecast and :is_forecast' if attributes.key?(:'isForecast') && attributes.key?(:'is_forecast')
+
+      self.is_forecast = attributes[:'is_forecast'] unless attributes[:'is_forecast'].nil?
+
       self.tags = attributes[:'tags'] if attributes[:'tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -394,6 +407,7 @@ module OCI
         currency == other.currency &&
         subscription_id == other.subscription_id &&
         overage == other.overage &&
+        is_forecast == other.is_forecast &&
         tags == other.tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -410,7 +424,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [tenant_id, tenant_name, compartment_id, compartment_path, compartment_name, service, resource_name, resource_id, region, ad, weight, shape, sku_part_number, sku_name, unit, discount, list_rate, platform, time_usage_started, time_usage_ended, computed_amount, computed_quantity, overages_flag, unit_price, currency, subscription_id, overage, tags].hash
+      [tenant_id, tenant_name, compartment_id, compartment_path, compartment_name, service, resource_name, resource_id, region, ad, weight, shape, sku_part_number, sku_name, unit, discount, list_rate, platform, time_usage_started, time_usage_ended, computed_amount, computed_quantity, overages_flag, unit_price, currency, subscription_id, overage, is_forecast, tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

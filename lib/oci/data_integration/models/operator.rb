@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -18,6 +18,15 @@ module OCI
       MODEL_TYPE_TARGET_OPERATOR = 'TARGET_OPERATOR'.freeze,
       MODEL_TYPE_DISTINCT_OPERATOR = 'DISTINCT_OPERATOR'.freeze,
       MODEL_TYPE_SORT_OPERATOR = 'SORT_OPERATOR'.freeze,
+      MODEL_TYPE_UNION_OPERATOR = 'UNION_OPERATOR'.freeze,
+      MODEL_TYPE_INTERSECT_OPERATOR = 'INTERSECT_OPERATOR'.freeze,
+      MODEL_TYPE_MINUS_OPERATOR = 'MINUS_OPERATOR'.freeze,
+      MODEL_TYPE_MERGE_OPERATOR = 'MERGE_OPERATOR'.freeze,
+      MODEL_TYPE_START_OPERATOR = 'START_OPERATOR'.freeze,
+      MODEL_TYPE_END_OPERATOR = 'END_OPERATOR'.freeze,
+      MODEL_TYPE_PIPELINE_OPERATOR = 'PIPELINE_OPERATOR'.freeze,
+      MODEL_TYPE_REST_OPERATOR = 'REST_OPERATOR'.freeze,
+      MODEL_TYPE_TASK_OPERATOR = 'TASK_OPERATOR'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -121,14 +130,21 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
-      return 'OCI::DataIntegration::Models::Target' if type == 'TARGET_OPERATOR'
       return 'OCI::DataIntegration::Models::Joiner' if type == 'JOINER_OPERATOR'
-      return 'OCI::DataIntegration::Models::Distinct' if type == 'DISTINCT_OPERATOR'
-      return 'OCI::DataIntegration::Models::Filter' if type == 'FILTER_OPERATOR'
+      return 'OCI::DataIntegration::Models::TaskOperator' if type == 'TASK_OPERATOR'
       return 'OCI::DataIntegration::Models::Aggregator' if type == 'AGGREGATOR_OPERATOR'
       return 'OCI::DataIntegration::Models::SortOper' if type == 'SORT_OPERATOR'
       return 'OCI::DataIntegration::Models::Projection' if type == 'PROJECTION_OPERATOR'
+      return 'OCI::DataIntegration::Models::EndOperator' if type == 'END_OPERATOR'
       return 'OCI::DataIntegration::Models::Source' if type == 'SOURCE_OPERATOR'
+      return 'OCI::DataIntegration::Models::Union' if type == 'UNION_OPERATOR'
+      return 'OCI::DataIntegration::Models::Intersect' if type == 'INTERSECT_OPERATOR'
+      return 'OCI::DataIntegration::Models::Target' if type == 'TARGET_OPERATOR'
+      return 'OCI::DataIntegration::Models::Distinct' if type == 'DISTINCT_OPERATOR'
+      return 'OCI::DataIntegration::Models::Filter' if type == 'FILTER_OPERATOR'
+      return 'OCI::DataIntegration::Models::StartOperator' if type == 'START_OPERATOR'
+      return 'OCI::DataIntegration::Models::MergeOperator' if type == 'MERGE_OPERATOR'
+      return 'OCI::DataIntegration::Models::Minus' if type == 'MINUS_OPERATOR'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DataIntegration::Models::Operator'

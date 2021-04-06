@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,33 +11,39 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
+    # If provided, specifies the ID of the volume backup policy to assign to the newly
+    # created volume group. If omitted, no policy will be assigned.
+    #
+    # @return [String]
+    attr_accessor :backup_policy_id
+
     # **[Required]** The OCID of the compartment that contains the volume group.
     # @return [String]
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name for the volume group. Does not have to be unique, and it's changeable. Avoid entering confidential information.
+    # A user-friendly name for the volume group. Does not have to be
+    # unique, and it's changeable. Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** Specifies the volume group source details for a new volume group. The volume source is either another a list of
-    # volume ids in the same availability domain, another volume group or a volume group backup.
-    #
+    # This attribute is required.
     # @return [OCI::Core::Models::VolumeGroupSourceDetails]
     attr_accessor :source_details
 
@@ -46,6 +52,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
+        'backup_policy_id': :'backupPolicyId',
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
@@ -60,6 +67,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
+        'backup_policy_id': :'String',
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
@@ -76,6 +84,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [String] :backup_policy_id The value to assign to the {#backup_policy_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
@@ -92,6 +101,12 @@ module OCI
       raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
 
       self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
+
+      self.backup_policy_id = attributes[:'backupPolicyId'] if attributes[:'backupPolicyId']
+
+      raise 'You cannot provide both :backupPolicyId and :backup_policy_id' if attributes.key?(:'backupPolicyId') && attributes.key?(:'backup_policy_id')
+
+      self.backup_policy_id = attributes[:'backup_policy_id'] if attributes[:'backup_policy_id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -136,6 +151,7 @@ module OCI
 
       self.class == other.class &&
         availability_domain == other.availability_domain &&
+        backup_policy_id == other.backup_policy_id &&
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
@@ -156,7 +172,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, source_details].hash
+      [availability_domain, backup_policy_id, compartment_id, defined_tags, display_name, freeform_tags, source_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

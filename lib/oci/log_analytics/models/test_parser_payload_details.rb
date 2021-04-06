@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,101 +11,116 @@ module OCI
       TYPE_XML = 'XML'.freeze,
       TYPE_JSON = 'JSON'.freeze,
       TYPE_REGEX = 'REGEX'.freeze,
-      TYPE_ODL = 'ODL'.freeze
+      TYPE_ODL = 'ODL'.freeze,
+      TYPE_DELIMITED = 'DELIMITED'.freeze
     ].freeze
 
-    # content
+    # The content used for testing.
     # @return [String]
     attr_accessor :content
 
-    # description
+    # The parser description.
     # @return [String]
     attr_accessor :description
 
-    # Display name
+    # The parser display name.
     # @return [String]
     attr_accessor :display_name
 
-    # encoding
+    # The content encoding.
     # @return [String]
     attr_accessor :encoding
 
-    # exampleContent
+    # The example content.
     # @return [String]
     attr_accessor :example_content
 
-    # fieldMaps
+    # The parser fields.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParserField>]
     attr_accessor :field_maps
 
-    # footerRegex
+    # The footer regular expression.
     # @return [String]
     attr_accessor :footer_content
 
-    # headerContent
+    # The header content.
     # @return [String]
     attr_accessor :header_content
 
-    # name
+    # The parser name.
     # @return [String]
     attr_accessor :name
 
-    # isDefault
+    # A flag indicating if this is a default parser.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_default
 
-    # isSingleLineContent
+    # A flag indicating if this is a single line content parser.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_single_line_content
 
-    # isSystem
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # language
+    # The language.
     # @return [String]
     attr_accessor :language
 
-    # lastUpdatedDate
+    # The last updated date.
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # logTypeTestRequestVersion
+    # The log type test request version.
     # @return [Integer]
     attr_accessor :log_type_test_request_version
 
     # @return [OCI::LogAnalytics::Models::UiParserTestMetadata]
     attr_accessor :metadata
 
-    # parser ignore linechars
+    # The line characters for the parser to ignore.
     # @return [String]
     attr_accessor :parser_ignoreline_characters
 
-    # parser is hidden
+    # A flag indicating if the parser is hidden or not.
     # @return [Integer]
     attr_accessor :is_hidden
 
-    # parser seq
+    # The parser sequence.
     # @return [Integer]
     attr_accessor :parser_sequence
 
-    # parser timezone
+    # The parser timezone.
     # @return [String]
     attr_accessor :parser_timezone
 
-    # isParserWrittenOnce
+    # A flag indicating whther or not the parser is write once.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_parser_written_once
 
-    # plugin instance list
+    # The parser function list.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParserFunction>]
     attr_accessor :parser_functions
 
-    # tokenize original text
+    # A flag indicating whether or not to tokenize the original text.
+    #
     # @return [BOOLEAN]
     attr_accessor :should_tokenize_original_text
 
-    # type
+    # The parser field delimiter.
+    # @return [String]
+    attr_accessor :field_delimiter
+
+    # The parser field qualifier.
+    # @return [String]
+    attr_accessor :field_qualifier
+
+    # The parser type.  Default value is REGEX.
     # @return [String]
     attr_reader :type
 
@@ -136,6 +151,8 @@ module OCI
         'is_parser_written_once': :'isParserWrittenOnce',
         'parser_functions': :'parserFunctions',
         'should_tokenize_original_text': :'shouldTokenizeOriginalText',
+        'field_delimiter': :'fieldDelimiter',
+        'field_qualifier': :'fieldQualifier',
         'type': :'type'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -168,6 +185,8 @@ module OCI
         'is_parser_written_once': :'BOOLEAN',
         'parser_functions': :'Array<OCI::LogAnalytics::Models::LogAnalyticsParserFunction>',
         'should_tokenize_original_text': :'BOOLEAN',
+        'field_delimiter': :'String',
+        'field_qualifier': :'String',
         'type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -202,6 +221,8 @@ module OCI
     # @option attributes [BOOLEAN] :is_parser_written_once The value to assign to the {#is_parser_written_once} property
     # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsParserFunction>] :parser_functions The value to assign to the {#parser_functions} property
     # @option attributes [BOOLEAN] :should_tokenize_original_text The value to assign to the {#should_tokenize_original_text} property
+    # @option attributes [String] :field_delimiter The value to assign to the {#field_delimiter} property
+    # @option attributes [String] :field_qualifier The value to assign to the {#field_qualifier} property
     # @option attributes [String] :type The value to assign to the {#type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -323,6 +344,18 @@ module OCI
 
       self.should_tokenize_original_text = attributes[:'should_tokenize_original_text'] unless attributes[:'should_tokenize_original_text'].nil?
 
+      self.field_delimiter = attributes[:'fieldDelimiter'] if attributes[:'fieldDelimiter']
+
+      raise 'You cannot provide both :fieldDelimiter and :field_delimiter' if attributes.key?(:'fieldDelimiter') && attributes.key?(:'field_delimiter')
+
+      self.field_delimiter = attributes[:'field_delimiter'] if attributes[:'field_delimiter']
+
+      self.field_qualifier = attributes[:'fieldQualifier'] if attributes[:'fieldQualifier']
+
+      raise 'You cannot provide both :fieldQualifier and :field_qualifier' if attributes.key?(:'fieldQualifier') && attributes.key?(:'field_qualifier')
+
+      self.field_qualifier = attributes[:'field_qualifier'] if attributes[:'field_qualifier']
+
       self.type = attributes[:'type'] if attributes[:'type']
       self.type = "REGEX" if type.nil? && !attributes.key?(:'type') # rubocop:disable Style/StringLiterals
     end
@@ -369,6 +402,8 @@ module OCI
         is_parser_written_once == other.is_parser_written_once &&
         parser_functions == other.parser_functions &&
         should_tokenize_original_text == other.should_tokenize_original_text &&
+        field_delimiter == other.field_delimiter &&
+        field_qualifier == other.field_qualifier &&
         type == other.type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -385,7 +420,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [content, description, display_name, encoding, example_content, field_maps, footer_content, header_content, name, is_default, is_single_line_content, is_system, language, time_updated, log_type_test_request_version, metadata, parser_ignoreline_characters, is_hidden, parser_sequence, parser_timezone, is_parser_written_once, parser_functions, should_tokenize_original_text, type].hash
+      [content, description, display_name, encoding, example_content, field_maps, footer_content, header_content, name, is_default, is_single_line_content, is_system, language, time_updated, log_type_test_request_version, metadata, parser_ignoreline_characters, is_hidden, parser_sequence, parser_timezone, is_parser_written_once, parser_functions, should_tokenize_original_text, field_delimiter, field_qualifier, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

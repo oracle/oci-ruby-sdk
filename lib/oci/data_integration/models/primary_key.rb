@@ -1,39 +1,18 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require_relative 'unique_key'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The primary key object.
-  class DataIntegration::Models::PrimaryKey
-    # The object key.
-    # @return [String]
-    attr_accessor :key
-
-    # The object's model version.
-    # @return [String]
-    attr_accessor :model_version
-
-    # @return [OCI::DataIntegration::Models::ParentReference]
-    attr_accessor :parent_ref
-
-    # Free form text without any restriction on permitted characters. Name can have letters, numbers, and special characters. The value is editable and is restricted to 1000 characters.
-    # @return [String]
-    attr_accessor :name
-
-    # An array of attribute references.
-    # @return [Array<OCI::DataIntegration::Models::KeyAttribute>]
-    attr_accessor :attribute_refs
-
-    # The status of an object that can be set to value 1 for shallow references across objects, other values reserved.
-    # @return [Integer]
-    attr_accessor :object_status
-
+  class DataIntegration::Models::PrimaryKey < DataIntegration::Models::UniqueKey
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'model_type': :'modelType',
         'key': :'key',
         'model_version': :'modelVersion',
         'parent_ref': :'parentRef',
@@ -48,6 +27,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'model_type': :'String',
         'key': :'String',
         'model_version': :'String',
         'parent_ref': :'OCI::DataIntegration::Models::ParentReference',
@@ -64,42 +44,18 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :key The value to assign to the {#key} property
-    # @option attributes [String] :model_version The value to assign to the {#model_version} property
-    # @option attributes [OCI::DataIntegration::Models::ParentReference] :parent_ref The value to assign to the {#parent_ref} property
-    # @option attributes [String] :name The value to assign to the {#name} property
-    # @option attributes [Array<OCI::DataIntegration::Models::KeyAttribute>] :attribute_refs The value to assign to the {#attribute_refs} property
-    # @option attributes [Integer] :object_status The value to assign to the {#object_status} property
+    # @option attributes [String] :key The value to assign to the {OCI::DataIntegration::Models::UniqueKey#key #key} proprety
+    # @option attributes [String] :model_version The value to assign to the {OCI::DataIntegration::Models::UniqueKey#model_version #model_version} proprety
+    # @option attributes [OCI::DataIntegration::Models::ParentReference] :parent_ref The value to assign to the {OCI::DataIntegration::Models::UniqueKey#parent_ref #parent_ref} proprety
+    # @option attributes [String] :name The value to assign to the {OCI::DataIntegration::Models::UniqueKey#name #name} proprety
+    # @option attributes [Array<OCI::DataIntegration::Models::KeyAttribute>] :attribute_refs The value to assign to the {OCI::DataIntegration::Models::UniqueKey#attribute_refs #attribute_refs} proprety
+    # @option attributes [Integer] :object_status The value to assign to the {OCI::DataIntegration::Models::UniqueKey#object_status #object_status} proprety
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
-      self.key = attributes[:'key'] if attributes[:'key']
+      attributes['modelType'] = 'PRIMARY_KEY'
 
-      self.model_version = attributes[:'modelVersion'] if attributes[:'modelVersion']
-
-      raise 'You cannot provide both :modelVersion and :model_version' if attributes.key?(:'modelVersion') && attributes.key?(:'model_version')
-
-      self.model_version = attributes[:'model_version'] if attributes[:'model_version']
-
-      self.parent_ref = attributes[:'parentRef'] if attributes[:'parentRef']
-
-      raise 'You cannot provide both :parentRef and :parent_ref' if attributes.key?(:'parentRef') && attributes.key?(:'parent_ref')
-
-      self.parent_ref = attributes[:'parent_ref'] if attributes[:'parent_ref']
-
-      self.name = attributes[:'name'] if attributes[:'name']
-
-      self.attribute_refs = attributes[:'attributeRefs'] if attributes[:'attributeRefs']
-
-      raise 'You cannot provide both :attributeRefs and :attribute_refs' if attributes.key?(:'attributeRefs') && attributes.key?(:'attribute_refs')
-
-      self.attribute_refs = attributes[:'attribute_refs'] if attributes[:'attribute_refs']
-
-      self.object_status = attributes[:'objectStatus'] if attributes[:'objectStatus']
-
-      raise 'You cannot provide both :objectStatus and :object_status' if attributes.key?(:'objectStatus') && attributes.key?(:'object_status')
-
-      self.object_status = attributes[:'object_status'] if attributes[:'object_status']
+      super(attributes)
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -113,6 +69,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        model_type == other.model_type &&
         key == other.key &&
         model_version == other.model_version &&
         parent_ref == other.parent_ref &&
@@ -134,7 +91,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, model_version, parent_ref, name, attribute_refs, object_status].hash
+      [model_type, key, model_version, parent_ref, name, attribute_refs, object_status].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

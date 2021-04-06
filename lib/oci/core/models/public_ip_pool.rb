@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A Public IP pool, conceptually, is a set of public IP addresses (represented as one or more CIDRs) Users can be allocated addresses from this for internet access.
+  # A public IP pool is a set of public IP addresses represented as one or more IPv4 CIDR blocks. Resources like load balancers and compute instances can be allocated public IP addresses from a public IP pool.
   class Core::Models::PublicIpPool
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
@@ -17,17 +17,17 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The CIDRs that make up this pool
+    # The CIDR blocks added to this pool. This could be all or a portion of a BYOIP CIDR block.
     # @return [Array<String>]
     attr_accessor :cidr_blocks
 
-    # **[Required]** The OCID of the compartment containing the Public IP Pool
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing this pool.
     #
     # @return [String]
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -41,22 +41,22 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The Oracle ID (OCID) of the Public Ip Pool.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the public IP pool.
     # @return [String]
     attr_accessor :id
 
-    # The Public IP Pool's current state.
+    # The public IP pool's current state.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** The date and time the public IP Pool was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # **[Required]** The date and time the public IP pool was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #

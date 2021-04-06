@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,8 +7,6 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The metadata associated with the profile.
-  #
-  # **Caution:** Avoid using any confidential information when you use the API to supply string values.
   #
   class Optimizer::Models::Profile
     LIFECYCLE_STATE_ENUM = [
@@ -32,11 +30,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The name assigned to the profile.
+    # **[Required]** The name assigned to the profile. Avoid entering confidential information.
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** Text describing the profile.
+    # **[Required]** Text describing the profile. Avoid entering confidential information.
     # @return [String]
     attr_accessor :description
 
@@ -58,6 +56,12 @@ module OCI
 
     # @return [OCI::Optimizer::Models::LevelsConfiguration]
     attr_accessor :levels_configuration
+
+    # @return [OCI::Optimizer::Models::TargetCompartments]
+    attr_accessor :target_compartments
+
+    # @return [OCI::Optimizer::Models::TargetTags]
+    attr_accessor :target_tags
 
     # **[Required]** The profile's current state.
     # @return [String]
@@ -82,6 +86,8 @@ module OCI
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
         'levels_configuration': :'levelsConfiguration',
+        'target_compartments': :'targetCompartments',
+        'target_tags': :'targetTags',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated'
@@ -100,6 +106,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
         'levels_configuration': :'OCI::Optimizer::Models::LevelsConfiguration',
+        'target_compartments': :'OCI::Optimizer::Models::TargetCompartments',
+        'target_tags': :'OCI::Optimizer::Models::TargetTags',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime'
@@ -120,6 +128,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [OCI::Optimizer::Models::LevelsConfiguration] :levels_configuration The value to assign to the {#levels_configuration} property
+    # @option attributes [OCI::Optimizer::Models::TargetCompartments] :target_compartments The value to assign to the {#target_compartments} property
+    # @option attributes [OCI::Optimizer::Models::TargetTags] :target_tags The value to assign to the {#target_tags} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
@@ -158,6 +168,18 @@ module OCI
       raise 'You cannot provide both :levelsConfiguration and :levels_configuration' if attributes.key?(:'levelsConfiguration') && attributes.key?(:'levels_configuration')
 
       self.levels_configuration = attributes[:'levels_configuration'] if attributes[:'levels_configuration']
+
+      self.target_compartments = attributes[:'targetCompartments'] if attributes[:'targetCompartments']
+
+      raise 'You cannot provide both :targetCompartments and :target_compartments' if attributes.key?(:'targetCompartments') && attributes.key?(:'target_compartments')
+
+      self.target_compartments = attributes[:'target_compartments'] if attributes[:'target_compartments']
+
+      self.target_tags = attributes[:'targetTags'] if attributes[:'targetTags']
+
+      raise 'You cannot provide both :targetTags and :target_tags' if attributes.key?(:'targetTags') && attributes.key?(:'target_tags')
+
+      self.target_tags = attributes[:'target_tags'] if attributes[:'target_tags']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -209,6 +231,8 @@ module OCI
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
         levels_configuration == other.levels_configuration &&
+        target_compartments == other.target_compartments &&
+        target_tags == other.target_tags &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         time_updated == other.time_updated
@@ -227,7 +251,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, defined_tags, freeform_tags, levels_configuration, lifecycle_state, time_created, time_updated].hash
+      [id, compartment_id, name, description, defined_tags, freeform_tags, levels_configuration, target_compartments, target_tags, lifecycle_state, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

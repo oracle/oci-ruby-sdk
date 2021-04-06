@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -239,6 +239,14 @@ module OCI
 
 
     # Creates an autoscaling policy for the specified autoscaling configuration.
+    #
+    # You can create the following types of autoscaling policies:
+    #
+    # - **Schedule-based:** Autoscaling events take place at the specific times that you schedule.
+    # - **Threshold-based:** An autoscaling action is triggered when a performance metric meets or exceeds a threshold.
+    #
+    # An autoscaling configuration can either have multiple schedule-based autoscaling policies, or one
+    # threshold-based autoscaling policy.
     #
     # @param [String] auto_scaling_configuration_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the autoscaling configuration.
     # @param [OCI::Autoscaling::Models::CreateAutoScalingPolicyDetails] create_auto_scaling_policy_details Creation details for an autoscaling policy.
@@ -536,7 +544,7 @@ module OCI
     # Lists autoscaling configurations in the specifed compartment.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the
-    #   resources monitored by the metric that you are searching for. Use tenancyId to search in
+    #   resource. Use tenancyId to search in
     #   the root compartment.
     #
     # @param [Hash] opts the optional parameters

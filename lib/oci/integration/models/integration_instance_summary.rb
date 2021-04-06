@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -96,6 +96,9 @@ module OCI
     # @return [String]
     attr_reader :consumption_model
 
+    # @return [OCI::Integration::Models::NetworkEndpointDetails]
+    attr_accessor :network_endpoint_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -115,7 +118,8 @@ module OCI
         'is_visual_builder_enabled': :'isVisualBuilderEnabled',
         'custom_endpoint': :'customEndpoint',
         'alternate_custom_endpoints': :'alternateCustomEndpoints',
-        'consumption_model': :'consumptionModel'
+        'consumption_model': :'consumptionModel',
+        'network_endpoint_details': :'networkEndpointDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -139,7 +143,8 @@ module OCI
         'is_visual_builder_enabled': :'BOOLEAN',
         'custom_endpoint': :'OCI::Integration::Models::CustomEndpointDetails',
         'alternate_custom_endpoints': :'Array<OCI::Integration::Models::CustomEndpointDetails>',
-        'consumption_model': :'String'
+        'consumption_model': :'String',
+        'network_endpoint_details': :'OCI::Integration::Models::NetworkEndpointDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -166,6 +171,7 @@ module OCI
     # @option attributes [OCI::Integration::Models::CustomEndpointDetails] :custom_endpoint The value to assign to the {#custom_endpoint} property
     # @option attributes [Array<OCI::Integration::Models::CustomEndpointDetails>] :alternate_custom_endpoints The value to assign to the {#alternate_custom_endpoints} property
     # @option attributes [String] :consumption_model The value to assign to the {#consumption_model} property
+    # @option attributes [OCI::Integration::Models::NetworkEndpointDetails] :network_endpoint_details The value to assign to the {#network_endpoint_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -263,6 +269,12 @@ module OCI
       raise 'You cannot provide both :consumptionModel and :consumption_model' if attributes.key?(:'consumptionModel') && attributes.key?(:'consumption_model')
 
       self.consumption_model = attributes[:'consumption_model'] if attributes[:'consumption_model']
+
+      self.network_endpoint_details = attributes[:'networkEndpointDetails'] if attributes[:'networkEndpointDetails']
+
+      raise 'You cannot provide both :networkEndpointDetails and :network_endpoint_details' if attributes.key?(:'networkEndpointDetails') && attributes.key?(:'network_endpoint_details')
+
+      self.network_endpoint_details = attributes[:'network_endpoint_details'] if attributes[:'network_endpoint_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -330,7 +342,8 @@ module OCI
         is_visual_builder_enabled == other.is_visual_builder_enabled &&
         custom_endpoint == other.custom_endpoint &&
         alternate_custom_endpoints == other.alternate_custom_endpoints &&
-        consumption_model == other.consumption_model
+        consumption_model == other.consumption_model &&
+        network_endpoint_details == other.network_endpoint_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -346,7 +359,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, integration_instance_type, time_created, time_updated, lifecycle_state, state_message, is_byol, instance_url, message_packs, is_file_server_enabled, is_visual_builder_enabled, custom_endpoint, alternate_custom_endpoints, consumption_model].hash
+      [id, display_name, compartment_id, integration_instance_type, time_created, time_updated, lifecycle_state, state_message, is_byol, instance_url, message_packs, is_file_server_enabled, is_visual_builder_enabled, custom_endpoint, alternate_custom_endpoints, consumption_model, network_endpoint_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

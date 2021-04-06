@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -205,6 +205,16 @@ module OCI
     # @return [String]
     attr_accessor :scan_dns_record_id
 
+    # The FQDN of the DNS record for the SCAN IP addresses that are associated with the DB system.
+    #
+    # @return [String]
+    attr_accessor :scan_dns_name
+
+    # The OCID of the zone the DB system is associated with.
+    #
+    # @return [String]
+    attr_accessor :zone_id
+
     # The data storage size, in gigabytes, that is currently available to the DB system. Applies only for virtual machine DB systems.
     #
     # @return [Integer]
@@ -294,6 +304,8 @@ module OCI
         'scan_ip_ids': :'scanIpIds',
         'vip_ids': :'vipIds',
         'scan_dns_record_id': :'scanDnsRecordId',
+        'scan_dns_name': :'scanDnsName',
+        'zone_id': :'zoneId',
         'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'reco_storage_size_in_gb': :'recoStorageSizeInGB',
         'node_count': :'nodeCount',
@@ -345,6 +357,8 @@ module OCI
         'scan_ip_ids': :'Array<String>',
         'vip_ids': :'Array<String>',
         'scan_dns_record_id': :'String',
+        'scan_dns_name': :'String',
+        'zone_id': :'String',
         'data_storage_size_in_gbs': :'Integer',
         'reco_storage_size_in_gb': :'Integer',
         'node_count': :'Integer',
@@ -398,6 +412,8 @@ module OCI
     # @option attributes [Array<String>] :scan_ip_ids The value to assign to the {#scan_ip_ids} property
     # @option attributes [Array<String>] :vip_ids The value to assign to the {#vip_ids} property
     # @option attributes [String] :scan_dns_record_id The value to assign to the {#scan_dns_record_id} property
+    # @option attributes [String] :scan_dns_name The value to assign to the {#scan_dns_name} property
+    # @option attributes [String] :zone_id The value to assign to the {#zone_id} property
     # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [Integer] :reco_storage_size_in_gb The value to assign to the {#reco_storage_size_in_gb} property
     # @option attributes [Integer] :node_count The value to assign to the {#node_count} property
@@ -587,6 +603,18 @@ module OCI
 
       self.scan_dns_record_id = attributes[:'scan_dns_record_id'] if attributes[:'scan_dns_record_id']
 
+      self.scan_dns_name = attributes[:'scanDnsName'] if attributes[:'scanDnsName']
+
+      raise 'You cannot provide both :scanDnsName and :scan_dns_name' if attributes.key?(:'scanDnsName') && attributes.key?(:'scan_dns_name')
+
+      self.scan_dns_name = attributes[:'scan_dns_name'] if attributes[:'scan_dns_name']
+
+      self.zone_id = attributes[:'zoneId'] if attributes[:'zoneId']
+
+      raise 'You cannot provide both :zoneId and :zone_id' if attributes.key?(:'zoneId') && attributes.key?(:'zone_id')
+
+      self.zone_id = attributes[:'zone_id'] if attributes[:'zone_id']
+
       self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
 
       raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
@@ -749,6 +777,8 @@ module OCI
         scan_ip_ids == other.scan_ip_ids &&
         vip_ids == other.vip_ids &&
         scan_dns_record_id == other.scan_dns_record_id &&
+        scan_dns_name == other.scan_dns_name &&
+        zone_id == other.zone_id &&
         data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         reco_storage_size_in_gb == other.reco_storage_size_in_gb &&
         node_count == other.node_count &&
@@ -775,7 +805,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, kms_key_id, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags, source_db_system_id, point_in_time_data_disk_clone_timestamp].hash
+      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, kms_key_id, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, scan_dns_name, zone_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags, source_db_system_id, point_in_time_data_disk_clone_timestamp].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

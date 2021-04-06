@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,6 +12,7 @@ module OCI
       LAST_ACTION_ROLLING_APPLY = 'ROLLING_APPLY'.freeze,
       LAST_ACTION_NON_ROLLING_APPLY = 'NON_ROLLING_APPLY'.freeze,
       LAST_ACTION_PRECHECK = 'PRECHECK'.freeze,
+      LAST_ACTION_ROLLBACK = 'ROLLBACK'.freeze,
       LAST_ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -19,12 +20,14 @@ module OCI
       AVAILABLE_ACTIONS_ROLLING_APPLY = 'ROLLING_APPLY'.freeze,
       AVAILABLE_ACTIONS_NON_ROLLING_APPLY = 'NON_ROLLING_APPLY'.freeze,
       AVAILABLE_ACTIONS_PRECHECK = 'PRECHECK'.freeze,
+      AVAILABLE_ACTIONS_ROLLBACK = 'ROLLBACK'.freeze,
       AVAILABLE_ACTIONS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     UPDATE_TYPE_ENUM = [
       UPDATE_TYPE_GI_UPGRADE = 'GI_UPGRADE'.freeze,
       UPDATE_TYPE_GI_PATCH = 'GI_PATCH'.freeze,
+      UPDATE_TYPE_OS_UPDATE = 'OS_UPDATE'.freeze,
       UPDATE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

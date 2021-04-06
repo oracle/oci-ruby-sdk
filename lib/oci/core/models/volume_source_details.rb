@@ -1,11 +1,14 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # VolumeSourceDetails model.
+  # Specifies the volume source details for a new Block volume. The volume source is either another Block volume in the same Availability Domain or a Block volume backup.
+  # This is an optional field. If not specified or set to null, the new Block volume will be empty.
+  # When specified, the new Block volume will contain data from the source volume or backup.
+  #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Core::Models::VolumeSourceDetails
     # This attribute is required.
@@ -38,6 +41,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Core::Models::VolumeSourceFromBlockVolumeReplicaDetails' if type == 'blockVolumeReplica'
       return 'OCI::Core::Models::VolumeSourceFromVolumeDetails' if type == 'volume'
       return 'OCI::Core::Models::VolumeSourceFromVolumeBackupDetails' if type == 'volumeBackup'
 

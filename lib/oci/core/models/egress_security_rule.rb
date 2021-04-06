@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -21,7 +21,7 @@ module OCI
     #
     #   * IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
     #     Note that IPv6 addressing is currently supported only in certain regions. See
-    #     [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+    #     [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
     #
     #   * The `cidrBlock` value for a {Service}, if you're
     #     setting up a security list rule for traffic destined for a particular `Service` through
@@ -43,18 +43,6 @@ module OCI
     # @return [String]
     attr_reader :destination_type
 
-    # Optional and valid only for ICMP and ICMPv6. Use to specify a particular ICMP type and code
-    # as defined in:
-    #
-    # * [ICMP Parameters](http://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml)
-    # * [ICMPv6 Parameters](https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml)
-    #
-    # If you specify ICMP or ICMPv6 as the protocol but omit this object, then all ICMP types and
-    # codes are allowed. If you do provide this object, the type is required and the code is optional.
-    # To enable MTU negotiation for ingress internet traffic via IPv4, make sure to allow type 3 (\"Destination
-    # Unreachable\") code 4 (\"Fragmentation Needed and Don't Fragment was Set\"). If you need to specify
-    # multiple codes for a single type, create a separate security list rule for each.
-    #
     # @return [OCI::Core::Models::IcmpOptions]
     attr_accessor :icmp_options
 
@@ -75,15 +63,9 @@ module OCI
     # @return [String]
     attr_accessor :protocol
 
-    # Optional and valid only for TCP. Use to specify particular destination ports for TCP rules.
-    # If you specify TCP as the protocol but omit this object, then all destination ports are allowed.
-    #
     # @return [OCI::Core::Models::TcpOptions]
     attr_accessor :tcp_options
 
-    # Optional and valid only for UDP. Use to specify particular destination ports for UDP rules.
-    # If you specify UDP as the protocol but omit this object, then all destination ports are allowed.
-    #
     # @return [OCI::Core::Models::UdpOptions]
     attr_accessor :udp_options
 

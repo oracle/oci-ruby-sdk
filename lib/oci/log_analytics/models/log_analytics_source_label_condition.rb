@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,75 +7,80 @@ require 'date'
 module OCI
   # LogAnalyticsSourceLabelCondition
   class LogAnalytics::Models::LogAnalyticsSourceLabelCondition
-    # message
+    # The message.
     # @return [String]
     attr_accessor :message
 
-    # visible flag
+    # A flag indicating whether or not the label condition is visible.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_visible
 
-    # block condition field
+    # The block condition field.
     # @return [String]
     attr_accessor :block_condition_field
 
-    # block condition operator
+    # The block condition operator.
     # @return [String]
     attr_accessor :block_condition_operator
 
-    # block condition value
+    # The block condition value.
     # @return [String]
     attr_accessor :block_condition_value
 
-    # condition value
+    # The condition value.
     # @return [String]
     attr_accessor :label_condition_value
 
-    # list of condition values
+    # A list of condition values.
     # @return [Array<String>]
     attr_accessor :label_condition_values
 
-    # content example
+    # The content example.
     # @return [String]
     attr_accessor :content_example
 
-    # enabled
+    # A flag inidcating whether or not the condition is enabled.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # field internal name
+    # The internal field name.
     # @return [String]
     attr_accessor :field_name
 
-    # Id
+    # The unique identifier of the condition.
     # @return [Integer]
     attr_accessor :label_condition_id
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # operator
+    # The condition operator.
     # @return [String]
     attr_accessor :label_condition_operator
 
-    # source Id
+    # The unique identifier of the source.
     # @return [Integer]
     attr_accessor :source_id
 
-    # label display name
+    # The label display name.
     # @return [String]
     attr_accessor :label_display_name
 
-    # label storage field
+    # The label storage field.
     # @return [String]
     attr_accessor :storage_field
 
-    # label name
+    # The label name.
     # @return [String]
     attr_accessor :label_name
 
-    # inline label exists in DB flag
+    # A flag indicating whether or not the inline label exists in the database.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_inline_label_existing_in_database
 

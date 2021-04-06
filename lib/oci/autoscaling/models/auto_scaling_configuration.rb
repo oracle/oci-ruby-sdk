@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An autoscaling configuration allows you to dynamically scale the resources in a Compute instance pool.
+  # An autoscaling configuration lets you dynamically scale the resources in a Compute instance pool.
   # For more information, see [Autoscaling](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/autoscalinginstancepools.htm).
   #
   class Autoscaling::Models::AutoScalingConfiguration
@@ -39,8 +39,11 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The minimum period of time to wait between scaling actions. The cooldown period gives the system time to stabilize
-    # before rescaling. The minimum value is 300 seconds, which is also the default.
+    # For threshold-based autoscaling policies, this value is the minimum period of time to wait between scaling actions.
+    # The cooldown period gives the system time to stabilize before rescaling. The minimum value is 300 seconds, which
+    # is also the default. The cooldown period starts when the instance pool reaches the running state.
+    #
+    # For schedule-based autoscaling policies, this value is not used.
     #
     # @return [Integer]
     attr_accessor :cool_down_in_seconds
@@ -56,12 +59,10 @@ module OCI
     # **[Required]** Autoscaling policy definitions for the autoscaling configuration. An autoscaling policy defines the criteria that
     # trigger autoscaling actions and the actions to take.
     #
-    # Each autoscaling configuration can have one autoscaling policy.
-    #
     # @return [Array<OCI::Autoscaling::Models::AutoScalingPolicy>]
     attr_accessor :policies
 
-    # **[Required]** The date and time the AutoScalingConfiguration was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the autoscaling configuration was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
